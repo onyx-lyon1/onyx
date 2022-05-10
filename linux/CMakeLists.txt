@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
-set(BINARY_NAME "test_bottomnavbar")
-set(APPLICATION_ID "com.example.test_bottomnavbar")
+set(BINARY_NAME "oloid2")
+set(APPLICATION_ID "com.example.oloid2")
 
 cmake_policy(SET CMP0063 NEW)
 

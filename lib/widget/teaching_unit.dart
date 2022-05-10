@@ -1,97 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:oloid2/widget/card.dart' as grade;
 
 class TeachingUnit extends StatelessWidget {
-  late String gradeNumerator;
-  late String gradeDenominator;
-  late String name;
-  late String teacher;
-  late String group;
+  final String gradeNumerator;
+  final String gradeDenominator;
+  final String ueName;
+  final String teacher;
+  final String group;
+  final bool isSeen;
+  final bool forceGreen;
 
-  TeachingUnit(
-      {Key? key,
-      required this.gradeNumerator,
-      required this.gradeDenominator,
-      required this.name,
-      required this.teacher,
-      required this.group})
-      : super(key: key);
+  final Function(String id) onClick;
 
-  TeachingUnit.empty({Key? key}) : super(key: key) {
-    gradeNumerator = "18";
-    gradeDenominator = "20";
-    name = "Cloud Computing";
-    teacher = "John DOE";
-    group = "A";
-  }
+  const TeachingUnit({
+    Key? key,
+    required this.ueName,
+    required this.gradeNumerator,
+    required this.gradeDenominator,
+    required this.teacher,
+    required this.group,
+    required this.isSeen,
+    required this.forceGreen,
+    required this.onClick,
+  }) : super(key: key);
 
+  // "$teacher • grp $group"
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      clipBehavior: Clip.antiAlias,
-      decoration: const BoxDecoration(
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
-          color: Color(0xff3b4252),
-          borderRadius: BorderRadius.all(Radius.circular(3))),
-      child: Row(children: [
-        Container(
-          height: 60,
-          width: 90,
-          decoration: BoxDecoration(color: Colors.green[500]),
-          child: Stack(
-            children: [
-              Container(
-                height: 40,
-                width: double.infinity,
-                color: Colors.green[400],
-              ),
-              Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Text(gradeNumerator,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 20))),
-              Container(
-                  padding: const EdgeInsets.only(top: 41),
-                  width: double.infinity,
-                  child: Text(gradeDenominator,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          color: Colors.white54, fontSize: 15))),
-            ],
-          ),
-        ),
-        Container(
-          height: double.infinity,
-          margin: const EdgeInsets.only(left: 10),
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: Color(0xffd8dee9)),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "$teacher • grp $group",
-                  textAlign: TextAlign.start,
-                  style:
-                      const TextStyle(fontSize: 10, color: Color(0xffd8dee9)),
-                ),
-              ],
-            ),
-          ),
-        )
-      ]),
-    );
+    return GestureDetector(
+        onTap: () => onClick('some id'),
+        child: grade.Card(
+          text1: ueName,
+          text2: "$teacher • grp $group",
+          gradeNumerator: gradeNumerator,
+          gradeDenominator: gradeDenominator,
+          forceGreen: forceGreen,
+          isSeen: isSeen,
+        ));
   }
 }

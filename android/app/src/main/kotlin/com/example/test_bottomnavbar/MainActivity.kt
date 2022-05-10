@@ -1,4 +1,4 @@
-package com.example.test_bottomnavbar
+package com.example.oloid2
 
 import io.flutter.embedding.android.FlutterActivity
 
