@@ -5,22 +5,31 @@ import 'package:oloid2/widget/settings_card.dart';
 import 'package:oloid2/widget/text_switch.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  final SettingsModel settings;
+  final Function(SettingsModel settings) onSettingsChanged;
+
+  const SettingsPage({
+    Key? key,
+    required this.settings,
+    required this.onSettingsChanged,
+  }) : super(key: key);
 
   @override
-  SettingsState createState() => SettingsState();
+  SettingsState createState() => SettingsState(
+        settings: settings,
+        onSettingsChanged: onSettingsChanged,
+      );
 }
 
 class SettingsState extends State<SettingsPage> {
   final TextEditingController qrCodeURLController = TextEditingController();
-  late SettingsModel settings;
+  final SettingsModel settings;
+  final Function(SettingsModel settings) onSettingsChanged;
 
-  @override
-  void initState() {
-    super.initState();
-    settings =
-        SettingsModel('p1234567', 'myPassword'); // TODO: load from memory
-  }
+  SettingsState({
+    required this.settings,
+    required this.onSettingsChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +56,9 @@ class SettingsState extends State<SettingsPage> {
                 text: 'Activer le thème sombre',
                 value: settings.darkMode,
                 onChanged: (bool b) {
-                  setState(() {
-                    settings.darkMode = b;
-                  });
+                  settings.darkMode = b;
+                  setState(() {});
+                  onSettingsChanged(settings);
                 },
               )
             ],
@@ -61,27 +70,24 @@ class SettingsState extends State<SettingsPage> {
                 text: 'Notification en cas de nouvelle note',
                 value: settings.newGradeNotification,
                 onChanged: (bool b) {
-                  setState(() {
-                    settings.newGradeNotification = b;
-                  });
+                  settings.newGradeNotification = b;
+                  setState(() {});
                 },
               ),
               TextSwitch(
                 text: 'Forcer les notes en vert',
                 value: settings.forceGreen,
                 onChanged: (bool b) {
-                  setState(() {
-                    settings.forceGreen = b;
-                  });
+                  settings.forceGreen = b;
+                  setState(() {});
                 },
               ),
               TextSwitch(
                 text: 'Montrer les UEs cachées',
                 value: settings.showHiddenUE,
                 onChanged: (bool b) {
-                  setState(() {
-                    settings.showHiddenUE = b;
-                  });
+                  settings.showHiddenUE = b;
+                  setState(() {});
                 },
               ),
             ],
@@ -93,17 +99,17 @@ class SettingsState extends State<SettingsPage> {
                 text: 'Récupérer automatiquement les ressources de l\'agenda',
                 value: settings.fetchAgendaAuto,
                 onChanged: (bool b) {
-                  setState(() {
-                    settings.fetchAgendaAuto = b;
-                  });
+                  settings.fetchAgendaAuto = b;
+                  setState(() {});
                 },
               ),
               !settings.fetchAgendaAuto
                   ? Container(
                       clipBehavior: Clip.hardEdge,
                       margin: const EdgeInsets.only(bottom: 15),
-                      decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(4)),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -116,12 +122,13 @@ class SettingsState extends State<SettingsPage> {
                                 print('AGENDA: ' + value);
                               },
                               decoration: const InputDecoration(
-                                  filled: true,
-                                  labelStyle: TextStyle(fontSize: 12),
-                                  hintStyle: TextStyle(fontSize: 12),
-                                  hintText: 'URL de l\'agenda',
-                                  border: InputBorder.none,
-                                  fillColor: Colors.white),
+                                filled: true,
+                                labelStyle: TextStyle(fontSize: 12),
+                                hintStyle: TextStyle(fontSize: 12),
+                                hintText: 'URL de l\'agenda',
+                                border: InputBorder.none,
+                                fillColor: Colors.white,
+                              ),
                             ),
                           ),
                           Container(
@@ -147,7 +154,6 @@ class SettingsState extends State<SettingsPage> {
                       ),
                     )
                   : Container(),
-              // TODO: champs de texte + scanner QR code
             ],
           ),
           SettingsCard(
@@ -157,18 +163,16 @@ class SettingsState extends State<SettingsPage> {
                 text: 'Notification en cas de nouveau mail',
                 value: settings.newMailNotification,
                 onChanged: (bool b) {
-                  setState(() {
-                    settings.newMailNotification = b;
-                  });
+                  settings.newMailNotification = b;
+                  setState(() {});
                 },
               ),
               TextSwitch(
                 text: 'Bloquer les trackers',
                 value: settings.blockTrackers,
                 onChanged: (bool b) {
-                  setState(() {
-                    settings.blockTrackers = b;
-                  });
+                  settings.blockTrackers = b;
+                  setState(() {});
                 },
               ),
             ],
@@ -180,9 +184,8 @@ class SettingsState extends State<SettingsPage> {
                 text: 'Rester connecté',
                 value: settings.keepMeLoggedIn,
                 onChanged: (bool b) {
-                  setState(() {
-                    settings.keepMeLoggedIn = b;
-                  });
+                  settings.keepMeLoggedIn = b;
+                  setState(() {});
                 },
               ),
               const SizedBox(height: 20),
@@ -192,10 +195,8 @@ class SettingsState extends State<SettingsPage> {
                 textColor: Colors.white,
                 child: const Text('Déconnexion'),
                 onPressed: () {
-                  setState(() {
-                    settings.username = '';
-                    settings.password = '';
-                  });
+                  settings.username = '';
+                  settings.password = '';
                 },
               )
             ],

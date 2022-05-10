@@ -1,19 +1,31 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:oloid2/model/email.dart';
 
-import '../widget/email.dart';
-import '../widget/email_header.dart';
+import '../widget/emails/email.dart';
+import '../widget/emails/email_header.dart';
 
 class Emails extends StatelessWidget {
   final ScrollController scrollController = ScrollController();
-  Emails({Key? key}) : super(key: key);
+  final Function onRefresh;
+  final List<EmailModel> emails;
+  final Function createEmail;
+  final Function(String query) searchEmail;
+
+  Emails({
+    Key? key,
+    required this.onRefresh,
+    required this.emails,
+    required this.createEmail,
+    required this.searchEmail,
+  }) : super(key: key);
 
   void jumpToTop() {
     scrollController.animateTo(
       0,
       curve: Curves.easeInOut,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 300),
     );
   }
 
@@ -22,6 +34,7 @@ class Emails extends StatelessWidget {
     return Container(
         color: Theme.of(context).backgroundColor,
         child: RefreshIndicator(
+          color: Theme.of(context).primaryColor,
           child: ListView.custom(
             controller: scrollController,
             childrenDelegate: SliverChildBuilderDelegate((context, index) {
@@ -44,7 +57,7 @@ class Emails extends StatelessWidget {
               return null;
             }),
           ),
-          onRefresh: () async {},
+          onRefresh: () async => await onRefresh(),
         ));
   }
 }
