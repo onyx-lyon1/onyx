@@ -17,6 +17,9 @@ void main() {
         unselectedItemColor: Color(0xffffffff),
         selectedItemColor: Color(0xffff9f00),
       ),
+      textTheme: const TextTheme(
+        button: TextStyle(color: Color(0xffffffff)),
+      ),
     ),
     darkTheme: ThemeData(),
     home: const Home(),
@@ -43,7 +46,7 @@ class HomeState extends State<Home> {
       events: [],
       onRefresh: () async => {/*TODO*/},
     ),
-    const page.Emails(),
+    page.Emails(),
     const SettingsPage(),
   ];
   int currentIndex = 0;
@@ -70,20 +73,24 @@ class HomeState extends State<Home> {
       bottomNavigationBar: widgets.BottomNavBar(
         currentIndex: currentIndex,
         onTap: (index) {
-          if (index != currentIndex) {
-            setState(() {
-              if (index == currentIndex + 1 || index == currentIndex - 1) {
-                pageController.animateToPage(
-                  index,
-                  curve: Curves.linear,
-                  duration: const Duration(milliseconds: 400),
-                );
-              } else {
-                pageController.jumpToPage(index);
+          setState(() {
+            if (index == currentIndex + 1 || index == currentIndex - 1) {
+              pageController.animateToPage(
+                index,
+                curve: Curves.linear,
+                duration: const Duration(milliseconds: 400),
+              );
+            } else if (currentIndex == index) {
+              if (pages[currentIndex] is page.Emails) {
+                (pages[currentIndex] as page.Emails).jumpToTop();
+              } else if (pages[currentIndex] is page.Agenda) {
+                (pages[currentIndex] as page.Agenda).jumpToTop();
               }
-              currentIndex = index;
-            });
-          }
+            } else {
+              pageController.jumpToPage(index);
+            }
+            currentIndex = index;
+          });
         },
       ),
     );

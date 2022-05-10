@@ -2,6 +2,8 @@ import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 
 class Agenda extends StatelessWidget {
+  final DatePickerController dateController = DatePickerController();
+  final PageController pageController = PageController();
   final List<Object> events;
   final Function() onRefresh;
 
@@ -11,8 +13,13 @@ class Agenda extends StatelessWidget {
     required this.onRefresh,
   }) : super(key: key);
 
-  final DatePickerController dateController = DatePickerController();
-  final PageController pageController = PageController();
+  void jumpToTop() {
+    pageController.animateTo(
+      0,
+      curve: Curves.easeInOut,
+      duration: const Duration(milliseconds: 500),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

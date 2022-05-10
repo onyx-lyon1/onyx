@@ -6,17 +6,30 @@ import '../widget/email.dart';
 import '../widget/email_header.dart';
 
 class Emails extends StatelessWidget {
-  const Emails({Key? key}) : super(key: key);
+  final ScrollController scrollController = ScrollController();
+  Emails({Key? key}) : super(key: key);
+
+  void jumpToTop() {
+    scrollController.animateTo(
+      0,
+      curve: Curves.easeInOut,
+      duration: const Duration(milliseconds: 500),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: const Color(0xff4c566a),
+        color: Theme.of(context).backgroundColor,
         child: RefreshIndicator(
           child: ListView.custom(
+            controller: scrollController,
             childrenDelegate: SliverChildBuilderDelegate((context, index) {
               if (index == 0) {
-                return EmailHeader();
+                return EmailHeader(
+                  createEmail: () {},
+                  searchEmail: (String query) async {},
+                );
               } else if (index < 150) {
                 return Email(
                   subject: "Le sujet du mail",

@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 
 class EmailHeader extends StatelessWidget {
-  EmailHeader({Key? key}) : super(key: key);
+  final Function createEmail;
+  final Function(String query) searchEmail;
 
-  final TextEditingController searchController = TextEditingController();
+  const EmailHeader({
+    Key? key,
+    required this.createEmail,
+    required this.searchEmail,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    searchController.addListener(() {
-      print(searchController.text);
-    });
-
     return Container(
         color: const Color(0xff2e3440),
         height: 60,
         child: Row(children: [
           SizedBox(
-            width: MediaQuery.of(context).size.width - 40,
+            width: MediaQuery.of(context).size.width - 50,
             child: TextField(
-              controller: searchController,
-              style: const TextStyle(color: Color(0xffd8dee9)),
+              onSubmitted: (String query) async => await searchEmail(query),
+              style: TextStyle(
+                color: Theme.of(context).textTheme.button!.color,
+              ), // Color(0xffd8dee9)
               decoration: const InputDecoration(
                   border: InputBorder.none,
                   prefixIcon: Icon(

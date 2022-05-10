@@ -1,16 +1,13 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class Email extends StatelessWidget {
-  late String subject = '';
-  late String sender = '';
-  late String excerpt = '';
-  late bool isRead = false;
-  late DateTime date = DateTime.now();
+  final String subject;
+  final String sender;
+  final String excerpt;
+  final bool isRead;
+  final DateTime date;
 
-  final Color circleAvatarColor = const Color(0xff434c5e);
+  // final Color circleAvatarColor = Theme.of(context).backgroundColor;
   final Color unreadCircleAvatarColor = const Color(0xffd08770);
 
   final Color unreadSenderColor = const Color(0xffd8dee9);
@@ -19,22 +16,14 @@ class Email extends StatelessWidget {
   final Color unreadExcerptColor = const Color(0xffc2c8d2);
   final Color readColor = const Color(0xffadb2ba);
 
-  Email(
-      {Key? key,
-      required this.subject,
-      required this.sender,
-      required this.excerpt,
-      required this.isRead,
-      required this.date})
-      : super(key: key);
-
-  Email.empty({Key? key}) : super(key: key) {
-    subject = "Le sujet du mail";
-    sender = "sender@mail.com";
-    excerpt = "Lorem ipsum dolor sit amet, consectetur adipiscing";
-    isRead = Random().nextDouble() > 0.5;
-    date = DateTime.now().add(Duration(days: -(Random().nextInt(10) + 5)));
-  }
+  const Email({
+    Key? key,
+    required this.subject,
+    required this.sender,
+    required this.excerpt,
+    required this.isRead,
+    required this.date,
+  }) : super(key: key);
 
   String _firstLetter() {
     return sender.isNotEmpty ? sender[0] : '-';
@@ -64,83 +53,83 @@ class Email extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        Container(
-          child: Row(
-            children: [
-              Container(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      _firstLetter(),
-                      style: TextStyle(
-                          fontSize: 22,
-                          color: isRead ? readColor : circleAvatarColor),
-                    ),
+        Row(
+          children: [
+            Container(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    _firstLetter(),
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: isRead
+                            ? readColor
+                            : Theme.of(context).cardTheme.color),
                   ),
-                  height: 50,
-                  width: 50,
-                  margin: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: isRead
-                          ? circleAvatarColor
-                          : unreadCircleAvatarColor)),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width - 70,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          sender,
+                ),
+                height: 50,
+                width: 50,
+                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: isRead
+                        ? Theme.of(context).cardTheme.color
+                        : unreadCircleAvatarColor)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 70,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        sender,
+                        style: TextStyle(
+                            color: isRead ? readColor : unreadSenderColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Text(
+                          _toHumanDate(),
                           style: TextStyle(
                               color: isRead ? readColor : unreadSenderColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
+                              fontSize: 12),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: Text(
-                            _toHumanDate(),
-                            style: TextStyle(
-                                color: isRead ? readColor : unreadSenderColor,
-                                fontSize: 12),
-                          ),
-                        )
-                      ],
-                    ),
+                      )
+                    ],
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    subject,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  subject,
+                  style:
+                      TextStyle(color: isRead ? readColor : unreadSubjectColor),
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 70,
+                  child: Text(
+                    excerpt,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                    maxLines: 2,
                     style: TextStyle(
-                        color: isRead ? readColor : unreadSubjectColor),
+                        color: isRead ? readColor : unreadExcerptColor,
+                        fontSize: 12),
                   ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width - 70,
-                    child: Text(
-                      excerpt,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: true,
-                      maxLines: 2,
-                      style: TextStyle(
-                          color: isRead ? readColor : unreadExcerptColor,
-                          fontSize: 12),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
+                )
+              ],
+            ),
+          ],
         ),
         const SizedBox(
           height: 10,
