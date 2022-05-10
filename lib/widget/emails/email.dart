@@ -7,14 +7,35 @@ class Email extends StatelessWidget {
   final bool isRead;
   final DateTime date;
 
-  // final Color circleAvatarColor = Theme.of(context).backgroundColor;
-  final Color unreadCircleAvatarColor = const Color(0xffd08770);
+  Color unreadText1Color(BuildContext c) {
+    return Theme.of(c).textTheme.bodyText1!.color!;
+  }
 
-  final Color unreadSenderColor = const Color(0xffd8dee9);
-  final Color unreadSubjectColor = const Color(0xffd8dee9);
+  Color unreadText2Color(BuildContext c) {
+    return Theme.of(c).textTheme.bodyText2!.color!;
+  }
 
-  final Color unreadExcerptColor = const Color(0xffc2c8d2);
-  final Color readColor = const Color(0xffadb2ba);
+  Color unreadBgColor(BuildContext c) {
+    return Theme.of(c).backgroundColor;
+  }
+
+  Color readText1Color(BuildContext c) {
+    return Theme.of(c).textTheme.bodyText1!.color!.withOpacity(0.3);
+  }
+
+  Color readText2Color(BuildContext c) {
+    return Theme.of(c).textTheme.bodyText1!.color!.withOpacity(0.3);
+  }
+
+  Color readBgColor(BuildContext c) {
+    return Theme.of(c).cardTheme.color!;
+  }
+
+  Color unreadAccent(BuildContext c) {
+    return Theme.of(c).primaryColor.withOpacity(0.7);
+  }
+
+  // final Color unreadCircleAvatarColor = const Color(0xffd08770);
 
   const Email({
     Key? key,
@@ -56,25 +77,26 @@ class Email extends StatelessWidget {
         Row(
           children: [
             Container(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    _firstLetter(),
-                    style: TextStyle(
-                        fontSize: 22,
-                        color: isRead
-                            ? readColor
-                            : Theme.of(context).cardTheme.color),
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  _firstLetter(),
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: isRead
+                        ? readText1Color(context)
+                        : unreadText1Color(context),
                   ),
                 ),
-                height: 50,
-                width: 50,
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: isRead
-                        ? Theme.of(context).cardTheme.color
-                        : unreadCircleAvatarColor)),
+              ),
+              height: 50,
+              width: 50,
+              margin: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: isRead ? readBgColor(context) : unreadAccent(context),
+              ),
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
@@ -88,7 +110,9 @@ class Email extends StatelessWidget {
                       Text(
                         sender,
                         style: TextStyle(
-                            color: isRead ? readColor : unreadSenderColor,
+                            color: isRead
+                                ? readText1Color(context)
+                                : unreadText1Color(context),
                             fontWeight: FontWeight.bold,
                             fontSize: 15),
                       ),
@@ -97,20 +121,23 @@ class Email extends StatelessWidget {
                         child: Text(
                           _toHumanDate(),
                           style: TextStyle(
-                              color: isRead ? readColor : unreadSenderColor,
+                              color: isRead
+                                  ? readText1Color(context)
+                                  : unreadText1Color(context),
                               fontSize: 12),
                         ),
                       )
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 Text(
                   subject,
-                  style:
-                      TextStyle(color: isRead ? readColor : unreadSubjectColor),
+                  style: TextStyle(
+                    color: isRead
+                        ? readText2Color(context)
+                        : unreadText2Color(context),
+                  ),
                 ),
                 const SizedBox(
                   height: 4,
@@ -123,10 +150,13 @@ class Email extends StatelessWidget {
                     softWrap: true,
                     maxLines: 2,
                     style: TextStyle(
-                        color: isRead ? readColor : unreadExcerptColor,
-                        fontSize: 12),
+                      color: isRead
+                          ? readText2Color(context)
+                          : unreadText2Color(context),
+                      fontSize: 12,
+                    ),
                   ),
-                )
+                ),
               ],
             ),
           ],
