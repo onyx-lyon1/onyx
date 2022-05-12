@@ -1,39 +1,37 @@
-import 'package:dartus/tomuss.dart';
+import 'package:oloid2/model/grade.dart';
+import 'package:oloid2/model/text_model.dart';
+
+import 'teacher_model.dart';
 
 class TeachingUnitModel {
-  final String _name;
-  final List<Teacher> _masters;
-  final List<Grade> _grades;
-  final List<Text> _textValues;
+  final String name;
+  final List<TeacherModel> masters;
+  final List<GradeModel> grades;
+  final List<TextModel> textValues;
 
   final bool isSeen;
+  final bool isHidden;
 
-  TeachingUnitModel(
-    this.isSeen,
-    this._name,
-    this._masters,
-    this._grades,
-    this._textValues,
-  );
-
-  String get name => _name;
-  List<Teacher> get masters => _masters;
+  TeachingUnitModel({
+    required this.isSeen,
+    required this.isHidden,
+    required this.name,
+    required this.masters,
+    required this.grades,
+    required this.textValues,
+  });
 
   String mastersShort() {
-    String masters = "";
-    for (Teacher m in _masters) {
-      masters += m.name.split(" ")[1] + ', ';
+    String mastersStr = "";
+    for (TeacherModel m in masters) {
+      mastersStr += m.name.split(" ")[1] + ', ';
     }
     return masters.length > 2
-        ? masters.substring(0, masters.length - 2)
-        : masters;
+        ? mastersStr.substring(0, masters.length - 2)
+        : mastersStr;
   }
 
-  List<Grade> get grades => _grades;
-  Grade latestGrade() {
-    // TODO: can do better ?
-    return _grades.isNotEmpty ? _grades.first : Grade.fromJSON('', {}, [], []);
+  GradeModel? latestGrade() {
+    return grades.isNotEmpty ? grades.first : null;
   }
-
-  List<Text> get textValues => _textValues;
 }

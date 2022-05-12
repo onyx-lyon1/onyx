@@ -1,20 +1,39 @@
 import 'package:flutter/material.dart';
 
-class BaseTheme {
-  BaseTheme();
+class OloidTheme {
+  static ThemeData darkTheme() {
+    return ThemeData(
+      cardTheme: const CardTheme(color: Color(0xff4c566a)),
+      primaryColor: const Color(0xffd08770), // 0xffff9f00
+      backgroundColor: const Color(0xff434c5e),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Color(0xff4c566a),
+        unselectedItemColor: Color(0xffffffff),
+        selectedItemColor: Color(0xffd08770),
+      ),
+      textTheme: const TextTheme(
+        button: TextStyle(color: Color(0xffffffff)),
+        bodyText1: TextStyle(color: Color(0xffd8dee9)),
+        bodyText2: TextStyle(color: Color(0xffc2c8d2)),
+      ),
+    );
+  }
 
-  static Color get backgroundColor => const Color(0xff36474f);
-  static Color get cardBackgroundColor => const Color(0xff465a65);
-
-  static Color get bottomNavBarColor => const Color(0xff2c393f);
-
-  static Color get accentColor => const Color(0xffff9f00);
-
-  static Color get seenGradeGreen => const Color(0xff669f6a);
-  static Color get unseenGradeGreen => const Color(0xff43A047);
-
-  static Color get seenGradeRed => const Color(0xffE57373);
-  static Color get unseenGradeRed => const Color(0xffEF5350);
-
-  static Color get textColor => const Color(0xffffffff);
+  static ThemeData lighTheme() {
+    return ThemeData(
+      cardTheme: const CardTheme(color: Color(0xffe5e9f0)),
+      primaryColor: const Color(0xffd08770), // 0xffff9f00
+      backgroundColor: const Color(0xffd8dee9),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Color(0xffd8dee9),
+        unselectedItemColor: Color(0xff4c566a),
+        selectedItemColor: Color(0xffd08770),
+      ),
+      textTheme: const TextTheme(
+        button: TextStyle(color: Color(0xff4c566a)),
+        bodyText1: TextStyle(color: Color(0xff4c566a)),
+        bodyText2: TextStyle(color: Color(0xff4c566a)),
+      ),
+    );
+  }
 }

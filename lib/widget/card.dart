@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/theme/theme.dart';
+import 'package:oloid2/theme/grade_color.dart';
 
 class Card extends StatelessWidget {
   final String gradeNumerator;
@@ -20,27 +20,18 @@ class Card extends StatelessWidget {
   }) : super(key: key);
 
   Color _mainGradeColor() {
-    final double gradeValue = double.tryParse(gradeNumerator) ?? 0;
+    final double gradeValue =
+        double.tryParse(gradeNumerator) ?? double.infinity;
     final double gradeDenominatorValue =
         double.tryParse(gradeDenominator) ?? double.infinity;
     final bool isGreen =
         (gradeValue >= (gradeDenominatorValue / 2)) || forceGreen;
 
     if (isGreen) {
-      return isSeen ? BaseTheme.seenGradeGreen : BaseTheme.unseenGradeGreen;
+      return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
     } else {
-      return isSeen ? BaseTheme.seenGradeRed : BaseTheme.unseenGradeRed;
+      return isSeen ? GradeColor.seenRed : GradeColor.unseenRed;
     }
-  }
-
-  Color _secondaryGradeColor() {
-    final double gradeValue = double.tryParse(gradeNumerator) ?? 0;
-    final double gradeDenominatorValue =
-        double.tryParse(gradeDenominator) ?? double.infinity;
-    final bool isGreen =
-        (gradeValue >= (gradeDenominatorValue / 2)) || forceGreen;
-
-    return (isGreen) ? BaseTheme.unseenGradeGreen : BaseTheme.unseenGradeRed;
   }
 
   @override
@@ -103,8 +94,10 @@ class Card extends StatelessWidget {
             children: [
               Text(
                 text1,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold, color: Color(0xffd8dee9)),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).textTheme.bodyText1!.color,
+                ),
               ),
               const SizedBox(
                 height: 5,
@@ -112,7 +105,14 @@ class Card extends StatelessWidget {
               Text(
                 text2,
                 textAlign: TextAlign.start,
-                style: const TextStyle(fontSize: 10, color: Color(0xffd8dee9)),
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .color!
+                      .withOpacity(0.8),
+                ),
               ),
             ],
           ),

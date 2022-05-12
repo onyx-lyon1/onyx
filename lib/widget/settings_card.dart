@@ -27,8 +27,12 @@ class SettingsCard extends StatelessWidget {
           children: [
             Text(
               name,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .color!
+                    .withOpacity(0.8),
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
               ),

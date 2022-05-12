@@ -21,7 +21,7 @@ class Grade extends StatelessWidget {
       gradeNumerator: gradeModel.gradeNumerator.toString(),
       gradeDenominator: gradeModel.gradeDenominator.toString(),
       forceGreen: forceGreen,
-      isSeen: gradeModel.isSeen,
+      isSeen: true,
     );
   }
 }

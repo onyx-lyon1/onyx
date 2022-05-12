@@ -5,13 +5,11 @@ import 'package:oloid2/widget/card.dart' as widgets;
 class TeachingUnit extends StatelessWidget {
   final TeachingUnitModel tu;
   final bool forceGreen;
-  final int id;
-  final Function(int id) onClick;
+  final Function(TeachingUnitModel tu) onClick;
 
   const TeachingUnit({
     Key? key,
     required this.tu,
-    required this.id,
     required this.forceGreen,
     required this.onClick,
   }) : super(key: key);
@@ -20,14 +18,15 @@ class TeachingUnit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () => onClick(id),
+        onTap: () => onClick(tu),
         child: widgets.Card(
           text1: tu.name,
           text2: "${tu.mastersShort()} • grp ?",
-          gradeNumerator: '',
-          gradeDenominator: 'gradeDenominator',
+          gradeNumerator: (tu.latestGrade()?.gradeNumerator ?? '-').toString(),
+          gradeDenominator:
+              (tu.latestGrade()?.gradeDenominator ?? '-').toString(),
           forceGreen: forceGreen,
-          isSeen: false,
+          isSeen: tu.isSeen,
         ));
   }
 }

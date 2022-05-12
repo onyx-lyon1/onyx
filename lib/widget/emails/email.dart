@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oloid2/model/email.dart';
 
 class Email extends StatelessWidget {
   final String subject;
@@ -65,6 +66,16 @@ class Email extends StatelessWidget {
     } else {
       return date.toString().split(' ')[0].replaceAll('-', '/');
     }
+  }
+
+  static Email fromEmailModel(EmailModel e) {
+    return Email(
+      subject: e.subject,
+      sender: e.sender,
+      excerpt: e.excerpt,
+      isRead: e.isRead,
+      date: e.date,
+    );
   }
 
   @override
@@ -164,12 +175,13 @@ class Email extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        const Divider(
+        Divider(
           height: 1,
-          indent: 90,
-          endIndent: 10,
+          indent: 70,
+          endIndent: 0,
           thickness: 1,
-          color: Color(0xff3b4252),
+          // color: Color(0xff3b4252),
+          color: Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.1),
         )
       ],
     );
