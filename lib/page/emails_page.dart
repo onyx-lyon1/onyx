@@ -44,7 +44,7 @@ class EmailsPage extends StatelessWidget {
                   searchEmail: (String query) async {},
                 );
               } else if (index < emails.length + 1) {
-                return Email.fromEmailModel(emails[index - 1], onClick: ());
+                return Email.fromEmailModel(emails[index - 1]);
               }
               return null;
             }),

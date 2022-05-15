@@ -1,6 +1,8 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:oloid2/model/day.dart';
+import 'package:oloid2/model/event.dart';
+import 'package:oloid2/widget/agenda/event.dart';
 
 class AgendaPage extends StatelessWidget {
   final DatePickerController dateController = DatePickerController();
@@ -73,24 +75,52 @@ class AgendaPage extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   onPageChanged: (index) {
                     if (showMiniCalendar) {
-                      dateController.animateToDate(
-                        DateTime.now().add(Duration(days: index)),
-                      );
+                      // dateController.animateToDate(
+                      //   DateTime.now().add(Duration(days: index)),
+                      // );
                     }
                   },
-                  children: [
-                    ...events.map((e) => const SizedBox(
-                          height: 100,
-                          child: Card(
-                            child: Text('heyy'),
-                          ),
-                        ))
-                  ],
+                  children: events
+                      .map(
+                        (day) => SizedBox(
+                          height: 10,
+                          child: Column(children: [
+                            Container(
+                              padding: const EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                                top: 15,
+                              ),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'DAY',
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .color),
+                                    ),
+                                    Text('${day.events.length} évènements'),
+                                  ]),
+                            ),
+                            ...day.events.map(
+                              (e) => Event(
+                                event: e,
+                                onTap: (EventModel e) {},
+                              ),
+                            ),
+                          ]),
+                        ),
+                      )
+                      .toList(),
                 ),
               )
             ],
           ),
-          onRefresh: () async {},
+          onRefresh: () async => onRefresh(),
         ));
   }
 }

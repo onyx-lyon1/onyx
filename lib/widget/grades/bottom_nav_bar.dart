@@ -33,7 +33,7 @@ class BottomNavBar extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       items: const [
         BottomNavigationBarItem(
-            icon: Icon(Icons.class__rounded), label: "Notes"),
+            icon: Icon(Icons.class_rounded), label: "Notes"),
         BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today_rounded), label: "Agenda"),
         BottomNavigationBarItem(

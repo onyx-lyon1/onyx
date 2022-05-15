@@ -106,8 +106,40 @@ class HomeState extends State<Home> {
             AgendaPage(
               showMiniCalendar: widget.settings.showMiniCalendar,
               events: [
-                DayModel('Aujoudhui', [EventModel(), EventModel()]),
-                DayModel('Demain', []),
+                DayModel(
+                  'Aujoudhui',
+                  [
+                    EventModel(
+                      description: 'Matière A',
+                      location: 'Amphi themis',
+                      summary: 'résumé de l\'evt',
+                      teacher: 'teacher TEACHER',
+                      eventLastModified: DateTime.now(),
+                      start: DateTime.now().subtract(Duration(hours: 2)),
+                      end: DateTime.now().add(Duration(minutes: 30)),
+                    ),
+                    EventModel(
+                      description: 'Matière B',
+                      location: 'Amphi themis',
+                      summary: 'résumé de l\'evt',
+                      teacher: 'teacher TEACHER',
+                      eventLastModified: DateTime.now(),
+                      start: DateTime.now().add(Duration(hours: 1)),
+                      end: DateTime.now().add(Duration(hours: 2)),
+                    ),
+                  ],
+                ),
+                DayModel('Demain', [
+                  EventModel(
+                    description: 'Description de l\'evt 3',
+                    location: 'position',
+                    summary: 'résumé de l\'evt',
+                    teacher: 'teacher TEACHER',
+                    eventLastModified: DateTime.now(),
+                    start: DateTime.now().add(Duration(hours: 1)),
+                    end: DateTime.now().add(Duration(hours: 2)),
+                  ),
+                ]),
                 DayModel('un jour', []),
               ],
               onRefresh: () async => {/*TODO*/},

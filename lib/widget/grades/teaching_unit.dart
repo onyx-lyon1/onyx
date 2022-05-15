@@ -20,6 +20,7 @@ class TeachingUnit extends StatelessWidget {
     return GestureDetector(
         onTap: () => onClick(tu),
         child: widgets.Card(
+          o: tu,
           text1: tu.name,
           text2: "${tu.mastersShort()} • grp ?",
           gradeNumerator: (tu.latestGrade()?.gradeNumerator ?? '-').toString(),
@@ -27,6 +28,7 @@ class TeachingUnit extends StatelessWidget {
               (tu.latestGrade()?.gradeDenominator ?? '-').toString(),
           forceGreen: forceGreen,
           isSeen: tu.isSeen,
+          onTap: (tu) => onClick(tu),
         ));
   }
 }

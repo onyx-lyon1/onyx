@@ -19,26 +19,34 @@ class TeachingUnitsPage extends StatelessWidget {
     required this.showHidden,
   }) : super(key: key);
 
-  void showAllGrades(BuildContext context, int id) {
+  void showAllGrades(BuildContext context, TeachingUnitModel tu) {
     showMaterialModalBottomSheet(
       context: context,
       expand: false,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Theme.of(context).backgroundColor,
       builder: (context) => SingleChildScrollView(
         controller: ModalScrollController.of(context),
         child: SafeArea(
           bottom: false,
-          child: Column(
-            children: [
-              const GradeListHeader(),
-              ...teachingUnits[id].grades.map(
-                    (e) => Grade(
-                      gradeModel: e,
-                      forceGreen: forceGreen,
-                    ),
-                  )
-            ],
+          child: Container(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Column(
+              children: [
+                GradeListHeader(
+                  tu: tu,
+                ),
+                ...tu.grades.map(
+                  (e) => Grade(
+                    gradeModel: e,
+                    forceGreen: forceGreen,
+                    onTap: (e) {
+                      print('Tapped on grade ${e.name}');
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -60,7 +68,10 @@ class TeachingUnitsPage extends StatelessWidget {
                     (e) => TeachingUnit(
                       tu: e,
                       forceGreen: forceGreen,
-                      onClick: (TeachingUnitModel tu) {},
+                      onClick: (TeachingUnitModel tu) {
+                        print('Tapped on teaching unit ${tu.name}');
+                        showAllGrades(context, tu);
+                      },
                     ),
                   )
             ],
