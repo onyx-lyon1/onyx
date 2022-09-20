@@ -88,6 +88,13 @@ class Email extends StatelessWidget {
         Row(
           children: [
             Container(
+              height: 50,
+              width: 50,
+              margin: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: isRead ? readBgColor(context) : unreadAccent(context),
+              ),
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
@@ -99,13 +106,6 @@ class Email extends StatelessWidget {
                         : unreadText1Color(context),
                   ),
                 ),
-              ),
-              height: 50,
-              width: 50,
-              margin: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: isRead ? readBgColor(context) : unreadAccent(context),
               ),
             ),
             Column(

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oloid2/model/teaching_unit.dart';
@@ -41,7 +42,9 @@ class TeachingUnitsPage extends StatelessWidget {
                     gradeModel: e,
                     forceGreen: forceGreen,
                     onTap: (e) {
-                      print('Tapped on grade ${e.name}');
+                      if (kDebugMode) {
+                        print('Tapped on grade ${e.name}');
+                      }
                     },
                   ),
                 ),
@@ -69,7 +72,9 @@ class TeachingUnitsPage extends StatelessWidget {
                       tu: e,
                       forceGreen: forceGreen,
                       onClick: (TeachingUnitModel tu) {
-                        print('Tapped on teaching unit ${tu.name}');
+                        if (kDebugMode) {
+                          print('Tapped on teaching unit ${tu.name}');
+                        }
                         showAllGrades(context, tu);
                       },
                     ),

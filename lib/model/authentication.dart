@@ -1,9 +1,14 @@
+// ignore: depend_on_referenced_packages
+import 'package:hive/hive.dart';
+
+part 'authentication.g.dart';
+
+@HiveType(typeId: 1)
 class Authentication {
-  final String _username;
-  final String _password;
+  @HiveField(0)
+  String username;
+  @HiveField(1)
+  String password;
 
-  Authentication(this._username, this._password);
-
-  get username => _username;
-  get password => _password;
+  Authentication({this.username = "", this.password = ""});
 }

@@ -27,7 +27,7 @@ class GradeListHeader extends StatelessWidget {
         Text(
           tu.name,
           textAlign: TextAlign.start,
-          style: TextStyle(),
+          style: const TextStyle(),
         ),
       ],
     );

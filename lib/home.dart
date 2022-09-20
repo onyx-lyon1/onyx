@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/model/event.dart';
-import 'package:oloid2/model/grade.dart';
-
-import 'package:oloid2/model/settings.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/day.dart';
 import 'package:oloid2/model/email.dart';
+import 'package:oloid2/model/event.dart';
+import 'package:oloid2/model/grade.dart';
 import 'package:oloid2/model/teaching_unit.dart';
-
-import 'package:oloid2/page/teaching_units_page.dart';
 import 'package:oloid2/page/agenda_page.dart';
 import 'package:oloid2/page/emails_page.dart';
 import 'package:oloid2/page/settings_page.dart';
-
+import 'package:oloid2/page/teaching_units_page.dart';
+import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/grades/bottom_nav_bar.dart';
 
 class Home extends StatefulWidget {
-  final SettingsModel settings;
-  final Function(SettingsModel s) onSettingsChanged;
-
-  const Home(this.settings, this.onSettingsChanged, {Key? key})
-      : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -41,6 +35,14 @@ class HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: PageView(
+          controller: pageController,
+          pageSnapping: true,
+          physics: const RangeMaintainingScrollPhysics(),
+          onPageChanged: (index) {
+            setState(() {
+              if (index != currentIndex) currentIndex = index;
+            });
+          },
           children: [
             TeachingUnitsPage(
               teachingUnits: [
@@ -99,12 +101,14 @@ class HomeState extends State<Home> {
                   textValues: [],
                 ),
               ],
-              forceGreen: widget.settings.forceGreen,
-              showHidden: widget.settings.showHiddenUE,
-              onRefresh: () async => {/*TODO*/},
+              forceGreen: context.read<SettingsBloc>().settings.forceGreen,
+              showHidden: context.read<SettingsBloc>().settings.showHiddenUE,
+              onRefresh: () async => {
+                /*TODO*/
+              },
             ),
             AgendaPage(
-              showMiniCalendar: widget.settings.showMiniCalendar,
+              showMiniCalendar: context.read<SettingsBloc>().settings.showMiniCalendar,
               events: [
                 DayModel(
                   'Aujoudhui',
@@ -115,8 +119,8 @@ class HomeState extends State<Home> {
                       summary: 'résumé de l\'evt',
                       teacher: 'teacher TEACHER',
                       eventLastModified: DateTime.now(),
-                      start: DateTime.now().subtract(Duration(hours: 2)),
-                      end: DateTime.now().add(Duration(minutes: 30)),
+                      start: DateTime.now().subtract(const Duration(hours: 2)),
+                      end: DateTime.now().add(const Duration(minutes: 30)),
                     ),
                     EventModel(
                       description: 'Matière B',
@@ -124,8 +128,8 @@ class HomeState extends State<Home> {
                       summary: 'résumé de l\'evt',
                       teacher: 'teacher TEACHER',
                       eventLastModified: DateTime.now(),
-                      start: DateTime.now().add(Duration(hours: 1)),
-                      end: DateTime.now().add(Duration(hours: 2)),
+                      start: DateTime.now().add(const Duration(hours: 1)),
+                      end: DateTime.now().add(const Duration(hours: 2)),
                     ),
                   ],
                 ),
@@ -136,13 +140,15 @@ class HomeState extends State<Home> {
                     summary: 'résumé de l\'evt',
                     teacher: 'teacher TEACHER',
                     eventLastModified: DateTime.now(),
-                    start: DateTime.now().add(Duration(hours: 1)),
-                    end: DateTime.now().add(Duration(hours: 2)),
+                    start: DateTime.now().add(const Duration(hours: 1)),
+                    end: DateTime.now().add(const Duration(hours: 2)),
                   ),
                 ]),
                 DayModel('un jour', []),
               ],
-              onRefresh: () async => {/*TODO*/},
+              onRefresh: () async => {
+                /*TODO*/
+              },
             ),
             EmailsPage(
               emails: [
@@ -154,28 +160,18 @@ class HomeState extends State<Home> {
                   subject: 'the subject of the mail',
                 ),
               ],
-              createEmail: () {/*TODO*/},
-              searchEmail: (String query) async {/*TODO*/},
-              onRefresh: () async {/*TODO*/},
-            ),
-            SettingsPage(
-              settings: widget.settings,
-              onSettingsChanged: (SettingsModel s) {
-                widget.settings.copy(s);
-                widget.onSettingsChanged(s);
-
-                setState(() {});
+              createEmail: () {
+                /*TODO*/
+              },
+              searchEmail: (String query) async {
+                /*TODO*/
+              },
+              onRefresh: () async {
+                /*TODO*/
               },
             ),
-          ],
-          controller: pageController,
-          pageSnapping: true,
-          physics: const RangeMaintainingScrollPhysics(),
-          onPageChanged: (index) {
-            setState(() {
-              if (index != currentIndex) currentIndex = index;
-            });
-          }),
+             SettingsPage(),
+          ]),
       bottomNavigationBar: BottomNavBar(
         currentIndex: currentIndex,
         onTap: (index) {

@@ -1,35 +1,27 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:oloid2/model/settings.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/page/qr_code_scanner.dart';
+import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/settings_card.dart';
 import 'package:oloid2/widget/text_switch.dart';
 
-class SettingsPage extends StatefulWidget {
-  final SettingsModel settings;
-  final Function(SettingsModel settings) onSettingsChanged;
 
-  const SettingsPage({
-    Key? key,
-    required this.settings,
-    required this.onSettingsChanged,
-  }) : super(key: key);
 
-  @override
-  SettingsState createState() => SettingsState();
-}
 
-class SettingsState extends State<SettingsPage> {
+class SettingsPage extends StatelessWidget {
   final TextEditingController qrCodeURLController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    qrCodeURLController.text = widget.settings.agendaURL;
-    print('settings: ${widget.settings.agendaURL}');
-  }
+     SettingsPage({
+    Key? key,
+    }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    qrCodeURLController.text = context.read<SettingsBloc>().settings.agendaURL;
+
+    return BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (context, state) {
     return Container(
       color: Theme.of(context).backgroundColor,
       margin: const EdgeInsets.symmetric(horizontal: 5),
@@ -51,12 +43,14 @@ class SettingsState extends State<SettingsPage> {
             widgets: [
               TextSwitch(
                 text: 'Activer le thème sombre',
-                value: widget.settings.darkMode,
+                value: context.read<SettingsBloc>().settings.darkMode,
                 onChanged: (bool b) {
-                  setState(() {
-                    widget.settings.darkMode = b;
-                    widget.onSettingsChanged(widget.settings);
-                  });
+       
+                    context.read<SettingsBloc>().add(SettingsModify(context
+                        .read<SettingsBloc>()
+                        .settings
+                        .copyWith(darkMode: b)));
+              
                 },
               )
             ],
@@ -66,26 +60,33 @@ class SettingsState extends State<SettingsPage> {
             widgets: [
               TextSwitch(
                 text: 'Notification en cas de nouvelle note',
-                value: widget.settings.newGradeNotification,
+                value:
+                    context.read<SettingsBloc>().settings.newGradeNotification,
                 onChanged: (bool b) {
-                  widget.settings.newGradeNotification = b;
-                  widget.onSettingsChanged(widget.settings);
+                  context.read<SettingsBloc>().add(SettingsModify(context
+                      .read<SettingsBloc>()
+                      .settings
+                      .copyWith(newGradeNotification: b)));
                 },
               ),
               TextSwitch(
                 text: 'Forcer les notes en vert',
-                value: widget.settings.forceGreen,
+                value: context.read<SettingsBloc>().settings.forceGreen,
                 onChanged: (bool b) {
-                  widget.settings.forceGreen = b;
-                  widget.onSettingsChanged(widget.settings);
+                  context.read<SettingsBloc>().add(SettingsModify(context
+                      .read<SettingsBloc>()
+                      .settings
+                      .copyWith(forceGreen: b)));
                 },
               ),
               TextSwitch(
                 text: 'Montrer les UEs cachées',
-                value: widget.settings.showHiddenUE,
+                value: context.read<SettingsBloc>().settings.showHiddenUE,
                 onChanged: (bool b) {
-                  widget.settings.showHiddenUE = b;
-                  widget.onSettingsChanged(widget.settings);
+                  context.read<SettingsBloc>().add(SettingsModify(context
+                      .read<SettingsBloc>()
+                      .settings
+                      .copyWith(showHiddenUE: b)));
                 },
               ),
             ],
@@ -95,21 +96,25 @@ class SettingsState extends State<SettingsPage> {
             widgets: [
               TextSwitch(
                 text: 'Montrer le mini calendrier en haut de page',
-                value: widget.settings.showMiniCalendar,
+                value: context.read<SettingsBloc>().settings.showMiniCalendar,
                 onChanged: (bool b) {
-                  widget.settings.showMiniCalendar = b;
-                  widget.onSettingsChanged(widget.settings);
+                  context.read<SettingsBloc>().add(SettingsModify(context
+                      .read<SettingsBloc>()
+                      .settings
+                      .copyWith(showMiniCalendar: b)));
                 },
               ),
               TextSwitch(
                 text: 'Récupérer automatiquement les ressources de l\'agenda',
-                value: widget.settings.fetchAgendaAuto,
+                value: context.read<SettingsBloc>().settings.fetchAgendaAuto,
                 onChanged: (bool b) {
-                  widget.settings.fetchAgendaAuto = b;
-                  widget.onSettingsChanged(widget.settings);
+                  context.read<SettingsBloc>().add(SettingsModify(context
+                      .read<SettingsBloc>()
+                      .settings
+                      .copyWith(fetchAgendaAuto: b)));
                 },
               ),
-              !widget.settings.fetchAgendaAuto
+              (!context.read<SettingsBloc>().settings.fetchAgendaAuto)
                   ? Container(
                       clipBehavior: Clip.hardEdge,
                       margin: const EdgeInsets.only(bottom: 15),
@@ -125,9 +130,15 @@ class SettingsState extends State<SettingsPage> {
                               controller: qrCodeURLController,
                               enableSuggestions: false,
                               onChanged: (String value) {
-                                widget.settings.agendaURL = value;
-                                print('value: ${widget.settings.agendaURL}');
-                                widget.onSettingsChanged(widget.settings);
+                                context.read<SettingsBloc>().add(SettingsModify(
+                                    context
+                                        .read<SettingsBloc>()
+                                        .settings
+                                        .copyWith(agendaURL: value)));
+                                if (kDebugMode) {
+                                  print(
+                                      'value: ${context.read<SettingsBloc>().settings.agendaURL}');
+                                }
                               },
                               decoration: const InputDecoration(
                                 filled: true,
@@ -142,17 +153,26 @@ class SettingsState extends State<SettingsPage> {
                           Container(
                             color: const Color(0xffd8dee9),
                             child: IconButton(
-                              onPressed: () async {
-                                final String? url = await Navigator.of(context)
+                              onPressed: () {
+                                Navigator.of(context)
                                     .push(MaterialPageRoute(
                                   builder: (context) => const QrCodeScanner(),
-                                ));
-                                qrCodeURLController.value = TextEditingValue(
-                                    text:
-                                        url ?? qrCodeURLController.value.text);
-                                widget.settings.agendaURL =
-                                    url ?? widget.settings.agendaURL;
-                                widget.onSettingsChanged(widget.settings);
+                                ))
+                                    .then((dynamic url) {
+                                  qrCodeURLController.value = TextEditingValue(
+                                      text: url ??
+                                          qrCodeURLController.value.text);
+                                  context.read<SettingsBloc>().add(
+                                      SettingsModify(context
+                                          .read<SettingsBloc>()
+                                          .settings
+                                          .copyWith(
+                                              agendaURL: url ??
+                                                  context
+                                                      .read<SettingsBloc>()
+                                                      .settings
+                                                      .agendaURL)));
+                                });
                               },
                               enableFeedback: true,
                               splashColor: Colors.transparent,
@@ -173,18 +193,23 @@ class SettingsState extends State<SettingsPage> {
             widgets: [
               TextSwitch(
                 text: 'Notification en cas de nouveau mail',
-                value: widget.settings.newMailNotification,
+                value:
+                    context.read<SettingsBloc>().settings.newMailNotification,
                 onChanged: (bool b) {
-                  widget.settings.newMailNotification = b;
-                  widget.onSettingsChanged(widget.settings);
+                  context.read<SettingsBloc>().add(SettingsModify(context
+                      .read<SettingsBloc>()
+                      .settings
+                      .copyWith(newMailNotification: b)));
                 },
               ),
               TextSwitch(
                 text: 'Bloquer les trackers',
-                value: widget.settings.blockTrackers,
+                value: context.read<SettingsBloc>().settings.blockTrackers,
                 onChanged: (bool b) {
-                  widget.settings.blockTrackers = b;
-                  widget.onSettingsChanged(widget.settings);
+                  context.read<SettingsBloc>().add(SettingsModify(context
+                      .read<SettingsBloc>()
+                      .settings
+                      .copyWith(blockTrackers: b)));
                 },
               ),
             ],
@@ -194,10 +219,15 @@ class SettingsState extends State<SettingsPage> {
             widgets: [
               TextSwitch(
                 text: 'Rester connecté',
-                value: widget.settings.keepMeLoggedIn,
+                value: context.read<SettingsBloc>().settings.keepMeLoggedIn,
                 onChanged: (bool b) {
-                  widget.settings.keepMeLoggedIn = b;
-                  widget.onSettingsChanged(widget.settings);
+                  context.read<SettingsBloc>().add(SettingsModify(context
+                      .read<SettingsBloc>()
+                      .settings
+                      .copyWith(keepMeLoggedIn: b)));
+                  context
+                      .read<AuthentificationBloc>()
+                      .add(AuthentificationForgetCredential());
                 },
               ),
               const SizedBox(height: 20),
@@ -207,9 +237,9 @@ class SettingsState extends State<SettingsPage> {
                 textColor: Colors.white70,
                 child: const Text('Déconnexion'),
                 onPressed: () {
-                  widget.settings.username = '';
-                  widget.settings.password = '';
-                  widget.onSettingsChanged(widget.settings);
+                  context
+                      .read<AuthentificationBloc>()
+                      .add(AuthentificationLogout());
                 },
               )
             ],
@@ -217,5 +247,7 @@ class SettingsState extends State<SettingsPage> {
         ],
       ),
     );
+  },
+);
   }
 }

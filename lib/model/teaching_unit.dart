@@ -24,7 +24,7 @@ class TeachingUnitModel {
   String mastersShort() {
     String mastersStr = "";
     for (TeacherModel m in masters) {
-      mastersStr += m.name.split(" ")[1] + ', ';
+      mastersStr += '${m.name.split(" ")[1]}, ';
     }
     return masters.length > 2
         ? mastersStr.substring(0, masters.length - 2)
