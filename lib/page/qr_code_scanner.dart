@@ -42,12 +42,14 @@ class QrCodeScannerState extends State<QrCodeScanner> {
                     Navigator.pop(context, code);
                   }
                 })
-            : const Text(
-                /* TODO: beautify this screen !*/
-                'Nous avons besoin de la caméra pour scanner le QR code',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
+            : const Center(
+                child: Text(
+                  /* TODO: beautify this screen !*/
+                  'Nous avons besoin de la caméra pour scanner le QR code',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
       ),

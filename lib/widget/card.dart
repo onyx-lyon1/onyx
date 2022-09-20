@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oloid2/theme/grade_color.dart';
+import 'package:sizer/sizer.dart';
 
 class Card extends StatelessWidget {
   final dynamic o;
@@ -43,7 +44,7 @@ class Card extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(o), // TODO: give it the required infos
       child: Container(
-        height: 70,
+        height: 11.h,
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
@@ -55,8 +56,8 @@ class Card extends StatelessWidget {
         ),
         child: Row(children: [
           Container(
-            height: 70,
-            width: 90,
+            height: 11.h,
+            width: 25.w,
             decoration: BoxDecoration(color: _mainGradeColor()),
             child: Stack(
               children: [
@@ -94,6 +95,7 @@ class Card extends StatelessWidget {
           Container(
             height: double.infinity,
             margin: const EdgeInsets.only(left: 10),
+            width: 60.w,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,9 +103,9 @@ class Card extends StatelessWidget {
                 Text(
                   text1,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).textTheme.bodyText1!.color,
-                  ),
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                      overflow: TextOverflow.clip),
                 ),
                 const SizedBox(
                   height: 5,

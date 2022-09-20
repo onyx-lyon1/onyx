@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/day.dart';
 import 'package:oloid2/model/email.dart';
 import 'package:oloid2/model/event.dart';
-import 'package:oloid2/model/grade.dart';
-import 'package:oloid2/model/teaching_unit.dart';
 import 'package:oloid2/page/agenda_page.dart';
 import 'package:oloid2/page/emails_page.dart';
 import 'package:oloid2/page/settings_page.dart';
@@ -44,68 +42,7 @@ class HomeState extends State<Home> {
             });
           },
           children: [
-            TeachingUnitsPage(
-              teachingUnits: [
-                TeachingUnitModel(
-                  isSeen: false,
-                  isHidden: false,
-                  name: 'A',
-                  grades: [
-                    GradeModel(
-                      name: 'Example Grade',
-                      author: 'Grade author',
-                      gradeNumerator: 15,
-                      gradeDenominator: 20,
-                      rank: 2,
-                      average: 10,
-                      mediane: 9.5,
-                    )
-                  ],
-                  masters: [],
-                  textValues: [],
-                ),
-                TeachingUnitModel(
-                  isSeen: false,
-                  isHidden: true,
-                  name: 'B',
-                  grades: [
-                    GradeModel(
-                      name: 'Example Grade',
-                      author: 'Grade author',
-                      gradeNumerator: 9,
-                      gradeDenominator: 20,
-                      rank: 2,
-                      average: 10,
-                      mediane: 9.5,
-                    )
-                  ],
-                  masters: [],
-                  textValues: [],
-                ),
-                TeachingUnitModel(
-                  isSeen: false,
-                  isHidden: false,
-                  name: 'C',
-                  grades: [
-                    GradeModel(
-                      name: 'Example Grade',
-                      author: 'Grade author',
-                      gradeNumerator: 11,
-                      gradeDenominator: 20,
-                      rank: 2,
-                      average: 10,
-                      mediane: 9.5,
-                    )
-                  ],
-                  masters: [],
-                  textValues: [],
-                ),
-              ],
-              forceGreen: context.read<SettingsBloc>().settings.forceGreen,
-              showHidden: context.read<SettingsBloc>().settings.showHiddenUE,
-              onRefresh: () async => {
-                /*TODO*/
-              },
+            const TeachingUnitsPage(
             ),
             AgendaPage(
               showMiniCalendar: context.read<SettingsBloc>().settings.showMiniCalendar,
