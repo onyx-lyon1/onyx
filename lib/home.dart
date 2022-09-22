@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/model/day.dart';
 import 'package:oloid2/model/email.dart';
-import 'package:oloid2/model/event.dart';
 import 'package:oloid2/page/agenda_page.dart';
 import 'package:oloid2/page/emails_page.dart';
 import 'package:oloid2/page/settings_page.dart';
 import 'package:oloid2/page/teaching_units_page.dart';
-import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/grades/bottom_nav_bar.dart';
 
 class Home extends StatefulWidget {
@@ -44,49 +40,7 @@ class HomeState extends State<Home> {
           children: [
             const TeachingUnitsPage(
             ),
-            AgendaPage(
-              showMiniCalendar: context.read<SettingsBloc>().settings.showMiniCalendar,
-              events: [
-                DayModel(
-                  'Aujoudhui',
-                  [
-                    EventModel(
-                      description: 'Matière A',
-                      location: 'Amphi themis',
-                      summary: 'résumé de l\'evt',
-                      teacher: 'teacher TEACHER',
-                      eventLastModified: DateTime.now(),
-                      start: DateTime.now().subtract(const Duration(hours: 2)),
-                      end: DateTime.now().add(const Duration(minutes: 30)),
-                    ),
-                    EventModel(
-                      description: 'Matière B',
-                      location: 'Amphi themis',
-                      summary: 'résumé de l\'evt',
-                      teacher: 'teacher TEACHER',
-                      eventLastModified: DateTime.now(),
-                      start: DateTime.now().add(const Duration(hours: 1)),
-                      end: DateTime.now().add(const Duration(hours: 2)),
-                    ),
-                  ],
-                ),
-                DayModel('Demain', [
-                  EventModel(
-                    description: 'Description de l\'evt 3',
-                    location: 'position',
-                    summary: 'résumé de l\'evt',
-                    teacher: 'teacher TEACHER',
-                    eventLastModified: DateTime.now(),
-                    start: DateTime.now().add(const Duration(hours: 1)),
-                    end: DateTime.now().add(const Duration(hours: 2)),
-                  ),
-                ]),
-                DayModel('un jour', []),
-              ],
-              onRefresh: () async => {
-                /*TODO*/
-              },
-            ),
+            AgendaPage(),
             EmailsPage(
               emails: [
                 EmailModel(
