@@ -9,14 +9,16 @@ import 'package:oloid2/states/authentification/authentification_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/agenda/event.dart';
 import 'package:oloid2/widget/custom_circular_progress_indicator.dart';
+import 'package:sizer/sizer.dart';
 
+// ignore: must_be_immutable
 class AgendaPage extends StatelessWidget {
   final DatePickerController dateController = DatePickerController();
   PageController pageController = PageController();
 
   AgendaPage({
     Key? key,
-  }) : super(key: key) {}
+  }) : super(key: key);
 
   void jumpToTop() {
     pageController.animateTo(
@@ -44,8 +46,6 @@ class AgendaPage extends StatelessWidget {
       create: (context) => AgendaBloc(),
       child: BlocBuilder<AgendaBloc, AgendaState>(
         builder: (context, state) {
-          print(state);
-
           if (state is AgendaInitial) {
             context.read<AgendaBloc>().add(AgendaLoad(
                 context.read<AuthentificationBloc>().dartus,
@@ -53,9 +53,10 @@ class AgendaPage extends StatelessWidget {
             return Center(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                CustomCircularProgressIndicator(),
-                Text("Chargement de l'agenda"),
+              children: [
+                const CustomCircularProgressIndicator(),
+                SizedBox(height: 1.h),
+                const Text("Chargement de l'agenda"),
               ],
             ));
           } else if (state is AgendaInitialReady) {
@@ -67,9 +68,13 @@ class AgendaPage extends StatelessWidget {
                         element.date.day == DateTime.now().day));
           } else if (state is AgendaError) {
             return Center(
-              child: Text(
-                "Erreur lors du chargement de l'agenda",
-                style: Theme.of(context).textTheme.bodyText1,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Erreur lors du chargement de l'agenda\nEssayez de désactiver la récuperation automatique de l'agenda dans les paramètres",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
               ),
             );
           }

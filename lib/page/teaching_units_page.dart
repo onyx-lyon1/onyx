@@ -29,6 +29,7 @@ class TeachingUnitsPage extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(bottom: 20),
             child: Column(
+              mainAxisSize: MainAxisSize.max,
               children: [
                 GradeListHeader(
                   tu: tu,
@@ -59,9 +60,7 @@ class TeachingUnitsPage extends StatelessWidget {
       create: (context) => GradesBloc(),
       child: BlocBuilder<GradesBloc, GradesState>(
         builder: (context, state) {
-          if (kDebugMode) {
-            print(state);
-          }
+
           if (state is GradesInitial) {
             context
                 .read<GradesBloc>()

@@ -29,13 +29,23 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   Future<void> load(AgendaLoad event, Emitter emit) async {
     late Option<Agenda> agendaOpt;
     agendaClient = Lyon1Agenda.useAuthentication(event.dartus.authentication);
-    agendaOpt = await agendaClient!.getAgenda(url: event.settings.agendaURL);
-    if (agendaOpt.isNone()) {
-      emit(AgendaError());
-      return;
-      if (kDebugMode) {
-        print("agenda is none");
+    try {
+      agendaOpt = await agendaClient!.getAgenda(
+          url:
+              (event.settings.fetchAgendaAuto) ? "" : event.settings.agendaURL);
+      if (agendaOpt.isNone()) {
+        emit(AgendaError());
+        if (kDebugMode) {
+          print("agenda is none");
+        }
+        return;
       }
+    } catch (e) {
+      emit(AgendaError());
+      if (kDebugMode) {
+        print("error: $e");
+      }
+      return;
     }
     final Agenda agenda = agendaOpt.toNullable() ?? Agenda.empty();
     for (final Event e in agenda.events) {

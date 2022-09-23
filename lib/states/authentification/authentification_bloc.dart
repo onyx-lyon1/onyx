@@ -15,6 +15,8 @@ part 'authentification_state.dart';
 class AuthentificationBloc
     extends Bloc<AuthentificationEvent, AuthentificationState> {
   late tomusslib.Dartus dartus;
+  late String usename;
+  late String password;
 
   AuthentificationBloc() : super(AuthentificationInitial()) {
     on<AuthentificationEvent>((event, emit) {
@@ -38,12 +40,16 @@ class AuthentificationBloc
     if (event.username != null && event.password != null) {
       auth =
           Authentication(username: event.username!, password: event.password!);
+      usename = event.username!;
+      password = event.password!;
     } else {
       auth = authBox.get("credential");
     }
     if (auth == null) {
       emit(AuthentificationNeedCredential());
     } else {
+      usename = auth.username;
+      password = auth.password;
       emit(AuthentificationAuthentificating());
       final tomusslib.Dartus tomuss = tomusslib.Dartus(
           tomusslib.Authentication(auth.username, auth.password));
@@ -77,6 +83,8 @@ class AuthentificationBloc
     Box<Authentication> authBox =
         await Hive.openBox<Authentication>("authentification");
     authBox.delete("credential");
+    usename = "";
+    password = "";
     await authBox.close();
     await dartus.logout();
     emit(AuthentificationNeedCredential());

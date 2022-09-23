@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oloid2/model/email.dart';
+import 'package:sizer/sizer.dart';
 
 class Email extends StatelessWidget {
   final String subject;
@@ -142,19 +143,22 @@ class Email extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 5),
-                Text(
-                  subject,
-                  style: TextStyle(
-                    color: isRead
-                        ? readText2Color(context)
-                        : unreadText2Color(context),
+                SizedBox(
+                  width: 80.w,
+                  child: Text(
+                    subject,
+                    style: TextStyle(
+                      color: isRead
+                          ? readText2Color(context)
+                          : unreadText2Color(context),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   height: 4,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width - 70,
+                  width: 80.w,
                   child: Text(
                     excerpt,
                     overflow: TextOverflow.ellipsis,

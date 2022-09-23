@@ -36,6 +36,16 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Text(
+                  "Authentification",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 20.sp),
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
                 Container(
                   color: Theme.of(context).cardTheme.color,
                   width: 70.w,

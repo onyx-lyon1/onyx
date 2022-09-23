@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/model/email.dart';
 import 'package:oloid2/page/agenda_page.dart';
 import 'package:oloid2/page/emails_page.dart';
 import 'package:oloid2/page/settings_page.dart';
@@ -38,30 +37,10 @@ class HomeState extends State<Home> {
             });
           },
           children: [
-            const TeachingUnitsPage(
-            ),
+            const TeachingUnitsPage(),
             AgendaPage(),
-            EmailsPage(
-              emails: [
-                EmailModel(
-                  date: DateTime.now(),
-                  excerpt: 'lorem ipsum dolor sit amet',
-                  isRead: false,
-                  sender: 'sender@mail.com',
-                  subject: 'the subject of the mail',
-                ),
-              ],
-              createEmail: () {
-                /*TODO*/
-              },
-              searchEmail: (String query) async {
-                /*TODO*/
-              },
-              onRefresh: () async {
-                /*TODO*/
-              },
-            ),
-             SettingsPage(),
+            EmailsPage(),
+            SettingsPage(),
           ]),
       bottomNavigationBar: BottomNavBar(
         currentIndex: currentIndex,

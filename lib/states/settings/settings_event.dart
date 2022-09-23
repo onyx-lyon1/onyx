@@ -5,8 +5,7 @@ abstract class SettingsEvent {}
 
 class SettingsReset extends SettingsEvent {}
 class SettingsLoad extends SettingsEvent {}
-// ignore: must_be_immutable
 class SettingsModify extends SettingsEvent {
-  SettingsModel settings;
+  final SettingsModel settings;
   SettingsModify(this.settings);
 }

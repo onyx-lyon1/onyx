@@ -1,6 +1,7 @@
 class EmailModel {
   final String subject;
   final String sender;
+  final String receiver;
   final String excerpt;
   final bool isRead;
   final DateTime date;
@@ -8,6 +9,7 @@ class EmailModel {
   EmailModel({
     required this.subject,
     required this.sender,
+    required this.receiver,
     required this.excerpt,
     required this.isRead,
     required this.date,
