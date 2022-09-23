@@ -59,7 +59,7 @@ class OloidAppState extends State<OloidApp> {
                       home: (context.read<AuthentificationBloc>().state
                               is AuthentificationAuthentificated)
                           ? const Home()
-                          : const LoginPage());
+                          : LoginPage(key: UniqueKey()));
                 } else {
                   return const CustomCircularProgressIndicator();
                 }
