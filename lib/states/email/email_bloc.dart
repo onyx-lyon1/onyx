@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:oloid2/model/email.dart';
 
 part 'email_event.dart';
 
@@ -12,7 +11,7 @@ part 'email_state.dart';
 
 class EmailBloc extends Bloc<EmailEvent, EmailState> {
   late Lyon1Mail mailClient;
-  List<EmailModel> emails = [];
+  List<Mail> emails = [];
   final String username;
   final String password;
 
@@ -24,6 +23,21 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     });
     on<EmailLoad>(load);
     on<EmailSend>(send);
+    on<EmailMarkAsRead>(markAsRead);
+  }
+
+  void markAsRead(EmailMarkAsRead event, Emitter<EmailState> emit) async {
+    print("mark as read");
+
+    if (!event.email.isSeen()) {
+      await event.email.markAsSeen();
+      // await mailClient.markAsRead(event.sequenceId!);
+      print("marker");
+      print(event.email.getSequenceId());
+      print(event.email.isSeen());
+    }
+
+    emit(EmailUpdated());
   }
 
   void load(EmailLoad event, Emitter<EmailState> emit) async {
@@ -37,26 +51,19 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         print("no emails");
       }
     } else {
+      emails.addAll(emailOpt.toIterable().first);
       for (final Mail mail in emailOpt.toIterable().first) {
-        emails.add(EmailModel(
-            subject: mail.getSubject(),
-            sender: mail.getSender(),
-            receiver: "me",
-            excerpt: mail.getBody(),
-            isRead: mail.isSeen(),
-            date: mail.getDate()));
-        if (kDebugMode) {
-          print(
-              "${mail.getSender()} sent ${mail.getSubject()} @${mail.getDate().toIso8601String()}");
-          print("\tseen: ${mail.isSeen()}");
-          print("\t${mail.getBody()}");
-          print("\thasPJ: ${mail.hasAttachments()}");
-          mail.getAttachmentsNames().forEach((fname) {
-            if (kDebugMode) {
-              print("\t\t$fname");
-            }
-          });
-        }
+        emails.add(mail
+            // EmailModel(
+            // subject: mail.getSubject(),
+            // sender: mail.getSender(),
+            // receiver: "me",
+            // excerpt: mail.getBody(excerpt: true),
+            // body: mail.getBody(excerpt: false),
+            // sequenceId: mail.getSequenceId(),
+            // isRead: mail.isSeen(),
+            // date: mail.getDate())
+            );
       }
     }
     emit(EmailLoaded());

@@ -4,11 +4,11 @@ import 'package:oloid2/page/login_page.dart';
 import 'package:oloid2/states/authentification/authentification_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/custom_circular_progress_indicator.dart';
+import 'package:lyon1mail/lyon1mail.dart';
 import 'package:sizer/sizer.dart';
 
 import 'home.dart';
 import 'model/day.dart';
-import 'model/email.dart';
 import 'model/teaching_unit.dart';
 import 'theme/theme.dart';
 
@@ -24,7 +24,7 @@ class OloidApp extends StatefulWidget {
 class OloidAppState extends State<OloidApp> {
   final List<TeachingUnitModel> teachingUnits = [];
   final List<DayModel> days = [];
-  final List<EmailModel> emails = [];
+  final List<Mail> emails = [];
 
   @override
   void initState() {

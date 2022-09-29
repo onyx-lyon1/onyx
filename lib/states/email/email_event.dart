@@ -6,7 +6,13 @@ abstract class EmailEvent {}
 class EmailLoad extends EmailEvent {}
 
 class EmailSend extends EmailEvent {
-  final EmailModel email;
+  final Mail email;
 
   EmailSend(this.email);
+}
+
+class EmailMarkAsRead extends EmailEvent {
+  final Mail email;
+
+  EmailMarkAsRead(this.email);
 }

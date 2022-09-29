@@ -115,12 +115,9 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
             DayModel(i, []));
       }
     }
-    if (state is AgendaInitial) {
-      emit(AgendaInitialReady());
-      return;
-    } else {
+
       emit(AgendaReady());
       return;
-    }
+
   }
 }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/model/email.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lyon1mail/lyon1mail.dart';
+import 'package:oloid2/page/email_details_page.dart';
+import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 class Email extends StatelessWidget {
-  final String subject;
-  final String sender;
-  final String excerpt;
-  final bool isRead;
-  final DateTime date;
+  final Mail email;
 
   Color unreadText1Color(BuildContext c) {
     return Theme.of(c).textTheme.bodyText1!.color!;
@@ -39,20 +38,13 @@ class Email extends StatelessWidget {
 
   // final Color unreadCircleAvatarColor = const Color(0xffd08770);
 
-  const Email({
-    Key? key,
-    required this.subject,
-    required this.sender,
-    required this.excerpt,
-    required this.isRead,
-    required this.date,
-  }) : super(key: key);
+  const Email({Key? key, required this.email}) : super(key: key);
 
-  String _firstLetter() {
+  String _firstLetter(String sender) {
     return sender.isNotEmpty ? sender[0] : '-';
   }
 
-  String _toHumanDate() {
+  String _toHumanDate(DateTime date) {
     final int diffMin = DateTime.now().difference(date).inMinutes;
     final int diffH = DateTime.now().difference(date).inHours;
     final int diffDays = DateTime.now().difference(date).inDays;
@@ -69,125 +61,125 @@ class Email extends StatelessWidget {
     }
   }
 
-  static Email fromEmailModel(EmailModel e) {
-    return Email(
-      subject: e.subject,
-      sender: e.sender,
-      excerpt: e.excerpt,
-      isRead: e.isRead,
-      date: e.date,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          children: [
-            Container(
-              height: 50,
-              width: 50,
-              margin: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: isRead ? readBgColor(context) : unreadAccent(context),
-              ),
-              child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  _firstLetter(),
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: isRead
-                        ? readText1Color(context)
-                        : unreadText1Color(context),
+    return InkWell(
+      onTap: () {
+        context.read<EmailBloc>().add(EmailMarkAsRead(email));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => EmailDetailsPage(mail: email)));
+      },
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Container(
+                height: 12.w,
+                width: 12.w,
+                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: email.isSeen()
+                      ? readBgColor(context)
+                      : unreadAccent(context),
+                ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    _firstLetter(email.getSender()),
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: email.isSeen()
+                          ? readText1Color(context)
+                          : unreadText1Color(context),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 70,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        sender,
-                        style: TextStyle(
-                            color: isRead
-                                ? readText1Color(context)
-                                : unreadText1Color(context),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Text(
-                          _toHumanDate(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  SizedBox(
+                    width: 80.w,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          email.getSender(),
                           style: TextStyle(
-                              color: isRead
+                              color: email.isSeen()
                                   ? readText1Color(context)
                                   : unreadText1Color(context),
-                              fontSize: 12),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 5),
-                SizedBox(
-                  width: 80.w,
-                  child: Text(
-                    subject,
-                    style: TextStyle(
-                      color: isRead
-                          ? readText2Color(context)
-                          : unreadText2Color(context),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Text(
+                            _toHumanDate(email.getDate()),
+                            style: TextStyle(
+                                color: email.isSeen()
+                                    ? readText1Color(context)
+                                    : unreadText1Color(context),
+                                fontSize: 12),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                SizedBox(
-                  width: 80.w,
-                  child: Text(
-                    excerpt,
-                    overflow: TextOverflow.ellipsis,
-                    softWrap: true,
-                    maxLines: 2,
-                    style: TextStyle(
-                      color: isRead
-                          ? readText2Color(context)
-                          : unreadText2Color(context),
-                      fontSize: 12,
+                  const SizedBox(height: 5),
+                  SizedBox(
+                    width: 80.w,
+                    child: Text(
+                      email.getSubject(),
+                      style: TextStyle(
+                        color: email.isSeen()
+                            ? readText2Color(context)
+                            : unreadText2Color(context),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Divider(
-          height: 1,
-          indent: 70,
-          endIndent: 0,
-          thickness: 1,
-          // color: Color(0xff3b4252),
-          color: Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.1),
-        )
-      ],
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  SizedBox(
+                    width: 80.w,
+                    child: Text(
+                      email.getBody(excerpt: true),
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      maxLines: 2,
+                      style: TextStyle(
+                        color: email.isSeen()
+                            ? readText2Color(context)
+                            : unreadText2Color(context),
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Divider(
+            height: 1,
+            indent: 70,
+            endIndent: 0,
+            thickness: 1,
+            // color: Color(0xff3b4252),
+            color:
+                Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.1),
+          )
+        ],
+      ),
     );
   }
 }

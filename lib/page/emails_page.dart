@@ -49,16 +49,14 @@ class EmailsPage extends StatelessWidget {
                         createEmail: () {},
                         searchEmail: (String query) async {},
                       );
-                    } else if (index < context.read<EmailBloc>().emails.length + 1) {
-
-                      return Email.fromEmailModel(context.read<EmailBloc>().emails[index - 1]);
+                    } else if (index <
+                        context.read<EmailBloc>().emails.length + 1) {
+                      return Email(email: context.read<EmailBloc>().emails[index - 1]);
                     }
                     return null;
                   }),
                 ),
-                onRefresh: () async {
-
-                },
+                onRefresh: () async {},
               ));
         },
       ),

@@ -23,6 +23,7 @@ dependencies:
   flutter_bloc: ^8.0.0
   hive_flutter: ^1.1.0
   sizer: ^2.0.15
+  webview_flutter: ^3.0.4
   lyon1mail:
     git: git@github.com:hatch01/lyon1-mailclient.git
   lyon1agenda:

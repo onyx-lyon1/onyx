@@ -38,7 +38,7 @@ class HomeState extends State<Home> {
           },
           children: [
             const TeachingUnitsPage(),
-            AgendaPage(),
+            const AgendaPage(),
             EmailsPage(),
             SettingsPage(),
           ]),
