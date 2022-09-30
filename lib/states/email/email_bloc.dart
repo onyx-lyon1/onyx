@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
+import 'package:oloid2/model/mail_model.dart';
 
 part 'email_event.dart';
 
@@ -11,7 +12,9 @@ part 'email_state.dart';
 
 class EmailBloc extends Bloc<EmailEvent, EmailState> {
   late Lyon1Mail mailClient;
-  List<Mail> emails = [];
+  List<EmailModel> emails = [];
+  List<EmailModel> emailsComplete = [];
+
   final String username;
   final String password;
 
@@ -24,17 +27,32 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     on<EmailLoad>(load);
     on<EmailSend>(send);
     on<EmailMarkAsRead>(markAsRead);
+    on<EmailSort>(sort);
+  }
+
+  void sort(EmailSort event, Emitter<EmailState> emit) async {
+    emails = [];
+    print("sort");
+    for (var i in emailsComplete) {
+      if (i.subject.contains(event.filter) ||
+          i.excerpt.contains(event.filter) ||
+          i.date.toString().contains(event.filter) ||
+          i.sender.contains(event.filter)) {
+        emails.add(i);
+      }
+    }
+    print(emails);
+    emit(EmailSorted());
   }
 
   void markAsRead(EmailMarkAsRead event, Emitter<EmailState> emit) async {
     print("mark as read");
 
-    if (!event.email.isSeen()) {
-      await event.email.markAsSeen();
-      // await mailClient.markAsRead(event.sequenceId!);
+    if (!event.email.isRead) {
+      await mailClient.markAsRead(event.email.id!);
       print("marker");
-      print(event.email.getSequenceId());
-      print(event.email.isSeen());
+      print(event.email.id);
+      print(event.email.isRead);
     }
 
     emit(EmailUpdated());
@@ -51,20 +69,11 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         print("no emails");
       }
     } else {
-      emails.addAll(emailOpt.toIterable().first);
+      // emails.addAll(emailOpt.toIterable().first);
       for (final Mail mail in emailOpt.toIterable().first) {
-        emails.add(mail
-            // EmailModel(
-            // subject: mail.getSubject(),
-            // sender: mail.getSender(),
-            // receiver: "me",
-            // excerpt: mail.getBody(excerpt: true),
-            // body: mail.getBody(excerpt: false),
-            // sequenceId: mail.getSequenceId(),
-            // isRead: mail.isSeen(),
-            // date: mail.getDate())
-            );
+        emailsComplete.add(EmailModel.fromMailLib(mail));
       }
+      emails = emailsComplete;
     }
     emit(EmailLoaded());
     await mailClient.logout();

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oloid2/states/email/email_bloc.dart';
 
 class EmailHeader extends StatelessWidget {
-  final Function createEmail;
-  final Function(String query) searchEmail;
-
   const EmailHeader({
     Key? key,
-    required this.createEmail,
-    required this.searchEmail,
   }) : super(key: key);
 
   @override
@@ -22,7 +19,10 @@ class EmailHeader extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             width: MediaQuery.of(context).size.width - 70,
             child: TextField(
-              onSubmitted: (String query) async => await searchEmail(query),
+              onSubmitted: (String query) {
+                print(query);
+                context.read<EmailBloc>().add(EmailSort(query));
+              },
               style: TextStyle(
                 color: Theme.of(context).textTheme.button!.color,
               ),

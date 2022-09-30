@@ -12,7 +12,13 @@ class EmailSend extends EmailEvent {
 }
 
 class EmailMarkAsRead extends EmailEvent {
-  final Mail email;
+  final EmailModel email;
 
   EmailMarkAsRead(this.email);
 }
+
+class EmailSort extends EmailEvent {
+  final String filter;
+  EmailSort(this.filter);
+}
+

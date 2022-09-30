@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyon1mail/lyon1mail.dart';
+import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/page/email_details_page.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 class Email extends StatelessWidget {
-  final Mail email;
+  final EmailModel email;
 
   Color unreadText1Color(BuildContext c) {
     return Theme.of(c).textTheme.bodyText1!.color!;
@@ -82,17 +82,17 @@ class Email extends StatelessWidget {
                 margin: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  color: email.isSeen()
+                  color: email.isRead
                       ? readBgColor(context)
                       : unreadAccent(context),
                 ),
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    _firstLetter(email.getSender()),
+                    _firstLetter(email.sender),
                     style: TextStyle(
                       fontSize: 22,
-                      color: email.isSeen()
+                      color: email.isRead
                           ? readText1Color(context)
                           : unreadText1Color(context),
                     ),
@@ -110,9 +110,9 @@ class Email extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          email.getSender(),
+                          email.sender,
                           style: TextStyle(
-                              color: email.isSeen()
+                              color: email.isRead
                                   ? readText1Color(context)
                                   : unreadText1Color(context),
                               fontWeight: FontWeight.bold,
@@ -121,9 +121,9 @@ class Email extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: Text(
-                            _toHumanDate(email.getDate()),
+                            _toHumanDate(email.date),
                             style: TextStyle(
-                                color: email.isSeen()
+                                color: email.isRead
                                     ? readText1Color(context)
                                     : unreadText1Color(context),
                                 fontSize: 12),
@@ -136,9 +136,9 @@ class Email extends StatelessWidget {
                   SizedBox(
                     width: 80.w,
                     child: Text(
-                      email.getSubject(),
+                      email.excerpt,
                       style: TextStyle(
-                        color: email.isSeen()
+                        color: email.isRead
                             ? readText2Color(context)
                             : unreadText2Color(context),
                       ),
@@ -150,12 +150,12 @@ class Email extends StatelessWidget {
                   SizedBox(
                     width: 80.w,
                     child: Text(
-                      email.getBody(excerpt: true),
+                      email.excerpt,
                       overflow: TextOverflow.ellipsis,
                       softWrap: true,
                       maxLines: 2,
                       style: TextStyle(
-                        color: email.isSeen()
+                        color: email.isRead
                             ? readText2Color(context)
                             : unreadText2Color(context),
                         fontSize: 12,

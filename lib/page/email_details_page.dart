@@ -1,19 +1,19 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:lyon1mail/lyon1mail.dart';
+import 'package:oloid2/model/mail_model.dart';
 import 'package:sizer/sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class EmailDetailsPage extends StatelessWidget {
-  final Mail mail;
+  final EmailModel mail;
 
   const EmailDetailsPage({Key? key, required this.mail}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     late WebViewController webViewController;
-    print(mail.getSequenceId());
+    print(mail.id);
     return Material(
       child: Container(
         color: Theme.of(context).backgroundColor,
@@ -49,7 +49,7 @@ class EmailDetailsPage extends StatelessWidget {
                           width: 80.w,
                           child: Center(
                             child: Text(
-                              mail.getSubject(),
+                              mail.subject,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -71,12 +71,12 @@ class EmailDetailsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("de: ${mail.getSender()}"),
+                      Text("de: ${mail.sender}"),
                       SizedBox(
                         height: 1.h,
                       ),
                       Text(
-                        "a: ${mail.getReceiver()}",
+                        "a: ${mail.receiver}",
                         overflow: TextOverflow.fade,
                       ),
                     ],
@@ -91,7 +91,7 @@ class EmailDetailsPage extends StatelessWidget {
                 height: 78.h,
                 width: 100.w,
                 child: (mail
-                        .getBody(excerpt: false)
+                        .body
                         .toLowerCase()
                         .contains("html"))
                     ? WebView(
@@ -100,14 +100,14 @@ class EmailDetailsPage extends StatelessWidget {
                         onWebViewCreated: (controller) async {
                           webViewController = controller;
                           webViewController.loadUrl(Uri.dataFromString(
-                                  mail.getBody(excerpt: false),
+                                  mail.body,
                                   mimeType: 'text/html',
                                   encoding: Encoding.getByName('utf-8'))
                               .toString());
                         },
                       )
                     // ? Zoom(child: Html(shrinkWrap: true, data: mail.body))
-                    : Text(mail.getBody(excerpt: false)),
+                    : Text(mail.body),
               ),
             ],
           ),

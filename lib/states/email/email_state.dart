@@ -10,3 +10,4 @@ class EmailSending extends EmailState {}
 class EmailSended extends EmailState {}
 class EmailUpdated extends EmailState {}
 class EmailError extends EmailState {}
+class EmailSorted extends EmailState {}

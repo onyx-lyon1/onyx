@@ -28,6 +28,7 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
 
   Future<void> load(GradesLoad event, Emitter<GradesState> emit) async {
     emit(GradesLoading());
+    teachingUnits = [];
     Option<ParsedPage> parsedPageOpt =
         await event.dartus.getParsedPage(Dartus.currentSemester());
     if (parsedPageOpt.isNone()) {

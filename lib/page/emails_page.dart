@@ -45,13 +45,11 @@ class EmailsPage extends StatelessWidget {
                   childrenDelegate:
                       SliverChildBuilderDelegate((context, index) {
                     if (index == 0) {
-                      return EmailHeader(
-                        createEmail: () {},
-                        searchEmail: (String query) async {},
-                      );
-                    } else if (index <
-                        context.read<EmailBloc>().emails.length + 1) {
-                      return Email(email: context.read<EmailBloc>().emails[index - 1]);
+                      return const EmailHeader();
+                    } else if (index <=
+                        context.read<EmailBloc>().emails.length) {
+                      return Email(
+                          email: context.read<EmailBloc>().emails[index - 1]);
                     }
                     return null;
                   }),
