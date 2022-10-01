@@ -59,29 +59,27 @@ class Card extends StatelessWidget {
             height: 11.h,
             width: 25.w,
             decoration: BoxDecoration(color: _mainGradeColor()),
-            child: Stack(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   width: double.infinity,
-                  padding: const EdgeInsets.only(top: 15),
                   child: Text(
                     gradeNumerator,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 20.sp,
                     ),
                   ),
                 ),
                 Container(
-                  width: 45,
-                  height: 1,
-                  margin: const EdgeInsets.only(top: 44, left: 22),
+                  width: 15.w,
+                  height: 0.2.h,
                   color: Colors.white54,
                 ),
-                Container(
-                  padding: const EdgeInsets.only(top: 48),
+                SizedBox(
                   width: double.infinity,
                   child: Text(
                     gradeDenominator,
