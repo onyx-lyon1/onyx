@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
-import 'package:oloid2/page/email_details_page.dart';
+import 'package:oloid2/page/mails/email_details_page.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:sizer/sizer.dart';
 

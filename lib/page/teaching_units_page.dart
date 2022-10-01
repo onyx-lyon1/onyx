@@ -8,6 +8,7 @@ import 'package:oloid2/states/grades/grades_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/grades/grade_list_header.dart';
 import 'package:oloid2/widget/grades/teaching_unit.dart';
+import 'package:oloid2/widget/login/state_displaying.dart';
 
 import '../widget/grades/grade.dart';
 
@@ -60,11 +61,11 @@ class TeachingUnitsPage extends StatelessWidget {
       create: (context) => GradesBloc(),
       child: BlocBuilder<GradesBloc, GradesState>(
         builder: (context, state) {
-
           if (state is GradesInitial) {
             context
                 .read<GradesBloc>()
                 .add(GradesLoad(context.read<AuthentificationBloc>().dartus));
+            return const StateDisplaying(message: "Loading grades");
           }
           return Container(
               color: Theme.of(context).backgroundColor,

@@ -4,6 +4,7 @@ part of 'email_bloc.dart';
 abstract class EmailState {}
 
 class EmailInitial extends EmailState {}
+class EmailConnected extends EmailState {}
 class EmailLoading extends EmailState {}
 class EmailLoaded extends EmailState {}
 class EmailSending extends EmailState {}

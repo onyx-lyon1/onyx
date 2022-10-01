@@ -15,19 +15,25 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   List<EmailModel> emails = [];
   List<EmailModel> emailsComplete = [];
 
-  final String username;
-  final String password;
+  late String username;
+  late String password;
 
-  EmailBloc({required this.username, required this.password})
-      : super(EmailInitial()) {
-    mailClient = Lyon1Mail(username, password);
+  EmailBloc() : super(EmailInitial()) {
     on<EmailEvent>((event, emit) {
       // TODO: implement event handler
     });
+    on<EmailConnect>(connect);
     on<EmailLoad>(load);
     on<EmailSend>(send);
     on<EmailMarkAsRead>(markAsRead);
     on<EmailSort>(sort);
+  }
+
+  void connect(EmailConnect event, Emitter<EmailState> emit) async {
+    username = event.username;
+    password = event.password;
+    mailClient = Lyon1Mail(username, password);
+    emit(EmailConnected());
   }
 
   void sort(EmailSort event, Emitter<EmailState> emit) async {
