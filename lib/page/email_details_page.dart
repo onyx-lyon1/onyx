@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:oloid2/model/mail_model.dart';
@@ -13,7 +14,6 @@ class EmailDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late WebViewController webViewController;
-    print(mail.id);
     return Material(
       child: Container(
         color: Theme.of(context).backgroundColor,
@@ -90,10 +90,8 @@ class EmailDetailsPage extends StatelessWidget {
                 color: Theme.of(context).cardTheme.color,
                 height: 78.h,
                 width: 100.w,
-                child: (mail
-                        .body
-                        .toLowerCase()
-                        .contains("html"))
+                child: (mail.body.toLowerCase().contains("html") &&
+                        (Platform.isAndroid || Platform.isIOS))
                     ? WebView(
                         initialUrl: '',
                         javascriptMode: JavascriptMode.unrestricted,
@@ -106,7 +104,6 @@ class EmailDetailsPage extends StatelessWidget {
                               .toString());
                         },
                       )
-                    // ? Zoom(child: Html(shrinkWrap: true, data: mail.body))
                     : Text(mail.body),
               ),
             ],

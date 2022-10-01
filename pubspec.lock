@@ -501,7 +501,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "73cd7290046f125caeb3477d9547a4024e2b0b63"
+      resolved-ref: "3e11f7e57054f41197cc324e543dc6cfce741a41"
       url: "git@github.com:hatch01/lyon1-mailclient.git"
     source: git
     version: "1.0.0"
@@ -637,7 +637,7 @@ packages:
       name: permission_handler_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "10.0.0"
+    version: "10.1.0"
   permission_handler_apple:
     dependency: transitive
     description:
@@ -728,7 +728,7 @@ packages:
       name: scrollable_positioned_list
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.4"
+    version: "0.3.5"
   shelf:
     dependency: transitive
     description:

@@ -109,14 +109,19 @@ class Email extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(
-                          email.sender,
-                          style: TextStyle(
+                        Expanded(
+                          child: Text(
+                            email.sender,
+                            style: TextStyle(
                               color: email.isRead
                                   ? readText1Color(context)
                                   : unreadText1Color(context),
                               fontWeight: FontWeight.bold,
-                              fontSize: 15),
+                              fontSize: 12.sp,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            maxLines: 1,
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 8.0),
@@ -126,7 +131,7 @@ class Email extends StatelessWidget {
                                 color: email.isRead
                                     ? readText1Color(context)
                                     : unreadText1Color(context),
-                                fontSize: 12),
+                                fontSize: 10.sp),
                           ),
                         )
                       ],

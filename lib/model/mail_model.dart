@@ -22,14 +22,13 @@ class EmailModel {
 
   static EmailModel fromMailLib(lyon1mail.Mail mail) {
     return EmailModel(
-      subject: mail.getSubject(),
-      sender: mail.getSender(),
-      excerpt: mail.getBody(excerpt: true),
-      isRead: mail.isSeen(),
-      date: mail.getDate(),
-      body: mail.getBody(excerpt: false),
-      id: mail.getSequenceId(),
-      receiver: "me"
-    );
+        subject: mail.getSubject(),
+        sender: mail.getSender(),
+        excerpt: mail.getBody(excerpt: true),
+        isRead: mail.isSeen(),
+        date: mail.getDate(),
+        body: mail.getBody(excerpt: false),
+        id: mail.getSequenceId(),
+        receiver: "me");
   }
 }

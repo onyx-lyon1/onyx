@@ -19,8 +19,7 @@ class EmailHeader extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             width: MediaQuery.of(context).size.width - 70,
             child: TextField(
-              onSubmitted: (String query) {
-                print(query);
+              onChanged: (String query) {
                 context.read<EmailBloc>().add(EmailSort(query));
               },
               style: TextStyle(

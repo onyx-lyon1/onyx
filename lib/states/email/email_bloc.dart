@@ -32,27 +32,32 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
 
   void sort(EmailSort event, Emitter<EmailState> emit) async {
     emails = [];
-    print("sort");
     for (var i in emailsComplete) {
-      if (i.subject.contains(event.filter) ||
-          i.excerpt.contains(event.filter) ||
-          i.date.toString().contains(event.filter) ||
-          i.sender.contains(event.filter)) {
+      if (i.subject.toLowerCase().contains(event.filter.toLowerCase()) ||
+          i.excerpt.toLowerCase().contains(event.filter.toLowerCase()) ||
+          i.date
+              .toString()
+              .toLowerCase()
+              .contains(event.filter.toLowerCase()) ||
+          i.sender.toLowerCase().contains(event.filter.toLowerCase())) {
         emails.add(i);
       }
     }
-    print(emails);
     emit(EmailSorted());
   }
 
   void markAsRead(EmailMarkAsRead event, Emitter<EmailState> emit) async {
-    print("mark as read");
+    if (kDebugMode) {
+      print("mark as read");
+    }
 
     if (!event.email.isRead) {
       await mailClient.markAsRead(event.email.id!);
-      print("marker");
-      print(event.email.id);
-      print(event.email.isRead);
+      if (kDebugMode) {
+        print("marker");
+        print(event.email.id);
+        print(event.email.isRead);
+      }
     }
 
     emit(EmailUpdated());
