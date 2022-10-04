@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
+import 'package:lyon1mail/src/model/address.dart';
 import 'package:oloid2/model/mail_model.dart';
 
 part 'email_event.dart';
@@ -33,6 +34,10 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     username = event.username;
     password = event.password;
     mailClient = Lyon1Mail(username, password);
+    if (!await mailClient.login()) {
+      print("probleme de login des email");
+      emit(EmailError());
+    }
     emit(EmailConnected());
   }
 
@@ -58,6 +63,10 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     }
 
     if (!event.email.isRead) {
+      if (!await mailClient.login()) {
+        print("probleme de login des email");
+        emit(EmailError());
+      }
       await mailClient.markAsRead(event.email.id!);
       if (kDebugMode) {
         print("marker");
@@ -72,6 +81,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   void load(EmailLoad event, Emitter<EmailState> emit) async {
     emit(EmailLoading());
     if (!await mailClient.login()) {
+      print("probleme de login des email");
       emit(EmailError());
     }
     final Option<List<Mail>> emailOpt = await mailClient.fetchMessages(15);
@@ -91,7 +101,32 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   void send(EmailSend event, Emitter<EmailState> emit) async {
-    emit(EmailSending());
-    emit(EmailSended());
+    if (state is! EmailSending) {
+      if (!await mailClient.login()) {
+        print("probleme de login des email");
+        emit(EmailError());
+      }
+      emit(EmailSending());
+      if (kDebugMode) {
+        print(mailClient.mailboxName);
+        print(event.email.receiver);
+        print(event.email.subject);
+        print(event.email.body);
+      }
+      // await mailClient.sendEmail(
+      //   sender: Address("eymeric.dechelette@etu.univ-lyon1.fr", 'nom de test'),
+      //   recipients: [
+      //     Address("eymeric.dechelette@etu.univ-lyon1.fr", 'nom de test 2'),
+      //   ],
+      //   subject: 'test',
+      //   body: 'bodytest',
+      // );
+      await mailClient.sendEmail(
+          sender: Address("eymeric.dechelette@etu.univ-lyon1.fr", "me"),
+          recipients: [Address(event.email.receiver, "you")],
+          subject: event.email.subject,
+          body: event.email.body);
+      emit(EmailSended());
+    }
   }
 }

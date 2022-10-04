@@ -118,14 +118,21 @@ class _AgendaWrapedState extends State<AgendaWraped> {
                         daysCount: 180,
                         controller: dateController,
                         locale: 'fr_FR',
-                        selectionColor: const Color(0xffd08770),
-                        selectedTextColor: const Color(0xffe5e9f0),
-                        monthTextStyle: const TextStyle(
-                            color: Color(0xffe5e9f0), fontSize: 9),
-                        dayTextStyle: const TextStyle(
-                            color: Color(0xffe5e9f0), fontSize: 9),
-                        dateTextStyle: const TextStyle(
-                            color: Color(0xffd8dee9), fontSize: 14),
+                        selectionColor: Theme.of(context).primaryColor,
+                        selectedTextColor:
+                            Theme.of(context).textTheme.bodyText1!.color!,
+                        monthTextStyle: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.bodyText1!.color!,
+                            fontSize: 8.sp),
+                        dayTextStyle: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.bodyText1!.color!,
+                            fontSize: 8.sp),
+                        dateTextStyle: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.bodyText1!.color!,
+                            fontSize: 13.sp),
                         onDateChange: (date) => jumpToDate(
                             date, context.read<AgendaBloc>().dayModels),
                       ),

@@ -12,7 +12,7 @@ class EmailHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xff2e3440),
+      color: Theme.of(context).cardTheme.color,
       height: 10.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -30,13 +30,16 @@ class EmailHeader extends StatelessWidget {
               style: TextStyle(
                 color: Theme.of(context).textTheme.button!.color,
               ),
-              decoration: const InputDecoration(
+              cursorColor: Theme.of(context).textTheme.bodyText1!.color,
+              decoration: InputDecoration(
                 border: InputBorder.none,
                 filled: true,
-                fillColor: Color.fromARGB(255, 38, 43, 53),
+                fillColor: Theme.of(context).backgroundColor,
                 prefixIcon: Icon(
                   Icons.search,
-                  color: Color(0xffd8dee9),
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .unselectedItemColor,
                 ),
               ),
             ),
@@ -53,7 +56,9 @@ class EmailHeader extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.create,
-                  color: const Color(0xffd8dee9),
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .unselectedItemColor,
                   size: 25.sp,
                 ),
               ),
