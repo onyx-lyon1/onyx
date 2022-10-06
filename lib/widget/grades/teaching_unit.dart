@@ -17,12 +17,20 @@ class TeachingUnit extends StatelessWidget {
   // "$teacher • grp $group"
   @override
   Widget build(BuildContext context) {
+    int rank = 0;
+    for (var i in tu.grades) {
+      rank += i.rank;
+    }
+    rank = (rank / ((tu.grades.length != 0) ? tu.grades.length : 1)).round();
+
     return GestureDetector(
         onTap: () => onClick(tu),
         child: widgets.Card(
           o: tu,
+          groupeSize: 120,
           text1: tu.name,
           text2: "${tu.mastersShort()} • grp ?",
+          rank: rank,
           gradeNumerator: (tu.latestGrade()?.gradeNumerator ?? '-').toString(),
           gradeDenominator:
               (tu.latestGrade()?.gradeDenominator ?? '-').toString(),

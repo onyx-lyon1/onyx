@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/states/authentification/authentification_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
-import 'package:oloid2/widget/login/state_displaying.dart';
+import 'package:oloid2/widget/state_displaying.dart';
 import 'package:sizer/sizer.dart';
 
 class LoginPage extends StatefulWidget {

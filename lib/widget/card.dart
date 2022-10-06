@@ -10,11 +10,15 @@ class Card extends StatelessWidget {
   final String text2;
   final bool forceGreen;
   final bool isSeen;
+  final int? rank;
+  final int groupeSize;
   final Function(dynamic o) onTap;
 
   const Card({
     Key? key,
     required this.o,
+    this.rank,
+    required this.groupeSize,
     required this.text1,
     required this.gradeNumerator,
     required this.gradeDenominator,
@@ -25,13 +29,30 @@ class Card extends StatelessWidget {
   }) : super(key: key);
 
   Color _mainGradeColor() {
+    if (forceGreen || rank == null) {
+      return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
+    } else {
+      var x = (511 * rank! / groupeSize).floor();
+      Color b = Colors.red;
+      Color c = Colors.red;
+      if (rank! > groupeSize / 2) {
+        b = Color.fromARGB(255, 255, 511 - x, 511 - x);
+        if (rank! > 3 * groupeSize / 4) {
+          c = Colors.white;
+        } else {
+          b = Color.fromARGB(255, x, 255, x);
+        }
+      }
+      return b;
+      // return 'background: rgb(' + b + ')' + c;
+
+    }
     final double gradeValue =
         double.tryParse(gradeNumerator) ?? double.infinity;
     final double gradeDenominatorValue =
         double.tryParse(gradeDenominator) ?? double.infinity;
     final bool isGreen =
         (gradeValue >= (gradeDenominatorValue / 2)) || forceGreen;
-
     if (isGreen) {
       return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
     } else {

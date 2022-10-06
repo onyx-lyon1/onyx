@@ -113,14 +113,14 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         print(event.email.subject);
         print(event.email.body);
       }
-      // await mailClient.sendEmail(
-      //   sender: Address("eymeric.dechelette@etu.univ-lyon1.fr", 'nom de test'),
-      //   recipients: [
-      //     Address("eymeric.dechelette@etu.univ-lyon1.fr", 'nom de test 2'),
-      //   ],
-      //   subject: 'test',
-      //   body: 'bodytest',
-      // );
+      await mailClient.sendEmail(
+        sender: mailClient.emailAddress,
+        recipients: [
+          (await mailClient.resolveContact(event.email.receiver))!,
+        ],
+        subject: 'test',
+        body: 'bodytest',
+      );
       await mailClient.sendEmail(
           sender: Address("eymeric.dechelette@etu.univ-lyon1.fr", "me"),
           recipients: [Address(event.email.receiver, "you")],

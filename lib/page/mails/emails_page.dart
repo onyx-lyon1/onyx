@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/states/authentification/authentification_bloc.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
-import 'package:oloid2/widget/login/state_displaying.dart';
+import 'package:oloid2/widget/state_displaying.dart';
 
 import '../../widget/emails/email.dart';
 import '../../widget/emails/email_header.dart';

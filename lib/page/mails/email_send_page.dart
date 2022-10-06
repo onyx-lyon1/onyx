@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:oloid2/widget/state_displaying.dart';
 import 'package:sizer/sizer.dart';
 
 class EmailSendPage extends StatelessWidget {
@@ -15,10 +16,10 @@ class EmailSendPage extends StatelessWidget {
 
     return BlocBuilder<EmailBloc, EmailState>(
       builder: (context, state) {
-        if (state is EmailSended){
+        if (state is EmailSended) {
           Navigator.pop(context);
-        }else if (state is EmailSending){
-          print("sending");
+        } else if (state is EmailSending) {
+          return const StateDisplaying(message: "Sending message");
         }
         return Material(
           child: Scaffold(
@@ -31,9 +32,17 @@ class EmailSendPage extends StatelessWidget {
                 splashColor: Theme.of(context).cardTheme.color,
                 onTap: () {
                   print("try to send");
-                  EmailModel email = EmailModel(subject: subjectEditor.text, sender: "me", excerpt: "", isRead: false, date: DateTime.now(), body: bodyEditor.text, id: 0, receiver: destinationEditor.text);
+                  EmailModel email = EmailModel(
+                      subject: subjectEditor.text,
+                      sender: "me",
+                      excerpt: "",
+                      isRead: false,
+                      date: DateTime.now(),
+                      body: bodyEditor.text,
+                      id: 0,
+                      receiver: destinationEditor.text);
                   context.read<EmailBloc>().add(EmailSend(email));
-                  },
+                },
                 child: Padding(
                   padding: EdgeInsets.all(1.5.h),
                   child: Icon(Icons.send, size: 25.sp),
@@ -132,7 +141,8 @@ class EmailSendPage extends StatelessWidget {
                           color: Theme.of(context).textTheme.button!.color!,
                         ),
                         decoration: InputDecoration(
-                            hintText: "Destinataire",
+                            hintText:
+                                "Destinataire : PXXXXXXX, prenom.nom@status.univ-lyon1.fr",
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .bodyText1!
