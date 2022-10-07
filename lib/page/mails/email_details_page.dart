@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
+import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -34,7 +36,10 @@ class EmailDetailsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () {
+                          context.read<EmailBloc>().add(EmailLoad());
+                          Navigator.pop(context);
+                        },
                         child: Icon(
                           Icons.arrow_back,
                           color: Theme.of(context)
@@ -46,14 +51,15 @@ class EmailDetailsPage extends StatelessWidget {
                         width: 3.w,
                       ),
                       SizedBox(
-                          width: 80.w,
-                          child: Center(
-                            child: Text(
-                              mail.subject,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )),
+                        width: 80.w,
+                        child: Center(
+                          child: Text(
+                            mail.subject,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -112,6 +118,4 @@ class EmailDetailsPage extends StatelessWidget {
       ),
     );
   }
-
-  loadAsset() async {}
 }

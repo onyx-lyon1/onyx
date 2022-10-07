@@ -30,13 +30,12 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   void connect(EmailConnect event, Emitter<EmailState> emit) async {
-    print("connect");
     username = event.username;
     password = event.password;
     mailClient = Lyon1Mail(username, password);
     if (!await mailClient.login()) {
-      print("probleme de login des email");
       emit(EmailError());
+      return;
     }
     emit(EmailConnected());
   }
@@ -65,16 +64,12 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     if (!event.email.isRead) {
       if (!mailClient.isAuthenticated) {
         if (!await mailClient.login()) {
-          print("probleme de login des email");
           emit(EmailError());
+          return;
         }
       }
+      await mailClient.fetchMessages(1);
       await mailClient.markAsRead(event.email.id!);
-      if (kDebugMode) {
-        print("marker");
-        print(event.email.id);
-        print(event.email.isRead);
-      }
     }
 
     emit(EmailUpdated());
@@ -85,8 +80,8 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     emailsComplete = [];
     if (!mailClient.isAuthenticated) {
       if (!await mailClient.login()) {
-        print("probleme de login des email");
         emit(EmailError());
+        return;
       }
     }
     final Option<List<Mail>> emailOpt = await mailClient.fetchMessages(15);
@@ -108,8 +103,8 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     if (state is! EmailSending) {
       if (!mailClient.isAuthenticated) {
         if (!await mailClient.login()) {
-          print("probleme de login des email");
           emit(EmailError());
+          return;
         }
       }
       emit(EmailSending());

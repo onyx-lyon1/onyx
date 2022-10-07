@@ -16,7 +16,10 @@ class EmailSendPage extends StatelessWidget {
 
     return BlocBuilder<EmailBloc, EmailState>(
       builder: (context, state) {
-        if (state is EmailSended) {
+        if (state is EmailError){
+          return const StateDisplaying(message: "Something went wrong with emails");
+        }
+        else if (state is EmailSended) {
           context.read<EmailBloc>().add(EmailLoad());
           Navigator.pop(context);
         } else if (state is EmailSending) {

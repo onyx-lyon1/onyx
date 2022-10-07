@@ -30,7 +30,10 @@ class EmailsPage extends StatelessWidget {
         if (kDebugMode) {
           print(state);
         }
-        if (state is EmailInitial) {
+        if (state is EmailError) {
+          return const StateDisplaying(
+              message: "Something went wrong with emails");
+        } else if (state is EmailInitial) {
           context.read<EmailBloc>().add(EmailConnect(
               username: context.read<AuthentificationBloc>().usename,
               password: context.read<AuthentificationBloc>().password));
@@ -41,25 +44,26 @@ class EmailsPage extends StatelessWidget {
         }
 
         return Container(
-            color: Theme.of(context).backgroundColor,
-            child: RefreshIndicator(
-              color: Theme.of(context).primaryColor,
-              child: ListView.custom(
-                controller: scrollController,
-                childrenDelegate: SliverChildBuilderDelegate((context, index) {
-                  if (index == 0) {
-                    return const EmailHeader();
-                  } else if (index <= context.read<EmailBloc>().emails.length) {
-                    return Email(
-                        email: context.read<EmailBloc>().emails[index - 1]);
-                  }
-                  return null;
-                }),
-              ),
-              onRefresh: () async {
-                context.read<EmailBloc>().add(EmailLoad());
-              },
-            ));
+          color: Theme.of(context).backgroundColor,
+          child: RefreshIndicator(
+            color: Theme.of(context).primaryColor,
+            child: ListView.custom(
+              controller: scrollController,
+              childrenDelegate: SliverChildBuilderDelegate((context, index) {
+                if (index == 0) {
+                  return const EmailHeader();
+                } else if (index <= context.read<EmailBloc>().emails.length) {
+                  return Email(
+                      email: context.read<EmailBloc>().emails[index - 1]);
+                }
+                return null;
+              }),
+            ),
+            onRefresh: () async {
+              context.read<EmailBloc>().add(EmailLoad());
+            },
+          ),
+        );
       },
     );
   }
