@@ -37,21 +37,26 @@ class Card extends StatelessWidget {
       if (o is GradeModel) {
         return _gradeColor(o);
       } else if (o is TeachingUnitModel) {
-        int red = 0;
-        int green = 0;
-        int blue = 0;
-        for (var i in o.grades) {
-          Color color = _gradeColor(i);
-          red += color.red;
-          green += color.green;
-          blue += color.blue;
-        }
+        if (o.grades.isNotEmpty) {
+          int red = 0;
+          int green = 0;
+          int blue = 0;
+          for (var i in o.grades) {
+            Color color = _gradeColor(i);
+            red += color.red;
+            green += color.green;
+            blue += color.blue;
+          }
 
-        red = (red / ((o.grades.length == 0) ? 1 : o.grades.length)).round();
-        green =
-            (green / ((o.grades.length == 0) ? 1 : o.grades.length)).round();
-        blue = (blue / ((o.grades.length == 0) ? 1 : o.grades.length)).round();
-        return Color.fromARGB(255, red, green, blue);
+          red = (red / ((o.grades.length == 0) ? 1 : o.grades.length)).round();
+          green =
+              (green / ((o.grades.length == 0) ? 1 : o.grades.length)).round();
+          blue =
+              (blue / ((o.grades.length == 0) ? 1 : o.grades.length)).round();
+          return Color.fromARGB(255, red, green, blue);
+        } else {
+          return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
+        }
       }
     }
     return Colors.white;
