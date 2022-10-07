@@ -1,9 +1,9 @@
-import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/day_model.dart';
 import 'package:oloid2/model/event_model.dart';
 import 'package:oloid2/others/month_to_string.dart';
+import 'package:oloid2/others/weekday_to_string.dart';
 import 'package:oloid2/states/agenda/agenda_bloc.dart';
 import 'package:oloid2/states/authentification/authentification_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
@@ -63,8 +63,9 @@ class AgendaWraped extends StatefulWidget {
 }
 
 class _AgendaWrapedState extends State<AgendaWraped> {
-  final DatePickerController dateController = DatePickerController();
+  // final DatePickerController dateController = DatePickerController();
   PageController pageController = PageController();
+  final ScrollController scrollController = ScrollController();
 
   void jumpToTop() {
     pageController.animateTo(
@@ -97,8 +98,21 @@ class _AgendaWrapedState extends State<AgendaWraped> {
                 element.date.day == DateTime.now().day));
   }
 
+  static int offsetToIndex(double offset) {
+    return (offset / 19.w).round();
+  }
+
+  static double indexToOffset(int index) {
+    return (19.w * index) + 10;
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Future.delayed(const Duration(seconds: 1), () {
+    //   scrollController.animateTo(scrollController.offset,
+    //       duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+    // });
+
     return Container(
         color: Theme.of(context).backgroundColor,
         padding: const EdgeInsets.only(top: 27),
@@ -109,32 +123,94 @@ class _AgendaWrapedState extends State<AgendaWraped> {
             children: [
               context.read<SettingsBloc>().settings.showMiniCalendar
                   ? Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
-                      color: Theme.of(context).cardTheme.color,
-                      child: DatePicker(
-                        DateTime.now(),
-                        initialSelectedDate: DateTime.now(),
-                        daysCount: 180,
-                        controller: dateController,
-                        locale: 'fr_FR',
-                        selectionColor: Theme.of(context).primaryColor,
-                        selectedTextColor:
-                            Theme.of(context).textTheme.bodyText1!.color!,
-                        monthTextStyle: TextStyle(
-                            color:
-                                Theme.of(context).textTheme.bodyText1!.color!,
-                            fontSize: 8.sp),
-                        dayTextStyle: TextStyle(
-                            color:
-                                Theme.of(context).textTheme.bodyText1!.color!,
-                            fontSize: 8.sp),
-                        dateTextStyle: TextStyle(
-                            color:
-                                Theme.of(context).textTheme.bodyText1!.color!,
-                            fontSize: 13.sp),
-                        onDateChange: (date) => jumpToDate(
-                            date, context.read<AgendaBloc>().dayModels),
+                      height: 15.h,
+                      width: 100.w,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardTheme.color,
+                      ),
+                      child: ListView.builder(
+                        controller: scrollController,
+                        scrollDirection: Axis.horizontal,
+                        // cacheExtent: 0.0,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 10),
+                        itemCount: 25,
+                        itemBuilder: (context, compteur) {
+                          DateTime currentDate =
+                              DateTime.now().add(Duration(days: compteur));
+                          return Padding(
+                            padding: EdgeInsets.all(2.w),
+                            child: Material(
+                              borderRadius: BorderRadius.circular(10),
+                              color: (context
+                                              .read<AgendaBloc>()
+                                              .dayModels[
+                                                  pageController.page!.toInt()]
+                                              .date
+                                              .year ==
+                                          currentDate.year &&
+                                      context
+                                              .read<AgendaBloc>()
+                                              .dayModels[
+                                                  pageController.page!.toInt()]
+                                              .date
+                                              .month ==
+                                          currentDate.month &&
+                                      context
+                                              .read<AgendaBloc>()
+                                              .dayModels[
+                                                  pageController.page!.toInt()]
+                                              .date
+                                              .day ==
+                                          currentDate.day)
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.transparent,
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(10),
+                                onTap: () {
+                                  setState(() {
+                                    final int pageIndex = context
+                                        .read<AgendaBloc>()
+                                        .dayModels
+                                        .indexWhere((element) =>
+                                            element.date.year ==
+                                                currentDate.year &&
+                                            element.date.month ==
+                                                currentDate.month &&
+                                            element.date.day ==
+                                                currentDate.day);
+                                    pageController.animateToPage(
+                                      pageIndex,
+                                      curve: Curves.easeInOut,
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                    );
+
+                                    scrollController.animateTo(
+                                        indexToOffset(compteur),
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        curve: Curves.easeInOut);
+                                  });
+                                },
+                                child: SizedBox(
+                                  height: 10.h,
+                                  width: 15.w,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(monthToString(currentDate.month,
+                                          short: true)),
+                                      Text(currentDate.day.toString()),
+                                      Text(weekdayToString(currentDate.weekday,
+                                          short: true)),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     )
                   : Container(),
@@ -147,8 +223,18 @@ class _AgendaWrapedState extends State<AgendaWraped> {
                         .read<SettingsBloc>()
                         .settings
                         .showMiniCalendar) {
-                      dateController.animateToDate(
-                          context.read<AgendaBloc>().dayModels[index].date);
+                      setState(() {
+                        scrollController.animateTo(
+                            indexToOffset(context
+                                    .read<AgendaBloc>()
+                                    .dayModels[index]
+                                    .date
+                                    .difference(DateTime.now())
+                                    .inDays +
+                                1),
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut);
+                      });
                     }
                   },
                   children: context

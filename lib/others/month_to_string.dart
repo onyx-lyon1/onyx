@@ -1,29 +1,29 @@
-String monthToString(int month){
+String monthToString(int month, {bool short = false}) {
   switch (month) {
     case 1:
-      return "Janvier";
+      return short ? "Jan." : "Janvier";
     case 2:
-      return "Février";
+      return short ? "Fév." : "Février";
     case 3:
-      return "Mars";
+      return short ? "Mar." : "Mars";
     case 4:
-      return "Avril";
+      return short ? "Avr." : "Avril";
     case 5:
-      return "Mai";
+      return short ? "Mai." : "Mai";
     case 6:
-      return "Juin";
+      return short ? "Juin." : "Juin";
     case 7:
-      return "Juillet";
+      return short ? "Juil." : "Juillet";
     case 8:
-      return "Août";
+      return short ? "Août." : "Août";
     case 9:
-      return "Septembre";
+      return short ? "Sept." : "Septembre";
     case 10:
-      return "Octobre";
+      return short ? "Oct." : "Octobre";
     case 11:
-      return "Novembre";
+      return short ? "Nov." : "Novembre";
     case 12:
-      return "Décembre";
+      return short ? "Déc." : "Décembre";
     default:
       return "Erreur";
   }
