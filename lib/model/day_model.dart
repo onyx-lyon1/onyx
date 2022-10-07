@@ -1,4 +1,4 @@
-import 'package:oloid2/model/event.dart';
+import 'package:oloid2/model/event_model.dart';
 
 class DayModel {
   List<EventModel> events;

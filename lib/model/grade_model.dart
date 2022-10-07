@@ -1,41 +1,37 @@
 import 'package:dartus/tomuss.dart';
 
 class GradeModel {
-  late String _name;
-  late String _author;
+  late String name;
+  late String author;
+  late double gradeNumerator;
+  late int gradeDenominator;
+  late int rank;
+  late double average;
+  late double mediane;
+  late int groupSize;
+  late bool isValidGrade;
 
-  late double _gradeNumerator;
-  late int _gradeDenominator;
-  late int _rank;
-  late double _average;
-  late double _mediane;
+  GradeModel({
+    required this.name,
+    required this.author,
+    required this.groupSize,
+    required this.gradeNumerator,
+    required this.gradeDenominator,
+    required this.rank,
+    required this.average,
+    required this.mediane,
+    required this.isValidGrade,
+  });
 
-  GradeModel(
-    this._name,
-    this._author,
-    this._average,
-    this._gradeDenominator,
-    this._gradeNumerator,
-    this._mediane,
-    this._rank,
-  );
-
-  GradeModel.fromGrade(Grade g) {
-    _name = g.name;
-    _author = g.author;
-    _gradeNumerator = g.gradeNumerator;
-    _gradeDenominator = g.gradeDenominator;
-    _rank = g.rank;
-    _average = g.average;
-    _mediane = g.mediane;
+  GradeModel.fromGrade(Grade grade) {
+    name = grade.name;
+    author = grade.author;
+    gradeNumerator = grade.gradeNumerator;
+    gradeDenominator = grade.gradeDenominator;
+    rank = grade.rank;
+    average = grade.average;
+    mediane = grade.mediane;
+    groupSize = grade.groupSize;
+    isValidGrade = grade.isValidGrade;
   }
-
-  String get name => _name;
-  String get author => _author;
-  int get rank => _rank;
-  int get gradeDenominator => _gradeDenominator;
-  double get average => _average;
-  double get gradeNumerator => _gradeNumerator;
-  double get mediane => _mediane;
-  String get humanGrade => "$_gradeNumerator/$_gradeDenominator";
 }

@@ -56,7 +56,9 @@ class EmailsPage extends StatelessWidget {
                   return null;
                 }),
               ),
-              onRefresh: () async {},
+              onRefresh: () async {
+                context.read<EmailBloc>().add(EmailLoad());
+              },
             ));
       },
     );

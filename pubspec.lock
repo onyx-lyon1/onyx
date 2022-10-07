@@ -49,14 +49,14 @@ packages:
       name: basic_utils
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.9.4"
+    version: "4.5.2"
   beautiful_soup_dart:
     dependency: transitive
     description:
       name: beautiful_soup_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0"
+    version: "0.3.0"
   bloc:
     dependency: transitive
     description:
@@ -223,7 +223,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: baf6a1eff9107eaebbc11d3da00095045854c5f1
+      resolved-ref: bcb901379b46f466310a5374508d65f64d9cdb6b
       url: "git@github.com:hatch01/dartus-tomuss-client.git"
     source: git
     version: "1.0.3"
@@ -261,7 +261,7 @@ packages:
       name: dotenv
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "4.0.1"
   encrypt:
     dependency: transitive
     description:
@@ -282,7 +282,7 @@ packages:
       name: enough_mail
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.6"
+    version: "2.1.1"
   enough_serialization:
     dependency: transitive
     description:
@@ -451,7 +451,7 @@ packages:
       name: image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.3"
+    version: "3.2.0"
   intl:
     dependency: transitive
     description:
@@ -499,7 +499,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: a5b5431002b2a1d1198f57ce39f1904d82634873
+      resolved-ref: f708723173899022efe6175bb4b0fda6be84a4f6
       url: "git@github.com:hatch01/lyon1-agendaclient.git"
     source: git
     version: "1.0.0"
@@ -508,7 +508,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9f62d5a842c522cb193bcef6a1e0b2b5f02fb97f"
+      resolved-ref: "6e09ad8bde7c391284c248eaabe28c84ff79d5a2"
       url: "git@github.com:hatch01/lyon1-mailclient.git"
     source: git
     version: "1.0.0"
@@ -624,13 +624,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.3"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.11.1"
   permission_handler:
     dependency: "direct main"
     description:
@@ -929,7 +922,7 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.4.1"
+    version: "6.1.0"
   yaml:
     dependency: transitive
     description:

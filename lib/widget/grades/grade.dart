@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:oloid2/widget/card.dart';
-import '../../model/grade.dart';
+import '../../model/grade_model.dart';
 
 class Grade extends StatelessWidget {
   final GradeModel gradeModel;

@@ -21,7 +21,7 @@ class TeachingUnit extends StatelessWidget {
     for (var i in tu.grades) {
       rank += i.rank;
     }
-    rank = (rank / ((tu.grades.length != 0) ? tu.grades.length : 1)).round();
+    rank = (rank / ((tu.grades.isNotEmpty) ? tu.grades.length : 1)).round();
 
     return GestureDetector(
         onTap: () => onClick(tu),

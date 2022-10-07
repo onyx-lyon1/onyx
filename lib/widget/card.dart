@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:oloid2/model/grade_model.dart';
+import 'package:oloid2/model/teaching_unit.dart';
 import 'package:oloid2/theme/grade_color.dart';
 import 'package:sizer/sizer.dart';
 
@@ -32,31 +34,59 @@ class Card extends StatelessWidget {
     if (forceGreen || rank == null) {
       return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
     } else {
-      var x = (511 * rank! / groupeSize).floor();
-      Color b = Colors.red;
-      Color c = Colors.red;
-      if (rank! > groupeSize / 2) {
-        b = Color.fromARGB(255, 255, 511 - x, 511 - x);
-        if (rank! > 3 * groupeSize / 4) {
-          c = Colors.white;
-        } else {
-          b = Color.fromARGB(255, x, 255, x);
+      if (o is GradeModel) {
+        return _gradeColor(o);
+      } else if (o is TeachingUnitModel) {
+        int red = 0;
+        int green = 0;
+        int blue = 0;
+        for (var i in o.grades) {
+          Color color = _gradeColor(i);
+          red += color.red;
+          green += color.green;
+          blue += color.blue;
         }
-      }
-      return b;
-      // return 'background: rgb(' + b + ')' + c;
 
+        red = (red / ((o.grades.length == 0) ? 1 : o.grades.length)).round();
+        green =
+            (green / ((o.grades.length == 0) ? 1 : o.grades.length)).round();
+        blue = (blue / ((o.grades.length == 0) ? 1 : o.grades.length)).round();
+        return Color.fromARGB(255, red, green, blue);
+      }
     }
-    final double gradeValue =
-        double.tryParse(gradeNumerator) ?? double.infinity;
-    final double gradeDenominatorValue =
-        double.tryParse(gradeDenominator) ?? double.infinity;
-    final bool isGreen =
-        (gradeValue >= (gradeDenominatorValue / 2)) || forceGreen;
-    if (isGreen) {
+    return Colors.white;
+  }
+
+  Color _gradeColor(GradeModel grade) {
+    if (forceGreen || !grade.isValidGrade) {
       return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
     } else {
-      return isSeen ? GradeColor.seenRed : GradeColor.unseenRed;
+      //original official fonction
+      // function rank_to_color(rank, nr) {
+      //   var x = Math.floor(511 * rank / nr);
+      //   var b, c = '';
+      //   if (rank > nr / 2) {
+      //     b = '255,' + (511 - x) + ',' + (511 - x);
+      //     if (rank > 3 * nr / 4)
+      //       c = ';color:#FFF';
+      //   }
+      //   else
+      //     b = x + ',255,' + x;
+      //
+      //   return 'background: rgb(' + b + ')' + c
+      // }
+      var x = (511 * grade.rank / grade.groupSize).floor();
+      Color b = Colors.red;
+      if (grade.rank > grade.groupSize / 2) {
+        b = Color.fromARGB(255, 255, 511 - x, 511 - x);
+        if (grade.rank > 3 * grade.groupSize / 4) {
+          b = GradeColor.seenGreen;
+          //TODO add more explicit felicitation
+        }
+      } else {
+        b = Color.fromARGB(255, x, 255, x);
+      }
+      return b;
     }
   }
 

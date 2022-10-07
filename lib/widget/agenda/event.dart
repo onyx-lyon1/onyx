@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/model/event.dart';
+import 'package:oloid2/model/event_model.dart';
 
 class Event extends StatelessWidget {
   final EventModel event;

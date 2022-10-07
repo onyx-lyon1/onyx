@@ -7,8 +7,8 @@ import 'package:dartus/tomuss.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
-import 'package:oloid2/model/day.dart';
-import 'package:oloid2/model/event.dart';
+import 'package:oloid2/model/day_model.dart';
+import 'package:oloid2/model/event_model.dart';
 import 'package:oloid2/model/settings.dart';
 
 part 'agenda_event.dart';

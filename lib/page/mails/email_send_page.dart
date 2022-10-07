@@ -17,6 +17,7 @@ class EmailSendPage extends StatelessWidget {
     return BlocBuilder<EmailBloc, EmailState>(
       builder: (context, state) {
         if (state is EmailSended) {
+          context.read<EmailBloc>().add(EmailLoad());
           Navigator.pop(context);
         } else if (state is EmailSending) {
           return const StateDisplaying(message: "Sending message");
@@ -31,7 +32,6 @@ class EmailSendPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
                 splashColor: Theme.of(context).cardTheme.color,
                 onTap: () {
-                  print("try to send");
                   EmailModel email = EmailModel(
                       subject: subjectEditor.text,
                       sender: "me",
@@ -175,7 +175,7 @@ class EmailSendPage extends StatelessWidget {
                   ),
                   Container(
                     color: Theme.of(context).cardTheme.color,
-                    height: 83.h,
+                    height: 80.h,
                     width: 100.w,
                     child: Padding(
                       padding: EdgeInsets.all(1.h),

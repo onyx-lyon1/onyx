@@ -9,7 +9,7 @@ import 'package:lyon1mail/lyon1mail.dart';
 import 'package:sizer/sizer.dart';
 
 import 'home.dart';
-import 'model/day.dart';
+import 'model/day_model.dart';
 import 'model/teaching_unit.dart';
 import 'theme/theme.dart';
 

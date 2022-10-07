@@ -1,4 +1,4 @@
-import 'package:oloid2/model/grade.dart';
+import 'package:oloid2/model/grade_model.dart';
 import 'package:oloid2/model/text_model.dart';
 
 import 'teacher_model.dart';

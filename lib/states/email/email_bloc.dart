@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:lyon1mail/src/model/address.dart';
 import 'package:oloid2/model/mail_model.dart';
 
 part 'email_event.dart';
@@ -31,6 +30,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   void connect(EmailConnect event, Emitter<EmailState> emit) async {
+    print("connect");
     username = event.username;
     password = event.password;
     mailClient = Lyon1Mail(username, password);
@@ -63,9 +63,11 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     }
 
     if (!event.email.isRead) {
-      if (!await mailClient.login()) {
-        print("probleme de login des email");
-        emit(EmailError());
+      if (!mailClient.isAuthenticated) {
+        if (!await mailClient.login()) {
+          print("probleme de login des email");
+          emit(EmailError());
+        }
       }
       await mailClient.markAsRead(event.email.id!);
       if (kDebugMode) {
@@ -80,9 +82,12 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
 
   void load(EmailLoad event, Emitter<EmailState> emit) async {
     emit(EmailLoading());
-    if (!await mailClient.login()) {
-      print("probleme de login des email");
-      emit(EmailError());
+    emailsComplete = [];
+    if (!mailClient.isAuthenticated) {
+      if (!await mailClient.login()) {
+        print("probleme de login des email");
+        emit(EmailError());
+      }
     }
     final Option<List<Mail>> emailOpt = await mailClient.fetchMessages(15);
     if (emailOpt.isNone()) {
@@ -90,7 +95,6 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         print("no emails");
       }
     } else {
-      // emails.addAll(emailOpt.toIterable().first);
       for (final Mail mail in emailOpt.toIterable().first) {
         emailsComplete.add(EmailModel.fromMailLib(mail));
       }
@@ -102,9 +106,11 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
 
   void send(EmailSend event, Emitter<EmailState> emit) async {
     if (state is! EmailSending) {
-      if (!await mailClient.login()) {
-        print("probleme de login des email");
-        emit(EmailError());
+      if (!mailClient.isAuthenticated) {
+        if (!await mailClient.login()) {
+          print("probleme de login des email");
+          emit(EmailError());
+        }
       }
       emit(EmailSending());
       if (kDebugMode) {
