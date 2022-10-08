@@ -63,7 +63,7 @@ class AgendaWraped extends StatefulWidget {
 
 class _AgendaWrapedState extends State<AgendaWraped> {
   PageController pageController = PageController();
-  final ScrollController scrollController = ScrollController();
+  ScrollController scrollController = ScrollController();
   DateTime wantedDate = DateTime.now();
   bool animating = false;
 
@@ -76,6 +76,7 @@ class _AgendaWrapedState extends State<AgendaWraped> {
                 element.date.year == DateTime.now().year &&
                 element.date.month == DateTime.now().month &&
                 element.date.day == DateTime.now().day));
+    scrollController = ScrollController(initialScrollOffset: 0.0);
   }
 
   static double indexToOffset(int index) {
@@ -84,26 +85,26 @@ class _AgendaWrapedState extends State<AgendaWraped> {
 
   @override
   Widget build(BuildContext context) {
-    final int pageIndex = context.read<AgendaBloc>().dayModels.indexWhere(
-        (element) =>
-            element.date.year == wantedDate.year &&
-            element.date.month == wantedDate.month &&
-            element.date.day == wantedDate.day);
-    pageController.animateToPage(
-      pageIndex,
-      curve: Curves.easeInOut,
-      duration: const Duration(milliseconds: 500),
-    );
-
-    scrollController.animateTo(
-        indexToOffset(wantedDate.difference(DateTime.now()).inDays),
+    if (scrollController.hasClients && pageController.hasClients) {
+      final int pageIndex = context.read<AgendaBloc>().dayModels.indexWhere(
+          (element) =>
+              element.date.year == wantedDate.year &&
+              element.date.month == wantedDate.month &&
+              element.date.day == wantedDate.day);
+      pageController.animateToPage(
+        pageIndex,
+        curve: Curves.easeInOut,
         duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut);
-
-    if (pageIndex != pageController.page) {
-      animating = true;
-      Future.delayed(
-          const Duration(milliseconds: 500), () => animating = false);
+      );
+      scrollController.animateTo(
+          indexToOffset(wantedDate.difference(DateTime.now()).inDays),
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut);
+      if (pageIndex != pageController.page) {
+        animating = true;
+        Future.delayed(
+            const Duration(milliseconds: 500), () => animating = false);
+      }
     }
     return Container(
         color: Theme.of(context).backgroundColor,

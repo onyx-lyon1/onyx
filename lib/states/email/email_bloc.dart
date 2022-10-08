@@ -91,7 +91,11 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       }
     } else {
       for (final Mail mail in emailOpt.toIterable().first) {
-        emailsComplete.add(EmailModel.fromMailLib(mail));
+        if (!emailsComplete.any((element) =>
+            element.date == mail.getDate() &&
+            element.body == mail.getBody(excerpt: false))) {
+          emailsComplete.add(EmailModel.fromMailLib(mail));
+        }
       }
       emails = emailsComplete;
     }

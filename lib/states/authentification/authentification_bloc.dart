@@ -56,6 +56,9 @@ class AuthentificationBloc
       if (await tomuss.authenticate()) {
         dartus = tomuss;
         if (event.keepLogedIn) {
+          if (!authBox.isOpen) {
+            authBox = await Hive.openBox<Authentication>("authentification");
+          }
           await authBox.put("credential", auth);
         }
         emit(AuthentificationAuthentificated());
