@@ -10,6 +10,8 @@ import 'package:oloid2/model/teacher_model.dart';
 import 'package:oloid2/model/teaching_unit.dart';
 import 'package:oloid2/model/text_model.dart';
 import 'package:oloid2/model/wrapper/day_model_wrapper.dart';
+import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
+import 'package:oloid2/model/wrapper/teaching_unit_model_wrapper.dart';
 
 import 'app.dart';
 
@@ -20,9 +22,11 @@ void main() async {
   Hive.registerAdapter(EventModelAdapter());
   Hive.registerAdapter(GradeModelAdapter());
   Hive.registerAdapter(EmailModelAdapter());
+  Hive.registerAdapter(EmailModelWrapperAdapter());
   Hive.registerAdapter(SettingsModelAdapter());
   Hive.registerAdapter(TeacherModelAdapter());
   Hive.registerAdapter(TeachingUnitModelAdapter());
+  Hive.registerAdapter(TeachingUnitModelWrapperAdapter());
   Hive.registerAdapter(TextModelAdapter());
 
   await Hive.initFlutter();
