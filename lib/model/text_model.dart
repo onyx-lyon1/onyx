@@ -1,20 +1,29 @@
 import 'package:dartus/tomuss.dart';
+import 'package:hive_flutter/adapters.dart';
 
+part 'text_model.g.dart';
+
+@HiveType(typeId: 9)
 class TextModel {
-  late String _name;
-  late String _value;
-  late String _author;
-  late String _comment;
+  @HiveField(0)
+  late String name;
+  @HiveField(1)
+  late String value;
+  @HiveField(2)
+  late String author;
+  @HiveField(3)
+  late String comment;
+
+  TextModel(
+      {required this.name,
+      required this.value,
+      required this.author,
+      required this.comment});
 
   TextModel.fromText(Text t) {
-    _name = t.name;
-    _value = t.value;
-    _author = t.author;
-    _comment = t.comment;
+    name = t.name;
+    value = t.value;
+    author = t.author;
+    comment = t.comment;
   }
-
-  String get name => _name;
-  String get value => _value;
-  String get author => _author;
-  String get comment => _comment;
 }

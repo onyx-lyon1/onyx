@@ -8,7 +8,7 @@ part of 'settings.dart';
 
 class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
   @override
-  final int typeId = 2;
+  final int typeId = 6;
 
   @override
   SettingsModel read(BinaryReader reader) {
@@ -16,17 +16,18 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return SettingsModel()
-      ..keepMeLoggedIn = fields[0] as bool
-      ..forceGreen = fields[1] as bool
-      ..darkMode = fields[2] as bool
-      ..newGradeNotification = fields[3] as bool
-      ..showHiddenUE = fields[4] as bool
-      ..fetchAgendaAuto = fields[5] as bool
-      ..showMiniCalendar = fields[6] as bool
-      ..agendaURL = fields[7] as String
-      ..newMailNotification = fields[8] as bool
-      ..blockTrackers = fields[9] as bool;
+    return SettingsModel(
+      keepMeLoggedIn: fields[0] as bool,
+      forceGreen: fields[1] as bool,
+      darkMode: fields[2] as bool,
+      newGradeNotification: fields[3] as bool,
+      showHiddenUE: fields[4] as bool,
+      fetchAgendaAuto: fields[5] as bool,
+      showMiniCalendar: fields[6] as bool,
+      agendaURL: fields[7] as String,
+      newMailNotification: fields[8] as bool,
+      blockTrackers: fields[9] as bool,
+    );
   }
 
   @override

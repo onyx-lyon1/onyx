@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 
 part 'settings.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 6)
 class SettingsModel {
   @HiveField(0)
   late bool keepMeLoggedIn;

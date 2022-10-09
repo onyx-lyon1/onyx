@@ -1,13 +1,25 @@
 import 'package:lyon1mail/lyon1mail.dart' as lyon1mail;
+import 'package:hive_flutter/hive_flutter.dart';
 
+part 'mail_model.g.dart';
+
+@HiveType(typeId: 5)
 class EmailModel {
+  @HiveField(0)
   final String subject;
+  @HiveField(1)
   final String sender;
+  @HiveField(2)
   final String excerpt;
+  @HiveField(3)
   final String body;
+  @HiveField(4)
   final int? id;
+  @HiveField(5)
   final bool isRead;
+  @HiveField(6)
   final DateTime date;
+  @HiveField(7)
   final String receiver;
 
   EmailModel(

@@ -1,15 +1,26 @@
+import 'package:hive_flutter/adapters.dart';
 import 'package:oloid2/model/grade_model.dart';
 import 'package:oloid2/model/text_model.dart';
 
 import 'teacher_model.dart';
 
+part 'teaching_unit.g.dart';
+
+
+@HiveType(typeId: 8)
 class TeachingUnitModel {
+  @HiveField(0)
   final String name;
+  @HiveField(1)
   final List<TeacherModel> masters;
+  @HiveField(2)
   final List<GradeModel> grades;
+  @HiveField(3)
   final List<TextModel> textValues;
 
+  @HiveField(4)
   final bool isSeen;
+  @HiveField(5)
   final bool isHidden;
 
   TeachingUnitModel({
