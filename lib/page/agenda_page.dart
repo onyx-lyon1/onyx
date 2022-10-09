@@ -71,7 +71,7 @@ class _AgendaWrapedState extends State<AgendaWraped> {
   void initState() {
     super.initState();
     pageController = PageController(
-        initialPage: context.read<AgendaBloc>().dayModels.indexWhere(
+        initialPage: context.read<AgendaBloc>().dayModels.dayModels.indexWhere(
             (element) =>
                 element.date.year == DateTime.now().year &&
                 element.date.month == DateTime.now().month &&
@@ -86,8 +86,11 @@ class _AgendaWrapedState extends State<AgendaWraped> {
   @override
   Widget build(BuildContext context) {
     if (scrollController.hasClients && pageController.hasClients) {
-      final int pageIndex = context.read<AgendaBloc>().dayModels.indexWhere(
-          (element) =>
+      final int pageIndex = context
+          .read<AgendaBloc>()
+          .dayModels
+          .dayModels
+          .indexWhere((element) =>
               element.date.year == wantedDate.year &&
               element.date.month == wantedDate.month &&
               element.date.day == wantedDate.day);
@@ -177,13 +180,17 @@ class _AgendaWrapedState extends State<AgendaWraped> {
                             .showMiniCalendar &&
                         !animating) {
                       setState(() {
-                        wantedDate =
-                            context.read<AgendaBloc>().dayModels[index].date;
+                        wantedDate = context
+                            .read<AgendaBloc>()
+                            .dayModels
+                            .dayModels[index]
+                            .date;
                       });
                     }
                   },
                   children: context
                       .read<AgendaBloc>()
+                      .dayModels
                       .dayModels
                       .map(
                         (day) => SizedBox(

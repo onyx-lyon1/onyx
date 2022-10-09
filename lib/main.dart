@@ -9,13 +9,14 @@ import 'package:oloid2/model/settings.dart';
 import 'package:oloid2/model/teacher_model.dart';
 import 'package:oloid2/model/teaching_unit.dart';
 import 'package:oloid2/model/text_model.dart';
-
+import 'package:oloid2/model/wrapper/day_model_wrapper.dart';
 
 import 'app.dart';
 
 void main() async {
   Hive.registerAdapter(AuthenticationAdapter());
   Hive.registerAdapter(DayModelAdapter());
+  Hive.registerAdapter(DayModelWrapperAdapter());
   Hive.registerAdapter(EventModelAdapter());
   Hive.registerAdapter(GradeModelAdapter());
   Hive.registerAdapter(EmailModelAdapter());
@@ -23,7 +24,6 @@ void main() async {
   Hive.registerAdapter(TeacherModelAdapter());
   Hive.registerAdapter(TeachingUnitModelAdapter());
   Hive.registerAdapter(TextModelAdapter());
-
 
   await Hive.initFlutter();
   runApp(const OloidApp());
