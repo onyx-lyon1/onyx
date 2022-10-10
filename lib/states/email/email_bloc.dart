@@ -5,6 +5,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:oloid2/model/mail_model.dart';
+import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
+import 'package:oloid2/others/cache_service.dart';
 
 part 'email_event.dart';
 
@@ -30,6 +32,12 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   void connect(EmailConnect event, Emitter<EmailState> emit) async {
+    if (await CacheService.exist<EmailModelWrapper>()) {
+      emailsComplete =
+          (await CacheService.get<EmailModelWrapper>())!.emailModels;
+      emails = emailsComplete;
+      emit(EmailConnecting());
+    }
     username = event.username;
     password = event.password;
     mailClient = Lyon1Mail(username, password);
@@ -77,7 +85,13 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
 
   void load(EmailLoad event, Emitter<EmailState> emit) async {
     emit(EmailLoading());
-    emailsComplete = [];
+    if (await CacheService.exist<EmailModelWrapper>()) {
+      emailsComplete =
+          (await CacheService.get<EmailModelWrapper>())!.emailModels;
+      emails = emailsComplete;
+      emit(EmailLoaded());
+    }
+    List<EmailModel> tmpEmailsComplete = [];
     if (!mailClient.isAuthenticated) {
       if (!await mailClient.login()) {
         emit(EmailError());
@@ -91,13 +105,16 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       }
     } else {
       for (final Mail mail in emailOpt.toIterable().first) {
-        if (!emailsComplete.any((element) =>
+        if (!tmpEmailsComplete.any((element) =>
             element.date == mail.getDate() &&
             element.body == mail.getBody(excerpt: false))) {
-          emailsComplete.add(EmailModel.fromMailLib(mail));
+          tmpEmailsComplete.add(EmailModel.fromMailLib(mail));
         }
       }
+      emailsComplete = tmpEmailsComplete;
       emails = emailsComplete;
+      CacheService.set<EmailModelWrapper>(
+          EmailModelWrapper(emailsComplete)); //await à definir
     }
     emit(EmailLoaded());
     await mailClient.logout();

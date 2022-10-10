@@ -11,6 +11,8 @@ import 'package:oloid2/model/grade_model.dart';
 import 'package:oloid2/model/teacher_model.dart';
 import 'package:oloid2/model/teaching_unit.dart';
 import 'package:oloid2/model/text_model.dart';
+import 'package:oloid2/model/wrapper/teaching_unit_model_wrapper.dart';
+import 'package:oloid2/others/cache_service.dart';
 
 part 'grades_event.dart';
 
@@ -27,8 +29,13 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
   }
 
   Future<void> load(GradesLoad event, Emitter<GradesState> emit) async {
+    if (await CacheService.exist<TeachingUnitModelWrapper>()) {
+      teachingUnits = (await CacheService.get<TeachingUnitModelWrapper>())!
+          .teachingUnitModels;
+      emit(GradesReady());
+    }
     emit(GradesLoading());
-    teachingUnits = [];
+    List<TeachingUnitModel> tmpTeachingUnits = [];
     Option<ParsedPage> parsedPageOpt =
         await event.dartus.getParsedPage(Dartus.currentSemester());
     if (parsedPageOpt.isNone()) {
@@ -40,7 +47,7 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
     final ParsedPage parsedPage =
         parsedPageOpt.getOrElse(() => ParsedPage.empty());
     for (final TeachingUnit tu in parsedPage.teachingunits) {
-      teachingUnits.add(TeachingUnitModel(
+      tmpTeachingUnits.add(TeachingUnitModel(
           isSeen: false,
           isHidden: false,
           name: tu.name,
@@ -49,6 +56,9 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
           textValues:
               tu.textValues.map((e) => TextModel.fromText(e)).toList()));
     }
+    teachingUnits = tmpTeachingUnits;
+    CacheService.set<TeachingUnitModelWrapper>(
+        TeachingUnitModelWrapper(teachingUnits)); //await à definir
     emit(GradesReady());
   }
 }

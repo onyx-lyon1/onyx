@@ -5,6 +5,7 @@ abstract class EmailState {}
 
 class EmailInitial extends EmailState {}
 class EmailConnected extends EmailState {}
+class EmailConnecting extends EmailState {}
 class EmailLoading extends EmailState {}
 class EmailLoaded extends EmailState {}
 class EmailSending extends EmailState {}
