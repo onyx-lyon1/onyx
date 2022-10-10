@@ -757,6 +757,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  simple_dark_mode_webview:
+    dependency: "direct main"
+    description:
+      name: simple_dark_mode_webview
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.1"
   sizer:
     dependency: "direct main"
     description:

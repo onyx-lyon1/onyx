@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:simple_dark_mode_webview/simpledarkmodewebview.dart';
 import 'package:sizer/sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -98,19 +99,21 @@ class EmailDetailsPage extends StatelessWidget {
                 width: 100.w,
                 child: (mail.body.toLowerCase().contains("html") &&
                         (Platform.isAndroid || Platform.isIOS))
-                    ? WebView(
-                        initialUrl: '',
+                    ? SimpleDarkModeAdaptableWebView(
+                        mail.body,
+                        encoding: Encoding.getByName('utf-8'),
+                        // initialUrl: '',
                         javascriptMode: JavascriptMode.unrestricted,
-                        onWebViewCreated: (controller) async {
-                          webViewController = controller;
-                          webViewController.loadUrl(Uri.dataFromString(
-                                  mail.body,
-                                  mimeType: 'text/html',
-                                  encoding: Encoding.getByName('utf-8'))
-                              .toString());
-                        },
+                        // onWebViewCreated: (controller) async {
+                        //   webViewController = controller;
+                        //   webViewController.loadUrl(Uri.dataFromString(
+                        //           mail.body,
+                        //           mimeType: 'text/html',
+                        //           encoding: Encoding.getByName('utf-8'))
+                        //       .toString());
+                        // },
                       )
-                    : Text(mail.body),
+                    : SelectableText(mail.body),
               ),
             ],
           ),
