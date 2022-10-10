@@ -19,7 +19,7 @@ part 'agenda_state.dart';
 
 class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   Lyon1Agenda? agendaClient;
-  DayModelWrapper dayModels = DayModelWrapper([]);
+  List<DayModel> dayModels = [];
 
   AgendaBloc() : super(AgendaInitial()) {
     on<AgendaEvent>((event, emit) {
@@ -30,7 +30,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
 
   Future<void> load(AgendaLoad event, Emitter emit) async {
     if (await CacheService.exist<DayModelWrapper>()) {
-      dayModels = (await CacheService.get<DayModelWrapper>())!;
+      dayModels = (await CacheService.get<DayModelWrapper>())!.dayModels;
       emit(AgendaReady());
     }
     late Option<Agenda> agendaOpt;
@@ -55,7 +55,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     }
     final Agenda agenda = agendaOpt.toNullable() ?? Agenda.empty();
 
-    DayModelWrapper tmpDayModels = DayModelWrapper([]);
+    List<DayModel> tmpDayModels = [];
 
     for (final Event e in agenda.events) {
       EventModel event = EventModel(
@@ -67,21 +67,21 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
           start: e.start.toLocal(),
           teacher: e.teacher);
 
-      int index = tmpDayModels.dayModels.indexWhere((element) =>
+      int index = tmpDayModels.indexWhere((element) =>
           element.date.toLocal().day == e.start.toLocal().day &&
           element.date.toLocal().month == e.start.toLocal().month &&
           element.date.toLocal().year == e.start.toLocal().year);
 
       if (index != -1) {
-        tmpDayModels.dayModels[index].events.add(event);
+        tmpDayModels[index].events.add(event);
       } else {
-        tmpDayModels.dayModels.add(DayModel(
+        tmpDayModels.add(DayModel(
             DateTime(e.start.toLocal().year, e.start.toLocal().month,
                 e.start.toLocal().day),
             [event]));
       }
     }
-    for (var i in tmpDayModels.dayModels) {
+    for (var i in tmpDayModels) {
       List<EventModel> events = [];
       for (var e in i.events) {
         if (events.indexWhere((element) => element.start == e.start) == -1) {
@@ -91,19 +91,19 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
       i.events = events;
       i.events.sort((a, b) => a.start.compareTo(b.start));
     }
-    tmpDayModels.dayModels.sort((a, b) => a.date.compareTo(b.date));
-    DateTime first = tmpDayModels.dayModels.first.date;
-    DateTime last = tmpDayModels.dayModels.last.date;
+    tmpDayModels.sort((a, b) => a.date.compareTo(b.date));
+    DateTime first = tmpDayModels.first.date;
+    DateTime last = tmpDayModels.last.date;
     for (DateTime i = first;
         i.isBefore(last);
         i = i.add(const Duration(days: 1))) {
-      int index = tmpDayModels.dayModels.indexWhere((element) =>
+      int index = tmpDayModels.indexWhere((element) =>
           element.date.toLocal().day == i.day &&
           element.date.toLocal().month == i.month &&
           element.date.toLocal().year == i.year);
       if (index == -1) {
-        tmpDayModels.dayModels.insert(
-            tmpDayModels.dayModels.indexWhere((element) =>
+        tmpDayModels.insert(
+            tmpDayModels.indexWhere((element) =>
                     element.date.toLocal().day ==
                         i.subtract(const Duration(days: 1)).day &&
                     element.date.toLocal().month ==
@@ -115,7 +115,8 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
       }
     }
     dayModels = tmpDayModels;
-    CacheService.set<DayModelWrapper>(dayModels); //await à definir
+    CacheService.set<DayModelWrapper>(
+        DayModelWrapper(dayModels)); //await à definir
     emit(AgendaReady());
     return;
   }
