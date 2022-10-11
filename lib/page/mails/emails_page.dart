@@ -1,3 +1,4 @@
+// ignore: unnecessary_import
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,9 +28,6 @@ class EmailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EmailBloc, EmailState>(
       builder: (context, state) {
-        if (kDebugMode) {
-          print(state);
-        }
         if (state is EmailError) {
           return const StateDisplaying(
               message: "Something went wrong with emails");

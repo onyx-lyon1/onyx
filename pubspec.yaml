@@ -16,14 +16,12 @@ dependencies:
   calendar_timeline: ^1.0.4
   dartus:
     git: git@github.com:hatch01/dartus-tomuss-client.git
-  #  bottom_sflheet: ^3.0.0
   modal_bottom_sheet: ^2.0.1
   mobile_scanner: ^2.0.0
   permission_handler: ^10.0.0
   flutter_bloc: ^8.0.0
   hive_flutter: ^1.1.0
   sizer: ^2.0.15
-  simple_dark_mode_webview: ^0.3.1
   webview_flutter: ^3.0.4
   lyon1mail:
     git: git@github.com:hatch01/lyon1-mailclient.git

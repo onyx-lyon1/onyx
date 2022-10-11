@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
+import 'package:oloid2/others/hex.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
-import 'package:simple_dark_mode_webview/simpledarkmodewebview.dart';
 import 'package:sizer/sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -99,19 +101,27 @@ class EmailDetailsPage extends StatelessWidget {
                 width: 100.w,
                 child: (mail.body.toLowerCase().contains("html") &&
                         (Platform.isAndroid || Platform.isIOS))
-                    ? SimpleDarkModeAdaptableWebView(
-                        mail.body,
-                        encoding: Encoding.getByName('utf-8'),
-                        // initialUrl: '',
+                    ? WebView(
+                        initialUrl: '',
                         javascriptMode: JavascriptMode.unrestricted,
-                        // onWebViewCreated: (controller) async {
-                        //   webViewController = controller;
-                        //   webViewController.loadUrl(Uri.dataFromString(
-                        //           mail.body,
-                        //           mimeType: 'text/html',
-                        //           encoding: Encoding.getByName('utf-8'))
-                        //       .toString());
-                        // },
+                        gestureRecognizers: Platform.isAndroid
+                            ? {Factory(() => EagerGestureRecognizer())}
+                            : null,
+                        onWebViewCreated: (controller) async {
+                          webViewController = controller;
+                          webViewController.loadUrl(Uri.dataFromString(
+                                  //add background screen
+                                  '<!DOCTYPE html>'
+                                  '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
+                                  '<style>body { background-color: ${Theme.of(context).backgroundColor.toHex()}; } </style>'
+                                  '</head>'
+                                  '<body text="${Theme.of(context).textTheme.bodyText2?.color?.toHex()}" >'
+                                  '${mail.body}'
+                                  '</body>',
+                                  mimeType: 'text/html',
+                                  encoding: Encoding.getByName('utf-8'))
+                              .toString());
+                        },
                       )
                     : SelectableText(mail.body),
               ),

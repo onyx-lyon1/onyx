@@ -65,10 +65,6 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   void markAsRead(EmailMarkAsRead event, Emitter<EmailState> emit) async {
-    if (kDebugMode) {
-      print("mark as read");
-    }
-
     if (!event.email.isRead) {
       if (!mailClient.isAuthenticated) {
         if (!await mailClient.login()) {
