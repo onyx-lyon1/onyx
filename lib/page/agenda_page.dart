@@ -127,7 +127,13 @@ class _AgendaWrapedState extends State<AgendaWraped> {
                         // cacheExtent: 0.0,
                         padding: const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 10),
-                        itemCount: 25,
+                        itemCount: context
+                            .read<AgendaBloc>()
+                            .dayModels
+                            .last
+                            .date
+                            .difference(DateTime.now())
+                            .inDays,
                         itemBuilder: (context, compteur) {
                           DateTime currentDate =
                               DateTime.now().add(Duration(days: compteur));
