@@ -14,7 +14,7 @@ part 'authentification_state.dart';
 
 class AuthentificationBloc
     extends Bloc<AuthentificationEvent, AuthentificationState> {
-  late tomusslib.Dartus dartus;
+  tomusslib.Dartus? dartus;
   late String usename;
   late String password;
 
@@ -89,7 +89,9 @@ class AuthentificationBloc
     usename = "";
     password = "";
     // await authBox.close();
-    await dartus.logout();
+    if (dartus != null) {
+      await dartus!.logout();
+    }
     emit(AuthentificationNeedCredential());
   }
 }

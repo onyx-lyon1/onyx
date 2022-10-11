@@ -26,6 +26,11 @@ class _LoginPageState extends State<LoginPage> {
       return const StateDisplaying(message: "Start authentification");
     } else if (state is AuthentificationAuthentificating) {
       return const StateDisplaying(message: "Authentificating");
+    } else if (state is AuthentificationError) {
+      Future.delayed(const Duration(seconds: 1), () {
+        context.read<AuthentificationBloc>().add(AuthentificationLogout());
+      });
+      return const StateDisplaying(message: "Login error");
     } else if (state is AuthentificationNeedCredential) {
       return Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -50,7 +55,9 @@ class _LoginPageState extends State<LoginPage> {
                   color: Theme.of(context).cardTheme.color,
                   width: 70.w,
                   child: TextFormField(
-                    onSaved: (String? value) => username = value!,
+                    onSaved: (String? value) =>
+                        username = value!.replaceFirst("p", "P"),
+                    textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       labelText: 'Username',
                       labelStyle: Theme.of(context)
@@ -66,7 +73,8 @@ class _LoginPageState extends State<LoginPage> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Veuillez entrer l\'identifiant';
-                      } else if (!value.startsWith("P")) {
+                      } else if (!(value.startsWith("P") ||
+                          value.startsWith("p"))) {
                         return "l'identifiant doit commencer par P";
                       }
                       return null;
@@ -77,6 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                   color: Theme.of(context).cardTheme.color,
                   width: 70.w,
                   child: PasswordFormField(
+                    onFieldSubmitted: send,
                     decoration: InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
@@ -97,22 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 1.h,
                 ),
                 ElevatedButton(
-                  onPressed: () async {
-                    // Validate returns true if the form is valid, or false otherwise.
-                    if (_formKey.currentState!.validate()) {
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
-                      _formKey.currentState!.save();
-                      context.read<AuthentificationBloc>().add(
-                          AuthentificationLogin(
-                              username: username,
-                              password: password,
-                              keepLogedIn: context
-                                  .read<SettingsBloc>()
-                                  .settings
-                                  .keepMeLoggedIn));
-                    }
-                  },
+                  onPressed: send,
                   style: ButtonStyle(
                       backgroundColor: MaterialStateColor.resolveWith(
                           (states) => Theme.of(context).primaryColor)),
@@ -127,18 +121,33 @@ class _LoginPageState extends State<LoginPage> {
       return const StateDisplaying(message: "Doing something");
     }
   }
+
+  void send() async {
+    // Validate returns true if the form is valid, or false otherwise.
+    if (_formKey.currentState!.validate()) {
+      // If the form is valid, display a snackbar. In the real world,
+      // you'd often call a server or save the information in a database.
+      _formKey.currentState!.save();
+      context.read<AuthentificationBloc>().add(AuthentificationLogin(
+          username: username,
+          password: password,
+          keepLogedIn: context.read<SettingsBloc>().settings.keepMeLoggedIn));
+    }
+  }
 }
 
 class PasswordFormField extends StatefulWidget {
   final FormFieldSetter<String?>? onSaved;
   final FormFieldValidator? validator;
   final InputDecoration decoration;
+  final void Function() onFieldSubmitted;
 
   const PasswordFormField({
     Key? key,
     this.onSaved,
     this.validator,
     this.decoration = const InputDecoration(),
+    required this.onFieldSubmitted,
   }) : super(key: key);
 
   @override
@@ -154,6 +163,8 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       onSaved: widget.onSaved,
       validator: widget.validator,
       obscureText: _isObscure,
+      textInputAction: TextInputAction.done,
+      onFieldSubmitted: (String useless) => widget.onFieldSubmitted(),
       decoration: widget.decoration.copyWith(
           labelText: 'Password',
           labelStyle: Theme.of(context)

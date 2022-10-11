@@ -24,7 +24,7 @@ class AgendaPage extends StatelessWidget {
         builder: (context, state) {
           if (state is AgendaInitial) {
             context.read<AgendaBloc>().add(AgendaLoad(
-                context.read<AuthentificationBloc>().dartus,
+                context.read<AuthentificationBloc>().dartus!,
                 context.read<SettingsBloc>().settings));
             return Center(
                 child: Column(
@@ -228,7 +228,7 @@ class _AgendaWrapedState extends State<AgendaWraped> {
           ),
           onRefresh: () async {
             context.read<AgendaBloc>().add(AgendaLoad(
-                context.read<AuthentificationBloc>().dartus,
+                context.read<AuthentificationBloc>().dartus!,
                 context.read<SettingsBloc>().settings));
           },
         ));

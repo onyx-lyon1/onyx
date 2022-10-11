@@ -64,7 +64,7 @@ class TeachingUnitsPage extends StatelessWidget {
           if (state is GradesInitial) {
             context
                 .read<GradesBloc>()
-                .add(GradesLoad(context.read<AuthentificationBloc>().dartus));
+                .add(GradesLoad(context.read<AuthentificationBloc>().dartus!));
             return const StateDisplaying(message: "Loading grades");
           }
           return Container(
@@ -103,7 +103,7 @@ class TeachingUnitsPage extends StatelessWidget {
                   ],
                 ),
                 onRefresh: () async => context.read<GradesBloc>().add(
-                    GradesLoad(context.read<AuthentificationBloc>().dartus)),
+                    GradesLoad(context.read<AuthentificationBloc>().dartus!)),
               ));
         },
       ),
