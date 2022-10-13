@@ -157,11 +157,9 @@ class _AgendaWrapedState extends State<AgendaWraped> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(monthToString(currentDate.month,
-                                          short: true)),
+                                      Text(currentDate.toMonthName(short: true)),
                                       Text(currentDate.day.toString()),
-                                      Text(weekdayToString(currentDate.weekday,
-                                          short: true)),
+                                      Text(currentDate.toWeekDayName(short: true)),
                                     ],
                                   ),
                                 ),
@@ -207,7 +205,7 @@ class _AgendaWrapedState extends State<AgendaWraped> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "${day.date.day} ${monthToString(day.date.month)}",
+                                        "${day.date.day} ${day.date.toMonthName()}",
                                         style: TextStyle(
                                             color: Theme.of(context)
                                                 .textTheme
