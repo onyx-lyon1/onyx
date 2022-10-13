@@ -508,7 +508,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "5c07870e5f402dab1c4cd8b8e885d3d510fc1801"
+      resolved-ref: adf98e61caef7cf8af8f7d8c648d7f5a278533a7
       url: "https://github.com/hatch01/lyon1-mailclient.git"
     source: git
     version: "1.0.0"

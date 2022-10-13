@@ -131,19 +131,48 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         print(event.email.subject);
         print(event.email.body);
       }
-      await mailClient.sendEmail(
-        sender: mailClient.emailAddress,
-        recipients: [
-          (await mailClient.resolveContact(event.email.receiver))!,
-        ],
-        subject: 'test',
-        body: 'bodytest',
-      );
-      await mailClient.sendEmail(
-          sender: Address("eymeric.dechelette@etu.univ-lyon1.fr", "me"),
-          recipients: [Address(event.email.receiver, "you")],
-          subject: event.email.subject,
-          body: event.email.body);
+      if (event.replyOriginalMessageId != null) {
+        try {
+          await mailClient.fetchMessages(20);
+          await mailClient.reply(
+            originalMessageId: event.replyOriginalMessageId!,
+            subject: event.email.subject,
+            body: event.email.body,
+            replyAll: event.replyAll ?? false,
+            sender: mailClient.emailAddress,
+          );
+        } catch (e) {
+          print("e : $e");
+          emit(EmailError());
+          return;
+        }
+      } else {
+        try {
+          List<Address> recipients = [];
+          if (event.email.receiver.contains("@") &&
+              event.email.receiver.contains(".")) {
+            recipients.add(Address(event.email.receiver, event.email.receiver));
+          } else {
+            Address? resolvedAddress =
+                (await mailClient.resolveContact(event.email.receiver));
+            if (resolvedAddress != null) {
+              recipients.add(resolvedAddress);
+            } else {
+              emit(EmailUnableToResolve());
+              return;
+            }
+          }
+          await mailClient.sendEmail(
+            sender: mailClient.emailAddress,
+            recipients: recipients,
+            subject: event.email.subject,
+            body: event.email.body,
+          );
+        } catch (e) {
+          emit(EmailError());
+          return;
+        }
+      }
       emit(EmailSended());
     }
   }

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/others/hex.dart';
+import 'package:oloid2/page/mails/email_send_page.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -75,7 +76,13 @@ class EmailDetailsPage extends StatelessWidget {
                           PopupMenuItem(
                             child: IconButton(
                                 onPressed: () {
-                                  print("reply");
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => EmailSendPage(
+                                                replyAll: false,
+                                                replyOriginalMessage: mail.id,
+                                              )));
                                 },
                                 icon: Icon(
                                   Icons.reply,
@@ -85,7 +92,13 @@ class EmailDetailsPage extends StatelessWidget {
                           PopupMenuItem(
                             child: IconButton(
                                 onPressed: () {
-                                  print("reply all");
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => EmailSendPage(
+                                                replyAll: true,
+                                                replyOriginalMessage: mail.id,
+                                              )));
                                 },
                                 icon: Icon(
                                   Icons.reply_all,

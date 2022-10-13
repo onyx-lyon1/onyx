@@ -14,8 +14,10 @@ class EmailLoad extends EmailEvent {}
 
 class EmailSend extends EmailEvent {
   final EmailModel email;
+  final int? replyOriginalMessageId;
+  final bool? replyAll;
 
-  EmailSend(this.email);
+  EmailSend(this.email,{this.replyOriginalMessageId, this.replyAll});
 }
 
 class EmailMarkAsRead extends EmailEvent {
