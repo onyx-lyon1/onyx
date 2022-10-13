@@ -17,7 +17,7 @@ class EmailSend extends EmailEvent {
   final int? replyOriginalMessageId;
   final bool? replyAll;
 
-  EmailSend(this.email,{this.replyOriginalMessageId, this.replyAll});
+  EmailSend(this.email, {this.replyOriginalMessageId, this.replyAll});
 }
 
 class EmailMarkAsRead extends EmailEvent {
@@ -25,6 +25,7 @@ class EmailMarkAsRead extends EmailEvent {
 
   EmailMarkAsRead(this.email);
 }
+
 class EmailDelete extends EmailEvent {
   final EmailModel email;
 
@@ -36,3 +37,5 @@ class EmailSort extends EmailEvent {
 
   EmailSort(this.filter);
 }
+
+class EmailIncreaseNumber extends EmailEvent {}

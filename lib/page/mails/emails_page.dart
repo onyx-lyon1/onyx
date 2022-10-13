@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/states/authentification/authentification_bloc.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/widget/state_displaying.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../widget/emails/email.dart';
 import '../../widget/emails/email_header.dart';
@@ -54,6 +55,21 @@ class EmailsPage extends StatelessWidget {
                 } else if (index <= context.read<EmailBloc>().emails.length) {
                   return Email(
                       email: context.read<EmailBloc>().emails[index - 1]);
+                } else if (index ==
+                    context.read<EmailBloc>().emails.length + 1) {
+                  return Material(
+                    color: Theme.of(context).backgroundColor,
+                    child: InkWell(
+                      onTap: () =>
+                          context.read<EmailBloc>().add(EmailIncreaseNumber()),
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(8.w),
+                          child: const Text("Charger 20 messages de plus"),
+                        ),
+                      ),
+                    ),
+                  );
                 }
                 return null;
               }),

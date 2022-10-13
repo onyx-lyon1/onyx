@@ -16,6 +16,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   late Lyon1Mail mailClient;
   List<EmailModel> emails = [];
   List<EmailModel> emailsComplete = [];
+  int emailNumber = 20;
 
   late String username;
   late String password;
@@ -30,6 +31,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     on<EmailMarkAsRead>(markAsRead);
     on<EmailDelete>(delete);
     on<EmailSort>(sort);
+    on<EmailIncreaseNumber>(increaseNumber);
   }
 
   void connect(EmailConnect event, Emitter<EmailState> emit) async {
@@ -73,7 +75,6 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       }
       await mailClient.fetchMessages(1);
       await mailClient.delete(event.email.id!);
-      print("email deleted");
     }
 
     emit(EmailUpdated());
@@ -95,6 +96,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   void load(EmailLoad event, Emitter<EmailState> emit) async {
+    print("load");
     emit(EmailLoading());
     if (await CacheService.exist<EmailModelWrapper>()) {
       emailsComplete =
@@ -109,7 +111,8 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         return;
       }
     }
-    final Option<List<Mail>> emailOpt = await mailClient.fetchMessages(15);
+    final Option<List<Mail>> emailOpt =
+        await mailClient.fetchMessages(emailNumber);
     if (emailOpt.isNone()) {
       if (kDebugMode) {
         print("no emails");
@@ -128,7 +131,6 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
           EmailModelWrapper(emailsComplete)); //await à definir
     }
     emit(EmailLoaded());
-    await mailClient.logout();
   }
 
   void send(EmailSend event, Emitter<EmailState> emit) async {
@@ -148,7 +150,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       }
       if (event.replyOriginalMessageId != null) {
         try {
-          await mailClient.fetchMessages(20);
+          await mailClient.fetchMessages(emailNumber);
           await mailClient.reply(
             originalMessageId: event.replyOriginalMessageId!,
             subject: event.email.subject,
@@ -189,5 +191,11 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       }
       emit(EmailSended());
     }
+  }
+
+  void increaseNumber(EmailIncreaseNumber event, Emitter<EmailState> emit) {
+    emailNumber += 20;
+    emit(EmailUpdated());
+    add(EmailLoad());
   }
 }
