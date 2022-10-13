@@ -24,16 +24,16 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       showHiddenUE: fields[4] as bool,
       fetchAgendaAuto: fields[5] as bool,
       showMiniCalendar: fields[6] as bool,
-      agendaURL: fields[7] as String,
-      newMailNotification: fields[8] as bool,
-      blockTrackers: fields[9] as bool,
-    );
+      agendaURL: fields[8] as String,
+      newMailNotification: fields[9] as bool,
+      blockTrackers: fields[10] as bool,
+    )..calendarUpdateNotification = fields[7] as bool;
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.keepMeLoggedIn)
       ..writeByte(1)
@@ -49,10 +49,12 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(6)
       ..write(obj.showMiniCalendar)
       ..writeByte(7)
-      ..write(obj.agendaURL)
+      ..write(obj.calendarUpdateNotification)
       ..writeByte(8)
-      ..write(obj.newMailNotification)
+      ..write(obj.agendaURL)
       ..writeByte(9)
+      ..write(obj.newMailNotification)
+      ..writeByte(10)
       ..write(obj.blockTrackers);
   }
 

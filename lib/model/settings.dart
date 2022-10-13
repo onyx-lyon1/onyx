@@ -25,12 +25,15 @@ class SettingsModel {
   late bool showMiniCalendar;
 
   @HiveField(7)
-  late String agendaURL;
+  late bool calendarUpdateNotification;
 
   @HiveField(8)
-  late bool newMailNotification;
+  late String agendaURL;
 
   @HiveField(9)
+  late bool newMailNotification;
+
+  @HiveField(10)
   late bool blockTrackers;
 
   SettingsModel({
@@ -41,9 +44,11 @@ class SettingsModel {
     this.showHiddenUE = false,
     this.fetchAgendaAuto = true,
     this.showMiniCalendar = true,
+    this.calendarUpdateNotification = true,
     this.agendaURL = "",
     this.newMailNotification = false,
     this.blockTrackers = true,
+
   });
 
   void copy(SettingsModel s) {
@@ -56,6 +61,7 @@ class SettingsModel {
     agendaURL = s.agendaURL;
     newMailNotification = s.newMailNotification;
     blockTrackers = s.blockTrackers;
+    calendarUpdateNotification = s.calendarUpdateNotification;
   }
 
   SettingsModel copyWith({
@@ -66,6 +72,7 @@ class SettingsModel {
     bool? showHiddenUE,
     bool? fetchAgendaAuto,
     bool? showMiniCalendar,
+    bool? calendarUpdateNotification,
     String? agendaURL,
     bool? newMailNotification,
     bool? blockTrackers,
@@ -77,6 +84,7 @@ class SettingsModel {
       newGradeNotification: newGradeNotification ?? this.newGradeNotification,
       showHiddenUE: showHiddenUE ?? this.showHiddenUE,
       fetchAgendaAuto: fetchAgendaAuto ?? this.fetchAgendaAuto,
+      calendarUpdateNotification: calendarUpdateNotification ?? this.calendarUpdateNotification,
       showMiniCalendar: showMiniCalendar ?? this.showMiniCalendar,
       agendaURL: agendaURL ?? this.agendaURL,
       newMailNotification: newMailNotification ?? this.newMailNotification,
@@ -86,6 +94,6 @@ class SettingsModel {
 
   @override
   String toString() {
-    return 'SettingsModel(keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, darkMode: $darkMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, fetchAgendaAuto: $fetchAgendaAuto, showMiniCalendar: $showMiniCalendar, agendaURL: $agendaURL, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers)';
+    return 'SettingsModel(keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, darkMode: $darkMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, fetchAgendaAuto: $fetchAgendaAuto, calendarUpdateNotification: $calendarUpdateNotification showMiniCalendar: $showMiniCalendar, agendaURL: $agendaURL, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers)';
   }
 }

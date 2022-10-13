@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oloid2/functionalities/email/email_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
-import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/widget/state_displaying.dart';
 import 'package:sizer/sizer.dart';
 

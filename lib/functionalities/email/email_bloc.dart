@@ -96,7 +96,6 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   void load(EmailLoad event, Emitter<EmailState> emit) async {
-    print("load");
     emit(EmailLoading());
     if (await CacheService.exist<EmailModelWrapper>()) {
       emailsComplete =
