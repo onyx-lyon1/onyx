@@ -44,6 +44,7 @@ class EmailsPage extends StatelessWidget {
         return Container(
           color: Theme.of(context).backgroundColor,
           child: RefreshIndicator(
+            backgroundColor: Theme.of(context).backgroundColor,
             color: Theme.of(context).primaryColor,
             child: ListView.custom(
               controller: scrollController,

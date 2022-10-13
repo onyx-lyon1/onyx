@@ -5,6 +5,10 @@ class OloidTheme {
     return ThemeData(
       cardTheme: const CardTheme(color: Color(0xff4c566a)),
       primaryColor: const Color(0xffd08770),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: const Color(0xffd08770),
+        selectionColor: const Color(0xffd08770).withOpacity(0.7),
+      ),
       // 0xffff9f00
       backgroundColor: const Color(0xff434c5e),
       brightness: Brightness.dark,
@@ -25,6 +29,10 @@ class OloidTheme {
     return ThemeData(
       cardTheme: const CardTheme(color: Color(0xffe5e9f0)),
       primaryColor: const Color(0xffd08770),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: const Color(0xffd08770),
+        selectionColor: const Color(0xffd08770).withOpacity(0.7),
+      ),
       // 0xffff9f00
       backgroundColor: const Color(0xffd8dee9),
       brightness: Brightness.light,

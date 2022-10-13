@@ -28,6 +28,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     on<EmailLoad>(load);
     on<EmailSend>(send);
     on<EmailMarkAsRead>(markAsRead);
+    on<EmailDelete>(delete);
     on<EmailSort>(sort);
   }
 
@@ -62,6 +63,20 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       }
     }
     emit(EmailSorted());
+  }
+
+  void delete(EmailDelete event, Emitter<EmailState> emit) async {
+    if (!mailClient.isAuthenticated) {
+      if (!await mailClient.login()) {
+        emit(EmailError());
+        return;
+      }
+      await mailClient.fetchMessages(1);
+      await mailClient.delete(event.email.id!);
+      print("email deleted");
+    }
+
+    emit(EmailUpdated());
   }
 
   void markAsRead(EmailMarkAsRead event, Emitter<EmailState> emit) async {
@@ -142,7 +157,6 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
             sender: mailClient.emailAddress,
           );
         } catch (e) {
-          print("e : $e");
           emit(EmailError());
           return;
         }

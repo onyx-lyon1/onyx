@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oloid2/others/custom_scroll_behavior.dart';
 import 'package:oloid2/page/login_page.dart';
 import 'package:oloid2/states/authentification/authentification_bloc.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
@@ -54,6 +55,7 @@ class OloidAppState extends State<OloidApp> {
                 if (state is SettingsReady) {
                   return MaterialApp(
                       title: 'Oloid 2.0',
+                      scrollBehavior: CustomScrollBehavior(),
                       debugShowCheckedModeBanner: false,
                       themeMode: context.read<SettingsBloc>().settings.darkMode
                           ? ThemeMode.dark

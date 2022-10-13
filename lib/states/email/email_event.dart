@@ -25,6 +25,11 @@ class EmailMarkAsRead extends EmailEvent {
 
   EmailMarkAsRead(this.email);
 }
+class EmailDelete extends EmailEvent {
+  final EmailModel email;
+
+  EmailDelete(this.email);
+}
 
 class EmailSort extends EmailEvent {
   final String filter;

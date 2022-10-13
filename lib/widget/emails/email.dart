@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/page/mails/email_details_page.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:oloid2/widget/emails/swipe_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class Email extends StatelessWidget {
@@ -63,127 +64,159 @@ class Email extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        context.read<EmailBloc>().add(EmailMarkAsRead(email));
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => EmailDetailsPage(mail: email)));
-      },
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              Container(
-                height: 12.w,
-                width: 12.w,
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: email.isRead
-                      ? readBgColor(context)
-                      : unreadAccent(context),
-                ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    _firstLetter(email.sender),
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: email.isRead
-                          ? readText1Color(context)
-                          : unreadText1Color(context),
+    return OnSlide(
+      key: UniqueKey(),
+      backgroundColor: Theme.of(context).backgroundColor,
+      items: [
+        ActionItems(
+          backgroudColor: Theme.of(context).backgroundColor,
+          icon: const Icon(Icons.delete),
+          onPress: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                backgroundColor: Theme.of(context).backgroundColor,
+                title: const Text("Suprimer"),
+                content: const Text(
+                    "Êtes vous sûr que vous voulez supprimer ce mail"),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text(
+                      "non",
+                      style: TextStyle(color: Colors.green),
                     ),
                   ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  SizedBox(
-                    width: 80.w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            email.sender,
-                            style: TextStyle(
-                              color: email.isRead
-                                  ? readText1Color(context)
-                                  : unreadText1Color(context),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.sp,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            maxLines: 1,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: Text(
-                            _toHumanDate(email.date),
-                            style: TextStyle(
-                                color: email.isRead
-                                    ? readText1Color(context)
-                                    : unreadText1Color(context),
-                                fontSize: 10.sp),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  SizedBox(
-                    width: 80.w,
-                    child: Text(
-                      email.excerpt,
-                      style: TextStyle(
-                        color: email.isRead
-                            ? readText2Color(context)
-                            : unreadText2Color(context),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  SizedBox(
-                    width: 80.w,
-                    child: Text(
-                      email.excerpt,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: true,
-                      maxLines: 2,
-                      style: TextStyle(
-                        color: email.isRead
-                            ? readText2Color(context)
-                            : unreadText2Color(context),
-                        fontSize: 12,
-                      ),
+                  TextButton(
+                    onPressed: () {
+                      context.read<EmailBloc>().add(EmailDelete(email));
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      "oui",
+                      style: TextStyle(color: Colors.red),
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Divider(
-            height: 1,
-            indent: 70,
-            endIndent: 0,
-            thickness: 1,
-            // color: Color(0xff3b4252),
-            color:
-                Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.1),
-          )
-        ],
+            );
+          },
+        )
+      ],
+      child: InkWell(
+        onTap: () {
+          context.read<EmailBloc>().add(EmailMarkAsRead(email));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => EmailDetailsPage(mail: email)));
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                Container(
+                  height: 12.w,
+                  width: 12.w,
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: email.isRead
+                        ? readBgColor(context)
+                        : unreadAccent(context),
+                  ),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      _firstLetter(email.sender),
+                      style: TextStyle(
+                        fontSize: 22,
+                        color: email.isRead
+                            ? readText1Color(context)
+                            : unreadText1Color(context),
+                      ),
+                    ),
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SizedBox(
+                      width: 80.w,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              email.sender,
+                              style: TextStyle(
+                                color: email.isRead
+                                    ? readText1Color(context)
+                                    : unreadText1Color(context),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12.sp,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              maxLines: 1,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Text(
+                              _toHumanDate(email.date),
+                              style: TextStyle(
+                                  color: email.isRead
+                                      ? readText1Color(context)
+                                      : unreadText1Color(context),
+                                  fontSize: 10.sp),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 0.5.h,
+                    ),
+                    SizedBox(
+                      width: 80.w,
+                      child: Text(
+                        email.excerpt,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                        maxLines: 4,
+                        style: TextStyle(
+                          color: email.isRead
+                              ? readText2Color(context)
+                              : unreadText2Color(context),
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Divider(
+              height: 1,
+              indent: 70,
+              endIndent: 0,
+              thickness: 1,
+              // color: Color(0xff3b4252),
+              color: Theme.of(context)
+                  .textTheme
+                  .bodyText1!
+                  .color!
+                  .withOpacity(0.1),
+            )
+          ],
+        ),
       ),
     );
   }
