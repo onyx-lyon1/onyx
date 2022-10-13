@@ -105,7 +105,7 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.1"
+    version: "2.3.0"
   build_runner_core:
     dependency: transitive
     description:
@@ -182,7 +182,7 @@ packages:
       name: convert
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.2"
+    version: "3.1.1"
   cookie_jar:
     dependency: transitive
     description:
@@ -224,7 +224,7 @@ packages:
       path: "."
       ref: HEAD
       resolved-ref: bcb901379b46f466310a5374508d65f64d9cdb6b
-      url: "git@github.com:hatch01/dartus-tomuss-client.git"
+      url: "https://github.com/hatch01/dartus-tomuss-client.git"
     source: git
     version: "1.0.3"
   dartz:
@@ -499,8 +499,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f708723173899022efe6175bb4b0fda6be84a4f6
-      url: "git@github.com:hatch01/lyon1-agendaclient.git"
+      resolved-ref: cac078f4631f607b744a70a96f54046939dc191a
+      url: "https://github.com/hatch01/lyon1-agendaclient.git"
     source: git
     version: "1.0.0"
   lyon1mail:
@@ -508,8 +508,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "12507f66b51f23e9d31b5985d5e8fbb2a1a59a4c"
-      url: "git@github.com:hatch01/lyon1-mailclient.git"
+      resolved-ref: "5c07870e5f402dab1c4cd8b8e885d3d510fc1801"
+      url: "https://github.com/hatch01/lyon1-mailclient.git"
     source: git
     version: "1.0.0"
   matcher:
@@ -707,7 +707,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.3"
+    version: "6.0.4"
   pub_semver:
     dependency: transitive
     description:
@@ -775,7 +775,7 @@ packages:
       name: source_gen
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.5"
+    version: "1.2.6"
   source_helper:
     dependency: transitive
     description:
@@ -931,5 +931,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.17.0 <3.0.0"
+  dart: ">=2.18.0 <3.0.0"
   flutter: ">=3.0.0"

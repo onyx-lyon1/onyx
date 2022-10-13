@@ -54,7 +54,7 @@ class EmailDetailsPage extends StatelessWidget {
                         width: 3.w,
                       ),
                       SizedBox(
-                        width: 80.w,
+                        width: 70.w,
                         child: Center(
                           child: Text(
                             mail.subject,
@@ -62,6 +62,37 @@ class EmailDetailsPage extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
+                      ),
+                      const Spacer(),
+                      PopupMenuButton(
+                        icon: const Icon(Icons.reply),
+                        iconSize: 20.sp,
+                        color: Theme.of(context).backgroundColor,
+                        padding: const EdgeInsets.all(0),
+                        constraints:
+                            BoxConstraints.expand(width: 20.w, height: 18.h),
+                        itemBuilder: (context) => [
+                          PopupMenuItem(
+                            child: IconButton(
+                                onPressed: () {
+                                  print("reply");
+                                },
+                                icon: Icon(
+                                  Icons.reply,
+                                  size: 20.sp,
+                                )),
+                          ),
+                          PopupMenuItem(
+                            child: IconButton(
+                                onPressed: () {
+                                  print("reply all");
+                                },
+                                icon: Icon(
+                                  Icons.reply_all,
+                                  size: 20.sp,
+                                )),
+                          ),
+                        ],
                       ),
                     ],
                   ),
