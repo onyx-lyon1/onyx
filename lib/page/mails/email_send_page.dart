@@ -25,7 +25,7 @@ class EmailSendPage extends StatelessWidget {
           Future.delayed(const Duration(seconds: 1), () {
             EmailModel email = EmailModel(
                 subject: subjectEditor.text,
-                sender: "me",
+                sender: "moi",
                 excerpt: "",
                 isRead: false,
                 date: DateTime.now(),
@@ -68,7 +68,7 @@ class EmailSendPage extends StatelessWidget {
                 onTap: () {
                   EmailModel email = EmailModel(
                       subject: subjectEditor.text,
-                      sender: "me",
+                      sender: "moi",
                       excerpt: "",
                       isRead: false,
                       date: DateTime.now(),

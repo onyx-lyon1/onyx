@@ -5,6 +5,7 @@ import 'package:oloid2/functionalities/authentification/authentification_bloc.da
 import 'package:oloid2/functionalities/settings/settings_bloc.dart';
 import 'package:oloid2/model/event_model.dart';
 import 'package:oloid2/others/month_to_string.dart';
+import 'package:oloid2/others/weekday_to_string.dart';
 import 'package:oloid2/widget/agenda/event.dart';
 import 'package:oloid2/widget/agenda/mini_calendar.dart';
 import 'package:oloid2/widget/custom_circular_progress_indicator.dart';
@@ -158,12 +159,13 @@ class _AgendaWrapedState extends State<AgendaWraped> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "${day.date.day} ${day.date.toMonthName()}",
+                                        "${day.date.toWeekDayName()} ${day.date.day} ${day.date.toMonthName()}",
                                         style: TextStyle(
                                             color: Theme.of(context)
                                                 .textTheme
                                                 .bodyText1!
                                                 .color),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                       Text('${day.events.length} évènements'),
                                     ]),

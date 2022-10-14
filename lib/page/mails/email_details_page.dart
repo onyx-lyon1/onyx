@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:oloid2/functionalities/email/email_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/others/hex.dart';
@@ -20,8 +21,45 @@ class EmailDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late WebViewController webViewController;
-    return Material(
-      child: Container(
+    return Scaffold(
+      floatingActionButton: SpeedDial(
+        buttonSize: Size(15.w, 15.w),
+        backgroundColor: Theme.of(context).primaryColor,
+        children: [
+          SpeedDialChild(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EmailSendPage(
+                            replyAll: false,
+                            replyOriginalMessage: mail.id,
+                          )));
+            },
+            child: Icon(
+              Icons.reply,
+              size: 20.sp,
+            ),
+          ),
+          SpeedDialChild(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EmailSendPage(
+                            replyAll: true,
+                            replyOriginalMessage: mail.id,
+                          )));
+            },
+            child: Icon(
+              Icons.reply_all,
+              size: 20.sp,
+            ),
+          ),
+        ],
+        icon: Icons.reply,
+      ),
+      body: Container(
         color: Theme.of(context).backgroundColor,
         width: 100.w,
         height: 100.h,
@@ -55,7 +93,7 @@ class EmailDetailsPage extends StatelessWidget {
                         width: 3.w,
                       ),
                       SizedBox(
-                        width: 70.w,
+                        width: 85.w,
                         child: Center(
                           child: Text(
                             mail.subject,
@@ -63,49 +101,6 @@ class EmailDetailsPage extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                      ),
-                      const Spacer(),
-                      PopupMenuButton(
-                        icon: const Icon(Icons.reply),
-                        iconSize: 20.sp,
-                        color: Theme.of(context).backgroundColor,
-                        padding: const EdgeInsets.all(0),
-                        constraints:
-                            BoxConstraints.expand(width: 20.w, height: 18.h),
-                        itemBuilder: (context) => [
-                          PopupMenuItem(
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => EmailSendPage(
-                                                replyAll: false,
-                                                replyOriginalMessage: mail.id,
-                                              )));
-                                },
-                                icon: Icon(
-                                  Icons.reply,
-                                  size: 20.sp,
-                                )),
-                          ),
-                          PopupMenuItem(
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => EmailSendPage(
-                                                replyAll: true,
-                                                replyOriginalMessage: mail.id,
-                                              )));
-                                },
-                                icon: Icon(
-                                  Icons.reply_all,
-                                  size: 20.sp,
-                                )),
-                          ),
-                        ],
                       ),
                     ],
                   ),
@@ -129,7 +124,7 @@ class EmailDetailsPage extends StatelessWidget {
                         height: 1.h,
                       ),
                       Text(
-                        "a: ${mail.receiver}",
+                        "à: ${mail.receiver}",
                         overflow: TextOverflow.fade,
                       ),
                     ],
