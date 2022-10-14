@@ -25,7 +25,7 @@ class MiniCalendar extends StatelessWidget {
       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
         DateTime currentDate = DateTime.now().add(Duration(days: index));
         if (currentDate
-            .subtract(Duration(days: 1))
+            .subtract(const Duration(days: 1))
             .isAfter(context.read<AgendaBloc>().dayModels.last.date)) {
           return null;
         }

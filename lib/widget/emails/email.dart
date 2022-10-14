@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/functionalities/email/email_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/page/mails/email_details_page.dart';
-import 'package:oloid2/widget/emails/swipe_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class Email extends StatelessWidget {
@@ -64,50 +63,43 @@ class Email extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OnSlide(
-      key: UniqueKey(),
-      backgroundColor: Theme.of(context).backgroundColor,
-      items: [
-        ActionItems(
-          backgroudColor: Theme.of(context).backgroundColor,
-          icon: const Icon(Icons.delete),
-          onPress: () {
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                backgroundColor: Theme.of(context).backgroundColor,
-                title: const Text("Suprimer"),
-                content: const Text(
-                    "Êtes vous sûr que vous voulez supprimer ce mail"),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text(
-                      "non",
-                      style: TextStyle(color: Colors.green),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.read<EmailBloc>().add(EmailDelete(email));
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      "oui",
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        )
-      ],
+    return Material(
+      color: Colors.transparent,
       child: InkWell(
         onTap: () {
           context.read<EmailBloc>().add(EmailMarkAsRead(email));
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => EmailDetailsPage(mail: email)));
+        },
+        onLongPress: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              backgroundColor: Theme.of(context).backgroundColor,
+              title: const Text("Suprimer"),
+              content:
+                  const Text("Êtes vous sûr que vous voulez supprimer ce mail"),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text(
+                    "non",
+                    style: TextStyle(color: Colors.green),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    context.read<EmailBloc>().add(EmailDelete(email));
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "oui",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+              ],
+            ),
+          );
         },
         child: Column(
           mainAxisSize: MainAxisSize.min,
