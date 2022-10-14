@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oloid2/model/event_model.dart';
+import 'package:oloid2/others/date_beautifull.dart';
 
 class Event extends StatelessWidget {
   final EventModel event;
@@ -91,7 +92,7 @@ class Event extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${event.location} • ${event.end.difference(event.start).inMinutes}min',
+                    '${event.location} • ${event.end.difference(event.start).dateBeautifull()}',
                     textAlign: TextAlign.left,
                     maxLines: 2,
                     softWrap: true,
