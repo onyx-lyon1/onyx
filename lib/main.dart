@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oloid2/functionalities/background_notifications/background_tasks.dart';
@@ -49,6 +50,12 @@ void main() async {
         constraints: Constraints(networkType: NetworkType.connected));
   }
 
+  final deviceInfo = await DeviceInfoPlugin().deviceInfo;
+  final int androidSdkVersion =
+      deviceInfo is AndroidDeviceInfo ? deviceInfo.version.sdkInt! : 0;
+
   await Hive.initFlutter();
-  runApp(const OloidApp());
+  runApp(OloidApp(
+    androidSdkVersion: androidSdkVersion,
+  ));
 }
