@@ -5,8 +5,8 @@ import 'package:oloid2/functionalities/authentification/authentification_bloc.da
 import 'package:oloid2/functionalities/settings/settings_bloc.dart';
 import 'package:oloid2/model/event_model.dart';
 import 'package:oloid2/others/month_to_string.dart';
-import 'package:oloid2/others/weekday_to_string.dart';
 import 'package:oloid2/widget/agenda/event.dart';
+import 'package:oloid2/widget/agenda/mini_calendar.dart';
 import 'package:oloid2/widget/custom_circular_progress_indicator.dart';
 import 'package:sizer/sizer.dart';
 
@@ -80,7 +80,7 @@ class _AgendaWrapedState extends State<AgendaWraped> {
   }
 
   static double indexToOffset(int index) {
-    return (19.w * index) + 10;
+    return (17.w * index) + 10 - 2.w;
   }
 
   @override
@@ -108,67 +108,20 @@ class _AgendaWrapedState extends State<AgendaWraped> {
     }
     return Container(
         color: Theme.of(context).backgroundColor,
-        padding: const EdgeInsets.only(top: 27),
         child: RefreshIndicator(
           color: Theme.of(context).primaryColor,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               context.read<SettingsBloc>().settings.showMiniCalendar
-                  ? Container(
-                      height: 15.h,
-                      width: 100.w,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).cardTheme.color,
-                      ),
-                      child: ListView.builder(
-                        controller: scrollController,
-                        scrollDirection: Axis.horizontal,
-                        // cacheExtent: 0.0,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 10),
-                        itemCount: context
-                            .read<AgendaBloc>()
-                            .dayModels
-                            .last
-                            .date
-                            .difference(DateTime.now())
-                            .inDays,
-                        itemBuilder: (context, compteur) {
-                          DateTime currentDate =
-                              DateTime.now().add(Duration(days: compteur));
-                          return Padding(
-                            padding: EdgeInsets.all(2.w),
-                            child: Material(
-                              borderRadius: BorderRadius.circular(10),
-                              color: (wantedDate.day == currentDate.day)
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.transparent,
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(10),
-                                onTap: () {
-                                  setState(() {
-                                    wantedDate = currentDate;
-                                  });
-                                },
-                                child: SizedBox(
-                                  height: 10.h,
-                                  width: 15.w,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(currentDate.toMonthName(short: true)),
-                                      Text(currentDate.day.toString()),
-                                      Text(currentDate.toWeekDayName(short: true)),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    )
+                  ? MiniCalendar(
+                      scrollController: scrollController,
+                      onUpdate: (DateTime newWantedDay) {
+                        setState(() {
+                          wantedDate = newWantedDay;
+                        });
+                      },
+                      wantedDate: wantedDate)
                   : Container(),
               Expanded(
                 child: PageView(
