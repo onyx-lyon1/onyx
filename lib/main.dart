@@ -39,14 +39,14 @@ void main() async {
   if (Platform.isAndroid || Platform.isIOS) {
     Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
     Workmanager().registerPeriodicTask("notesChecking", "check new notes",
-        frequency: const Duration(minutes: 1),
+        frequency: const Duration(minutes: 15),
         constraints: Constraints(networkType: NetworkType.connected));
     Workmanager().registerPeriodicTask(
         "agendaChecking", "check new agenda events",
-        frequency: const Duration(minutes: 1),
+        frequency: const Duration(minutes: 15),
         constraints: Constraints(networkType: NetworkType.connected));
     Workmanager().registerPeriodicTask("mailChecking", "check new emails",
-        frequency: const Duration(minutes: 1),
+        frequency: const Duration(minutes: 15),
         constraints: Constraints(networkType: NetworkType.connected));
   }
 

@@ -18,7 +18,10 @@ class EmailHeader extends StatelessWidget {
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
         clipBehavior: Clip.hardEdge,
         width: 85.w,
+        height: 10.h,
         child: TextField(
+
+          // expands: true,
           onChanged: (String query) {
             context.read<EmailBloc>().add(EmailSort(query));
           },
@@ -42,5 +45,3 @@ class EmailHeader extends StatelessWidget {
     );
   }
 }
-
-

@@ -107,89 +107,91 @@ class _AgendaWrapedState extends State<AgendaWraped> {
             const Duration(milliseconds: 500), () => animating = false);
       }
     }
-    return Container(
-        color: Theme.of(context).backgroundColor,
-        child: RefreshIndicator(
-          color: Theme.of(context).primaryColor,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              context.read<SettingsBloc>().settings.showMiniCalendar
-                  ? MiniCalendar(
-                      scrollController: scrollController,
-                      onUpdate: (DateTime newWantedDay) {
+    return SafeArea(
+      child: Container(
+          color: Theme.of(context).backgroundColor,
+          child: RefreshIndicator(
+            color: Theme.of(context).primaryColor,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                context.read<SettingsBloc>().settings.showMiniCalendar
+                    ? MiniCalendar(
+                        scrollController: scrollController,
+                        onUpdate: (DateTime newWantedDay) {
+                          setState(() {
+                            wantedDate = newWantedDay;
+                          });
+                        },
+                        wantedDate: wantedDate)
+                    : Container(),
+                Expanded(
+                  child: PageView(
+                    controller: pageController,
+                    scrollDirection: Axis.vertical,
+                    onPageChanged: (index) {
+                      if (context
+                              .read<SettingsBloc>()
+                              .settings
+                              .showMiniCalendar &&
+                          !animating) {
                         setState(() {
-                          wantedDate = newWantedDay;
+                          wantedDate =
+                              context.read<AgendaBloc>().dayModels[index].date;
                         });
-                      },
-                      wantedDate: wantedDate)
-                  : Container(),
-              Expanded(
-                child: PageView(
-                  controller: pageController,
-                  scrollDirection: Axis.vertical,
-                  onPageChanged: (index) {
-                    if (context
-                            .read<SettingsBloc>()
-                            .settings
-                            .showMiniCalendar &&
-                        !animating) {
-                      setState(() {
-                        wantedDate =
-                            context.read<AgendaBloc>().dayModels[index].date;
-                      });
-                    }
-                  },
-                  children: context
-                      .read<AgendaBloc>()
-                      .dayModels
-                      .map(
-                        (day) => SizedBox(
-                          height: 10,
-                          child: SingleChildScrollView(
-                            child: Column(children: [
-                              Container(
-                                padding: const EdgeInsets.only(
-                                  left: 20,
-                                  right: 20,
-                                  top: 15,
+                      }
+                    },
+                    children: context
+                        .read<AgendaBloc>()
+                        .dayModels
+                        .map(
+                          (day) => SizedBox(
+                            height: 10,
+                            child: SingleChildScrollView(
+                              child: Column(children: [
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                    left: 20,
+                                    right: 20,
+                                    top: 15,
+                                  ),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "${day.date.toWeekDayName()} ${day.date.day} ${day.date.toMonthName()}",
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1!
+                                                  .color),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        Text('${day.events.length} évènements'),
+                                      ]),
                                 ),
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "${day.date.toWeekDayName()} ${day.date.day} ${day.date.toMonthName()}",
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1!
-                                                .color),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Text('${day.events.length} évènements'),
-                                    ]),
-                              ),
-                              ...day.events.map(
-                                (e) => Event(
-                                  event: e,
-                                  onTap: (EventModel e) {},
+                                ...day.events.map(
+                                  (e) => Event(
+                                    event: e,
+                                    onTap: (EventModel e) {},
+                                  ),
                                 ),
-                              ),
-                            ]),
+                              ]),
+                            ),
                           ),
-                        ),
-                      )
-                      .toList(),
-                ),
-              )
-            ],
-          ),
-          onRefresh: () async {
-            context.read<AgendaBloc>().add(AgendaLoad(
-                context.read<AuthentificationBloc>().dartus!,
-                context.read<SettingsBloc>().settings));
-          },
-        ));
+                        )
+                        .toList(),
+                  ),
+                )
+              ],
+            ),
+            onRefresh: () async {
+              context.read<AgendaBloc>().add(AgendaLoad(
+                  context.read<AuthentificationBloc>().dartus!,
+                  context.read<SettingsBloc>().settings));
+            },
+          )),
+    );
   }
 }
