@@ -85,17 +85,27 @@ class EmailsPage extends StatelessWidget {
                       context.read<EmailBloc>().emails.length + 1) {
                     return Material(
                       color: Theme.of(context).backgroundColor,
-                      child: InkWell(
-                        onTap: () => context
-                            .read<EmailBloc>()
-                            .add(EmailIncreaseNumber()),
-                        child: Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(8.w),
-                            child: const Text("Charger 20 messages de plus"),
-                          ),
-                        ),
-                      ),
+                      child: (context.read<EmailBloc>().state is EmailLoading)
+                          ? Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(5.w),
+                                child: CircularProgressIndicator(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            )
+                          : InkWell(
+                              onTap: () => context
+                                  .read<EmailBloc>()
+                                  .add(EmailIncreaseNumber()),
+                              child: Center(
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.w),
+                                  child:
+                                      const Text("Charger 20 messages de plus"),
+                                ),
+                              ),
+                            ),
                     );
                   }
                   return null;

@@ -98,10 +98,13 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   void load(EmailLoad event, Emitter<EmailState> emit) async {
     emit(EmailLoading());
     if (await CacheService.exist<EmailModelWrapper>()) {
-      emailsComplete =
-          (await CacheService.get<EmailModelWrapper>())!.emailModels;
-      emails = emailsComplete;
-      emit(EmailLoaded());
+      if (emailsComplete !=
+          (await CacheService.get<EmailModelWrapper>())!.emailModels) {
+        emailsComplete =
+            (await CacheService.get<EmailModelWrapper>())!.emailModels;
+        emails = emailsComplete;
+        emit(EmailLoaded());
+      }
     }
     List<EmailModel> tmpEmailsComplete = [];
     if (!mailClient.isAuthenticated) {
@@ -194,7 +197,8 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
 
   void increaseNumber(EmailIncreaseNumber event, Emitter<EmailState> emit) {
     emailNumber += 20;
-    emit(EmailUpdated());
+    emit(EmailLoading());
     add(EmailLoad());
+    return;
   }
 }
