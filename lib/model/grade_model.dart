@@ -66,7 +66,6 @@ class GradeModel {
           isValidGrade == other.isValidGrade;
 
   @override
-  // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
   @override

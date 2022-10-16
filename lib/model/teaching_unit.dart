@@ -61,7 +61,6 @@ class TeachingUnitModel {
           isHidden == other.isHidden;
 
   @override
-  // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
   @override

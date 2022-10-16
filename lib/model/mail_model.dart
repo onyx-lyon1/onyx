@@ -61,7 +61,6 @@ class EmailModel {
           receiver == other.receiver;
 
   @override
-  // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
   @override

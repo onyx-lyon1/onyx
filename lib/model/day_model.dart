@@ -24,7 +24,6 @@ class DayModel {
           date.isAtSameMomentAs(other.date);
 
   @override
-  // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
   @override

@@ -45,7 +45,6 @@ class EventModel {
           end.isAtSameMomentAs(other.end);
 
   @override
-  // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
   @override

@@ -32,7 +32,6 @@ class TeacherModel {
           _email == other._email;
 
   @override
-  // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
   @override
