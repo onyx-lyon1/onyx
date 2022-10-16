@@ -29,10 +29,12 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
   }
 
   Future<void> load(GradesLoad event, Emitter<GradesState> emit) async {
-    if (await CacheService.exist<TeachingUnitModelWrapper>()) {
-      teachingUnits = (await CacheService.get<TeachingUnitModelWrapper>())!
-          .teachingUnitModels;
-      emit(GradesReady());
+    if (event.cache) {
+      if (await CacheService.exist<TeachingUnitModelWrapper>()) {
+        teachingUnits = (await CacheService.get<TeachingUnitModelWrapper>())!
+            .teachingUnitModels;
+        emit(GradesReady());
+      }
     }
     emit(GradesLoading());
     List<TeachingUnitModel> tmpTeachingUnits = [];

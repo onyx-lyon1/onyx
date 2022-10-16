@@ -10,7 +10,10 @@ class EmailConnect extends EmailEvent {
   EmailConnect({required this.username, required this.password});
 }
 
-class EmailLoad extends EmailEvent {}
+class EmailLoad extends EmailEvent {
+  final bool cache;
+  EmailLoad({this.cache=true});
+}
 
 class EmailSend extends EmailEvent {
   final EmailModel email;

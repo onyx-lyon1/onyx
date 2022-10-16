@@ -7,5 +7,6 @@ abstract class AgendaEvent {}
 class AgendaLoad extends AgendaEvent {
 final Dartus dartus;
 final SettingsModel settings;
-  AgendaLoad(this.dartus, this.settings);
+final bool cache;
+  AgendaLoad(this.dartus, this.settings,{this.cache = true});
 }

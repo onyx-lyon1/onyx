@@ -15,4 +15,8 @@ class CacheService {
     Box box = await Hive.openBox<E>("cached_$E");
     return box.containsKey("cache");
   }
+
+  static Future<void> reset<E>() async {
+    await Hive.deleteBoxFromDisk("cached_$E");
+  }
 }

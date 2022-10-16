@@ -2,6 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+ <!-- Background Processing -->
+  <key>UIBackgroundModes</key>
+  <array>
+	  <string>processing</string>
+  </array>
+
+  <!-- Task Schedulling -->
+  <key>BGTaskSchedulerPermittedIdentifiers</key>
+  <array>
+     <string>workmanager.background.task</string>
+  </array>
+
+  <!-- Background Fetching -->
+  <key>UIBackgroundModes</key>
+  <array>
+	  <string>fetch</string>
+  </array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

@@ -1,7 +1,7 @@
 extension DateBeautifull on Duration {
   String dateBeautifull() {
-    int hour = this.inHours;
-    int minute = this.inMinutes - hour * 60;
+    int hour = inHours;
+    int minute = inMinutes - hour * 60;
     String hourString = hour.toString();
     String minuteString = minute.toString();
     if (hour < 10) {

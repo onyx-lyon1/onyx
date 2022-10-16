@@ -28,7 +28,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     settings = SettingsModel();
     Box<SettingsModel> box = Hive.box<SettingsModel>('settings');
     await box.put('settings', settings);
-    await box.close();
     emit(SettingsReady());
   }
 
@@ -38,7 +37,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     if (tmpSettings != null) {
       settings = tmpSettings;
     }
-    await box.close();
     emit(SettingsReady());
   }
 
@@ -49,7 +47,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     settings = event.settings;
     Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');
     await box.put('settings', settings);
-    await box.close();
     emit(SettingsReady());
   }
 }

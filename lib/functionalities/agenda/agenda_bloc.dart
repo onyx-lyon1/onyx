@@ -29,9 +29,11 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   }
 
   Future<void> load(AgendaLoad event, Emitter emit) async {
-    if (await CacheService.exist<DayModelWrapper>()) {
-      dayModels = (await CacheService.get<DayModelWrapper>())!.dayModels;
-      emit(AgendaReady());
+    if (event.cache) {
+      if (await CacheService.exist<DayModelWrapper>()) {
+        dayModels = (await CacheService.get<DayModelWrapper>())!.dayModels;
+        emit(AgendaReady());
+      }
     }
     late Option<Agenda> agendaOpt;
     agendaClient = Lyon1Agenda.useAuthentication(event.dartus.authentication);

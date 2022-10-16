@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides
+
 import 'package:dartus/tomuss.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -47,4 +49,24 @@ class GradeModel {
     groupSize = grade.groupSize;
     isValidGrade = grade.isValidGrade;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GradeModel &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          author == other.author &&
+          gradeNumerator == other.gradeNumerator &&
+          gradeDenominator == other.gradeDenominator &&
+          rank == other.rank &&
+          average == other.average &&
+          mediane == other.mediane &&
+          groupSize == other.groupSize &&
+          isValidGrade == other.isValidGrade;
+
+  @override
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
+
 }

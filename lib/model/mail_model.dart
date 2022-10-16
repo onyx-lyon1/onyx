@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides
+
 import 'package:lyon1mail/lyon1mail.dart' as lyon1mail;
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -43,4 +45,23 @@ class EmailModel {
         id: mail.getSequenceId(),
         receiver: "me");
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is EmailModel &&
+          runtimeType == other.runtimeType &&
+          subject == other.subject &&
+          sender == other.sender &&
+          excerpt == other.excerpt &&
+          body == other.body &&
+          id == other.id &&
+          isRead == other.isRead &&
+          date == other.date &&
+          receiver == other.receiver;
+
+  @override
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
+
 }

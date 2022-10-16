@@ -58,7 +58,7 @@ class OloidAppState extends State<OloidApp> {
                   return MaterialApp(
                       title: 'Oloid 2.0',
                       scrollBehavior:
-                          CustomScrollBehavior(androidSdkVersion: 31),
+                          const CustomScrollBehavior(androidSdkVersion: 31),
                       debugShowCheckedModeBanner: false,
                       themeMode: context.read<SettingsBloc>().settings.darkMode
                           ? ThemeMode.dark

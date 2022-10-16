@@ -26,4 +26,14 @@ class TextModel {
     author = t.author;
     comment = t.comment;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TextModel &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          value == other.value &&
+          author == other.author &&
+          comment == other.comment;
 }

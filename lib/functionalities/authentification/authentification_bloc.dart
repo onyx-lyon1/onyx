@@ -19,11 +19,7 @@ class AuthentificationBloc
   late String password;
 
   AuthentificationBloc() : super(AuthentificationInitial()) {
-    on<AuthentificationEvent>((event, emit) {
-      if (kDebugMode) {
-        print("event authentification: $event");
-      }
-    });
+    on<AuthentificationEvent>((event, emit) {});
     on<AuthentificationLogin>(login);
     on<AuthentificationLogout>(logout);
     on<AuthentificationForgetCredential>(forget);

@@ -1,3 +1,6 @@
+// ignore_for_file: unnecessary_overrides
+
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:oloid2/model/grade_model.dart';
 import 'package:oloid2/model/text_model.dart';
@@ -5,7 +8,6 @@ import 'package:oloid2/model/text_model.dart';
 import 'teacher_model.dart';
 
 part 'teaching_unit.g.dart';
-
 
 @HiveType(typeId: 8)
 class TeachingUnitModel {
@@ -44,5 +46,26 @@ class TeachingUnitModel {
 
   GradeModel? latestGrade() {
     return grades.isNotEmpty ? grades.first : null;
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TeachingUnitModel &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          listEquals(masters, other.masters) &&
+          listEquals(grades, other.grades) &&
+          listEquals(textValues, other.textValues) &&
+          isSeen == other.isSeen &&
+          isHidden == other.isHidden;
+
+  @override
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
+
+  @override
+  String toString() {
+    return 'TeachingUnitModel{name: $name, masters: $masters, grades: $grades, textValues: $textValues, isSeen: $isSeen, isHidden: $isHidden}';
   }
 }

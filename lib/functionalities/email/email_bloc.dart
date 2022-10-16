@@ -97,13 +97,15 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
 
   void load(EmailLoad event, Emitter<EmailState> emit) async {
     emit(EmailLoading());
-    if (await CacheService.exist<EmailModelWrapper>()) {
-      if (emailsComplete !=
-          (await CacheService.get<EmailModelWrapper>())!.emailModels) {
-        emailsComplete =
-            (await CacheService.get<EmailModelWrapper>())!.emailModels;
-        emails = emailsComplete;
-        emit(EmailLoaded());
+    if (event.cache) {
+      if (await CacheService.exist<EmailModelWrapper>()) {
+        if (emailsComplete !=
+            (await CacheService.get<EmailModelWrapper>())!.emailModels) {
+          emailsComplete =
+              (await CacheService.get<EmailModelWrapper>())!.emailModels;
+          emails = emailsComplete;
+          emit(EmailLoaded());
+        }
       }
     }
     List<EmailModel> tmpEmailsComplete = [];

@@ -1,4 +1,6 @@
 
+// ignore_for_file: unnecessary_overrides
+
 import 'package:hive_flutter/adapters.dart';
 
 part 'event_model.g.dart';
@@ -30,4 +32,22 @@ class EventModel {
     required this.end,
     required this.eventLastModified,
   });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is EventModel &&
+          runtimeType == other.runtimeType &&
+          location == other.location &&
+          description == other.description &&
+          teacher == other.teacher &&
+          summary == other.summary &&
+          start == other.start &&
+          end == other.end &&
+          eventLastModified == other.eventLastModified;
+
+  @override
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
+
 }
