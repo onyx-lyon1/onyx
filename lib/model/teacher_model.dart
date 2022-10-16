@@ -35,4 +35,8 @@ class TeacherModel {
   // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
+  @override
+  String toString() {
+    return 'TeacherModel{_name: $_name, _email: $_email}';
+  }
 }

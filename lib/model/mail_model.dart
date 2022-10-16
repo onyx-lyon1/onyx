@@ -64,4 +64,8 @@ class EmailModel {
   // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
+  @override
+  String toString() {
+    return 'EmailModel{subject: $subject, sender: $sender, excerpt: $excerpt, body: $body, id: $id, isRead: $isRead, date: $date, receiver: $receiver}';
+  }
 }

@@ -24,10 +24,11 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       showHiddenUE: fields[4] as bool,
       fetchAgendaAuto: fields[5] as bool,
       showMiniCalendar: fields[6] as bool,
+      calendarUpdateNotification: fields[7] as bool,
       agendaURL: fields[8] as String,
       newMailNotification: fields[9] as bool,
       blockTrackers: fields[10] as bool,
-    )..calendarUpdateNotification = fields[7] as bool;
+    );
   }
 
   @override

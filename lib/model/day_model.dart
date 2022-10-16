@@ -21,10 +21,14 @@ class DayModel {
       other is DayModel &&
           runtimeType == other.runtimeType &&
           listEquals(events, other.events) &&
-          date == other.date;
+          date.isAtSameMomentAs(other.date);
 
   @override
   // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
+  @override
+  String toString() {
+    return 'DayModel{events: $events, date: $date}';
+  }
 }

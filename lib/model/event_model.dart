@@ -1,4 +1,3 @@
-
 // ignore_for_file: unnecessary_overrides
 
 import 'package:hive_flutter/adapters.dart';
@@ -42,12 +41,15 @@ class EventModel {
           description == other.description &&
           teacher == other.teacher &&
           summary == other.summary &&
-          start == other.start &&
-          end == other.end &&
-          eventLastModified == other.eventLastModified;
+          start.isAtSameMomentAs(other.start) &&
+          end.isAtSameMomentAs(other.end);
 
   @override
   // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
+  @override
+  String toString() {
+    return 'EventModel{location: $location, description: $description, teacher: $teacher, summary: $summary, start: $start, end: $end, eventLastModified: $eventLastModified}';
+  }
 }

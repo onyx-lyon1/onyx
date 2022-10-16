@@ -69,4 +69,8 @@ class GradeModel {
   // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
+  @override
+  String toString() {
+    return 'GradeModel{name: $name, author: $author, gradeNumerator: $gradeNumerator, gradeDenominator: $gradeDenominator, rank: $rank, average: $average, mediane: $mediane, groupSize: $groupSize, isValidGrade: $isValidGrade}';
+  }
 }

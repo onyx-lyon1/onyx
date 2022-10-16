@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides
+
 import 'package:dartus/tomuss.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -36,4 +38,13 @@ class TextModel {
           value == other.value &&
           author == other.author &&
           comment == other.comment;
+
+  @override
+  int get hashCode => super.hashCode;
+
+  @override
+  String toString() {
+    return 'TextModel{name: $name, value: $value, author: $author, comment: $comment}';
+  }
+
 }
