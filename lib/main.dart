@@ -16,7 +16,7 @@ void main() async {
   if (Platform.isAndroid || Platform.isIOS) {
     Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
      Workmanager().registerPeriodicTask("updateChecking", "check update",
-         frequency: const Duration(minutes: 15),
+         frequency: const Duration(minutes: 30),
          constraints: Constraints(networkType: NetworkType.connected));
 
   }
