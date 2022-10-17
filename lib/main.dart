@@ -15,9 +15,9 @@ void main() async {
 
   if (Platform.isAndroid || Platform.isIOS) {
     Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
-    // Workmanager().registerPeriodicTask("updateChecking", "check update",
-    //     frequency: const Duration(minutes: 15),
-    //     constraints: Constraints(networkType: NetworkType.connected));
+     Workmanager().registerPeriodicTask("updateChecking", "check update",
+         frequency: const Duration(minutes: 15),
+         constraints: Constraints(networkType: NetworkType.connected));
 
   }
   await NotificationService.init();
