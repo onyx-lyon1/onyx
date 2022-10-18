@@ -109,6 +109,7 @@ class AgendaWraped extends StatelessWidget {
               color: Theme.of(context).backgroundColor,
               child: RefreshIndicator(
                 color: Theme.of(context).primaryColor,
+                backgroundColor: Theme.of(context).backgroundColor,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
