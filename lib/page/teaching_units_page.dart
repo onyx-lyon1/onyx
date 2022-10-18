@@ -66,6 +66,13 @@ class TeachingUnitsPage extends StatelessWidget {
                 .read<GradesBloc>()
                 .add(GradesLoad(context.read<AuthentificationBloc>().dartus!));
             return const StateDisplaying(message: "Loading grades");
+          } else if (state is GradesError) {
+            Future.delayed(const Duration(seconds: 3), () {
+              context.read<GradesBloc>().add(
+                  GradesLoad(context.read<AuthentificationBloc>().dartus!));
+            });
+            return const StateDisplaying(
+                message: "Erreur pendant le chargement des notes");
           }
           return Container(
               color: Theme.of(context).backgroundColor,
@@ -73,7 +80,6 @@ class TeachingUnitsPage extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
                 child: ListView(
                   physics: const AlwaysScrollableScrollPhysics(),
-
                   children: [
                     ...context
                         .read<GradesBloc>()

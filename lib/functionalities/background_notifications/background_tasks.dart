@@ -12,7 +12,7 @@ import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
 import 'package:oloid2/model/wrapper/teaching_unit_model_wrapper.dart';
 import 'package:oloid2/functionalities/cache_service.dart';
 import 'package:oloid2/others/hive_init.dart';
-import 'package:oloid2/others/notification_service.dart';
+import 'package:oloid2/functionalities/notification_service.dart';
 import 'package:workmanager/workmanager.dart';
 
 void callbackDispatcher() {

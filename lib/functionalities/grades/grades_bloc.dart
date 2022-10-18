@@ -7,12 +7,12 @@ import 'package:dartus/src/parser/parsedpage.dart';
 import 'package:dartus/tomuss.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
+import 'package:oloid2/functionalities/cache_service.dart';
 import 'package:oloid2/model/grade_model.dart';
 import 'package:oloid2/model/teacher_model.dart';
 import 'package:oloid2/model/teaching_unit.dart';
 import 'package:oloid2/model/text_model.dart';
 import 'package:oloid2/model/wrapper/teaching_unit_model_wrapper.dart';
-import 'package:oloid2/functionalities/cache_service.dart';
 
 part 'grades_event.dart';
 
@@ -39,10 +39,8 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
     Option<ParsedPage> parsedPageOpt =
         await event.dartus.getParsedPage(Dartus.currentSemester());
     if (parsedPageOpt.isNone()) {
-      if (kDebugMode) {
-        print("maybe there is a probleme");
-      }
       emit(GradesError());
+      return;
     }
     final ParsedPage parsedPage =
         parsedPageOpt.getOrElse(() => ParsedPage.empty());

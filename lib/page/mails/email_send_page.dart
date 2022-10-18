@@ -66,18 +66,33 @@ class EmailSendPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
                 splashColor: Theme.of(context).cardTheme.color,
                 onTap: () {
-                  EmailModel email = EmailModel(
-                      subject: subjectEditor.text,
-                      sender: "moi",
-                      excerpt: "",
-                      isRead: false,
-                      date: DateTime.now(),
-                      body: bodyEditor.text,
-                      id: 0,
-                      receiver: destinationEditor.text);
-                  context.read<EmailBloc>().add(EmailSend(email,
-                      replyAll: replyAll,
-                      replyOriginalMessageId: replyOriginalMessage));
+                  if (destinationEditor.value.text.isNotEmpty &&
+                      subjectEditor.value.text.isNotEmpty &&
+                      bodyEditor.value.text.isNotEmpty &&
+                      destinationEditor.value.text.contains("@") &&
+                      destinationEditor.value.text.contains(".")) {
+                    EmailModel email = EmailModel(
+                        subject: subjectEditor.text,
+                        sender: "moi",
+                        excerpt: "",
+                        isRead: false,
+                        date: DateTime.now(),
+                        body: bodyEditor.text,
+                        id: 0,
+                        receiver: destinationEditor.text);
+                    context.read<EmailBloc>().add(EmailSend(email,
+                        replyAll: replyAll,
+                        replyOriginalMessageId: replyOriginalMessage));
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              backgroundColor:
+                                  Theme.of(context).backgroundColor,
+                              title: const Text(
+                                  "Veuillez remplir correctement tous les champs"),
+                            ));
+                  }
                 },
                 child: Padding(
                   padding: EdgeInsets.all(1.5.h),
@@ -183,42 +198,97 @@ class EmailSendPage extends StatelessWidget {
                           width: 100.w,
                           child: Padding(
                             padding: EdgeInsets.all(1.h),
-                            child: TextField(
-                              controller: destinationEditor,
-                              textAlignVertical: TextAlignVertical.top,
-                              cursorColor:
-                                  Theme.of(context).textTheme.button!.color!,
-                              style: TextStyle(
-                                color:
-                                    Theme.of(context).textTheme.button!.color!,
-                              ),
-                              decoration: InputDecoration(
-                                  hintText:
-                                      "Destinataire : PXXXXXXX, prenom.nom@status.univ-lyon1.fr",
-                                  hintStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1!
-                                              .color!
-                                              .withOpacity(0.5)),
-                                  isDense: true,
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .color!,
-                                        width: 1),
-                                  ),
-                                  border: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Theme.of(context).backgroundColor,
-                                      width: 1,
+                            child: RawAutocomplete<String>(
+                              optionsBuilder:
+                                  (TextEditingValue textEditingValue) async {
+                                return (await context
+                                        .read<EmailBloc>()
+                                        .mailClient
+                                        .resolveContact(textEditingValue.text))
+                                    .map((e) => e.email.toString())
+                                    .toList();
+                              },
+                              displayStringForOption: (String option) => option,
+                              textEditingController: destinationEditor,
+                              focusNode: FocusNode(),
+                              optionsViewBuilder: (BuildContext context,
+                                  AutocompleteOnSelected<String> onSelected,
+                                  Iterable<String> options) {
+                                return Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Material(
+                                    elevation: 4.0,
+                                    color: Theme.of(context).backgroundColor,
+                                    child: SizedBox(
+                                      height: 20.h,
+                                      width: 97.w,
+                                      child: ListView(
+                                        padding: EdgeInsets.all(1.h),
+                                        children: options
+                                            .map((String option) =>
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    onSelected(option);
+                                                  },
+                                                  child: ListTile(
+                                                    title: Text(option),
+                                                  ),
+                                                ))
+                                            .toList(),
+                                      ),
                                     ),
-                                  )),
+                                  ),
+                                );
+                              },
+                              fieldViewBuilder: (BuildContext context,
+                                  TextEditingController
+                                      fieldTextEditingController,
+                                  FocusNode fieldFocusNode,
+                                  VoidCallback onFieldSubmitted) {
+                                return TextField(
+                                  controller: fieldTextEditingController,
+                                  focusNode: fieldFocusNode,
+                                  textAlignVertical: TextAlignVertical.top,
+                                  cursorColor: Theme.of(context)
+                                      .textTheme
+                                      .button!
+                                      .color!,
+                                  style: TextStyle(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .button!
+                                        .color!,
+                                  ),
+                                  decoration: InputDecoration(
+                                      hintText:
+                                          "Destinataire : PXXXXXXX, prenom.nom@status.univ-lyon1.fr",
+                                      hintStyle: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1!
+                                                  .color!
+                                                  .withOpacity(0.5)),
+                                      isDense: true,
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .color!,
+                                            width: 1),
+                                      ),
+                                      border: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color:
+                                              Theme.of(context).backgroundColor,
+                                          width: 1,
+                                        ),
+                                      )),
+                                );
+                              },
                             ),
                           ),
                         )

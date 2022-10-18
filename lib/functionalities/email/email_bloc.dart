@@ -4,9 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
+import 'package:oloid2/functionalities/cache_service.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
-import 'package:oloid2/functionalities/cache_service.dart';
 
 part 'email_event.dart';
 
@@ -22,8 +22,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   late String password;
 
   EmailBloc() : super(EmailInitial()) {
-    on<EmailEvent>((event, emit) {
-    });
+    on<EmailEvent>((event, emit) {});
     on<EmailConnect>(connect);
     on<EmailLoad>(load);
     on<EmailSend>(send);
@@ -146,10 +145,9 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       }
       emit(EmailSending());
       if (kDebugMode) {
-        print(mailClient.mailboxName);
-        print(event.email.receiver);
-        print(event.email.subject);
-        print(event.email.body);
+        print(event.email);
+        print("replyAll: ${event.replyAll}");
+        print("replyOriginalMessageId: ${event.replyOriginalMessageId}");
       }
       if (event.replyOriginalMessageId != null) {
         try {
@@ -172,14 +170,8 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
               event.email.receiver.contains(".")) {
             recipients.add(Address(event.email.receiver, event.email.receiver));
           } else {
-            Address? resolvedAddress =
-                (await mailClient.resolveContact(event.email.receiver));
-            if (resolvedAddress != null) {
-              recipients.add(resolvedAddress);
-            } else {
-              emit(EmailUnableToResolve());
-              return;
-            }
+            Address resolvedAddress = Address(event.email.receiver, "");
+            recipients.add(resolvedAddress);
           }
           await mailClient.sendEmail(
             sender: mailClient.emailAddress,
