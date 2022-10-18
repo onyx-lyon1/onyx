@@ -6,6 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oloid2/model/settings.dart';
+import 'package:workmanager/workmanager.dart';
 
 part 'settings_event.dart';
 
@@ -15,8 +16,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsModel settings = SettingsModel();
 
   SettingsBloc() : super(SettingsInitial()) {
-    on<SettingsEvent>((event, emit) {
-    });
+    on<SettingsEvent>((event, emit) {});
     on<SettingsLoad>(load);
     on<SettingsReset>(reset);
     on<SettingsModify>(modify);
@@ -37,6 +37,11 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       settings = tmpSettings;
     }
     emit(SettingsReady());
+    if (!(settings.calendarUpdateNotification &&
+        settings.newMailNotification &&
+        settings.newGradeNotification)) {
+      Workmanager().cancelByUniqueName("updateChecking");
+    }
   }
 
   Future<void> modify(SettingsModify event, Emitter<SettingsState> emit) async {
