@@ -13,7 +13,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final FocusNode secondFocus = FocusNode();
   final _formKey = GlobalKey<FormState>();
   String username = "";
   String password = "";
@@ -91,7 +90,6 @@ class _LoginPageState extends State<LoginPage> {
                     width: 70.w,
                     child: PasswordFormField(
                       onFieldSubmitted: send,
-                      secondFocus: secondFocus,
                       decoration: InputDecoration(
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -152,14 +150,12 @@ class PasswordFormField extends StatefulWidget {
   final FormFieldValidator? validator;
   final InputDecoration decoration;
   final void Function() onFieldSubmitted;
-  final FocusNode secondFocus;
 
   const PasswordFormField({
     Key? key,
     this.onSaved,
     this.validator,
     this.decoration = const InputDecoration(),
-    required this.secondFocus,
     required this.onFieldSubmitted,
   }) : super(key: key);
 
@@ -173,7 +169,6 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      focusNode: widget.secondFocus,
       onSaved: widget.onSaved,
       validator: widget.validator,
       obscureText: _isObscure,

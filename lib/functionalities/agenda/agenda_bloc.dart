@@ -23,7 +23,6 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
 
   AgendaBloc() : super(AgendaInitial()) {
     on<AgendaEvent>((event, emit) {
-      // TODO: implement event handler
     });
     on<AgendaLoad>(load);
   }

@@ -49,20 +49,23 @@ class AuthentificationBloc
       emit(AuthentificationAuthentificating());
       final tomusslib.Dartus tomuss = tomusslib.Dartus(
           tomusslib.Authentication(auth.username, auth.password));
-      if (await tomuss.authenticate()) {
-        dartus = tomuss;
-        if (event.keepLogedIn) {
-          if (!authBox.isOpen) {
-            authBox = await Hive.openBox<Authentication>("authentification");
+      try {
+        if (await tomuss.authenticate()) {
+          dartus = tomuss;
+          if (event.keepLogedIn) {
+            if (!authBox.isOpen) {
+              authBox = await Hive.openBox<Authentication>("authentification");
+            }
+            await authBox.put("credential", auth);
           }
-          await authBox.put("credential", auth);
+          emit(AuthentificationAuthentificated());
+        } else {
+          emit(AuthentificationError());
         }
-        emit(AuthentificationAuthentificated());
-      } else {
+      } catch (e) {
         emit(AuthentificationError());
       }
     }
-    // await authBox.close();
   }
 
   Future<void> forget(event, Emitter<AuthentificationState> emit) async {

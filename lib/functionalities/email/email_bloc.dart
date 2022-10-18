@@ -23,7 +23,6 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
 
   EmailBloc() : super(EmailInitial()) {
     on<EmailEvent>((event, emit) {
-      // TODO: implement event handler
     });
     on<EmailConnect>(connect);
     on<EmailLoad>(load);

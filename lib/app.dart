@@ -17,7 +17,7 @@ import 'theme/theme.dart';
 class OloidApp extends StatefulWidget {
   const OloidApp({Key? key, required this.androidSdkVersion}) : super(key: key);
 
-final int androidSdkVersion;
+  final int androidSdkVersion;
 
   @override
   State<StatefulWidget> createState() {
@@ -51,10 +51,10 @@ class OloidAppState extends State<OloidApp> {
           ),
         ],
         child: BlocBuilder<AuthentificationBloc, AuthentificationState>(
-          builder: (context, state) {
+          builder: (context, authState) {
             return BlocBuilder<SettingsBloc, SettingsState>(
-              builder: (context, state) {
-                if (state is SettingsReady) {
+              builder: (context, settingsState) {
+                if (settingsState is SettingsReady) {
                   return MaterialApp(
                       title: 'Oloid 2.0',
                       scrollBehavior:

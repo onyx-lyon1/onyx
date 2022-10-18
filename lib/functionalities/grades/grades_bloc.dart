@@ -23,7 +23,6 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
 
   GradesBloc() : super(GradesInitial()) {
     on<GradesEvent>((event, emit) {
-      // TODO: implement event handler
     });
     on<GradesLoad>(load);
   }
