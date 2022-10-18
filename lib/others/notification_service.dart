@@ -26,6 +26,10 @@ class NotificationService {
         // handle action
       },
     ),
+    linux: LinuxInitializationSettings(
+      defaultIcon: AssetsLinuxIcon('assets/icon.png'),
+      defaultActionName: 'Notification',
+    ),
   );
 
   static Future<void> init() async {

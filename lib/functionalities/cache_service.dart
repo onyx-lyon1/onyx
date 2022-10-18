@@ -2,8 +2,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class CacheService {
   static Future<E?> get<E>() async {
-    Box<E> box = await Hive.openBox<E>("cached_$E");
-    return box.get("cache");
+    try {
+      Box<E> box = await Hive.openBox<E>("cached_$E");
+      return box.get("cache");
+    } catch (e) {
+      return null;
+    }
   }
 
   static Future<void> set<E>(E data) async {

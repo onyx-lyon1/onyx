@@ -14,7 +14,7 @@ class GradeModel {
   @HiveField(2)
   late double gradeNumerator;
   @HiveField(3)
-  late int gradeDenominator;
+  late double gradeDenominator;
   @HiveField(4)
   late int rank;
   @HiveField(5)

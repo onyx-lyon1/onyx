@@ -55,19 +55,11 @@ class HomeState extends State<Home> {
                 duration: const Duration(milliseconds: 300),
               );
             } else if (currentIndex == index) {
-              if (currentIndex == 2) {
+              if (currentIndex == 1) {
                 context
                     .read<AgendaBloc>()
                     .add(AgendaUpdateDisplayedDate(DateTime.now()));
-              } else if (currentIndex == 3) {
-                // TODO
               }
-
-              // if (pages[currentIndex] is EmailsPage) {
-              //   (pages[currentIndex] as EmailsPage).jumpToTop();
-              // } else if (pages[currentIndex] is AgendaPage) {
-              //   (pages[currentIndex] as AgendaPage).jumpToTop();
-              // }
             } else {
               pageController.jumpToPage(index);
             }

@@ -12,7 +12,7 @@ import 'package:oloid2/model/teacher_model.dart';
 import 'package:oloid2/model/teaching_unit.dart';
 import 'package:oloid2/model/text_model.dart';
 import 'package:oloid2/model/wrapper/teaching_unit_model_wrapper.dart';
-import 'package:oloid2/others/cache_service.dart';
+import 'package:oloid2/functionalities/cache_service.dart';
 
 part 'grades_event.dart';
 
@@ -22,8 +22,7 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
   List<TeachingUnitModel> teachingUnits = [];
 
   GradesBloc() : super(GradesInitial()) {
-    on<GradesEvent>((event, emit) {
-    });
+    on<GradesEvent>((event, emit) {});
     on<GradesLoad>(load);
   }
 

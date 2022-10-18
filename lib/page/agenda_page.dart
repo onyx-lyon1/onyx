@@ -11,7 +11,6 @@ import 'package:oloid2/widget/agenda/mini_calendar.dart';
 import 'package:oloid2/widget/custom_circular_progress_indicator.dart';
 import 'package:sizer/sizer.dart';
 
-// ignore: must_be_immutable
 class AgendaPage extends StatelessWidget {
   const AgendaPage({
     Key? key,

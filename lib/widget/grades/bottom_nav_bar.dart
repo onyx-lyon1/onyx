@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class BottomNavBar extends StatelessWidget {
   /*
@@ -31,14 +32,30 @@ class BottomNavBar extends StatelessWidget {
           Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       onTap: (index) => onTap(index),
       type: BottomNavigationBarType.fixed,
-      items: const [
-        BottomNavigationBarItem(
+      items: [
+        const BottomNavigationBarItem(
             icon: Icon(Icons.class_rounded), label: "Notes"),
         BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today_rounded), label: "Agenda"),
-        BottomNavigationBarItem(
+            icon: Stack(
+              alignment: Alignment.center,
+              children: [
+                const Icon(Icons.calendar_today_rounded),
+                Padding(
+                  padding: EdgeInsets.only(top: 1.h),
+                  child: Text(
+                    DateTime.now().day.toString(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(fontSize: 10.sp),
+                  ),
+                ),
+              ],
+            ),
+            label: "Agenda"),
+        const BottomNavigationBarItem(
             icon: Icon(Icons.email_rounded), label: "Emails"),
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
             icon: Icon(Icons.settings), label: "Paramètres"),
       ],
     );

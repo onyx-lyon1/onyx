@@ -19,7 +19,7 @@ class Grade extends StatelessWidget {
 
     return Card(
       o: gradeModel,
-      groupeSize: 120,//TODO implement groupe size
+      groupeSize: gradeModel.groupSize,
       rank: gradeModel.rank,
       text1: gradeModel.name,
       text2:

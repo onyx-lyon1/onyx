@@ -21,7 +21,7 @@ class GradeModelAdapter extends TypeAdapter<GradeModel> {
       author: fields[1] as String,
       groupSize: fields[7] as int,
       gradeNumerator: fields[2] as double,
-      gradeDenominator: fields[3] as int,
+      gradeDenominator: fields[3] as double,
       rank: fields[4] as int,
       average: fields[5] as double,
       mediane: fields[6] as double,

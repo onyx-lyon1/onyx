@@ -11,7 +11,7 @@ import 'package:oloid2/model/day_model.dart';
 import 'package:oloid2/model/event_model.dart';
 import 'package:oloid2/model/settings.dart';
 import 'package:oloid2/model/wrapper/day_model_wrapper.dart';
-import 'package:oloid2/others/cache_service.dart';
+import 'package:oloid2/functionalities/cache_service.dart';
 
 part 'agenda_event.dart';
 

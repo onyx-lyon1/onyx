@@ -72,7 +72,7 @@ class MiniCalendar extends StatelessWidget {
 
   Widget oneDay(BuildContext context, DateTime currentDate) {
     return Padding(
-      padding: EdgeInsets.all(1.w),
+      padding: EdgeInsets.all(0.8.w),
       child: Material(
         borderRadius: BorderRadius.circular(10),
         color: Colors.transparent,
@@ -89,14 +89,33 @@ class MiniCalendar extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             onTap: () => onUpdate(currentDate),
             child: SizedBox(
-              height: 5.h,
+              height: 10.h,
               width: 15.w,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(currentDate.toMonthName(short: true)),
-                  Text(currentDate.day.toString()),
-                  Text(currentDate.toWeekDayName(short: true)),
+                  SizedBox(
+                    height: 3.h,
+                    child: Text(
+                      currentDate.toMonthName(short: true),
+                      style: TextStyle(fontSize: 10.sp),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 3.h,
+                    child: Text(
+                      currentDate.day.toString(),
+                      style: TextStyle(fontSize: 12.sp),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 3.h,
+                    child: Text(
+                      currentDate.toWeekDayName(short: true),
+                      style: TextStyle(fontSize: 10.sp),
+                    ),
+                  ),
                 ],
               ),
             ),

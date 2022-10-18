@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
-import 'package:oloid2/others/cache_service.dart';
+import 'package:oloid2/functionalities/cache_service.dart';
 
 part 'email_event.dart';
 
