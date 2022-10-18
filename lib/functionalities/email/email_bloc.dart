@@ -168,7 +168,9 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
           List<Address> recipients = [];
           if (event.email.receiver.contains("@") &&
               event.email.receiver.contains(".")) {
-            recipients.add(Address(event.email.receiver, event.email.receiver));
+            for (var i in event.email.receiver.split(",")) {
+              recipients.add(Address(i, i));
+            }
           } else {
             Address resolvedAddress = Address(event.email.receiver, "");
             recipients.add(resolvedAddress);
