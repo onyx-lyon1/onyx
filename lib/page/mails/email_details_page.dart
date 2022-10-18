@@ -136,6 +136,7 @@ class EmailDetailsPage extends StatelessWidget {
               ),
               Container(
                 color: Theme.of(context).cardTheme.color,
+                padding: EdgeInsets.all(1.h),
                 height: 78.h,
                 width: 100.w,
                 child: (mail.body.toLowerCase().contains("html") &&

@@ -1,8 +1,15 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class CustomScrollBehavior extends ScrollBehavior {
   const CustomScrollBehavior({required this.androidSdkVersion}) : super();
   final int androidSdkVersion;
+
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 
   @override
   Widget buildOverscrollIndicator(
