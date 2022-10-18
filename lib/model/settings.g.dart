@@ -28,13 +28,14 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       agendaURL: fields[8] as String,
       newMailNotification: fields[9] as bool,
       blockTrackers: fields[10] as bool,
+      darkerMail: fields[11] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.keepMeLoggedIn)
       ..writeByte(1)
@@ -56,7 +57,9 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(9)
       ..write(obj.newMailNotification)
       ..writeByte(10)
-      ..write(obj.blockTrackers);
+      ..write(obj.blockTrackers)
+      ..writeByte(11)
+      ..write(obj.darkerMail);
   }
 
   @override

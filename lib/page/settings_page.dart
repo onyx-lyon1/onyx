@@ -226,6 +226,16 @@ class SettingsPage extends StatelessWidget {
                             .copyWith(newMailNotification: b)));
                       },
                     ),
+                  TextSwitch(
+                    text: 'Assombrir les mails',
+                    value: context.read<SettingsBloc>().settings.darkerMail,
+                    onChanged: (bool b) {
+                      context.read<SettingsBloc>().add(SettingsModify(context
+                          .read<SettingsBloc>()
+                          .settings
+                          .copyWith(darkerMail: b)));
+                    },
+                  ),
                 ],
               ),
               SettingsCard(

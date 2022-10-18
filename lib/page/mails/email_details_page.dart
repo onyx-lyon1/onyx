@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:oloid2/functionalities/email/email_bloc.dart';
+import 'package:oloid2/functionalities/settings/settings_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/others/hex.dart';
 import 'package:oloid2/page/mails/email_send_page.dart';
@@ -149,17 +150,22 @@ class EmailDetailsPage extends StatelessWidget {
                             : null,
                         onWebViewCreated: (controller) async {
                           webViewController = controller;
-                          webViewController.loadUrl(Uri.dataFromString(
-                                  //add background screen
-                                  '<!DOCTYPE html>'
-                                  '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
-                                  '<style>body { background-color: ${Theme.of(context).backgroundColor.toHex()}; } </style>'
-                                  '</head>'
-                                  '<body text="${Theme.of(context).textTheme.bodyText2?.color?.toHex()}" >'
-                                  '${mail.body}'
-                                  '</body>',
-                                  mimeType: 'text/html',
-                                  encoding: Encoding.getByName('utf-8'))
+                          webViewController.loadUrl(((context
+                                      .read<SettingsBloc>()
+                                      .settings
+                                      .darkerMail)
+                                  ? Uri.dataFromString(
+                                      //add background screen
+                                      '<!DOCTYPE html>'
+                                      '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
+                                      '<style>body { background-color: ${Theme.of(context).backgroundColor.toHex()}; } </style>'
+                                      '</head>'
+                                      '<body text="${Theme.of(context).textTheme.bodyText2?.color?.toHex()}" >'
+                                      '${mail.body}'
+                                      '</body>',
+                                      mimeType: 'text/html',
+                                      encoding: Encoding.getByName('utf-8'))
+                                  : Uri.dataFromString(mail.body))
                               .toString());
                         },
                       )
