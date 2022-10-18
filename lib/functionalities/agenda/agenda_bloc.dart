@@ -20,11 +20,14 @@ part 'agenda_state.dart';
 class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   Lyon1Agenda? agendaClient;
   List<DayModel> dayModels = [];
+  DateTime wantedDate = DateTime.now();
+
 
   AgendaBloc() : super(AgendaInitial()) {
     on<AgendaEvent>((event, emit) {
     });
     on<AgendaLoad>(load);
+    on<AgendaUpdateDisplayedDate>(updateDisplayedDate);
   }
 
   Future<void> load(AgendaLoad event, Emitter emit) async {
@@ -120,5 +123,10 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
         DayModelWrapper(dayModels)); //await à definir
     emit(AgendaReady());
     return;
+  }
+
+  void updateDisplayedDate(AgendaUpdateDisplayedDate event, Emitter emit) {
+    wantedDate = event.date;
+    emit(AgendaDateUpdated());
   }
 }

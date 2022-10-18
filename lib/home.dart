@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oloid2/functionalities/agenda/agenda_bloc.dart';
 import 'package:oloid2/page/agenda_page.dart';
 import 'package:oloid2/page/mails/emails_page.dart';
 import 'package:oloid2/page/settings_page.dart';
@@ -54,7 +56,9 @@ class HomeState extends State<Home> {
               );
             } else if (currentIndex == index) {
               if (currentIndex == 2) {
-                // TODO
+                context
+                    .read<AgendaBloc>()
+                    .add(AgendaUpdateDisplayedDate(DateTime.now()));
               } else if (currentIndex == 3) {
                 // TODO
               }

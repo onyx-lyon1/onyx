@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mail/lyon1mail.dart';
+import 'package:oloid2/functionalities/agenda/agenda_bloc.dart';
 import 'package:oloid2/functionalities/authentification/authentification_bloc.dart';
 import 'package:oloid2/functionalities/email/email_bloc.dart';
 import 'package:oloid2/functionalities/settings/settings_bloc.dart';
@@ -48,6 +49,9 @@ class OloidAppState extends State<OloidApp> {
           ),
           BlocProvider<EmailBloc>(
             create: (context) => EmailBloc(),
+          ),
+          BlocProvider<AgendaBloc>(
+            create: (context) => AgendaBloc(),
           ),
         ],
         child: BlocBuilder<AuthentificationBloc, AuthentificationState>(
