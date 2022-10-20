@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/functionalities/agenda/agenda_bloc.dart';
+import 'package:oloid2/functionalities/authentification/authentification_bloc.dart';
+import 'package:oloid2/functionalities/settings/settings_bloc.dart';
 import 'package:oloid2/page/agenda_page.dart';
 import 'package:oloid2/page/mails/emails_page.dart';
 import 'package:oloid2/page/settings_page.dart';
@@ -48,6 +50,12 @@ class HomeState extends State<Home> {
         currentIndex: currentIndex,
         onTap: (index) {
           setState(() {
+            //TODO beautifiy this
+            if (currentIndex == 1){
+              context.read<AgendaBloc>().add(AgendaLoad(
+                  context.read<AuthentificationBloc>().dartus!,
+                  context.read<SettingsBloc>().settings));
+            }
             if (index == currentIndex + 1 || index == currentIndex - 1) {
               pageController.animateToPage(
                 index,
@@ -56,6 +64,7 @@ class HomeState extends State<Home> {
               );
             } else if (currentIndex == index) {
               if (currentIndex == 1) {
+
                 context
                     .read<AgendaBloc>()
                     .add(AgendaUpdateDisplayedDate(DateTime.now()));
