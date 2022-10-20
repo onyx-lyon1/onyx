@@ -5,7 +5,7 @@
 import FlutterMacOS
 import Foundation
 
-import device_info_plus_macos
+import device_info_plus
 import flutter_local_notifications
 import mobile_scanner
 import path_provider_macos

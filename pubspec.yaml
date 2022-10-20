@@ -24,7 +24,7 @@ dependencies:
   workmanager: ^0.5.0
   flutter_local_notifications: ^12.0.2
   flutter_speed_dial: ^6.2.0
-  device_info_plus: ^6.0.0
+  device_info_plus: ^7.0.0
   dartus:
     git: https://github.com/hatch01/dartus-tomuss-client.git
   lyon1mail:
@@ -37,7 +37,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.1
   build_runner: ^2.2.0
-  hive_generator: ^1.1.3
+  hive_generator: ^2.0.0
   flutter_launcher_icons: ^0.10.0
 
 flutter_icons:
