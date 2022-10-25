@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:oloid2/functionalities/background_notifications/background_tasks.dart';
 import 'package:oloid2/functionalities/background_notifications/notification_service.dart';
@@ -14,7 +15,7 @@ void main() async {
 
   if (Platform.isAndroid || Platform.isIOS) {
     Workmanager()
-        .initialize(callbackDispatcher, isInDebugMode: true /*kDebugMode*/);
+        .initialize(callbackDispatcher, isInDebugMode: kDebugMode);
     Workmanager().registerPeriodicTask("updateChecking", "check update",
         frequency: const Duration(hours: 1),
         constraints: Constraints(networkType: NetworkType.connected));
