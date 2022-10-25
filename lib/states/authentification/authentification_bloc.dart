@@ -6,6 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:oloid2/functionalities/authentification_backend/authentification_backend.dart';
 import 'package:oloid2/model/authentication.dart';
 
 part 'authentification_event.dart';
@@ -31,41 +32,26 @@ class AuthentificationBloc
 
   Future<void> login(
       AuthentificationLogin event, Emitter<AuthentificationState> emit) async {
-    Box<Authentication> authBox =
-        await Hive.openBox<Authentication>("authentification");
-    Authentication? auth;
-    if (event.username != null && event.password != null) {
-      auth =
-          Authentication(username: event.username!, password: event.password!);
-      usename = event.username!;
-      password = event.password!;
-    } else {
-      auth = authBox.get("credential");
-    }
-    if (auth == null) {
-      emit(AuthentificationNeedCredential());
-    } else {
+    //fetch username and password
+    try {
+      Authentication auth = await AuthentificationBackend.fetchCredential(
+          username: event.username, password: event.password);
       usename = auth.username;
       password = auth.password;
-      emit(AuthentificationAuthentificating());
-      final tomusslib.Dartus tomuss = tomusslib.Dartus(
-          tomusslib.Authentication(auth.username, auth.password));
-      try {
-        if (await tomuss.authenticate()) {
-          dartus = tomuss;
-          if (event.keepLogedIn) {
-            if (!authBox.isOpen) {
-              authBox = await Hive.openBox<Authentication>("authentification");
-            }
-            await authBox.put("credential", auth);
-          }
-          emit(AuthentificationAuthentificated());
-        } else {
-          emit(AuthentificationError());
-        }
-      } catch (e) {
-        emit(AuthentificationError());
-      }
+    } catch (e) {
+      emit(AuthentificationNeedCredential());
+      return;
+    }
+    //login
+    try {
+      dartus = await AuthentificationBackend.login(
+          username: usename,
+          password: password,
+          keepLogedIn: event.keepLogedIn);
+      emit(AuthentificationAuthentificated());
+    } catch (e) {
+      emit(AuthentificationError());
+      return;
     }
   }
 
@@ -76,7 +62,6 @@ class AuthentificationBloc
     Box<Authentication> authBox =
         await Hive.openBox<Authentication>("authentification");
     authBox.delete("credential");
-    // await authBox.close();
   }
 
   Future<void> logout(event, Emitter<AuthentificationState> emit) async {

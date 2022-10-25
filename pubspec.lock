@@ -221,9 +221,11 @@ packages:
   dartus:
     dependency: "direct main"
     description:
-      path: "/home/eymeric/code_bidouille/projets/oloid/dartus-tomuss-client"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "5ab4bb5f2ba9efd9c27ed29e913c01a2a4cc6da4"
+      url: "https://github.com/hatch01/dartus-tomuss-client.git"
+    source: git
     version: "1.0.3"
   dartz:
     dependency: transitive
@@ -544,16 +546,20 @@ packages:
   lyon1agenda:
     dependency: "direct main"
     description:
-      path: "/home/eymeric/code_bidouille/projets/oloid/lyon1-agendaclient"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: f9bd8ea34ff22cbb54542df72b43be4c647b5389
+      url: "https://github.com/hatch01/lyon1-agendaclient.git"
+    source: git
     version: "1.0.0"
   lyon1mail:
     dependency: "direct main"
     description:
-      path: "/home/eymeric/code_bidouille/projets/oloid/lyon1-mailclient"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "0e5fba6f58eeaec1bf45c3d534c398e26b28e595"
+      url: "https://github.com/hatch01/lyon1-mailclient.git"
+    source: git
     version: "1.0.0"
   matcher:
     dependency: transitive

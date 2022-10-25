@@ -22,7 +22,7 @@ class EmailHeader extends StatelessWidget {
         height: 10.h,
         child: TextField(
           onChanged: (String query) {
-            context.read<EmailBloc>().add(EmailSort(query));
+            context.read<EmailBloc>().add(EmailFilter(query));
           },
           style: TextStyle(
             color: Theme.of(context).textTheme.button!.color,

@@ -1,10 +1,10 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:oloid2/functionalities/cache_service.dart';
+import 'package:oloid2/functionalities/email_backend/email_backend.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
 
@@ -32,7 +32,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     on<EmailSend>(send);
     on<EmailMarkAsRead>(markAsRead);
     on<EmailDelete>(delete);
-    on<EmailSort>(sort);
+    on<EmailFilter>(filter);
     on<EmailIncreaseNumber>(increaseNumber);
   }
 
@@ -43,17 +43,18 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       emails = emailsComplete;
       emit(EmailConnecting());
     }
-    username = event.username;
-    password = event.password;
-    mailClient = Lyon1Mail(username, password);
-    if (!await mailClient.login()) {
+    try {
+      username = event.username;
+      password = event.password;
+      mailClient =
+          await EmailBackend.connect(username: username, password: password);
+      emit(EmailConnected());
+    } catch (e) {
       emit(EmailError());
-      return;
     }
-    emit(EmailConnected());
   }
 
-  void sort(EmailSort event, Emitter<EmailState> emit) async {
+  void filter(EmailFilter event, Emitter<EmailState> emit) async {
     emails = [];
     for (var i in emailsComplete) {
       if (i.subject.toLowerCase().contains(event.filter.toLowerCase()) ||
@@ -110,93 +111,36 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         }
       }
     }
-    List<EmailModel> tmpEmailsComplete = [];
-    if (!mailClient.isAuthenticated) {
-      if (!await mailClient.login()) {
-        emit(EmailError());
-        return;
-      }
-    }
-    final Option<List<Mail>> emailOpt =
-        await mailClient.fetchMessages(emailNumber);
-    if (emailOpt.isNone()) {
-      if (kDebugMode) {
-        print("no emails");
-      }
-    } else {
-      for (final Mail mail in emailOpt.toIterable().first) {
-        if (!tmpEmailsComplete.any((element) =>
-            element.date == mail.getDate() &&
-            element.body == mail.getBody(excerpt: false))) {
-          tmpEmailsComplete.add(EmailModel.fromMailLib(mail));
-        }
-      }
-      emailsComplete = tmpEmailsComplete;
+    try {
+      emailsComplete = await EmailBackend.load(
+          emailNumber: emailNumber, mailClient: mailClient);
       emails = emailsComplete;
-      CacheService.set<EmailModelWrapper>(
-          EmailModelWrapper(emailsComplete)); //await à definir
+    } catch (e) {
+      emit(EmailError());
+      return;
     }
+    CacheService.set<EmailModelWrapper>(
+        EmailModelWrapper(emailsComplete)); //await à definir
     emit(EmailLoaded());
   }
 
   void send(EmailSend event, Emitter<EmailState> emit) async {
     if (state is! EmailSending) {
-      if (!mailClient.isAuthenticated) {
-        if (!await mailClient.login()) {
-          emit(EmailError());
-          return;
-        }
-      }
       emit(EmailSending());
-      if (kDebugMode) {
-        print(event.email);
-        print("replyAll: ${event.replyAll}");
-        print("replyOriginalMessageId: ${event.replyOriginalMessageId}");
+      try {
+        await EmailBackend.send(
+          email: event.email,
+          mailClient: mailClient,
+          replyOriginalMessageId: event.replyOriginalMessageId,
+          replyAll: event.replyAll,
+          emailNumber: emailNumber,
+          emailsComplete: emailsComplete,
+        );
+      } catch (e) {
+        emit(EmailError());
+        return;
       }
-      if (event.replyOriginalMessageId != null) {
-        try {
-          await mailClient.fetchMessages(emailNumber);
-          print("presend");
-          print(
-              "original message id: ${event.replyOriginalMessageId}, subject: ${event.email.subject}, body: ${event.email.body}, replyAll: ${event.replyAll ?? false}, sender: ${mailClient.emailAddress}");
 
-          await mailClient.reply(
-            originalMessageId: event.replyOriginalMessageId!,
-            subject: event.email.subject,
-            body: emailsComplete
-                .where((element) => element.id == event.replyOriginalMessageId)
-                .first
-                .body,
-            replyAll: event.replyAll ?? false,
-            sender: mailClient.emailAddress,
-          );
-        } catch (e) {
-          emit(EmailError());
-          return;
-        }
-      } else {
-        try {
-          List<Address> recipients = [];
-          if (event.email.receiver.contains("@") &&
-              event.email.receiver.contains(".")) {
-            for (var i in event.email.receiver.split(",")) {
-              recipients.add(Address(i, i));
-            }
-          } else {
-            Address resolvedAddress = Address(event.email.receiver, "");
-            recipients.add(resolvedAddress);
-          }
-          await mailClient.sendEmail(
-            sender: mailClient.emailAddress,
-            recipients: recipients,
-            subject: event.email.subject,
-            body: event.email.body,
-          );
-        } catch (e) {
-          emit(EmailError());
-          return;
-        }
-      }
       emit(EmailSended());
     }
   }

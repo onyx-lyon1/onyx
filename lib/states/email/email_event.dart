@@ -35,10 +35,10 @@ class EmailDelete extends EmailEvent {
   EmailDelete(this.email);
 }
 
-class EmailSort extends EmailEvent {
+class EmailFilter extends EmailEvent {
   final String filter;
 
-  EmailSort(this.filter);
+  EmailFilter(this.filter);
 }
 
 class EmailIncreaseNumber extends EmailEvent {}
