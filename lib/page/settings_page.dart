@@ -4,7 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/functionalities/authentification/authentification_bloc.dart';
+import 'package:oloid2/functionalities/cache_service.dart';
 import 'package:oloid2/functionalities/settings/settings_bloc.dart';
+import 'package:oloid2/model/wrapper/day_model_wrapper.dart';
+import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
+import 'package:oloid2/model/wrapper/teaching_unit_model_wrapper.dart';
 import 'package:oloid2/page/qr_code_scanner.dart';
 import 'package:oloid2/widget/settings_card.dart';
 import 'package:oloid2/widget/text_switch.dart';
@@ -268,6 +272,35 @@ class SettingsPage extends StatelessWidget {
                   )
                 ],
               ),
+              SettingsCard(name: "Cache", widgets: [
+                MaterialButton(
+                  minWidth: MediaQuery.of(context).size.width,
+                  color: const Color(0xffbf616a),
+                  textColor: Colors.white70,
+                  child: const Text('Vider le cache des notes'),
+                  onPressed: () {
+                    CacheService.reset<TeachingUnitModelWrapper>();
+                  },
+                ),
+                MaterialButton(
+                  minWidth: MediaQuery.of(context).size.width,
+                  color: const Color(0xffbf616a),
+                  textColor: Colors.white70,
+                  child: const Text('Vider le cache de l\'agenda'),
+                  onPressed: () {
+                    CacheService.reset<DayModelWrapper>();
+                  },
+                ),
+                MaterialButton(
+                  minWidth: MediaQuery.of(context).size.width,
+                  color: const Color(0xffbf616a),
+                  textColor: Colors.white70,
+                  child: const Text('Vider le cache des mails'),
+                  onPressed: () {
+                    CacheService.reset<EmailModelWrapper>();
+                  },
+                ),
+              ])
             ],
           ),
         );

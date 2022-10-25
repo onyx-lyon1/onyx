@@ -16,7 +16,11 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsModel settings = SettingsModel();
 
   SettingsBloc() : super(SettingsInitial()) {
-    on<SettingsEvent>((event, emit) {});
+    on<SettingsEvent>((event, emit) {
+      if (kDebugMode) {
+        print("SettingsBloc: $event");
+      }
+    });
     on<SettingsLoad>(load);
     on<SettingsReset>(reset);
     on<SettingsModify>(modify);

@@ -15,13 +15,12 @@ class EmailHeader extends StatelessWidget {
       height: 10.h,
       child: Container(
         margin: const EdgeInsets.all(5),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
-        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+            borderRadius: BorderRadius.circular(10)),
         width: 85.w,
         height: 10.h,
         child: TextField(
-
-          // expands: true,
           onChanged: (String query) {
             context.read<EmailBloc>().add(EmailSort(query));
           },
@@ -31,8 +30,6 @@ class EmailHeader extends StatelessWidget {
           cursorColor: Theme.of(context).textTheme.bodyText1!.color,
           decoration: InputDecoration(
             border: InputBorder.none,
-            filled: true,
-            fillColor: Theme.of(context).backgroundColor,
             prefixIcon: Icon(
               Icons.search,
               color: Theme.of(context)

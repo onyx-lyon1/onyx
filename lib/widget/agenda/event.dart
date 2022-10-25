@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oloid2/model/event_model.dart';
 import 'package:oloid2/others/date_beautifull.dart';
+import 'package:oloid2/others/int_to_sized_string.dart';
 
 class Event extends StatelessWidget {
   final EventModel event;
@@ -35,7 +36,7 @@ class Event extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${event.start.hour}:${event.start.minute}',
+                        '${event.start.hour.toFixedLengthString(2)}:${event.start.minute.toFixedLengthString(2)}',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: Theme.of(context).textTheme.bodyText1!.color,

@@ -30,7 +30,7 @@ class Card extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
-  Color _mainGradeColor() {
+  Color _mainGradeColor(BuildContext context) {
     if (forceGreen || rank == null) {
       return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
     } else {
@@ -59,27 +59,13 @@ class Card extends StatelessWidget {
         }
       }
     }
-    return Colors.white;
+    return Theme.of(context).backgroundColor;
   }
 
   Color _gradeColor(GradeModel grade) {
     if (forceGreen || !grade.isValidGrade) {
       return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
     } else {
-      //original official fonction
-      // function rank_to_color(rank, nr) {
-      //   var x = Math.floor(511 * rank / nr);
-      //   var b, c = '';
-      //   if (rank > nr / 2) {
-      //     b = '255,' + (511 - x) + ',' + (511 - x);
-      //     if (rank > 3 * nr / 4)
-      //       c = ';color:#FFF';
-      //   }
-      //   else
-      //     b = x + ',255,' + x;
-      //
-      //   return 'background: rgb(' + b + ')' + c
-      // }
       var x = (511 * grade.rank / grade.groupSize).floor();
       Color b = Colors.red;
       if (grade.rank > grade.groupSize / 2) {
@@ -114,7 +100,7 @@ class Card extends StatelessWidget {
           Container(
             height: 11.h,
             width: 25.w,
-            decoration: BoxDecoration(color: _mainGradeColor()),
+            decoration: BoxDecoration(color: _mainGradeColor(context)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

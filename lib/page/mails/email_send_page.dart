@@ -39,7 +39,7 @@ class EmailSendPage extends StatelessWidget {
           return const StateDisplaying(
               message: "Something went wrong with emails");
         } else if (state is EmailSended) {
-          context.read<EmailBloc>().add(EmailLoad());
+          context.read<EmailBloc>().add(EmailLoad(cache: false));
           SchedulerBinding.instance.addPostFrameCallback((_) {
             Navigator.pop(context);
           });
@@ -66,11 +66,13 @@ class EmailSendPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
                 splashColor: Theme.of(context).cardTheme.color,
                 onTap: () {
-                  if (destinationEditor.value.text.isNotEmpty &&
-                      subjectEditor.value.text.isNotEmpty &&
-                      bodyEditor.value.text.isNotEmpty &&
-                      destinationEditor.value.text.contains("@") &&
-                      destinationEditor.value.text.contains(".")) {
+                  if ((destinationEditor.value.text.isNotEmpty &&
+                          subjectEditor.value.text.isNotEmpty &&
+                          bodyEditor.value.text.isNotEmpty &&
+                          destinationEditor.value.text.contains("@") &&
+                          destinationEditor.value.text.contains(".")) ||
+                      (replyOriginalMessage != null &&
+                          bodyEditor.value.text.isNotEmpty)) {
                     EmailModel email = EmailModel(
                         subject: subjectEditor.text,
                         sender: "moi",

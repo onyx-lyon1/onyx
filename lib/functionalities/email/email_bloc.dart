@@ -22,7 +22,11 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   late String password;
 
   EmailBloc() : super(EmailInitial()) {
-    on<EmailEvent>((event, emit) {});
+    on<EmailEvent>((event, emit) {
+      if (kDebugMode) {
+        print("EmailBloc: $event");
+      }
+    });
     on<EmailConnect>(connect);
     on<EmailLoad>(load);
     on<EmailSend>(send);
@@ -152,10 +156,17 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       if (event.replyOriginalMessageId != null) {
         try {
           await mailClient.fetchMessages(emailNumber);
+          print("presend");
+          print(
+              "original message id: ${event.replyOriginalMessageId}, subject: ${event.email.subject}, body: ${event.email.body}, replyAll: ${event.replyAll ?? false}, sender: ${mailClient.emailAddress}");
+
           await mailClient.reply(
             originalMessageId: event.replyOriginalMessageId!,
             subject: event.email.subject,
-            body: event.email.body,
+            body: emailsComplete
+                .where((element) => element.id == event.replyOriginalMessageId)
+                .first
+                .body,
             replyAll: event.replyAll ?? false,
             sender: mailClient.emailAddress,
           );

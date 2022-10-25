@@ -71,26 +71,26 @@ class MiniCalendar extends StatelessWidget {
   }
 
   Widget oneDay(BuildContext context, DateTime currentDate) {
-    return Padding(
-      padding: EdgeInsets.all(0.8.w),
-      child: Material(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.transparent,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 500),
-          decoration: BoxDecoration(
-            color: (wantedDate.day == currentDate.day &&
-                    wantedDate.year == currentDate.year)
-                ? Theme.of(context).primaryColor
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(10),
-            onTap: () => onUpdate(currentDate),
-            child: SizedBox(
-              height: 10.h,
-              width: 15.w,
+    return SizedBox(
+      height: 10.h,
+      width: 15.w,
+      child: Padding(
+        padding: EdgeInsets.all(0.8.w),
+        child: Material(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.transparent,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            decoration: BoxDecoration(
+              color: (wantedDate.day == currentDate.day &&
+                      wantedDate.year == currentDate.year)
+                  ? Theme.of(context).primaryColor
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(10),
+              onTap: () => onUpdate(currentDate),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,

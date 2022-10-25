@@ -41,7 +41,7 @@ class BottomNavBar extends StatelessWidget {
               children: [
                 const Icon(Icons.calendar_today_rounded),
                 Padding(
-                  padding: EdgeInsets.only(top: 1.h),
+                  padding: const EdgeInsets.only(top: 24.0 * (1 / 4.5)),
                   child: Text(
                     DateTime.now().day.toString(),
                     style: Theme.of(context)

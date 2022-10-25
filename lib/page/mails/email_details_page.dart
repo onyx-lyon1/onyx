@@ -45,12 +45,14 @@ class EmailDetailsPage extends StatelessWidget {
           SpeedDialChild(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => EmailSendPage(
-                            replyAll: true,
-                            replyOriginalMessage: mail.id,
-                          )));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EmailSendPage(
+                    replyAll: true,
+                    replyOriginalMessage: mail.id,
+                  ),
+                ),
+              );
             },
             child: Icon(
               Icons.reply_all,
@@ -113,7 +115,7 @@ class EmailDetailsPage extends StatelessWidget {
               Container(
                 color: Theme.of(context).cardTheme.color,
                 width: 100.w,
-                height: 10.h,
+                height: 11.h,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(

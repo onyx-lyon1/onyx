@@ -35,7 +35,7 @@ packages:
       name: asn1lib
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   async:
     dependency: transitive
     description:
@@ -221,11 +221,9 @@ packages:
   dartus:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "5ab4bb5f2ba9efd9c27ed29e913c01a2a4cc6da4"
-      url: "https://github.com/hatch01/dartus-tomuss-client.git"
-    source: git
+      path: "/home/eymeric/code_bidouille/projets/oloid/dartus-tomuss-client"
+      relative: false
+    source: path
     version: "1.0.3"
   dartz:
     dependency: transitive
@@ -254,14 +252,14 @@ packages:
       name: device_info_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0"
+    version: "7.0.1"
   device_info_plus_platform_interface:
     dependency: transitive
     description:
       name: device_info_plus_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0"
+    version: "6.0.1"
   dio:
     dependency: transitive
     description:
@@ -416,7 +414,7 @@ packages:
       name: frontend_server_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.1.0"
   glob:
     dependency: transitive
     description:
@@ -430,7 +428,7 @@ packages:
       name: graphs
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0"
   hex:
     dependency: transitive
     description:
@@ -535,7 +533,7 @@ packages:
       name: lints
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   logging:
     dependency: transitive
     description:
@@ -546,20 +544,16 @@ packages:
   lyon1agenda:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: f9bd8ea34ff22cbb54542df72b43be4c647b5389
-      url: "https://github.com/hatch01/lyon1-agendaclient.git"
-    source: git
+      path: "/home/eymeric/code_bidouille/projets/oloid/lyon1-agendaclient"
+      relative: false
+    source: path
     version: "1.0.0"
   lyon1mail:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "5231cb65eb2b3bd3961e52a1dd02ddcb713ce7bf"
-      url: "https://github.com/hatch01/lyon1-mailclient.git"
-    source: git
+      path: "/home/eymeric/code_bidouille/projets/oloid/lyon1-mailclient"
+      relative: false
+    source: path
     version: "1.0.0"
   matcher:
     dependency: transitive
@@ -714,7 +708,7 @@ packages:
       name: petitparser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "5.1.0"
   platform:
     dependency: transitive
     description:

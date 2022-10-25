@@ -25,6 +25,9 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
 
   AgendaBloc() : super(AgendaInitial()) {
     on<AgendaEvent>((event, emit) {
+      if (kDebugMode) {
+        print("AgendaBloc: $event");
+      }
     });
     on<AgendaLoad>(load);
     on<AgendaUpdateDisplayedDate>(updateDisplayedDate);

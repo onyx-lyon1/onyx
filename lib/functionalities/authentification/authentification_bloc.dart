@@ -19,7 +19,11 @@ class AuthentificationBloc
   late String password;
 
   AuthentificationBloc() : super(AuthentificationInitial()) {
-    on<AuthentificationEvent>((event, emit) {});
+    on<AuthentificationEvent>((event, emit) {
+      if (kDebugMode) {
+        print("AuthentificationBloc: $event");
+      }
+    });
     on<AuthentificationLogin>(login);
     on<AuthentificationLogout>(logout);
     on<AuthentificationForgetCredential>(forget);
@@ -27,9 +31,6 @@ class AuthentificationBloc
 
   Future<void> login(
       AuthentificationLogin event, Emitter<AuthentificationState> emit) async {
-    if (kDebugMode) {
-      print("login");
-    }
     Box<Authentication> authBox =
         await Hive.openBox<Authentication>("authentification");
     Authentication? auth;

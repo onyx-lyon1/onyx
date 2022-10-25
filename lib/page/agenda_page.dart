@@ -18,6 +18,9 @@ class AgendaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AgendaBloc>().add(AgendaLoad(
+        context.read<AuthentificationBloc>().dartus!,
+        context.read<SettingsBloc>().settings));
     return BlocBuilder<AgendaBloc, AgendaState>(
       builder: (context, state) {
         if (state is AgendaInitial) {
@@ -56,7 +59,7 @@ class AgendaWraped extends StatelessWidget {
   const AgendaWraped({Key? key}) : super(key: key);
 
   static double indexToOffset(int index) {
-    return (17.w * index) + 10 - 2.w;
+    return (15.w) * index;
   }
 
   @override
