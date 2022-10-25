@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:oloid2/functionalities/agenda/agenda_bloc.dart';
-import 'package:oloid2/functionalities/authentification/authentification_bloc.dart';
-import 'package:oloid2/functionalities/email/email_bloc.dart';
-import 'package:oloid2/functionalities/settings/settings_bloc.dart';
 import 'package:oloid2/others/custom_scroll_behavior.dart';
 import 'package:oloid2/page/login_page.dart';
+import 'package:oloid2/states/agenda/agenda_bloc.dart';
+import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/custom_circular_progress_indicator.dart';
 import 'package:sizer/sizer.dart';
 

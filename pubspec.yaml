@@ -26,14 +26,11 @@ dependencies:
   flutter_speed_dial: ^6.2.0
   device_info_plus: ^7.0.0
   dartus:
-    path: /home/eymeric/code_bidouille/projets/oloid/dartus-tomuss-client
-  #    git: https://github.com/hatch01/dartus-tomuss-client.git
+    git: https://github.com/hatch01/dartus-tomuss-client.git
   lyon1mail:
-    path: /home/eymeric/code_bidouille/projets/oloid/lyon1-mailclient
-  #    git: https://github.com/hatch01/lyon1-mailclient.git
+    git: https://github.com/hatch01/lyon1-mailclient.git
   lyon1agenda:
-    path: /home/eymeric/code_bidouille/projets/oloid/lyon1-agendaclient
-#    git: https://github.com/hatch01/lyon1-agendaclient.git
+    git: https://github.com/hatch01/lyon1-agendaclient.git
 
 dev_dependencies:
   flutter_test:

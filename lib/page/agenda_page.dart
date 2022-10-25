@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/functionalities/agenda/agenda_bloc.dart';
-import 'package:oloid2/functionalities/authentification/authentification_bloc.dart';
-import 'package:oloid2/functionalities/settings/settings_bloc.dart';
 import 'package:oloid2/model/event_model.dart';
 import 'package:oloid2/others/month_to_string.dart';
 import 'package:oloid2/others/weekday_to_string.dart';
+import 'package:oloid2/states/agenda/agenda_bloc.dart';
+import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/agenda/event.dart';
 import 'package:oloid2/widget/agenda/mini_calendar.dart';
 import 'package:oloid2/widget/custom_circular_progress_indicator.dart';

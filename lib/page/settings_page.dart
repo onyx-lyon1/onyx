@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/functionalities/authentification/authentification_bloc.dart';
 import 'package:oloid2/functionalities/cache_service.dart';
-import 'package:oloid2/functionalities/settings/settings_bloc.dart';
 import 'package:oloid2/model/wrapper/day_model_wrapper.dart';
 import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
 import 'package:oloid2/model/wrapper/teaching_unit_model_wrapper.dart';
 import 'package:oloid2/page/qr_code_scanner.dart';
+import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/settings_card.dart';
 import 'package:oloid2/widget/text_switch.dart';
 

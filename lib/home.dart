@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/functionalities/agenda/agenda_bloc.dart';
 import 'package:oloid2/page/agenda_page.dart';
 import 'package:oloid2/page/mails/emails_page.dart';
 import 'package:oloid2/page/settings_page.dart';
 import 'package:oloid2/page/teaching_units_page.dart';
+import 'package:oloid2/states/agenda/agenda_bloc.dart';
 import 'package:oloid2/widget/grades/bottom_nav_bar.dart';
 
 class Home extends StatefulWidget {

@@ -1,11 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:oloid2/functionalities/agenda/agenda_bloc.dart';
-import 'package:oloid2/functionalities/authentification/authentification_bloc.dart';
 import 'package:oloid2/functionalities/background_notifications/notification_service.dart';
 import 'package:oloid2/functionalities/cache_service.dart';
-import 'package:oloid2/functionalities/email/email_bloc.dart';
-import 'package:oloid2/functionalities/grades/grades_bloc.dart';
-import 'package:oloid2/functionalities/settings/settings_bloc.dart';
 import 'package:oloid2/model/day_model.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/model/teaching_unit.dart';
@@ -13,6 +8,11 @@ import 'package:oloid2/model/wrapper/day_model_wrapper.dart';
 import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
 import 'package:oloid2/model/wrapper/teaching_unit_model_wrapper.dart';
 import 'package:oloid2/others/hive_init.dart';
+import 'package:oloid2/states/agenda/agenda_bloc.dart';
+import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:oloid2/states/grades/grades_bloc.dart';
+import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:workmanager/workmanager.dart';
 
 @pragma('vm:entry-point')

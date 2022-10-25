@@ -2,9 +2,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/functionalities/authentification/authentification_bloc.dart';
-import 'package:oloid2/functionalities/email/email_bloc.dart';
 import 'package:oloid2/page/mails/email_send_page.dart';
+import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/widget/state_displaying.dart';
 import 'package:sizer/sizer.dart';
 
