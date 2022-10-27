@@ -55,6 +55,8 @@ void callbackDispatcher() {
                   payload: "newGrades");
             }
           }
+          CacheService.set<TeachingUnitModelWrapper>(
+              TeachingUnitModelWrapper(teachingUnits));
         }
         if (settings.newMailNotification) {
           List<EmailModel> emails = [];
@@ -75,6 +77,7 @@ void callbackDispatcher() {
                   payload: "newMail");
             }
           }
+          CacheService.set<EmailModelWrapper>(EmailModelWrapper(newEmails));
         }
         if (settings.calendarUpdateNotification) {
           List<DayModel> days = [];
@@ -96,6 +99,7 @@ void callbackDispatcher() {
                   payload: "newEvent");
             }
           }
+          CacheService.set<DayModelWrapper>(DayModelWrapper(newDays));
         }
         break;
     }
@@ -106,5 +110,4 @@ void callbackDispatcher() {
     return Future.value(true);
   });
 }
-
-void v2() async {}
+// void v2() async {}

@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:oloid2/widget/card.dart';
+
 import '../../model/grade_model.dart';
 
 class Grade extends StatelessWidget {
@@ -16,14 +17,13 @@ class Grade extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
       o: gradeModel,
       groupeSize: gradeModel.groupSize,
       rank: gradeModel.rank,
       text1: gradeModel.name,
       text2:
-          "${gradeModel.average.toStringAsFixed(2)} • ${gradeModel.mediane.toStringAsFixed(2)} • ${gradeModel.author}",
+          "moyenne: ${gradeModel.average.toStringAsFixed(2)}\nmedian: ${gradeModel.mediane.toStringAsFixed(2)}\nclassement:${gradeModel.rank}/${gradeModel.groupSize}\nprof:${gradeModel.author}",
       gradeNumerator: gradeModel.gradeNumerator.toString(),
       gradeDenominator: gradeModel.gradeDenominator.toString(),
       forceGreen: forceGreen,
