@@ -42,7 +42,6 @@ class EmailsPage extends StatelessWidget {
           context.read<EmailBloc>().add(EmailLoad());
           return const StateDisplaying(message: "Loading to mail");
         }
-
         return Scaffold(
           floatingActionButton: Material(
             color: Theme.of(context).primaryColor,
@@ -113,6 +112,13 @@ class EmailsPage extends StatelessWidget {
               ),
               onRefresh: () async {
                 context.read<EmailBloc>().add(EmailLoad());
+                while (context.read<EmailBloc>().state is! EmailLoaded &&
+                    context.read<EmailBloc>().state is! EmailError &&
+                    context.read<EmailBloc>().state is! EmailSorted) {
+                  print(context.read<EmailBloc>().state);
+                  await Future.delayed(const Duration(milliseconds: 100));
+                }
+                return;
               },
             ),
           ),

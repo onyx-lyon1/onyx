@@ -20,6 +20,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
 
   late String username;
   late String password;
+  String lastFilter = "";
 
   EmailBloc() : super(EmailInitial()) {
     on<EmailEvent>((event, emit) {
@@ -55,17 +56,22 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   void filter(EmailFilter event, Emitter<EmailState> emit) async {
-    emails = [];
-    for (var i in emailsComplete) {
-      if (i.subject.toLowerCase().contains(event.filter.toLowerCase()) ||
-          i.excerpt.toLowerCase().contains(event.filter.toLowerCase()) ||
-          i.date
-              .toString()
-              .toLowerCase()
-              .contains(event.filter.toLowerCase()) ||
-          i.sender.toLowerCase().contains(event.filter.toLowerCase())) {
-        emails.add(i);
+    lastFilter = event.filter;
+    if (event.filter != "") {
+      emails = [];
+      for (var i in emailsComplete) {
+        if (i.subject.toLowerCase().contains(event.filter.toLowerCase()) ||
+            i.excerpt.toLowerCase().contains(event.filter.toLowerCase()) ||
+            i.date
+                .toString()
+                .toLowerCase()
+                .contains(event.filter.toLowerCase()) ||
+            i.sender.toLowerCase().contains(event.filter.toLowerCase())) {
+          emails.add(i);
+        }
       }
+    } else {
+      emails = emailsComplete;
     }
     emit(EmailSorted());
   }
@@ -121,6 +127,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     }
     CacheService.set<EmailModelWrapper>(
         EmailModelWrapper(emailsComplete)); //await à definir
+    add(EmailFilter(lastFilter));
     emit(EmailLoaded());
   }
 
