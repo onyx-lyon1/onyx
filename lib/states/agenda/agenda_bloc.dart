@@ -7,10 +7,10 @@ import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:oloid2/functionalities/agenda_backend/agenda_backend.dart';
+import 'package:oloid2/functionalities/cache_service.dart';
 import 'package:oloid2/model/day_model.dart';
 import 'package:oloid2/model/settings.dart';
 import 'package:oloid2/model/wrapper/day_model_wrapper.dart';
-import 'package:oloid2/functionalities/cache_service.dart';
 
 part 'agenda_event.dart';
 
@@ -20,7 +20,6 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   Lyon1Agenda? agendaClient;
   List<DayModel> dayModels = [];
   DateTime wantedDate = DateTime.now();
-
 
   AgendaBloc() : super(AgendaInitial()) {
     on<AgendaEvent>((event, emit) {
@@ -33,6 +32,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   }
 
   Future<void> load(AgendaLoad event, Emitter emit) async {
+    emit(AgendaLoading());
     if (event.cache) {
       if (await CacheService.exist<DayModelWrapper>()) {
         dayModels = (await CacheService.get<DayModelWrapper>())!.dayModels;
@@ -43,7 +43,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     try {
       dayModels = await AgendaBackend.load(
           agendaClient: agendaClient!, settings: event.settings);
-    }catch (e) {
+    } catch (e) {
       emit(AgendaError());
       return;
     }

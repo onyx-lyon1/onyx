@@ -9,6 +9,7 @@ import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/agenda/event.dart';
 import 'package:oloid2/widget/agenda/mini_calendar.dart';
 import 'package:oloid2/widget/custom_circular_progress_indicator.dart';
+import 'package:oloid2/widget/loading_snakbar.dart';
 import 'package:sizer/sizer.dart';
 
 class AgendaPage extends StatelessWidget {
@@ -47,8 +48,14 @@ class AgendaPage extends StatelessWidget {
               ),
             ),
           );
+        } else if (state is AgendaLoading) {
+          WidgetsBinding.instance.addPostFrameCallback((_) =>
+              ScaffoldMessenger.of(context).showSnackBar(
+                  loadingSnakbar(message: "agenda", context: context)));
+        } else if (state is AgendaReady) {
+          WidgetsBinding.instance.addPostFrameCallback(
+              (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());
         }
-
         return const AgendaWraped();
       },
     );
@@ -193,6 +200,11 @@ class AgendaWraped extends StatelessWidget {
                   context.read<AgendaBloc>().add(AgendaLoad(
                       context.read<AuthentificationBloc>().dartus!,
                       context.read<SettingsBloc>().settings));
+                  while (context.read<AgendaBloc>().state is! AgendaReady &&
+                      context.read<AgendaBloc>().state is! AgendaError) {
+                    await Future.delayed(const Duration(milliseconds: 100));
+                  }
+                  return;
                 },
               )),
         );

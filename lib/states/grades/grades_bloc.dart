@@ -23,6 +23,7 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
   }
 
   Future<void> load(GradesLoad event, Emitter<GradesState> emit) async {
+    emit(GradesLoading());
     if (event.cache) {
       if (await CacheService.exist<TeachingUnitModelWrapper>()) {
         teachingUnits = (await CacheService.get<TeachingUnitModelWrapper>())!
@@ -30,10 +31,10 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
         emit(GradesReady());
       }
     }
-    emit(GradesLoading());
     try {
       teachingUnits = await GradesBackend.getGrades(dartus: event.dartus);
     } catch (e) {
+      print("Error while loading grades: $e");
       emit(GradesError());
       return;
     }

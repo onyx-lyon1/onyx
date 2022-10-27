@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/page/mails/email_send_page.dart';
 import 'package:oloid2/states/authentification/authentification_bloc.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:oloid2/widget/loading_snakbar.dart';
 import 'package:oloid2/widget/state_displaying.dart';
 import 'package:sizer/sizer.dart';
 
@@ -41,6 +42,13 @@ class EmailsPage extends StatelessWidget {
         } else if (state is EmailConnected) {
           context.read<EmailBloc>().add(EmailLoad());
           return const StateDisplaying(message: "Loading to mail");
+        } else if (state is EmailLoading) {
+          WidgetsBinding.instance.addPostFrameCallback((_) =>
+              ScaffoldMessenger.of(context).showSnackBar(
+                  loadingSnakbar(message: "emails", context: context)));
+        } else if (state is EmailLoaded || state is EmailSorted) {
+          WidgetsBinding.instance.addPostFrameCallback(
+              (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());
         }
         return Scaffold(
           floatingActionButton: Material(
@@ -115,7 +123,6 @@ class EmailsPage extends StatelessWidget {
                 while (context.read<EmailBloc>().state is! EmailLoaded &&
                     context.read<EmailBloc>().state is! EmailError &&
                     context.read<EmailBloc>().state is! EmailSorted) {
-                  print(context.read<EmailBloc>().state);
                   await Future.delayed(const Duration(milliseconds: 100));
                 }
                 return;
