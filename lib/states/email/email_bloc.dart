@@ -38,11 +38,6 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   void connect(EmailConnect event, Emitter<EmailState> emit) async {
-    // if (await CacheService.exist<EmailModelWrapper>()) {
-    //   emailsComplete =
-    //       (await CacheService.get<EmailModelWrapper>())!.emailModels;
-    //   emails = emailsComplete;
-    // }
     emit(EmailConnecting());
     try {
       username = event.username;
@@ -77,15 +72,12 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   void delete(EmailDelete event, Emitter<EmailState> emit) async {
-    if (!mailClient.isAuthenticated) {
-      if (!await mailClient.login()) {
-        emit(EmailError());
-        return;
-      }
-      await mailClient.fetchMessages(1);
+    if (mailClient.isAuthenticated) {
+      await mailClient.fetchMessages(20);
+      print(event.email.id!);
       await mailClient.delete(event.email.id!);
+      add(EmailLoad());
     }
-
     emit(EmailUpdated());
   }
 

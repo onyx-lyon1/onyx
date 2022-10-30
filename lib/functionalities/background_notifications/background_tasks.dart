@@ -1,4 +1,4 @@
-import 'package:dartus/tomuss.dart' as tomussLib;
+import 'package:dartus/tomuss.dart' as tomuss_lib;
 import 'package:flutter/foundation.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:lyon1mail/lyon1mail.dart';
@@ -32,7 +32,7 @@ void callbackDispatcher() {
         await NotificationService.init();
         SettingsModel settings = await SettingsBackend.load();
         Authentication auth = (await AuthentificationBackend.fetchCredential());
-        tomussLib.Dartus dartus = await AuthentificationBackend.login(
+        tomuss_lib.Dartus dartus = await AuthentificationBackend.login(
             username: auth.username,
             password: auth.password,
             keepLogedIn: settings.keepMeLoggedIn);

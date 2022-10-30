@@ -88,8 +88,9 @@ class EmailsPage extends StatelessWidget {
                   } else if (index <= context.read<EmailBloc>().emails.length) {
                     return Email(
                         email: context.read<EmailBloc>().emails[index - 1]);
-                  } else if (index ==
-                      context.read<EmailBloc>().emails.length + 1) {
+                  } else if ((index ==
+                          context.read<EmailBloc>().emails.length + 1) &&
+                      context.read<EmailBloc>().emails.length > 0) {
                     return Material(
                       color: Theme.of(context).backgroundColor,
                       child: (context.read<EmailBloc>().state is EmailLoading)
