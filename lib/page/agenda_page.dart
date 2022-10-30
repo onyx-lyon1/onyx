@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/model/event_model.dart';
 import 'package:oloid2/others/month_to_string.dart';
 import 'package:oloid2/others/weekday_to_string.dart';
 import 'package:oloid2/states/agenda/agenda_bloc.dart';
@@ -194,7 +193,7 @@ class AgendaWrapped extends StatelessWidget {
                                     ...day.events.map(
                                       (e) => Event(
                                         event: e,
-                                        onTap: (EventModel e) {},
+
                                       ),
                                     ),
                                   ]),

@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oloid2/model/event_model.dart';
 import 'package:oloid2/others/date_beautifull.dart';
 import 'package:oloid2/others/int_to_sized_string.dart';
+import 'package:oloid2/widget/agenda/event_detail.dart';
 
 class Event extends StatelessWidget {
   final EventModel event;
-  final Function(EventModel event) onTap;
 
   const Event({
     Key? key,
     required this.event,
-    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(event),
+      onTap: () {
+        showMaterialModalBottomSheet(
+          context: context,
+          expand: false,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          backgroundColor: Theme.of(context).backgroundColor,
+          builder: (context) => SafeArea(child: EventDetail(event: event)),
+        );
+      },
       child: Card(
         color: Theme.of(context).cardTheme.color,
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -35,6 +44,7 @@ class Event extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
                       Text(
                         '${event.start.hour.toFixedLengthString(2)}:${event.start.minute.toFixedLengthString(2)}',
                         textAlign: TextAlign.left,
@@ -45,7 +55,7 @@ class Event extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        '${event.end.hour}:${event.end.minute}',
+                        '${event.end.hour.toFixedLengthString(2)}:${event.end.minute.toFixedLengthString(2)}',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             color: Theme.of(context)
