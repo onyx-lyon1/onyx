@@ -176,7 +176,7 @@ class Email extends StatelessWidget {
                     SizedBox(
                       width: 80.w,
                       child: Text(
-                        email.excerpt,
+                        (email.subject != "") ? email.subject : email.excerpt,
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
                         maxLines: 4,
