@@ -31,7 +31,9 @@ class TeachingUnit extends StatelessWidget {
           text1: tu.name,
           text2: "${tu.mastersShort()} • grp ?",
           rank: rank,
-          gradeNumerator: (tu.latestGrade()?.gradeNumerator ?? '-').toString(),
+          gradeNumerator: (tu.latestGrade()?.gradeNumerator == null)
+              ? '-'
+              : ((tu.latestGrade()?.gradeNumerator)! + 1).toString(),
           gradeDenominator:
               (tu.latestGrade()?.gradeDenominator ?? '-').toString(),
           forceGreen: forceGreen,

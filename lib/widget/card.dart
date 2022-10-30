@@ -133,9 +133,9 @@ class Card extends StatelessWidget {
             ),
           ),
           Container(
-            height: double.infinity,
             margin: const EdgeInsets.only(left: 10),
             width: 60.w,
+            height: 11.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,16 +145,14 @@ class Card extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).textTheme.bodyText1!.color,
-                      overflow: TextOverflow.clip),
-                ),
-                const SizedBox(
-                  height: 5,
+                      overflow: TextOverflow.clip,
+                      fontSize: 10.sp),
                 ),
                 Text(
                   text2,
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: 8.sp,
                     color: Theme.of(context)
                         .textTheme
                         .bodyText1!

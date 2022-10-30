@@ -23,7 +23,7 @@ class Grade extends StatelessWidget {
       rank: gradeModel.rank,
       text1: gradeModel.name,
       text2:
-          "moyenne: ${gradeModel.average.toStringAsFixed(2)}\nmedian: ${gradeModel.mediane.toStringAsFixed(2)}\nclassement:${gradeModel.rank}/${gradeModel.groupSize}\nprof:${gradeModel.author}",
+          "moyenne: ${gradeModel.average.toStringAsFixed(2)} · mediane: ${gradeModel.mediane.toStringAsFixed(2)}\nclassement:${gradeModel.rank}/${gradeModel.groupSize}\nprof:${gradeModel.author}",
       gradeNumerator: gradeModel.gradeNumerator.toString(),
       gradeDenominator: gradeModel.gradeDenominator.toString(),
       forceGreen: forceGreen,

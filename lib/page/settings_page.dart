@@ -231,7 +231,7 @@ class SettingsPage extends StatelessWidget {
                       },
                     ),
                   TextSwitch(
-                    text: 'Assombrir les mails',
+                    text: 'Forcer le thème des mails',
                     value: context.read<SettingsBloc>().settings.darkerMail,
                     onChanged: (bool b) {
                       context.read<SettingsBloc>().add(SettingsModify(context

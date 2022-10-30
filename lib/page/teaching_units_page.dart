@@ -41,11 +41,7 @@ class TeachingUnitsPage extends StatelessWidget {
                     gradeModel: e,
                     forceGreen:
                         context.read<SettingsBloc>().settings.forceGreen,
-                    onTap: (e) {
-                      if (kDebugMode) {
-                        print('Tapped on grade ${e.name}');
-                      }
-                    },
+                    onTap: (e) {},
                   ),
                 ),
               ],
