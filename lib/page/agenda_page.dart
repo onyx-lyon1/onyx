@@ -56,14 +56,14 @@ class AgendaPage extends StatelessWidget {
           WidgetsBinding.instance.addPostFrameCallback(
               (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());
         }
-        return const AgendaWraped();
+        return const AgendaWrapped();
       },
     );
   }
 }
 
-class AgendaWraped extends StatelessWidget {
-  const AgendaWraped({Key? key}) : super(key: key);
+class AgendaWrapped extends StatelessWidget {
+  const AgendaWrapped({Key? key}) : super(key: key);
 
   static double indexToOffset(int index) {
     return (15.w) * index;
