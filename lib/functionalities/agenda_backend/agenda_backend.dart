@@ -7,7 +7,7 @@ import 'package:oloid2/model/settings.dart';
 
 class AgendaBackend {
   static Future<List<DayModel>> load(
-      {required Lyon1Agenda agendaClient, required SettingsModel settings}) async {
+      {required Lyon1Agenda agendaClient, required SettingsModel settings, DateTime? maxDate}) async {
     late Option<Agenda> agendaOpt;
     try {
       agendaOpt = await agendaClient.getAgenda(

@@ -89,9 +89,14 @@ void callbackDispatcher() {
                   Lyon1Agenda.useAuthentication(dartus.authentication),
               settings: settings);
           for (var i in newDays) {
-            if (!days.any((element) {
-              return element == i;
-            })) {
+            if (i.date.difference(DateTime.now()).inMilliseconds > 0 &&
+                i.date
+                        .difference(DateTime.now())
+                        .compareTo(const Duration(days: 14)) <
+                    0 &&
+                (!days.any((element) {
+                  return element == i;
+                }))) {
               await NotificationService.showNotification(
                   title: "Nouvel évènement",
                   body:
@@ -110,4 +115,3 @@ void callbackDispatcher() {
     return Future.value(true);
   });
 }
-// void v2() async {}

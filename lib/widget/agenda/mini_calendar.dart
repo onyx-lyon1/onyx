@@ -96,7 +96,7 @@ class MiniCalendar extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
-                    height: 3.h,
+                    height: 2.9.h,
                     child: Text(
                       currentDate.toMonthName(short: true),
                       style: TextStyle(fontSize: 10.sp),
