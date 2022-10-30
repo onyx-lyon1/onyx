@@ -73,7 +73,7 @@ class TeachingUnitsPage extends StatelessWidget {
           } else if (state is GradesLoading) {
             WidgetsBinding.instance.addPostFrameCallback((_) =>
                 ScaffoldMessenger.of(context).showSnackBar(
-                    loadingSnakbar(message: "agenda", context: context)));
+                    loadingSnackbar(message: "Chargement des notes", context: context)));
           } else if (state is GradesReady) {
             WidgetsBinding.instance.addPostFrameCallback(
                 (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());

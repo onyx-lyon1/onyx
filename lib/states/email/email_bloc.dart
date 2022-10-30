@@ -74,7 +74,6 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   void delete(EmailDelete event, Emitter<EmailState> emit) async {
     if (mailClient.isAuthenticated) {
       await mailClient.fetchMessages(20);
-      print(event.email.id!);
       await mailClient.delete(event.email.id!);
       add(EmailLoad());
     }

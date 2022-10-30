@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-SnackBar loadingSnakbar(
+SnackBar loadingSnackbar(
     {required String message, required BuildContext context}) {
   return SnackBar(
     backgroundColor: Theme.of(context).backgroundColor,
@@ -13,7 +13,7 @@ SnackBar loadingSnakbar(
         const SizedBox(
           width: 10,
         ),
-        Text("Chargement de $message",
+        Text(message,
             style: Theme.of(context).textTheme.bodyText1),
       ],
     ),

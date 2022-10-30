@@ -51,7 +51,7 @@ class AgendaPage extends StatelessWidget {
         } else if (state is AgendaLoading) {
           WidgetsBinding.instance.addPostFrameCallback((_) =>
               ScaffoldMessenger.of(context).showSnackBar(
-                  loadingSnakbar(message: "agenda", context: context)));
+                  loadingSnackbar(message: "Chargement de l'agenda", context: context)));
         } else if (state is AgendaReady) {
           WidgetsBinding.instance.addPostFrameCallback(
               (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());

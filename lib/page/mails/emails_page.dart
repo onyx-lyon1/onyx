@@ -40,12 +40,18 @@ class EmailsPage extends StatelessWidget {
               password: context.read<AuthentificationBloc>().password));
           return const StateDisplaying(message: "Connecting to mail");
         } else if (state is EmailConnected) {
+          WidgetsBinding.instance.addPostFrameCallback(
+              (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());
           context.read<EmailBloc>().add(EmailLoad());
           return const StateDisplaying(message: "Loading to mail");
+        } else if (state is EmailConnecting) {
+          WidgetsBinding.instance.addPostFrameCallback((_) =>
+              ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
+                  message: "Connection au emails", context: context)));
         } else if (state is EmailLoading) {
           WidgetsBinding.instance.addPostFrameCallback((_) =>
-              ScaffoldMessenger.of(context).showSnackBar(
-                  loadingSnakbar(message: "emails", context: context)));
+              ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
+                  message: "Chargement des emails", context: context)));
         } else if (state is EmailLoaded || state is EmailSorted) {
           WidgetsBinding.instance.addPostFrameCallback(
               (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());
@@ -90,7 +96,7 @@ class EmailsPage extends StatelessWidget {
                         email: context.read<EmailBloc>().emails[index - 1]);
                   } else if ((index ==
                           context.read<EmailBloc>().emails.length + 1) &&
-                      context.read<EmailBloc>().emails.length > 0) {
+                      context.read<EmailBloc>().emails.isNotEmpty) {
                     return Material(
                       color: Theme.of(context).backgroundColor,
                       child: (context.read<EmailBloc>().state is EmailLoading)

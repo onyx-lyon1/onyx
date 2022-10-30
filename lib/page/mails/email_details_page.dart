@@ -153,7 +153,6 @@ class EmailDetailsPage extends StatelessWidget {
                             : null,
                         onWebViewCreated: (controller) async {
                           webViewController = controller;
-                          print(mail.body);
                           webViewController.loadUrl(((context
                                       .read<SettingsBloc>()
                                       .settings
