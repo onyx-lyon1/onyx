@@ -33,6 +33,7 @@ class AuthentificationBloc
   Future<void> login(
       AuthentificationLogin event, Emitter<AuthentificationState> emit) async {
     //fetch username and password
+    emit(AuthentificationAuthentificating());
     try {
       Authentication auth = await AuthentificationBackend.fetchCredential(
           username: event.username, password: event.password);

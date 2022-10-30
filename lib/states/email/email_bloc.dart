@@ -38,12 +38,12 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   void connect(EmailConnect event, Emitter<EmailState> emit) async {
-    if (await CacheService.exist<EmailModelWrapper>()) {
-      emailsComplete =
-          (await CacheService.get<EmailModelWrapper>())!.emailModels;
-      emails = emailsComplete;
-      emit(EmailConnecting());
-    }
+    // if (await CacheService.exist<EmailModelWrapper>()) {
+    //   emailsComplete =
+    //       (await CacheService.get<EmailModelWrapper>())!.emailModels;
+    //   emails = emailsComplete;
+    // }
+    emit(EmailConnecting());
     try {
       username = event.username;
       password = event.password;

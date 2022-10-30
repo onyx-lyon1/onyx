@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
+import 'package:oloid2/states/authentification/authentification_bloc.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/widget/state_displaying.dart';
 import 'package:sizer/sizer.dart';
@@ -203,12 +204,27 @@ class EmailSendPage extends StatelessWidget {
                             child: RawAutocomplete<String>(
                               optionsBuilder:
                                   (TextEditingValue textEditingValue) async {
-                                return (await context
-                                        .read<EmailBloc>()
-                                        .mailClient
-                                        .resolveContact(textEditingValue.text))
-                                    .map((e) => e.email.toString())
-                                    .toList();
+                                if (!context
+                                    .read<EmailBloc>()
+                                    .mailClient
+                                    .isAuthenticated) {
+                                  context.read<EmailBloc>().add(EmailConnect(
+                                      username: context
+                                          .read<AuthentificationBloc>()
+                                          .usename,
+                                      password: context
+                                          .read<AuthentificationBloc>()
+                                          .password));
+                                  return [];
+                                } else {
+                                  return (await context
+                                          .read<EmailBloc>()
+                                          .mailClient
+                                          .resolveContact(
+                                              textEditingValue.text))
+                                      .map((e) => e.email.toString())
+                                      .toList();
+                                }
                               },
                               displayStringForOption: (String option) => option,
                               textEditingController: destinationEditor,
