@@ -153,6 +153,7 @@ class EmailDetailsPage extends StatelessWidget {
                             : null,
                         onWebViewCreated: (controller) async {
                           webViewController = controller;
+                          print(mail.body);
                           webViewController.loadUrl(((context
                                       .read<SettingsBloc>()
                                       .settings
@@ -168,7 +169,16 @@ class EmailDetailsPage extends StatelessWidget {
                                       '</body>',
                                       mimeType: 'text/html',
                                       encoding: Encoding.getByName('utf-8'))
-                                  : Uri.dataFromString(mail.body))
+                                  : Uri.dataFromString(
+                                      //add background screen
+                                      '<!DOCTYPE html>'
+                                      '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
+                                      '</head>'
+                                      '<body>'
+                                      '${mail.body}'
+                                      '</body>',
+                                      mimeType: 'text/html',
+                                      encoding: Encoding.getByName('utf-8')))
                               .toString());
                         },
                         navigationDelegate: (NavigationRequest request) async {
