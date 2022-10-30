@@ -94,23 +94,34 @@ class AgendaWrapped extends StatelessWidget {
                       context.read<AgendaBloc>().wantedDate.month &&
                   element.date.day ==
                       context.read<AgendaBloc>().wantedDate.day);
-          pageController.animateToPage(
-            pageIndex,
-            curve: Curves.easeInOut,
-            duration: const Duration(milliseconds: 500),
-          );
-          scrollController.animateTo(
-              indexToOffset(context
-                  .read<AgendaBloc>()
-                  .wantedDate
-                  .difference(DateTime.now())
-                  .inDays),
+          if (!animating) {
+            pageController.animateToPage(
+              pageIndex,
+              curve: Curves.easeInOut,
               duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOut);
+            );
+            scrollController.animateTo(
+                indexToOffset(context
+                    .read<AgendaBloc>()
+                    .wantedDate
+                    .difference(DateTime.now())
+                    .inDays),
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut);
+          }
           if (pageIndex != pageController.page) {
             animating = true;
-            Future.delayed(
-                const Duration(milliseconds: 500), () => animating = false);
+            Future.delayed(const Duration(milliseconds: 500), () {
+              animating = false;
+              scrollController.animateTo(
+                  indexToOffset(context
+                      .read<AgendaBloc>()
+                      .wantedDate
+                      .difference(DateTime.now())
+                      .inDays),
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut);
+            });
           }
         }
 
@@ -139,10 +150,9 @@ class AgendaWrapped extends StatelessWidget {
                         scrollDirection: Axis.vertical,
                         onPageChanged: (index) {
                           if (context
-                                  .read<SettingsBloc>()
-                                  .settings
-                                  .showMiniCalendar &&
-                              !animating) {
+                              .read<SettingsBloc>()
+                              .settings
+                              .showMiniCalendar) {
                             context.read<AgendaBloc>().add(
                                 AgendaUpdateDisplayedDate(context
                                     .read<AgendaBloc>()

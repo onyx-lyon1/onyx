@@ -18,7 +18,11 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
   List<TeachingUnitModel> teachingUnits = [];
 
   GradesBloc() : super(GradesInitial()) {
-    on<GradesEvent>((event, emit) {});
+    on<GradesEvent>((event, emit) {
+      if (kDebugMode) {
+        print("gradeEvent : $event");
+      }
+    });
     on<GradesLoad>(load);
   }
 
@@ -34,7 +38,9 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
     try {
       teachingUnits = await GradesBackend.getGrades(dartus: event.dartus);
     } catch (e) {
-      print("Error while loading grades: $e");
+      if (kDebugMode) {
+        print("Error while loading grades: $e");
+      }
       emit(GradesError());
       return;
     }
