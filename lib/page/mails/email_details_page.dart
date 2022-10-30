@@ -12,6 +12,7 @@ import 'package:oloid2/page/mails/email_send_page.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class EmailDetailsPage extends StatelessWidget {
@@ -169,6 +170,14 @@ class EmailDetailsPage extends StatelessWidget {
                                       encoding: Encoding.getByName('utf-8'))
                                   : Uri.dataFromString(mail.body))
                               .toString());
+                        },
+                        navigationDelegate: (NavigationRequest request) async {
+                          if (await canLaunchUrl(Uri.parse(request.url))) {
+                            await launchUrl(Uri.parse(request.url));
+                          } else {
+                            throw 'Could not launch ${request.url}';
+                          }
+                          return NavigationDecision.prevent;
                         },
                       )
                     : SelectableText(mail.body),
