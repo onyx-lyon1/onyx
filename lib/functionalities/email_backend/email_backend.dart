@@ -47,8 +47,7 @@ class EmailBackend {
       int? replyOriginalMessageId,
       bool? replyAll,
       required int emailNumber,
-        required List<EmailModel> emailsComplete
-      }) async {
+      required List<EmailModel> emailsComplete}) async {
     if (!mailClient.isAuthenticated) {
       if (!await mailClient.login()) {
         throw Exception("Login failed");
@@ -82,14 +81,13 @@ class EmailBackend {
     } else {
       try {
         List<Address> recipients = [];
-        if (email.receiver.contains("@") &&
-            email.receiver.contains(".")) {
+        if (email.receiver.contains("@") && email.receiver.contains(".")) {
           for (var i in email.receiver.split(",")) {
             recipients.add(Address(i, i));
           }
         } else {
-          Address resolvedAddress = Address(email.receiver, "");
-          recipients.add(resolvedAddress);
+          recipients
+              .add((await mailClient.resolveContact(email.receiver)).first);
         }
         await mailClient.sendEmail(
           sender: mailClient.emailAddress,

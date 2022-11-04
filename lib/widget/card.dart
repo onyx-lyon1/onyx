@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:oloid2/model/grade_model.dart';
 import 'package:oloid2/model/teaching_unit.dart';
 import 'package:oloid2/theme/grade_color.dart';
+import 'package:oloid2/theme/theme.dart';
 import 'package:sizer/sizer.dart';
 
 class Card extends StatelessWidget {
@@ -111,7 +112,7 @@ class Card extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: OloidTheme.darkTheme().backgroundColor,
                       fontSize: 20.sp,
                     ),
                   ),
@@ -119,14 +120,16 @@ class Card extends StatelessWidget {
                 Container(
                   width: 15.w,
                   height: 0.2.h,
-                  color: Colors.white54,
+                  color: OloidTheme.darkTheme().backgroundColor,
                 ),
                 SizedBox(
                   width: double.infinity,
                   child: Text(
                     gradeDenominator,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.white54, fontSize: 15),
+                    style: TextStyle(
+                        color: OloidTheme.darkTheme().backgroundColor,
+                        fontSize: 15),
                   ),
                 ),
               ],

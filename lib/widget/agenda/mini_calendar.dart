@@ -83,7 +83,7 @@ class MiniCalendar extends StatelessWidget {
             duration: const Duration(milliseconds: 500),
             decoration: BoxDecoration(
               color: (wantedDate.day == currentDate.day &&
-                      wantedDate.year == currentDate.year)
+                      wantedDate.month == currentDate.month)
                   ? Theme.of(context).primaryColor
                   : Colors.transparent,
               borderRadius: BorderRadius.circular(10),

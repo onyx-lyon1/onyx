@@ -49,8 +49,8 @@ class AgendaPage extends StatelessWidget {
           );
         } else if (state is AgendaLoading) {
           WidgetsBinding.instance.addPostFrameCallback((_) =>
-              ScaffoldMessenger.of(context).showSnackBar(
-                  loadingSnackbar(message: "Chargement de l'agenda", context: context)));
+              ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
+                  message: "Chargement de l'agenda", context: context)));
         } else if (state is AgendaReady) {
           WidgetsBinding.instance.addPostFrameCallback(
               (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());
@@ -65,7 +65,7 @@ class AgendaWrapped extends StatelessWidget {
   const AgendaWrapped({Key? key}) : super(key: key);
 
   static double indexToOffset(int index) {
-    return (15.w) * index;
+    return (15.w) * (index);
   }
 
   @override
@@ -99,12 +99,17 @@ class AgendaWrapped extends StatelessWidget {
               curve: Curves.easeInOut,
               duration: const Duration(milliseconds: 500),
             );
+            DateTime wanted = DateTime(
+                context.read<AgendaBloc>().wantedDate.year,
+                context.read<AgendaBloc>().wantedDate.month,
+                context.read<AgendaBloc>().wantedDate.day,
+                0,
+                0,
+                0);
+            DateTime now = DateTime(DateTime.now().year, DateTime.now().month,
+                DateTime.now().day, 0, 0, 0);
             scrollController.animateTo(
-                indexToOffset(context
-                    .read<AgendaBloc>()
-                    .wantedDate
-                    .difference(DateTime.now())
-                    .inDays),
+                indexToOffset(wanted.difference(now).inDays),
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.easeInOut);
           }
@@ -112,11 +117,18 @@ class AgendaWrapped extends StatelessWidget {
             animating = true;
             Future.delayed(const Duration(milliseconds: 500), () {
               animating = false;
+              DateTime wanted = DateTime(
+                  context.read<AgendaBloc>().wantedDate.year,
+                  context.read<AgendaBloc>().wantedDate.month,
+                  context.read<AgendaBloc>().wantedDate.day,
+                  0,
+                  0,
+                  0);
+              DateTime now = DateTime(DateTime.now().year, DateTime.now().month,
+                  DateTime.now().day, 0, 0, 0);
               scrollController.animateTo(
-                  indexToOffset(context
-                      .read<AgendaBloc>()
-                      .wantedDate
-                      .difference(DateTime.now())
+                  indexToOffset(wanted
+                      .difference(now)
                       .inDays),
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeInOut);
@@ -193,7 +205,6 @@ class AgendaWrapped extends StatelessWidget {
                                     ...day.events.map(
                                       (e) => Event(
                                         event: e,
-
                                       ),
                                     ),
                                   ]),
