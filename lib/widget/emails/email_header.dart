@@ -14,29 +14,40 @@ class EmailHeader extends StatelessWidget {
       color: Theme.of(context).cardTheme.color,
       height: 10.h,
       child: Container(
-        margin: const EdgeInsets.all(5),
+        margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.circular(10)),
+            borderRadius: BorderRadius.circular(100)),
         width: 85.w,
         height: 10.h,
-        child: TextField(
-          onChanged: (String query) {
-            context.read<EmailBloc>().add(EmailFilter(query));
-          },
-          style: TextStyle(
-            color: Theme.of(context).textTheme.button!.color,
-          ),
-          cursorColor: Theme.of(context).textTheme.bodyText1!.color,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            prefixIcon: Icon(
-              Icons.search,
-              color: Theme.of(context)
-                  .bottomNavigationBarTheme
-                  .unselectedItemColor,
+        child: Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(left: 3.w),
+                child: TextField(
+                  onChanged: (String query) {
+                    context.read<EmailBloc>().add(EmailFilter(query));
+                  },
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.button!.color,
+                  ),
+                  cursorColor: Theme.of(context).textTheme.bodyText1!.color,
+                  textAlignVertical: TextAlignVertical.center,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .unselectedItemColor,
+                    ),
+                    contentPadding: EdgeInsets.zero,
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

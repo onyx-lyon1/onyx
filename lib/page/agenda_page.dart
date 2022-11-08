@@ -127,9 +127,7 @@ class AgendaWrapped extends StatelessWidget {
               DateTime now = DateTime(DateTime.now().year, DateTime.now().month,
                   DateTime.now().day, 0, 0, 0);
               scrollController.animateTo(
-                  indexToOffset(wanted
-                      .difference(now)
-                      .inDays),
+                  indexToOffset(wanted.difference(now).inDays),
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeInOut);
             });
@@ -199,7 +197,7 @@ class AgendaWrapped extends StatelessWidget {
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                             Text(
-                                                '${day.events.length} évènements'),
+                                                '${day.events.length} évènement(s)'),
                                           ]),
                                     ),
                                     ...day.events.map(

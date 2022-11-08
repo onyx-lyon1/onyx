@@ -31,12 +31,31 @@ class EventDetail extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("description: ${event.description}"),
-                Text("salle: ${event.location}"),
-                Text(
-                    '${event.start.hour.toFixedLengthString(2)}:${event.start.minute.toFixedLengthString(2)} --> ${event.end.hour.toFixedLengthString(2)}:${event.end.minute.toFixedLengthString(2)}'),
-                Text(
-                    "Dernière modification : ${event.eventLastModified.toString()}")
+                Row(
+                  children: [
+                    Icon(Icons.description),
+                    Text(event.description),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Icon(Icons.location_on),
+                    Text(event.location),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.access_time),
+                    Text(
+                        '${event.start.hour.toFixedLengthString(2)}:${event.start.minute.toFixedLengthString(2)} --> ${event.end.hour.toFixedLengthString(2)}:${event.end.minute.toFixedLengthString(2)}'),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.calendar_today),
+                    Text(event.eventLastModified.toString()),
+                  ],
+                )
               ],
             ),
           ),

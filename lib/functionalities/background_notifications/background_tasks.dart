@@ -46,13 +46,16 @@ void callbackDispatcher() {
           List<TeachingUnitModel> newTeachingUnits =
               await GradesBackend.getGrades(dartus: dartus);
           for (var i in newTeachingUnits) {
-            if (!teachingUnits.any((element) {
-              return element == i;
-            })) {
-              await NotificationService.showNotification(
-                  title: "Nouvelles notes",
-                  body: "Vous avez de nouvelles notes dans ${i.name}",
-                  payload: "newGrades");
+            TeachingUnitModel teachingUnitModel =
+                teachingUnits.firstWhere((element) => element.name == i.name);
+            for (var x in i.grades) {
+              if (!teachingUnitModel.grades.any((element) => element == x)) {
+                await NotificationService.showNotification(
+                    title: "Nouvelles notes",
+                    body:
+                        "Vous avez eu ${x.gradeNumerator}/${x.gradeDenominator} en : ${i.name}",
+                    payload: "newGrades");
+              }
             }
           }
           CacheService.set<TeachingUnitModelWrapper>(
@@ -68,9 +71,10 @@ void callbackDispatcher() {
           List<EmailModel> newEmails =
               await EmailBackend.load(mailClient: mail, emailNumber: 20);
           for (var i in newEmails) {
-            if (!emails.any((element) {
-              return element == i;
-            })) {
+            if (!i.isRead &&
+                !emails.any((element) {
+                  return element == i;
+                })) {
               await NotificationService.showNotification(
                   title: "Nouveau mail",
                   body: "Vous avez un nouveau mail de ${i.sender}",

@@ -52,20 +52,23 @@ class MiniCalendar extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).cardTheme.color,
       ),
-      child: Scrollable(
-        axisDirection: AxisDirection.right,
-        controller: scrollController,
-        viewportBuilder: (BuildContext context, ViewportOffset offset) {
-          return Viewport(
-            axisDirection: AxisDirection.right,
-            offset: offset,
-            center: forwardListKey,
-            slivers: [
-              reverseList,
-              forwardList,
-            ],
-          );
-        },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5.w),
+        child: Scrollable(
+          axisDirection: AxisDirection.right,
+          controller: scrollController,
+          viewportBuilder: (BuildContext context, ViewportOffset offset) {
+            return Viewport(
+              axisDirection: AxisDirection.right,
+              offset: offset,
+              center: forwardListKey,
+              slivers: [
+                reverseList,
+                forwardList,
+              ],
+            );
+          },
+        ),
       ),
     );
   }

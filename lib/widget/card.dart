@@ -94,7 +94,7 @@ class Card extends StatelessWidget {
           boxShadow: const [BoxShadow(color: Colors.black38, blurRadius: 1)],
           color: Theme.of(context).cardTheme.color,
           borderRadius: const BorderRadius.all(
-            Radius.circular(3),
+            Radius.circular(10),
           ),
         ),
         child: Row(children: [

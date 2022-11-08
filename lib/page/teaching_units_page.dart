@@ -10,6 +10,7 @@ import 'package:oloid2/widget/grades/grade_list_header.dart';
 import 'package:oloid2/widget/grades/teaching_unit.dart';
 import 'package:oloid2/widget/loading_snakbar.dart';
 import 'package:oloid2/widget/state_displaying.dart';
+import 'package:sizer/sizer.dart';
 
 import '../widget/grades/grade.dart';
 
@@ -72,8 +73,8 @@ class TeachingUnitsPage extends StatelessWidget {
                 message: "Erreur pendant le chargement des notes");
           } else if (state is GradesLoading) {
             WidgetsBinding.instance.addPostFrameCallback((_) =>
-                ScaffoldMessenger.of(context).showSnackBar(
-                    loadingSnackbar(message: "Chargement des notes", context: context)));
+                ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
+                    message: "Chargement des notes", context: context)));
           } else if (state is GradesReady) {
             WidgetsBinding.instance.addPostFrameCallback(
                 (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());
@@ -83,35 +84,57 @@ class TeachingUnitsPage extends StatelessWidget {
               child: RefreshIndicator(
                   color: Theme.of(context).primaryColor,
                   backgroundColor: Theme.of(context).backgroundColor,
-                  child: ListView(
-                    physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
                     children: [
-                      ...context
-                          .read<GradesBloc>()
-                          .teachingUnits
-                          .where(
-                            (element) =>
-                                element.isHidden == false ||
-                                context
-                                    .read<SettingsBloc>()
-                                    .settings
-                                    .showHiddenUE,
-                          )
-                          .map(
-                            (e) => TeachingUnit(
-                              tu: e,
-                              forceGreen: context
-                                  .read<SettingsBloc>()
-                                  .settings
-                                  .forceGreen,
-                              onClick: (TeachingUnitModel tu) {
-                                if (kDebugMode) {
-                                  print('Tapped on teaching unit ${tu.name}');
-                                }
-                                showAllGrades(context, tu);
-                              },
+                      Container(
+                        height: 10.h,
+                        color: Theme.of(context).cardTheme.color,
+                        child: Center(
+                          child: Text(
+                            'Notes',
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).textTheme.bodyText1!.color,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
                             ),
-                          )
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          children: [
+                            ...context
+                                .read<GradesBloc>()
+                                .teachingUnits
+                                .where(
+                                  (element) =>
+                                      element.isHidden == false ||
+                                      context
+                                          .read<SettingsBloc>()
+                                          .settings
+                                          .showHiddenUE,
+                                )
+                                .map(
+                                  (e) => TeachingUnit(
+                                    tu: e,
+                                    forceGreen: context
+                                        .read<SettingsBloc>()
+                                        .settings
+                                        .forceGreen,
+                                    onClick: (TeachingUnitModel tu) {
+                                      if (kDebugMode) {
+                                        print(
+                                            'Tapped on teaching unit ${tu.name}');
+                                      }
+                                      showAllGrades(context, tu);
+                                    },
+                                  ),
+                                )
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                   onRefresh: () async {

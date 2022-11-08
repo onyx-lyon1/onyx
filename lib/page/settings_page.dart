@@ -12,6 +12,7 @@ import 'package:oloid2/states/authentification/authentification_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/settings_card.dart';
 import 'package:oloid2/widget/text_switch.dart';
+import 'package:sizer/sizer.dart';
 
 class SettingsPage extends StatelessWidget {
   final TextEditingController qrCodeURLController = TextEditingController();
@@ -28,17 +29,19 @@ class SettingsPage extends StatelessWidget {
       builder: (context, state) {
         return Container(
           color: Theme.of(context).backgroundColor,
-          margin: const EdgeInsets.symmetric(horizontal: 5),
           child: ListView(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 20),
-                child: Text(
-                  'Paramètres',
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1!.color,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+              Container(
+                height: 10.h,
+                color: Theme.of(context).cardTheme.color,
+                child: Center(
+                  child: Text(
+                    'Paramètres',
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -141,73 +144,98 @@ class SettingsPage extends StatelessWidget {
                           clipBehavior: Clip.hardEdge,
                           margin: const EdgeInsets.only(bottom: 15),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width - 110,
-                                child: TextField(
-                                  controller: qrCodeURLController,
-                                  enableSuggestions: false,
-                                  onChanged: (String value) {
-                                    context.read<SettingsBloc>().add(
-                                        SettingsModify(context
-                                            .read<SettingsBloc>()
-                                            .settings
-                                            .copyWith(agendaURL: value)));
-                                    if (kDebugMode) {
-                                      print(
-                                          'value: ${context.read<SettingsBloc>().settings.agendaURL}');
-                                    }
-                                  },
-                                  decoration: const InputDecoration(
-                                    filled: true,
-                                    labelStyle: TextStyle(fontSize: 12),
-                                    hintStyle: TextStyle(fontSize: 12),
-                                    hintText: 'URL de l\'agenda',
-                                    border: InputBorder.none,
-                                    fillColor: Color(0xffd8dee9),
+                          child: Center(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width - 110,
+                                  height: 8.h,
+                                  padding: EdgeInsets.only(left: 3.w),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).backgroundColor,
+                                    borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        bottomLeft: Radius.circular(10)),
                                   ),
-                                ),
-                              ),
-                              Container(
-                                color: const Color(0xffd8dee9),
-                                child: IconButton(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const QrCodeScanner(),
-                                    ))
-                                        .then((dynamic url) {
-                                      qrCodeURLController.value =
-                                          TextEditingValue(
-                                              text: url ??
-                                                  qrCodeURLController
-                                                      .value.text);
+                                  child: TextField(
+                                    controller: qrCodeURLController,
+                                    enableSuggestions: false,
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .color,
+                                    ),
+                                    onChanged: (String value) {
                                       context.read<SettingsBloc>().add(
                                           SettingsModify(context
                                               .read<SettingsBloc>()
                                               .settings
-                                              .copyWith(
-                                                  agendaURL: url ??
-                                                      context
-                                                          .read<SettingsBloc>()
-                                                          .settings
-                                                          .agendaURL)));
-                                    });
-                                  },
-                                  enableFeedback: true,
-                                  splashColor: Colors.transparent,
-                                  icon: const Icon(
-                                    Icons.qr_code,
-                                    color: Color(0xff4c566a),
+                                              .copyWith(agendaURL: value)));
+                                      if (kDebugMode) {
+                                        print(
+                                            'value: ${context.read<SettingsBloc>().settings.agendaURL}');
+                                      }
+                                    },
+                                    decoration: const InputDecoration(
+                                      labelStyle: TextStyle(fontSize: 12),
+                                      hintStyle: TextStyle(fontSize: 12),
+                                      hintText: 'URL de l\'agenda',
+                                      border: InputBorder.none,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  height: 8.h,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).backgroundColor,
+                                    borderRadius: const BorderRadius.only(
+                                        topRight: Radius.circular(10),
+                                        bottomRight: Radius.circular(10)),
+                                  ),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                        builder: (context) =>
+                                            const QrCodeScanner(),
+                                      ))
+                                          .then((dynamic url) {
+                                        qrCodeURLController.value =
+                                            TextEditingValue(
+                                                text: url ??
+                                                    qrCodeURLController
+                                                        .value.text);
+                                        context.read<SettingsBloc>().add(
+                                            SettingsModify(context
+                                                .read<SettingsBloc>()
+                                                .settings
+                                                .copyWith(
+                                                    agendaURL: url ??
+                                                        context
+                                                            .read<
+                                                                SettingsBloc>()
+                                                            .settings
+                                                            .agendaURL)));
+                                      });
+                                    },
+                                    enableFeedback: true,
+                                    splashColor: Colors.transparent,
+                                    icon: Icon(
+                                      Icons.qr_code,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .color,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         )
                       : Container(),
