@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
 
-import 'package:enough_mail_flutter/enough_mail_flutter.dart' hide WebView;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +12,8 @@ import 'package:oloid2/page/mails/email_send_page.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-// import 'package:enough_mail/enough_mail.dart';
 
 class EmailDetailsPage extends StatelessWidget {
   final EmailModel mail;
@@ -24,11 +23,6 @@ class EmailDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late WebViewController webViewController;
-    // return MimeMessageViewer(
-    //   mimeMessage: mail.mimeMessage!,
-    //   blockExternalImages: false,
-    //   // mailtoDelegate: handleMailto,
-    // );
     return Scaffold(
       floatingActionButton: SpeedDial(
         buttonSize: Size(15.w, 15.w),
