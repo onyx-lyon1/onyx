@@ -1,7 +1,8 @@
-// ignore_for_file: unnecessary_overrides
+// ignore_for_file: unnecessary_overrides, depend_on_referenced_packages
 
-import 'package:lyon1mail/lyon1mail.dart' as lyon1mail;
+import 'package:enough_mail/enough_mail.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:lyon1mail/lyon1mail.dart' as lyon1mail;
 
 part 'mail_model.g.dart';
 
@@ -24,6 +25,8 @@ class EmailModel {
   @HiveField(7)
   final String receiver;
 
+  MimeMessage? mimeMessage;
+
   EmailModel(
       {required this.subject,
       required this.sender,
@@ -32,7 +35,8 @@ class EmailModel {
       required this.date,
       required this.body,
       required this.id,
-      required this.receiver});
+      required this.receiver,
+      this.mimeMessage});
 
   static EmailModel fromMailLib(lyon1mail.Mail mail) {
     return EmailModel(
@@ -43,7 +47,8 @@ class EmailModel {
         date: mail.getDate(),
         body: mail.getBody(excerpt: false),
         id: mail.getSequenceId(),
-        receiver: "me");
+        receiver: "me",
+        mimeMessage: mail.getOriginalMessage);
   }
 
   @override

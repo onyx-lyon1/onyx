@@ -53,27 +53,14 @@ class EmailBackend {
         throw Exception("Login failed");
       }
     }
-    if (kDebugMode) {
-      print(email);
-      print("replyAll: $replyAll");
-      print("replyOriginalMessageId: $replyOriginalMessageId");
-    }
     if (replyOriginalMessageId != null) {
       try {
         await mailClient.fetchMessages(emailNumber);
-        print("presend");
-        print(
-            "original message id: $replyOriginalMessageId, subject: ${email.subject}, body: ${email.body}, replyAll: ${replyAll ?? false}, sender: ${mailClient.emailAddress}");
-
         await mailClient.reply(
           originalMessageId: replyOriginalMessageId,
           subject: email.subject,
-          body: emailsComplete
-              .where((element) => element.id == replyOriginalMessageId)
-              .first
-              .body,
+          body: email.body,
           replyAll: replyAll ?? false,
-          sender: mailClient.emailAddress,
         );
       } catch (e) {
         throw Exception("Reply failed");

@@ -33,7 +33,7 @@ class EventDetail extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.description),
+                    const Icon(Icons.description),
                     Text(event.description),
                   ],
                 ),
@@ -45,14 +45,14 @@ class EventDetail extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Icon(Icons.access_time),
+                    const Icon(Icons.access_time),
                     Text(
                         '${event.start.hour.toFixedLengthString(2)}:${event.start.minute.toFixedLengthString(2)} --> ${event.end.hour.toFixedLengthString(2)}:${event.end.minute.toFixedLengthString(2)}'),
                   ],
                 ),
                 Row(
                   children: [
-                    Icon(Icons.calendar_today),
+                    const Icon(Icons.calendar_today),
                     Text(event.eventLastModified.toString()),
                   ],
                 )
