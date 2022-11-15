@@ -26,7 +26,7 @@ void main() async {
 
   final deviceInfo = await DeviceInfoPlugin().deviceInfo;
   final int androidSdkVersion =
-      deviceInfo is AndroidDeviceInfo ? deviceInfo.version.sdkInt! : 0;
+      deviceInfo is AndroidDeviceInfo ? deviceInfo.version.sdkInt : 0;
 
   runApp(OloidApp(
     androidSdkVersion: androidSdkVersion,

@@ -32,7 +32,7 @@ class GradesBloc extends Bloc<GradesEvent, GradesState> {
       if (await CacheService.exist<TeachingUnitModelWrapper>()) {
         teachingUnits = (await CacheService.get<TeachingUnitModelWrapper>())!
             .teachingUnitModels;
-        emit(GradesReady());
+        emit(GradesCacheReady());
       }
     }
     try {

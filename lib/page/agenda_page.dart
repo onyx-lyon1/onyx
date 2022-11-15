@@ -47,7 +47,7 @@ class AgendaPage extends StatelessWidget {
               ),
             ),
           );
-        } else if (state is AgendaLoading) {
+        } else if (state is AgendaLoading || state is AgendaCacheReady) {
           WidgetsBinding.instance.addPostFrameCallback((_) =>
               ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
                   message: "Chargement de l'agenda", context: context)));

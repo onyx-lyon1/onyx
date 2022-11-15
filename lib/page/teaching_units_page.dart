@@ -71,7 +71,7 @@ class TeachingUnitsPage extends StatelessWidget {
             });
             return const StateDisplaying(
                 message: "Erreur pendant le chargement des notes");
-          } else if (state is GradesLoading) {
+          } else if (state is GradesLoading || state is GradesCacheReady) {
             WidgetsBinding.instance.addPostFrameCallback((_) =>
                 ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
                     message: "Chargement des notes", context: context)));

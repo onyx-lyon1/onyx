@@ -23,6 +23,12 @@ class TeachingUnit extends StatelessWidget {
     }
     rank = (rank / ((tu.grades.isNotEmpty) ? tu.grades.length : 1)).round();
 
+    double numerator = 0;
+    for (var i in tu.grades) {
+      numerator += i.gradeNumerator;
+    }
+    numerator = (numerator / ((tu.grades.isNotEmpty) ? tu.grades.length : 1));
+
     return GestureDetector(
         onTap: () => onClick(tu),
         child: widgets.Card(
@@ -31,7 +37,8 @@ class TeachingUnit extends StatelessWidget {
           text1: tu.name,
           text2: "${tu.mastersShort()} • grp ?",
           rank: rank,
-          gradeNumerator: (tu.latestGrade()?.gradeNumerator ?? '-').toString(),
+          gradeNumerator:
+              ((tu.grades.isNotEmpty) ? numerator.toStringAsPrecision(3) : '-'),
           gradeDenominator:
               (tu.latestGrade()?.gradeDenominator ?? '-').toString(),
           forceGreen: forceGreen,

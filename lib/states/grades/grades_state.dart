@@ -5,5 +5,6 @@ abstract class GradesState {}
 
 class GradesInitial extends GradesState {}
 class GradesReady extends GradesState {}
+class GradesCacheReady extends GradesState {}
 class GradesLoading extends GradesState {}
 class GradesError extends GradesState {}

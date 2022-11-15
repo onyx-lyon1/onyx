@@ -36,7 +36,7 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     if (event.cache) {
       if (await CacheService.exist<DayModelWrapper>()) {
         dayModels = (await CacheService.get<DayModelWrapper>())!.dayModels;
-        emit(AgendaReady());
+        emit(AgendaCacheReady());
       }
     }
     agendaClient = Lyon1Agenda.useAuthentication(event.dartus.authentication);

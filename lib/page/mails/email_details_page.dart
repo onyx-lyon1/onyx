@@ -25,6 +25,7 @@ class EmailDetailsPage extends StatelessWidget {
     late WebViewController webViewController;
     return Scaffold(
       floatingActionButton: SpeedDial(
+
         buttonSize: Size(15.w, 15.w),
         backgroundColor: Theme.of(context).primaryColor,
         children: [
@@ -42,6 +43,7 @@ class EmailDetailsPage extends StatelessWidget {
               Icons.reply,
               size: 20.sp,
             ),
+
           ),
           SpeedDialChild(
             onTap: () {

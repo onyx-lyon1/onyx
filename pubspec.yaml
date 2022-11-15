@@ -24,7 +24,7 @@ dependencies:
   workmanager: ^0.5.0
   flutter_local_notifications: ^12.0.2
   flutter_speed_dial: ^6.2.0
-  device_info_plus: ^3.2.4
+  device_info_plus: ^8.0.0
   url_launcher: ^6.1.6
   dartus:
     #    path: ../dartus-tomuss-client
@@ -35,7 +35,8 @@ dependencies:
   lyon1agenda:
     #    path: ../lyon1-agendaclient
     git: https://github.com/hatch01/lyon1-agendaclient.git
-  enough_mail_flutter: ^2.0.0
+#  enough_mail_flutter:
+#    path: /home/eymeric/tmp/enough_mail_flutter
 
 #dependency_overrides:
 #  pdfx: ^2.3.0

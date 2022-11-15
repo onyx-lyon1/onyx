@@ -44,7 +44,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
         emailsComplete =
             (await CacheService.get<EmailModelWrapper>())!.emailModels;
         emails = emailsComplete;
-        emit(EmailLoaded());
+        emit(EmailCacheLoaded());
       }
     }
     emit(EmailConnecting());
@@ -70,7 +70,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
                 .toString()
                 .toLowerCase()
                 .contains(event.filter.toLowerCase()) ||
-            i.sender.toLowerCase().contains(event.filter.toLowerCase())||
+            i.sender.toLowerCase().contains(event.filter.toLowerCase()) ||
             i.body.toLowerCase().contains(event.filter.toLowerCase())) {
           emails.add(i);
         }
@@ -114,7 +114,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
           emailsComplete =
               (await CacheService.get<EmailModelWrapper>())!.emailModels;
           emails = emailsComplete;
-          emit(EmailLoaded());
+          emit(EmailCacheLoaded());
         }
       }
     }

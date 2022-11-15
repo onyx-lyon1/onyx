@@ -48,7 +48,7 @@ class EmailsPage extends StatelessWidget {
           WidgetsBinding.instance.addPostFrameCallback((_) =>
               ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
                   message: "Connection au emails", context: context)));
-        } else if (state is EmailLoading) {
+        } else if (state is EmailLoading || state is EmailCacheLoaded) {
           WidgetsBinding.instance.addPostFrameCallback((_) =>
               ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
                   message: "Chargement des emails", context: context)));

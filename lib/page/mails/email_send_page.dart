@@ -46,16 +46,6 @@ class EmailSendPage extends StatelessWidget {
           });
         } else if (state is EmailSending) {
           return const StateDisplaying(message: "Sending message");
-        } else if (state is EmailUnableToResolve) {
-          SchedulerBinding.instance.addPostFrameCallback((_) {
-            showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                      backgroundColor: Theme.of(context).backgroundColor,
-                      title:
-                          const Text("Impossible de trouver le destinataire"),
-                    ));
-          });
         }
         return Material(
           child: Scaffold(

@@ -7,10 +7,10 @@ class EmailInitial extends EmailState {}
 class EmailConnected extends EmailState {}
 class EmailConnecting extends EmailState {}
 class EmailLoading extends EmailState {}
+class EmailCacheLoaded extends EmailState {}
 class EmailLoaded extends EmailState {}
 class EmailSending extends EmailState {}
 class EmailSended extends EmailState {}
-class EmailUnableToResolve extends EmailState {}
 class EmailUpdated extends EmailState {}
 class EmailError extends EmailState {}
 class EmailSorted extends EmailState {}
