@@ -9,6 +9,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/others/hex.dart';
 import 'package:oloid2/page/mails/email_send_page.dart';
+import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,176 +23,191 @@ class EmailDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late WebViewController webViewController;
-    return Scaffold(
-      floatingActionButton: SpeedDial(
-        buttonSize: Size(15.w, 15.w),
-        backgroundColor: Theme.of(context).primaryColor,
-        children: [
-          SpeedDialChild(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EmailSendPage(
-                    replyAll: false,
-                    replyOriginalMessage: mail.id,
-                  ),
-                ),
-              );
-            },
-            child: Icon(
-              Icons.reply,
-              size: 20.sp,
-            ),
-          ),
-          SpeedDialChild(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EmailSendPage(
-                    replyAll: true,
-                    replyOriginalMessage: mail.id,
-                  ),
-                ),
-              );
-            },
-            child: Icon(
-              Icons.reply_all,
-              size: 20.sp,
-            ),
-          ),
-        ],
-        icon: Icons.reply,
-      ),
-      body: Container(
-        color: Theme.of(context).backgroundColor,
-        width: 100.w,
-        height: 100.h,
-        child: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                color: Theme.of(context).cardTheme.color,
-                height: 6.h,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2.w),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Theme.of(context)
-                              .bottomNavigationBarTheme
-                              .unselectedItemColor,
-                        ),
+    return BlocBuilder<EmailBloc, EmailState>(
+      builder: (context, state) {
+        return Scaffold(
+          floatingActionButton: SpeedDial(
+            buttonSize: Size(15.w, 15.w),
+            backgroundColor: (state is EmailInitial ||
+                    state is EmailConnecting ||
+                    state is EmailCacheLoaded)
+                ? Theme.of(context).disabledColor
+                : Theme.of(context).primaryColor,
+            children: (state is EmailInitial ||
+                    state is EmailConnecting ||
+                    state is EmailCacheLoaded)
+                ? []
+                : [
+                    SpeedDialChild(
+                      onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EmailSendPage(
+                                    replyAll: false,
+                                    replyOriginalMessage: mail.id,
+                                  ),
+                                ),
+                              );
+                            },
+                      child: Icon(
+                        Icons.reply,
+                        size: 20.sp,
                       ),
-                      SizedBox(
-                        width: 3.w,
+                    ),
+                    SpeedDialChild(
+                      onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EmailSendPage(
+                                    replyAll: true,
+                                    replyOriginalMessage: mail.id,
+                                  ),
+                                ),
+                              );
+                            },
+                      child: Icon(
+                        Icons.reply_all,
+                        size: 20.sp,
                       ),
-                      SizedBox(
-                        width: 85.w,
-                        child: Center(
-                          child: Text(
-                            mail.subject,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+            icon: Icons.reply,
+          ),
+          body: Container(
+            color: Theme.of(context).backgroundColor,
+            width: 100.w,
+            height: 100.h,
+            child: SafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    color: Theme.of(context).cardTheme.color,
+                    height: 6.h,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 2.w),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Theme.of(context)
+                                  .bottomNavigationBarTheme
+                                  .unselectedItemColor,
+                            ),
                           ),
-                        ),
+                          SizedBox(
+                            width: 3.w,
+                          ),
+                          SizedBox(
+                            width: 85.w,
+                            child: Center(
+                              child: Text(
+                                mail.subject,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 1.h,
-              ),
-              Container(
-                color: Theme.of(context).cardTheme.color,
-                width: 100.w,
-                height: 11.h,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SelectableText("de: ${mail.sender}"),
-                      SizedBox(
-                        height: 1.h,
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Container(
+                    color: Theme.of(context).cardTheme.color,
+                    width: 100.w,
+                    height: 11.h,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SelectableText("de: ${mail.sender}"),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          SelectableText("à: ${mail.receiver}"),
+                        ],
                       ),
-                      SelectableText("à: ${mail.receiver}"),
-                    ],
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Container(
+                    color: Theme.of(context).cardTheme.color,
+                    padding: EdgeInsets.all(1.h),
+                    height: 78.h,
+                    width: 100.w,
+                    child: (mail.body.toLowerCase().contains("html") &&
+                            (Platform.isAndroid || Platform.isIOS))
+                        ? WebView(
+                            initialUrl: '',
+                            javascriptMode: JavascriptMode.unrestricted,
+                            gestureRecognizers: Platform.isAndroid
+                                ? {Factory(() => EagerGestureRecognizer())}
+                                : null,
+                            onWebViewCreated: (controller) async {
+                              webViewController = controller;
+                              webViewController.loadUrl(((context
+                                          .read<SettingsBloc>()
+                                          .state
+                                          .settings
+                                          .darkerMail)
+                                      ? Uri.dataFromString(
+                                          //add background screen
+                                          '<!DOCTYPE html>'
+                                          '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
+                                          '<style>body { background-color: ${Theme.of(context).backgroundColor.toHex()}; } </style>'
+                                          '</head>'
+                                          '<body text="${Theme.of(context).textTheme.bodyText2?.color?.toHex()}" >'
+                                          '${mail.body}'
+                                          '</body>',
+                                          mimeType: 'text/html',
+                                          encoding: Encoding.getByName('utf-8'))
+                                      : Uri.dataFromString(
+                                          //add background screen
+                                          '<!DOCTYPE html>'
+                                          '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
+                                          '</head>'
+                                          '<body>'
+                                          '${mail.body}'
+                                          '</body>',
+                                          mimeType: 'text/html',
+                                          encoding:
+                                              Encoding.getByName('utf-8')))
+                                  .toString());
+                            },
+                            navigationDelegate:
+                                (NavigationRequest request) async {
+                              if (await canLaunchUrl(Uri.parse(request.url))) {
+                                await launchUrl(Uri.parse(request.url));
+                              } else {
+                                throw 'Could not launch ${request.url}';
+                              }
+                              return NavigationDecision.prevent;
+                            },
+                          )
+                        : SelectableText(mail.body),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 1.h,
-              ),
-              Container(
-                color: Theme.of(context).cardTheme.color,
-                padding: EdgeInsets.all(1.h),
-                height: 78.h,
-                width: 100.w,
-                child: (mail.body.toLowerCase().contains("html") &&
-                        (Platform.isAndroid || Platform.isIOS))
-                    ? WebView(
-                        initialUrl: '',
-                        javascriptMode: JavascriptMode.unrestricted,
-                        gestureRecognizers: Platform.isAndroid
-                            ? {Factory(() => EagerGestureRecognizer())}
-                            : null,
-                        onWebViewCreated: (controller) async {
-                          webViewController = controller;
-                          webViewController.loadUrl(((context
-                                      .read<SettingsBloc>()
-                                      .state.settings
-                                      .darkerMail)
-                                  ? Uri.dataFromString(
-                                      //add background screen
-                                      '<!DOCTYPE html>'
-                                      '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
-                                      '<style>body { background-color: ${Theme.of(context).backgroundColor.toHex()}; } </style>'
-                                      '</head>'
-                                      '<body text="${Theme.of(context).textTheme.bodyText2?.color?.toHex()}" >'
-                                      '${mail.body}'
-                                      '</body>',
-                                      mimeType: 'text/html',
-                                      encoding: Encoding.getByName('utf-8'))
-                                  : Uri.dataFromString(
-                                      //add background screen
-                                      '<!DOCTYPE html>'
-                                      '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
-                                      '</head>'
-                                      '<body>'
-                                      '${mail.body}'
-                                      '</body>',
-                                      mimeType: 'text/html',
-                                      encoding: Encoding.getByName('utf-8')))
-                              .toString());
-                        },
-                        navigationDelegate: (NavigationRequest request) async {
-                          if (await canLaunchUrl(Uri.parse(request.url))) {
-                            await launchUrl(Uri.parse(request.url));
-                          } else {
-                            throw 'Could not launch ${request.url}';
-                          }
-                          return NavigationDecision.prevent;
-                        },
-                      )
-                    : SelectableText(mail.body),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

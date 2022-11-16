@@ -13,7 +13,6 @@ import '../../widget/emails/email.dart';
 import '../../widget/emails/email_header.dart';
 
 class EmailsPage extends StatelessWidget {
-
   const EmailsPage({
     Key? key,
   }) : super(key: key);
@@ -24,11 +23,7 @@ class EmailsPage extends StatelessWidget {
 
     return BlocListener<EmailBloc, EmailState>(
       listener: (context, state) {
-        if (state is EmailInitial) {
-          context.read<EmailBloc>().add(EmailConnect(
-              username: context.read<AuthentificationBloc>().usename,
-              password: context.read<AuthentificationBloc>().password));
-        } else if (state is EmailConnected) {
+        if (state is EmailConnected) {
           WidgetsBinding.instance.addPostFrameCallback(
               (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());
           context.read<EmailBloc>().add(EmailLoad());
@@ -52,6 +47,9 @@ class EmailsPage extends StatelessWidget {
                 message: "Something went wrong with emails");
           }
           if (state is EmailInitial) {
+            context.read<EmailBloc>().add(EmailConnect(
+                username: context.read<AuthentificationBloc>().usename,
+                password: context.read<AuthentificationBloc>().password));
             return const StateDisplaying(message: "Connecting to mail");
           } else if (state is EmailConnected) {
             return const StateDisplaying(message: "Loading to mail");
