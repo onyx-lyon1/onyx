@@ -122,48 +122,45 @@ class Card extends StatelessWidget {
                   height: 0.2.h,
                   color: OloidTheme.darkTheme().backgroundColor,
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    gradeDenominator,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: OloidTheme.darkTheme().backgroundColor,
-                        fontSize: 15),
-                  ),
+                Text(
+                  gradeDenominator,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: OloidTheme.darkTheme().backgroundColor,
+                      fontSize: 15),
                 ),
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 10),
-            width: 60.w,
-            height: 11.h,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  text1,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).textTheme.bodyText1!.color,
-                      overflow: TextOverflow.clip,
-                      fontSize: 10.sp),
-                ),
-                Text(
-                  text2,
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontSize: 8.sp,
-                    color: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .color!
-                        .withOpacity(0.8),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.only(left: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    text1,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).textTheme.bodyText1!.color,
+                        overflow: TextOverflow.clip,
+                        fontSize: 10.sp),
                   ),
-                ),
-              ],
+                  Text(
+                    text2,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 8.sp,
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .color!
+                          .withOpacity(0.8),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )
         ]),

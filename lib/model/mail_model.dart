@@ -19,7 +19,7 @@ class EmailModel {
   @HiveField(4)
   final int? id;
   @HiveField(5)
-  final bool isRead;
+  bool isRead;
   @HiveField(6)
   final DateTime date;
   @HiveField(7)

@@ -14,9 +14,9 @@ part 'settings_event.dart';
 part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  SettingsModel settings = SettingsModel();
+  SettingsModel _settings = SettingsModel();
 
-  SettingsBloc() : super(SettingsInitial()) {
+  SettingsBloc() : super(SettingsInitial(SettingsModel())) {
     on<SettingsEvent>((event, emit) {
       if (kDebugMode) {
         print("SettingsBloc: $event");
@@ -29,29 +29,29 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   Future<void> reset(SettingsReset event, Emitter<SettingsState> emit) async {
-    settings = SettingsModel();
+    _settings = SettingsModel();
     await SettingsBackend.reset();
-    emit(SettingsReady());
+    emit(SettingsReady(_settings));
   }
 
   Future<void> load(SettingsLoad event, Emitter<SettingsState> emit) async {
-    emit(SettingsLoading());
+    emit(SettingsLoading(_settings));
     try{
-      settings = await SettingsBackend.load();
+      _settings = await SettingsBackend.load();
     }catch(e){
-      settings = SettingsModel();
+      _settings = SettingsModel();
     }
-    emit(SettingsReady());
-    if (!(settings.calendarUpdateNotification &&
-        settings.newMailNotification &&
-        settings.newGradeNotification)) {
+    emit(SettingsReady(_settings));
+    if (!(_settings.calendarUpdateNotification &&
+        _settings.newMailNotification &&
+        _settings.newGradeNotification)) {
       Workmanager().cancelByUniqueName("updateChecking");
     }
   }
 
   Future<void> modify(SettingsModify event, Emitter<SettingsState> emit) async {
-    settings = event.settings;
-    await SettingsBackend.modify(settings: settings);
-    emit(SettingsReady());
+    _settings = event.settings;
+    await SettingsBackend.modify(settings: _settings);
+    emit(SettingsReady(_settings));
   }
 }

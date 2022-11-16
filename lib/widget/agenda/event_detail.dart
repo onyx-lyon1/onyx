@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oloid2/model/event_model.dart';
+import 'package:oloid2/others/date_beautifull.dart';
 import 'package:oloid2/others/int_to_sized_string.dart';
 import 'package:sizer/sizer.dart';
 
@@ -28,35 +29,61 @@ class EventDetail extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.all(3.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    const Icon(Icons.description),
-                    Text(event.description),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.location_on),
-                    Text(event.location),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.access_time),
-                    Text(
-                        '${event.start.hour.toFixedLengthString(2)}:${event.start.minute.toFixedLengthString(2)} --> ${event.end.hour.toFixedLengthString(2)}:${event.end.minute.toFixedLengthString(2)}'),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.calendar_today),
-                    Text(event.eventLastModified.toString()),
-                  ],
-                )
-              ],
+            child: SizedBox(
+              width: 100.w,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.description),
+                      Expanded(
+                        child: Text(
+                          event.description,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(Icons.location_on),
+                      Expanded(
+                          child: Text(event.location,
+                              overflow: TextOverflow.ellipsis)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(Icons.access_time),
+                      Expanded(
+                        child: Text(
+                            '${event.start.hour.toFixedLengthString(2)}:${event.start.minute.toFixedLengthString(2)} --> ${event.end.hour.toFixedLengthString(2)}:${event.end.minute.toFixedLengthString(2)}',
+                            overflow: TextOverflow.ellipsis),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(Icons.hourglass_bottom),
+                      Expanded(
+                          child: Text(
+                              event.end
+                                  .difference(event.start)
+                                  .dateBeautifull(),
+                              overflow: TextOverflow.ellipsis)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(Icons.drive_file_rename_outline),
+                      Expanded(
+                          child: Text(event.teacher,
+                              overflow: TextOverflow.ellipsis)),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],

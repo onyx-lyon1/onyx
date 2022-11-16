@@ -41,7 +41,7 @@ class TeachingUnitsPage extends StatelessWidget {
                   (e) => Grade(
                     gradeModel: e,
                     forceGreen:
-                        context.read<SettingsBloc>().settings.forceGreen,
+                        context.read<SettingsBloc>().state.settings.forceGreen,
                     onTap: (e) {},
                   ),
                 ),
@@ -116,7 +116,7 @@ class TeachingUnitsPage extends StatelessWidget {
                                         element.isHidden == false ||
                                         context
                                             .read<SettingsBloc>()
-                                            .settings
+                                            .state.settings
                                             .showHiddenUE,
                                   )
                                   .map(
@@ -124,7 +124,7 @@ class TeachingUnitsPage extends StatelessWidget {
                                       tu: e,
                                       forceGreen: context
                                           .read<SettingsBloc>()
-                                          .settings
+                                          .state.settings
                                           .forceGreen,
                                       onClick: (TeachingUnitModel tu) {
                                         if (kDebugMode) {

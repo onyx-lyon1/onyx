@@ -64,7 +64,7 @@ class OloidAppState extends State<OloidApp> {
                       scrollBehavior:
                           const CustomScrollBehavior(androidSdkVersion: 31),
                       debugShowCheckedModeBanner: false,
-                      themeMode: context.read<SettingsBloc>().settings.darkMode
+                      themeMode: settingsState.settings.darkMode
                           ? ThemeMode.dark
                           : ThemeMode.light,
                       theme: OloidTheme.lighTheme(),

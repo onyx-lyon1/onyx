@@ -38,9 +38,9 @@ class HomeState extends State<Home> {
               if (index != currentIndex) currentIndex = index;
             });
           },
-          children: [
-            const TeachingUnitsPage(),
-            const AgendaPage(),
+          children: const [
+            TeachingUnitsPage(),
+            AgendaPage(),
             EmailsPage(),
             SettingsPage(),
           ]),

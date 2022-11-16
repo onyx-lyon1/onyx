@@ -100,6 +100,8 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       }
       await mailClient.fetchMessages(1);
       await mailClient.markAsRead(event.email.id!);
+      emailsComplete[emailsComplete.indexOf(event.email)].isRead = true;
+      emails[emails.indexOf(event.email)].isRead = true;
     }
 
     emit(EmailUpdated());

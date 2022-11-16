@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 SnackBar loadingSnackbar(
     {required String message, required BuildContext context}) {
@@ -10,11 +11,17 @@ SnackBar loadingSnackbar(
         CircularProgressIndicator(
           color: Theme.of(context).primaryColor,
         ),
-        const SizedBox(
-          width: 10,
+        SizedBox(
+          width: 1.w,
         ),
-        Text(message,
-            style: Theme.of(context).textTheme.bodyText1),
+        Expanded(
+          child: Text(
+            message,
+            style: Theme.of(context).textTheme.bodyText1,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
+        ),
       ],
     ),
     action: SnackBarAction(

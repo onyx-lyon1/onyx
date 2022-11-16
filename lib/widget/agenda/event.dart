@@ -44,7 +44,6 @@ class Event extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Text(
                         '${event.start.hour.toFixedLengthString(2)}:${event.start.minute.toFixedLengthString(2)}',
                         textAlign: TextAlign.left,
@@ -103,7 +102,7 @@ class Event extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${event.location} • ${event.end.difference(event.start).dateBeautifull()}',
+                    '${event.end.difference(event.start).dateBeautifull()} • ${event.location}',
                     textAlign: TextAlign.left,
                     maxLines: 2,
                     softWrap: true,

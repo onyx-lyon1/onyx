@@ -19,15 +19,21 @@ class TeachingUnit extends StatelessWidget {
   Widget build(BuildContext context) {
     int rank = 0;
     for (var i in tu.grades) {
-      rank += i.rank;
+      if (!i.rank.isNaN) {
+        rank += i.rank;
+      }
     }
     rank = (rank / ((tu.grades.isNotEmpty) ? tu.grades.length : 1)).round();
 
     double numerator = 0;
+    int numeratorCount = 0;
     for (var i in tu.grades) {
-      numerator += i.gradeNumerator;
+      if (!i.gradeNumerator.isNaN && !i.gradeDenominator.isNaN) {
+        numerator += i.gradeNumerator / i.gradeDenominator;
+        numeratorCount++;
+      }
     }
-    numerator = (numerator / ((tu.grades.isNotEmpty) ? tu.grades.length : 1));
+    numerator = (numerator / ((numeratorCount != 0) ? numeratorCount : 1)) * 20;
 
     return GestureDetector(
         onTap: () => onClick(tu),
@@ -39,8 +45,7 @@ class TeachingUnit extends StatelessWidget {
           rank: rank,
           gradeNumerator:
               ((tu.grades.isNotEmpty) ? numerator.toStringAsPrecision(3) : '-'),
-          gradeDenominator:
-              (tu.latestGrade()?.gradeDenominator ?? '-').toString(),
+          gradeDenominator: ((tu.grades.isNotEmpty) ? 20 : '-').toString(),
           forceGreen: forceGreen,
           isSeen: tu.isSeen,
           onTap: (tu) => onClick(tu),

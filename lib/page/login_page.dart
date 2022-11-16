@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
     AuthentificationState state = context.read<AuthentificationBloc>().state;
     if (state is AuthentificationInitial) {
       context.read<AuthentificationBloc>().add(AuthentificationLogin(
-          keepLogedIn: context.read<SettingsBloc>().settings.keepMeLoggedIn));
+          keepLogedIn: context.read<SettingsBloc>().state.settings.keepMeLoggedIn));
       return const StateDisplaying(message: "Start authentification");
     } else if (state is AuthentificationAuthentificating) {
       return const StateDisplaying(message: "Authentificating");
@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
       context.read<AuthentificationBloc>().add(AuthentificationLogin(
           username: username,
           password: password,
-          keepLogedIn: context.read<SettingsBloc>().settings.keepMeLoggedIn));
+          keepLogedIn: context.read<SettingsBloc>().state.settings.keepMeLoggedIn));
     }
   }
 }

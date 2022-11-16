@@ -9,7 +9,6 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/others/hex.dart';
 import 'package:oloid2/page/mails/email_send_page.dart';
-import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -25,25 +24,25 @@ class EmailDetailsPage extends StatelessWidget {
     late WebViewController webViewController;
     return Scaffold(
       floatingActionButton: SpeedDial(
-
         buttonSize: Size(15.w, 15.w),
         backgroundColor: Theme.of(context).primaryColor,
         children: [
           SpeedDialChild(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => EmailSendPage(
-                            replyAll: false,
-                            replyOriginalMessage: mail.id,
-                          )));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EmailSendPage(
+                    replyAll: false,
+                    replyOriginalMessage: mail.id,
+                  ),
+                ),
+              );
             },
             child: Icon(
               Icons.reply,
               size: 20.sp,
             ),
-
           ),
           SpeedDialChild(
             onTap: () {
@@ -85,7 +84,6 @@ class EmailDetailsPage extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          context.read<EmailBloc>().add(EmailLoad());
                           Navigator.pop(context);
                         },
                         child: Icon(
@@ -125,14 +123,11 @@ class EmailDetailsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("de: ${mail.sender}"),
+                      SelectableText("de: ${mail.sender}"),
                       SizedBox(
                         height: 1.h,
                       ),
-                      Text(
-                        "à: ${mail.receiver}",
-                        overflow: TextOverflow.fade,
-                      ),
+                      SelectableText("à: ${mail.receiver}"),
                     ],
                   ),
                 ),
@@ -157,7 +152,7 @@ class EmailDetailsPage extends StatelessWidget {
                           webViewController = controller;
                           webViewController.loadUrl(((context
                                       .read<SettingsBloc>()
-                                      .settings
+                                      .state.settings
                                       .darkerMail)
                                   ? Uri.dataFromString(
                                       //add background screen
