@@ -55,103 +55,106 @@ class TeachingUnitsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GradesBloc(),
-      child: BlocBuilder<GradesBloc, GradesState>(
-        builder: (context, state) {
-          if (state is GradesInitial) {
+    return BlocBuilder<GradesBloc, GradesState>(
+      builder: (context, state) {
+        if (kDebugMode) {
+          print("Grades state : $state");
+        }
+        if (state is GradesInitial) {
+          context
+              .read<GradesBloc>()
+              .add(GradesLoad(context.read<AuthentificationBloc>().dartus!));
+          return const StateDisplaying(message: "Loading grades");
+        } else if (state is GradesError) {
+          Future.delayed(const Duration(seconds: 3), () {
             context
                 .read<GradesBloc>()
                 .add(GradesLoad(context.read<AuthentificationBloc>().dartus!));
-            return const StateDisplaying(message: "Loading grades");
-          } else if (state is GradesError) {
-            Future.delayed(const Duration(seconds: 3), () {
-              context.read<GradesBloc>().add(
-                  GradesLoad(context.read<AuthentificationBloc>().dartus!));
-            });
-            return const StateDisplaying(
-                message: "Erreur pendant le chargement des notes");
-          } else if (state is GradesLoading || state is GradesCacheReady) {
-            WidgetsBinding.instance.addPostFrameCallback((_) =>
-                ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
-                    message: "Chargement des notes", context: context)));
-          } else if (state is GradesReady) {
-            WidgetsBinding.instance.addPostFrameCallback(
-                (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());
-          }
-          return SafeArea(
-            child: Container(
-                color: Theme.of(context).backgroundColor,
-                child: RefreshIndicator(
-                    color: Theme.of(context).primaryColor,
-                    backgroundColor: Theme.of(context).backgroundColor,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 10.h,
-                          color: Theme.of(context).cardTheme.color,
-                          child: Center(
-                            child: Text(
-                              'Notes',
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .color,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
+          });
+          return const StateDisplaying(
+              message: "Erreur pendant le chargement des notes");
+        } else if (state is GradesLoading || state is GradesCacheReady) {
+
+              ScaffoldMessenger.of(context).showSnackBar( loadingSnackbar(
+                  message: "Chargement des notes",
+                  context: context,
+                  shouldDisable: context
+                      .read<GradesBloc>()
+                      .stream
+                      .map<bool>((event) => event is GradesReady)));
+        }
+        return SafeArea(
+          child: Container(
+              color: Theme.of(context).backgroundColor,
+              child: RefreshIndicator(
+                  color: Theme.of(context).primaryColor,
+                  backgroundColor: Theme.of(context).backgroundColor,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 10.h,
+                        color: Theme.of(context).cardTheme.color,
+                        child: Center(
+                          child: Text(
+                            'Notes',
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).textTheme.bodyText1!.color,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                        Expanded(
-                          child: ListView(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            children: [
-                              ...context
-                                  .read<GradesBloc>()
-                                  .teachingUnits
-                                  .where(
-                                    (element) =>
-                                        element.isHidden == false ||
-                                        context
-                                            .read<SettingsBloc>()
-                                            .state.settings
-                                            .showHiddenUE,
-                                  )
-                                  .map(
-                                    (e) => TeachingUnit(
-                                      tu: e,
-                                      forceGreen: context
+                      ),
+                      Expanded(
+                        child: ListView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          children: [
+                            ...context
+                                .read<GradesBloc>()
+                                .teachingUnits
+                                .where(
+                                  (element) =>
+                                      element.isHidden == false ||
+                                      context
                                           .read<SettingsBloc>()
-                                          .state.settings
-                                          .forceGreen,
-                                      onClick: (TeachingUnitModel tu) {
-                                        if (kDebugMode) {
-                                          print(
-                                              'Tapped on teaching unit ${tu.name}');
-                                        }
-                                        showAllGrades(context, tu);
-                                      },
-                                    ),
-                                  )
-                            ],
-                          ),
+                                          .state
+                                          .settings
+                                          .showHiddenUE,
+                                )
+                                .map(
+                                  (e) => TeachingUnit(
+                                    tu: e,
+                                    forceGreen: context
+                                        .read<SettingsBloc>()
+                                        .state
+                                        .settings
+                                        .forceGreen,
+                                    onClick: (TeachingUnitModel tu) {
+                                      if (kDebugMode) {
+                                        print(
+                                            'Tapped on teaching unit ${tu.name}');
+                                      }
+                                      showAllGrades(context, tu);
+                                    },
+                                  ),
+                                )
+                          ],
                         ),
-                      ],
-                    ),
-                    onRefresh: () async {
-                      context.read<GradesBloc>().add(GradesLoad(
-                          context.read<AuthentificationBloc>().dartus!));
-                      while (context.read<GradesBloc>().state is! GradesReady &&
-                          context.read<GradesBloc>().state is! GradesError) {
-                        await Future.delayed(const Duration(milliseconds: 100));
-                      }
-                      return;
-                    })),
-          );
-        },
-      ),
+                      ),
+                    ],
+                  ),
+                  onRefresh: () async {
+                    context.read<GradesBloc>().add(GradesLoad(
+                        context.read<AuthentificationBloc>().dartus!));
+                    while (context.read<GradesBloc>().state is! GradesReady &&
+                        context.read<GradesBloc>().state is! GradesError) {
+                      await Future.delayed(const Duration(milliseconds: 100));
+                    }
+                    return;
+                  })),
+        );
+      },
     );
   }
 }

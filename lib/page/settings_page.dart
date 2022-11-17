@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/functionalities/cache_service.dart';
@@ -22,6 +23,9 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
+        if (kDebugMode){
+          print('Settings state: $state');
+        }
         return Container(
           color: Theme.of(context).backgroundColor,
           child: Column(

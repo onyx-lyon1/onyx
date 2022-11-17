@@ -7,7 +7,12 @@ import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oloid2/functionalities/authentification_backend/authentification_backend.dart';
+import 'package:oloid2/functionalities/cache_service.dart';
+import 'package:oloid2/functionalities/settings_backend/settings_backend.dart';
 import 'package:oloid2/model/authentication.dart';
+import 'package:oloid2/model/wrapper/day_model_wrapper.dart';
+import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
+import 'package:oloid2/model/wrapper/teaching_unit_model_wrapper.dart';
 
 part 'authentification_event.dart';
 
@@ -72,6 +77,10 @@ class AuthentificationBloc
     Box<Authentication> authBox =
         await Hive.openBox<Authentication>("authentification");
     authBox.delete("credential");
+    CacheService.reset<TeachingUnitModelWrapper>();
+    CacheService.reset<DayModelWrapper>();
+    CacheService.reset<EmailModelWrapper>();
+    SettingsBackend.reset();
     usename = "";
     password = "";
     // await authBox.close();

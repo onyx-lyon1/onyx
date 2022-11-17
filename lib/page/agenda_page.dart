@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/others/date_shrink.dart';
@@ -39,15 +40,22 @@ class AgendaPage extends StatelessWidget {
         child: BlocConsumer<AgendaBloc, AgendaState>(
           listener: (context, state) {
             if (state is AgendaLoading) {
-              WidgetsBinding.instance.addPostFrameCallback((_) =>
-                  ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
-                      message: "Chargement de l'agenda", context: context)));
-            } else if (state is AgendaReady || state is AgendaError) {
-              WidgetsBinding.instance.addPostFrameCallback(
-                  (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());
+              ScaffoldMessenger.of(context).showSnackBar(
+                loadingSnackbar(
+                  message: "Chargement de l'agenda",
+                  context: context,
+                  shouldDisable:
+                      context.read<AgendaBloc>().stream.map<bool>((event) {
+                    return event is AgendaReady || event is AgendaError;
+                  }),
+                ),
+              );
             }
           },
           builder: (context, state) {
+            if (kDebugMode) {
+              print("AgendaState: $state");
+            }
             if (state is AgendaError) {
               return Center(
                 child: Padding(

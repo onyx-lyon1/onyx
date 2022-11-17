@@ -24,24 +24,30 @@ class EmailsPage extends StatelessWidget {
     return BlocListener<EmailBloc, EmailState>(
       listener: (context, state) {
         if (state is EmailConnected) {
-          WidgetsBinding.instance.addPostFrameCallback(
-              (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());
           context.read<EmailBloc>().add(EmailLoad());
         } else if (state is EmailConnecting) {
-          WidgetsBinding.instance.addPostFrameCallback((_) =>
-              ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
-                  message: "Connection au emails", context: context)));
+          ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
+            message: "Connection au emails",
+            context: context,
+            shouldDisable: context
+                .read<EmailBloc>()
+                .stream
+                .map<bool>((event) => event is! EmailConnected),
+          ));
         } else if (state is EmailLoading || state is EmailCacheLoaded) {
-          WidgetsBinding.instance.addPostFrameCallback((_) =>
-              ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
-                  message: "Chargement des emails", context: context)));
-        } else if (state is EmailLoaded || state is EmailSorted) {
-          WidgetsBinding.instance.addPostFrameCallback(
-              (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar());
+          loadingSnackbar(
+            message: "Chargement des emails",
+            context: context,
+            shouldDisable: context.read<EmailBloc>().stream.map<bool>((event) =>
+                !(event is EmailLoading || event is EmailCacheLoaded)),
+          );
         }
       },
       child: BlocBuilder<EmailBloc, EmailState>(
         builder: (context, state) {
+          if (kDebugMode) {
+            print("EmailsState: $state");
+          }
           if (state is EmailError) {
             return const StateDisplaying(
                 message: "Something went wrong with emails");

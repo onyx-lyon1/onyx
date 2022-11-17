@@ -73,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
                                 color: Theme.of(context).primaryColor)),
                         disabledBorder: InputBorder.none,
                       ),
-                      // The validator receives the text that the user has entered.
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Veuillez entrer l\'identifiant';
@@ -132,10 +131,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void send() async {
-    // Validate returns true if the form is valid, or false otherwise.
     if (_formKey.currentState!.validate()) {
-      // If the form is valid, display a snackbar. In the real world,
-      // you'd often call a server or save the information in a database.
       _formKey.currentState!.save();
       context.read<AuthentificationBloc>().add(AuthentificationLogin(
           username: username,
@@ -181,7 +177,6 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
               .textTheme
               .bodyText1!
               .copyWith(color: Theme.of(context).primaryColor),
-          // this button is used to toggle the password visibility
           suffixIcon: IconButton(
               icon: Icon(
                 _isObscure ? Icons.visibility : Icons.visibility_off,

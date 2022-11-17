@@ -10,5 +10,6 @@ class AuthentificationLogin extends AuthentificationEvent {
   final String? password;
   AuthentificationLogin({this.username, this.password, required this.keepLogedIn});
 }
+
 class AuthentificationLogout extends AuthentificationEvent {}
 class AuthentificationForgetCredential extends AuthentificationEvent{}

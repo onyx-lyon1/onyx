@@ -2,7 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 SnackBar loadingSnackbar(
-    {required String message, required BuildContext context}) {
+    {required String message,
+    required BuildContext context,
+    required Stream<bool> shouldDisable}) {
+  shouldDisable.listen(
+    (event) {
+      if (event) {
+        ScaffoldMessenger.of(context)
+            .hideCurrentSnackBar(reason: SnackBarClosedReason.action);
+      } else {
+      }
+    },
+  );
+
   return SnackBar(
     backgroundColor: Theme.of(context).backgroundColor,
     duration: const Duration(days: 365),
