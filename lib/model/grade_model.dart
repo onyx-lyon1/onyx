@@ -61,13 +61,6 @@ class GradeModel {
               (gradeNumerator.isNaN && other.gradeNumerator.isNaN)) &&
           (gradeDenominator == other.gradeDenominator ||
               (gradeDenominator.isNaN && other.gradeDenominator.isNaN)) &&
-          (rank == other.rank || (rank.isNaN && other.rank.isNaN)) &&
-          (average == other.average ||
-              (average.isNaN && other.average.isNaN)) &&
-          (mediane == other.mediane ||
-              (mediane.isNaN && other.mediane.isNaN)) &&
-          (groupSize == other.groupSize ||
-              (groupSize.isNaN && other.groupSize.isNaN)) &&
           isValidGrade == other.isValidGrade;
 
   @override
