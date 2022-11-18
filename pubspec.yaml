@@ -42,7 +42,7 @@ dependencies:
 #  enough_mail_flutter:
 #    path: /home/eymeric/tmp/enough_mail_flutter
 
-dependency_overrides:
+#dependency_overrides:
 #  url_launcher_android:
 #    path: /home/eymeric/tmp/plugins/packages/url_launcher/url_launcher_android
 #  pdfx: ^2.3.0
