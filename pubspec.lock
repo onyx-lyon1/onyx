@@ -339,6 +339,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.4"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.2.2"
   fixnum:
     dependency: transitive
     description:
@@ -358,6 +365,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.1.1"
+  flutter_file_dialog:
+    dependency: "direct main"
+    description:
+      name: flutter_file_dialog
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.2"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -378,14 +392,14 @@ packages:
       name: flutter_local_notifications
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "12.0.3"
+    version: "12.0.3+1"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
       name: flutter_local_notifications_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "2.0.0"
   flutter_local_notifications_platform_interface:
     dependency: transitive
     description:
@@ -393,6 +407,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.0"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.7"
   flutter_speed_dial:
     dependency: "direct main"
     description:
@@ -548,18 +569,16 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f9bd8ea34ff22cbb54542df72b43be4c647b5389
+      resolved-ref: "469cccf06f28c69765e2bbdab718d095c0e785c3"
       url: "https://github.com/hatch01/lyon1-agendaclient.git"
     source: git
     version: "1.0.0"
   lyon1mail:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "8dce4036efb5088ccb286f3b9cef53f3d4ddbc0e"
-      url: "https://github.com/hatch01/lyon1-mailclient.git"
-    source: git
+      path: "../lyon1-mailclient"
+      relative: true
+    source: path
     version: "1.0.0"
   matcher:
     dependency: transitive
@@ -610,6 +629,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  open_filex:
+    dependency: "direct main"
+    description:
+      name: open_filex
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.3.1"
   package_config:
     dependency: transitive
     description:
@@ -625,7 +651,7 @@ packages:
     source: hosted
     version: "1.8.2"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       url: "https://pub.dartlang.org"

@@ -32,7 +32,9 @@ class EmailSendPage extends StatelessWidget {
                 date: DateTime.now(),
                 body: bodyEditor.text,
                 id: 0,
-                receiver: destinationEditor.text);
+                receiver: destinationEditor.text,
+                attachments: [],
+            );
             context.read<EmailBloc>().add(EmailSend(email,
                 replyAll: replyAll,
                 replyOriginalMessageId: replyOriginalMessage));
@@ -72,7 +74,9 @@ class EmailSendPage extends StatelessWidget {
                         date: DateTime.now(),
                         body: bodyEditor.text,
                         id: 0,
-                        receiver: destinationEditor.text);
+                        receiver: destinationEditor.text,
+                        attachments: [],
+                    );
                     context.read<EmailBloc>().add(EmailSend(email,
                         replyAll: replyAll,
                         replyOriginalMessageId: replyOriginalMessage));

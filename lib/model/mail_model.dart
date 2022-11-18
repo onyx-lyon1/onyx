@@ -3,6 +3,7 @@
 import 'package:enough_mail/enough_mail.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lyon1mail/lyon1mail.dart' as lyon1mail;
+import 'package:oloid2/model/attachment_model.dart';
 
 part 'mail_model.g.dart';
 
@@ -24,6 +25,8 @@ class EmailModel {
   final DateTime date;
   @HiveField(7)
   final String receiver;
+  @HiveField(8)
+  final List<AttachmentModel> attachments;
 
   MimeMessage? mimeMessage;
 
@@ -36,6 +39,7 @@ class EmailModel {
       required this.body,
       required this.id,
       required this.receiver,
+      required this.attachments,
       this.mimeMessage});
 
   static EmailModel fromMailLib(lyon1mail.Mail mail) {
@@ -48,6 +52,13 @@ class EmailModel {
         body: mail.getBody(excerpt: false),
         id: mail.getSequenceId(),
         receiver: "me",
+        attachments: mail.hasAttachments()
+            ? mail
+                .getAttachmentsNames()
+                .map((e) =>
+                    AttachmentModel(name: e, data: mail.getAttachment(e)))
+                .toList()
+            : [],
         mimeMessage: mail.getOriginalMessage);
   }
 

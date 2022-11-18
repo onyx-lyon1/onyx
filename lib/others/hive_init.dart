@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:oloid2/model/attachment_model.dart';
 import 'package:oloid2/model/authentication.dart';
 import 'package:oloid2/model/day_model.dart';
 import 'package:oloid2/model/event_model.dart';
@@ -25,5 +26,6 @@ Future<void> hiveInit() async{
   Hive.registerAdapter(TeachingUnitModelAdapter());
   Hive.registerAdapter(TeachingUnitModelWrapperAdapter());
   Hive.registerAdapter(TextModelAdapter());
+  Hive.registerAdapter(AttachmentModelAdapter());
   await Hive.initFlutter();
 }

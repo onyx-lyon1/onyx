@@ -13,9 +13,8 @@ import 'app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (Platform.isAndroid || Platform.isIOS) {
-    Workmanager()
-        .initialize(callbackDispatcher, isInDebugMode: kDebugMode);
+  if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+    Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
     Workmanager().registerPeriodicTask("updateChecking", "check update",
         frequency: const Duration(hours: 1),
         constraints: Constraints(networkType: NetworkType.connected));

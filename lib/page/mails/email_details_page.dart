@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io' show Platform;
+import 'dart:io' show File, Platform;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -11,6 +11,8 @@ import 'package:oloid2/others/hex.dart';
 import 'package:oloid2/page/mails/email_send_page.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
+import 'package:oloid2/widget/emails/save_or_open.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -40,16 +42,16 @@ class EmailDetailsPage extends StatelessWidget {
                 : [
                     SpeedDialChild(
                       onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EmailSendPage(
-                                    replyAll: false,
-                                    replyOriginalMessage: mail.id,
-                                  ),
-                                ),
-                              );
-                            },
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EmailSendPage(
+                              replyAll: false,
+                              replyOriginalMessage: mail.id,
+                            ),
+                          ),
+                        );
+                      },
                       child: Icon(
                         Icons.reply,
                         size: 20.sp,
@@ -57,16 +59,16 @@ class EmailDetailsPage extends StatelessWidget {
                     ),
                     SpeedDialChild(
                       onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EmailSendPage(
-                                    replyAll: true,
-                                    replyOriginalMessage: mail.id,
-                                  ),
-                                ),
-                              );
-                            },
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EmailSendPage(
+                              replyAll: true,
+                              replyOriginalMessage: mail.id,
+                            ),
+                          ),
+                        );
+                      },
                       child: Icon(
                         Icons.reply_all,
                         size: 20.sp,
@@ -108,7 +110,7 @@ class EmailDetailsPage extends StatelessWidget {
                             width: 3.w,
                           ),
                           SizedBox(
-                            width: 85.w,
+                            width: 80.w,
                             child: Center(
                               child: Text(
                                 mail.subject,
@@ -127,7 +129,7 @@ class EmailDetailsPage extends StatelessWidget {
                   Container(
                     color: Theme.of(context).cardTheme.color,
                     width: 100.w,
-                    height: 11.h,
+                    height: 13.h,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -149,7 +151,7 @@ class EmailDetailsPage extends StatelessWidget {
                   Container(
                     color: Theme.of(context).cardTheme.color,
                     padding: EdgeInsets.all(1.h),
-                    height: 78.h,
+                    height: 65.h,
                     width: 100.w,
                     child: (mail.body.toLowerCase().contains("html") &&
                             (Platform.isAndroid || Platform.isIOS))
@@ -170,7 +172,7 @@ class EmailDetailsPage extends StatelessWidget {
                                           //add background screen
                                           '<!DOCTYPE html>'
                                           '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
-                                          '<style>body { background-color: ${Theme.of(context).backgroundColor.toHex()}; } </style>'
+                                          '<style>body { background-color: ${Theme.of(context).cardTheme.color!.toHex()}; } </style>'
                                           '</head>'
                                           '<body text="${Theme.of(context).textTheme.bodyText2?.color?.toHex()}" >'
                                           '${mail.body}'
@@ -202,6 +204,59 @@ class EmailDetailsPage extends StatelessWidget {
                           )
                         : SelectableText(mail.body),
                   ),
+                  Container(
+                    color: Theme.of(context).cardTheme.color,
+                    padding: EdgeInsets.all(1.h),
+                    height: 12.h,
+                    width: 100.w,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: mail.attachments.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.all(1.h),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(10),
+                              onTap: () async {
+                                //save data in a file and open it
+                                final directory = await getTemporaryDirectory();
+                                final file = File(
+                                    '${directory.path}/${mail.attachments[index].name}');
+                                await file
+                                    .writeAsBytes(mail.attachments[index].data);
+                                showDialog(
+                                    context: context,
+                                    builder: (_) => SaveOrOpen(
+                                          filePath: file.path,
+                                        ));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.attach_file,
+                                    size: 20.sp,
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Text(
+                                    mail.attachments[index].name,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(fontSize: 10.sp),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  )
                 ],
               ),
             ),

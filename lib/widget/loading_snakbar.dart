@@ -10,7 +10,6 @@ SnackBar loadingSnackbar(
       if (event) {
         ScaffoldMessenger.of(context)
             .hideCurrentSnackBar(reason: SnackBarClosedReason.action);
-      } else {
       }
     },
   );
