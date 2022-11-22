@@ -35,6 +35,8 @@ class EmailHeader extends StatelessWidget {
                   cursorColor: Theme.of(context).textTheme.bodyText1!.color,
                   textAlignVertical: TextAlignVertical.center,
                   decoration: InputDecoration(
+                    hintText:
+                        "Recherche dans les ${context.read<EmailBloc>().emailNumber} dernier mails",
                     prefixIcon: Icon(
                       Icons.search,
                       color: Theme.of(context)

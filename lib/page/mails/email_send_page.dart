@@ -25,15 +25,15 @@ class EmailSendPage extends StatelessWidget {
         if (state is EmailError) {
           Future.delayed(const Duration(seconds: 1), () {
             EmailModel email = EmailModel(
-                subject: subjectEditor.text,
-                sender: "moi",
-                excerpt: "",
-                isRead: false,
-                date: DateTime.now(),
-                body: bodyEditor.text,
-                id: 0,
-                receiver: destinationEditor.text,
-                attachments: [],
+              subject: subjectEditor.text,
+              sender: "moi",
+              excerpt: "",
+              isRead: false,
+              date: DateTime.now(),
+              body: bodyEditor.text,
+              id: 0,
+              receiver: destinationEditor.text,
+              attachments: [],
             );
             context.read<EmailBloc>().add(EmailSend(email,
                 replyAll: replyAll,
@@ -44,6 +44,7 @@ class EmailSendPage extends StatelessWidget {
         } else if (state is EmailSended) {
           context.read<EmailBloc>().add(EmailLoad(cache: false));
           SchedulerBinding.instance.addPostFrameCallback((_) {
+            Navigator.pop(context);
             Navigator.pop(context);
           });
         } else if (state is EmailSending) {
@@ -67,15 +68,15 @@ class EmailSendPage extends StatelessWidget {
                       (replyOriginalMessage != null &&
                           bodyEditor.value.text.isNotEmpty)) {
                     EmailModel email = EmailModel(
-                        subject: subjectEditor.text,
-                        sender: "moi",
-                        excerpt: "",
-                        isRead: false,
-                        date: DateTime.now(),
-                        body: bodyEditor.text,
-                        id: 0,
-                        receiver: destinationEditor.text,
-                        attachments: [],
+                      subject: subjectEditor.text,
+                      sender: "moi",
+                      excerpt: "",
+                      isRead: false,
+                      date: DateTime.now(),
+                      body: bodyEditor.text,
+                      id: 0,
+                      receiver: destinationEditor.text,
+                      attachments: [],
                     );
                     context.read<EmailBloc>().add(EmailSend(email,
                         replyAll: replyAll,
