@@ -1,10 +1,6 @@
-// ignore_for_file: depend_on_referenced_packages
-
-import 'dart:async';
-
-import 'package:bloc/bloc.dart';
 import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oloid2/functionalities/authentification_backend/authentification_backend.dart';
 import 'package:oloid2/functionalities/cache_service.dart';
@@ -14,54 +10,49 @@ import 'package:oloid2/model/wrapper/day_model_wrapper.dart';
 import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
 import 'package:oloid2/model/wrapper/teaching_unit_model_wrapper.dart';
 
-part 'authentification_event.dart';
-
 part 'authentification_state.dart';
 
-class AuthentificationBloc
-    extends Bloc<AuthentificationEvent, AuthentificationState> {
-  tomusslib.Dartus? dartus;
-  late String usename;
-  late String password;
+class AuthentificationCubit extends Cubit<AuthentificationState> {
+  tomusslib.Dartus? _dartus;
+  late String _usename;
+  late String _password;
 
-  AuthentificationBloc() : super(AuthentificationInitial()) {
-    on<AuthentificationEvent>((event, emit) {
-      if (kDebugMode) {
-        print("AuthentificationBloc: $event");
-      }
-    });
-    on<AuthentificationLogin>(login);
-    on<AuthentificationLogout>(logout);
-    on<AuthentificationForgetCredential>(forget);
-  }
+  AuthentificationCubit()
+      : super(AuthentificationState(status: AuthentificationStatus.initial));
 
   Future<void> login(
-      AuthentificationLogin event, Emitter<AuthentificationState> emit) async {
+      {required bool keepLogedIn,
+      String? username,
+      String? password}) async {
     //fetch username and password
-    emit(AuthentificationAuthentificating());
+    emit(state.copyWith(status: AuthentificationStatus.authentificating));
     try {
       Authentication auth = await AuthentificationBackend.fetchCredential(
-          username: event.username, password: event.password);
-      usename = auth.username;
-      password = auth.password;
+          username: username, password: password);
+      _usename = auth.username;
+      _password = auth.password;
     } catch (e) {
-      emit(AuthentificationNeedCredential());
+      emit(state.copyWith(
+          status: AuthentificationStatus.needCredential,
+          username: "",
+          password: ""));
       return;
     }
     //login
     try {
-      dartus = await AuthentificationBackend.login(
-          username: usename,
-          password: password,
-          keepLogedIn: event.keepLogedIn);
-      emit(AuthentificationAuthentificated());
+      _dartus = await AuthentificationBackend.login(
+          username: _usename, password: _password, keepLogedIn: keepLogedIn);
+      emit(state.copyWith(
+          status: AuthentificationStatus.authentificated,
+          username: _usename,
+          password: _password));
     } catch (e) {
-      emit(AuthentificationError());
+      emit(state.copyWith(status: AuthentificationStatus.error));
       return;
     }
   }
 
-  Future<void> forget(event, Emitter<AuthentificationState> emit) async {
+  Future<void> forget() async {
     if (kDebugMode) {
       print("forget credential");
     }
@@ -70,7 +61,7 @@ class AuthentificationBloc
     authBox.delete("credential");
   }
 
-  Future<void> logout(event, Emitter<AuthentificationState> emit) async {
+  Future<void> logout() async {
     if (kDebugMode) {
       print("logout");
     }
@@ -81,12 +72,15 @@ class AuthentificationBloc
     CacheService.reset<DayModelWrapper>();
     CacheService.reset<EmailModelWrapper>();
     SettingsBackend.reset();
-    usename = "";
-    password = "";
+    _usename = "";
+    _password = "";
     // await authBox.close();
-    if (dartus != null) {
-      await dartus!.logout();
+    if (_dartus != null) {
+      await _dartus!.logout();
     }
-    emit(AuthentificationNeedCredential());
+    emit(state.copyWith(
+        status: AuthentificationStatus.needCredential,
+        username: "",
+        password: ""));
   }
 }

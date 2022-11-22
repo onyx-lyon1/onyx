@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oloid2/model/teaching_unit.dart';
-import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/authentification/authentification_cubit.dart';
 import 'package:oloid2/states/grades/grades_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/grades/grade_list_header.dart';
@@ -75,12 +75,12 @@ class TeachingUnitsPage extends StatelessWidget {
           if (state is GradesInitial) {
             context
                 .read<GradesBloc>()
-                .add(GradesLoad(context.read<AuthentificationBloc>().dartus!));
+                .add(GradesLoad(context.read<AuthentificationCubit>().state.dartus!));
             return const StateDisplaying(message: "Loading grades");
           } else if (state is GradesError) {
             Future.delayed(const Duration(seconds: 3), () {
               context.read<GradesBloc>().add(
-                  GradesLoad(context.read<AuthentificationBloc>().dartus!));
+                  GradesLoad(context.read<AuthentificationCubit>().state.dartus!));
             });
             return const StateDisplaying(
                 message: "Erreur pendant le chargement des notes");
@@ -150,7 +150,7 @@ class TeachingUnitsPage extends StatelessWidget {
                     ),
                     onRefresh: () async {
                       context.read<GradesBloc>().add(GradesLoad(
-                          context.read<AuthentificationBloc>().dartus!));
+                          context.read<AuthentificationCubit>().state.dartus!));
                       while (context.read<GradesBloc>().state is! GradesReady &&
                           context.read<GradesBloc>().state is! GradesError) {
                         await Future.delayed(const Duration(milliseconds: 100));

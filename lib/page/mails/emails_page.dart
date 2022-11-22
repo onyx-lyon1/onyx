@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/page/mails/email_send_page.dart';
-import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/authentification/authentification_cubit.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/widget/loading_snakbar.dart';
 import 'package:oloid2/widget/state_displaying.dart';
@@ -54,8 +54,8 @@ class EmailsPage extends StatelessWidget {
           }
           if (state is EmailInitial) {
             context.read<EmailBloc>().add(EmailConnect(
-                username: context.read<AuthentificationBloc>().usename,
-                password: context.read<AuthentificationBloc>().password));
+                username: context.read<AuthentificationCubit>().state.username,
+                password: context.read<AuthentificationCubit>().state.password));
           } else if (state is EmailConnected) {
             return const StateDisplaying(message: "Chargement des mails");
           }

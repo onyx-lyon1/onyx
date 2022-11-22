@@ -5,7 +5,7 @@ import 'package:oloid2/others/date_shrink.dart';
 import 'package:oloid2/others/month_to_string.dart';
 import 'package:oloid2/others/weekday_to_string.dart';
 import 'package:oloid2/states/agenda/agenda_cubit.dart';
-import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/authentification/authentification_cubit.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/agenda/event.dart';
 import 'package:oloid2/widget/agenda/mini_calendar.dart';
@@ -24,7 +24,7 @@ class AgendaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (context.read<AgendaCubit>().state.status == AgendaStatus.initial) {
       context.read<AgendaCubit>().load(
-          dartus: context.read<AuthentificationBloc>().dartus!,
+          dartus: context.read<AuthentificationCubit>().state.dartus!,
           settings: context.read<SettingsBloc>().state.settings);
     }
     return BlocListener<SettingsBloc, SettingsState>(
@@ -34,7 +34,7 @@ class AgendaPage extends StatelessWidget {
                 current.settings.fetchAgendaAuto,
         listener: (context, state) {
           context.read<AgendaCubit>().load(
-              dartus: context.read<AuthentificationBloc>().dartus!,
+              dartus: context.read<AuthentificationCubit>().state.dartus!,
               settings: context.read<SettingsBloc>().state.settings);
         },
         child: BlocConsumer<AgendaCubit, AgendaState>(
@@ -268,7 +268,7 @@ class AgendaWrapped extends StatelessWidget {
               ),
               onRefresh: () async {
                 context.read<AgendaCubit>().load(
-                    dartus: context.read<AuthentificationBloc>().dartus!,
+                    dartus: context.read<AuthentificationCubit>().state.dartus!,
                     settings: context.read<SettingsBloc>().state.settings);
                 while (context.read<AgendaCubit>().state.status == AgendaStatus.ready&&
                     context.read<AgendaCubit>().state.status == AgendaStatus.error) {

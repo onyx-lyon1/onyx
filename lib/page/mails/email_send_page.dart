@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
-import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/authentification/authentification_cubit.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/widget/state_displaying.dart';
 import 'package:sizer/sizer.dart';
@@ -205,11 +205,11 @@ class EmailSendPage extends StatelessWidget {
                                     .isAuthenticated) {
                                   context.read<EmailBloc>().add(EmailConnect(
                                       username: context
-                                          .read<AuthentificationBloc>()
-                                          .usename,
+                                          .read<AuthentificationCubit>()
+                                          .state.username,
                                       password: context
-                                          .read<AuthentificationBloc>()
-                                          .password));
+                                          .read<AuthentificationCubit>()
+                                          .state.password));
                                   return [];
                                 } else {
                                   return (await context

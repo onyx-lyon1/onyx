@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/authentification/authentification_cubit.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/state_displaying.dart';
 import 'package:sizer/sizer.dart';
@@ -19,19 +19,20 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    AuthentificationState state = context.read<AuthentificationBloc>().state;
-    if (state is AuthentificationInitial) {
-      context.read<AuthentificationBloc>().add(AuthentificationLogin(
-          keepLogedIn: context.read<SettingsBloc>().state.settings.keepMeLoggedIn));
+    AuthentificationState state = context.read<AuthentificationCubit>().state;
+    if (state.status == AuthentificationStatus.initial) {
+      context.read<AuthentificationCubit>().login(
+          keepLogedIn:
+              context.read<SettingsBloc>().state.settings.keepMeLoggedIn);
       return const StateDisplaying(message: "Start authentification");
-    } else if (state is AuthentificationAuthentificating) {
+    } else if (state.status == AuthentificationStatus.authentificating) {
       return const StateDisplaying(message: "Authentificating");
-    } else if (state is AuthentificationError) {
+    } else if (state.status == AuthentificationStatus.error) {
       Future.delayed(const Duration(seconds: 1), () {
-        context.read<AuthentificationBloc>().add(AuthentificationLogout());
+        context.read<AuthentificationCubit>().logout();
       });
       return const StateDisplaying(message: "Login error");
-    } else if (state is AuthentificationNeedCredential) {
+    } else if (state.status == AuthentificationStatus.needCredential) {
       return Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         body: Form(
@@ -57,7 +58,6 @@ class _LoginPageState extends State<LoginPage> {
                     width: 70.w,
                     child: TextFormField(
                       autofillHints: const [AutofillHints.username],
-
                       onSaved: (String? value) =>
                           username = value!.replaceFirst("p", "P"),
                       textInputAction: TextInputAction.next,
@@ -133,10 +133,11 @@ class _LoginPageState extends State<LoginPage> {
   void send() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      context.read<AuthentificationBloc>().add(AuthentificationLogin(
+      context.read<AuthentificationCubit>().login(
           username: username,
           password: password,
-          keepLogedIn: context.read<SettingsBloc>().state.settings.keepMeLoggedIn));
+          keepLogedIn:
+              context.read<SettingsBloc>().state.settings.keepMeLoggedIn);
     }
   }
 }

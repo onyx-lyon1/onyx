@@ -4,7 +4,7 @@ import 'package:lyon1mail/lyon1mail.dart';
 import 'package:oloid2/others/custom_scroll_behavior.dart';
 import 'package:oloid2/page/login_page.dart';
 import 'package:oloid2/states/agenda/agenda_cubit.dart';
-import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/authentification/authentification_cubit.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/states/grades/grades_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
@@ -42,14 +42,14 @@ class OloidAppState extends State<OloidApp> {
     return Sizer(
       builder: (context, orientation, deviceType) => MultiBlocProvider(
         providers: [
-          BlocProvider<AuthentificationBloc>(
-              create: (context) => AuthentificationBloc()),
+          BlocProvider<AuthentificationCubit>(
+              create: (context) => AuthentificationCubit()),
           BlocProvider<SettingsBloc>(create: (context) => SettingsBloc()),
           BlocProvider<EmailBloc>(create: (context) => EmailBloc()),
           BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
           BlocProvider<GradesBloc>(create: (context) => GradesBloc()),
         ],
-        child: BlocBuilder<AuthentificationBloc, AuthentificationState>(
+        child: BlocBuilder<AuthentificationCubit, AuthentificationState>(
           builder: (context, authState) {
             return BlocBuilder<SettingsBloc, SettingsState>(
               builder: (context, settingsState) {
@@ -64,8 +64,8 @@ class OloidAppState extends State<OloidApp> {
                           : ThemeMode.light,
                       theme: OloidTheme.lighTheme(),
                       darkTheme: OloidTheme.darkTheme(),
-                      home: (context.read<AuthentificationBloc>().state
-                              is AuthentificationAuthentificated)
+                      home: (context.read<AuthentificationCubit>().state.status ==
+                              AuthentificationStatus.authentificated)
                           ? const Home()
                           : LoginPage(key: UniqueKey()));
                 } else {

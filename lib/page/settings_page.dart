@@ -7,7 +7,7 @@ import 'package:oloid2/functionalities/cache_service.dart';
 import 'package:oloid2/model/wrapper/day_model_wrapper.dart';
 import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
 import 'package:oloid2/model/wrapper/teaching_unit_model_wrapper.dart';
-import 'package:oloid2/states/authentification/authentification_bloc.dart';
+import 'package:oloid2/states/authentification/authentification_cubit.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/settings/agenda_url_params.dart';
 import 'package:oloid2/widget/settings/text_switch.dart';
@@ -196,8 +196,7 @@ class SettingsPage extends StatelessWidget {
                                       .state.settings
                                       .copyWith(keepMeLoggedIn: b)));
                               context
-                                  .read<AuthentificationBloc>()
-                                  .add(AuthentificationForgetCredential());
+                                  .read<AuthentificationCubit>().forget();
                             },
                           ),
                           const SizedBox(height: 20),
@@ -208,8 +207,8 @@ class SettingsPage extends StatelessWidget {
                             child: const Text('Déconnexion'),
                             onPressed: () {
                               context
-                                  .read<AuthentificationBloc>()
-                                  .add(AuthentificationLogout());
+                                  .read<AuthentificationCubit>()
+                                  .logout();
                             },
                           )
                         ],
