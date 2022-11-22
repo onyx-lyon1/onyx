@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/others/date_shrink.dart';
 import 'package:oloid2/others/month_to_string.dart';
 import 'package:oloid2/others/weekday_to_string.dart';
-import 'package:oloid2/states/agenda/agenda_bloc.dart';
+import 'package:oloid2/states/agenda/agenda_cubit.dart';
 import 'package:oloid2/states/authentification/authentification_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/agenda/event.dart';
@@ -22,10 +22,10 @@ class AgendaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (context.read<AgendaBloc>().state is AgendaInitial) {
-      context.read<AgendaBloc>().add(AgendaLoad(
-          context.read<AuthentificationBloc>().dartus!,
-          context.read<SettingsBloc>().state.settings));
+    if (context.read<AgendaCubit>().state.status == AgendaStatus.initial) {
+      context.read<AgendaCubit>().load(
+          dartus: context.read<AuthentificationBloc>().dartus!,
+          settings: context.read<SettingsBloc>().state.settings);
     }
     return BlocListener<SettingsBloc, SettingsState>(
         listenWhen: (previous, current) =>
@@ -33,20 +33,21 @@ class AgendaPage extends StatelessWidget {
             previous.settings.fetchAgendaAuto !=
                 current.settings.fetchAgendaAuto,
         listener: (context, state) {
-          context.read<AgendaBloc>().add(AgendaLoad(
-              context.read<AuthentificationBloc>().dartus!,
-              context.read<SettingsBloc>().state.settings));
+          context.read<AgendaCubit>().load(
+              dartus: context.read<AuthentificationBloc>().dartus!,
+              settings: context.read<SettingsBloc>().state.settings);
         },
-        child: BlocConsumer<AgendaBloc, AgendaState>(
+        child: BlocConsumer<AgendaCubit, AgendaState>(
           listener: (context, state) {
-            if (state is AgendaLoading) {
+            if (state.status == AgendaStatus.loading) {
               ScaffoldMessenger.of(context).showSnackBar(
                 loadingSnackbar(
                   message: "Chargement de l'agenda",
                   context: context,
                   shouldDisable:
-                      context.read<AgendaBloc>().stream.map<bool>((event) {
-                    return event is AgendaReady || event is AgendaError;
+                      context.read<AgendaCubit>().stream.map<bool>((event) {
+                    return event.status == AgendaStatus.ready ||
+                        event.status == AgendaStatus.error;
                   }),
                 ),
               );
@@ -56,7 +57,7 @@ class AgendaPage extends StatelessWidget {
             if (kDebugMode) {
               print("AgendaState: $state");
             }
-            if (state is AgendaError) {
+            if (state.status == AgendaStatus.error) {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -75,7 +76,8 @@ class AgendaPage extends StatelessWidget {
                   ),
                 ),
               );
-            } else if (state is AgendaLoading || state is AgendaInitial) {
+            } else if (state.status == AgendaStatus.loading ||
+                state.status == AgendaStatus.initial) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -107,27 +109,29 @@ class AgendaWrapped extends StatelessWidget {
     PageController pageController = PageController();
     ScrollController scrollController = ScrollController(
         initialScrollOffset: indexToOffset(context
-            .read<AgendaBloc>()
+            .read<AgendaCubit>()
+            .state
             .wantedDate
             .shrink(3)
             .difference(DateTime.now().shrink(3))
             .inDays));
 
     pageController = PageController(
-        initialPage: context.read<AgendaBloc>().dayModels.indexWhere(
+        initialPage: context.read<AgendaCubit>().state.dayModels.indexWhere(
             (element) =>
                 element.date.shrink(3) ==
-                context.read<AgendaBloc>().wantedDate.shrink(3)));
+                context.read<AgendaCubit>().state.wantedDate.shrink(3)));
 
-    return BlocListener<AgendaBloc, AgendaState>(
+    return BlocListener<AgendaCubit, AgendaState>(
         listener: (context, state) {
           if (scrollController.hasClients && pageController.hasClients) {
             final int pageIndex = context
-                .read<AgendaBloc>()
+                .read<AgendaCubit>()
+                .state
                 .dayModels
                 .indexWhere((element) =>
                     element.date.shrink(3) ==
-                    context.read<AgendaBloc>().wantedDate.shrink(3));
+                    context.read<AgendaCubit>().state.wantedDate.shrink(3));
             if (!animating) {
               pageController.animateToPage(
                 pageIndex,
@@ -136,7 +140,8 @@ class AgendaWrapped extends StatelessWidget {
               );
               scrollController.animateTo(
                   indexToOffset(context
-                      .read<AgendaBloc>()
+                      .read<AgendaCubit>()
+                      .state
                       .wantedDate
                       .shrink(3)
                       .difference(DateTime.now().shrink(3))
@@ -150,7 +155,8 @@ class AgendaWrapped extends StatelessWidget {
                 animating = false;
                 scrollController.animateTo(
                     indexToOffset(context
-                        .read<AgendaBloc>()
+                        .read<AgendaCubit>()
+                        .state
                         .wantedDate
                         .shrink(3)
                         .difference(DateTime.now().shrink(3))
@@ -175,8 +181,8 @@ class AgendaWrapped extends StatelessWidget {
                           scrollController: scrollController,
                           onUpdate: (DateTime newWantedDay) {
                             context
-                                .read<AgendaBloc>()
-                                .add(AgendaUpdateDisplayedDate(newWantedDay));
+                                .read<AgendaCubit>()
+                                .updateDisplayedDate(date: newWantedDay);
                           },
                         )
                       : Container(
@@ -206,15 +212,17 @@ class AgendaWrapped extends StatelessWidget {
                             .state
                             .settings
                             .showMiniCalendar) {
-                          context.read<AgendaBloc>().add(
-                              AgendaUpdateDisplayedDate(context
-                                  .read<AgendaBloc>()
+                          context.read<AgendaCubit>().updateDisplayedDate(
+                              date: context
+                                  .read<AgendaCubit>()
+                                  .state
                                   .dayModels[index]
-                                  .date));
+                                  .date);
                         }
                       },
                       children: context
-                          .read<AgendaBloc>()
+                          .read<AgendaCubit>()
+                          .state
                           .dayModels
                           .map(
                             (day) => SizedBox(
@@ -259,11 +267,11 @@ class AgendaWrapped extends StatelessWidget {
                 ],
               ),
               onRefresh: () async {
-                context.read<AgendaBloc>().add(AgendaLoad(
-                    context.read<AuthentificationBloc>().dartus!,
-                    context.read<SettingsBloc>().state.settings));
-                while (context.read<AgendaBloc>().state is! AgendaReady &&
-                    context.read<AgendaBloc>().state is! AgendaError) {
+                context.read<AgendaCubit>().load(
+                    dartus: context.read<AuthentificationBloc>().dartus!,
+                    settings: context.read<SettingsBloc>().state.settings);
+                while (context.read<AgendaCubit>().state.status == AgendaStatus.ready&&
+                    context.read<AgendaCubit>().state.status == AgendaStatus.error) {
                   await Future.delayed(const Duration(milliseconds: 100));
                 }
                 return;

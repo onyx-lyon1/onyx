@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/others/month_to_string.dart';
 import 'package:oloid2/others/weekday_to_string.dart';
-import 'package:oloid2/states/agenda/agenda_bloc.dart';
+import 'package:oloid2/states/agenda/agenda_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 class MiniCalendar extends StatelessWidget {
@@ -24,7 +24,7 @@ class MiniCalendar extends StatelessWidget {
         DateTime currentDate = DateTime.now().add(Duration(days: index));
         if (currentDate
             .subtract(const Duration(days: 1))
-            .isAfter(context.read<AgendaBloc>().dayModels.last.date)) {
+            .isAfter(context.read<AgendaCubit>().state.dayModels.last.date)) {
           return null;
         }
         return oneDay(context, currentDate);
@@ -37,7 +37,7 @@ class MiniCalendar extends StatelessWidget {
         DateTime currentDate =
             DateTime.now().subtract(Duration(days: index + 1));
         if (currentDate
-            .isBefore(context.read<AgendaBloc>().dayModels.first.date)) {
+            .isBefore(context.read<AgendaCubit>().state.dayModels.first.date)) {
           return null;
         }
         return oneDay(context, currentDate);
@@ -72,7 +72,7 @@ class MiniCalendar extends StatelessWidget {
   }
 
   Widget oneDay(BuildContext context, DateTime currentDate) {
-    return BlocBuilder<AgendaBloc, AgendaState>(
+    return BlocBuilder<AgendaCubit, AgendaState>(
       builder: (context, state) {
         return SizedBox(
           height: 10.h,
@@ -85,9 +85,9 @@ class MiniCalendar extends StatelessWidget {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
                 decoration: BoxDecoration(
-                  color: (context.read<AgendaBloc>().wantedDate.day ==
+                  color: (context.read<AgendaCubit>().state.wantedDate.day ==
                               currentDate.day &&
-                          context.read<AgendaBloc>().wantedDate.month ==
+                          context.read<AgendaCubit>().state.wantedDate.month ==
                               currentDate.month)
                       ? Theme.of(context).primaryColor
                       : Colors.transparent,

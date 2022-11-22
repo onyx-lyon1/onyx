@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:oloid2/others/custom_scroll_behavior.dart';
 import 'package:oloid2/page/login_page.dart';
-import 'package:oloid2/states/agenda/agenda_bloc.dart';
+import 'package:oloid2/states/agenda/agenda_cubit.dart';
 import 'package:oloid2/states/authentification/authentification_bloc.dart';
 import 'package:oloid2/states/email/email_bloc.dart';
 import 'package:oloid2/states/grades/grades_bloc.dart';
@@ -46,7 +46,7 @@ class OloidAppState extends State<OloidApp> {
               create: (context) => AuthentificationBloc()),
           BlocProvider<SettingsBloc>(create: (context) => SettingsBloc()),
           BlocProvider<EmailBloc>(create: (context) => EmailBloc()),
-          BlocProvider<AgendaBloc>(create: (context) => AgendaBloc()),
+          BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
           BlocProvider<GradesBloc>(create: (context) => GradesBloc()),
         ],
         child: BlocBuilder<AuthentificationBloc, AuthentificationState>(

@@ -4,7 +4,7 @@ import 'package:oloid2/page/agenda_page.dart';
 import 'package:oloid2/page/mails/emails_page.dart';
 import 'package:oloid2/page/settings_page.dart';
 import 'package:oloid2/page/teaching_units_page.dart';
-import 'package:oloid2/states/agenda/agenda_bloc.dart';
+import 'package:oloid2/states/agenda/agenda_cubit.dart';
 import 'package:oloid2/widget/grades/bottom_nav_bar.dart';
 
 class Home extends StatefulWidget {
@@ -57,8 +57,8 @@ class HomeState extends State<Home> {
             } else if (currentIndex == index) {
               if (currentIndex == 1) {
                 context
-                    .read<AgendaBloc>()
-                    .add(AgendaUpdateDisplayedDate(DateTime.now()));
+                    .read<AgendaCubit>()
+                    .updateDisplayedDate(date: DateTime.now());
               }
             } else {
               pageController.jumpToPage(index);

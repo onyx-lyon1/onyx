@@ -1,11 +1,27 @@
-part of 'agenda_bloc.dart';
+part of 'agenda_cubit.dart';
 
-@immutable
-abstract class AgendaState {}
+enum AgendaStatus { initial, loading, ready, cacheReady, dateUpdated, error }
 
-class AgendaInitial extends AgendaState {}
-class AgendaReady extends AgendaState {}
-class AgendaCacheReady extends AgendaState {}
-class AgendaLoading extends AgendaState {}
-class AgendaError extends AgendaState {}
-class AgendaDateUpdated extends AgendaState {}
+class AgendaState {
+  AgendaStatus status;
+  List<DayModel> dayModels;
+  DateTime wantedDate;
+
+  AgendaState({
+    this.status = AgendaStatus.initial,
+    this.dayModels = const [],
+    required this.wantedDate,
+  });
+
+  AgendaState copyWith({
+    AgendaStatus? status,
+    List<DayModel>? dayModels,
+    DateTime? wantedDate,
+  }) {
+    return AgendaState(
+      status: status ?? this.status,
+      dayModels: dayModels ?? this.dayModels,
+      wantedDate: wantedDate ?? this.wantedDate,
+    );
+  }
+}
