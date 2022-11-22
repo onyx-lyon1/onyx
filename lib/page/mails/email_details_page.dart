@@ -145,7 +145,8 @@ class EmailDetailsPage extends StatelessWidget {
                             navigationDelegate:
                                 (NavigationRequest request) async {
                               if (await canLaunchUrl(Uri.parse(request.url))) {
-                                await launchUrl(Uri.parse(request.url));
+                                await launchUrl(Uri.parse(request.url),
+                                    mode: LaunchMode.externalApplication);
                               } else {
                                 throw 'Could not launch ${request.url}';
                               }
