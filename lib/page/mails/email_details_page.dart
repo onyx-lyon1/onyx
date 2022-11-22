@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/others/hex.dart';
 import 'package:oloid2/page/mails/email_send_page.dart';
@@ -28,55 +27,6 @@ class EmailDetailsPage extends StatelessWidget {
     return BlocBuilder<EmailBloc, EmailState>(
       builder: (context, state) {
         return Scaffold(
-          floatingActionButton: SpeedDial(
-            buttonSize: Size(15.w, 15.w),
-            backgroundColor: (state is EmailInitial ||
-                    state is EmailConnecting ||
-                    state is EmailCacheLoaded)
-                ? Theme.of(context).disabledColor
-                : Theme.of(context).primaryColor,
-            children: (state is EmailInitial ||
-                    state is EmailConnecting ||
-                    state is EmailCacheLoaded)
-                ? []
-                : [
-                    SpeedDialChild(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EmailSendPage(
-                              replyAll: false,
-                              replyOriginalMessage: mail.id,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Icon(
-                        Icons.reply,
-                        size: 20.sp,
-                      ),
-                    ),
-                    SpeedDialChild(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EmailSendPage(
-                              replyAll: true,
-                              replyOriginalMessage: mail.id,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Icon(
-                        Icons.reply_all,
-                        size: 20.sp,
-                      ),
-                    ),
-                  ],
-            icon: Icons.reply,
-          ),
           body: Container(
             color: Theme.of(context).backgroundColor,
             width: 100.w,
@@ -151,7 +101,7 @@ class EmailDetailsPage extends StatelessWidget {
                   Container(
                     color: Theme.of(context).cardTheme.color,
                     padding: EdgeInsets.all(1.h),
-                    height: 65.h,
+                    height: 55.h,
                     width: 100.w,
                     child: (mail.body.toLowerCase().contains("html") &&
                             (Platform.isAndroid || Platform.isIOS))
@@ -259,6 +209,51 @@ class EmailDetailsPage extends StatelessWidget {
                   )
                 ],
               ),
+            ),
+          ),
+          bottomNavigationBar: Container(
+            height: 10.h,
+            color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                    onPressed: (state is EmailInitial ||
+                            state is EmailConnecting ||
+                            state is EmailCacheLoaded)
+                        ? null
+                        : () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EmailSendPage(
+                                  replyAll: false,
+                                  replyOriginalMessage: mail.id,
+                                ),
+                              ),
+                            );
+                          },
+                    icon: const Icon(
+                      Icons.reply,
+                    )),
+                IconButton(
+                    onPressed: (state is EmailInitial ||
+                            state is EmailConnecting ||
+                            state is EmailCacheLoaded)
+                        ? null
+                        : () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EmailSendPage(
+                                  replyAll: true,
+                                  replyOriginalMessage: mail.id,
+                                ),
+                              ),
+                            );
+                          },
+                    icon: const Icon(Icons.reply_all))
+              ],
             ),
           ),
         );
