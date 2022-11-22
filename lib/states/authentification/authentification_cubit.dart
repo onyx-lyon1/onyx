@@ -21,9 +21,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
       : super(AuthentificationState(status: AuthentificationStatus.initial));
 
   Future<void> login(
-      {required bool keepLogedIn,
-      String? username,
-      String? password}) async {
+      {required bool keepLogedIn, String? username, String? password}) async {
     //fetch username and password
     emit(state.copyWith(status: AuthentificationStatus.authentificating));
     try {
@@ -35,7 +33,8 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
       emit(state.copyWith(
           status: AuthentificationStatus.needCredential,
           username: "",
-          password: ""));
+          password: "",
+          dartus: _dartus));
       return;
     }
     //login
@@ -45,7 +44,8 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
       emit(state.copyWith(
           status: AuthentificationStatus.authentificated,
           username: _usename,
-          password: _password));
+          password: _password,
+          dartus: _dartus));
     } catch (e) {
       emit(state.copyWith(status: AuthentificationStatus.error));
       return;
@@ -81,6 +81,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     emit(state.copyWith(
         status: AuthentificationStatus.needCredential,
         username: "",
-        password: ""));
+        password: "",
+        dartus: _dartus));
   }
 }
