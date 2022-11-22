@@ -35,12 +35,12 @@ class EmailsPage extends StatelessWidget {
                 .map<bool>((event) => event is! EmailConnected),
           ));
         } else if (state is EmailLoading || state is EmailCacheLoaded) {
-          loadingSnackbar(
+          ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
             message: "Chargement des emails",
             context: context,
             shouldDisable: context.read<EmailBloc>().stream.map<bool>((event) =>
                 !(event is EmailLoading || event is EmailCacheLoaded)),
-          );
+          ));
         }
       },
       child: BlocBuilder<EmailBloc, EmailState>(
@@ -55,7 +55,8 @@ class EmailsPage extends StatelessWidget {
           if (state is EmailInitial) {
             context.read<EmailBloc>().add(EmailConnect(
                 username: context.read<AuthentificationCubit>().state.username,
-                password: context.read<AuthentificationCubit>().state.password));
+                password:
+                    context.read<AuthentificationCubit>().state.password));
           } else if (state is EmailConnected) {
             return const StateDisplaying(message: "Chargement des mails");
           }

@@ -38,14 +38,12 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   void connect(EmailConnect event, Emitter<EmailState> emit) async {
+    //TODO optimize cache loading becose it cause freeze
     if (await CacheService.exist<EmailModelWrapper>()) {
-      if (emailsComplete !=
-          (await CacheService.get<EmailModelWrapper>())!.emailModels) {
-        emailsComplete =
-            (await CacheService.get<EmailModelWrapper>())!.emailModels;
-        emails = emailsComplete;
-        emit(EmailCacheLoaded());
-      }
+      emailsComplete =
+          (await CacheService.get<EmailModelWrapper>())!.emailModels;
+      emails = emailsComplete;
+      emit(EmailCacheLoaded());
     }
     emit(EmailConnecting());
     try {
