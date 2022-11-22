@@ -9,14 +9,12 @@ import 'package:sizer/sizer.dart';
 class MiniCalendar extends StatelessWidget {
   final ScrollController scrollController;
   final void Function(DateTime date) onUpdate;
-  final DateTime wantedDate;
 
-  const MiniCalendar(
-      {Key? key,
-      required this.scrollController,
-      required this.onUpdate,
-      required this.wantedDate})
-      : super(key: key);
+  const MiniCalendar({
+    Key? key,
+    required this.scrollController,
+    required this.onUpdate,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,57 +72,63 @@ class MiniCalendar extends StatelessWidget {
   }
 
   Widget oneDay(BuildContext context, DateTime currentDate) {
-    return SizedBox(
-      height: 10.h,
-      width: 15.w,
-      child: Padding(
-        padding: EdgeInsets.all(0.8.w),
-        child: Material(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.transparent,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 500),
-            decoration: BoxDecoration(
-              color: (wantedDate.day == currentDate.day &&
-                      wantedDate.month == currentDate.month)
-                  ? Theme.of(context).primaryColor
-                  : Colors.transparent,
+    return BlocBuilder<AgendaBloc, AgendaState>(
+      builder: (context, state) {
+        return SizedBox(
+          height: 10.h,
+          width: 15.w,
+          child: Padding(
+            padding: EdgeInsets.all(0.8.w),
+            child: Material(
               borderRadius: BorderRadius.circular(10),
-            ),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(10),
-              onTap: () => onUpdate(currentDate),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 2.9.h,
-                    child: Text(
-                      currentDate.toMonthName(short: true),
-                      style: TextStyle(fontSize: 10.sp),
-                    ),
+              color: Colors.transparent,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
+                decoration: BoxDecoration(
+                  color: (context.read<AgendaBloc>().wantedDate.day ==
+                              currentDate.day &&
+                          context.read<AgendaBloc>().wantedDate.month ==
+                              currentDate.month)
+                      ? Theme.of(context).primaryColor
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () => onUpdate(currentDate),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        height: 2.9.h,
+                        child: Text(
+                          currentDate.toMonthName(short: true),
+                          style: TextStyle(fontSize: 10.sp),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                        child: Text(
+                          currentDate.day.toString(),
+                          style: TextStyle(fontSize: 12.sp),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                        child: Text(
+                          currentDate.toWeekDayName(short: true),
+                          style: TextStyle(fontSize: 10.sp),
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 3.h,
-                    child: Text(
-                      currentDate.day.toString(),
-                      style: TextStyle(fontSize: 12.sp),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 3.h,
-                    child: Text(
-                      currentDate.toWeekDayName(short: true),
-                      style: TextStyle(fontSize: 10.sp),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

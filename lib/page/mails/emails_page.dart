@@ -56,9 +56,9 @@ class EmailsPage extends StatelessWidget {
             context.read<EmailBloc>().add(EmailConnect(
                 username: context.read<AuthentificationBloc>().usename,
                 password: context.read<AuthentificationBloc>().password));
-            return const StateDisplaying(message: "Connecting to mail");
+            return const StateDisplaying(message: "Connection au mails");
           } else if (state is EmailConnected) {
-            return const StateDisplaying(message: "Loading to mail");
+            return const StateDisplaying(message: "Chargement des mails");
           }
           return Scaffold(
             floatingActionButton: Material(

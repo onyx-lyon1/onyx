@@ -178,8 +178,24 @@ class AgendaWrapped extends StatelessWidget {
                                 .read<AgendaBloc>()
                                 .add(AgendaUpdateDisplayedDate(newWantedDay));
                           },
-                          wantedDate: context.read<AgendaBloc>().wantedDate)
-                      : Container(),
+                        )
+                      : Container(
+                          height: 10.h,
+                          color: Theme.of(context).cardTheme.color,
+                          child: Center(
+                            child: Text(
+                              'Agenda',
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .color,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
                   Expanded(
                     child: PageView(
                       controller: pageController,

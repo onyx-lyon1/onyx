@@ -102,6 +102,7 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
       await mailClient.markAsRead(event.email.id!);
       emailsComplete[emailsComplete.indexOf(event.email)].isRead = true;
       emails[emails.indexOf(event.email)].isRead = true;
+      CacheService.set<EmailModelWrapper>(EmailModelWrapper(emailsComplete));
     }
 
     emit(EmailUpdated());
