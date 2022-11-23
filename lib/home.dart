@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/page/agenda_page.dart';
-import 'package:oloid2/page/mails/emails_page.dart';
-import 'package:oloid2/page/settings_page.dart';
-import 'package:oloid2/page/teaching_units_page.dart';
-import 'package:oloid2/states/agenda/agenda_cubit.dart';
-import 'package:oloid2/widget/grades/bottom_nav_bar.dart';
+import 'package:oloid2/screens/agenda/pages/agenda_page.dart';
+import 'package:oloid2/screens/mails/pages/emails_page.dart';
+import 'package:oloid2/screens/settings/pages/settings_page.dart';
+import 'package:oloid2/screens/tomuss/pages/tomuss_page.dart';
+import 'package:oloid2/screens/agenda/states/agenda_cubit.dart';
+import 'package:oloid2/core/widgets/bottom_nav_bar_widget.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -39,12 +39,12 @@ class HomeState extends State<Home> {
             });
           },
           children: const [
-            TeachingUnitsPage(),
+            TomussPage(),
             AgendaPage(),
             EmailsPage(),
             SettingsPage(),
           ]),
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: BottomNavBarWidget(
         currentIndex: currentIndex,
         onTap: (index) {
           setState(() {

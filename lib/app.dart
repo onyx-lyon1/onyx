@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:oloid2/others/custom_scroll_behavior.dart';
-import 'package:oloid2/page/login_page.dart';
-import 'package:oloid2/states/agenda/agenda_cubit.dart';
-import 'package:oloid2/states/authentification/authentification_cubit.dart';
-import 'package:oloid2/states/email/email_cubit.dart';
-import 'package:oloid2/states/grades/grades2_cubit.dart';
-import 'package:oloid2/states/settings/settings_cubit.dart';
-import 'package:oloid2/widget/custom_circular_progress_indicator.dart';
+import 'package:oloid2/core/initialisations/custom_scroll_behavior.dart';
+import 'package:oloid2/core/theme/theme.dart';
+import 'package:oloid2/screens/login/pages/login_page.dart';
+import 'package:oloid2/screens/agenda/states/agenda_cubit.dart';
+import 'package:oloid2/screens/login/states/authentification_cubit.dart';
+import 'package:oloid2/screens/mails/states/email_cubit.dart';
+import 'package:oloid2/screens/tomuss/states/tomuss_cubit.dart';
+import 'package:oloid2/screens/settings/states/settings_cubit.dart';
+import 'package:oloid2/core/widgets/states_displaying/custom_circular_progress_indicator_widget.dart';
 import 'package:sizer/sizer.dart';
 
 import 'home.dart';
-import 'model/day_model.dart';
-import 'model/teaching_unit.dart';
-import 'theme/theme.dart';
+import 'screens/agenda/domain/model/day_model.dart';
+import 'screens/tomuss/domain/model/school_subject_model.dart';
+
 
 class OloidApp extends StatefulWidget {
   const OloidApp({Key? key, required this.androidSdkVersion}) : super(key: key);
@@ -28,7 +29,7 @@ class OloidApp extends StatefulWidget {
 }
 
 class OloidAppState extends State<OloidApp> {
-  final List<TeachingUnitModel> teachingUnits = [];
+  final List<SchoolSubjectModel> teachingUnits = [];
   final List<DayModel> days = [];
   final List<Mail> emails = [];
 
@@ -47,7 +48,7 @@ class OloidAppState extends State<OloidApp> {
           BlocProvider<SettingsCubit>(create: (context) => SettingsCubit()),
           BlocProvider<EmailCubit>(create: (context) => EmailCubit()),
           BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
-          BlocProvider<GradesCubit>(create: (context) => GradesCubit()),
+          BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
         ],
         child: BlocBuilder<AuthentificationCubit, AuthentificationState>(
           builder: (context, authState) {
@@ -69,7 +70,7 @@ class OloidAppState extends State<OloidApp> {
                           ? const Home()
                           : LoginPage(key: UniqueKey()));
                 } else {
-                  return const CustomCircularProgressIndicator();
+                  return const CustomCircularProgressIndicatorWidget();
                 }
               },
             );
