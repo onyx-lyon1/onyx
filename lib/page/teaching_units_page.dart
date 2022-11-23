@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oloid2/model/teaching_unit.dart';
 import 'package:oloid2/states/authentification/authentification_cubit.dart';
-import 'package:oloid2/states/grades/grades_bloc.dart';
+import 'package:oloid2/states/grades/grades2_cubit.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/grades/grade_list_header.dart';
 import 'package:oloid2/widget/grades/teaching_unit.dart';
@@ -55,32 +55,31 @@ class TeachingUnitsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GradesBloc, GradesState>(
+    return BlocListener<GradesCubit, GradesState>(
       listener: (context, state) {
-        if (state is GradesLoading) {
+        if (state.status == GradesStatus.loading) {
           ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
               message: "Chargement des notes",
               context: context,
               shouldDisable: context
-                  .read<GradesBloc>()
+                  .read<GradesCubit>()
                   .stream
-                  .map<bool>((event) => event is GradesReady)));
+                  .map<bool>((event) => event.status != GradesStatus.ready)));
         }
       },
-      child: BlocBuilder<GradesBloc, GradesState>(
+      child: BlocBuilder<GradesCubit, GradesState>(
         builder: (context, state) {
           if (kDebugMode) {
             print("Grades state : $state");
           }
-          if (state is GradesInitial) {
+          if (state.status == GradesStatus.initial) {
             context
-                .read<GradesBloc>()
-                .add(GradesLoad(context.read<AuthentificationCubit>().state.dartus!));
+                .read<GradesCubit>()
+                .load(dartus: context.read<AuthentificationCubit>().state.dartus!);
             return const StateDisplaying(message: "Loading grades");
-          } else if (state is GradesError) {
+          } else if (state.status == GradesStatus.error) {
             Future.delayed(const Duration(seconds: 3), () {
-              context.read<GradesBloc>().add(
-                  GradesLoad(context.read<AuthentificationCubit>().state.dartus!));
+              context.read<GradesCubit>().load(dartus: context.read<AuthentificationCubit>().state.dartus!);
             });
             return const StateDisplaying(
                 message: "Erreur pendant le chargement des notes");
@@ -114,8 +113,7 @@ class TeachingUnitsPage extends StatelessWidget {
                           child: ListView(
                             physics: const AlwaysScrollableScrollPhysics(),
                             children: [
-                              ...context
-                                  .read<GradesBloc>()
+                              ...state
                                   .teachingUnits
                                   .where(
                                     (element) =>
@@ -149,10 +147,10 @@ class TeachingUnitsPage extends StatelessWidget {
                       ],
                     ),
                     onRefresh: () async {
-                      context.read<GradesBloc>().add(GradesLoad(
-                          context.read<AuthentificationCubit>().state.dartus!));
-                      while (context.read<GradesBloc>().state is! GradesReady &&
-                          context.read<GradesBloc>().state is! GradesError) {
+                      context.read<GradesCubit>().load(dartus:
+                          context.read<AuthentificationCubit>().state.dartus!);
+                      while (context.read<GradesCubit>().state.status != GradesStatus.ready &&
+                          context.read<GradesCubit>().state.status != GradesStatus.error) {
                         await Future.delayed(const Duration(milliseconds: 100));
                       }
                       return;
