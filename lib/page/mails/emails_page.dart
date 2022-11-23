@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/page/mails/email_send_page.dart';
 import 'package:oloid2/states/authentification/authentification_cubit.dart';
-import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:oloid2/states/email/email_cubit.dart';
 import 'package:oloid2/widget/loading_snakbar.dart';
 import 'package:oloid2/widget/state_displaying.dart';
 import 'package:sizer/sizer.dart';
@@ -21,58 +21,60 @@ class EmailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
 
-    return BlocListener<EmailBloc, EmailState>(
+    return BlocListener<EmailCubit, EmailState>(
       listener: (context, state) {
-        if (state is EmailConnected) {
-          context.read<EmailBloc>().add(EmailLoad());
-        } else if (state is EmailConnecting) {
+        if (state.status == EmailStatus.connected) {
+          context.read<EmailCubit>().load();
+        } else if (state.status == EmailStatus.connecting) {
           ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
             message: "Connection au emails",
             context: context,
             shouldDisable: context
-                .read<EmailBloc>()
+                .read<EmailCubit>()
                 .stream
-                .map<bool>((event) => event is! EmailConnected),
+                .map<bool>((event) => event.status != EmailStatus.connected),
           ));
-        } else if (state is EmailLoading || state is EmailCacheLoaded) {
+        } else if (state.status == EmailStatus.loading ||
+            state.status == EmailStatus.cacheLoaded) {
           ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
             message: "Chargement des emails",
             context: context,
-            shouldDisable: context.read<EmailBloc>().stream.map<bool>((event) =>
-                !(event is EmailLoading || event is EmailCacheLoaded)),
+            shouldDisable: context.read<EmailCubit>().stream.map<bool>(
+                (event) => !(state.status == EmailStatus.loading ||
+                    state.status == EmailStatus.cacheLoaded)),
           ));
         }
       },
-      child: BlocBuilder<EmailBloc, EmailState>(
+      child: BlocBuilder<EmailCubit, EmailState>(
         builder: (context, state) {
           if (kDebugMode) {
             print("EmailsState: $state");
           }
-          if (state is EmailError) {
+          if (state.status == EmailStatus.error) {
             return const StateDisplaying(
                 message: "Something went wrong with emails");
           }
-          if (state is EmailInitial) {
-            context.read<EmailBloc>().add(EmailConnect(
+          if (state.status == EmailStatus.initial) {
+            context.read<EmailCubit>().connect(
                 username: context.read<AuthentificationCubit>().state.username,
-                password:
-                    context.read<AuthentificationCubit>().state.password));
-          } else if (state is EmailConnected) {
+                password: context.read<AuthentificationCubit>().state.password);
+          } else if (state.status == EmailStatus.connected) {
             return const StateDisplaying(message: "Chargement des mails");
           }
+
           return Scaffold(
             floatingActionButton: Material(
-              color: (state is EmailInitial ||
-                      state is EmailConnecting ||
-                      state is EmailCacheLoaded)
+              color: (state.status == EmailStatus.initial ||
+                      state.status == EmailStatus.connecting ||
+                      state.status == EmailStatus.cacheLoaded)
                   ? Theme.of(context).disabledColor
                   : Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(100),
               child: InkWell(
                 borderRadius: BorderRadius.circular(100),
-                onTap: (state is EmailInitial ||
-                        state is EmailConnecting ||
-                        state is EmailCacheLoaded)
+                onTap: (state.status == EmailStatus.initial ||
+                        state.status == EmailStatus.connecting ||
+                        state.status == EmailStatus.cacheLoaded)
                     ? null
                     : () {
                         Navigator.of(context).push(
@@ -104,16 +106,13 @@ class EmailsPage extends StatelessWidget {
                       SliverChildBuilderDelegate((context, index) {
                     if (index == 0) {
                       return const EmailHeader();
-                    } else if (index <=
-                        context.read<EmailBloc>().emails.length) {
-                      return Email(
-                          email: context.read<EmailBloc>().emails[index - 1]);
-                    } else if ((index ==
-                            context.read<EmailBloc>().emails.length + 1) &&
-                        context.read<EmailBloc>().emails.isNotEmpty) {
+                    } else if (index <= state.emails.length) {
+                      return Email(email: state.emails[index - 1]);
+                    } else if ((index == state.emails.length + 1) &&
+                        state.emails.isNotEmpty) {
                       return Material(
                         color: Theme.of(context).backgroundColor,
-                        child: (context.read<EmailBloc>().state is EmailLoading)
+                        child: (state.status == EmailStatus.loading)
                             ? Center(
                                 child: Padding(
                                   padding: EdgeInsets.all(5.w),
@@ -124,8 +123,8 @@ class EmailsPage extends StatelessWidget {
                               )
                             : InkWell(
                                 onTap: () => context
-                                    .read<EmailBloc>()
-                                    .add(EmailIncreaseNumber()),
+                                    .read<EmailCubit>()
+                                    .increaseNumber(),
                                 child: Center(
                                   child: Padding(
                                     padding: EdgeInsets.all(8.w),
@@ -140,10 +139,8 @@ class EmailsPage extends StatelessWidget {
                   }),
                 ),
                 onRefresh: () async {
-                  context.read<EmailBloc>().add(EmailLoad());
-                  while (context.read<EmailBloc>().state is! EmailLoaded &&
-                      context.read<EmailBloc>().state is! EmailError &&
-                      context.read<EmailBloc>().state is! EmailSorted) {
+                  context.read<EmailCubit>().load();
+                  while (state.status != EmailStatus.loaded && state.status != EmailStatus.error && state.status != EmailStatus.sorted) {
                     await Future.delayed(const Duration(milliseconds: 100));
                   }
                   return;

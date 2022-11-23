@@ -5,7 +5,7 @@ import 'package:oloid2/others/custom_scroll_behavior.dart';
 import 'package:oloid2/page/login_page.dart';
 import 'package:oloid2/states/agenda/agenda_cubit.dart';
 import 'package:oloid2/states/authentification/authentification_cubit.dart';
-import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:oloid2/states/email/email_cubit.dart';
 import 'package:oloid2/states/grades/grades_bloc.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/custom_circular_progress_indicator.dart';
@@ -45,7 +45,7 @@ class OloidAppState extends State<OloidApp> {
           BlocProvider<AuthentificationCubit>(
               create: (context) => AuthentificationCubit()),
           BlocProvider<SettingsBloc>(create: (context) => SettingsBloc()),
-          BlocProvider<EmailBloc>(create: (context) => EmailBloc()),
+          BlocProvider<EmailCubit>(create: (context) => EmailCubit()),
           BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
           BlocProvider<GradesBloc>(create: (context) => GradesBloc()),
         ],

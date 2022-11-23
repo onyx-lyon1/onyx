@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/others/hex.dart';
 import 'package:oloid2/page/mails/email_send_page.dart';
-import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:oloid2/states/email/email_cubit.dart';
 import 'package:oloid2/states/settings/settings_bloc.dart';
 import 'package:oloid2/widget/emails/save_or_open.dart';
 import 'package:path_provider/path_provider.dart';
@@ -24,7 +24,7 @@ class EmailDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late WebViewController webViewController;
-    return BlocBuilder<EmailBloc, EmailState>(
+    return BlocBuilder<EmailCubit, EmailState>(
       builder: (context, state) {
         return Scaffold(
           body: Container(
@@ -219,9 +219,9 @@ class EmailDetailsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
-                    onPressed: (state is EmailInitial ||
-                            state is EmailConnecting ||
-                            state is EmailCacheLoaded)
+                    onPressed: (state.status == EmailStatus.initial ||
+                            state.status == EmailStatus.connecting ||
+                            state.status == EmailStatus.cacheLoaded)
                         ? null
                         : () {
                             Navigator.push(
@@ -238,9 +238,7 @@ class EmailDetailsPage extends StatelessWidget {
                       Icons.reply,
                     )),
                 IconButton(
-                    onPressed: (state is EmailInitial ||
-                            state is EmailConnecting ||
-                            state is EmailCacheLoaded)
+                    onPressed: (state.status == EmailStatus.initial || state.status == EmailStatus.connecting || state.status == EmailStatus.cacheLoaded)
                         ? null
                         : () {
                             Navigator.push(

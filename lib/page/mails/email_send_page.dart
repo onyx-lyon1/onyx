@@ -3,7 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/states/authentification/authentification_cubit.dart';
-import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:oloid2/states/email/email_cubit.dart';
 import 'package:oloid2/widget/state_displaying.dart';
 import 'package:sizer/sizer.dart';
 
@@ -20,9 +20,9 @@ class EmailSendPage extends StatelessWidget {
     final TextEditingController destinationEditor = TextEditingController();
     final TextEditingController bodyEditor = TextEditingController();
 
-    return BlocBuilder<EmailBloc, EmailState>(
+    return BlocBuilder<EmailCubit, EmailState>(
       builder: (context, state) {
-        if (state is EmailError) {
+        if (state.status == EmailStatus.error) {
           Future.delayed(const Duration(seconds: 1), () {
             EmailModel email = EmailModel(
               subject: subjectEditor.text,
@@ -35,19 +35,19 @@ class EmailSendPage extends StatelessWidget {
               receiver: destinationEditor.text,
               attachments: [],
             );
-            context.read<EmailBloc>().add(EmailSend(email,
+            context.read<EmailCubit>().send(email: email,
                 replyAll: replyAll,
-                replyOriginalMessageId: replyOriginalMessage));
+                replyOriginalMessageId: replyOriginalMessage);
           });
           return const StateDisplaying(
               message: "Something went wrong with emails");
-        } else if (state is EmailSended) {
-          context.read<EmailBloc>().add(EmailLoad(cache: false));
+        } else if (state.status == EmailStatus.sended) {
+          context.read<EmailCubit>().load(cache: false);
           SchedulerBinding.instance.addPostFrameCallback((_) {
             Navigator.pop(context);
             Navigator.pop(context);
           });
-        } else if (state is EmailSending) {
+        } else if (state.status == EmailStatus.sending) {
           return const StateDisplaying(message: "Sending message");
         }
         return Material(
@@ -78,9 +78,9 @@ class EmailSendPage extends StatelessWidget {
                       receiver: destinationEditor.text,
                       attachments: [],
                     );
-                    context.read<EmailBloc>().add(EmailSend(email,
+                    context.read<EmailCubit>().send(email: email,
                         replyAll: replyAll,
-                        replyOriginalMessageId: replyOriginalMessage));
+                        replyOriginalMessageId: replyOriginalMessage);
                   } else {
                     showDialog(
                         context: context,
@@ -200,20 +200,20 @@ class EmailSendPage extends StatelessWidget {
                               optionsBuilder:
                                   (TextEditingValue textEditingValue) async {
                                 if (!context
-                                    .read<EmailBloc>()
+                                    .read<EmailCubit>()
                                     .mailClient
                                     .isAuthenticated) {
-                                  context.read<EmailBloc>().add(EmailConnect(
+                                  context.read<EmailCubit>().connect(
                                       username: context
                                           .read<AuthentificationCubit>()
                                           .state.username,
                                       password: context
                                           .read<AuthentificationCubit>()
-                                          .state.password));
+                                          .state.password);
                                   return [];
                                 } else {
                                   return (await context
-                                          .read<EmailBloc>()
+                                          .read<EmailCubit>()
                                           .mailClient
                                           .resolveContact(
                                               textEditingValue.text))

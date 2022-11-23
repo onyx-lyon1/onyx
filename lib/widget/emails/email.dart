@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/page/mails/email_details_page.dart';
-import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:oloid2/states/email/email_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 class Email extends StatelessWidget {
@@ -67,7 +67,7 @@ class Email extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: () {
-          context.read<EmailBloc>().add(EmailMarkAsRead(email));
+          context.read<EmailCubit>().markAsRead(email: email);
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => EmailDetailsPage(mail: email)));
         },
@@ -89,7 +89,7 @@ class Email extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    context.read<EmailBloc>().add(EmailDelete(email));
+                    context.read<EmailCubit>().delete(email: email);
                     Navigator.pop(context);
                   },
                   child: const Text(

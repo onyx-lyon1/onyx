@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/states/email/email_bloc.dart';
+import 'package:oloid2/states/email/email_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 class EmailHeader extends StatelessWidget {
@@ -27,7 +27,7 @@ class EmailHeader extends StatelessWidget {
                 padding: EdgeInsets.only(left: 3.w),
                 child: TextField(
                   onChanged: (String query) {
-                    context.read<EmailBloc>().add(EmailFilter(query));
+                    context.read<EmailCubit>().filter(filter: query);
                   },
                   style: TextStyle(
                     color: Theme.of(context).textTheme.button!.color,
@@ -36,7 +36,7 @@ class EmailHeader extends StatelessWidget {
                   textAlignVertical: TextAlignVertical.center,
                   decoration: InputDecoration(
                     hintText:
-                        "Recherche dans les ${context.read<EmailBloc>().emailNumber} dernier mails",
+                        "Recherche dans les ${context.read<EmailCubit>().emailNumber} dernier mails",
                     prefixIcon: Icon(
                       Icons.search,
                       color: Theme.of(context)

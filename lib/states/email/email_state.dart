@@ -1,16 +1,39 @@
-part of 'email_bloc.dart';
+part of 'email_cubit.dart';
 
-@immutable
-abstract class EmailState {}
+enum EmailStatus {
+  initial,
+  connecting,
+  connected,
+  loading,
+  cacheLoaded,
+  loaded,
+  sending,
+  sended,
+  updated,
+  error,
+  sorted
+}
 
-class EmailInitial extends EmailState {}
-class EmailConnected extends EmailState {}
-class EmailConnecting extends EmailState {}
-class EmailLoading extends EmailState {}
-class EmailCacheLoaded extends EmailState {}
-class EmailLoaded extends EmailState {}
-class EmailSending extends EmailState {}
-class EmailSended extends EmailState {}
-class EmailUpdated extends EmailState {}
-class EmailError extends EmailState {}
-class EmailSorted extends EmailState {}
+class EmailState {
+  final EmailStatus status;
+  final List<EmailModel> emails;
+  final int emailNumber;
+
+  EmailState({
+    this.status = EmailStatus.initial,
+    this.emails = const [],
+    this.emailNumber = 20,
+  });
+
+  EmailState copyWith({
+    EmailStatus? status,
+    List<EmailModel>? emails,
+    int? emailNumber,
+  }) {
+    return EmailState(
+      status: status ?? this.status,
+      emails: emails ?? this.emails,
+      emailNumber: emailNumber ?? this.emailNumber,
+    );
+  }
+}
