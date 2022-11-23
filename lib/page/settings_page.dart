@@ -8,7 +8,7 @@ import 'package:oloid2/model/wrapper/day_model_wrapper.dart';
 import 'package:oloid2/model/wrapper/email_model_wrapper.dart';
 import 'package:oloid2/model/wrapper/teaching_unit_model_wrapper.dart';
 import 'package:oloid2/states/authentification/authentification_cubit.dart';
-import 'package:oloid2/states/settings/settings_bloc.dart';
+import 'package:oloid2/states/settings/settings_cubit.dart';
 import 'package:oloid2/widget/settings/agenda_url_params.dart';
 import 'package:oloid2/widget/settings/text_switch.dart';
 import 'package:oloid2/widget/settings_card.dart';
@@ -21,7 +21,7 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsBloc, SettingsState>(
+    return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         if (kDebugMode){
           print('Settings state: $state');
@@ -54,13 +54,13 @@ class SettingsPage extends StatelessWidget {
                         widgets: [
                           TextSwitch(
                             text: 'Activer le thème sombre',
-                            value: context.read<SettingsBloc>().state.settings.darkMode,
+                            value: context.read<SettingsCubit>().state.settings.darkMode,
                             onChanged: (bool b) {
-                              context.read<SettingsBloc>().add(SettingsModify(
+                              context.read<SettingsCubit>().modify(settings:
                                   context
-                                      .read<SettingsBloc>()
+                                      .read<SettingsCubit>()
                                       .state.settings
-                                      .copyWith(darkMode: b)));
+                                      .copyWith(darkMode: b));
                             },
                           )
                         ],
@@ -72,41 +72,41 @@ class SettingsPage extends StatelessWidget {
                             TextSwitch(
                               text: 'Notification en cas de nouvelle note',
                               value: context
-                                  .read<SettingsBloc>()
+                                  .read<SettingsCubit>()
                                   .state.settings
                                   .newGradeNotification,
                               onChanged: (bool b) {
-                                context.read<SettingsBloc>().add(SettingsModify(
+                                context.read<SettingsCubit>().modify(settings:
                                     context
-                                        .read<SettingsBloc>()
+                                        .read<SettingsCubit>()
                                         .state.settings
-                                        .copyWith(newGradeNotification: b)));
+                                        .copyWith(newGradeNotification: b));
                               },
                             ),
                           TextSwitch(
                             text: 'Forcer les notes en vert',
                             value:
-                                context.read<SettingsBloc>().state.settings.forceGreen,
+                                context.read<SettingsCubit>().state.settings.forceGreen,
                             onChanged: (bool b) {
-                              context.read<SettingsBloc>().add(SettingsModify(
+                              context.read<SettingsCubit>().modify(settings:
                                   context
-                                      .read<SettingsBloc>()
+                                      .read<SettingsCubit>()
                                       .state.settings
-                                      .copyWith(forceGreen: b)));
+                                      .copyWith(forceGreen: b));
                             },
                           ),
                           TextSwitch(
                             text: 'Montrer les UEs cachées',
                             value: context
-                                .read<SettingsBloc>()
+                                .read<SettingsCubit>()
                                 .state.settings
                                 .showHiddenUE,
                             onChanged: (bool b) {
-                              context.read<SettingsBloc>().add(SettingsModify(
+                              context.read<SettingsCubit>().modify(settings:
                                   context
-                                      .read<SettingsBloc>()
+                                      .read<SettingsCubit>()
                                       .state.settings
-                                      .copyWith(showHiddenUE: b)));
+                                      .copyWith(showHiddenUE: b));
                             },
                           ),
                         ],
@@ -117,15 +117,15 @@ class SettingsPage extends StatelessWidget {
                           TextSwitch(
                             text: 'Montrer le mini calendrier en haut de page',
                             value: context
-                                .read<SettingsBloc>()
+                                .read<SettingsCubit>()
                                 .state.settings
                                 .showMiniCalendar,
                             onChanged: (bool b) {
-                              context.read<SettingsBloc>().add(SettingsModify(
+                              context.read<SettingsCubit>().modify(settings:
                                   context
-                                      .read<SettingsBloc>()
+                                      .read<SettingsCubit>()
                                       .state.settings
-                                      .copyWith(showMiniCalendar: b)));
+                                      .copyWith(showMiniCalendar: b));
                             },
                           ),
                           if (Platform.isAndroid || Platform.isIOS)
@@ -133,16 +133,16 @@ class SettingsPage extends StatelessWidget {
                               text:
                                   'Notification en cas de modification de l\'agenda',
                               value: context
-                                  .read<SettingsBloc>()
+                                  .read<SettingsCubit>()
                                   .state.settings
                                   .calendarUpdateNotification,
                               onChanged: (bool b) {
-                                context.read<SettingsBloc>().add(SettingsModify(
+                                context.read<SettingsCubit>().modify(settings:
                                     context
-                                        .read<SettingsBloc>()
+                                        .read<SettingsCubit>()
                                         .state.settings
                                         .copyWith(
-                                            calendarUpdateNotification: b)));
+                                            calendarUpdateNotification: b));
                               },
                             ),
                           const AgendaUrlParams(),
@@ -155,27 +155,27 @@ class SettingsPage extends StatelessWidget {
                             TextSwitch(
                               text: 'Notification en cas de nouveau mail',
                               value: context
-                                  .read<SettingsBloc>()
+                                  .read<SettingsCubit>()
                                   .state.settings
                                   .newMailNotification,
                               onChanged: (bool b) {
-                                context.read<SettingsBloc>().add(SettingsModify(
+                                context.read<SettingsCubit>().modify(settings:
                                     context
-                                        .read<SettingsBloc>()
+                                        .read<SettingsCubit>()
                                         .state.settings
-                                        .copyWith(newMailNotification: b)));
+                                        .copyWith(newMailNotification: b));
                               },
                             ),
                           TextSwitch(
                             text: 'Forcer le thème des mails',
                             value:
-                                context.read<SettingsBloc>().state.settings.darkerMail,
+                                context.read<SettingsCubit>().state.settings.darkerMail,
                             onChanged: (bool b) {
-                              context.read<SettingsBloc>().add(SettingsModify(
+                              context.read<SettingsCubit>().modify(settings:
                                   context
-                                      .read<SettingsBloc>()
+                                      .read<SettingsCubit>()
                                       .state.settings
-                                      .copyWith(darkerMail: b)));
+                                      .copyWith(darkerMail: b));
                             },
                           ),
                         ],
@@ -186,15 +186,15 @@ class SettingsPage extends StatelessWidget {
                           TextSwitch(
                             text: 'Rester connecté',
                             value: context
-                                .read<SettingsBloc>()
+                                .read<SettingsCubit>()
                                 .state.settings
                                 .keepMeLoggedIn,
                             onChanged: (bool b) {
-                              context.read<SettingsBloc>().add(SettingsModify(
+                              context.read<SettingsCubit>().modify(settings:
                                   context
-                                      .read<SettingsBloc>()
+                                      .read<SettingsCubit>()
                                       .state.settings
-                                      .copyWith(keepMeLoggedIn: b)));
+                                      .copyWith(keepMeLoggedIn: b));
                               context
                                   .read<AuthentificationCubit>().forget();
                             },

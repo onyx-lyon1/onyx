@@ -1,21 +1,23 @@
-part of 'settings_bloc.dart';
+part of 'settings_cubit.dart';
 
+enum SettingsStatus { initial, loading, ready, error }
 
-
-@immutable
-abstract class SettingsState {
-  const SettingsState(this.settings);
+class SettingsState {
+  final SettingsStatus status;
   final SettingsModel settings;
-}
 
-class SettingsInitial extends SettingsState {
-  const SettingsInitial(settings) : super(settings);
-}
-class SettingsReady extends SettingsState {
-  const SettingsReady(settings) : super(settings);
-}
-class SettingsLoading extends SettingsState {
-  const SettingsLoading(settings) : super(settings);
-}
+  SettingsState({
+    this.status = SettingsStatus.initial,
+    required this.settings,
+  });
 
-
+  SettingsState copyWith({
+    SettingsStatus? status,
+    SettingsModel? settings,
+  }) {
+    return SettingsState(
+      status: status ?? this.status,
+      settings: settings ?? this.settings,
+    );
+  }
+}

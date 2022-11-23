@@ -9,7 +9,7 @@ import 'package:oloid2/model/mail_model.dart';
 import 'package:oloid2/others/hex.dart';
 import 'package:oloid2/page/mails/email_send_page.dart';
 import 'package:oloid2/states/email/email_cubit.dart';
-import 'package:oloid2/states/settings/settings_bloc.dart';
+import 'package:oloid2/states/settings/settings_cubit.dart';
 import 'package:oloid2/widget/emails/save_or_open.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sizer/sizer.dart';
@@ -114,7 +114,7 @@ class EmailDetailsPage extends StatelessWidget {
                             onWebViewCreated: (controller) async {
                               webViewController = controller;
                               webViewController.loadUrl(((context
-                                          .read<SettingsBloc>()
+                                          .read<SettingsCubit>()
                                           .state
                                           .settings
                                           .darkerMail)

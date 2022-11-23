@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/page/qr_code_scanner.dart';
-import 'package:oloid2/states/settings/settings_bloc.dart';
+import 'package:oloid2/states/settings/settings_cubit.dart';
 import 'package:oloid2/widget/settings/text_switch.dart';
 import 'package:sizer/sizer.dart';
 
@@ -12,22 +12,22 @@ class AgendaUrlParams extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController qrCodeURLController = TextEditingController();
-    qrCodeURLController.text = context.read<SettingsBloc>().state.settings.agendaURL;
-    return BlocBuilder<SettingsBloc, SettingsState>(
+    qrCodeURLController.text = context.read<SettingsCubit>().state.settings.agendaURL;
+    return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         return Column(
           children: [
             TextSwitch(
               text: 'Récupérer automatiquement les ressources de l\'agenda',
-              value: context.read<SettingsBloc>().state.settings.fetchAgendaAuto,
+              value: context.read<SettingsCubit>().state.settings.fetchAgendaAuto,
               onChanged: (bool b) {
-                context.read<SettingsBloc>().add(SettingsModify(context
-                    .read<SettingsBloc>()
+                context.read<SettingsCubit>().modify(settings: context
+                    .read<SettingsCubit>()
                     .state.settings
-                    .copyWith(fetchAgendaAuto: b)));
+                    .copyWith(fetchAgendaAuto: b));
               },
             ),
-            (!context.read<SettingsBloc>().state.settings.fetchAgendaAuto)
+            (!context.read<SettingsCubit>().state.settings.fetchAgendaAuto)
                 ? Container(
                     clipBehavior: Clip.hardEdge,
                     margin: const EdgeInsets.only(bottom: 15),
@@ -59,14 +59,13 @@ class AgendaUrlParams extends StatelessWidget {
                                       .color,
                                 ),
                                 onChanged: (String value) {
-                                  context.read<SettingsBloc>().add(
-                                      SettingsModify(context
-                                          .read<SettingsBloc>()
+                                  context.read<SettingsCubit>().modify(settings: context
+                                          .read<SettingsCubit>()
                                           .state.settings
-                                          .copyWith(agendaURL: value)));
+                                          .copyWith(agendaURL: value));
                                   if (kDebugMode) {
                                     print(
-                                        'value: ${context.read<SettingsBloc>().state.settings.agendaURL}');
+                                        'value: ${context.read<SettingsCubit>().state.settings.agendaURL}');
                                   }
                                 },
                                 decoration: const InputDecoration(
@@ -100,16 +99,15 @@ class AgendaUrlParams extends StatelessWidget {
                                   qrCodeURLController.value = TextEditingValue(
                                       text: url ??
                                           qrCodeURLController.value.text);
-                                  context.read<SettingsBloc>().add(
-                                      SettingsModify(context
-                                          .read<SettingsBloc>()
+                                  context.read<SettingsCubit>().modify(settings: context
+                                          .read<SettingsCubit>()
                                           .state.settings
                                           .copyWith(
                                               agendaURL: url ??
                                                   context
-                                                      .read<SettingsBloc>()
+                                                      .read<SettingsCubit>()
                                                       .state.settings
-                                                      .agendaURL)));
+                                                      .agendaURL));
                                 });
                               },
                               enableFeedback: true,

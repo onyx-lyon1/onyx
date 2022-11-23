@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/states/authentification/authentification_cubit.dart';
-import 'package:oloid2/states/settings/settings_bloc.dart';
+import 'package:oloid2/states/settings/settings_cubit.dart';
 import 'package:oloid2/widget/state_displaying.dart';
 import 'package:sizer/sizer.dart';
 
@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
     if (state.status == AuthentificationStatus.initial) {
       context.read<AuthentificationCubit>().login(
           keepLogedIn:
-              context.read<SettingsBloc>().state.settings.keepMeLoggedIn);
+              context.read<SettingsCubit>().state.settings.keepMeLoggedIn);
       return const StateDisplaying(message: "Start authentification");
     } else if (state.status == AuthentificationStatus.authentificating) {
       return const StateDisplaying(message: "Authentificating");
@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
           username: username,
           password: password,
           keepLogedIn:
-              context.read<SettingsBloc>().state.settings.keepMeLoggedIn);
+              context.read<SettingsCubit>().state.settings.keepMeLoggedIn);
     }
   }
 }

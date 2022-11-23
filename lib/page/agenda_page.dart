@@ -6,7 +6,7 @@ import 'package:oloid2/others/month_to_string.dart';
 import 'package:oloid2/others/weekday_to_string.dart';
 import 'package:oloid2/states/agenda/agenda_cubit.dart';
 import 'package:oloid2/states/authentification/authentification_cubit.dart';
-import 'package:oloid2/states/settings/settings_bloc.dart';
+import 'package:oloid2/states/settings/settings_cubit.dart';
 import 'package:oloid2/widget/agenda/event.dart';
 import 'package:oloid2/widget/agenda/mini_calendar.dart';
 import 'package:oloid2/widget/custom_circular_progress_indicator.dart';
@@ -25,9 +25,9 @@ class AgendaPage extends StatelessWidget {
     if (context.read<AgendaCubit>().state.status == AgendaStatus.initial) {
       context.read<AgendaCubit>().load(
           dartus: context.read<AuthentificationCubit>().state.dartus!,
-          settings: context.read<SettingsBloc>().state.settings);
+          settings: context.read<SettingsCubit>().state.settings);
     }
-    return BlocListener<SettingsBloc, SettingsState>(
+    return BlocListener<SettingsCubit, SettingsState>(
         listenWhen: (previous, current) =>
             previous.settings.agendaURL != current.settings.agendaURL ||
             previous.settings.fetchAgendaAuto !=
@@ -35,7 +35,7 @@ class AgendaPage extends StatelessWidget {
         listener: (context, state) {
           context.read<AgendaCubit>().load(
               dartus: context.read<AuthentificationCubit>().state.dartus!,
-              settings: context.read<SettingsBloc>().state.settings);
+              settings: context.read<SettingsCubit>().state.settings);
         },
         child: BlocConsumer<AgendaCubit, AgendaState>(
           listener: (context, state) {
@@ -176,7 +176,7 @@ class AgendaWrapped extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  context.read<SettingsBloc>().state.settings.showMiniCalendar
+                  context.read<SettingsCubit>().state.settings.showMiniCalendar
                       ? MiniCalendar(
                           scrollController: scrollController,
                           onUpdate: (DateTime newWantedDay) {
@@ -208,7 +208,7 @@ class AgendaWrapped extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       onPageChanged: (index) {
                         if (context
-                            .read<SettingsBloc>()
+                            .read<SettingsCubit>()
                             .state
                             .settings
                             .showMiniCalendar) {
@@ -269,7 +269,7 @@ class AgendaWrapped extends StatelessWidget {
               onRefresh: () async {
                 context.read<AgendaCubit>().load(
                     dartus: context.read<AuthentificationCubit>().state.dartus!,
-                    settings: context.read<SettingsBloc>().state.settings);
+                    settings: context.read<SettingsCubit>().state.settings);
                 while (context.read<AgendaCubit>().state.status == AgendaStatus.ready&&
                     context.read<AgendaCubit>().state.status == AgendaStatus.error) {
                   await Future.delayed(const Duration(milliseconds: 100));

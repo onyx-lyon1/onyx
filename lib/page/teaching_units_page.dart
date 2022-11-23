@@ -5,7 +5,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oloid2/model/teaching_unit.dart';
 import 'package:oloid2/states/authentification/authentification_cubit.dart';
 import 'package:oloid2/states/grades/grades2_cubit.dart';
-import 'package:oloid2/states/settings/settings_bloc.dart';
+import 'package:oloid2/states/settings/settings_cubit.dart';
 import 'package:oloid2/widget/grades/grade_list_header.dart';
 import 'package:oloid2/widget/grades/teaching_unit.dart';
 import 'package:oloid2/widget/loading_snakbar.dart';
@@ -41,7 +41,7 @@ class TeachingUnitsPage extends StatelessWidget {
                   (e) => Grade(
                     gradeModel: e,
                     forceGreen:
-                        context.read<SettingsBloc>().state.settings.forceGreen,
+                        context.read<SettingsCubit>().state.settings.forceGreen,
                     onTap: (e) {},
                   ),
                 ),
@@ -119,7 +119,7 @@ class TeachingUnitsPage extends StatelessWidget {
                                     (element) =>
                                         element.isHidden == false ||
                                         context
-                                            .read<SettingsBloc>()
+                                            .read<SettingsCubit>()
                                             .state
                                             .settings
                                             .showHiddenUE,
@@ -128,7 +128,7 @@ class TeachingUnitsPage extends StatelessWidget {
                                     (e) => TeachingUnit(
                                       tu: e,
                                       forceGreen: context
-                                          .read<SettingsBloc>()
+                                          .read<SettingsCubit>()
                                           .state
                                           .settings
                                           .forceGreen,
