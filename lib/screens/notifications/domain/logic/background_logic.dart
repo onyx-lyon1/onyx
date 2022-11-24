@@ -1,25 +1,16 @@
-import 'package:dartus/tomuss.dart' as tomuss_lib;
 import 'package:flutter/foundation.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:oloid2/screens/login/domain/logic/authentification_logic.dart';
-import 'package:oloid2/screens/notifications/domain/logic/notification_logic.dart';
 import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/screens/mails/domain/logic/email_logic.dart';
-import 'package:oloid2/screens/tomuss/domain/logic/tomuss_logic.dart';
-import 'package:oloid2/screens/settings/domain/logic/settings_logic.dart';
-import 'package:oloid2/screens/login/domain/model/authentication.dart';
-import 'package:oloid2/screens/mails/domain/model/mail_model.dart';
-import 'package:oloid2/screens/settings/domain/model/settings_model.dart';
-import 'package:oloid2/screens/tomuss/domain/model/school_subject_model.dart';
-import 'package:oloid2/screens/mails/domain/model/email_model_wrapper.dart';
-import 'package:oloid2/screens/tomuss/domain/model/school_subject_model_wrapper.dart';
-import 'package:oloid2/core/initialisations/hive_init.dart';
+import 'package:oloid2/core/initialisations/initialisations_export.dart';
+import 'package:oloid2/screens/agenda/agenda_export.dart';
+import 'package:oloid2/screens/login/login_export.dart';
+import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:oloid2/screens/notifications/notifications_export.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 import 'package:workmanager/workmanager.dart';
-
-import 'package:oloid2/screens/agenda/agenda_includes.dart';
-
-
+import 'package:dartus/tomuss.dart' as tomusslib;
 
 @pragma('vm:entry-point')
 void backgroundLogic() {
@@ -33,7 +24,7 @@ void backgroundLogic() {
         await NotificationLogic.init();
         SettingsModel settings = await SettingsLogic.load();
         Authentication auth = (await AuthentificationLogic.fetchCredential());
-        tomuss_lib.Dartus dartus = await AuthentificationLogic.login(
+        tomusslib.Dartus dartus = await AuthentificationLogic.login(
             username: auth.username,
             password: auth.password,
             keepLogedIn: settings.keepMeLoggedIn);

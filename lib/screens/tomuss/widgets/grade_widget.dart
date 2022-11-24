@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/core/theme/grade_color.dart';
-import 'package:oloid2/core/theme/theme.dart';
-import 'package:oloid2/screens/settings/states/settings_cubit.dart';
-import 'package:oloid2/screens/tomuss/domain/model/grade_model.dart';
+import 'package:oloid2/core/theme/theme_export.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
 
 class GradeWidget extends StatelessWidget {

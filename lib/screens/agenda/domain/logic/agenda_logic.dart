@@ -1,24 +1,22 @@
-// ignore: depend_on_referenced_packages
-import 'package:dartz/dartz.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
-import 'package:oloid2/screens/settings/domain/model/settings_model.dart';
-import 'package:oloid2/screens/agenda/agenda_includes.dart';
+import 'package:oloid2/screens/agenda/agenda_export.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
 
 class AgendaLogic {
   static Future<List<DayModel>> load(
       {required Lyon1Agenda agendaClient, required SettingsModel settings, DateTime? maxDate}) async {
-    late Option<Agenda> agendaOpt;
+    Agenda? agendaOpt;
     try {
       agendaOpt = await agendaClient.getAgenda(
           url:
               (settings.fetchAgendaAuto) ? "" : settings.agendaURL);
-      if (agendaOpt.isNone()) {
+      if (agendaOpt == null || agendaOpt.events.isEmpty) {
         throw Exception("Agenda is empty");
       }
     } catch (e) {
       throw Exception("Error while fetching agenda: $e");
     }
-    final Agenda agenda = agendaOpt.toNullable() ?? Agenda.empty();
+    final Agenda agenda = agendaOpt;
 
     List<DayModel> tmpDayModels = [];
 

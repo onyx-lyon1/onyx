@@ -1,16 +1,13 @@
 import 'dart:convert';
-import 'dart:io' show File, Platform;
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/screens/mails/domain/model/mail_model.dart';
-import 'package:oloid2/core/extensions/hex.dart';
-import 'package:oloid2/screens/mails/pages/email_send_page.dart';
-import 'package:oloid2/screens/mails/states/email_cubit.dart';
-import 'package:oloid2/screens/mails/widgets/save_or_open_dialog_widget.dart';
-import 'package:oloid2/screens/settings/states/settings_cubit.dart';
+import 'package:oloid2/core/extensions/extensions_export.dart';
+import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';

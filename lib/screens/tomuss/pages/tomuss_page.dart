@@ -2,15 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:oloid2/core/widgets/states_displaying/loading_snakbar_widget.dart';
-import 'package:oloid2/core/widgets/states_displaying/state_displayer_page.dart';
-import 'package:oloid2/screens/login/states/authentification_cubit.dart';
-import 'package:oloid2/screens/settings/states/settings_cubit.dart';
-import 'package:oloid2/screens/tomuss/domain/model/school_subject_model.dart';
-import 'package:oloid2/screens/tomuss/states/tomuss_cubit.dart';
-import 'package:oloid2/screens/tomuss/widgets/grade_list_header_widget.dart';
-import 'package:oloid2/screens/tomuss/widgets/grade_widget.dart';
+import 'package:oloid2/screens/login/login_export.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
 
 class TomussPage extends StatelessWidget {
   const TomussPage({

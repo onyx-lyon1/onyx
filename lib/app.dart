@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:oloid2/core/initialisations/custom_scroll_behavior.dart';
-import 'package:oloid2/core/theme/theme.dart';
-import 'package:oloid2/core/widgets/states_displaying/custom_circular_progress_indicator_widget.dart';
-import 'package:oloid2/screens/login/pages/login_page.dart';
-import 'package:oloid2/screens/login/states/authentification_cubit.dart';
-import 'package:oloid2/screens/mails/states/email_cubit.dart';
-import 'package:oloid2/screens/settings/states/settings_cubit.dart';
-import 'package:oloid2/screens/tomuss/domain/model/school_subject_model.dart';
-import 'package:oloid2/screens/tomuss/states/tomuss_cubit.dart';
+import 'package:oloid2/core/initialisations/initialisations_export.dart';
+import 'package:oloid2/core/theme/theme_export.dart';
+import 'package:oloid2/home.dart';
+import 'package:oloid2/screens/agenda/agenda_export.dart';
+import 'package:oloid2/screens/login/login_export.dart';
+import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
 
-import 'home.dart';
-
-import 'package:oloid2/screens/agenda/agenda_includes.dart';
+import 'core/widgets/states_displaying/state_displaying_widget_export.dart';
 
 class OloidApp extends StatefulWidget {
   const OloidApp({Key? key, required this.androidSdkVersion}) : super(key: key);

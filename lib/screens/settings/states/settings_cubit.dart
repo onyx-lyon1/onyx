@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/screens/settings/domain/logic/settings_logic.dart';
-import 'package:oloid2/screens/settings/domain/model/settings_model.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:workmanager/workmanager.dart';
 
 part 'settings_state.dart';

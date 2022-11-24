@@ -4,16 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/screens/mails/domain/model/email_model_wrapper.dart';
-import 'package:oloid2/screens/settings/widgets/text_switch_widget.dart';
-import 'package:oloid2/screens/tomuss/domain/model/school_subject_model_wrapper.dart';
-import 'package:oloid2/screens/login/states/authentification_cubit.dart';
-import 'package:oloid2/screens/settings/states/settings_cubit.dart';
-import 'package:oloid2/screens/settings/widgets/agenda_url_parameter_widget.dart';
-import 'package:oloid2/screens/settings/widgets/settings_card_widget.dart';
+import 'package:oloid2/screens/agenda/agenda_export.dart';
+import 'package:oloid2/screens/login/login_export.dart';
+import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
-import 'package:oloid2/screens/agenda/agenda_includes.dart';
-
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({

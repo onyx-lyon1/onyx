@@ -2,9 +2,7 @@ import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/screens/tomuss/domain/logic/tomuss_logic.dart';
-import 'package:oloid2/screens/tomuss/domain/model/school_subject_model.dart';
-import 'package:oloid2/screens/tomuss/domain/model/school_subject_model_wrapper.dart';
+import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 
 part 'tomuss_state.dart';
 

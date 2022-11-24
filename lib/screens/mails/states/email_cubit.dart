@@ -1,9 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/screens/mails/domain/logic/email_logic.dart';
-import 'package:oloid2/screens/mails/domain/model/mail_model.dart';
-import 'package:oloid2/screens/mails/domain/model/email_model_wrapper.dart';
+import 'package:oloid2/screens/mails/mails_export.dart';
 
 part 'email_state.dart';
 

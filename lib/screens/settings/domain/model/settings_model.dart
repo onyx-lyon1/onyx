@@ -1,5 +1,4 @@
-// ignore: depend_on_referenced_packages
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 part 'settings_model.g.dart';
 

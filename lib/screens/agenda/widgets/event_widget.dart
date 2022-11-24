@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:oloid2/core/extensions/date_beautifull.dart';
-import 'package:oloid2/core/extensions/int_to_sized_string.dart';
-import 'package:oloid2/screens/agenda/agenda_includes.dart';
-
+import 'package:oloid2/core/extensions/extensions_export.dart';
+import 'package:oloid2/screens/agenda/agenda_export.dart';
 
 class EventWidget extends StatelessWidget {
   final EventModel event;

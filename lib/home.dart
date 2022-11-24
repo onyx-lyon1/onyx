@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/screens/mails/pages/emails_page.dart';
-import 'package:oloid2/screens/settings/pages/settings_page.dart';
-import 'package:oloid2/screens/tomuss/pages/tomuss_page.dart';
-import 'package:oloid2/core/widgets/bottom_nav_bar_widget.dart';
-
-import 'package:oloid2/screens/agenda/agenda_includes.dart';
-
+import 'package:oloid2/core/widgets/core_widget_export.dart';
+import 'package:oloid2/screens/agenda/agenda_export.dart';
+import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

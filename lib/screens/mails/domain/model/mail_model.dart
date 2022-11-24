@@ -1,9 +1,8 @@
-// ignore_for_file: unnecessary_overrides, depend_on_referenced_packages
+// ignore_for_file: hash_and_equals
 
-import 'package:enough_mail/enough_mail.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:oloid2/screens/mails/mails_export.dart';
 import 'package:lyon1mail/lyon1mail.dart' as lyon1mail;
-import 'package:oloid2/screens/mails/domain/model/attachment_model.dart';
 
 part 'mail_model.g.dart';
 
@@ -28,8 +27,6 @@ class EmailModel {
   @HiveField(8)
   final List<AttachmentModel> attachments;
 
-  MimeMessage? mimeMessage;
-
   EmailModel(
       {required this.subject,
       required this.sender,
@@ -39,8 +36,7 @@ class EmailModel {
       required this.body,
       required this.id,
       required this.receiver,
-      required this.attachments,
-      this.mimeMessage});
+      required this.attachments});
 
   static EmailModel fromMailLib(lyon1mail.Mail mail) {
     return EmailModel(
@@ -59,7 +55,7 @@ class EmailModel {
                     AttachmentModel(name: e, data: mail.getAttachment(e)))
                 .toList()
             : [],
-        mimeMessage: mail.getOriginalMessage);
+    );
   }
 
   @override
@@ -75,9 +71,6 @@ class EmailModel {
           isRead == other.isRead &&
           date == other.date &&
           receiver == other.receiver;
-
-  @override
-  int get hashCode => super.hashCode;
 
   @override
   String toString() {

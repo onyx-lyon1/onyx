@@ -1,14 +1,11 @@
 import 'dart:io';
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:oloid2/screens/notifications/domain/logic/background_logic.dart';
-import 'package:oloid2/core/initialisations/hive_init.dart';
-import 'package:oloid2/screens/notifications/domain/logic/notification_logic.dart';
+import 'package:oloid2/app.dart';
+import 'package:oloid2/core/initialisations/initialisations_export.dart';
+import 'package:oloid2/screens/notifications/notifications_export.dart';
 import 'package:workmanager/workmanager.dart';
-
-import 'app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

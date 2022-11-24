@@ -1,5 +1,5 @@
-import 'package:hive_flutter/adapters.dart';
-import 'package:oloid2/screens/tomuss/domain/model/school_subject_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 
 part 'school_subject_model_wrapper.g.dart';
 

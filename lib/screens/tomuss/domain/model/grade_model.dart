@@ -1,7 +1,7 @@
-// ignore_for_file: unnecessary_overrides
+// ignore_for_file: hash_and_equals
 
 import 'package:dartus/tomuss.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 part 'grade_model.g.dart';
 
@@ -61,9 +61,6 @@ class GradeModel {
           (gradeDenominator == other.gradeDenominator ||
               (gradeDenominator.isNaN && other.gradeDenominator.isNaN)) &&
           isValidGrade == other.isValidGrade;
-
-  @override
-  int get hashCode => super.hashCode;
 
   @override
   String toString() {

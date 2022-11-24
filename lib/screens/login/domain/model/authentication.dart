@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_overrides
+// ignore_for_file: hash_and_equals
 
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -20,9 +20,6 @@ class Authentication {
           runtimeType == other.runtimeType &&
           username == other.username &&
           password == other.password;
-
-  @override
-  int get hashCode => super.hashCode;
 
   @override
   String toString() {

@@ -2,9 +2,8 @@ import 'package:dartus/tomuss.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/screens/settings/domain/model/settings_model.dart';
-import 'package:oloid2/screens/agenda/agenda_includes.dart';
-
+import 'package:oloid2/screens/agenda/agenda_export.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
 
 part 'agenda_state.dart';
 

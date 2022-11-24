@@ -1,9 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/screens/settings/pages/qr_code_scanner_page.dart';
-import 'package:oloid2/screens/settings/states/settings_cubit.dart';
-import 'package:oloid2/screens/settings/widgets/text_switch_widget.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
 class AgendaUrlParameterWidget extends StatelessWidget {

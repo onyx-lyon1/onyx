@@ -1,6 +1,6 @@
-// ignore_for_file: unnecessary_overrides
+// ignore_for_file: hash_and_equals
 
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 part 'event_model.g.dart';
 
@@ -43,9 +43,6 @@ class EventModel {
           summary == other.summary &&
           start.isAtSameMomentAs(other.start) &&
           end.isAtSameMomentAs(other.end);
-
-  @override
-  int get hashCode => super.hashCode;
 
   @override
   String toString() {

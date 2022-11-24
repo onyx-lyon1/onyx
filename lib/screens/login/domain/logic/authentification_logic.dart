@@ -1,6 +1,6 @@
-import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/login/domain/model/authentication.dart';
+import 'package:oloid2/screens/login/login_export.dart';
+import 'package:dartus/tomuss.dart' as tomusslib;
 
 class AuthentificationLogic {
   static Future<Authentication> fetchCredential(

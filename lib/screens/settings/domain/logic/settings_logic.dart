@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/settings/domain/model/settings_model.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
 
 class SettingsLogic {
   static Future<SettingsModel> load() async {

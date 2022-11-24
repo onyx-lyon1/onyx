@@ -1,15 +1,13 @@
-import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/login/domain/logic/authentification_logic.dart';
 import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/screens/settings/domain/logic/settings_logic.dart';
-import 'package:oloid2/screens/login/domain/model/authentication.dart';
-import 'package:oloid2/screens/mails/domain/model/email_model_wrapper.dart';
-import 'package:oloid2/screens/tomuss/domain/model/school_subject_model_wrapper.dart';
-import 'package:oloid2/screens/agenda/agenda_includes.dart';
-
+import 'package:oloid2/screens/agenda/agenda_export.dart';
+import 'package:oloid2/screens/login/login_export.dart';
+import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 
 part 'authentification_state.dart';
 

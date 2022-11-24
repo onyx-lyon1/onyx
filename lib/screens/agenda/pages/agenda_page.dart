@@ -1,19 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/core/extensions/date_shrink.dart';
-import 'package:oloid2/core/extensions/month_to_string.dart';
-import 'package:oloid2/core/extensions/weekday_to_string.dart';
-import 'package:oloid2/core/widgets/states_displaying/custom_circular_progress_indicator_widget.dart';
-import 'package:oloid2/core/widgets/states_displaying/loading_snakbar_widget.dart';
-import 'package:oloid2/screens/login/states/authentification_cubit.dart';
-import 'package:oloid2/screens/settings/states/settings_cubit.dart';
-import 'package:oloid2/screens/settings/widgets/agenda_url_parameter_widget.dart';
-import 'package:oloid2/screens/settings/widgets/settings_card_widget.dart';
+import 'package:oloid2/core/extensions/extensions_export.dart';
+import 'package:oloid2/screens/agenda/agenda_export.dart';
+import 'package:oloid2/screens/login/login_export.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
-import 'package:oloid2/screens/agenda/agenda_includes.dart';
-
+import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
 
 class AgendaPage extends StatelessWidget {
   const AgendaPage({

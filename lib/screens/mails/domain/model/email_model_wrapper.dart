@@ -1,5 +1,5 @@
-import 'package:hive_flutter/adapters.dart';
-import 'package:oloid2/screens/mails/domain/model/mail_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:oloid2/screens/mails/mails_export.dart';
 
 part 'email_model_wrapper.g.dart';
 

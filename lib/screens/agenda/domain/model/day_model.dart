@@ -1,8 +1,8 @@
-// ignore_for_file: unnecessary_overrides
+// ignore_for_file: hash_and_equals
 
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/agenda/agenda_includes.dart';
+import 'package:oloid2/screens/agenda/agenda_export.dart';
 
 part 'day_model.g.dart';
 
@@ -22,9 +22,6 @@ class DayModel {
           runtimeType == other.runtimeType &&
           listEquals(events, other.events) &&
           date.isAtSameMomentAs(other.date);
-
-  @override
-  int get hashCode => super.hashCode;
 
   @override
   String toString() {

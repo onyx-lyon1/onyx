@@ -1,3 +1,5 @@
+// ignore_for_file: hash_and_equals
+
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'attachment_model.g.dart';
@@ -15,7 +17,6 @@ class AttachmentModel {
   });
 
   @override
-  // ignore: hash_and_equals
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is AttachmentModel &&

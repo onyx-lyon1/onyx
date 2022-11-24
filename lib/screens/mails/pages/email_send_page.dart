@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/core/widgets/states_displaying/state_displayer_page.dart';
-import 'package:oloid2/screens/mails/domain/model/mail_model.dart';
-import 'package:oloid2/screens/login/states/authentification_cubit.dart';
-import 'package:oloid2/screens/mails/states/email_cubit.dart';
+import 'package:oloid2/screens/login/login_export.dart';
+import 'package:oloid2/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
 
 class EmailSendPage extends StatelessWidget {
   final int? replyOriginalMessage;

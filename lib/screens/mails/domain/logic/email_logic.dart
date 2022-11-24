@@ -1,8 +1,6 @@
-// ignore_for_file: depend_on_referenced_packages
-import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:oloid2/screens/mails/domain/model/mail_model.dart';
+import 'package:oloid2/screens/mails/mails_export.dart';
 
 class EmailLogic {
   static Future<Lyon1Mail> connect(
@@ -22,14 +20,14 @@ class EmailLogic {
         throw Exception("Login failed");
       }
     }
-    final Option<List<Mail>> emailOpt =
+    final List<Mail>? emailOpt =
         await mailClient.fetchMessages(emailNumber);
-    if (emailOpt.isNone()) {
+    if (emailOpt == null || emailOpt.isEmpty) {
       if (kDebugMode) {
         print("no emails");
       }
     } else {
-      for (final Mail mail in emailOpt.toIterable().first) {
+      for (final Mail mail in emailOpt) {
         if (!tmpEmailsComplete.any((element) =>
             element.date == mail.getDate() &&
             element.body == mail.getBody(excerpt: false))) {
