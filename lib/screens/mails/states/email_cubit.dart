@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:oloid2/core/cache_service.dart';
@@ -16,13 +17,15 @@ class EmailCubit extends Cubit<EmailState> {
   EmailCubit() : super(EmailState());
 
   void connect({required String username, required String password}) async {
-    //TODO optimize cache loading becose it cause freeze
-    if (await CacheService.exist<EmailModelWrapper>()) {
-      emailsComplete =
-          (await CacheService.get<EmailModelWrapper>())!.emailModels;
-      emit(state.copyWith(
-          emails: emailsComplete, status: EmailStatus.cacheLoaded));
-    }
+    compute((_) async {
+      if (await CacheService.exist<EmailModelWrapper>()) {
+        emailsComplete =
+            (await CacheService.get<EmailModelWrapper>())!.emailModels;
+        emit(state.copyWith(
+            emails: emailsComplete, status: EmailStatus.cacheLoaded));
+      }
+    }, null);
+
     emit(state.copyWith(status: EmailStatus.connecting));
     try {
       username = username;
@@ -79,25 +82,24 @@ class EmailCubit extends Cubit<EmailState> {
       List<EmailModel> emails = state.emails;
       emails[emails.indexOf(email)].isRead = true;
       CacheService.set<EmailModelWrapper>(EmailModelWrapper(emailsComplete));
-      emit(state.copyWith(
-          status: EmailStatus.updated, emails: emails));
+      emit(state.copyWith(status: EmailStatus.updated, emails: emails));
     }
-
-
   }
 
-  void load({bool cache=true}) async {
+  void load({bool cache = true}) async {
     emit(state.copyWith(status: EmailStatus.loading));
     if (cache) {
-      if (await CacheService.exist<EmailModelWrapper>()) {
-        if (emailsComplete !=
-            (await CacheService.get<EmailModelWrapper>())!.emailModels) {
-          emailsComplete =
-              (await CacheService.get<EmailModelWrapper>())!.emailModels;
-          emit(state.copyWith(
-              emails: emailsComplete, status: EmailStatus.cacheLoaded));
+      compute((_) async {
+        if (await CacheService.exist<EmailModelWrapper>()) {
+          if (emailsComplete !=
+              (await CacheService.get<EmailModelWrapper>())!.emailModels) {
+            emailsComplete =
+                (await CacheService.get<EmailModelWrapper>())!.emailModels;
+            emit(state.copyWith(
+                emails: emailsComplete, status: EmailStatus.cacheLoaded));
+          }
         }
-      }
+      }, null);
     }
     try {
       emailsComplete = await EmailLogic.load(
@@ -112,7 +114,10 @@ class EmailCubit extends Cubit<EmailState> {
     // emit(state.copyWith(status: Email2Status.loaded, emails: emailsComplete));
   }
 
-  void send({required EmailModel email, int? replyOriginalMessageId, bool? replyAll}) async {
+  void send(
+      {required EmailModel email,
+      int? replyOriginalMessageId,
+      bool? replyAll}) async {
     if (state.status != EmailStatus.sending) {
       emit(state.copyWith(status: EmailStatus.sending));
       try {

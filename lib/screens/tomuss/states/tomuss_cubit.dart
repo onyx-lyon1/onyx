@@ -9,15 +9,18 @@ part 'tomuss_state.dart';
 class TomussCubit extends Cubit<TomussState> {
   TomussCubit() : super(TomussState(status: TomussStatus.initial));
 
-  Future<void> load({required Dartus dartus, bool cache=true}) async {
+  Future<void> load({required Dartus dartus, bool cache = true}) async {
     emit(TomussState(status: TomussStatus.loading));
     List<SchoolSubjectModel> teachingUnits = [];
     if (cache) {
-      if (await CacheService.exist<SchoolSubjectModelWrapper>()) {
-        teachingUnits = (await CacheService.get<SchoolSubjectModelWrapper>())!
-            .teachingUnitModels;
-        emit(TomussState(status: TomussStatus.cacheReady, teachingUnits: teachingUnits));
-      }
+      compute((_) async {
+        if (await CacheService.exist<SchoolSubjectModelWrapper>()) {
+          teachingUnits = (await CacheService.get<SchoolSubjectModelWrapper>())!
+              .teachingUnitModels;
+          emit(TomussState(
+              status: TomussStatus.cacheReady, teachingUnits: teachingUnits));
+        }
+      }, null);
     }
     try {
       teachingUnits = await GradesLogic.getGrades(dartus: dartus);
@@ -33,6 +36,3 @@ class TomussCubit extends Cubit<TomussState> {
     emit(TomussState(status: TomussStatus.ready, teachingUnits: teachingUnits));
   }
 }
-
-
-

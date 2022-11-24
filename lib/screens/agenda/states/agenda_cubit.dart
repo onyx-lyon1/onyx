@@ -1,4 +1,5 @@
 import 'package:dartus/tomuss.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:oloid2/core/cache_service.dart';
@@ -22,12 +23,14 @@ class AgendaCubit extends Cubit<AgendaState> {
       bool cache = true}) async {
     emit(state.copyWith(status: AgendaStatus.loading));
     if (cache) {
-      if (await CacheService.exist<DayModelWrapper>()) {
-        state.dayModels =
-            (await CacheService.get<DayModelWrapper>())!.dayModels;
-        emit(state.copyWith(
-            status: AgendaStatus.cacheReady, dayModels: state.dayModels));
-      }
+      compute((_) async {
+        if (await CacheService.exist<DayModelWrapper>()) {
+          state.dayModels =
+              (await CacheService.get<DayModelWrapper>())!.dayModels;
+          emit(state.copyWith(
+              status: AgendaStatus.cacheReady, dayModels: state.dayModels));
+        }
+      }, null);
     }
     _agendaClient = Lyon1Agenda.useAuthentication(dartus.authentication);
     try {
