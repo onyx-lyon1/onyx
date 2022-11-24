@@ -8,23 +8,23 @@ part 'grade_model.g.dart';
 @HiveType(typeId: 4)
 class GradeModel {
   @HiveField(0)
-  late String name;
+  final String name;
   @HiveField(1)
-  late String author;
+  final String author;
   @HiveField(2)
-  late double gradeNumerator;
+  final double gradeNumerator;
   @HiveField(3)
-  late double gradeDenominator;
+  final double gradeDenominator;
   @HiveField(4)
-  late int rank;
+  final int rank;
   @HiveField(5)
-  late double average;
+  final double average;
   @HiveField(6)
-  late double mediane;
+  final double mediane;
   @HiveField(7)
-  late int groupSize;
+  final int groupSize;
   @HiveField(8)
-  late bool isValidGrade;
+  final bool isValidGrade;
 
   GradeModel({
     required this.name,
@@ -38,17 +38,16 @@ class GradeModel {
     required this.isValidGrade,
   });
 
-  GradeModel.fromGrade(Grade grade) {
-    name = grade.name;
-    author = grade.author;
-    gradeNumerator = grade.gradeNumerator;
-    gradeDenominator = grade.gradeDenominator;
-    rank = grade.rank;
-    average = grade.average;
-    mediane = grade.mediane;
-    groupSize = grade.groupSize;
-    isValidGrade = grade.isValidGrade;
-  }
+  GradeModel.fromGrade(Grade grade)
+      : name = grade.name,
+        author = grade.author,
+        groupSize = grade.groupSize,
+        gradeNumerator = grade.gradeNumerator,
+        gradeDenominator = grade.gradeDenominator,
+        rank = grade.rank,
+        average = grade.average,
+        mediane = grade.mediane,
+        isValidGrade = grade.isValidGrade;
 
   @override
   bool operator ==(Object other) =>

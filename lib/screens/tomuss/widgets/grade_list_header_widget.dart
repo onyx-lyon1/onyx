@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/screens/tomuss/domain/model/school_subject_model.dart';
 import 'package:sizer/sizer.dart';
 
 class GradeListHeaderWidget extends StatelessWidget {
-  final SchoolSubjectModel tu;
+  final String name;
 
   const GradeListHeaderWidget({
     Key? key,
-    required this.tu,
+    required this.name,
   }) : super(key: key);
 
   @override
@@ -27,7 +26,7 @@ class GradeListHeaderWidget extends StatelessWidget {
           ),
         ),
         Text(
-          tu.name,
+          name,
           textAlign: TextAlign.center,
           style: const TextStyle(),
         ),

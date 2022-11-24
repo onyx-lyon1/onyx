@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oloid2/core/widgets/states_displaying/loading_snakbar_widget.dart';
 import 'package:oloid2/core/widgets/states_displaying/state_displayer_page.dart';
-import 'package:oloid2/screens/tomuss/domain/model/school_subject_model.dart';
 import 'package:oloid2/screens/login/states/authentification_cubit.dart';
-import 'package:oloid2/screens/tomuss/states/tomuss_cubit.dart';
 import 'package:oloid2/screens/settings/states/settings_cubit.dart';
+import 'package:oloid2/screens/tomuss/domain/model/school_subject_model.dart';
+import 'package:oloid2/screens/tomuss/states/tomuss_cubit.dart';
 import 'package:oloid2/screens/tomuss/widgets/grade_list_header_widget.dart';
 import 'package:oloid2/screens/tomuss/widgets/grade_widget.dart';
 import 'package:sizer/sizer.dart';
@@ -17,7 +17,7 @@ class TomussPage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  void showAllGrades(BuildContext context, SchoolSubjectModel tu) {
+  void showAllGrades(BuildContext context, SchoolSubjectModel schoolSubject) {
     showMaterialModalBottomSheet(
       context: context,
       expand: false,
@@ -32,15 +32,14 @@ class TomussPage extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                GradeListHeaderWidget(
-                  tu: tu,
-                ),
-                ...tu.grades.map(
-                  (grades) => GradeWidget(
-                    model: grades,
-                    forceGreen:
-                        context.read<SettingsCubit>().state.settings.forceGreen,
+                GradeListHeaderWidget(name: schoolSubject.name),
+                ...schoolSubject.grades.map(
+                  (grade) => GradeWidget(
+                    grades: [grade],
                     isSeen: true,
+                    text1: grade.name,
+                    text2:
+                        "moyenne: ${grade.average.toStringAsFixed(2)} · mediane: ${grade.mediane.toStringAsFixed(2)}\nclassement:${grade.rank + 1}/${grade.groupSize}\nprofesseur: ${grade.author}",
                   ),
                 ),
               ],
@@ -71,13 +70,13 @@ class TomussPage extends StatelessWidget {
             print("Grades state : $state");
           }
           if (state.status == TomussStatus.initial) {
-            context
-                .read<TomussCubit>()
-                .load(dartus: context.read<AuthentificationCubit>().state.dartus!);
+            context.read<TomussCubit>().load(
+                dartus: context.read<AuthentificationCubit>().state.dartus!);
             return const StateDisplayingPage(message: "Loading grades");
           } else if (state.status == TomussStatus.error) {
             Future.delayed(const Duration(seconds: 3), () {
-              context.read<TomussCubit>().load(dartus: context.read<AuthentificationCubit>().state.dartus!);
+              context.read<TomussCubit>().load(
+                  dartus: context.read<AuthentificationCubit>().state.dartus!);
             });
             return const StateDisplayingPage(
                 message: "Erreur pendant le chargement des notes");
@@ -111,8 +110,7 @@ class TomussPage extends StatelessWidget {
                           child: ListView(
                             physics: const AlwaysScrollableScrollPhysics(),
                             children: [
-                              ...state
-                                  .teachingUnits
+                              ...state.teachingUnits
                                   .where(
                                     (element) =>
                                         element.isHidden == false ||
@@ -123,21 +121,14 @@ class TomussPage extends StatelessWidget {
                                             .showHiddenUE,
                                   )
                                   .map(
-                                    (e) => GradeWidget(
-                                      model: e,
-                                      forceGreen: context
-                                          .read<SettingsCubit>()
-                                          .state
-                                          .settings
-                                          .forceGreen,
-                                      isSeen: e.isSeen,
-                                      onTap: (tu) {
-                                        if (kDebugMode) {
-                                          print(
-                                              'Tapped on teaching unit ${tu.name}');
-                                        }
-                                        showAllGrades(context, tu);
-                                      },
+                                    (schoolSubject) => GradeWidget(
+                                      grades: schoolSubject.grades,
+                                      isSeen: schoolSubject.isSeen,
+                                      text2:
+                                          "${schoolSubject.mastersShort()} • grp ?",
+                                      text1: schoolSubject.name,
+                                      onTap: () =>
+                                          showAllGrades(context, schoolSubject),
                                     ),
                                   )
                             ],
@@ -146,10 +137,15 @@ class TomussPage extends StatelessWidget {
                       ],
                     ),
                     onRefresh: () async {
-                      context.read<TomussCubit>().load(dartus:
-                          context.read<AuthentificationCubit>().state.dartus!);
-                      while (context.read<TomussCubit>().state.status != TomussStatus.ready &&
-                          context.read<TomussCubit>().state.status != TomussStatus.error) {
+                      context.read<TomussCubit>().load(
+                          dartus: context
+                              .read<AuthentificationCubit>()
+                              .state
+                              .dartus!);
+                      while (context.read<TomussCubit>().state.status !=
+                              TomussStatus.ready &&
+                          context.read<TomussCubit>().state.status !=
+                              TomussStatus.error) {
                         await Future.delayed(const Duration(milliseconds: 100));
                       }
                       return;

@@ -1,100 +1,53 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/core/theme/grade_color.dart';
 import 'package:oloid2/core/theme/theme.dart';
+import 'package:oloid2/screens/settings/states/settings_cubit.dart';
 import 'package:oloid2/screens/tomuss/domain/model/grade_model.dart';
-import 'package:oloid2/screens/tomuss/domain/model/school_subject_model.dart';
 import 'package:sizer/sizer.dart';
 
 class GradeWidget extends StatelessWidget {
-  final dynamic model;
-  late String gradeNumerator;
-  late String gradeDenominator;
-  late String text1;
-  late String text2;
-  final bool forceGreen;
+  final List<GradeModel> grades;
+  final String text1;
+  final String text2;
   final bool isSeen;
-  late int? rank;
-  late int groupeSize;
-  final void Function(dynamic o)? onTap;
+  final VoidCallback? onTap;
 
-  GradeWidget({Key? key,
-    required this.model,
-    this.groupeSize = 120,
-    this.rank,
-    required this.forceGreen,
-    required this.isSeen,
+  const GradeWidget({
+    Key? key,
+    required this.grades,
+    required this.text1,
+    required this.text2,
+    this.isSeen = false,
     this.onTap,
-  }) : super(key: key){
-    if (model is GradeModel) {
-
-      gradeNumerator = model.gradeNumerator.toString();
-      gradeDenominator = model.gradeDenominator.toString();
-      groupeSize = model.groupSize;
-      rank = model.rank;
-      text1 = model.name;
-      text2 = "moyenne: ${model.average.toStringAsFixed(2)} · mediane: ${model.mediane.toStringAsFixed(2)}\nclassement:${model.rank + 1}/${model.groupSize}\nprofesseur: ${model.author}";
-    } else if (model is SchoolSubjectModel) {
-      gradeDenominator = ((model.grades.isNotEmpty) ? 20 : '-').toString();
-      text2 = "${model.mastersShort()} • grp ?";
-      text1 = model.name;
-      int rank = 0;
-      for (var i in (model as SchoolSubjectModel).grades) {
-        if (!i.rank.isNaN) {
-          rank += i.rank;
-        }
-      }
-      rank = (rank / ((model.grades.isNotEmpty) ? model.grades.length : 1)).round();
-
-      double numerator = 0;
-      int numeratorCount = 0;
-      for (var i in model.grades) {
-        if (!i.gradeNumerator.isNaN && !i.gradeDenominator.isNaN) {
-          numerator += i.gradeNumerator / i.gradeDenominator;
-          numeratorCount++;
-        }
-      }
-      numerator = (numerator / ((numeratorCount != 0) ? numeratorCount : 1)) * 20;
-      gradeNumerator = ((model.grades.isNotEmpty) ? numerator.toStringAsPrecision(3) : '-');
-
-    }
-  }
+  }) : super(key: key);
 
   Color _mainGradeColor(BuildContext context) {
-    if (forceGreen || rank == null) {
+    if (context.read<SettingsCubit>().state.settings.forceGreen) {
       return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
     } else {
-      if (model is GradeModel) {
-        return _gradeColor(model);
-      } else if (model is SchoolSubjectModel) {
-        if (model.grades.isNotEmpty) {
-          int red = 0;
-          int green = 0;
-          int blue = 0;
-          for (var i in model.grades) {
-            Color color = _gradeColor(i);
-            red += color.red;
-            green += color.green;
-            blue += color.blue;
-          }
-
-          red = (red / ((model.grades.length == 0) ? 1 : model.grades.length)).round();
-          green =
-              (green / ((model.grades.length == 0) ? 1 : model.grades.length)).round();
-          blue =
-              (blue / ((model.grades.length == 0) ? 1 : model.grades.length)).round();
-          return Color.fromARGB(255, red, green, blue);
-        } else {
-          return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
-        }
+      int a = 0;
+      int r = 0;
+      int g = 0;
+      int b = 0;
+      for (var i in grades) {
+        Color tmpColor = _gradeColor(context, i);
+        a += tmpColor.alpha;
+        r += tmpColor.red;
+        g += tmpColor.green;
+        b += tmpColor.blue;
       }
+      a = (a / grades.length).round();
+      r = (r / grades.length).round();
+      g = (g / grades.length).round();
+      b = (b / grades.length).round();
+      return Color.fromARGB(a, r, g, b);
     }
-    return Theme.of(context).backgroundColor;
   }
 
-  Color _gradeColor(GradeModel grade) {
-    if (forceGreen || !grade.isValidGrade) {
+  Color _gradeColor(BuildContext context, GradeModel grade) {
+    if (context.read<SettingsCubit>().state.settings.forceGreen ||
+        !grade.isValidGrade) {
       return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
     } else {
       var x = (511 * grade.rank / grade.groupSize).floor();
@@ -114,8 +67,28 @@ class GradeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double denominator = 0;
+    if (grades.length < 2) {
+      denominator = grades.first.gradeDenominator;
+    } else {
+      denominator = 20;
+    }
+    double numerator = 0;
+    int numeratorCount = 0;
+    for (var i in grades) {
+      if (!i.gradeNumerator.isNaN && !i.gradeDenominator.isNaN) {
+        numerator += i.gradeNumerator / i.gradeDenominator;
+        numeratorCount++;
+      }
+    }
+    numerator = (numerator / ((numeratorCount != 0) ? numeratorCount : 1)) *
+        denominator;
+    String gradeNumerator =
+        ((grades.isNotEmpty) ? numerator.toStringAsPrecision(3) : '-');
+
     return GestureDetector(
-      onTap: (onTap != null) ? () => onTap!(model) : null, // TODO: give it the required infos
+      onTap: (onTap != null) ? () => onTap!() : null,
+      // TODO: give it the required infos
       child: Container(
         height: 11.h,
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -153,7 +126,7 @@ class GradeWidget extends StatelessWidget {
                   color: OloidTheme.darkTheme().backgroundColor,
                 ),
                 Text(
-                  gradeDenominator,
+                  ((grades.isNotEmpty) ? denominator : '-').toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: OloidTheme.darkTheme().backgroundColor,
