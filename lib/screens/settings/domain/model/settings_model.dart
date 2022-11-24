@@ -1,7 +1,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:hive/hive.dart';
 
-part 'settings.g.dart';
+part 'settings_model.g.dart';
 
 @HiveType(typeId: 6)
 class SettingsModel {

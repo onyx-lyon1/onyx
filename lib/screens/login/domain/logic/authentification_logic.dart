@@ -2,7 +2,7 @@ import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oloid2/screens/login/domain/model/authentication.dart';
 
-class AuthentificationBackend {
+class AuthentificationLogic {
   static Future<Authentication> fetchCredential(
       {String? username, String? password}) async {
     Box<Authentication> authBox =

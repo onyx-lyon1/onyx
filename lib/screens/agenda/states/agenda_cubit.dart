@@ -2,7 +2,7 @@ import 'package:dartus/tomuss.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/screens/settings/domain/model/settings.dart';
+import 'package:oloid2/screens/settings/domain/model/settings_model.dart';
 import 'package:oloid2/screens/agenda/agenda_includes.dart';
 
 
@@ -32,7 +32,7 @@ class AgendaCubit extends Cubit<AgendaState> {
     }
     _agendaClient = Lyon1Agenda.useAuthentication(dartus.authentication);
     try {
-      state.dayModels = await AgendaBackend.load(
+      state.dayModels = await AgendaLogic.load(
           agendaClient: _agendaClient!, settings: settings);
     } catch (e) {
       emit(state.copyWith(status: AgendaStatus.error));

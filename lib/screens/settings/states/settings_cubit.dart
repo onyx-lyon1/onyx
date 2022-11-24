@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/screens/settings/domain/logic/settings_backend.dart';
-import 'package:oloid2/screens/settings/domain/model/settings.dart';
+import 'package:oloid2/screens/settings/domain/logic/settings_logic.dart';
+import 'package:oloid2/screens/settings/domain/model/settings_model.dart';
 import 'package:workmanager/workmanager.dart';
 
 part 'settings_state.dart';
@@ -13,7 +13,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future<void> reset() async {
-    await SettingsBackend.reset();
+    await SettingsLogic.reset();
     emit(state.copyWith(
         status: SettingsStatus.ready, settings: SettingsModel()));
   }
@@ -23,7 +23,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     try {
       emit(state.copyWith(
           status: SettingsStatus.ready,
-          settings: await SettingsBackend.load()));
+          settings: await SettingsLogic.load()));
     } catch (e) {
       emit(state.copyWith(
           status: SettingsStatus.error, settings: SettingsModel()));
@@ -36,7 +36,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future<void> modify({required SettingsModel settings}) async {
-    await SettingsBackend.modify(settings: settings);
+    await SettingsLogic.modify(settings: settings);
     emit(state.copyWith(status: SettingsStatus.ready, settings: settings));
   }
 }

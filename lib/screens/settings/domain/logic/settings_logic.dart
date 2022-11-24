@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/settings/domain/model/settings.dart';
+import 'package:oloid2/screens/settings/domain/model/settings_model.dart';
 
-class SettingsBackend {
+class SettingsLogic {
   static Future<SettingsModel> load() async {
     if (await Hive.boxExists('settings')) {
       Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/screens/mails/domain/logic/email_backend.dart';
+import 'package:oloid2/screens/mails/domain/logic/email_logic.dart';
 import 'package:oloid2/screens/mails/domain/model/mail_model.dart';
 import 'package:oloid2/screens/mails/domain/model/email_model_wrapper.dart';
 
@@ -30,7 +30,7 @@ class EmailCubit extends Cubit<EmailState> {
       username = username;
       password = password;
       mailClient =
-          await EmailBackend.connect(username: username, password: password);
+          await EmailLogic.connect(username: username, password: password);
       emit(state.copyWith(status: EmailStatus.connected));
     } catch (e) {
       emit(state.copyWith(status: EmailStatus.error));
@@ -102,7 +102,7 @@ class EmailCubit extends Cubit<EmailState> {
       }
     }
     try {
-      emailsComplete = await EmailBackend.load(
+      emailsComplete = await EmailLogic.load(
           emailNumber: emailNumber, mailClient: mailClient);
     } catch (e) {
       emit(state.copyWith(status: EmailStatus.error));
@@ -118,7 +118,7 @@ class EmailCubit extends Cubit<EmailState> {
     if (state.status != EmailStatus.sending) {
       emit(state.copyWith(status: EmailStatus.sending));
       try {
-        await EmailBackend.send(
+        await EmailLogic.send(
           email: email,
           mailClient: mailClient,
           replyOriginalMessageId: replyOriginalMessageId,

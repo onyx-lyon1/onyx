@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:oloid2/screens/mails/domain/model/mail_model.dart';
 
-class EmailBackend {
+class EmailLogic {
   static Future<Lyon1Mail> connect(
       {required String username, required String password}) async {
     Lyon1Mail mailClient = Lyon1Mail(username, password);

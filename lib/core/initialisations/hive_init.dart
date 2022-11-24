@@ -3,7 +3,7 @@ import 'package:oloid2/screens/mails/domain/model/attachment_model.dart';
 import 'package:oloid2/screens/login/domain/model/authentication.dart';
 import 'package:oloid2/screens/tomuss/domain/model/grade_model.dart';
 import 'package:oloid2/screens/mails/domain/model/mail_model.dart';
-import 'package:oloid2/screens/settings/domain/model/settings.dart';
+import 'package:oloid2/screens/settings/domain/model/settings_model.dart';
 import 'package:oloid2/screens/tomuss/domain/model/teacher_model.dart';
 import 'package:oloid2/screens/tomuss/domain/model/school_subject_model.dart';
 import 'package:oloid2/screens/mails/domain/model/email_model_wrapper.dart';

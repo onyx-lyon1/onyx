@@ -1,4 +1,4 @@
-extension MonthName on int {
+extension FixedLengthString on int {
   String toFixedLengthString(int length) {
     return toString().padLeft(length - toString().length + 1, '0');
   }
