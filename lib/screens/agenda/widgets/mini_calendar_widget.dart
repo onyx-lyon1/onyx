@@ -21,9 +21,9 @@ class MiniCalendarWidget extends StatelessWidget {
     Widget forwardList = SliverList(
       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
         DateTime currentDate = DateTime.now().add(Duration(days: index));
-        if (currentDate
-            .subtract(const Duration(days: 1))
-            .isAfter(context.read<AgendaCubit>().state.dayModels.last.date)) {
+        if (context.read<AgendaCubit>().state.dayModels.isNotEmpty &&
+            currentDate.subtract(const Duration(days: 1)).isAfter(
+                context.read<AgendaCubit>().state.dayModels.last.date)) {
           return null;
         }
         return oneDay(context, currentDate);
@@ -35,8 +35,9 @@ class MiniCalendarWidget extends StatelessWidget {
       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
         DateTime currentDate =
             DateTime.now().subtract(Duration(days: index + 1));
-        if (currentDate
-            .isBefore(context.read<AgendaCubit>().state.dayModels.first.date)) {
+        if (context.read<AgendaCubit>().state.dayModels.isNotEmpty &&
+            currentDate.isBefore(
+                context.read<AgendaCubit>().state.dayModels.first.date)) {
           return null;
         }
         return oneDay(context, currentDate);

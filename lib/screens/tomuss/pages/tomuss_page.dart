@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:oloid2/core/widgets/common_screen_widget.dart';
 import 'package:oloid2/screens/login/login_export.dart';
 import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:oloid2/screens/tomuss/tomuss_export.dart';
@@ -49,107 +50,84 @@ class TomussPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<TomussCubit, TomussState>(
-      listener: (context, state) {
+    return BlocBuilder<TomussCubit, TomussState>(
+      builder: (context, state) {
+        Widget? loadingHeader;
         if (state.status == TomussStatus.loading) {
-          ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar(
-              message: "Chargement des notes",
-              context: context,
-              shouldDisable: context
-                  .read<TomussCubit>()
-                  .stream
-                  .map<bool>((event) => event.status != TomussStatus.ready)));
+          loadingHeader = const LoadingHeaderWidget(
+            message: "Chargement des notes",
+          );
         }
-      },
-      child: BlocBuilder<TomussCubit, TomussState>(
-        builder: (context, state) {
-          if (kDebugMode) {
-            print("Grades state : ${state.status}");
-          }
-          if (state.status == TomussStatus.initial) {
+        if (kDebugMode) {
+          print("Grades state : ${state.status}");
+        }
+        if (state.status == TomussStatus.initial) {
+          context.read<TomussCubit>().load(
+              dartus: context.read<AuthentificationCubit>().state.dartus!);
+          return const StateDisplayingPage(message: "Loading grades");
+        } else if (state.status == TomussStatus.error) {
+          Future.delayed(const Duration(seconds: 3), () {
             context.read<TomussCubit>().load(
                 dartus: context.read<AuthentificationCubit>().state.dartus!);
-            return const StateDisplayingPage(message: "Loading grades");
-          } else if (state.status == TomussStatus.error) {
-            Future.delayed(const Duration(seconds: 3), () {
+          });
+          return const StateDisplayingPage(
+              message: "Erreur pendant le chargement des notes");
+        }
+        return SafeArea(
+          child: CommonScreenWidget(
+            state: loadingHeader,
+            header: Container(
+              height: 10.h,
+              color: Theme.of(context).cardTheme.color,
+              child: Center(
+                child: Text(
+                  'Notes',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1!.color,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            body: ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              children: [
+                ...state.teachingUnits
+                    .where(
+                      (element) =>
+                          element.isHidden == false ||
+                          context
+                              .read<SettingsCubit>()
+                              .state
+                              .settings
+                              .showHiddenUE,
+                    )
+                    .map(
+                      (schoolSubject) => GradeWidget(
+                        grades: schoolSubject.grades,
+                        isSeen: schoolSubject.isSeen,
+                        text2: "${schoolSubject.mastersShort()} • grp ?",
+                        text1: schoolSubject.name,
+                        onTap: () => showAllGrades(context, schoolSubject),
+                      ),
+                    )
+              ],
+            ),
+            onRefresh: () async {
               context.read<TomussCubit>().load(
                   dartus: context.read<AuthentificationCubit>().state.dartus!);
-            });
-            return const StateDisplayingPage(
-                message: "Erreur pendant le chargement des notes");
-          }
-          return SafeArea(
-            child: Container(
-                color: Theme.of(context).backgroundColor,
-                child: RefreshIndicator(
-                    color: Theme.of(context).primaryColor,
-                    backgroundColor: Theme.of(context).backgroundColor,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 10.h,
-                          color: Theme.of(context).cardTheme.color,
-                          child: Center(
-                            child: Text(
-                              'Notes',
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .color,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListView(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            children: [
-                              ...state.teachingUnits
-                                  .where(
-                                    (element) =>
-                                        element.isHidden == false ||
-                                        context
-                                            .read<SettingsCubit>()
-                                            .state
-                                            .settings
-                                            .showHiddenUE,
-                                  )
-                                  .map(
-                                    (schoolSubject) => GradeWidget(
-                                      grades: schoolSubject.grades,
-                                      isSeen: schoolSubject.isSeen,
-                                      text2:
-                                          "${schoolSubject.mastersShort()} • grp ?",
-                                      text1: schoolSubject.name,
-                                      onTap: () =>
-                                          showAllGrades(context, schoolSubject),
-                                    ),
-                                  )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    onRefresh: () async {
-                      context.read<TomussCubit>().load(
-                          dartus: context
-                              .read<AuthentificationCubit>()
-                              .state
-                              .dartus!);
-                      while (context.read<TomussCubit>().state.status !=
-                              TomussStatus.ready &&
-                          context.read<TomussCubit>().state.status !=
-                              TomussStatus.error) {
-                        await Future.delayed(const Duration(milliseconds: 100));
-                      }
-                      return;
-                    })),
-          );
-        },
-      ),
+              while (context.read<TomussCubit>().state.status !=
+                      TomussStatus.ready &&
+                  context.read<TomussCubit>().state.status !=
+                      TomussStatus.error) {
+                await Future.delayed(const Duration(milliseconds: 100));
+              }
+              return;
+            },
+          ),
+        );
+      },
     );
   }
 }

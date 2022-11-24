@@ -31,21 +31,13 @@ dependencies:
   open_filex: ^4.3.1
   flutter_file_dialog: ^2.3.2
   dartus:
-    #    path: ../dartus-tomuss-client
     git: https://github.com/hatch01/dartus-tomuss-client.git
   lyon1mail:
     path: ../lyon1-mailclient
-  #    git: https://github.com/hatch01/lyon1-mailclient.git
   lyon1agenda:
-    #    path: ../lyon1-agendaclient
     git: https://github.com/hatch01/lyon1-agendaclient.git
-#  enough_mail_flutter:
-#    path: /home/eymeric/tmp/enough_mail_flutter
 
 #dependency_overrides:
-#  url_launcher_android:
-#    path: /home/eymeric/tmp/plugins/packages/url_launcher/url_launcher_android
-#  pdfx: ^2.3.0
 
 dev_dependencies:
   flutter_test:
