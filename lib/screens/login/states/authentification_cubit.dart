@@ -6,9 +6,10 @@ import 'package:oloid2/screens/login/domain/logic/authentification_backend.dart'
 import 'package:oloid2/core/cache_service.dart';
 import 'package:oloid2/screens/settings/domain/logic/settings_backend.dart';
 import 'package:oloid2/screens/login/domain/model/authentication.dart';
-import 'package:oloid2/screens/agenda/domain/model/day_model_wrapper.dart';
 import 'package:oloid2/screens/mails/domain/model/email_model_wrapper.dart';
 import 'package:oloid2/screens/tomuss/domain/model/school_subject_model_wrapper.dart';
+import 'package:oloid2/screens/agenda/agenda_includes.dart';
+
 
 part 'authentification_state.dart';
 

@@ -4,17 +4,17 @@ import 'package:lyon1mail/lyon1mail.dart';
 import 'package:oloid2/core/initialisations/custom_scroll_behavior.dart';
 import 'package:oloid2/core/theme/theme.dart';
 import 'package:oloid2/core/widgets/states_displaying/custom_circular_progress_indicator_widget.dart';
-import 'package:oloid2/screens/agenda/states/agenda_cubit.dart';
 import 'package:oloid2/screens/login/pages/login_page.dart';
 import 'package:oloid2/screens/login/states/authentification_cubit.dart';
 import 'package:oloid2/screens/mails/states/email_cubit.dart';
 import 'package:oloid2/screens/settings/states/settings_cubit.dart';
+import 'package:oloid2/screens/tomuss/domain/model/school_subject_model.dart';
 import 'package:oloid2/screens/tomuss/states/tomuss_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 import 'home.dart';
-import 'screens/agenda/domain/model/day_model.dart';
-import 'screens/tomuss/domain/model/school_subject_model.dart';
+
+import 'package:oloid2/screens/agenda/agenda_includes.dart';
 
 class OloidApp extends StatefulWidget {
   const OloidApp({Key? key, required this.androidSdkVersion}) : super(key: key);

@@ -3,8 +3,10 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/core/extensions/month_to_string.dart';
 import 'package:oloid2/core/extensions/weekday_to_string.dart';
-import 'package:oloid2/screens/agenda/states/agenda_cubit.dart';
 import 'package:sizer/sizer.dart';
+
+import 'package:oloid2/screens/agenda/agenda_includes.dart';
+
 
 class MiniCalendarWidget extends StatelessWidget {
   final ScrollController scrollController;

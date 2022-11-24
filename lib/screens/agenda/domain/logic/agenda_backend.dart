@@ -1,9 +1,8 @@
 // ignore: depend_on_referenced_packages
 import 'package:dartz/dartz.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
-import 'package:oloid2/screens/agenda/domain/model/day_model.dart';
-import 'package:oloid2/screens/agenda/domain/model/event_model.dart';
 import 'package:oloid2/screens/settings/domain/model/settings.dart';
+import 'package:oloid2/screens/agenda/agenda_includes.dart';
 
 class AgendaBackend {
   static Future<List<DayModel>> load(

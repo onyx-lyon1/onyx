@@ -2,7 +2,6 @@ import 'package:dartus/tomuss.dart' as tomuss_lib;
 import 'package:flutter/foundation.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:oloid2/screens/agenda/domain/logic/agenda_backend.dart';
 import 'package:oloid2/screens/login/domain/logic/authentification_backend.dart';
 import 'package:oloid2/screens/notifications/domain/logic/notification_service.dart';
 import 'package:oloid2/core/cache_service.dart';
@@ -10,15 +9,17 @@ import 'package:oloid2/screens/mails/domain/logic/email_backend.dart';
 import 'package:oloid2/screens/tomuss/domain/logic/tomuss_backend.dart';
 import 'package:oloid2/screens/settings/domain/logic/settings_backend.dart';
 import 'package:oloid2/screens/login/domain/model/authentication.dart';
-import 'package:oloid2/screens/agenda/domain/model/day_model.dart';
 import 'package:oloid2/screens/mails/domain/model/mail_model.dart';
 import 'package:oloid2/screens/settings/domain/model/settings.dart';
 import 'package:oloid2/screens/tomuss/domain/model/school_subject_model.dart';
-import 'package:oloid2/screens/agenda/domain/model/day_model_wrapper.dart';
 import 'package:oloid2/screens/mails/domain/model/email_model_wrapper.dart';
 import 'package:oloid2/screens/tomuss/domain/model/school_subject_model_wrapper.dart';
 import 'package:oloid2/core/initialisations/hive_init.dart';
 import 'package:workmanager/workmanager.dart';
+
+import 'package:oloid2/screens/agenda/agenda_includes.dart';
+
+
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {

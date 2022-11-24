@@ -1,11 +1,10 @@
 import 'package:dartus/tomuss.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
-import 'package:oloid2/screens/agenda/domain/logic/agenda_backend.dart';
 import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/screens/agenda/domain/model/day_model.dart';
 import 'package:oloid2/screens/settings/domain/model/settings.dart';
-import 'package:oloid2/screens/agenda/domain/model/day_model_wrapper.dart';
+import 'package:oloid2/screens/agenda/agenda_includes.dart';
+
 
 part 'agenda_state.dart';
 

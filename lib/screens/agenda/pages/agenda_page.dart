@@ -6,14 +6,14 @@ import 'package:oloid2/core/extensions/month_to_string.dart';
 import 'package:oloid2/core/extensions/weekday_to_string.dart';
 import 'package:oloid2/core/widgets/states_displaying/custom_circular_progress_indicator_widget.dart';
 import 'package:oloid2/core/widgets/states_displaying/loading_snakbar_widget.dart';
-import 'package:oloid2/screens/agenda/states/agenda_cubit.dart';
-import 'package:oloid2/screens/agenda/widgets/event_widget.dart';
-import 'package:oloid2/screens/agenda/widgets/mini_calendar_widget.dart';
 import 'package:oloid2/screens/login/states/authentification_cubit.dart';
 import 'package:oloid2/screens/settings/states/settings_cubit.dart';
 import 'package:oloid2/screens/settings/widgets/agenda_url_parameter_widget.dart';
 import 'package:oloid2/screens/settings/widgets/settings_card_widget.dart';
 import 'package:sizer/sizer.dart';
+
+import 'package:oloid2/screens/agenda/agenda_includes.dart';
+
 
 class AgendaPage extends StatelessWidget {
   const AgendaPage({

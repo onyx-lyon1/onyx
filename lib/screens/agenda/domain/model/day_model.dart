@@ -2,7 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/agenda/domain/model/event_model.dart';
+import 'package:oloid2/screens/agenda/agenda_includes.dart';
 
 part 'day_model.g.dart';
 
