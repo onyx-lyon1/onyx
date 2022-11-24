@@ -26,22 +26,26 @@ class GradeWidget extends StatelessWidget {
     if (context.read<SettingsCubit>().state.settings.forceGreen) {
       return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
     } else {
-      int a = 0;
-      int r = 0;
-      int g = 0;
-      int b = 0;
-      for (var i in grades) {
-        Color tmpColor = _gradeColor(context, i);
-        a += tmpColor.alpha;
-        r += tmpColor.red;
-        g += tmpColor.green;
-        b += tmpColor.blue;
+      if (grades.isEmpty) {
+        return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
+      } else {
+        int a = 0;
+        int r = 0;
+        int g = 0;
+        int b = 0;
+        for (var i in grades) {
+          Color tmpColor = _gradeColor(context, i);
+          a += tmpColor.alpha;
+          r += tmpColor.red;
+          g += tmpColor.green;
+          b += tmpColor.blue;
+        }
+        a = (a / grades.length).round();
+        r = (r / grades.length).round();
+        g = (g / grades.length).round();
+        b = (b / grades.length).round();
+        return Color.fromARGB(a, r, g, b);
       }
-      a = (a / grades.length).round();
-      r = (r / grades.length).round();
-      g = (g / grades.length).round();
-      b = (b / grades.length).round();
-      return Color.fromARGB(a, r, g, b);
     }
   }
 
@@ -68,7 +72,7 @@ class GradeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double denominator = 0;
-    if (grades.length < 2) {
+    if (grades.length == 1) {
       denominator = grades.first.gradeDenominator;
     } else {
       denominator = 20;

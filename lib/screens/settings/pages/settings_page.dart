@@ -24,7 +24,7 @@ class SettingsPage extends StatelessWidget {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         if (kDebugMode){
-          print('Settings state: $state');
+          print('Settings state: ${state.status}');
         }
         return SafeArea(
           child: Container(

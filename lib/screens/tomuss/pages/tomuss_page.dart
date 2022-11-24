@@ -67,7 +67,7 @@ class TomussPage extends StatelessWidget {
       child: BlocBuilder<TomussCubit, TomussState>(
         builder: (context, state) {
           if (kDebugMode) {
-            print("Grades state : $state");
+            print("Grades state : ${state.status}");
           }
           if (state.status == TomussStatus.initial) {
             context.read<TomussCubit>().load(

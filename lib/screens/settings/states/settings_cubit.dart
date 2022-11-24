@@ -6,19 +6,27 @@ import 'package:workmanager/workmanager.dart';
 part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
-  SettingsCubit() : super(SettingsState(settings: SettingsModel(), status: SettingsStatus.initial));
+  SettingsCubit()
+      : super(SettingsState(
+            settings: SettingsModel(), status: SettingsStatus.initial)) {
+    load();
+  }
 
   Future<void> reset() async {
     await SettingsBackend.reset();
-    emit(state.copyWith(status: SettingsStatus.ready, settings: SettingsModel()));
+    emit(state.copyWith(
+        status: SettingsStatus.ready, settings: SettingsModel()));
   }
 
   Future<void> load() async {
     emit(state.copyWith(status: SettingsStatus.loading));
-    try{
-      emit(state.copyWith(status: SettingsStatus.ready, settings: await SettingsBackend.load()));
-    }catch(e){
-       emit(state.copyWith(status: SettingsStatus.error, settings: SettingsModel()));
+    try {
+      emit(state.copyWith(
+          status: SettingsStatus.ready,
+          settings: await SettingsBackend.load()));
+    } catch (e) {
+      emit(state.copyWith(
+          status: SettingsStatus.error, settings: SettingsModel()));
     }
     if (!(state.settings.calendarUpdateNotification &&
         state.settings.newMailNotification &&
