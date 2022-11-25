@@ -41,7 +41,8 @@ class AgendaPage extends StatelessWidget {
         }
         Widget? headerState;
         if (state.status == AgendaStatus.loading ||
-            state.status == AgendaStatus.initial) {
+            state.status == AgendaStatus.initial ||
+            state.status == AgendaStatus.cacheReady) {
           headerState =
               const LoadingHeaderWidget(message: "Chargement de l'agenda");
         } else if (state.status == AgendaStatus.error) {

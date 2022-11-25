@@ -37,8 +37,11 @@ class EmailsPage extends StatelessWidget {
                 const LoadingHeaderWidget(message: "Chargement des emails");
           }
           if (state.status == EmailStatus.error) {
-            return const StateDisplayingPage(
-                message: "Something went wrong with emails");
+            loadingHeader = const LoadingHeaderWidget(
+              message: "Erreur de chargement des emails",
+            );
+            // return const StateDisplayingPage(
+            //     message: "Something went wrong with emails");
           }
           if (state.status == EmailStatus.initial) {
             context.read<EmailCubit>().connect(

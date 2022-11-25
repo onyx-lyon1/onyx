@@ -53,7 +53,8 @@ class TomussPage extends StatelessWidget {
     return BlocBuilder<TomussCubit, TomussState>(
       builder: (context, state) {
         Widget? loadingHeader;
-        if (state.status == TomussStatus.loading) {
+        if (state.status == TomussStatus.loading ||
+            state.status == TomussStatus.cacheReady) {
           loadingHeader = const LoadingHeaderWidget(
             message: "Chargement des notes",
           );
@@ -64,14 +65,19 @@ class TomussPage extends StatelessWidget {
         if (state.status == TomussStatus.initial) {
           context.read<TomussCubit>().load(
               dartus: context.read<AuthentificationCubit>().state.dartus!);
-          return const StateDisplayingPage(message: "Loading grades");
+          loadingHeader = const LoadingHeaderWidget(
+            message: "Connection à tomuss",
+          );
         } else if (state.status == TomussStatus.error) {
           Future.delayed(const Duration(seconds: 3), () {
             context.read<TomussCubit>().load(
                 dartus: context.read<AuthentificationCubit>().state.dartus!);
           });
-          return const StateDisplayingPage(
-              message: "Erreur pendant le chargement des notes");
+          loadingHeader = const LoadingHeaderWidget(
+            message: "Erreur pendant le chargement des notes",
+          );
+          // return const StateDisplayingPage(
+          //     message: "Erreur pendant le chargement des notes");
         }
         return SafeArea(
           child: CommonScreenWidget(
