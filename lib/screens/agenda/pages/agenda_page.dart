@@ -26,7 +26,25 @@ class AgendaPage extends StatelessWidget {
           dartus: context.read<AuthentificationCubit>().state.dartus!,
           settings: context.read<SettingsCubit>().state.settings);
     }
+    bool animating = false;
+    PageController pageController = PageController();
+    ScrollController scrollController = ScrollController(
+        initialScrollOffset: indexToOffset(context
+            .read<AgendaCubit>()
+            .state
+            .wantedDate
+            .shrink(3)
+            .difference(DateTime.now().shrink(3))
+            .inDays));
+
+    pageController = PageController(
+        initialPage: context.read<AgendaCubit>().state.dayModels.indexWhere(
+            (element) =>
+                element.date.shrink(3) ==
+                context.read<AgendaCubit>().state.wantedDate.shrink(3)));
+
     return BlocListener<SettingsCubit, SettingsState>(
+      //fetch agenda whenn settings change
       listenWhen: (previous, current) =>
           previous.settings.agendaURL != current.settings.agendaURL ||
           previous.settings.fetchAgendaAuto != current.settings.fetchAgendaAuto,
@@ -65,24 +83,10 @@ class AgendaPage extends StatelessWidget {
             ),
           );
         }
-        bool animating = false;
-        PageController pageController = PageController();
-        ScrollController scrollController = ScrollController(
-            initialScrollOffset: indexToOffset(context
-                .read<AgendaCubit>()
-                .state
-                .wantedDate
-                .shrink(3)
-                .difference(DateTime.now().shrink(3))
-                .inDays));
-
-        pageController = PageController(
-            initialPage: context.read<AgendaCubit>().state.dayModels.indexWhere(
-                (element) =>
-                    element.date.shrink(3) ==
-                    context.read<AgendaCubit>().state.wantedDate.shrink(3)));
-
         return BlocListener<AgendaCubit, AgendaState>(
+          listenWhen: (previous, current) {
+            return current.status == AgendaStatus.dateUpdated;
+          },
           listener: (context, state) {
             if (scrollController.hasClients && pageController.hasClients) {
               final int pageIndex = context
@@ -92,39 +96,32 @@ class AgendaPage extends StatelessWidget {
                   .indexWhere((element) =>
                       element.date.shrink(3) ==
                       context.read<AgendaCubit>().state.wantedDate.shrink(3));
-              if (!animating) {
-                pageController.animateToPage(
-                  pageIndex,
-                  curve: Curves.easeInOut,
+
+              // pageController.animateToPage(
+              //   pageIndex,
+              //   curve: Curves.easeInOut,
+              //   duration: const Duration(milliseconds: 500),
+              // );
+              animating = true;
+              pageController
+                  .animateToPage(
+                pageIndex,
+                curve: Curves.easeInOut,
+                duration: const Duration(milliseconds: 500),
+              )
+                  .then((value) {
+                animating = false;
+              });
+              scrollController.animateTo(
+                  indexToOffset(context
+                      .read<AgendaCubit>()
+                      .state
+                      .wantedDate
+                      .shrink(3)
+                      .difference(DateTime.now().shrink(3))
+                      .inDays),
                   duration: const Duration(milliseconds: 500),
-                );
-                scrollController.animateTo(
-                    indexToOffset(context
-                        .read<AgendaCubit>()
-                        .state
-                        .wantedDate
-                        .shrink(3)
-                        .difference(DateTime.now().shrink(3))
-                        .inDays),
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOut);
-              }
-              if (pageIndex != pageController.page) {
-                animating = true;
-                Future.delayed(const Duration(milliseconds: 500), () {
-                  animating = false;
-                  scrollController.animateTo(
-                      indexToOffset(context
-                          .read<AgendaCubit>()
-                          .state
-                          .wantedDate
-                          .shrink(3)
-                          .difference(DateTime.now().shrink(3))
-                          .inDays),
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInOut);
-                });
-              }
+                  curve: Curves.easeInOut);
             }
           },
           child: SafeArea(
@@ -138,9 +135,8 @@ class AgendaPage extends StatelessWidget {
                 ? MiniCalendarWidget(
                     scrollController: scrollController,
                     onUpdate: (DateTime newWantedDay) {
-                      context
-                          .read<AgendaCubit>()
-                          .updateDisplayedDate(date: newWantedDay);
+                      context.read<AgendaCubit>().updateDisplayedDate(
+                          date: newWantedDay, fromPageController: false);
                     },
                   )
                 : Container(
@@ -162,16 +158,18 @@ class AgendaPage extends StatelessWidget {
               scrollDirection: Axis.vertical,
               onPageChanged: (index) {
                 if (context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .showMiniCalendar) {
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .showMiniCalendar &&
+                    !animating) {
                   context.read<AgendaCubit>().updateDisplayedDate(
                       date: context
                           .read<AgendaCubit>()
                           .state
                           .dayModels[index]
-                          .date);
+                          .date,
+                      fromPageController: true);
                 }
               },
               children: context

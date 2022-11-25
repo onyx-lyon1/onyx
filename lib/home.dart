@@ -55,9 +55,8 @@ class HomeState extends State<Home> {
               );
             } else if (currentIndex == index) {
               if (currentIndex == 1) {
-                context
-                    .read<AgendaCubit>()
-                    .updateDisplayedDate(date: DateTime.now());
+                context.read<AgendaCubit>().updateDisplayedDate(
+                    date: DateTime.now(), fromPageController: false);
               }
             } else {
               pageController.jumpToPage(index);
