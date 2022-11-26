@@ -85,6 +85,7 @@ class AgendaPage extends StatelessWidget {
                 ),
               );
             }
+            print("set date to today");
             context.read<AgendaCubit>().updateDisplayedDate(
                 date: DateTime.now(), fromPageController: false);
             return BlocListener<AgendaCubit, AgendaState>(
@@ -168,13 +169,16 @@ class AgendaPage extends StatelessWidget {
                             .settings
                             .showMiniCalendar &&
                         !animating) {
-                      context.read<AgendaCubit>().updateDisplayedDate(
-                          date: context
-                              .read<AgendaCubit>()
-                              .state
-                              .dayModels[index]
-                              .date,
-                          fromPageController: true);
+                      if (context.read<AgendaCubit>().state.dayModels.length >
+                          index) {
+                        context.read<AgendaCubit>().updateDisplayedDate(
+                            date: context
+                                .read<AgendaCubit>()
+                                .state
+                                .dayModels[index]
+                                .date,
+                            fromPageController: true);
+                      }
                     }
                   },
                   children: context

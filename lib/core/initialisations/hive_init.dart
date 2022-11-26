@@ -5,7 +5,7 @@ import 'package:oloid2/screens/mails/mails_export.dart';
 import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 
-Future<void> hiveInit() async{
+Future<void> hiveInit({String? path}) async {
   Hive.registerAdapter(AuthenticationAdapter());
   Hive.registerAdapter(DayModelAdapter());
   Hive.registerAdapter(DayModelWrapperAdapter());
@@ -18,5 +18,9 @@ Future<void> hiveInit() async{
   Hive.registerAdapter(EmailModelWrapperAdapter());
   Hive.registerAdapter(AttachmentModelAdapter());
   Hive.registerAdapter(SettingsModelAdapter());
-  await Hive.initFlutter();
+  if (path != null) {
+    Hive.init(path);
+  } else {
+    await Hive.initFlutter();
+  }
 }

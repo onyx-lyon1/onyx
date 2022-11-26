@@ -73,8 +73,8 @@ class MiniCalendarWidget extends StatelessWidget {
 
   Widget oneDay(BuildContext context, DateTime currentDate) {
     return BlocBuilder<AgendaCubit, AgendaState>(
-      buildWhen: (previous, current) =>
-          previous.wantedDate != current.wantedDate,
+      // buildWhen: (previous, current) =>
+      //     previous.wantedDate != current.wantedDate,
       builder: (context, state) {
         return SizedBox(
           height: 10.h,

@@ -5,6 +5,7 @@ import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:oloid2/core/cache_service.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
 import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:path_provider/path_provider.dart';
 
 part 'agenda_state.dart';
 
@@ -23,14 +24,10 @@ class AgendaCubit extends Cubit<AgendaState> {
       bool cache = true}) async {
     emit(state.copyWith(status: AgendaStatus.loading));
     if (cache) {
-      compute((_) async {
-        if (await CacheService.exist<DayModelWrapper>()) {
-          state.dayModels =
-              (await CacheService.get<DayModelWrapper>())!.dayModels;
-          emit(state.copyWith(
-              status: AgendaStatus.cacheReady, dayModels: state.dayModels));
-        }
-      }, null);
+      state.dayModels = await compute(AgendaLogic.getCache,
+          (await getApplicationDocumentsDirectory()).path);
+      emit(state.copyWith(
+          status: AgendaStatus.cacheReady, dayModels: state.dayModels));
     }
     _agendaClient = Lyon1Agenda.useAuthentication(dartus.authentication);
     try {

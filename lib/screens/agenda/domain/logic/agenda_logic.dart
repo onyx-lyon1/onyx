@@ -1,15 +1,17 @@
 import 'package:lyon1agenda/lyon1agenda.dart';
+import 'package:oloid2/core/cache_service.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
 import 'package:oloid2/screens/settings/settings_export.dart';
 
 class AgendaLogic {
   static Future<List<DayModel>> load(
-      {required Lyon1Agenda agendaClient, required SettingsModel settings, DateTime? maxDate}) async {
+      {required Lyon1Agenda agendaClient,
+      required SettingsModel settings,
+      DateTime? maxDate}) async {
     Agenda? agendaOpt;
     try {
       agendaOpt = await agendaClient.getAgenda(
-          url:
-              (settings.fetchAgendaAuto) ? "" : settings.agendaURL);
+          url: (settings.fetchAgendaAuto) ? "" : settings.agendaURL);
       if (agendaOpt == null || agendaOpt.events.isEmpty) {
         throw Exception("Agenda is empty");
       }
@@ -78,5 +80,18 @@ class AgendaLogic {
       }
     }
     return tmpDayModels;
+  }
+
+  static Future<List<DayModel>> getCache(String path) async {
+    print("before exist");
+    if (await CacheService.exist<DayModelWrapper>()) {
+      print("le cache agenda existe");
+      List<DayModel> dayModels =
+          (await CacheService.get<DayModelWrapper>())!.dayModels;
+      print("le cache agenda a été récupéré");
+      return dayModels;
+    } else {
+      return [];
+    }
   }
 }
