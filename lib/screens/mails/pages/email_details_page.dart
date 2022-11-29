@@ -228,7 +228,9 @@ class EmailDetailsPage extends StatelessWidget {
                 IconButton(
                     onPressed: (state.status == EmailStatus.initial ||
                             state.status == EmailStatus.connecting ||
-                            state.status == EmailStatus.cacheLoaded)
+                            state.status == EmailStatus.cacheLoaded ||
+                            state.status == EmailStatus.cacheSorted ||
+                            state.status == EmailStatus.error)
                         ? null
                         : () {
                             Navigator.push(
@@ -247,7 +249,9 @@ class EmailDetailsPage extends StatelessWidget {
                 IconButton(
                     onPressed: (state.status == EmailStatus.initial ||
                             state.status == EmailStatus.connecting ||
-                            state.status == EmailStatus.cacheLoaded)
+                            state.status == EmailStatus.cacheLoaded ||
+                            state.status == EmailStatus.cacheSorted ||
+                            state.status == EmailStatus.error)
                         ? null
                         : () {
                             Navigator.push(

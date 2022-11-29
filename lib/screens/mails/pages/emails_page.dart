@@ -48,34 +48,41 @@ class EmailsPage extends StatelessWidget {
           }
 
           return Scaffold(
-            floatingActionButton: Material(
-              color: (state.status == EmailStatus.initial ||
-                      state.status == EmailStatus.connecting ||
-                      state.status == EmailStatus.cacheLoaded)
-                  ? Theme.of(context).disabledColor
-                  : Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(100),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(100),
-                onTap: (state.status == EmailStatus.initial ||
+            floatingActionButton: Hero(
+              tag: "writeEmail",
+              child: Material(
+                color: (state.status == EmailStatus.initial ||
                         state.status == EmailStatus.connecting ||
-                        state.status == EmailStatus.cacheLoaded)
-                    ? null
-                    : () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const EmailSendPage(),
-                          ),
-                        );
-                      },
-                child: Padding(
-                  padding: EdgeInsets.all(1.5.h),
-                  child: Icon(
-                    Icons.create,
-                    color: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .unselectedItemColor,
-                    size: 25.sp,
+                        state.status == EmailStatus.cacheLoaded ||
+                        state.status == EmailStatus.cacheSorted ||
+                        state.status == EmailStatus.error)
+                    ? Theme.of(context).disabledColor
+                    : Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(100),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(100),
+                  onTap: (state.status == EmailStatus.initial ||
+                          state.status == EmailStatus.connecting ||
+                          state.status == EmailStatus.cacheLoaded ||
+                          state.status == EmailStatus.cacheSorted ||
+                          state.status == EmailStatus.error)
+                      ? null
+                      : () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const EmailSendPage(),
+                            ),
+                          );
+                        },
+                  child: Padding(
+                    padding: EdgeInsets.all(1.5.h),
+                    child: Icon(
+                      Icons.create,
+                      color: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .unselectedItemColor,
+                      size: 25.sp,
+                    ),
                   ),
                 ),
               ),

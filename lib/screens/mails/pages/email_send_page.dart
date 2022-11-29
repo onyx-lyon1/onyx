@@ -35,7 +35,8 @@ class EmailSendPage extends StatelessWidget {
               receiver: destinationEditor.text,
               attachments: [],
             );
-            context.read<EmailCubit>().send(email: email,
+            context.read<EmailCubit>().send(
+                email: email,
                 replyAll: replyAll,
                 replyOriginalMessageId: replyOriginalMessage);
           });
@@ -51,297 +52,310 @@ class EmailSendPage extends StatelessWidget {
           return const StateDisplayingPage(message: "Sending message");
         }
         return Material(
-          child: Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
-            floatingActionButton: Material(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(100),
-              child: InkWell(
+          child: Hero(
+            tag: 'writeEmail',
+            child: Scaffold(
+              backgroundColor: Theme.of(context).backgroundColor,
+              floatingActionButton: Material(
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(100),
-                splashColor: Theme.of(context).cardTheme.color,
-                onTap: () {
-                  if ((destinationEditor.value.text.isNotEmpty &&
-                          subjectEditor.value.text.isNotEmpty &&
-                          bodyEditor.value.text.isNotEmpty &&
-                          destinationEditor.value.text.contains("@") &&
-                          destinationEditor.value.text.contains(".")) ||
-                      (replyOriginalMessage != null &&
-                          bodyEditor.value.text.isNotEmpty)) {
-                    EmailModel email = EmailModel(
-                      subject: subjectEditor.text,
-                      sender: "moi",
-                      excerpt: "",
-                      isRead: false,
-                      date: DateTime.now(),
-                      body: bodyEditor.text,
-                      id: 0,
-                      receiver: destinationEditor.text,
-                      attachments: [],
-                    );
-                    context.read<EmailCubit>().send(email: email,
-                        replyAll: replyAll,
-                        replyOriginalMessageId: replyOriginalMessage);
-                  } else {
-                    showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              backgroundColor:
-                                  Theme.of(context).backgroundColor,
-                              title: const Text(
-                                  "Veuillez remplir correctement tous les champs"),
-                            ));
-                  }
-                },
-                child: Padding(
-                  padding: EdgeInsets.all(1.5.h),
-                  child: Icon(Icons.send, size: 25.sp),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(100),
+                  splashColor: Theme.of(context).cardTheme.color,
+                  onTap: () {
+                    if ((destinationEditor.value.text.isNotEmpty &&
+                            subjectEditor.value.text.isNotEmpty &&
+                            bodyEditor.value.text.isNotEmpty &&
+                            destinationEditor.value.text.contains("@") &&
+                            destinationEditor.value.text.contains(".")) ||
+                        (replyOriginalMessage != null &&
+                            bodyEditor.value.text.isNotEmpty)) {
+                      EmailModel email = EmailModel(
+                        subject: subjectEditor.text,
+                        sender: "moi",
+                        excerpt: "",
+                        isRead: false,
+                        date: DateTime.now(),
+                        body: bodyEditor.text,
+                        id: 0,
+                        receiver: destinationEditor.text,
+                        attachments: [],
+                      );
+                      context.read<EmailCubit>().send(
+                          email: email,
+                          replyAll: replyAll,
+                          replyOriginalMessageId: replyOriginalMessage);
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                backgroundColor:
+                                    Theme.of(context).backgroundColor,
+                                title: const Text(
+                                    "Veuillez remplir correctement tous les champs"),
+                              ));
+                    }
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(1.5.h),
+                    child: Icon(Icons.send, size: 25.sp),
+                  ),
                 ),
               ),
-            ),
-            body: SafeArea(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    color: Theme.of(context).cardTheme.color,
-                    height: 6.h,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 2.w),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () => Navigator.pop(context),
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: Theme.of(context)
-                                  .bottomNavigationBarTheme
-                                  .unselectedItemColor,
-                            ),
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        color: Theme.of(context).cardTheme.color,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 2.w, vertical: 0.5.h),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                onTap: () => Navigator.pop(context),
+                                child: Icon(
+                                  Icons.arrow_back,
+                                  color: Theme.of(context)
+                                      .bottomNavigationBarTheme
+                                      .unselectedItemColor,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 3.w,
+                              ),
+                              (replyOriginalMessage == null)
+                                  ? Expanded(
+                                      child: Center(
+                                        child: TextField(
+                                          controller: subjectEditor,
+                                          maxLines: 1,
+                                          textAlignVertical:
+                                              TextAlignVertical.top,
+                                          cursorColor: Theme.of(context)
+                                              .textTheme
+                                              .button!
+                                              .color!,
+                                          style: TextStyle(
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .button!
+                                                .color!,
+                                          ),
+                                          decoration: InputDecoration(
+                                              hintText: "Objets",
+                                              hintStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1!
+                                                  .copyWith(
+                                                      color: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyText1!
+                                                          .color!
+                                                          .withOpacity(0.5)),
+                                              isDense: true,
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyText1!
+                                                        .color!,
+                                                    width: 1),
+                                              ),
+                                              border: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Theme.of(context)
+                                                      .backgroundColor,
+                                                  width: 1,
+                                                ),
+                                              )),
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      width: 70.w,
+                                      child: const Center(
+                                        child: Text(
+                                          "reponse",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ),
+                            ],
                           ),
-                          SizedBox(
-                            width: 3.w,
-                          ),
-                          (replyOriginalMessage == null)
-                              ? SizedBox(
-                                  width: 80.w,
-                                  height: 5.h,
-                                  child: Center(
-                                    child: TextField(
-                                      controller: subjectEditor,
-                                      maxLines: 1,
-                                      textAlignVertical: TextAlignVertical.top,
-                                      cursorColor: Theme.of(context)
-                                          .textTheme
-                                          .button!
-                                          .color!,
-                                      style: TextStyle(
-                                        color: Theme.of(context)
+                        ),
+                      ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      (replyOriginalMessage == null)
+                          ? Container(
+                              color: Theme.of(context).cardTheme.color,
+                              width: 100.w,
+                              child: Padding(
+                                padding: EdgeInsets.all(1.h),
+                                child: RawAutocomplete<String>(
+                                  optionsBuilder: (TextEditingValue
+                                      textEditingValue) async {
+                                    if (!context
+                                        .read<EmailCubit>()
+                                        .mailClient
+                                        .isAuthenticated) {
+                                      context.read<EmailCubit>().connect(
+                                          username: context
+                                              .read<AuthentificationCubit>()
+                                              .state
+                                              .username,
+                                          password: context
+                                              .read<AuthentificationCubit>()
+                                              .state
+                                              .password);
+                                      return [];
+                                    } else {
+                                      return (await context
+                                              .read<EmailCubit>()
+                                              .mailClient
+                                              .resolveContact(
+                                                  textEditingValue.text))
+                                          .map((e) => e.email.toString())
+                                          .toList();
+                                    }
+                                  },
+                                  displayStringForOption: (String option) =>
+                                      option,
+                                  textEditingController: destinationEditor,
+                                  focusNode: FocusNode(),
+                                  optionsViewBuilder: (BuildContext context,
+                                      AutocompleteOnSelected<String> onSelected,
+                                      Iterable<String> options) {
+                                    return Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Material(
+                                        elevation: 4.0,
+                                        color:
+                                            Theme.of(context).backgroundColor,
+                                        child: SizedBox(
+                                          // width: 97.w,
+                                          child: ListView(
+                                            padding: EdgeInsets.all(1.h),
+                                            children: options
+                                                .map((String option) =>
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        onSelected(option);
+                                                      },
+                                                      child: ListTile(
+                                                        title: Text(option),
+                                                      ),
+                                                    ))
+                                                .toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  fieldViewBuilder: (BuildContext context,
+                                      TextEditingController
+                                          fieldTextEditingController,
+                                      FocusNode fieldFocusNode,
+                                      VoidCallback onFieldSubmitted) {
+                                    return SizedBox(
+                                      height: 4.5.h,
+                                      child: TextField(
+                                        controller: fieldTextEditingController,
+                                        focusNode: fieldFocusNode,
+                                        textAlignVertical: TextAlignVertical.top,
+                                        cursorColor: Theme.of(context)
                                             .textTheme
                                             .button!
                                             .color!,
-                                      ),
-                                      decoration: InputDecoration(
-                                          hintText: "Objets",
-                                          hintStyle: Theme.of(context)
+                                        style: TextStyle(
+                                          color: Theme.of(context)
                                               .textTheme
-                                              .bodyText1!
-                                              .copyWith(
+                                              .button!
+                                              .color!,
+                                        ),
+                                        decoration: InputDecoration(
+                                            hintText:
+                                                "Destinataire : PXXXXXXX, prenom.nom@status.univ-lyon1.fr",
+                                            hintStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyText1!
+                                                        .color!
+                                                        .withOpacity(0.5)),
+                                            isDense: true,
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
                                                   color: Theme.of(context)
                                                       .textTheme
                                                       .bodyText1!
-                                                      .color!
-                                                      .withOpacity(0.5)),
-                                          isDense: true,
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText1!
-                                                    .color!,
-                                                width: 1),
-                                          ),
-                                          border: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Theme.of(context)
-                                                  .backgroundColor,
-                                              width: 1,
+                                                      .color!,
+                                                  width: 1),
                                             ),
-                                          )),
-                                    ),
-                                  ),
-                                )
-                              : SizedBox(
-                                  width: 70.w,
-                                  child: const Center(
-                                    child: Text(
-                                      "reponse",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  (replyOriginalMessage == null)
-                      ? Container(
-                          color: Theme.of(context).cardTheme.color,
-                          width: 100.w,
-                          child: Padding(
-                            padding: EdgeInsets.all(1.h),
-                            child: RawAutocomplete<String>(
-                              optionsBuilder:
-                                  (TextEditingValue textEditingValue) async {
-                                if (!context
-                                    .read<EmailCubit>()
-                                    .mailClient
-                                    .isAuthenticated) {
-                                  context.read<EmailCubit>().connect(
-                                      username: context
-                                          .read<AuthentificationCubit>()
-                                          .state.username,
-                                      password: context
-                                          .read<AuthentificationCubit>()
-                                          .state.password);
-                                  return [];
-                                } else {
-                                  return (await context
-                                          .read<EmailCubit>()
-                                          .mailClient
-                                          .resolveContact(
-                                              textEditingValue.text))
-                                      .map((e) => e.email.toString())
-                                      .toList();
-                                }
-                              },
-                              displayStringForOption: (String option) => option,
-                              textEditingController: destinationEditor,
-                              focusNode: FocusNode(),
-                              optionsViewBuilder: (BuildContext context,
-                                  AutocompleteOnSelected<String> onSelected,
-                                  Iterable<String> options) {
-                                return Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Material(
-                                    elevation: 4.0,
-                                    color: Theme.of(context).backgroundColor,
-                                    child: SizedBox(
-                                      height: 20.h,
-                                      width: 97.w,
-                                      child: ListView(
-                                        padding: EdgeInsets.all(1.h),
-                                        children: options
-                                            .map((String option) =>
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    onSelected(option);
-                                                  },
-                                                  child: ListTile(
-                                                    title: Text(option),
-                                                  ),
-                                                ))
-                                            .toList(),
+                                            border: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Theme.of(context)
+                                                    .backgroundColor,
+                                                width: 1,
+                                              ),
+                                            )),
                                       ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              fieldViewBuilder: (BuildContext context,
-                                  TextEditingController
-                                      fieldTextEditingController,
-                                  FocusNode fieldFocusNode,
-                                  VoidCallback onFieldSubmitted) {
-                                return TextField(
-                                  controller: fieldTextEditingController,
-                                  focusNode: fieldFocusNode,
-                                  textAlignVertical: TextAlignVertical.top,
-                                  cursorColor: Theme.of(context)
-                                      .textTheme
-                                      .button!
-                                      .color!,
-                                  style: TextStyle(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .button!
-                                        .color!,
-                                  ),
-                                  decoration: InputDecoration(
-                                      hintText:
-                                          "Destinataire : PXXXXXXX, prenom.nom@status.univ-lyon1.fr",
-                                      hintStyle: Theme.of(context)
+                                    );
+                                  },
+                                ),
+                              ),
+                            )
+                          : Container(),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      Container(
+                        color: Theme.of(context).cardTheme.color,
+                        height: (replyOriginalMessage == null) ? 80.h : 90.h,
+                        width: 100.w,
+                        child: Padding(
+                          padding: EdgeInsets.all(1.h),
+                          child: TextField(
+                            controller: bodyEditor,
+                            textAlignVertical: TextAlignVertical.top,
+                            cursorColor:
+                                Theme.of(context).textTheme.button!.color!,
+                            style: TextStyle(
+                              color: Theme.of(context).textTheme.button!.color!,
+                            ),
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            decoration: InputDecoration(
+                              hintText: "Message",
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                      color: Theme.of(context)
                                           .textTheme
                                           .bodyText1!
-                                          .copyWith(
-                                              color: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .color!
-                                                  .withOpacity(0.5)),
-                                      isDense: true,
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1!
-                                                .color!,
-                                            width: 1),
-                                      ),
-                                      border: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color:
-                                              Theme.of(context).backgroundColor,
-                                          width: 1,
-                                        ),
-                                      )),
-                                );
-                              },
+                                          .color!
+                                          .withOpacity(0.5)),
+                              focusedBorder: InputBorder.none,
+                              border: InputBorder.none,
                             ),
                           ),
-                        )
-                      : Container(),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Container(
-                    color: Theme.of(context).cardTheme.color,
-                    height: (replyOriginalMessage == null) ? 80.h : 90.h,
-                    width: 100.w,
-                    child: Padding(
-                      padding: EdgeInsets.all(1.h),
-                      child: TextField(
-                        controller: bodyEditor,
-                        textAlignVertical: TextAlignVertical.top,
-                        cursorColor: Theme.of(context).textTheme.button!.color!,
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.button!.color!,
-                        ),
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        decoration: InputDecoration(
-                          hintText: "Message",
-                          hintStyle: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .color!
-                                      .withOpacity(0.5)),
-                          focusedBorder: InputBorder.none,
-                          border: InputBorder.none,
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
