@@ -19,7 +19,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
     return SettingsModel(
       keepMeLoggedIn: fields[0] as bool,
       forceGreen: fields[1] as bool,
-      darkMode: fields[2] as bool,
+      themeMode: fields[2] as ThemeModeEnum,
       newGradeNotification: fields[3] as bool,
       showHiddenUE: fields[4] as bool,
       fetchAgendaAuto: fields[5] as bool,
@@ -41,7 +41,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(1)
       ..write(obj.forceGreen)
       ..writeByte(2)
-      ..write(obj.darkMode)
+      ..write(obj.themeMode)
       ..writeByte(3)
       ..write(obj.newGradeNotification)
       ..writeByte(4)

@@ -17,6 +17,7 @@ Future<void> hiveInit({String? path}) async {
   Hive.registerAdapter(EmailModelAdapter());
   Hive.registerAdapter(EmailModelWrapperAdapter());
   Hive.registerAdapter(SettingsModelAdapter());
+  Hive.registerAdapter(ThemeModeEnumAdapter());
   if (path != null) {
     Hive.init(path);
   } else {

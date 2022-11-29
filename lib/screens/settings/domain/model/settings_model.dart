@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:oloid2/screens/settings/settings_export.dart';
 
 part 'settings_model.g.dart';
 
@@ -10,7 +11,7 @@ class SettingsModel {
   @HiveField(1)
   late bool forceGreen;
   @HiveField(2)
-  late bool darkMode;
+  late ThemeModeEnum themeMode;
   @HiveField(3)
   late bool newGradeNotification;
 
@@ -41,7 +42,7 @@ class SettingsModel {
   SettingsModel({
     this.keepMeLoggedIn = true,
     this.forceGreen = false,
-    this.darkMode = true,
+    this.themeMode = ThemeModeEnum.system,
     this.newGradeNotification = false,
     this.showHiddenUE = false,
     this.fetchAgendaAuto = true,
@@ -56,7 +57,7 @@ class SettingsModel {
   void copy(SettingsModel s) {
     keepMeLoggedIn = s.keepMeLoggedIn;
     forceGreen = s.forceGreen;
-    darkMode = s.darkMode;
+    themeMode = s.themeMode;
     newGradeNotification = s.newGradeNotification;
     showHiddenUE = s.showHiddenUE;
     fetchAgendaAuto = s.fetchAgendaAuto;
@@ -70,7 +71,7 @@ class SettingsModel {
   SettingsModel copyWith({
     bool? keepMeLoggedIn,
     bool? forceGreen,
-    bool? darkMode,
+    ThemeModeEnum? themeMode,
     bool? newGradeNotification,
     bool? showHiddenUE,
     bool? fetchAgendaAuto,
@@ -84,7 +85,7 @@ class SettingsModel {
     return SettingsModel(
       keepMeLoggedIn: keepMeLoggedIn ?? this.keepMeLoggedIn,
       forceGreen: forceGreen ?? this.forceGreen,
-      darkMode: darkMode ?? this.darkMode,
+      themeMode: themeMode ?? this.themeMode,
       newGradeNotification: newGradeNotification ?? this.newGradeNotification,
       showHiddenUE: showHiddenUE ?? this.showHiddenUE,
       fetchAgendaAuto: fetchAgendaAuto ?? this.fetchAgendaAuto,
@@ -100,6 +101,6 @@ class SettingsModel {
 
   @override
   String toString() {
-    return 'SettingsModel(keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, darkMode: $darkMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, fetchAgendaAuto: $fetchAgendaAuto, calendarUpdateNotification: $calendarUpdateNotification showMiniCalendar: $showMiniCalendar, agendaURL: $agendaURL, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail)';
+    return 'SettingsModel(keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, themeMode: $themeMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, fetchAgendaAuto: $fetchAgendaAuto, calendarUpdateNotification: $calendarUpdateNotification showMiniCalendar: $showMiniCalendar, agendaURL: $agendaURL, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail)';
   }
 }

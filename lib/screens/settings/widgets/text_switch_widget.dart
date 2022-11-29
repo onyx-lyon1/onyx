@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TextSwitchWidget extends StatefulWidget {
+class TextSwitchWidget extends StatelessWidget {
   final String text;
   final Function(bool b) onChanged;
   final bool value;
@@ -13,23 +13,16 @@ class TextSwitchWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return _TextSwitchWidgetState();
-  }
-}
-
-class _TextSwitchWidgetState extends State<TextSwitchWidget> {
-  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: () => widget.onChanged(!widget.value),
+          onTap: () => onChanged(!value),
           child: SizedBox(
             width: MediaQuery.of(context).size.width - 150,
             child: Text(
-              widget.text,
+              text,
               softWrap: true,
               overflow: TextOverflow.visible,
               style: TextStyle(
@@ -41,8 +34,8 @@ class _TextSwitchWidgetState extends State<TextSwitchWidget> {
         ),
         Switch(
           activeColor: Theme.of(context).primaryColor,
-          value: widget.value,
-          onChanged: (bool b) => widget.onChanged(b),
+          value: value,
+          onChanged: (bool b) => onChanged(b),
         ),
       ],
     );
