@@ -33,11 +33,18 @@ dependencies:
   dartus:
     git: https://github.com/hatch01/dartus-tomuss-client.git
   lyon1mail:
-    path: ../lyon1-mailclient
+    git: https://github.com/hatch01/lyon1-mailclient.git
   lyon1agenda:
     git: https://github.com/hatch01/lyon1-agendaclient.git
 
-#dependency_overrides:
+dependency_overrides:
+  # unindent for devlopment to use local version of the libraries
+  dartus:
+    path: ../dartus-tomuss-client
+  lyon1mail:
+    path: ../lyon1-mailclient
+  lyon1agenda:
+    path: ../lyon1-agendaclient
 
 dev_dependencies:
   flutter_test:

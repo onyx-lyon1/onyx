@@ -214,11 +214,9 @@ packages:
   dartus:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "7e7b976f3d2d288828e32cc65bb672c5c59f3099"
-      url: "https://github.com/hatch01/dartus-tomuss-client.git"
-    source: git
+      path: "../dartus-tomuss-client"
+      relative: true
+    source: path
     version: "1.0.3"
   date_picker_timeline:
     dependency: "direct main"
@@ -539,11 +537,9 @@ packages:
   lyon1agenda:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "6d1b5c17817f19031cbb3ecfa7b942e1a82d7711"
-      url: "https://github.com/hatch01/lyon1-agendaclient.git"
-    source: git
+      path: "../lyon1-agendaclient"
+      relative: true
+    source: path
     version: "1.0.0"
   lyon1mail:
     dependency: "direct main"

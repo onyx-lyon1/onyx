@@ -25,7 +25,7 @@ class EmailModelAdapter extends TypeAdapter<EmailModel> {
       body: fields[3] as String,
       id: fields[4] as int?,
       receiver: fields[7] as String,
-      attachments: (fields[8] as List).cast<AttachmentModel>(),
+      attachments: (fields[8] as List).cast<String>(),
     );
   }
 

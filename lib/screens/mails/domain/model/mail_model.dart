@@ -1,7 +1,8 @@
 // ignore_for_file: hash_and_equals
 
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:lyon1mail/lyon1mail.dart';
 import 'package:lyon1mail/lyon1mail.dart' as lyon1mail;
 
 part 'mail_model.g.dart';
@@ -25,7 +26,9 @@ class EmailModel {
   @HiveField(7)
   final String receiver;
   @HiveField(8)
-  final List<AttachmentModel> attachments;
+  final List<String> attachments;
+
+  Mail? rawMail;
 
   EmailModel(
       {required this.subject,
@@ -36,25 +39,21 @@ class EmailModel {
       required this.body,
       required this.id,
       required this.receiver,
-      required this.attachments});
+      required this.attachments,
+      this.rawMail});
 
   static EmailModel fromMailLib(lyon1mail.Mail mail) {
     return EmailModel(
-        subject: mail.getSubject(),
-        sender: mail.getSender(),
-        excerpt: mail.getBody(excerpt: true),
-        isRead: mail.isSeen(),
-        date: mail.getDate(),
-        body: mail.getBody(excerpt: false),
-        id: mail.getSequenceId(),
-        receiver: "me",
-        attachments: mail.hasAttachments()
-            ? mail
-                .getAttachmentsNames()
-                .map((e) =>
-                    AttachmentModel(name: e, data: mail.getAttachment(e)))
-                .toList()
-            : [],
+      subject: mail.getSubject(),
+      sender: mail.getSender(),
+      excerpt: mail.getBody(excerpt: true),
+      isRead: mail.isSeen(),
+      date: mail.getDate(),
+      body: mail.getBody(excerpt: false),
+      id: mail.getSequenceId(),
+      receiver: "me",
+      attachments: mail.getAttachmentsNames(),
+      rawMail: mail,
     );
   }
 
@@ -70,10 +69,11 @@ class EmailModel {
           id == other.id &&
           isRead == other.isRead &&
           date == other.date &&
-          receiver == other.receiver;
+          receiver == other.receiver &&
+          listEquals(attachments, attachments);
 
   @override
   String toString() {
-    return 'EmailModel{subject: $subject, sender: $sender, excerpt: $excerpt, body: $body, id: $id, isRead: $isRead, date: $date, receiver: $receiver}';
+    return 'EmailModel{subject: $subject, sender: $sender, excerpt: $excerpt, body: $body, id: $id, isRead: $isRead, date: $date, receiver: $receiver}, attachments: $attachments';
   }
 }

@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/screens/mails/mails_export.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sizer/sizer.dart';
 
 class EmailDetailsPage extends StatelessWidget {
@@ -12,7 +10,6 @@ class EmailDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder<EmailCubit, EmailState>(
       builder: (context, state) {
         return Hero(
@@ -90,17 +87,16 @@ class EmailDetailsPage extends StatelessWidget {
                         SizedBox(
                           height: 1.h,
                         ),
-                        Expanded(
-                          child: Container(
-                            color: Theme.of(context).cardTheme.color,
-                            padding: EdgeInsets.all(1.h),
-                            child: EmailContentWidget(mail: mail),
-                          ),
+                        Container(
+                          color: Theme.of(context).cardTheme.color,
+                          height: 60.h,
+                          padding: EdgeInsets.all(1.h),
+                          child: EmailContentWidget(mail: mail),
                         ),
                         (mail.attachments.isNotEmpty)
                             ? Container(
                                 color: Theme.of(context).cardTheme.color,
-                                padding: EdgeInsets.all(1.h),
+                                padding: EdgeInsets.all(0.5.h),
                                 height: 12.h,
                                 width: 100.w,
                                 child: ListView.builder(
@@ -116,17 +112,23 @@ class EmailDetailsPage extends StatelessWidget {
                                               BorderRadius.circular(10),
                                           onTap: () async {
                                             //save data in a file and open it
-                                            final directory =
-                                                await getTemporaryDirectory();
-                                            final file = File(
-                                                '${directory.path}/${mail.attachments[index].name}');
-                                            await file.writeAsBytes(
-                                                mail.attachments[index].data);
+                                            String attachmentPath =
+                                                await AttachmentLogic
+                                                    .getAttachmentLocalPath(
+                                                        email: mail,
+                                                        mailClient: context
+                                                            .read<EmailCubit>()
+                                                            .mailClient,
+                                                        emailNumber:
+                                                            state.emailNumber,
+                                                        fileName:
+                                                            mail.attachments[
+                                                                index]);
                                             showDialog(
                                                 context: context,
                                                 builder: (_) =>
                                                     SaveOrOpenDialogWidget(
-                                                      filePath: file.path,
+                                                      filePath: attachmentPath,
                                                     ));
                                           },
                                           child: Column(
@@ -143,7 +145,7 @@ class EmailDetailsPage extends StatelessWidget {
                                                 height: 1.h,
                                               ),
                                               Text(
-                                                mail.attachments[index].name,
+                                                mail.attachments[index],
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 style:
