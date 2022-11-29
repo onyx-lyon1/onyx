@@ -46,7 +46,7 @@ class EmailSendPage extends StatelessWidget {
           context.read<EmailCubit>().load(cache: false);
           SchedulerBinding.instance.addPostFrameCallback((_) {
             Navigator.pop(context);
-            Navigator.pop(context);
+            // Navigator.pop(context);
           });
         } else if (state.status == EmailStatus.sending) {
           return const StateDisplayingPage(message: "Sending message");
@@ -271,7 +271,8 @@ class EmailSendPage extends StatelessWidget {
                                       child: TextField(
                                         controller: fieldTextEditingController,
                                         focusNode: fieldFocusNode,
-                                        textAlignVertical: TextAlignVertical.top,
+                                        textAlignVertical:
+                                            TextAlignVertical.top,
                                         cursorColor: Theme.of(context)
                                             .textTheme
                                             .button!
@@ -324,33 +325,45 @@ class EmailSendPage extends StatelessWidget {
                         color: Theme.of(context).cardTheme.color,
                         height: (replyOriginalMessage == null) ? 80.h : 90.h,
                         width: 100.w,
-                        child: Padding(
-                          padding: EdgeInsets.all(1.h),
-                          child: TextField(
-                            controller: bodyEditor,
-                            textAlignVertical: TextAlignVertical.top,
-                            cursorColor:
-                                Theme.of(context).textTheme.button!.color!,
-                            style: TextStyle(
-                              color: Theme.of(context).textTheme.button!.color!,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(1.h),
+                              child: TextField(
+                                controller: bodyEditor,
+                                textAlignVertical: TextAlignVertical.top,
+                                cursorColor:
+                                    Theme.of(context).textTheme.button!.color!,
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .button!
+                                      .color!,
+                                ),
+                                keyboardType: TextInputType.multiline,
+                                maxLines: null,
+                                decoration: InputDecoration(
+                                  hintText: "Message",
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .color!
+                                              .withOpacity(0.5)),
+                                  focusedBorder: InputBorder.none,
+                                  border: InputBorder.none,
+                                ),
+                              ),
                             ),
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            decoration: InputDecoration(
-                              hintText: "Message",
-                              hintStyle: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1!
-                                          .color!
-                                          .withOpacity(0.5)),
-                              focusedBorder: InputBorder.none,
-                              border: InputBorder.none,
-                            ),
-                          ),
+                            (replyOriginalMessage != null)
+                                ? EmailContentWidget(
+                                    mail: state.emails.firstWhere((element) =>
+                                        element.id == replyOriginalMessage))
+                                : Container(),
+                          ],
                         ),
                       ),
                     ],

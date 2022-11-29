@@ -9,3 +9,4 @@ export 'states/email_cubit.dart';
 export 'widgets/email_header_widget.dart';
 export 'widgets/email_widget.dart';
 export 'widgets/save_or_open_dialog_widget.dart';
+export 'widgets/email_content_widget.dart';
