@@ -11,7 +11,8 @@ enum EmailStatus {
   sended,
   updated,
   error,
-  sorted
+  sorted,
+  cacheSorted
 }
 
 class EmailState {

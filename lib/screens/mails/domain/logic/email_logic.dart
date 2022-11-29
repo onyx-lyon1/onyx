@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
+import 'package:oloid2/core/cache_service.dart';
+import 'package:oloid2/core/initialisations/initialisations_export.dart';
 import 'package:oloid2/screens/mails/mails_export.dart';
 
 class EmailLogic {
@@ -20,8 +22,7 @@ class EmailLogic {
         throw Exception("Login failed");
       }
     }
-    final List<Mail>? emailOpt =
-        await mailClient.fetchMessages(emailNumber);
+    final List<Mail>? emailOpt = await mailClient.fetchMessages(emailNumber);
     if (emailOpt == null || emailOpt.isEmpty) {
       if (kDebugMode) {
         print("no emails");
@@ -84,5 +85,14 @@ class EmailLogic {
       }
     }
     return true;
+  }
+
+  static Future<List<EmailModel>> cacheLoad(String path) async {
+    hiveInit(path: path);
+    if (await CacheService.exist<EmailModelWrapper>()) {
+      return (await CacheService.get<EmailModelWrapper>())!.emailModels;
+    } else {
+      return [];
+    }
   }
 }

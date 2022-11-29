@@ -85,13 +85,8 @@ class AgendaLogic {
 
   static Future<List<DayModel>> getCache(String path) async {
     await hiveInit(path: path);
-    print("before exist");
     if (await CacheService.exist<DayModelWrapper>()) {
-      print("le cache agenda existe");
-      List<DayModel> dayModels =
-          (await CacheService.get<DayModelWrapper>())!.dayModels;
-      print("le cache agenda a été récupéré");
-      return dayModels;
+      return (await CacheService.get<DayModelWrapper>())!.dayModels;
     } else {
       return [];
     }

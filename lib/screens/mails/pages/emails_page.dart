@@ -14,7 +14,6 @@ class EmailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
-
     return BlocListener<EmailCubit, EmailState>(
       listener: (context, state) {
         if (state.status == EmailStatus.connected) {
@@ -32,7 +31,8 @@ class EmailsPage extends StatelessWidget {
               message: "Connection au emails",
             );
           } else if (state.status == EmailStatus.loading ||
-              state.status == EmailStatus.cacheLoaded) {
+              state.status == EmailStatus.cacheLoaded ||
+              state.status == EmailStatus.cacheSorted) {
             loadingHeader =
                 const LoadingHeaderWidget(message: "Chargement des emails");
           }
@@ -40,8 +40,6 @@ class EmailsPage extends StatelessWidget {
             loadingHeader = const LoadingHeaderWidget(
               message: "Erreur de chargement des emails",
             );
-            // return const StateDisplayingPage(
-            //     message: "Something went wrong with emails");
           }
           if (state.status == EmailStatus.initial) {
             context.read<EmailCubit>().connect(
