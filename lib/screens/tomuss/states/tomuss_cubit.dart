@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/core/cache_service.dart';
 import 'package:oloid2/screens/tomuss/tomuss_export.dart';
+import 'package:path_provider/path_provider.dart';
 
 part 'tomuss_state.dart';
 
@@ -13,17 +14,13 @@ class TomussCubit extends Cubit<TomussState> {
     emit(TomussState(status: TomussStatus.loading));
     List<SchoolSubjectModel> teachingUnits = [];
     if (cache) {
-      compute((_) async {
-        if (await CacheService.exist<SchoolSubjectModelWrapper>()) {
-          teachingUnits = (await CacheService.get<SchoolSubjectModelWrapper>())!
-              .teachingUnitModels;
-          emit(TomussState(
-              status: TomussStatus.cacheReady, teachingUnits: teachingUnits));
-        }
-      }, null);
+      teachingUnits = await compute(TomussLogic.getCache,
+          (await getApplicationDocumentsDirectory()).path);
+      emit(TomussState(
+          status: TomussStatus.cacheReady, teachingUnits: teachingUnits));
     }
     try {
-      teachingUnits = await GradesLogic.getGrades(dartus: dartus);
+      teachingUnits = await TomussLogic.getGrades(dartus: dartus);
     } catch (e) {
       if (kDebugMode) {
         print("Error while loading grades: $e");

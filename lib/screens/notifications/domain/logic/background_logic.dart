@@ -36,7 +36,7 @@ void backgroundLogic() {
                     .teachingUnitModels;
           }
           List<SchoolSubjectModel> newTeachingUnits =
-              await GradesLogic.getGrades(dartus: dartus);
+              await TomussLogic.getGrades(dartus: dartus);
           for (var i in newTeachingUnits) {
             SchoolSubjectModel teachingUnitModel =
                 teachingUnits.firstWhere((element) => element.name == i.name);

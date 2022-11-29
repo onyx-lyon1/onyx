@@ -1,5 +1,6 @@
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:oloid2/core/cache_service.dart';
+import 'package:oloid2/core/initialisations/initialisations_export.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
 import 'package:oloid2/screens/settings/settings_export.dart';
 
@@ -83,6 +84,7 @@ class AgendaLogic {
   }
 
   static Future<List<DayModel>> getCache(String path) async {
+    await hiveInit(path: path);
     print("before exist");
     if (await CacheService.exist<DayModelWrapper>()) {
       print("le cache agenda existe");
