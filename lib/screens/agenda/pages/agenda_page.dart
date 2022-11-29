@@ -211,9 +211,9 @@ class AgendaPage extends StatelessWidget {
                       dartus:
                           context.read<AuthentificationCubit>().state.dartus!,
                       settings: context.read<SettingsCubit>().state.settings);
-                  while (context.read<AgendaCubit>().state.status ==
+                  while (context.read<AgendaCubit>().state.status !=
                           AgendaStatus.ready &&
-                      context.read<AgendaCubit>().state.status ==
+                      context.read<AgendaCubit>().state.status !=
                           AgendaStatus.error) {
                     await Future.delayed(const Duration(milliseconds: 100));
                   }
