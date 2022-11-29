@@ -1,3 +1,4 @@
+import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:flutter/foundation.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:lyon1mail/lyon1mail.dart';
@@ -10,7 +11,6 @@ import 'package:oloid2/screens/notifications/notifications_export.dart';
 import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 import 'package:workmanager/workmanager.dart';
-import 'package:dartus/tomuss.dart' as tomusslib;
 
 @pragma('vm:entry-point')
 void backgroundLogic() {
@@ -69,7 +69,8 @@ void backgroundLogic() {
                 })) {
               await NotificationLogic.showNotification(
                   title: "Nouveau mail",
-                  body: "Vous avez un nouveau mail de ${i.sender}",
+                  body:
+                      "Vous avez un nouveau mail de ${i.sender} \n\n ${i.excerpt}",
                   payload: "newMail");
             }
           }
