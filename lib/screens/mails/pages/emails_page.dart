@@ -47,48 +47,40 @@ class EmailsPage extends StatelessWidget {
                 password: context.read<AuthentificationCubit>().state.password);
           }
 
-          return Scaffold(
-            floatingActionButton: Hero(
-              tag: "writeEmail",
-              child: Material(
-                color: (state.status == EmailStatus.initial ||
-                        state.status == EmailStatus.connecting ||
-                        state.status == EmailStatus.cacheLoaded ||
-                        state.status == EmailStatus.cacheSorted ||
-                        state.status == EmailStatus.error)
-                    ? Theme.of(context).disabledColor
-                    : Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(100),
-                child: InkWell(
+          return SafeArea(
+            child: Scaffold(
+              floatingActionButton: Hero(
+                tag: "writeEmail",
+                child: Material(
+                  color: (!state.connected)
+                      ? Theme.of(context).disabledColor
+                      : Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(100),
-                  onTap: (state.status == EmailStatus.initial ||
-                          state.status == EmailStatus.connecting ||
-                          state.status == EmailStatus.cacheLoaded ||
-                          state.status == EmailStatus.cacheSorted ||
-                          state.status == EmailStatus.error)
-                      ? null
-                      : () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const EmailSendPage(),
-                            ),
-                          );
-                        },
-                  child: Padding(
-                    padding: EdgeInsets.all(1.5.h),
-                    child: Icon(
-                      Icons.create,
-                      color: Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedItemColor,
-                      size: 25.sp,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(100),
+                    onTap: (!state.connected)
+                        ? null
+                        : () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const EmailSendPage(),
+                              ),
+                            );
+                          },
+                    child: Padding(
+                      padding: EdgeInsets.all(1.5.h),
+                      child: Icon(
+                        Icons.create,
+                        color: Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .unselectedItemColor,
+                        size: 25.sp,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            body: SafeArea(
-              child: CommonScreenWidget(
+              body: CommonScreenWidget(
                 state: loadingHeader,
                 header: const EmailHeaderWidget(),
                 body: ListView.custom(

@@ -10,19 +10,23 @@ class AgendaUrlParameterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController qrCodeURLController = TextEditingController();
-    qrCodeURLController.text = context.read<SettingsCubit>().state.settings.agendaURL;
+    qrCodeURLController.text =
+        context.read<SettingsCubit>().state.settings.agendaURL;
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         return Column(
           children: [
             TextSwitchWidget(
               text: 'Récupérer automatiquement les ressources de l\'agenda',
-              value: context.read<SettingsCubit>().state.settings.fetchAgendaAuto,
+              value:
+                  context.read<SettingsCubit>().state.settings.fetchAgendaAuto,
               onChanged: (bool b) {
-                context.read<SettingsCubit>().modify(settings: context
-                    .read<SettingsCubit>()
-                    .state.settings
-                    .copyWith(fetchAgendaAuto: b));
+                context.read<SettingsCubit>().modify(
+                    settings: context
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .copyWith(fetchAgendaAuto: b));
               },
             ),
             (!context.read<SettingsCubit>().state.settings.fetchAgendaAuto)
@@ -37,7 +41,7 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width - 110,
+                            width: 70.w,
                             height: 8.h,
                             padding: EdgeInsets.only(left: 3.w),
                             decoration: BoxDecoration(
@@ -57,9 +61,11 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                                       .color,
                                 ),
                                 onChanged: (String value) {
-                                  context.read<SettingsCubit>().modify(settings: context
+                                  context.read<SettingsCubit>().modify(
+                                      settings: context
                                           .read<SettingsCubit>()
-                                          .state.settings
+                                          .state
+                                          .settings
                                           .copyWith(agendaURL: value));
                                   if (kDebugMode) {
                                     print(
@@ -91,20 +97,24 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                               onPressed: () {
                                 Navigator.of(context)
                                     .push(MaterialPageRoute(
-                                  builder: (context) => const QrCodeScannerPage(),
+                                  builder: (context) =>
+                                      const QrCodeScannerPage(),
                                 ))
                                     .then((dynamic url) {
                                   qrCodeURLController.value = TextEditingValue(
                                       text: url ??
                                           qrCodeURLController.value.text);
-                                  context.read<SettingsCubit>().modify(settings: context
+                                  context.read<SettingsCubit>().modify(
+                                      settings: context
                                           .read<SettingsCubit>()
-                                          .state.settings
+                                          .state
+                                          .settings
                                           .copyWith(
                                               agendaURL: url ??
                                                   context
                                                       .read<SettingsCubit>()
-                                                      .state.settings
+                                                      .state
+                                                      .settings
                                                       .agendaURL));
                                 });
                               },

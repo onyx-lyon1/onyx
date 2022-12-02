@@ -67,6 +67,9 @@ class EmailContentWidget extends StatelessWidget {
               return NavigationDecision.prevent;
             },
           )
-        : SelectableText(mail.body);
+        : SelectableText(
+            mail.body,
+            textAlign: TextAlign.left,
+          );
   }
 }

@@ -1,11 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/screens/login/login_export.dart';
+import 'package:oloid2/core/widgets/core_widget_export.dart';
 import 'package:oloid2/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
 
 class EmailSendPage extends StatelessWidget {
   final int? replyOriginalMessage;
@@ -19,6 +19,7 @@ class EmailSendPage extends StatelessWidget {
     final TextEditingController subjectEditor = TextEditingController();
     final TextEditingController destinationEditor = TextEditingController();
     final TextEditingController bodyEditor = TextEditingController();
+    List<File> attachments = [];
 
     return BlocBuilder<EmailCubit, EmailState>(
       builder: (context, state) {
@@ -46,64 +47,63 @@ class EmailSendPage extends StatelessWidget {
           context.read<EmailCubit>().load(cache: false);
           SchedulerBinding.instance.addPostFrameCallback((_) {
             Navigator.pop(context);
-            // Navigator.pop(context);
           });
         } else if (state.status == EmailStatus.sending) {
           return const StateDisplayingPage(message: "Sending message");
         }
-        return Material(
-          child: Hero(
-            tag: 'writeEmail',
-            child: Scaffold(
-              backgroundColor: Theme.of(context).backgroundColor,
-              floatingActionButton: Material(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(100),
-                child: InkWell(
+        return SafeArea(
+          child: Material(
+            child: Hero(
+              tag: 'writeEmail',
+              child: Scaffold(
+                backgroundColor: Theme.of(context).backgroundColor,
+                floatingActionButton: Material(
+                  color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(100),
-                  splashColor: Theme.of(context).cardTheme.color,
-                  onTap: () {
-                    if ((destinationEditor.value.text.isNotEmpty &&
-                            subjectEditor.value.text.isNotEmpty &&
-                            bodyEditor.value.text.isNotEmpty &&
-                            destinationEditor.value.text.contains("@") &&
-                            destinationEditor.value.text.contains(".")) ||
-                        (replyOriginalMessage != null &&
-                            bodyEditor.value.text.isNotEmpty)) {
-                      EmailModel email = EmailModel(
-                        subject: subjectEditor.text,
-                        sender: "moi",
-                        excerpt: "",
-                        isRead: false,
-                        date: DateTime.now(),
-                        body: bodyEditor.text,
-                        id: 0,
-                        receiver: destinationEditor.text,
-                        attachments: [],
-                      );
-                      context.read<EmailCubit>().send(
-                          email: email,
-                          replyAll: replyAll,
-                          replyOriginalMessageId: replyOriginalMessage);
-                    } else {
-                      showDialog(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(100),
+                    splashColor: Theme.of(context).cardTheme.color,
+                    onTap: () {
+                      if ((destinationEditor.value.text.isNotEmpty &&
+                              subjectEditor.value.text.isNotEmpty &&
+                              bodyEditor.value.text.isNotEmpty &&
+                              destinationEditor.value.text.contains("@") &&
+                              destinationEditor.value.text.contains(".")) ||
+                          (replyOriginalMessage != null &&
+                              bodyEditor.value.text.isNotEmpty)) {
+                        EmailModel email = EmailModel(
+                          subject: subjectEditor.text,
+                          sender: "moi",
+                          excerpt: "",
+                          isRead: false,
+                          date: DateTime.now(),
+                          body: bodyEditor.text,
+                          id: 0,
+                          receiver: destinationEditor.text,
+                          attachments: attachments.map((e) => e.path).toList(),
+                        );
+                        context.read<EmailCubit>().send(
+                            email: email,
+                            replyAll: replyAll,
+                            replyOriginalMessageId: replyOriginalMessage);
+                      } else {
+                        showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                backgroundColor:
-                                    Theme.of(context).backgroundColor,
-                                title: const Text(
-                                    "Veuillez remplir correctement tous les champs"),
-                              ));
-                    }
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(1.5.h),
-                    child: Icon(Icons.send, size: 25.sp),
+                            backgroundColor: Theme.of(context).backgroundColor,
+                            title: const Text(
+                                "Veuillez remplir correctement tous les champs"),
+                          ),
+                        );
+                      }
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.all(1.5.h),
+                      child: Icon(Icons.send, size: 25.sp),
+                    ),
                   ),
                 ),
-              ),
-              body: SafeArea(
-                child: SingleChildScrollView(
+                body: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -201,120 +201,8 @@ class EmailSendPage extends StatelessWidget {
                               width: 100.w,
                               child: Padding(
                                 padding: EdgeInsets.all(1.h),
-                                child: RawAutocomplete<String>(
-                                  optionsBuilder: (TextEditingValue
-                                      textEditingValue) async {
-                                    if (!context
-                                        .read<EmailCubit>()
-                                        .mailClient
-                                        .isAuthenticated) {
-                                      context.read<EmailCubit>().connect(
-                                          username: context
-                                              .read<AuthentificationCubit>()
-                                              .state
-                                              .username,
-                                          password: context
-                                              .read<AuthentificationCubit>()
-                                              .state
-                                              .password);
-                                      return [];
-                                    } else {
-                                      return (await context
-                                              .read<EmailCubit>()
-                                              .mailClient
-                                              .resolveContact(
-                                                  textEditingValue.text))
-                                          .map((e) => e.email.toString())
-                                          .toList();
-                                    }
-                                  },
-                                  displayStringForOption: (String option) =>
-                                      option,
-                                  textEditingController: destinationEditor,
-                                  focusNode: FocusNode(),
-                                  optionsViewBuilder: (BuildContext context,
-                                      AutocompleteOnSelected<String> onSelected,
-                                      Iterable<String> options) {
-                                    return Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Material(
-                                        elevation: 4.0,
-                                        color:
-                                            Theme.of(context).backgroundColor,
-                                        child: SizedBox(
-                                          // width: 97.w,
-                                          child: ListView(
-                                            padding: EdgeInsets.all(1.h),
-                                            children: options
-                                                .map((String option) =>
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        onSelected(option);
-                                                      },
-                                                      child: ListTile(
-                                                        title: Text(option),
-                                                      ),
-                                                    ))
-                                                .toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  fieldViewBuilder: (BuildContext context,
-                                      TextEditingController
-                                          fieldTextEditingController,
-                                      FocusNode fieldFocusNode,
-                                      VoidCallback onFieldSubmitted) {
-                                    return SizedBox(
-                                      height: 4.5.h,
-                                      child: TextField(
-                                        controller: fieldTextEditingController,
-                                        focusNode: fieldFocusNode,
-                                        textAlignVertical:
-                                            TextAlignVertical.top,
-                                        cursorColor: Theme.of(context)
-                                            .textTheme
-                                            .button!
-                                            .color!,
-                                        style: TextStyle(
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .button!
-                                              .color!,
-                                        ),
-                                        decoration: InputDecoration(
-                                            hintText:
-                                                "Destinataire : PXXXXXXX, prenom.nom@status.univ-lyon1.fr",
-                                            hintStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                    color: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText1!
-                                                        .color!
-                                                        .withOpacity(0.5)),
-                                            isDense: true,
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1!
-                                                      .color!,
-                                                  width: 1),
-                                            ),
-                                            border: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .backgroundColor,
-                                                width: 1,
-                                              ),
-                                            )),
-                                      ),
-                                    );
-                                  },
-                                ),
+                                child: EmailSendAutocompleteWidget(
+                                    destinationEditor: destinationEditor),
                               ),
                             )
                           : Container(),
@@ -323,7 +211,7 @@ class EmailSendPage extends StatelessWidget {
                       ),
                       Container(
                         color: Theme.of(context).cardTheme.color,
-                        height: (replyOriginalMessage == null) ? 80.h : 90.h,
+                        height: (replyOriginalMessage == null) ? 65.h : 75.h,
                         width: 100.w,
                         child: Column(
                           children: [
@@ -359,13 +247,23 @@ class EmailSendPage extends StatelessWidget {
                               ),
                             ),
                             (replyOriginalMessage != null)
-                                ? EmailContentWidget(
-                                    mail: state.emails.firstWhere((element) =>
-                                        element.id == replyOriginalMessage))
+                                ? Container(
+                                    width: double.infinity,
+                                    padding: EdgeInsets.all(1.h),
+                                    child: EmailContentWidget(
+                                        mail: state.emails.firstWhere(
+                                            (element) =>
+                                                element.id ==
+                                                replyOriginalMessage)),
+                                  )
                                 : Container(),
                           ],
                         ),
                       ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      EmailSendAttachmentWidget(attachments: attachments),
                     ],
                   ),
                 ),

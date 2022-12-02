@@ -31,7 +31,7 @@ class EmailDetailsPage extends StatelessWidget {
                           color: Theme.of(context).cardTheme.color,
                           child: Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 2.w, vertical: 0.5.h),
+                                horizontal: 2.w, vertical: 1.h),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -90,6 +90,7 @@ class EmailDetailsPage extends StatelessWidget {
                         Container(
                           color: Theme.of(context).cardTheme.color,
                           height: 60.h,
+                          width: 100.w,
                           padding: EdgeInsets.all(1.h),
                           child: EmailContentWidget(mail: mail),
                         ),
@@ -103,58 +104,28 @@ class EmailDetailsPage extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: mail.attachments.length,
                                   itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: EdgeInsets.all(1.h),
-                                      child: Material(
-                                        color: Colors.transparent,
-                                        child: InkWell(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          onTap: () async {
-                                            //save data in a file and open it
-                                            String attachmentPath =
-                                                await AttachmentLogic
-                                                    .getAttachmentLocalPath(
-                                                        email: mail,
-                                                        mailClient: context
-                                                            .read<EmailCubit>()
-                                                            .mailClient,
-                                                        emailNumber:
-                                                            state.emailNumber,
-                                                        fileName:
-                                                            mail.attachments[
-                                                                index]);
-                                            showDialog(
-                                                context: context,
-                                                builder: (_) =>
-                                                    SaveOrOpenDialogWidget(
-                                                      filePath: attachmentPath,
-                                                    ));
-                                          },
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.attach_file,
-                                                size: 20.sp,
-                                              ),
-                                              SizedBox(
-                                                height: 1.h,
-                                              ),
-                                              Text(
-                                                mail.attachments[index],
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style:
-                                                    TextStyle(fontSize: 10.sp),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                    return EmailAttachmentWidget(
+                                      fileName: mail.attachments[index],
+                                      onTap: () async {
+                                        //save data in a file and open it
+                                        String attachmentPath =
+                                            await AttachmentLogic
+                                                .getAttachmentLocalPath(
+                                                    email: mail,
+                                                    mailClient: context
+                                                        .read<EmailCubit>()
+                                                        .mailClient,
+                                                    emailNumber:
+                                                        state.emailNumber,
+                                                    fileName: mail
+                                                        .attachments[index]);
+                                        showDialog(
+                                            context: context,
+                                            builder: (_) =>
+                                                SaveOrOpenDialogWidget(
+                                                  filePath: attachmentPath,
+                                                ));
+                                      },
                                     );
                                   },
                                 ),
@@ -173,11 +144,7 @@ class EmailDetailsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   IconButton(
-                      onPressed: (state.status == EmailStatus.initial ||
-                              state.status == EmailStatus.connecting ||
-                              state.status == EmailStatus.cacheLoaded ||
-                              state.status == EmailStatus.cacheSorted ||
-                              state.status == EmailStatus.error)
+                      onPressed: (!state.connected)
                           ? null
                           : () {
                               Navigator.push(

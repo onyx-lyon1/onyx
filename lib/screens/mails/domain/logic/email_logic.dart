@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:oloid2/core/cache_service.dart';
@@ -79,8 +81,12 @@ class EmailLogic {
           recipients: recipients,
           subject: email.subject,
           body: email.body,
+          attachments: email.attachments.map((e) => File(e)).toList(),
         );
       } catch (e) {
+        if (kDebugMode) {
+          print("mail send failed : $e");
+        }
         throw Exception("Send failed");
       }
     }
