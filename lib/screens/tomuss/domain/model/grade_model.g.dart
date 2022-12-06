@@ -8,7 +8,7 @@ part of 'grade_model.dart';
 
 class GradeModelAdapter extends TypeAdapter<GradeModel> {
   @override
-  final int typeId = 4;
+  final int typeId = 9;
 
   @override
   GradeModel read(BinaryReader reader) {

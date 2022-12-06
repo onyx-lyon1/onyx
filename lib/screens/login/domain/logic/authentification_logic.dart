@@ -3,13 +3,13 @@ import 'package:oloid2/screens/login/login_export.dart';
 import 'package:dartus/tomuss.dart' as tomusslib;
 
 class AuthentificationLogic {
-  static Future<Authentication> fetchCredential(
+  static Future<AuthenticationModel> fetchCredential(
       {String? username, String? password}) async {
-    Box<Authentication> authBox =
-        await Hive.openBox<Authentication>("authentification");
-    Authentication? auth;
+    Box<AuthenticationModel> authBox =
+        await Hive.openBox<AuthenticationModel>("authentification");
+    AuthenticationModel? auth;
     if (username != null && password != null) {
-      auth = Authentication(username: username, password: password);
+      auth = AuthenticationModel(username: username, password: password);
     } else {
       auth = authBox.get("credential");
     }
@@ -25,18 +25,18 @@ class AuthentificationLogic {
       {required String username,
       required String password,
       required bool keepLogedIn}) async {
-    Box<Authentication> authBox =
-        await Hive.openBox<Authentication>("authentification");
+    Box<AuthenticationModel> authBox =
+        await Hive.openBox<AuthenticationModel>("authentification");
     final tomusslib.Dartus tomuss =
         tomusslib.Dartus(tomusslib.Authentication(username, password));
     try {
       if (await tomuss.authenticate()) {
         if (keepLogedIn) {
           if (!authBox.isOpen) {
-            authBox = await Hive.openBox<Authentication>("authentification");
+            authBox = await Hive.openBox<AuthenticationModel>("authentification");
           }
           await authBox.put("credential",
-              Authentication(username: username, password: password));
+              AuthenticationModel(username: username, password: password));
         }
       } else {
         throw Exception("Authentification failed");

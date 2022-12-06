@@ -24,7 +24,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     //fetch username and password
     emit(state.copyWith(status: AuthentificationStatus.authentificating));
     try {
-      Authentication auth = await AuthentificationLogic.fetchCredential(
+      AuthenticationModel auth = await AuthentificationLogic.fetchCredential(
           username: username, password: password);
       _usename = auth.username;
       _password = auth.password;
@@ -55,8 +55,8 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     if (kDebugMode) {
       print("forget credential");
     }
-    Box<Authentication> authBox =
-        await Hive.openBox<Authentication>("authentification");
+    Box<AuthenticationModel> authBox =
+        await Hive.openBox<AuthenticationModel>("authentification");
     authBox.delete("credential");
   }
 
@@ -64,8 +64,8 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     if (kDebugMode) {
       print("logout");
     }
-    Box<Authentication> authBox =
-        await Hive.openBox<Authentication>("authentification");
+    Box<AuthenticationModel> authBox =
+        await Hive.openBox<AuthenticationModel>("authentification");
     authBox.delete("credential");
     CacheService.reset<SchoolSubjectModelWrapper>();
     CacheService.reset<DayModelWrapper>();

@@ -9,7 +9,7 @@ part of 'school_subject_model_wrapper.dart';
 class SchoolSubjectModelWrapperAdapter
     extends TypeAdapter<SchoolSubjectModelWrapper> {
   @override
-  final int typeId = 12;
+  final int typeId = 11;
 
   @override
   SchoolSubjectModelWrapper read(BinaryReader reader) {

@@ -1,9 +1,10 @@
 import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:oloid2/screens/settings/settings_export.dart';
 
 part 'settings_model.g.dart';
 
-@HiveType(typeId: 6)
+@HiveType(typeId: 7)
 class SettingsModel {
   @HiveField(0)
   late bool keepMeLoggedIn;

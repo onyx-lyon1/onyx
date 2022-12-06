@@ -8,7 +8,7 @@ part of 'day_model_wrapper.dart';
 
 class DayModelWrapperAdapter extends TypeAdapter<DayModelWrapper> {
   @override
-  final int typeId = 10;
+  final int typeId = 2;
 
   @override
   DayModelWrapper read(BinaryReader reader) {

@@ -2,21 +2,22 @@
 
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'authentication.g.dart';
 
-@HiveType(typeId: 1)
-class Authentication {
+part 'authentication_model.g.dart';
+
+@HiveType(typeId: 4)
+class AuthenticationModel {
   @HiveField(0)
   String username;
   @HiveField(1)
   String password;
 
-  Authentication({this.username = "", this.password = ""});
+  AuthenticationModel({this.username = "", this.password = ""});
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Authentication &&
+      other is AuthenticationModel &&
           runtimeType == other.runtimeType &&
           username == other.username &&
           password == other.password;

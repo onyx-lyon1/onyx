@@ -5,7 +5,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:lyon1mail/lyon1mail.dart' as lyon1mail;
 
-part 'mail_model.g.dart';
+
+part 'email_model.g.dart';
 
 @HiveType(typeId: 5)
 class EmailModel {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+
 part 'theme_mode_enum.g.dart';
 
-@HiveType(typeId: 13)
+@HiveType(typeId: 8)
 enum ThemeModeEnum {
   @HiveField(0)
   system,

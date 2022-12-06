@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 part 'teacher_model.g.dart';
 
-@HiveType(typeId: 7)
+@HiveType(typeId: 12)
 class TeacherModel {
   @HiveField(0)
   late String _name;

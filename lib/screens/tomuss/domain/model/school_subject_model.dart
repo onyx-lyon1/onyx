@@ -2,11 +2,12 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 
 part 'school_subject_model.g.dart';
 
-@HiveType(typeId: 8)
+@HiveType(typeId: 10)
 class SchoolSubjectModel {
   @HiveField(0)
   final String name;

@@ -6,7 +6,7 @@ import 'package:oloid2/screens/agenda/agenda_export.dart';
 
 part 'day_model.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 1)
 class DayModel {
   @HiveField(0)
   List<EventModel> events;

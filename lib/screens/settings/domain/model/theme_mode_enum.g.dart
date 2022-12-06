@@ -8,7 +8,7 @@ part of 'theme_mode_enum.dart';
 
 class ThemeModeEnumAdapter extends TypeAdapter<ThemeModeEnum> {
   @override
-  final int typeId = 13;
+  final int typeId = 8;
 
   @override
   ThemeModeEnum read(BinaryReader reader) {
@@ -16,9 +16,9 @@ class ThemeModeEnumAdapter extends TypeAdapter<ThemeModeEnum> {
       case 0:
         return ThemeModeEnum.system;
       case 1:
-        return ThemeModeEnum.light;
-      case 2:
         return ThemeModeEnum.dark;
+      case 2:
+        return ThemeModeEnum.light;
       default:
         return ThemeModeEnum.system;
     }
@@ -30,10 +30,10 @@ class ThemeModeEnumAdapter extends TypeAdapter<ThemeModeEnum> {
       case ThemeModeEnum.system:
         writer.writeByte(0);
         break;
-      case ThemeModeEnum.light:
+      case ThemeModeEnum.dark:
         writer.writeByte(1);
         break;
-      case ThemeModeEnum.dark:
+      case ThemeModeEnum.light:
         writer.writeByte(2);
         break;
     }

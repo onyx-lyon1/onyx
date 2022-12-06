@@ -6,7 +6,7 @@ import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 
 Future<void> hiveInit({String? path}) async {
-  Hive.registerAdapter(AuthenticationAdapter());
+  Hive.registerAdapter(AuthenticationModelAdapter());
   Hive.registerAdapter(DayModelAdapter());
   Hive.registerAdapter(DayModelWrapperAdapter());
   Hive.registerAdapter(EventModelAdapter());

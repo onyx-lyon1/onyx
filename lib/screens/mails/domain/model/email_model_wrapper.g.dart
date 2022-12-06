@@ -8,7 +8,7 @@ part of 'email_model_wrapper.dart';
 
 class EmailModelWrapperAdapter extends TypeAdapter<EmailModelWrapper> {
   @override
-  final int typeId = 11;
+  final int typeId = 6;
 
   @override
   EmailModelWrapper read(BinaryReader reader) {

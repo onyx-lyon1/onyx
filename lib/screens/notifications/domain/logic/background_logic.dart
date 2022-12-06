@@ -23,7 +23,7 @@ void backgroundLogic() {
         await hiveInit();
         await NotificationLogic.init();
         SettingsModel settings = await SettingsLogic.load();
-        Authentication auth = (await AuthentificationLogic.fetchCredential());
+        AuthenticationModel auth = (await AuthentificationLogic.fetchCredential());
         tomusslib.Dartus dartus = await AuthentificationLogic.login(
             username: auth.username,
             password: auth.password,

@@ -6,7 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/core/extensions/extensions_export.dart';
-import 'package:oloid2/screens/mails/domain/model/mail_model.dart';
+import 'package:oloid2/screens/mails/domain/model/email_model.dart';
 import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
