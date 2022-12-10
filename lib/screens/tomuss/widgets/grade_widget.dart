@@ -48,6 +48,22 @@ class GradeWidget extends StatelessWidget {
     }
   }
 
+  /* original tomuss code
+  function rank_to_color(rank, nr) {
+    var x = Math.floor(511 * rank / nr);
+    var b, c = '';
+    if (rank > nr / 2) {
+        b = '255,' + (511 - x) + ',' + (511 - x);
+        if (rank > 3 * nr / 4)
+            c = ';color:#FFF';
+    }
+    else
+        b = x + ',255,' + x;
+
+    return 'background: rgb(' + b + ')' + c
+  }
+   */
+
   Color _gradeColor(BuildContext context, GradeModel grade) {
     if (context.read<SettingsCubit>().state.settings.forceGreen ||
         !grade.isValidGrade) {
@@ -57,10 +73,6 @@ class GradeWidget extends StatelessWidget {
       Color b = Colors.red;
       if (grade.rank > grade.groupSize / 2) {
         b = Color.fromARGB(255, 255, 511 - x, 511 - x);
-        if (grade.rank > 3 * grade.groupSize / 4) {
-          b = GradeColor.seenGreen;
-          //TODO add more explicit felicitation
-        }
       } else {
         b = Color.fromARGB(255, x, 255, x);
       }
