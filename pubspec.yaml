@@ -31,11 +31,11 @@ dependencies:
   open_filex: ^4.3.1
   flutter_file_dialog: ^2.3.2
   dartus:
-    git: https://github.com/hatch01/dartus-tomuss-client.git
+    git: https://github.com/onyx-lyon1/dartus-tomuss-client.git
   lyon1mail:
-    git: https://github.com/hatch01/lyon1-mailclient.git
+    git: https://github.com/onyx-lyon1/lyon1-mailclient.git
   lyon1agenda:
-    git: https://github.com/hatch01/lyon1-agendaclient.git
+    git: https://github.com/onyx-lyon1/lyon1-agendaclient.git
 
 dependency_overrides:
   # unindent for devlopment to use local version of the libraries
