@@ -1,8 +1,8 @@
 // ignore_for_file: hash_and_equals
 
 import 'package:dartus/tomuss.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 
 part 'grade_model.g.dart';
 
@@ -26,6 +26,8 @@ class GradeModel {
   final int groupSize;
   @HiveField(8)
   final bool isValidGrade;
+  @HiveField(9)
+  final List<GradeModel> children;
 
   GradeModel({
     required this.name,
@@ -37,6 +39,7 @@ class GradeModel {
     required this.average,
     required this.mediane,
     required this.isValidGrade,
+    required this.children,
   });
 
   GradeModel.fromGrade(Grade grade)
@@ -48,7 +51,8 @@ class GradeModel {
         rank = grade.rank,
         average = grade.average,
         mediane = grade.mediane,
-        isValidGrade = grade.isValidGrade;
+        isValidGrade = grade.isValidGrade,
+        children = grade.children.map((e) => GradeModel.fromGrade(e)).toList();
 
   @override
   bool operator ==(Object other) =>
@@ -61,10 +65,11 @@ class GradeModel {
               (gradeNumerator.isNaN && other.gradeNumerator.isNaN)) &&
           (gradeDenominator == other.gradeDenominator ||
               (gradeDenominator.isNaN && other.gradeDenominator.isNaN)) &&
-          isValidGrade == other.isValidGrade;
+          isValidGrade == other.isValidGrade &&
+          listEquals(children, other.children);
 
   @override
   String toString() {
-    return 'GradeModel{name: $name, author: $author, gradeNumerator: $gradeNumerator, gradeDenominator: $gradeDenominator, rank: $rank, average: $average, mediane: $mediane, groupSize: $groupSize, isValidGrade: $isValidGrade}';
+    return 'GradeModel{name: $name, author: $author, gradeNumerator: $gradeNumerator, gradeDenominator: $gradeDenominator, rank: $rank, average: $average, mediane: $mediane, groupSize: $groupSize, isValidGrade: $isValidGrade}, children: $children';
   }
 }

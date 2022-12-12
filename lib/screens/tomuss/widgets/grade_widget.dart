@@ -11,12 +11,14 @@ class GradeWidget extends StatelessWidget {
   final String text2;
   final bool isSeen;
   final VoidCallback? onTap;
+  final int depth;
 
   const GradeWidget({
     Key? key,
     required this.grades,
     required this.text1,
     required this.text2,
+    required this.depth,
     this.isSeen = false,
     this.onTap,
   }) : super(key: key);
@@ -106,7 +108,6 @@ class GradeWidget extends StatelessWidget {
       // TODO: give it the required infos
       child: Container(
         height: 11.h,
-        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           boxShadow: const [BoxShadow(color: Colors.black38, blurRadius: 1)],
@@ -115,73 +116,76 @@ class GradeWidget extends StatelessWidget {
             Radius.circular(10),
           ),
         ),
-        child: Row(children: [
-          Container(
-            height: 11.h,
-            width: 25.w,
-            decoration: BoxDecoration(color: _mainGradeColor(context)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    gradeNumerator,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: OloidTheme.darkTheme().backgroundColor,
-                      fontSize: 20.sp,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 15.w,
-                  height: 0.2.h,
-                  color: OloidTheme.darkTheme().backgroundColor,
-                ),
-                Text(
-                  ((grades.isNotEmpty) ? denominator : '-').toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: OloidTheme.darkTheme().backgroundColor,
-                      fontSize: 15),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.only(left: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              height: 11.h,
+              width: 25.w,
+              decoration: BoxDecoration(color: _mainGradeColor(context)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    text1,
-                    style: TextStyle(
+                  SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      gradeNumerator,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).textTheme.bodyText1!.color,
-                        overflow: TextOverflow.clip,
-                        fontSize: 10.sp),
+                        color: OloidTheme.darkTheme().backgroundColor,
+                        fontSize: 20.sp,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 15.w,
+                    height: 0.2.h,
+                    color: OloidTheme.darkTheme().backgroundColor,
                   ),
                   Text(
-                    text2,
-                    textAlign: TextAlign.start,
+                    ((grades.isNotEmpty) ? denominator : '-').toString(),
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 8.sp,
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .color!
-                          .withOpacity(0.8),
-                    ),
+                        color: OloidTheme.darkTheme().backgroundColor,
+                        fontSize: 15),
                   ),
                 ],
               ),
             ),
-          )
-        ]),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.only(left: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      text1,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).textTheme.bodyText1!.color,
+                          overflow: TextOverflow.clip,
+                          fontSize: 10.sp),
+                    ),
+                    Text(
+                      text2,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 8.sp,
+                        color: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .color!
+                            .withOpacity(0.8),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

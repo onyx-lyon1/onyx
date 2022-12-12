@@ -31,15 +31,25 @@ class TomussPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 GradeListHeaderWidget(name: schoolSubject.name),
-                ...schoolSubject.grades.map(
-                  (grade) => GradeWidget(
-                    grades: [grade],
-                    isSeen: true,
-                    text1: grade.name,
-                    text2:
-                        "moyenne: ${grade.average.toStringAsFixed(2)} · mediane: ${grade.mediane.toStringAsFixed(2)}\nclassement:${grade.rank + 1}/${grade.groupSize}\nprofesseur: ${grade.author}",
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  child: GradeListWidget(
+                    grades: schoolSubject.grades,
+                    depth: 0,
                   ),
                 ),
+                // for (var grade in schoolSubject.grades)
+                //   GradeWidget(
+                //     grades: [grade],
+                //     isSeen: true,
+                //     text1: grade.name,
+                //     text2:
+                //     "moyenne: ${grade.average.toStringAsFixed(
+                //         2)} · mediane: ${grade.mediane.toStringAsFixed(
+                //         2)}\nclassement:${grade.rank + 1}/${grade
+                //         .groupSize}\nprofesseur: ${grade.author}",
+                //     depth: grade.children.length,
+                //   ),
               ],
             ),
           ),
@@ -110,12 +120,17 @@ class TomussPage extends StatelessWidget {
                               .showHiddenUE,
                     )
                     .map(
-                      (schoolSubject) => GradeWidget(
-                        grades: schoolSubject.grades,
-                        isSeen: schoolSubject.isSeen,
-                        text2: "${schoolSubject.mastersShort()} • grp ?",
-                        text1: schoolSubject.name,
-                        onTap: () => showAllGrades(context, schoolSubject),
+                      (schoolSubject) => Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5.w, vertical: 1.h),
+                        child: GradeWidget(
+                          grades: schoolSubject.grades,
+                          isSeen: schoolSubject.isSeen,
+                          text2: "${schoolSubject.mastersShort()} • grp ?",
+                          text1: schoolSubject.name,
+                          onTap: () => showAllGrades(context, schoolSubject),
+                          depth: 0,
+                        ),
                       ),
                     )
               ],
