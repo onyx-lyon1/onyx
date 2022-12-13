@@ -49,6 +49,7 @@ class EmailsPage extends StatelessWidget {
 
           return SafeArea(
             child: Scaffold(
+              backgroundColor: Theme.of(context).backgroundColor,
               floatingActionButton: Hero(
                 tag: "writeEmail",
                 child: Material(
