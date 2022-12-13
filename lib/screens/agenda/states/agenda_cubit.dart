@@ -19,7 +19,7 @@ class AgendaCubit extends Cubit<AgendaState> {
             dayModels: []));
 
   Future<void> load(
-      {required Dartus dartus,
+      {required Dartus? dartus,
       required SettingsModel settings,
       bool cache = true}) async {
     emit(state.copyWith(status: AgendaStatus.loading));
@@ -29,18 +29,20 @@ class AgendaCubit extends Cubit<AgendaState> {
       emit(state.copyWith(
           status: AgendaStatus.cacheReady, dayModels: state.dayModels));
     }
-    _agendaClient = Lyon1Agenda.useAuthentication(dartus.authentication);
-    try {
-      state.dayModels = await AgendaLogic.load(
-          agendaClient: _agendaClient!, settings: settings);
-    } catch (e) {
-      emit(state.copyWith(status: AgendaStatus.error));
-      return;
+    if (dartus != null) {
+      _agendaClient = Lyon1Agenda.useAuthentication(dartus.authentication);
+      try {
+        state.dayModels = await AgendaLogic.load(
+            agendaClient: _agendaClient!, settings: settings);
+      } catch (e) {
+        emit(state.copyWith(status: AgendaStatus.error));
+        return;
+      }
+      CacheService.set<DayModelWrapper>(
+          DayModelWrapper(state.dayModels)); //await à definir
+      emit(state.copyWith(
+          status: AgendaStatus.ready, dayModels: state.dayModels));
     }
-    CacheService.set<DayModelWrapper>(
-        DayModelWrapper(state.dayModels)); //await à definir
-    emit(
-        state.copyWith(status: AgendaStatus.ready, dayModels: state.dayModels));
   }
 
   void updateDisplayedDate(

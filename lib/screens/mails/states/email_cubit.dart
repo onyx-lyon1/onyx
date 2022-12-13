@@ -17,23 +17,25 @@ class EmailCubit extends Cubit<EmailState> {
 
   EmailCubit() : super(EmailState());
 
-  void connect({required String username, required String password}) async {
+  void connect({required String? username, required String? password}) async {
     emit(state.copyWith(status: EmailStatus.connecting, connected: false));
     emailsComplete = await compute(
         EmailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
     emit(state.copyWith(
         emails: emailsComplete, status: EmailStatus.cacheLoaded));
-    try {
-      username = username;
-      password = password;
-      mailClient =
-          await EmailLogic.connect(username: username, password: password);
-      emit(state.copyWith(status: EmailStatus.connected, connected: true));
-    } catch (e) {
-      if (kDebugMode) {
-        print("Error while connecting to mail: $e");
+    if (username != null && password != null) {
+      try {
+        username = username;
+        password = password;
+        mailClient =
+            await EmailLogic.connect(username: username, password: password);
+        emit(state.copyWith(status: EmailStatus.connected, connected: true));
+      } catch (e) {
+        if (kDebugMode) {
+          print("Error while connecting to mail: $e");
+        }
+        emit(state.copyWith(status: EmailStatus.error));
       }
-      emit(state.copyWith(status: EmailStatus.error));
     }
   }
 

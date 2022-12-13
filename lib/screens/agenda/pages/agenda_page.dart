@@ -23,7 +23,7 @@ class AgendaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (context.read<AgendaCubit>().state.status == AgendaStatus.initial) {
       context.read<AgendaCubit>().load(
-          dartus: context.read<AuthentificationCubit>().state.dartus!,
+          dartus: context.read<AuthentificationCubit>().state.dartus,
           settings: context.read<SettingsCubit>().state.settings);
     }
     return BlocListener<SettingsCubit, SettingsState>(

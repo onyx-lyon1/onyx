@@ -1,6 +1,7 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oloid2/core/cache_service.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
@@ -30,24 +31,33 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
       _password = auth.password;
     } catch (e) {
       emit(state.copyWith(
-          status: AuthentificationStatus.needCredential,
-          username: "",
-          password: "",
-          dartus: _dartus));
+          status: AuthentificationStatus.needCredential, dartus: _dartus));
       return;
     }
     //login
-    try {
-      _dartus = await AuthentificationLogic.login(
-          username: _usename, password: _password, keepLogedIn: keepLogedIn);
-      emit(state.copyWith(
-          status: AuthentificationStatus.authentificated,
-          username: _usename,
-          password: _password,
-          dartus: _dartus));
-    } catch (e) {
-      emit(state.copyWith(status: AuthentificationStatus.error));
-      return;
+    if ((await (Connectivity().checkConnectivity())) !=
+        ConnectivityResult.none) {
+      try {
+        _dartus = await AuthentificationLogic.login(
+            username: _usename, password: _password, keepLogedIn: keepLogedIn);
+        emit(state.copyWith(
+            status: AuthentificationStatus.authentificated,
+            username: _usename,
+            password: _password,
+            dartus: _dartus));
+      } catch (e) {
+        print(e);
+        emit(state.copyWith(status: AuthentificationStatus.error));
+        return;
+      }
+    } else {
+      Connectivity().onConnectivityChanged.listen((event) {
+        if (event != ConnectivityResult.none) {
+          print("retrieve connection");
+          login(
+              keepLogedIn: keepLogedIn, password: password, username: username);
+        }
+      });
     }
   }
 

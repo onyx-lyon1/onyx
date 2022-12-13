@@ -20,5 +20,4 @@ class TomussState {
       teachingUnits: teachingUnits ?? this.teachingUnits,
     );
   }
-
 }

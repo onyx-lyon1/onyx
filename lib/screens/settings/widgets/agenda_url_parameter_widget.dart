@@ -41,7 +41,7 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            width: 70.w,
+                            width: 65.w,
                             height: 8.h,
                             padding: EdgeInsets.only(left: 3.w),
                             decoration: BoxDecoration(

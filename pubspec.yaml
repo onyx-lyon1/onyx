@@ -25,6 +25,7 @@ dependencies:
   flutter_local_notifications: ^12.0.2
   flutter_speed_dial: ^6.2.0
   device_info_plus: ^8.0.0
+  connectivity_plus: ^3.0.2
   url_launcher: ^6.1.6
   path_provider: ^2.0.11
   file_picker: ^5.2.2

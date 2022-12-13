@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class CommonScreenWidget extends StatelessWidget {
-  final Widget header;
+  final Widget? header;
   final Widget body;
   final Widget? state;
   final Future<void> Function() onRefresh;
 
   const CommonScreenWidget(
       {Key? key,
-      required this.header,
+      this.header,
       required this.body,
       this.state,
       required this.onRefresh})
@@ -32,11 +32,12 @@ class CommonScreenWidget extends StatelessWidget {
             onRefresh: onRefresh,
             child: Column(
               children: [
-                Container(
-                    width: 100.w,
-                    height: 10.h,
-                    color: Theme.of(context).cardColor,
-                    child: header),
+                if (header != null)
+                  Container(
+                      width: 100.w,
+                      height: 10.h,
+                      color: Theme.of(context).cardColor,
+                      child: header),
                 Expanded(
                   child: body,
                 ),

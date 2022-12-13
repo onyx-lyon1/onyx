@@ -136,22 +136,22 @@ class SettingsPage extends StatelessWidget {
                                       .copyWith(forceGreen: b));
                             },
                           ),
-                          TextSwitchWidget(
-                            text: 'Montrer les UEs cachées',
-                            value: context
-                                .read<SettingsCubit>()
-                                .state
-                                .settings
-                                .showHiddenUE,
-                            onChanged: (bool b) {
-                              context.read<SettingsCubit>().modify(
-                                  settings: context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .settings
-                                      .copyWith(showHiddenUE: b));
-                            },
-                          ),
+                          // TextSwitchWidget(
+                          //   text: 'Montrer les UEs cachées',
+                          //   value: context
+                          //       .read<SettingsCubit>()
+                          //       .state
+                          //       .settings
+                          //       .showHiddenUE,
+                          //   onChanged: (bool b) {
+                          //     context.read<SettingsCubit>().modify(
+                          //         settings: context
+                          //             .read<SettingsCubit>()
+                          //             .state
+                          //             .settings
+                          //             .copyWith(showHiddenUE: b));
+                          //   },
+                          // ),
                         ],
                       ),
                       SettingsCardWidget(

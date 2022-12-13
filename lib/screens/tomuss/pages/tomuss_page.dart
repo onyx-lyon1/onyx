@@ -74,7 +74,7 @@ class TomussPage extends StatelessWidget {
         }
         if (state.status == TomussStatus.initial) {
           context.read<TomussCubit>().load(
-              dartus: context.read<AuthentificationCubit>().state.dartus!);
+              dartus: context.read<AuthentificationCubit>().state.dartus);
           loadingHeader = const LoadingHeaderWidget(
             message: "Connection à tomuss",
           );

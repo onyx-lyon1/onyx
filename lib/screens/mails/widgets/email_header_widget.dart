@@ -36,7 +36,7 @@ class EmailHeaderWidget extends StatelessWidget {
                   textAlignVertical: TextAlignVertical.center,
                   decoration: InputDecoration(
                     hintText:
-                        "Recherche dans les ${context.read<EmailCubit>().emailNumber} dernier mails",
+                        "Recherche dans les ${context.read<EmailCubit>().emailNumber} derniers mails",
                     prefixIcon: Icon(
                       Icons.search,
                       color: Theme.of(context)

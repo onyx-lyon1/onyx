@@ -10,7 +10,7 @@ part 'tomuss_state.dart';
 class TomussCubit extends Cubit<TomussState> {
   TomussCubit() : super(TomussState(status: TomussStatus.initial));
 
-  Future<void> load({required Dartus dartus, bool cache = true}) async {
+  Future<void> load({required Dartus? dartus, bool cache = true}) async {
     emit(TomussState(status: TomussStatus.loading));
     List<SchoolSubjectModel> teachingUnits = [];
     if (cache) {
@@ -19,17 +19,20 @@ class TomussCubit extends Cubit<TomussState> {
       emit(TomussState(
           status: TomussStatus.cacheReady, teachingUnits: teachingUnits));
     }
-    try {
-      teachingUnits = await TomussLogic.getGrades(dartus: dartus);
-    } catch (e) {
-      if (kDebugMode) {
-        print("Error while loading grades: $e");
+    if (dartus != null) {
+      try {
+        teachingUnits = await TomussLogic.getGrades(dartus: dartus);
+      } catch (e) {
+        if (kDebugMode) {
+          print("Error while loading grades: $e");
+        }
+        emit(TomussState(status: TomussStatus.error));
+        return;
       }
-      emit(TomussState(status: TomussStatus.error));
-      return;
+      CacheService.set<SchoolSubjectModelWrapper>(
+          SchoolSubjectModelWrapper(teachingUnits));
+      emit(TomussState(
+          status: TomussStatus.ready, teachingUnits: teachingUnits));
     }
-    CacheService.set<SchoolSubjectModelWrapper>(
-        SchoolSubjectModelWrapper(teachingUnits));
-    emit(TomussState(status: TomussStatus.ready, teachingUnits: teachingUnits));
   }
 }

@@ -1,6 +1,6 @@
+import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:oloid2/screens/login/login_export.dart';
-import 'package:dartus/tomuss.dart' as tomusslib;
 
 class AuthentificationLogic {
   static Future<AuthenticationModel> fetchCredential(
@@ -33,7 +33,8 @@ class AuthentificationLogic {
       if (await tomuss.authenticate()) {
         if (keepLogedIn) {
           if (!authBox.isOpen) {
-            authBox = await Hive.openBox<AuthenticationModel>("authentification");
+            authBox =
+                await Hive.openBox<AuthenticationModel>("authentification");
           }
           await authBox.put("credential",
               AuthenticationModel(username: username, password: password));
@@ -46,6 +47,4 @@ class AuthentificationLogic {
     }
     return tomuss;
   }
-
-  static Future<void> logout() async {}
 }

@@ -15,8 +15,8 @@ class EmailSendAutocompleteWidget extends StatelessWidget {
       optionsBuilder: (TextEditingValue textEditingValue) async {
         if (!context.read<EmailCubit>().mailClient.isAuthenticated) {
           context.read<EmailCubit>().connect(
-              username: context.read<AuthentificationCubit>().state.username,
-              password: context.read<AuthentificationCubit>().state.password);
+              username: context.read<AuthentificationCubit>().state.username!,
+              password: context.read<AuthentificationCubit>().state.password!);
           return [];
         } else {
           return (await context

@@ -4,13 +4,13 @@ enum AuthentificationStatus { initial, needCredential, authentificating, authent
 
 class AuthentificationState {
   final AuthentificationStatus status;
-  final String username;
-  final String password;
+  final String? username;
+  final String? password;
   final tomusslib.Dartus? dartus;
   AuthentificationState(
       {required this.status,
-      this.username = "",
-      this.password = "",
+      this.username,
+      this.password,
       this.dartus});
   AuthentificationState copyWith({
     AuthentificationStatus? status,

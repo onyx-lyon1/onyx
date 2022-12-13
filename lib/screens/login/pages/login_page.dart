@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
               context.read<SettingsCubit>().state.settings.keepMeLoggedIn);
       return const StateDisplayingPage(message: "Start authentification");
     } else if (state.status == AuthentificationStatus.authentificating) {
-      return const StateDisplayingPage(message: "Authentificating");
+      return const StateDisplayingPage(message: "Authentification");
     } else if (state.status == AuthentificationStatus.error) {
       Future.delayed(const Duration(seconds: 1), () {
         context.read<AuthentificationCubit>().logout();
