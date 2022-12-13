@@ -22,6 +22,7 @@ class GradeListWidget extends StatelessWidget {
               ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 treeBuilder(context, depth, gradeIndex == grades.length - 1),
                 Expanded(
@@ -65,18 +66,18 @@ class GradeListWidget extends StatelessWidget {
             children: [
               Container(
                 width: 1.w,
-                height: ((lastElement) ? (15.h / 2) + (0.5.h / 2) : 15.h),
+                height: ((lastElement) ? (13.h / 2) + (0.5.h / 2) : 13.h),
                 color: Theme.of(context).primaryColor,
               ),
               Container(
                 width: 1.w,
-                height: ((lastElement) ? (15.h / 2) - (0.5.h / 2) : 0),
+                height: ((lastElement) ? (13.h / 2) - (0.5.h / 2) : 0),
                 color: Theme.of(context).backgroundColor,
               ),
             ],
           ),
           Container(
-            width: 12.5.w - 1.w,
+            width: 5.w,
             height: 0.5.h,
             color: Theme.of(context).primaryColor,
           ),
