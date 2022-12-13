@@ -273,6 +273,12 @@ class SettingsPage extends StatelessWidget {
                           child: const Text('Vider le cache des notes'),
                           onPressed: () {
                             CacheService.reset<SchoolSubjectModelWrapper>();
+                            context.read<TomussCubit>().load(
+                                dartus: context
+                                    .read<AuthentificationCubit>()
+                                    .state
+                                    .dartus!,
+                                cache: false);
                           },
                         ),
                         MaterialButton(
@@ -282,6 +288,16 @@ class SettingsPage extends StatelessWidget {
                           child: const Text('Vider le cache de l\'agenda'),
                           onPressed: () {
                             CacheService.reset<DayModelWrapper>();
+                            context.read<AgendaCubit>().load(
+                                dartus: context
+                                    .read<AuthentificationCubit>()
+                                    .state
+                                    .dartus!,
+                                settings: context
+                                    .read<SettingsCubit>()
+                                    .state
+                                    .settings,
+                                cache: false);
                           },
                         ),
                         MaterialButton(
@@ -291,6 +307,7 @@ class SettingsPage extends StatelessWidget {
                           child: const Text('Vider le cache des mails'),
                           onPressed: () {
                             CacheService.reset<EmailModelWrapper>();
+                            context.read<EmailCubit>().load(cache: false);
                           },
                         ),
                       ])
