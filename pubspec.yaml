@@ -77,6 +77,8 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
+    - assets/batiment_lyon1.json
+    - assets/icon.png
     - assets/map/5/16/11.png
     - assets/map/18/134628/93483.png
     - assets/map/18/134628/93487.png
