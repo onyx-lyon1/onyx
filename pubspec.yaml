@@ -39,6 +39,7 @@ dependencies:
     git: https://github.com/onyx-lyon1/lyon1-agendaclient.git
   flutter_map: ^3.0.0
   latlong2: ^0.8.1
+  requests: ^4.7.0
 
 dependency_overrides:
   # unindent for devlopment to use local version of the libraries

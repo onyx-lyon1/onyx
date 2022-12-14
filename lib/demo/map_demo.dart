@@ -23,7 +23,7 @@ class _MapDemoWidgetState extends State<MapDemoWidget> {
                   LatLng(45.783335, 4.871525), LatLng(45.7745175, 4.8616787));
               setState(() {});
             },
-            child: Text('Calculate Route')),
+            child: const Text('Calculate Route')),
         Expanded(
           child: FlutterMap(
             options: MapOptions(

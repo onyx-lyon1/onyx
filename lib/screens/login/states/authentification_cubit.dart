@@ -46,14 +46,18 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
             password: _password,
             dartus: _dartus));
       } catch (e) {
-        print(e);
+        if (kDebugMode) {
+          print(e);
+        }
         emit(state.copyWith(status: AuthentificationStatus.error));
         return;
       }
     } else {
       Connectivity().onConnectivityChanged.listen((event) {
         if (event != ConnectivityResult.none) {
-          print("retrieve connection");
+          if (kDebugMode) {
+            print("retrieve connection");
+          }
           login(
               keepLogedIn: keepLogedIn, password: password, username: username);
         }
