@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/core/extensions/extensions_export.dart';
+import 'package:oloid2/core/extensions/int_to_sized_string.dart';
+import 'package:oloid2/core/extensions/month_to_string.dart';
+import 'package:oloid2/core/extensions/weekday_to_string.dart';
+import 'package:oloid2/demo/map_demo.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
 import 'package:sizer/sizer.dart';
 
@@ -10,81 +13,80 @@ class EventDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 5.w),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 3,
-            width: 12.w,
-            margin: const EdgeInsets.only(bottom: 10),
-            decoration: BoxDecoration(
-              color: Theme.of(context)
-                  .textTheme
-                  .bodyText1!
-                  .color!
-                  .withOpacity(0.3),
-              borderRadius: BorderRadius.circular(5),
+          SelectableText(
+            event.description,
+            style: TextStyle(
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w500,
+              color: Theme.of(context).textTheme.bodyText1!.color,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(3.w),
-            child: SizedBox(
-              width: 100.w,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.description),
-                      Expanded(
-                        child: Text(
-                          event.description,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Icon(Icons.location_on),
-                      Expanded(
-                          child: Text(event.location,
-                              overflow: TextOverflow.ellipsis)),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Icon(Icons.access_time),
-                      Expanded(
-                        child: Text(
-                            '${event.start.hour.toFixedLengthString(2)}:${event.start.minute.toFixedLengthString(2)} --> ${event.end.hour.toFixedLengthString(2)}:${event.end.minute.toFixedLengthString(2)}',
-                            overflow: TextOverflow.ellipsis),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Icon(Icons.hourglass_bottom),
-                      Expanded(
-                          child: Text(
-                              event.end
-                                  .difference(event.start)
-                                  .dateBeautifull(),
-                              overflow: TextOverflow.ellipsis)),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Icon(Icons.drive_file_rename_outline),
-                      Expanded(
-                          child: Text(event.teacher,
-                              overflow: TextOverflow.ellipsis)),
-                    ],
-                  ),
-                ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                Icons.access_time_rounded,
+                color: Theme.of(context).textTheme.bodyText1!.color,
               ),
-            ),
+              SelectableText(
+                "${event.start.hour.toFixedLengthString(2)}h${event.start.minute.toFixedLengthString(2)}",
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).textTheme.bodyText1!.color,
+                ),
+              ),
+              SelectableText(
+                "${event.end.hour.toFixedLengthString(2)}h${event.end.minute.toFixedLengthString(2)}",
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).textTheme.bodyText1!.color,
+                ),
+              ),
+            ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                Icons.calendar_month_rounded,
+                color: Theme.of(context).textTheme.bodyText1!.color,
+              ),
+              SelectableText(
+                '${event.start.toWeekDayName()} ${event.start.day} ${event.start.toMonthName()}',
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).textTheme.bodyText1!.color,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                Icons.location_on_rounded,
+                color: Theme.of(context).textTheme.bodyText1!.color,
+              ),
+              SelectableText(
+                event.location,
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).textTheme.bodyText1!.color,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 40.h, width: 90.w, child: MapDemoWidget()),
         ],
       ),
     );
