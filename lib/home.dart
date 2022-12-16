@@ -36,7 +36,9 @@ class HomeState extends State<Home> {
   }
 
   double getOffset(int index) {
-    return index * Res.bottomNavBarItemWidth;
+    // return (index - 1) * Res.bottomNavBarItemWidth -
+    //     (Res.bottomNavBarItemWidth / 2);//version centree
+    return (index + 1) * Res.bottomNavBarItemWidth; //version a droite
   }
 
   void animateScroll() {

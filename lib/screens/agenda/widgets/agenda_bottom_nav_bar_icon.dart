@@ -13,17 +13,25 @@ class AgendaBottomNavBarIcon extends StatelessWidget {
       children: [
         Icon(
           Icons.calendar_today_rounded,
-          color: selected ? Theme.of(context).primaryColor : Colors.white,
+          color: selected
+              ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+              : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
           size: 30.sp,
         ),
         Padding(
           padding: EdgeInsets.only(top: 30.sp / 4),
           child: Text(
             DateTime.now().day.toString(),
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1!
-                .copyWith(fontSize: 15.sp),
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontSize: 15.sp,
+                  color: (selected)
+                      ? Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .selectedItemColor
+                      : Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .unselectedItemColor,
+                ),
           ),
         ),
       ],

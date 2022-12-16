@@ -8,7 +8,12 @@ class SettingsBottomNavBarIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(Icons.settings_rounded,
-        color: selected ? Theme.of(context).primaryColor : Colors.white,size: 30.sp,);
+    return Icon(
+      Icons.settings_rounded,
+      color: selected
+          ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+          : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+      size: 30.sp,
+    );
   }
 }
