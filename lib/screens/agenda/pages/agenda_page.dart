@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/core/extensions/extensions_export.dart';
+import 'package:oloid2/core/res.dart';
 import 'package:oloid2/core/widgets/common_screen_widget.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
 import 'package:oloid2/screens/login/login_export.dart';
@@ -126,7 +127,7 @@ class AgendaPage extends StatelessWidget {
                         },
                       )
                     : Container(
-                        height: 10.h,
+                        height: Res.bottomNavBarHeight,
                         color: Theme.of(context).cardTheme.color,
                         child: Center(
                           child: Text(

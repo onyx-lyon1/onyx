@@ -40,6 +40,7 @@ dependencies:
   flutter_map: ^3.0.0
   latlong2: ^0.8.1
   requests: ^4.7.0
+  infinite_listview: ^1.1.0
 
 dependency_overrides:
   # unindent for devlopment to use local version of the libraries

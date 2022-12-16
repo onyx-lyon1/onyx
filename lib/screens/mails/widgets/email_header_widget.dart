@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oloid2/core/res.dart';
 import 'package:oloid2/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 
@@ -12,14 +13,14 @@ class EmailHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).cardTheme.color,
-      height: 10.h,
+      height: Res.bottomNavBarHeight,
       child: Container(
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(100)),
         width: 85.w,
-        height: 10.h,
+        height: Res.bottomNavBarHeight,
         child: Row(
           children: [
             Expanded(

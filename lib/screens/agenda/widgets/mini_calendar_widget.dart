@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/core/extensions/extensions_export.dart';
+import 'package:oloid2/core/res.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
 import 'package:sizer/sizer.dart';
 
@@ -45,7 +46,7 @@ class MiniCalendarWidget extends StatelessWidget {
     );
 
     return Container(
-      height: 10.h,
+      height: Res.bottomNavBarHeight,
       width: 100.w,
       decoration: BoxDecoration(
         color: Theme.of(context).cardTheme.color,
@@ -78,7 +79,7 @@ class MiniCalendarWidget extends StatelessWidget {
           current.wantedDate.shrink(3) == currentDate.shrink(3),
       builder: (context, state) {
         return SizedBox(
-          height: 10.h,
+          height: Res.bottomNavBarHeight,
           width: 15.w,
           child: Padding(
             padding: EdgeInsets.all(0.8.w),

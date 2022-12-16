@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oloid2/core/res.dart';
 import 'package:sizer/sizer.dart';
 
 class CommonScreenWidget extends StatelessWidget {
@@ -21,7 +22,7 @@ class CommonScreenWidget extends StatelessWidget {
       children: [
         (state != null) ? state! : Container(),
         AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
+          duration: Res.animationDuration,
           margin: EdgeInsets.only(top: (state != null) ? 5.h : 0),
           height: (state != null) ? 85.h : 90.h,
           width: 100.w,
@@ -35,7 +36,7 @@ class CommonScreenWidget extends StatelessWidget {
                 if (header != null)
                   Container(
                       width: 100.w,
-                      height: 10.h,
+                      height: Res.bottomNavBarHeight,
                       color: Theme.of(context).cardColor,
                       child: header),
                 Expanded(

@@ -4,13 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/core/cache_service.dart';
+import 'package:oloid2/core/res.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
 import 'package:oloid2/screens/login/login_export.dart';
 import 'package:oloid2/screens/mails/mails_export.dart';
 import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:oloid2/screens/settings/widgets/drop_down_widget.dart';
 import 'package:oloid2/screens/tomuss/tomuss_export.dart';
-import 'package:sizer/sizer.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({
@@ -31,7 +31,7 @@ class SettingsPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                  height: 10.h,
+                  height: Res.bottomNavBarHeight,
                   color: Theme.of(context).cardTheme.color,
                   child: Center(
                     child: Text(
