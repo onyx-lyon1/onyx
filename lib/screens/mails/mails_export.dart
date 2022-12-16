@@ -13,3 +13,4 @@ export 'widgets/details/email_content_widget.dart';
 export 'widgets/email_attachment_widget.dart';
 export 'widgets/send/email_send_attachment_widget.dart';
 export 'widgets/send/email_send_autocomplete_widget.dart';
+export 'widgets/email_bottom_nav_bar_icon.dart';

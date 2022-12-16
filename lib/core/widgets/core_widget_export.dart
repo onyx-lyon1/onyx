@@ -1,9 +1,9 @@
 export 'bottom_bar/bottom_nav_bar_widget.dart';
 export 'bottom_bar/bottom_nav_bar_component_widget.dart';
-export 'bottom_bar/bottom_nav_bar_tomuss.dart';
-export 'bottom_bar/bottom_nav_bar_agenda.dart';
-export 'bottom_bar/bottom_nav_bar_email.dart';
-export 'bottom_bar/bottom_nav_bar_settings.dart';
+export '../../screens/tomuss/widgets/tomuss_bottom_nav_bar_icon.dart';
+export '../../screens/agenda/widgets/agenda_bottom_nav_bar_icon.dart';
+export '../../screens/mails/widgets/email_bottom_nav_bar_icon.dart';
+export '../../screens/settings/widgets/settings_bottom_nav_bar_icon.dart';
 export 'infinite_scroll_widget.dart';
 export 'common_screen_widget.dart';
 export 'states_displaying/state_displaying_widget_export.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class BottomNavBarSettings extends StatelessWidget {
-  const BottomNavBarSettings({Key? key, required this.selected})
+class SettingsBottomNavBarIcon extends StatelessWidget {
+  const SettingsBottomNavBarIcon({Key? key, required this.selected})
       : super(key: key);
   final bool selected;
 

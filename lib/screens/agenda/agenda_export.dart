@@ -7,3 +7,4 @@ export 'states/agenda_cubit.dart';
 export 'widgets/event_detail_widget.dart';
 export 'widgets/event_widget.dart';
 export 'widgets/mini_calendar_widget.dart';
+export 'widgets/agenda_bottom_nav_bar_icon.dart';

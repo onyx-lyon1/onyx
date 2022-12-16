@@ -26,6 +26,8 @@ class HomeState extends State<Home> {
   final PageController leftPageController = PageController();
   late ScrollController scrollController;
   late int currentRealIndex = 0;
+  bool isAnimating = false;
+  bool fromBottom = false;
 
   @override
   void initState() {
@@ -38,7 +40,7 @@ class HomeState extends State<Home> {
   }
 
   void animateScroll() {
-    if (scrollController.hasClients) {
+    if (scrollController.hasClients && !isAnimating) {
       scrollController.animateTo(getOffset(currentRealIndex - 1),
           duration: Res.animationDuration, curve: Curves.easeInOut);
     }
@@ -61,7 +63,7 @@ class HomeState extends State<Home> {
   }
 
   void animatePage() {
-    if (mainPageController.hasClients) {
+    if (mainPageController.hasClients && !isAnimating) {
       //Check that at least the root page view exist
       if (currentRealIndex < 0) {
         //if we are negative so we should be on index 1 of mainPageView
@@ -113,72 +115,69 @@ class HomeState extends State<Home> {
                         message: "Connection à cas",
                       )
                     : null,
-                body: Expanded(
-                  child: PageView(
-                    controller: mainPageController,
-                    reverse: true,
-                    children: [
-                      PageView.builder(
-                        controller: leftPageController,
-                        itemBuilder: (context, index) {
-                          switch (index % Res.screenCount) {
-                            case 0:
-                              return const TomussPage();
-                            case 1:
-                              return const AgendaPage();
-                            case 2:
-                              return const EmailsPage();
-                            case 3:
-                              return const SettingsPage();
-                            default:
-                              return Container();
-                          }
-                        },
-                        onPageChanged: (index) {
-                          setState(() {
-                            currentRealIndex = index;
-                            animateScroll();
-                          });
-                        },
-                      ),
-                      PageView.builder(
-                        controller: rightPageController,
-                        reverse: true,
-                        itemBuilder: (context, index) {
-                          int realIndex = -index - 1;
-                          switch (realIndex % Res.screenCount) {
-                            case 0:
-                              return const TomussPage();
-                            case 1:
-                              return const AgendaPage();
-                            case 2:
-                              return const EmailsPage();
-                            case 3:
-                              return const SettingsPage();
-                            default:
-                              return Container();
-                          }
-                        },
-                        onPageChanged: (index) {
-                          setState(() {
-                            currentRealIndex =
-                                -index - 1; //-1 to avoid double 0
-                            animateScroll();
-                          });
-                        },
-                      ),
-                    ],
-                    onPageChanged: (index) {
-                      setState(() {
-                        if (index == 1) {
-                          currentRealIndex = -1;
-                        } else {
-                          currentRealIndex = 0;
+                body: PageView(
+                  controller: mainPageController,
+                  reverse: true,
+                  children: [
+                    PageView.builder(
+                      controller: leftPageController,
+                      itemBuilder: (context, index) {
+                        switch (index % Res.screenCount) {
+                          case 0:
+                            return const TomussPage();
+                          case 1:
+                            return const AgendaPage();
+                          case 2:
+                            return const EmailsPage();
+                          case 3:
+                            return const SettingsPage();
+                          default:
+                            return Container();
                         }
-                        animateScroll();
-                      });
-                    },
-                  ),
+                      },
+                      onPageChanged: (index) {
+                        setState(() {
+                          currentRealIndex = index;
+                          animateScroll();
+                        });
+                      },
+                    ),
+                    PageView.builder(
+                      controller: rightPageController,
+                      reverse: true,
+                      itemBuilder: (context, index) {
+                        int realIndex = -index - 1;
+                        switch (realIndex % Res.screenCount) {
+                          case 0:
+                            return const TomussPage();
+                          case 1:
+                            return const AgendaPage();
+                          case 2:
+                            return const EmailsPage();
+                          case 3:
+                            return const SettingsPage();
+                          default:
+                            return Container();
+                        }
+                      },
+                      onPageChanged: (index) {
+                        setState(() {
+                          currentRealIndex = -index - 1; //-1 to avoid double 0
+                          animateScroll();
+                        });
+                      },
+                    ),
+                  ],
+                  onPageChanged: (index) {
+                    setState(() {
+                      if (index == 1) {
+                        currentRealIndex = -1;
+                      } else {
+                        currentRealIndex = 0;
+                      }
+                      animateScroll();
+                    });
+                  },
                 ),
               ),
               SizedBox(
@@ -196,8 +195,13 @@ class HomeState extends State<Home> {
                     }
                     setState(() {
                       currentRealIndex = realIndex;
+                      fromBottom = true;
                       animateScroll();
                       animatePage();
+                      isAnimating = true;
+                      Future.delayed(Res.animationDuration, () {
+                        isAnimating = false;
+                      });
                     });
                   },
                 ),

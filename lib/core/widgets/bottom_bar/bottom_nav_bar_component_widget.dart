@@ -13,15 +13,13 @@ class BottomNavBarComponentWidget extends StatelessWidget {
     // return Text(index.toString());
     switch (index) {
       case 0:
-        return BottomNavBarTomuss(
-          selected: (index == currentIndex),
-        );
+        return TomussBottomNavBarIcon(selected: (index == currentIndex));
       case 1:
-        return BottomNavBarAgenda(selected: (index == currentIndex));
+        return AgendaBottomNavBarIcon(selected: (index == currentIndex));
       case 2:
-        return BottomNavBarEmail(selected: (index == currentIndex));
+        return EmailBottomNavBarIcon(selected: (index == currentIndex));
       case 3:
-        return BottomNavBarSettings(selected: (index == currentIndex));
+        return SettingsBottomNavBarIcon(selected: (index == currentIndex));
     }
     return Container();
   }

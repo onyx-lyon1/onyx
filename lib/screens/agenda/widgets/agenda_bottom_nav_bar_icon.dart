@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class BottomNavBarAgenda extends StatelessWidget {
-  const BottomNavBarAgenda({Key? key, required this.selected})
+class AgendaBottomNavBarIcon extends StatelessWidget {
+  const AgendaBottomNavBarIcon({Key? key, required this.selected})
       : super(key: key);
   final bool selected;
 
