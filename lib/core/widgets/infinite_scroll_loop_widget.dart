@@ -6,7 +6,7 @@ class InfiniteScrollLoopWidget extends StatelessWidget {
   final ScrollController scrollController;
   final AxisDirection axisDirection;
   final ScrollPhysics physics;
-  final Widget Function(BuildContext context, int index) builder;
+  final Widget? Function(BuildContext context, int index) builder;
   final void Function(double)? onChange;
 
   const InfiniteScrollLoopWidget({
