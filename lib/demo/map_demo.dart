@@ -14,34 +14,20 @@ class _MapDemoWidgetState extends State<MapDemoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: FlutterMap(
-        options: MapOptions(
-          center: LatLng(45.77943, 4.85877),
-          zoom: 14.0,
-          maxZoom: 18.0,
-        ),
-        children: [
-          TileLayer(
-            urlTemplate: "assets/map/{z}/{x}/{y}.png",
-            userAgentPackageName: 'dev.fleaflet.flutter_map.example',
-            tileProvider: AssetTileProvider(),
-          ),
-          PolylineLayer(
-            polylines: [
-              route ??
-                  Polyline(
-                    points: [
-                      LatLng(45.77943, 4.85877),
-                      LatLng(45.78880, 4.88829),
-                    ],
-                    strokeWidth: 4.0,
-                    color: Colors.red,
-                  ),
-            ],
-          ),
-        ],
+    return FlutterMap(
+      options: MapOptions(
+        center: LatLng(45.783761, 4.875095),
+        zoom: 14.0,
+        maxZoom: 18.0,
+        minZoom: 14.0,
       ),
+      children: [
+        TileLayer(
+          urlTemplate: "assets/map/{z}/{x}/{y}.png",
+          userAgentPackageName: 'dev.fleaflet.flutter_map.example',
+          tileProvider: AssetTileProvider(),
+        ),
+      ],
     );
   }
 }

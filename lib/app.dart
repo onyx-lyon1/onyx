@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:oloid2/core/initialisations/initialisations_export.dart';
 import 'package:oloid2/core/theme/theme_export.dart';
 import 'package:oloid2/home.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
@@ -67,8 +66,8 @@ class OloidAppState extends State<OloidApp> {
                     settingsState.status == SettingsStatus.error) {
                   return MaterialApp(
                       title: 'Oloid 2.0',
-                      scrollBehavior:
-                          const CustomScrollBehavior(androidSdkVersion: 31),
+                      // scrollBehavior:
+                      //     const CustomScrollBehavior(androidSdkVersion: 31),
                       debugShowCheckedModeBanner: false,
                       themeMode: settingsState.settings.themeMode.themeMode,
                       theme: OloidTheme.lighTheme(),

@@ -10,7 +10,6 @@ class BottomNavBarComponentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Text(index.toString());
     switch (index) {
       case 0:
         return TomussBottomNavBarIcon(selected: (index == currentIndex));

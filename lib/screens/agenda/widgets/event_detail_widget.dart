@@ -86,7 +86,7 @@ class EventDetailWidget extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 40.h, width: 90.w, child: MapDemoWidget()),
+          SizedBox(height: 40.h, width: 90.w, child: const MapDemoWidget()),
         ],
       ),
     );

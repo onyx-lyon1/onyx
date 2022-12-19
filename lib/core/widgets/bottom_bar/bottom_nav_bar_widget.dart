@@ -17,48 +17,19 @@ class BottomNavBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Key forwardListKey = const Key("list");
-    Widget forwardList = SliverList(
-      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+    return InfiniteScrollLoopWidget(
+      scrollController: scrollController,
+      axisDirection: AxisDirection.right,
+      builder: (context, index) {
         return GestureDetector(
-            onTap: () => onTap(index + 1),
-            child: SizedBox(
-              width: Res.bottomNavBarItemWidth,
-              child: BottomNavBarComponentWidget(
-                index: (index + 1) % Res.screenCount,
-                currentIndex: (currentIndex) % Res.screenCount,
-              ),
-            ));
-      }),
-      key: forwardListKey,
-    );
-
-    Widget reverseList = SliverList(
-      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-        return GestureDetector(
-          onTap: () => onTap(-index),
+          onTap: () => onTap(index),
           child: SizedBox(
             width: Res.bottomNavBarItemWidth,
             child: BottomNavBarComponentWidget(
-              index: -(index) % Res.screenCount,
+              index: (index) % Res.screenCount,
               currentIndex: (currentIndex) % Res.screenCount,
             ),
           ),
-        );
-      }),
-    );
-    return Scrollable(
-      axisDirection: AxisDirection.right,
-      controller: scrollController,
-      viewportBuilder: (BuildContext context, ViewportOffset offset) {
-        return Viewport(
-          axisDirection: AxisDirection.right,
-          offset: offset,
-          center: forwardListKey,
-          slivers: [
-            reverseList,
-            forwardList,
-          ],
         );
       },
     );

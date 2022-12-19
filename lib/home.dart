@@ -10,6 +10,7 @@ import 'package:oloid2/screens/login/login_export.dart';
 import 'package:oloid2/screens/mails/mails_export.dart';
 import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:oloid2/screens/tomuss/tomuss_export.dart';
+import 'package:sizer/sizer.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -21,9 +22,7 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  final PageController mainPageController = PageController();
-  final PageController rightPageController = PageController();
-  final PageController leftPageController = PageController();
+  final ScrollController mainPageController = ScrollController();
   late ScrollController scrollController;
   late int currentRealIndex = 0;
   bool isAnimating = false;
@@ -36,9 +35,9 @@ class HomeState extends State<Home> {
   }
 
   double getOffset(int index) {
-    // return (index - 1) * Res.bottomNavBarItemWidth -
-    //     (Res.bottomNavBarItemWidth / 2);//version centree
-    return (index + 1) * Res.bottomNavBarItemWidth; //version a droite
+    return (index) * Res.bottomNavBarItemWidth -
+        (Res.bottomNavBarItemWidth / 2); //version centree
+    // return (index + 1) * Res.bottomNavBarItemWidth; //version a droite
   }
 
   void animateScroll() {
@@ -66,34 +65,8 @@ class HomeState extends State<Home> {
 
   void animatePage() {
     if (mainPageController.hasClients && !isAnimating) {
-      //Check that at least the root page view exist
-      if (currentRealIndex < 0) {
-        //if we are negative so we should be on index 1 of mainPageView
-        int tmpIndex =
-            currentRealIndex; //because the index could change during the animation
-        if (mainPageController.page != 1) {
-          //main is on the wrong move it
-          mainPageController.animateToPage(1,
-              duration: Res.animationDuration, curve: Curves.easeInOut);
-        }
-        executeWhenClient(() {
-          //move the page but wait for attaching controller before
-          rightPageController.animateToPage(-tmpIndex - 1,
-              duration: Res.animationDuration, curve: Curves.easeInOut);
-        }, () => rightPageController.hasClients);
-      } else {
-        int tmpIndex =
-            currentRealIndex; //because the index could change during the animation
-        if (mainPageController.page != 0) {
-          //wrong index so move
-          mainPageController.animateToPage(0,
-              duration: Res.animationDuration, curve: Curves.easeInOut);
-        }
-        executeWhenClient(() {
-          leftPageController.animateToPage(tmpIndex,
-              duration: Res.animationDuration, curve: Curves.easeInOut);
-        }, () => leftPageController.hasClients);
-      }
+      mainPageController.animateTo(currentRealIndex * 100.w,
+          duration: Res.animationDuration, curve: Curves.easeInOut);
     }
   }
 
@@ -106,77 +79,46 @@ class HomeState extends State<Home> {
           body: Column(
             children: [
               CommonScreenWidget(
-                onRefresh: () async {
-                  if (kDebugMode) {
-                    print('refresh in home');
-                  }
-                  return;
-                },
+                onRefresh: () async {},
                 state: (state.status == AuthentificationStatus.authentificating)
                     ? const LoadingHeaderWidget(
                         message: "Connection à cas",
                       )
                     : null,
-                body: PageView(
-                  controller: mainPageController,
-                  reverse: true,
-                  children: [
-                    PageView.builder(
-                      controller: leftPageController,
-                      itemBuilder: (context, index) {
-                        switch (index % Res.screenCount) {
-                          case 0:
-                            return const TomussPage();
-                          case 1:
-                            return const AgendaPage();
-                          case 2:
-                            return const EmailsPage();
-                          case 3:
-                            return const SettingsPage();
-                          default:
-                            return Container();
-                        }
-                      },
-                      onPageChanged: (index) {
-                        setState(() {
-                          currentRealIndex = index;
-                          animateScroll();
-                        });
-                      },
-                    ),
-                    PageView.builder(
-                      controller: rightPageController,
-                      reverse: true,
-                      itemBuilder: (context, index) {
-                        int realIndex = -index - 1;
-                        switch (realIndex % Res.screenCount) {
-                          case 0:
-                            return const TomussPage();
-                          case 1:
-                            return const AgendaPage();
-                          case 2:
-                            return const EmailsPage();
-                          case 3:
-                            return const SettingsPage();
-                          default:
-                            return Container();
-                        }
-                      },
-                      onPageChanged: (index) {
-                        setState(() {
-                          currentRealIndex = -index - 1; //-1 to avoid double 0
-                          animateScroll();
-                        });
-                      },
-                    ),
-                  ],
-                  onPageChanged: (index) {
+                body: InfiniteScrollLoopWidget(
+                  builder: (context, index) {
+                    switch ((index) % Res.screenCount) {
+                      case 0:
+                        return SizedBox(
+                            width: 100.w,
+                            height: 100.h,
+                            child: const TomussPage());
+                      case 1:
+                        return SizedBox(
+                            width: 100.w,
+                            height: 100.h,
+                            child: const AgendaPage());
+                      case 2:
+                        return SizedBox(
+                            width: 100.w,
+                            height: 100.h,
+                            child: const EmailsPage());
+                      case 3:
+                        return SizedBox(
+                            width: 100.w,
+                            height: 100.h,
+                            child: const SettingsPage());
+                      default:
+                        return Container();
+                    }
+                  },
+                  scrollController: mainPageController,
+                  axisDirection: AxisDirection.right,
+                  physics: const PageScrollPhysics(),
+                  onChange: (doubleIndex) {
+                    int index = doubleIndex.toInt();
                     setState(() {
-                      if (index == 1) {
-                        currentRealIndex = -1;
-                      } else {
-                        currentRealIndex = 0;
-                      }
+                      currentRealIndex = index;
                       animateScroll();
                     });
                   },
