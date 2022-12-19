@@ -13,82 +13,135 @@ class EventDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5.w),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SelectableText(
-            event.description,
-            style: TextStyle(
-              fontSize: 15.sp,
-              fontWeight: FontWeight.w500,
-              color: Theme.of(context).textTheme.bodyText1!.color,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+    return Column(
+      children: [
+        Container(
+          color: Theme.of(context).cardColor,
+          width: 100.w,
+          height: 7.h,
+          child: Row(
             children: [
-              Icon(
-                Icons.access_time_rounded,
-                color: Theme.of(context).textTheme.bodyText1!.color,
+              IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.arrow_upward_rounded)),
+              Text(
+                "Détail de l'évènement",
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 13.sp,
+                    ),
               ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               SelectableText(
-                "${event.start.hour.toFixedLengthString(2)}h${event.start.minute.toFixedLengthString(2)}",
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).textTheme.bodyText1!.color,
+                event.description,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w500),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 1.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.access_time_rounded,
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                    ),
+                    SelectableText(
+                      "${event.start.hour.toFixedLengthString(2)}h${event.start.minute.toFixedLengthString(2)}",
+                      style: Theme.of(context).textTheme.bodyText1!,
+                    ),
+                    SelectableText(
+                      "${event.end.hour.toFixedLengthString(2)}h${event.end.minute.toFixedLengthString(2)}",
+                      style: Theme.of(context).textTheme.bodyText1!,
+                    ),
+                  ],
                 ),
               ),
-              SelectableText(
-                "${event.end.hour.toFixedLengthString(2)}h${event.end.minute.toFixedLengthString(2)}",
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).textTheme.bodyText1!.color,
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 1.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.calendar_month_rounded,
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                    ),
+                    SelectableText(
+                      '${event.start.toWeekDayName()} ${event.start.day} ${event.start.toMonthName()}',
+                      style: Theme.of(context).textTheme.bodyText1!,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 1.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.location_on_rounded,
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                    ),
+                    SelectableText(
+                      event.location,
+                      style: Theme.of(context).textTheme.bodyText1!,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 1.h),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: SizedBox(
+                    height: 40.h,
+                    width: 90.w,
+                    child: const MapDemoWidget(),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 1.h),
+                child: Container(
+                  height: 8.h,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(10),
+                    child: InkWell(
+                      onTap: () {
+                        print("Tapped");
+                      },
+                      borderRadius: BorderRadius.circular(10),
+                      child: Center(
+                        child: Text(
+                          "Itinéraire",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  fontSize: 15.sp, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                Icons.calendar_month_rounded,
-                color: Theme.of(context).textTheme.bodyText1!.color,
-              ),
-              SelectableText(
-                '${event.start.toWeekDayName()} ${event.start.day} ${event.start.toMonthName()}',
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).textTheme.bodyText1!.color,
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                Icons.location_on_rounded,
-                color: Theme.of(context).textTheme.bodyText1!.color,
-              ),
-              SelectableText(
-                event.location,
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).textTheme.bodyText1!.color,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 40.h, width: 90.w, child: const MapDemoWidget()),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
