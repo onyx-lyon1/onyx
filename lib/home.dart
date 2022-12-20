@@ -129,12 +129,10 @@ class HomeState extends State<Home> {
                   scrollController: scrollController,
                   currentIndex: currentRealIndex,
                   onTap: (realIndex) {
-                    if (realIndex % Res.screenCount == 2 &&
+                    if (realIndex % Res.screenCount == 1 &&
                         currentRealIndex == realIndex) {
-                      if (currentRealIndex == 1) {
-                        context.read<AgendaCubit>().updateDisplayedDate(
-                            date: DateTime.now(), fromPageController: false);
-                      }
+                      context.read<AgendaCubit>().updateDisplayedDate(
+                          date: DateTime.now(), fromPageController: false);
                     }
                     setState(() {
                       currentRealIndex = realIndex;
