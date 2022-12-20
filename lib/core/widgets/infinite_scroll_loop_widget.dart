@@ -37,7 +37,7 @@ class InfiniteScrollLoopWidget extends StatelessWidget {
         },
       ),
     );
-    if (onChange != null && !scrollController.hasListeners) {
+    if (onChange != null) {
       if (physics is PageScrollPhysics) {
         int index = (scrollController.initialScrollOffset / 100.w).round();
         if (axisDirection == AxisDirection.up ||

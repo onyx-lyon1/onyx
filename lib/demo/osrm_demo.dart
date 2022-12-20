@@ -7,7 +7,7 @@ import 'package:requests/requests.dart';
 
 class OsrmDemo {
   // https://routing.openstreetmap.de/routed-foot/route/v1/driving/9.700927734375,50.41551870402678;12.480468749999998,49.59647007089266?overview=false&alternatives=true&steps=true
-  static Future<Polyline?> calculateRoute(
+  static Future<Polyline> calculateRoute(
       LatLng departure, LatLng arrival) async {
     var url =
         'https://routing.openstreetmap.de/routed-foot/route/v1/driving/${departure.longitude},${departure.latitude};${arrival.longitude},${arrival.latitude}?overview=false&alternatives=false&steps=true';

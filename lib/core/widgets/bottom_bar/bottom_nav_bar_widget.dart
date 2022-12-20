@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:oloid2/core/res.dart';
 import 'package:oloid2/core/widgets/core_widget_export.dart';
 
