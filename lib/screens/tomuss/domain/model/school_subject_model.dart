@@ -1,8 +1,5 @@
-// ignore_for_file: hash_and_equals
-
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 
 part 'school_subject_model.g.dart';
@@ -43,6 +40,11 @@ class SchoolSubjectModel {
   }
 
   @override
+  String toString() {
+    return 'SchoolSubjectModel{name: $name, masters: $masters, grades: $grades, isSeen: $isSeen, isHidden: $isHidden}';
+  }
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SchoolSubjectModel &&
@@ -54,7 +56,10 @@ class SchoolSubjectModel {
           isHidden == other.isHidden;
 
   @override
-  String toString() {
-    return 'TeachingUnitModel{name: $name, masters: $masters, grades: $grades, isSeen: $isSeen, isHidden: $isHidden}';
-  }
+  int get hashCode =>
+      name.hashCode ^
+      masters.hashCode ^
+      grades.hashCode ^
+      isSeen.hashCode ^
+      isHidden.hashCode;
 }

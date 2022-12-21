@@ -1,5 +1,3 @@
-// ignore_for_file: hash_and_equals
-
 import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -55,21 +53,36 @@ class GradeModel {
         children = grade.children.map((e) => GradeModel.fromGrade(e)).toList();
 
   @override
+  String toString() {
+    return 'GradeModel{name: $name, author: $author, gradeNumerator: $gradeNumerator, gradeDenominator: $gradeDenominator, rank: $rank, average: $average, mediane: $mediane, groupSize: $groupSize, isValidGrade: $isValidGrade, children: $children}';
+  }
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is GradeModel &&
           runtimeType == other.runtimeType &&
           name == other.name &&
           author == other.author &&
-          (gradeNumerator == other.gradeNumerator ||
-              (gradeNumerator.isNaN && other.gradeNumerator.isNaN)) &&
-          (gradeDenominator == other.gradeDenominator ||
-              (gradeDenominator.isNaN && other.gradeDenominator.isNaN)) &&
+          gradeNumerator == other.gradeNumerator &&
+          gradeDenominator == other.gradeDenominator &&
+          rank == other.rank &&
+          average == other.average &&
+          mediane == other.mediane &&
+          groupSize == other.groupSize &&
           isValidGrade == other.isValidGrade &&
           listEquals(children, other.children);
 
   @override
-  String toString() {
-    return 'GradeModel{name: $name, author: $author, gradeNumerator: $gradeNumerator, gradeDenominator: $gradeDenominator, rank: $rank, average: $average, mediane: $mediane, groupSize: $groupSize, isValidGrade: $isValidGrade}, children: $children';
-  }
+  int get hashCode =>
+      name.hashCode ^
+      author.hashCode ^
+      gradeNumerator.hashCode ^
+      gradeDenominator.hashCode ^
+      rank.hashCode ^
+      average.hashCode ^
+      mediane.hashCode ^
+      groupSize.hashCode ^
+      isValidGrade.hashCode ^
+      children.hashCode;
 }

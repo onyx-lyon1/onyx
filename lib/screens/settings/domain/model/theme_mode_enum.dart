@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-
 part 'theme_mode_enum.g.dart';
 
 @HiveType(typeId: 8)

@@ -1,5 +1,3 @@
-// ignore_for_file: hash_and_equals
-
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'event_model.g.dart';
@@ -33,6 +31,11 @@ class EventModel {
   });
 
   @override
+  String toString() {
+    return 'EventModel{location: $location, description: $description, teacher: $teacher, summary: $summary, start: $start, end: $end, eventLastModified: $eventLastModified}';
+  }
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is EventModel &&
@@ -41,11 +44,17 @@ class EventModel {
           description == other.description &&
           teacher == other.teacher &&
           summary == other.summary &&
-          start.isAtSameMomentAs(other.start) &&
-          end.isAtSameMomentAs(other.end);
+          start == other.start &&
+          end == other.end &&
+          eventLastModified == other.eventLastModified;
 
   @override
-  String toString() {
-    return 'EventModel{location: $location, description: $description, teacher: $teacher, summary: $summary, start: $start, end: $end, eventLastModified: $eventLastModified}';
-  }
+  int get hashCode =>
+      location.hashCode ^
+      description.hashCode ^
+      teacher.hashCode ^
+      summary.hashCode ^
+      start.hashCode ^
+      end.hashCode ^
+      eventLastModified.hashCode;
 }

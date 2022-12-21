@@ -27,6 +27,7 @@ class HomeState extends State<Home> {
   bool isAnimating = false;
   bool fromBottom = false;
 
+
   @override
   void initState() {
     scrollController = ScrollController(initialScrollOffset: getOffset(-1));
