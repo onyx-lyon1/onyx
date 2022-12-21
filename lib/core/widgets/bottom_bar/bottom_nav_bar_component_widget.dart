@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oloid2/core/widgets/core_widget_export.dart';
+import 'package:oloid2/screens/map/map_export.dart';
 
 class BottomNavBarComponentWidget extends StatelessWidget {
   const BottomNavBarComponentWidget(
@@ -19,6 +20,8 @@ class BottomNavBarComponentWidget extends StatelessWidget {
         return EmailBottomNavBarIcon(selected: (index == currentIndex));
       case 3:
         return SettingsBottomNavBarIcon(selected: (index == currentIndex));
+      case 4:
+        return MapBottomNavBarIcon(selected: (index == currentIndex));
     }
     return Container();
   }

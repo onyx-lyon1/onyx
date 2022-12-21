@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/core/extensions/extensions_export.dart';
-import 'package:oloid2/core/res.dart';
 import 'package:oloid2/core/widgets/common_screen_widget.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
 import 'package:oloid2/screens/login/login_export.dart';
@@ -126,18 +125,13 @@ class AgendaPage extends StatelessWidget {
                               date: newWantedDay, fromPageController: false);
                         },
                       )
-                    : Container(
-                        height: Res.bottomNavBarHeight,
-                        color: Theme.of(context).cardTheme.color,
-                        child: Center(
-                          child: Text(
-                            'Agenda',
-                            style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyText1!.color,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    : Center(
+                        child: Text(
+                          'Agenda',
+                          style: TextStyle(
+                            color: Theme.of(context).textTheme.bodyText1!.color,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),

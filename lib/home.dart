@@ -7,6 +7,7 @@ import 'package:oloid2/core/widgets/core_widget_export.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
 import 'package:oloid2/screens/login/login_export.dart';
 import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:oloid2/screens/map/map_export.dart';
 import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
@@ -27,7 +28,6 @@ class HomeState extends State<Home> {
   bool isAnimating = false;
   bool fromBottom = false;
 
-
   @override
   void initState() {
     scrollController = ScrollController(initialScrollOffset: getOffset(-1));
@@ -35,8 +35,7 @@ class HomeState extends State<Home> {
   }
 
   double getOffset(int index) {
-    return (index) * Res.bottomNavBarItemWidth -
-        (Res.bottomNavBarItemWidth / 2); //version centree
+    return (index - 1) * Res.bottomNavBarItemWidth;
     // return (index + 1) * Res.bottomNavBarItemWidth; //version a droite
   }
 
@@ -108,6 +107,11 @@ class HomeState extends State<Home> {
                             width: 100.w,
                             height: 100.h,
                             child: const SettingsPage());
+                      case 4:
+                        return SizedBox(
+                            width: 100.w,
+                            height: 100.h,
+                            child: const MapPage());
                       default:
                         return Container();
                     }

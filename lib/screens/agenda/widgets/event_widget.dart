@@ -21,7 +21,7 @@ class EventWidget extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           backgroundColor: Theme.of(context).backgroundColor,
-          builder: (context) => SafeArea(child: EventDetailPage(event: event)),
+          builder: (context) => EventDetailPage(event: event),
         );
       },
       child: Card(

@@ -21,36 +21,30 @@ class EmailHeaderWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(100)),
         width: 85.w,
         height: Res.bottomNavBarHeight,
-        child: Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(left: 3.w),
-                child: TextField(
-                  onChanged: (String query) {
-                    context.read<EmailCubit>().filter(filter: query);
-                  },
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.button!.color,
-                  ),
-                  cursorColor: Theme.of(context).textTheme.bodyText1!.color,
-                  textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
-                    hintText:
-                        "Recherche dans les ${context.read<EmailCubit>().emailNumber} derniers mails",
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedItemColor,
-                    ),
-                    contentPadding: EdgeInsets.zero,
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
+        child: Padding(
+          padding: EdgeInsets.only(left: 3.w),
+          child: TextField(
+            onChanged: (String query) {
+              context.read<EmailCubit>().filter(filter: query);
+            },
+            style: TextStyle(
+              color: Theme.of(context).textTheme.button!.color,
             ),
-          ],
+            cursorColor: Theme.of(context).textTheme.bodyText1!.color,
+            textAlignVertical: TextAlignVertical.center,
+            decoration: InputDecoration(
+              hintText:
+                  "Recherche dans les ${context.read<EmailCubit>().emailNumber} derniers mails",
+              prefixIcon: Icon(
+                Icons.search,
+                color: Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .unselectedItemColor,
+              ),
+              contentPadding: EdgeInsets.zero,
+              border: InputBorder.none,
+            ),
+          ),
         ),
       ),
     );
