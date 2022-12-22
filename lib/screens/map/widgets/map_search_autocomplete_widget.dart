@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/screens/map/map_export.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,13 +10,26 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FocusNode focusNode = FocusNode();
+    onTap(String option) {
+      //needed because the context is not passed in the onSelected basic callback
+      focusNode.unfocus();
+      context.read<MapCubit>().navigate(
+          context,
+          context
+              .read<MapCubit>()
+              .state
+              .batiments
+              .firstWhere((element) => element.name == option));
+    }
+
     return RawAutocomplete<String>(
       optionsBuilder: (TextEditingValue textEditingValue) async {
         return (await BatimentsLogic.findBatiment(textEditingValue.text))
             .map((e) => e.name);
       },
       textEditingController: controller,
-      focusNode: FocusNode(),
+      focusNode: focusNode,
       optionsViewBuilder: (BuildContext context,
           AutocompleteOnSelected<String> onSelected, Iterable<String> options) {
         return Align(
@@ -30,6 +44,7 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
                   .map((String option) => GestureDetector(
                         onTap: () {
                           onSelected(option);
+                          onTap(option);
                         },
                         child: ListTile(
                           title: Text(option),

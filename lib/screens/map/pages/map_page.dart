@@ -9,6 +9,7 @@ class MapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textEditingController = TextEditingController();
     return BlocProvider(
       create: (context) => MapCubit(),
       child: SafeArea(
@@ -20,7 +21,7 @@ class MapPage extends StatelessWidget {
             return CommonScreenWidget(
               header: Center(
                 child: MapSearchAutocompleteWidget(
-                  controller: TextEditingController(),
+                  controller: textEditingController,
                 ),
               ),
               body: MapWidget(
@@ -32,6 +33,9 @@ class MapPage extends StatelessWidget {
                     color: Colors.red,
                   ),
                 ],
+                onTapNavigate: (batiment) {
+                  context.read<MapCubit>().navigate(context, batiment);
+                },
               ),
             );
           },

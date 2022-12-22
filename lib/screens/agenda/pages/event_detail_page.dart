@@ -4,7 +4,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:oloid2/core/extensions/extensions_export.dart';
 import 'package:oloid2/core/widgets/core_widget_export.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
-import 'package:oloid2/screens/map/domain/logic/geolocation_logic.dart';
 import 'package:oloid2/screens/map/map_export.dart';
 import 'package:sizer/sizer.dart';
 
@@ -147,6 +146,12 @@ class _EventDetailPageState extends State<EventDetailPage> {
                               center: (batiments.isNotEmpty)
                                   ? batiments.first.position
                                   : null,
+                              onTapNavigate: (position) async {
+                                batimentsPaths.addAll(await NavigationLogic
+                                    .navigateToBatimentFromLocation(
+                                        context, batiments));
+                                setState(() {});
+                              },
                             );
                           }),
                     ),
@@ -161,29 +166,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       borderRadius: BorderRadius.circular(10),
                       child: InkWell(
                         onTap: () async {
-                          LatLng latLng =
-                              await GeolocationLogic.getCurrentLocation();
-                          if (latLng.inside(MapRes.minBound, MapRes.maxBound)) {
-                            for (var coord in batiments) {
-                              batimentsPaths.add(
-                                await OsrmLogic.calculateRoute(
-                                  latLng,
-                                  coord.position,
-                                ),
-                              );
-                            }
-                            setState(() {});
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                backgroundColor:
-                                    Theme.of(context).backgroundColor,
-                                title:
-                                    const Text("Vous n'êtes pas sur le campus"),
-                              ),
-                            );
-                          }
+                          batimentsPaths.addAll(await NavigationLogic
+                              .navigateToBatimentFromLocation(
+                                  context, batiments));
+                          setState(() {});
                         },
                         borderRadius: BorderRadius.circular(10),
                         child: Center(

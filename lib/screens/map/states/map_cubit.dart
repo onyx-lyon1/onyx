@@ -1,7 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:oloid2/screens/map/domain/logic/geolocation_logic.dart';
 import 'package:oloid2/screens/map/map_export.dart';
 
 part 'map_state.dart';
@@ -9,12 +9,16 @@ part 'map_state.dart';
 class MapCubit extends Cubit<MapState> {
   MapCubit() : super(MapState());
 
-  void navigateToBatiment(BatimentModel batiment) async {
+  void navigate(BuildContext context, BatimentModel batiment) async {
+    List<List<LatLng>> paths =
+        await NavigationLogic.navigateToBatimentFromLocation(
+      context,
+      [batiment],
+    );
     emit(
       state.copyWith(
         status: MapStatus.batimentsUpdated,
-        path: await OsrmLogic.calculateRoute(
-            await GeolocationLogic.getCurrentLocation(), batiment.position),
+        path: (paths.isNotEmpty) ? paths.first : [],
       ),
     );
   }

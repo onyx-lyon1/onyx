@@ -11,11 +11,13 @@ class MapWidget extends StatelessWidget {
       {Key? key,
       this.batiments = const [],
       this.polylines = const [],
+      required this.onTapNavigate,
       this.center})
       : super(key: key);
   final List<BatimentModel> batiments;
   final List<Polyline> polylines;
   final LatLng? center;
+  final void Function(BatimentModel) onTapNavigate;
 
   @override
   Widget build(BuildContext context) {
@@ -49,20 +51,21 @@ class MapWidget extends StatelessWidget {
           tileProvider: AssetTileProvider(),
         ),
         if (polylines.isNotEmpty) PolylineLayer(polylines: polylines),
+        CurrentLocationLayer(),
         if (batiments.isNotEmpty)
           PopupMarkerLayerWidget(
             options: PopupMarkerLayerOptions(
               markers: markers,
               popupController: popupLayerController,
               popupBuilder: (BuildContext context, Marker marker) {
-                print("builder");
                 return MapPopupWidget(
-                    batiment: batiments.firstWhere(
-                        (element) => element.position == marker.point));
+                  batiment: batiments.firstWhere(
+                      (element) => element.position == marker.point),
+                  onTap: onTapNavigate,
+                );
               },
             ),
           ),
-        CurrentLocationLayer(),
       ],
     );
   }
