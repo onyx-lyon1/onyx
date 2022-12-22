@@ -48,6 +48,7 @@ class MapWidget extends StatelessWidget {
           userAgentPackageName: 'dev.fleaflet.flutter_map.example',
           tileProvider: AssetTileProvider(),
         ),
+        if (polylines.isNotEmpty) PolylineLayer(polylines: polylines),
         if (batiments.isNotEmpty)
           PopupMarkerLayerWidget(
             options: PopupMarkerLayerOptions(
@@ -61,7 +62,6 @@ class MapWidget extends StatelessWidget {
               },
             ),
           ),
-        if (polylines.isNotEmpty) PolylineLayer(polylines: polylines),
         CurrentLocationLayer(),
       ],
     );
