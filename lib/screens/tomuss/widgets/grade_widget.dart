@@ -121,7 +121,7 @@ class GradeWidget extends StatelessWidget {
           children: [
             Container(
               height: 11.h,
-              width: 25.w,
+              width: 20.w,
               decoration: BoxDecoration(color: _mainGradeColor(context)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

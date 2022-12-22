@@ -36,20 +36,9 @@ class TomussPage extends StatelessWidget {
                   child: GradeListWidget(
                     grades: schoolSubject.grades,
                     depth: 0,
+                    lastElement: true,
                   ),
                 ),
-                // for (var grade in schoolSubject.grades)
-                //   GradeWidget(
-                //     grades: [grade],
-                //     isSeen: true,
-                //     text1: grade.name,
-                //     text2:
-                //     "moyenne: ${grade.average.toStringAsFixed(
-                //         2)} · mediane: ${grade.mediane.toStringAsFixed(
-                //         2)}\nclassement:${grade.rank + 1}/${grade
-                //         .groupSize}\nprofesseur: ${grade.author}",
-                //     depth: grade.children.length,
-                //   ),
               ],
             ),
           ),
@@ -73,8 +62,9 @@ class TomussPage extends StatelessWidget {
           print("Grades state : ${state.status}");
         }
         if (state.status == TomussStatus.initial) {
-          context.read<TomussCubit>().load(
-              dartus: context.read<AuthentificationCubit>().state.dartus);
+          context
+              .read<TomussCubit>()
+              .load(dartus: context.read<AuthentificationCubit>().state.dartus);
           loadingHeader = const LoadingHeaderWidget(
             message: "Connection à tomuss",
           );
