@@ -4,3 +4,4 @@ export 'hex.dart';
 export 'int_to_sized_string.dart';
 export 'month_to_string.dart';
 export 'weekday_to_string.dart';
+export 'lat_lng_inside.dart';

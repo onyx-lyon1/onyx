@@ -1,10 +1,7 @@
-// ignore_for_file: hash_and_equals
-
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:lyon1mail/lyon1mail.dart' as lyon1mail;
-
 
 part 'email_model.g.dart';
 
@@ -59,6 +56,11 @@ class EmailModel {
   }
 
   @override
+  String toString() {
+    return 'EmailModel{subject: $subject, sender: $sender, excerpt: $excerpt, body: $body, id: $id, isRead: $isRead, date: $date, receiver: $receiver, attachments: $attachments, rawMail: $rawMail}';
+  }
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is EmailModel &&
@@ -71,10 +73,19 @@ class EmailModel {
           isRead == other.isRead &&
           date == other.date &&
           receiver == other.receiver &&
-          listEquals(attachments, attachments);
+          listEquals(attachments, other.attachments) &&
+          rawMail == other.rawMail;
 
   @override
-  String toString() {
-    return 'EmailModel{subject: $subject, sender: $sender, excerpt: $excerpt, body: $body, id: $id, isRead: $isRead, date: $date, receiver: $receiver}, attachments: $attachments';
-  }
+  int get hashCode =>
+      subject.hashCode ^
+      sender.hashCode ^
+      excerpt.hashCode ^
+      body.hashCode ^
+      id.hashCode ^
+      isRead.hashCode ^
+      date.hashCode ^
+      receiver.hashCode ^
+      attachments.hashCode ^
+      rawMail.hashCode;
 }

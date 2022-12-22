@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oloid2/core/extensions/extensions_export.dart';
+import 'package:oloid2/core/res.dart';
+import 'package:oloid2/core/widgets/core_widget_export.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
 import 'package:sizer/sizer.dart';
 
@@ -17,57 +18,21 @@ class MiniCalendarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Key forwardListKey = const Key("list");
-    Widget forwardList = SliverList(
-      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+    return InfiniteScrollLoopWidget(
+      axisDirection: AxisDirection.right,
+      scrollController: scrollController,
+      builder: (context, index) {
         DateTime currentDate = DateTime.now().add(Duration(days: index));
         if (context.read<AgendaCubit>().state.dayModels.isNotEmpty &&
-            currentDate.subtract(const Duration(days: 1)).isAfter(
-                context.read<AgendaCubit>().state.dayModels.last.date)) {
+                currentDate.subtract(const Duration(days: 1)).isAfter(
+                    context.read<AgendaCubit>().state.dayModels.last.date) ||
+            context.read<AgendaCubit>().state.dayModels.isNotEmpty &&
+                currentDate.isBefore(
+                    context.read<AgendaCubit>().state.dayModels.first.date)) {
           return null;
         }
         return oneDay(context, currentDate);
-      }),
-      key: forwardListKey,
-    );
-
-    Widget reverseList = SliverList(
-      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-        DateTime currentDate =
-            DateTime.now().subtract(Duration(days: index + 1));
-        if (context.read<AgendaCubit>().state.dayModels.isNotEmpty &&
-            currentDate.isBefore(
-                context.read<AgendaCubit>().state.dayModels.first.date)) {
-          return null;
-        }
-        return oneDay(context, currentDate);
-      }),
-    );
-
-    return Container(
-      height: 10.h,
-      width: 100.w,
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardTheme.color,
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5.w),
-        child: Scrollable(
-          axisDirection: AxisDirection.right,
-          controller: scrollController,
-          viewportBuilder: (BuildContext context, ViewportOffset offset) {
-            return Viewport(
-              axisDirection: AxisDirection.right,
-              offset: offset,
-              center: forwardListKey,
-              slivers: [
-                reverseList,
-                forwardList,
-              ],
-            );
-          },
-        ),
-      ),
+      },
     );
   }
 
@@ -78,7 +43,7 @@ class MiniCalendarWidget extends StatelessWidget {
           current.wantedDate.shrink(3) == currentDate.shrink(3),
       builder: (context, state) {
         return SizedBox(
-          height: 10.h,
+          height: Res.bottomNavBarHeight,
           width: 15.w,
           child: Padding(
             padding: EdgeInsets.all(0.8.w),

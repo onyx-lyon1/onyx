@@ -67,8 +67,7 @@ class OloidAppState extends State<OloidApp> {
                     settingsState.status == SettingsStatus.error) {
                   return MaterialApp(
                       title: 'Oloid 2.0',
-                      scrollBehavior:
-                          const CustomScrollBehavior(androidSdkVersion: 31),
+                      scrollBehavior: const CustomScrollBehavior(),
                       debugShowCheckedModeBanner: false,
                       themeMode: settingsState.settings.themeMode.themeMode,
                       theme: OloidTheme.lighTheme(),

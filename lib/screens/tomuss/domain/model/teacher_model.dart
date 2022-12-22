@@ -1,5 +1,3 @@
-// ignore_for_file: hash_and_equals
-
 import 'package:dartus/tomuss.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -20,7 +18,13 @@ class TeacherModel {
   }
 
   String get name => _name;
+
   String get email => _email;
+
+  @override
+  String toString() {
+    return 'TeacherModel{_name: $_name, _email: $_email}';
+  }
 
   @override
   bool operator ==(Object other) =>
@@ -31,7 +35,5 @@ class TeacherModel {
           _email == other._email;
 
   @override
-  String toString() {
-    return 'TeacherModel{_name: $_name, _email: $_email}';
-  }
+  int get hashCode => _name.hashCode ^ _email.hashCode;
 }

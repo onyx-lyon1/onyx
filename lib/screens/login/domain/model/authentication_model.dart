@@ -1,7 +1,4 @@
-// ignore_for_file: hash_and_equals
-
 import 'package:hive_flutter/hive_flutter.dart';
-
 
 part 'authentication_model.g.dart';
 
@@ -15,6 +12,11 @@ class AuthenticationModel {
   AuthenticationModel({this.username = "", this.password = ""});
 
   @override
+  String toString() {
+    return 'AuthenticationModel{username: $username, password: $password}';
+  }
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is AuthenticationModel &&
@@ -23,11 +25,5 @@ class AuthenticationModel {
           password == other.password;
 
   @override
-  String toString() {
-    return 'Authentication{username: $username, password: $password}';
-  }
-
-
-
-
+  int get hashCode => username.hashCode ^ password.hashCode;
 }

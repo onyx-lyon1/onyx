@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oloid2/core/res.dart';
 import 'package:oloid2/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 
@@ -138,7 +139,7 @@ class EmailDetailsPage extends StatelessWidget {
               ),
             ),
             bottomNavigationBar: Container(
-              height: 10.h,
+              height: Res.bottomNavBarHeight,
               color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

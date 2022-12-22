@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:oloid2/core/res.dart';
 import 'package:oloid2/core/widgets/common_screen_widget.dart';
 import 'package:oloid2/screens/login/login_export.dart';
 import 'package:oloid2/screens/settings/settings_export.dart';
@@ -83,7 +84,7 @@ class TomussPage extends StatelessWidget {
           child: CommonScreenWidget(
             state: loadingHeader,
             header: Container(
-              height: 10.h,
+              height: Res.bottomNavBarHeight,
               color: Theme.of(context).cardTheme.color,
               child: Center(
                 child: Text(

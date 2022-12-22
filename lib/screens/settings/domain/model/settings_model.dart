@@ -1,5 +1,4 @@
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'package:oloid2/screens/settings/settings_export.dart';
 
 part 'settings_model.g.dart';
@@ -15,28 +14,22 @@ class SettingsModel {
   late ThemeModeEnum themeMode;
   @HiveField(3)
   late bool newGradeNotification;
-
   @HiveField(4)
   late bool showHiddenUE;
 
   @HiveField(5)
   late bool fetchAgendaAuto;
-
   @HiveField(6)
   late bool showMiniCalendar;
-
   @HiveField(7)
   late bool calendarUpdateNotification;
-
   @HiveField(8)
   late String agendaURL;
 
   @HiveField(9)
   late bool newMailNotification;
-
   @HiveField(10)
   late bool blockTrackers;
-
   @HiveField(11)
   late bool darkerMail;
 
@@ -54,20 +47,6 @@ class SettingsModel {
     this.blockTrackers = true,
     this.darkerMail = false,
   });
-
-  void copy(SettingsModel s) {
-    keepMeLoggedIn = s.keepMeLoggedIn;
-    forceGreen = s.forceGreen;
-    themeMode = s.themeMode;
-    newGradeNotification = s.newGradeNotification;
-    showHiddenUE = s.showHiddenUE;
-    fetchAgendaAuto = s.fetchAgendaAuto;
-    agendaURL = s.agendaURL;
-    newMailNotification = s.newMailNotification;
-    blockTrackers = s.blockTrackers;
-    calendarUpdateNotification = s.calendarUpdateNotification;
-    darkerMail = s.darkerMail;
-  }
 
   SettingsModel copyWith({
     bool? keepMeLoggedIn,
@@ -102,6 +81,39 @@ class SettingsModel {
 
   @override
   String toString() {
-    return 'SettingsModel(keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, themeMode: $themeMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, fetchAgendaAuto: $fetchAgendaAuto, calendarUpdateNotification: $calendarUpdateNotification showMiniCalendar: $showMiniCalendar, agendaURL: $agendaURL, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail)';
+    return 'SettingsModel{keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, themeMode: $themeMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, fetchAgendaAuto: $fetchAgendaAuto, showMiniCalendar: $showMiniCalendar, calendarUpdateNotification: $calendarUpdateNotification, agendaURL: $agendaURL, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail}';
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SettingsModel &&
+          runtimeType == other.runtimeType &&
+          keepMeLoggedIn == other.keepMeLoggedIn &&
+          forceGreen == other.forceGreen &&
+          themeMode == other.themeMode &&
+          newGradeNotification == other.newGradeNotification &&
+          showHiddenUE == other.showHiddenUE &&
+          fetchAgendaAuto == other.fetchAgendaAuto &&
+          showMiniCalendar == other.showMiniCalendar &&
+          calendarUpdateNotification == other.calendarUpdateNotification &&
+          agendaURL == other.agendaURL &&
+          newMailNotification == other.newMailNotification &&
+          blockTrackers == other.blockTrackers &&
+          darkerMail == other.darkerMail;
+
+  @override
+  int get hashCode =>
+      keepMeLoggedIn.hashCode ^
+      forceGreen.hashCode ^
+      themeMode.hashCode ^
+      newGradeNotification.hashCode ^
+      showHiddenUE.hashCode ^
+      fetchAgendaAuto.hashCode ^
+      showMiniCalendar.hashCode ^
+      calendarUpdateNotification.hashCode ^
+      agendaURL.hashCode ^
+      newMailNotification.hashCode ^
+      blockTrackers.hashCode ^
+      darkerMail.hashCode;
 }

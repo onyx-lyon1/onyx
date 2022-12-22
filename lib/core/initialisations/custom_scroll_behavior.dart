@@ -3,8 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class CustomScrollBehavior extends ScrollBehavior {
-  const CustomScrollBehavior({required this.androidSdkVersion}) : super();
-  final int androidSdkVersion;
+  const CustomScrollBehavior() : super();
 
   @override
   Set<PointerDeviceKind> get dragDevices => {
@@ -25,14 +24,10 @@ class CustomScrollBehavior extends ScrollBehavior {
       case TargetPlatform.windows:
         return child;
       case TargetPlatform.android:
-        if (androidSdkVersion > 30) {
-          return StretchingOverscrollIndicator(
-            axisDirection: details.direction,
-            child: child,
-          );
-        }
-        continue glow;
-      glow:
+        return StretchingOverscrollIndicator(
+          axisDirection: details.direction,
+          child: child,
+        );
       case TargetPlatform.fuchsia:
         return GlowingOverscrollIndicator(
           axisDirection: details.direction,

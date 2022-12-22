@@ -8,3 +8,4 @@ export 'states/tomuss_cubit.dart';
 export 'widgets/grade_list_header_widget.dart';
 export 'widgets/grade_list_widget.dart';
 export 'widgets/grade_widget.dart';
+export 'widgets/tomuss_bottom_nav_bar_icon.dart';
