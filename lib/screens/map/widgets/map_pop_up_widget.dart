@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:oloid2/screens/map/map_export.dart';
 
 class MapPopupWidget extends StatelessWidget {
-  const MapPopupWidget({Key? key, required this.batiment, required this.onTap})
+  const MapPopupWidget(
+      {Key? key,
+      required this.batiment,
+      required this.onTap,
+      required this.popupController})
       : super(key: key);
   final BatimentModel batiment;
   final void Function(BatimentModel) onTap;
+  final PopupController popupController;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +28,7 @@ class MapPopupWidget extends StatelessWidget {
           IconButton(
             onPressed: () {
               onTap(batiment);
+              popupController.hideAllPopups();
             },
             icon: const Icon(Icons.navigation_rounded),
           )

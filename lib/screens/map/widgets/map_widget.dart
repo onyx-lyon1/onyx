@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
@@ -51,7 +53,8 @@ class MapWidget extends StatelessWidget {
           tileProvider: AssetTileProvider(),
         ),
         if (polylines.isNotEmpty) PolylineLayer(polylines: polylines),
-        CurrentLocationLayer(),
+        if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
+          CurrentLocationLayer(),
         if (batiments.isNotEmpty)
           PopupMarkerLayerWidget(
             options: PopupMarkerLayerOptions(
@@ -62,6 +65,7 @@ class MapWidget extends StatelessWidget {
                   batiment: batiments.firstWhere(
                       (element) => element.position == marker.point),
                   onTap: onTapNavigate,
+                  popupController: popupLayerController,
                 );
               },
             ),
