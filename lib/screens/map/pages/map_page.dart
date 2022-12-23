@@ -10,36 +10,33 @@ class MapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textEditingController = TextEditingController();
-    return BlocProvider(
-      create: (context) => MapCubit(),
-      child: SafeArea(
-        child: BlocBuilder<MapCubit, MapState>(
-          builder: (context, state) {
-            if (state.status == MapStatus.initial) {
-              context.read<MapCubit>().loadBatiment();
-            }
-            return CommonScreenWidget(
-              header: Center(
-                child: MapSearchAutocompleteWidget(
-                  controller: textEditingController,
+    return SafeArea(
+      child: BlocBuilder<MapCubit, MapState>(
+        builder: (context, state) {
+          if (state.status == MapStatus.initial) {
+            context.read<MapCubit>().loadBatiment();
+          }
+          return CommonScreenWidget(
+            header: Center(
+              child: MapSearchAutocompleteWidget(
+                controller: textEditingController,
+              ),
+            ),
+            body: MapWidget(
+              batiments: state.batiments,
+              polylines: [
+                Polyline(
+                  points: state.path,
+                  strokeWidth: 4.0,
+                  color: Colors.red,
                 ),
-              ),
-              body: MapWidget(
-                batiments: state.batiments,
-                polylines: [
-                  Polyline(
-                    points: state.path,
-                    strokeWidth: 4.0,
-                    color: Colors.red,
-                  ),
-                ],
-                onTapNavigate: (batiment) {
-                  context.read<MapCubit>().navigate(context, batiment);
-                },
-              ),
-            );
-          },
-        ),
+              ],
+              onTapNavigate: (batiment) {
+                context.read<MapCubit>().navigate(context, batiment);
+              },
+            ),
+          );
+        },
       ),
     );
   }

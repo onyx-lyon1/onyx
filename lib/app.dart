@@ -7,6 +7,7 @@ import 'package:oloid2/home.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
 import 'package:oloid2/screens/login/login_export.dart';
 import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:oloid2/screens/map/map_export.dart';
 import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
@@ -45,6 +46,7 @@ class OloidAppState extends State<OloidApp> {
           BlocProvider<EmailCubit>(create: (context) => EmailCubit()),
           BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
           BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
+          BlocProvider<MapCubit>(create: (context) => MapCubit()),
         ],
         child: BlocConsumer<AuthentificationCubit, AuthentificationState>(
           listener: (context, state) {
