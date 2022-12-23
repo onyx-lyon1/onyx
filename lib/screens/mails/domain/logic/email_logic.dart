@@ -32,7 +32,7 @@ class EmailLogic {
     } else {
       for (final Mail mail in emailOpt) {
         if (!tmpEmailsComplete.any((element) =>
-            element.date == mail.getDate() &&
+            element.date == mail.getDate &&
             element.body == mail.getBody(excerpt: false))) {
           tmpEmailsComplete.add(EmailModel.fromMailLib(mail));
         }

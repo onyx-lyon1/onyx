@@ -34,8 +34,6 @@ class EmailWidget extends StatelessWidget {
     return Theme.of(c).primaryColor.withOpacity(0.7);
   }
 
-  // final Color unreadCircleAvatarColor = const Color(0xffd08770);
-
   const EmailWidget({Key? key, required this.email}) : super(key: key);
 
   String _firstLetter(String sender) {
@@ -175,17 +173,43 @@ class EmailWidget extends StatelessWidget {
                       ),
                       SizedBox(
                         width: 80.w,
-                        child: Text(
-                          (email.subject != "") ? email.subject : email.excerpt,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          maxLines: 4,
-                          style: TextStyle(
-                            color: email.isRead
-                                ? readText2Color(context)
-                                : unreadText2Color(context),
-                            fontSize: 12.sp,
-                          ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                (email.subject != "")
+                                    ? email.subject
+                                    : email.excerpt,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                                maxLines: 4,
+                                style: TextStyle(
+                                  color: email.isRead
+                                      ? readText2Color(context)
+                                      : unreadText2Color(context),
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                context
+                                    .read<EmailCubit>()
+                                    .toggleFlag(email: email);
+                              },
+                              icon: Icon(
+                                email.isFlagged
+                                    ? Icons.flag_rounded
+                                    : Icons.outlined_flag_rounded,
+                                size: 20.sp,
+                                color: email.isFlagged
+                                    ? Theme.of(context).primaryColor
+                                    : email.isRead
+                                        ? readText2Color(context)
+                                        : unreadText2Color(context),
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ],

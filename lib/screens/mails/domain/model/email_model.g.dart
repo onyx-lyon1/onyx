@@ -21,18 +21,19 @@ class EmailModelAdapter extends TypeAdapter<EmailModel> {
       sender: fields[1] as String,
       excerpt: fields[2] as String,
       isRead: fields[5] as bool,
-      date: fields[6] as DateTime,
+      date: fields[7] as DateTime,
       body: fields[3] as String,
       id: fields[4] as int?,
-      receiver: fields[7] as String,
-      attachments: (fields[8] as List).cast<String>(),
+      receiver: fields[8] as String,
+      attachments: (fields[9] as List).cast<String>(),
+      isFlagged: fields[6] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, EmailModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.subject)
       ..writeByte(1)
@@ -46,10 +47,12 @@ class EmailModelAdapter extends TypeAdapter<EmailModel> {
       ..writeByte(5)
       ..write(obj.isRead)
       ..writeByte(6)
-      ..write(obj.date)
+      ..write(obj.isFlagged)
       ..writeByte(7)
-      ..write(obj.receiver)
+      ..write(obj.date)
       ..writeByte(8)
+      ..write(obj.receiver)
+      ..writeByte(9)
       ..write(obj.attachments);
   }
 

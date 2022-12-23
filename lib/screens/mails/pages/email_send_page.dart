@@ -34,6 +34,7 @@ class EmailSendPage extends StatelessWidget {
               body: bodyEditor.text,
               id: 0,
               receiver: destinationEditor.text,
+              isFlagged: false,
               attachments: [],
             );
             context.read<EmailCubit>().send(
@@ -78,6 +79,7 @@ class EmailSendPage extends StatelessWidget {
                       body: bodyEditor.text,
                       id: 0,
                       receiver: destinationEditor.text,
+                      isFlagged: false,
                       attachments: attachments.map((e) => e.path).toList(),
                     );
                     context.read<EmailCubit>().send(

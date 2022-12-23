@@ -20,10 +20,12 @@ class EmailModel {
   @HiveField(5)
   bool isRead;
   @HiveField(6)
-  final DateTime date;
+  bool isFlagged;
   @HiveField(7)
-  final String receiver;
+  final DateTime date;
   @HiveField(8)
+  final String receiver;
+  @HiveField(9)
   final List<String> attachments;
 
   Mail? rawMail;
@@ -38,26 +40,29 @@ class EmailModel {
       required this.id,
       required this.receiver,
       required this.attachments,
+      required this.isFlagged,
       this.rawMail});
 
   static EmailModel fromMailLib(lyon1mail.Mail mail) {
     return EmailModel(
-      subject: mail.getSubject(),
-      sender: mail.getSender(),
+      subject: mail.getSubject,
+      sender: mail.getSender,
       excerpt: mail.getBody(excerpt: true),
-      isRead: mail.isSeen(),
-      date: mail.getDate(),
+      isRead: mail.isSeen,
+      date: mail.getDate,
       body: mail.getBody(excerpt: false),
-      id: mail.getSequenceId(),
+      id: mail.getSequenceId,
       receiver: "me",
-      attachments: mail.getAttachmentsNames(),
+      attachments: mail.getAttachmentsNames,
+      isFlagged: mail.isFlagged,
       rawMail: mail,
     );
   }
 
+
   @override
   String toString() {
-    return 'EmailModel{subject: $subject, sender: $sender, excerpt: $excerpt, body: $body, id: $id, isRead: $isRead, date: $date, receiver: $receiver, attachments: $attachments, rawMail: $rawMail}';
+    return 'EmailModel{subject: $subject, sender: $sender, excerpt: $excerpt, body: $body, id: $id, isRead: $isRead, isFlagged: $isFlagged, date: $date, receiver: $receiver, attachments: $attachments, rawMail: $rawMail}';
   }
 
   @override
@@ -74,6 +79,7 @@ class EmailModel {
           date == other.date &&
           receiver == other.receiver &&
           listEquals(attachments, other.attachments) &&
+          isFlagged == other.isFlagged &&
           rawMail == other.rawMail;
 
   @override
@@ -87,5 +93,6 @@ class EmailModel {
       date.hashCode ^
       receiver.hashCode ^
       attachments.hashCode ^
+      isFlagged.hashCode ^
       rawMail.hashCode;
 }

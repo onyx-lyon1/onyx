@@ -91,6 +91,32 @@ class EmailCubit extends Cubit<EmailState> {
     }
   }
 
+  void toggleFlag({required EmailModel email}) async {
+    if (!mailClient.isAuthenticated) {
+      if (!await mailClient.login()) {
+        emit(state.copyWith(status: EmailStatus.error));
+        return;
+      }
+    }
+    await mailClient.fetchMessages(1);
+
+    if (email.isFlagged) {
+      await mailClient.unmarkAsFlagged(email.id!);
+      emailsComplete[emailsComplete.indexOf(email)].isFlagged = false;
+      List<EmailModel> emails = state.emails;
+      emails[emailsComplete.indexOf(email)].isFlagged = false;
+      CacheService.set<EmailModelWrapper>(EmailModelWrapper(emailsComplete));
+      emit(state.copyWith(status: EmailStatus.updated, emails: emails));
+    } else {
+      await mailClient.markAsFlagged(email.id!);
+      emailsComplete[emailsComplete.indexOf(email)].isFlagged = true;
+      List<EmailModel> emails = state.emails;
+      emails[emailsComplete.indexOf(email)].isFlagged = true;
+      CacheService.set<EmailModelWrapper>(EmailModelWrapper(emailsComplete));
+      emit(state.copyWith(status: EmailStatus.updated, emails: emails));
+    }
+  }
+
   void load({bool cache = true}) async {
     emit(state.copyWith(status: EmailStatus.loading));
     if (cache) {
