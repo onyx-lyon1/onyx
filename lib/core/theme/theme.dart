@@ -35,7 +35,7 @@ class OloidTheme {
       cardTheme: const CardTheme(color: Color(0xffe5e9f0)),
       cardColor: const Color(0xffe5e9f0),
       primaryColor: const Color(0xffd08770),
-      secondaryHeaderColor: const Color(0xff2f343f),
+      secondaryHeaderColor: const Color(0xffe5e9f0),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: const Color(0xffd08770),
         selectionColor: const Color(0xffd08770).withOpacity(0.7),
