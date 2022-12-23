@@ -90,19 +90,23 @@ class _LoginPageState extends State<LoginPage> {
                                 .bodyText1!
                                 .copyWith(fontSize: 12.sp),
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 3.w, vertical: 0.5.h),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).secondaryHeaderColor,
+                          Material(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            borderRadius: BorderRadius.circular(5),
+                            child: InkWell(
                               borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Text(
-                              "confidentialité",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(fontSize: 10.sp),
+                              onTap: () {},
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 3.w, vertical: 0.5.h),
+                                child: Text(
+                                  "confidentialité",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(fontSize: 10.sp),
+                                ),
+                              ),
                             ),
                           )
                         ],
