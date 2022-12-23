@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 3.w, vertical: 0.5.h),
                             decoration: BoxDecoration(
-                              color: Theme.of(context).cardColor,
+                              color: Theme.of(context).secondaryHeaderColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Text(
@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 1.h,
                     ),
                     Container(
-                      color: Theme.of(context).cardTheme.color,
+                      color: Theme.of(context).secondaryHeaderColor,
                       width: 70.w,
                       child: TextFormField(
                         autofillHints: const [AutofillHints.username],
@@ -160,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Container(
-                      color: Theme.of(context).cardTheme.color,
+                      color: Theme.of(context).secondaryHeaderColor,
                       width: 70.w,
                       child: PasswordFormField(
                         onFieldSubmitted: send,
