@@ -90,7 +90,7 @@ class EmailDetailsPage extends StatelessWidget {
                         ),
                         Container(
                           color: Theme.of(context).cardTheme.color,
-                          height: 60.h,
+                          height: (mail.attachments.isNotEmpty) ? 60.h : 72.h,
                           width: 100.w,
                           padding: EdgeInsets.all(1.h),
                           child: EmailContentWidget(mail: mail),

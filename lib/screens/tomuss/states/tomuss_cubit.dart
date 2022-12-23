@@ -29,6 +29,7 @@ class TomussCubit extends Cubit<TomussState> {
         emit(TomussState(status: TomussStatus.error));
         return;
       }
+      teachingUnits.sort((a, b) => a.name.compareTo(b.name));
       CacheService.set<SchoolSubjectModelWrapper>(
           SchoolSubjectModelWrapper(teachingUnits));
       emit(TomussState(

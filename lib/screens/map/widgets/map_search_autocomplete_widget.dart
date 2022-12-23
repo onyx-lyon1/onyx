@@ -87,7 +87,6 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
                       .bodyText1!
                       .color!
                       .withOpacity(0.5)),
-              isDense: true,
               focusedBorder: InputBorder.none,
               border: InputBorder.none,
             ),

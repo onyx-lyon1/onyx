@@ -20,7 +20,9 @@ class CommonScreenWidget extends StatelessWidget {
         AnimatedContainer(
           duration: Res.animationDuration,
           margin: EdgeInsets.only(top: (state != null) ? 5.h : 0),
-          height: (state != null) ? 85.h : 90.h,
+          // (state != null)
+          //     ? 95.h - Res.bottomNavBarHeight
+          //     : 100.h - Res.bottomNavBarHeight,
           width: 100.w,
           color: Theme.of(context).backgroundColor,
           child: (onRefresh != null)

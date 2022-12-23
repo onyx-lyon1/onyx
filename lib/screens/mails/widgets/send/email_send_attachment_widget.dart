@@ -22,7 +22,7 @@ class _EmailSendAttachmentWidgetState extends State<EmailSendAttachmentWidget> {
     return Container(
       color: Theme.of(context).cardTheme.color,
       padding: EdgeInsets.all(0.5.h),
-      height: 12.h,
+      height: 14.h,
       width: 100.w,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
