@@ -4,8 +4,8 @@ class OloidTheme {
   static ThemeData darkTheme() {
     return ThemeData(
       useMaterial3: true,
-      cardTheme: const CardTheme(color: Color(0xff4c566a)),
-      cardColor: const Color(0xff4c566a),
+      cardTheme: const CardTheme(color: Color(0xff2f343f)),
+      cardColor: const Color(0xff2f343f),
       primaryColor: const Color(0xffd08770),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: const Color(0xffd08770),
