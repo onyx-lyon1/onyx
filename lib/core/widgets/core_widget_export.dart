@@ -1,5 +1,3 @@
-export 'bottom_bar/bottom_nav_bar_widget.dart';
-export 'bottom_bar/bottom_nav_bar_component_widget.dart';
 export '../../screens/tomuss/widgets/tomuss_bottom_nav_bar_icon.dart';
 export '../../screens/agenda/widgets/agenda_bottom_nav_bar_icon.dart';
 export '../../screens/mails/widgets/email_bottom_nav_bar_icon.dart';

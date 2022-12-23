@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oloid2/core/home/home_export.dart';
 import 'package:oloid2/core/res.dart';
 import 'package:oloid2/core/widgets/core_widget_export.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
@@ -12,16 +13,16 @@ import 'package:oloid2/screens/settings/settings_export.dart';
 import 'package:oloid2/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return HomeState();
+    return HomePageState();
   }
 }
 
-class HomeState extends State<Home> {
+class HomePageState extends State<HomePage> {
   final ScrollController mainPageController = ScrollController();
   late ScrollController scrollController;
   late int currentRealIndex = 0;

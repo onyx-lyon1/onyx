@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:oloid2/core/initialisations/initialisations_export.dart';
 import 'package:oloid2/core/theme/theme_export.dart';
-import 'package:oloid2/home.dart';
+import 'package:oloid2/core/home/pages/home_page.dart';
 import 'package:oloid2/screens/agenda/agenda_export.dart';
 import 'package:oloid2/screens/login/login_export.dart';
 import 'package:oloid2/screens/mails/mails_export.dart';
@@ -82,7 +82,7 @@ class OloidAppState extends State<OloidApp> {
                                           .state
                                           .status ==
                                       AuthentificationStatus.authentificating)
-                              ? const Home()
+                              ? const HomePage()
                               : LoginPage(key: UniqueKey()));
                 } else {
                   return const CustomCircularProgressIndicatorWidget();
