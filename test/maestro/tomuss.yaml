@@ -1,0 +1,17 @@
+appId: com.onyx.app
+---
+- assertVisible: "Notes"
+- assertVisible:
+    below: "Notes"
+- tapOn:
+    point: "50%,19%"
+- assertVisible: "moyenne: 16.87 · mediane: 19.44\nclassement:1/543\nprofesseur: m.lefevre"
+# - assertVisible: "moyenne"
+# - assertVisible: "mediane"
+# - assertVisible: "classement"
+# - assertVisible: "professeur"
+- swipe:
+    start: 100,200
+    end:  50,2000
+    duration: 200
+- assertVisible: "Notes"
