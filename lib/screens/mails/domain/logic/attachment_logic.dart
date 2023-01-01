@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AttachmentLogic {

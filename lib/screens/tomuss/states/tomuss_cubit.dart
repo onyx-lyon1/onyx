@@ -1,8 +1,8 @@
 import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/screens/tomuss/tomuss_export.dart';
+import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'tomuss_state.dart';

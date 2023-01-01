@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/core/extensions/extensions_export.dart';
-import 'package:oloid2/core/widgets/common_screen_widget.dart';
-import 'package:oloid2/screens/agenda/agenda_export.dart';
-import 'package:oloid2/screens/login/login_export.dart';
-import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:onyx/core/extensions/extensions_export.dart';
+import 'package:onyx/core/widgets/common_screen_widget.dart';
+import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/login/login_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';

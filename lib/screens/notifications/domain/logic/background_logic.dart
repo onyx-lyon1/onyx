@@ -2,14 +2,14 @@ import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:flutter/foundation.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/core/initialisations/initialisations_export.dart';
-import 'package:oloid2/screens/agenda/agenda_export.dart';
-import 'package:oloid2/screens/login/login_export.dart';
-import 'package:oloid2/screens/mails/mails_export.dart';
-import 'package:oloid2/screens/notifications/notifications_export.dart';
-import 'package:oloid2/screens/settings/settings_export.dart';
-import 'package:oloid2/screens/tomuss/tomuss_export.dart';
+import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/core/initialisations/initialisations_export.dart';
+import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/login/login_export.dart';
+import 'package:onyx/screens/mails/mails_export.dart';
+import 'package:onyx/screens/notifications/notifications_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:workmanager/workmanager.dart';
 
 @pragma('vm:entry-point')

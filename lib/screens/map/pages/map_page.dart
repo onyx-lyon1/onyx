@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:oloid2/core/widgets/core_widget_export.dart';
-import 'package:oloid2/screens/map/map_export.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/screens/map/map_export.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({Key? key}) : super(key: key);

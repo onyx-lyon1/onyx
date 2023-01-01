@@ -5,7 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:oloid2/screens/map/map_export.dart';
+import 'package:onyx/screens/map/map_export.dart';
 import 'package:sizer/sizer.dart';
 
 class MapWidget extends StatelessWidget {

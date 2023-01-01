@@ -1,5 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:workmanager/workmanager.dart';
 
 part 'settings_state.dart';
@@ -30,7 +33,9 @@ class SettingsCubit extends Cubit<SettingsState> {
     if (!(state.settings.calendarUpdateNotification &&
         state.settings.newMailNotification &&
         state.settings.newGradeNotification)) {
-      Workmanager().cancelByUniqueName("updateChecking");
+      if (!Platform.environment.containsKey('FLUTTER_TEST') && (!kIsWeb && (Platform.isAndroid || Platform.isIOS))) {
+        Workmanager().cancelByUniqueName("updateChecking");
+      }
     }
   }
 

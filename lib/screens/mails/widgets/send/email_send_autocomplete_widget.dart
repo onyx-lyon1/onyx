@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/screens/login/login_export.dart';
-import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/login/login_export.dart';
+import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 
 class EmailSendAutocompleteWidget extends StatelessWidget {
@@ -13,6 +14,9 @@ class EmailSendAutocompleteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return RawAutocomplete<String>(
       optionsBuilder: (TextEditingValue textEditingValue) async {
+        if (Res.mock) {
+          return EmailLogic.mockAddresses;
+        }
         if (!context.read<EmailCubit>().mailClient.isAuthenticated) {
           context.read<EmailCubit>().connect(
               username: context.read<AuthentificationCubit>().state.username!,

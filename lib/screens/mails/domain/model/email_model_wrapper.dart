@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:onyx/screens/mails/mails_export.dart';
 
 part 'email_model_wrapper.g.dart';
 

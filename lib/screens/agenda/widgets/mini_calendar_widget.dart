@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/core/extensions/extensions_export.dart';
-import 'package:oloid2/core/res.dart';
-import 'package:oloid2/core/widgets/core_widget_export.dart';
-import 'package:oloid2/screens/agenda/agenda_export.dart';
+import 'package:onyx/core/extensions/extensions_export.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:sizer/sizer.dart';
 
 class MiniCalendarWidget extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
-import 'package:oloid2/screens/map/map_export.dart';
+import 'package:onyx/screens/map/map_export.dart';
 
 class MapPopupWidget extends StatelessWidget {
   const MapPopupWidget(

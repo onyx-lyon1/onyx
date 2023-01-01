@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/core/home/home_export.dart';
-import 'package:oloid2/core/res.dart';
-import 'package:oloid2/core/widgets/core_widget_export.dart';
+import 'package:onyx/core/home/home_export.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
 
 class BottomNavBarWidget extends StatelessWidget {
   final Function(int index) onTap;

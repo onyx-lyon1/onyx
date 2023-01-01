@@ -2,9 +2,10 @@ import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
-import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/screens/agenda/agenda_export.dart';
-import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'agenda_state.dart';
@@ -23,9 +24,11 @@ class AgendaCubit extends Cubit<AgendaState> {
       required SettingsModel settings,
       bool cache = true}) async {
     emit(state.copyWith(status: AgendaStatus.loading));
-    if (cache) {
-      state.dayModels = await compute(AgendaLogic.getCache,
-          (await getApplicationDocumentsDirectory()).path);
+    if (cache && !Res.mock) {
+      state.dayModels = await compute(
+        AgendaLogic.getCache,
+        (await getApplicationDocumentsDirectory()).path,
+      );
       emit(state.copyWith(
           status: AgendaStatus.cacheReady, dayModels: state.dayModels));
     }

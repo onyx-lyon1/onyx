@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:diacritic/diacritic.dart';
 import 'package:flutter/services.dart';
-import 'package:oloid2/screens/map/map_export.dart';
+import 'package:onyx/screens/map/map_export.dart';
 
 class BatimentsLogic {
   static List<BatimentModel> batiments = [];

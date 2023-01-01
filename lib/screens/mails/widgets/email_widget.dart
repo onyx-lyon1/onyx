@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 
 class EmailWidget extends StatelessWidget {

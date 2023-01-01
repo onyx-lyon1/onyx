@@ -3,14 +3,14 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/core/res.dart';
-import 'package:oloid2/screens/agenda/agenda_export.dart';
-import 'package:oloid2/screens/login/login_export.dart';
-import 'package:oloid2/screens/mails/mails_export.dart';
-import 'package:oloid2/screens/settings/settings_export.dart';
-import 'package:oloid2/screens/settings/widgets/drop_down_widget.dart';
-import 'package:oloid2/screens/tomuss/tomuss_export.dart';
+import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/login/login_export.dart';
+import 'package:onyx/screens/mails/mails_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/screens/settings/widgets/drop_down_widget.dart';
+import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({

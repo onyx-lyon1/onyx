@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:oloid2/core/extensions/extensions_export.dart';
-import 'package:oloid2/screens/map/map_export.dart';
+import 'package:onyx/core/extensions/extensions_export.dart';
+import 'package:onyx/screens/map/map_export.dart';
 
 class NavigationLogic {
   static Future<List<List<LatLng>>> navigateToBatimentFromLocation(

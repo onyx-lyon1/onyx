@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/core/widgets/core_widget_export.dart';
-import 'package:oloid2/screens/login/login_export.dart';
-import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/screens/login/login_export.dart';
+import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 
 class EmailsPage extends StatelessWidget {

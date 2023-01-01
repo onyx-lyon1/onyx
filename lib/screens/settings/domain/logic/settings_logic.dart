@@ -1,8 +1,12 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 
 class SettingsLogic {
   static Future<SettingsModel> load() async {
+    if (Res.mock) {
+      return SettingsModel();
+    }
     if (await Hive.boxExists('settings')) {
       Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');
       SettingsModel? tmpSettings = box.get('settings');
@@ -17,7 +21,7 @@ class SettingsLogic {
   }
 
   static Future<void> reset() async {
-    Box<SettingsModel> box = Hive.box<SettingsModel>('settings');
+    Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');
     await box.put('settings', SettingsModel());
   }
 

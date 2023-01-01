@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/screens/mails/mails_export.dart';
+import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'email_state.dart';
@@ -119,7 +120,7 @@ class EmailCubit extends Cubit<EmailState> {
 
   void load({bool cache = true}) async {
     emit(state.copyWith(status: EmailStatus.loading));
-    if (cache) {
+    if (cache && !Res.mock) {
       List<EmailModel> emailCache = await compute(EmailLogic.cacheLoad,
           (await getApplicationDocumentsDirectory()).path);
       if (emailCache.isNotEmpty && !listEquals(emailCache, emailsComplete)) {

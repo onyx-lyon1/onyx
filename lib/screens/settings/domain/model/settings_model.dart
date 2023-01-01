@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 
 part 'settings_model.g.dart';
 

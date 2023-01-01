@@ -1,10 +1,12 @@
 import 'package:dartus/tomuss.dart' as tomusslib;
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/login/login_export.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/login/login_export.dart';
 
 class AuthentificationLogic {
   static Future<AuthenticationModel> fetchCredential(
       {String? username, String? password}) async {
+    if (Res.mock) {}
     Box<AuthenticationModel> authBox =
         await Hive.openBox<AuthenticationModel>("authentification");
     AuthenticationModel? auth;
@@ -25,6 +27,9 @@ class AuthentificationLogic {
       {required String username,
       required String password,
       required bool keepLogedIn}) async {
+    if (Res.mock) {
+      return tomusslib.Dartus(tomusslib.Authentication(username, password));
+    }
     Box<AuthenticationModel> authBox =
         await Hive.openBox<AuthenticationModel>("authentification");
     final tomusslib.Dartus tomuss =
@@ -47,4 +52,7 @@ class AuthentificationLogic {
     }
     return tomuss;
   }
+
+  static final AuthenticationModel mockCredential =
+      AuthenticationModel(username: "mockUsername", password: "mockPassword");
 }

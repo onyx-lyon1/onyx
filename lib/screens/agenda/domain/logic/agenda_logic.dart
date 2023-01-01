@@ -1,14 +1,18 @@
 import 'package:lyon1agenda/lyon1agenda.dart';
-import 'package:oloid2/core/cache_service.dart';
-import 'package:oloid2/core/initialisations/initialisations_export.dart';
-import 'package:oloid2/screens/agenda/agenda_export.dart';
-import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/core/initialisations/initialisations_export.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 
 class AgendaLogic {
   static Future<List<DayModel>> load(
       {required Lyon1Agenda agendaClient,
       required SettingsModel settings,
       DateTime? maxDate}) async {
+    if (Res.mock) {
+      return dayModelListMock;
+    }
     Agenda? agendaOpt;
     try {
       agendaOpt = await agendaClient.getAgenda(
@@ -84,6 +88,9 @@ class AgendaLogic {
   }
 
   static Future<List<DayModel>> getCache(String path) async {
+    if (Res.mock) {
+      return dayModelListMock;
+    }
     await hiveInit(path: path);
     if (await CacheService.exist<DayModelWrapper>()) {
       return (await CacheService.get<DayModelWrapper>())!.dayModels;
@@ -91,4 +98,86 @@ class AgendaLogic {
       return [];
     }
   }
+  static final List<DayModel> dayModelListMock = [
+    DayModel(DateTime(2022, 9, 1), [
+      EventModel(
+          location: "Déambu",
+          description: "mockDecription1",
+          teacher: "mockTeacher1",
+          summary: "mockSummary1",
+          start: DateTime(2022, 9, 1, 8),
+          end: DateTime(2022, 9, 1, 9),
+          eventLastModified: DateTime(2022, 9, 1)),
+      EventModel(
+          location: "Thémis",
+          description: "mockDecription2",
+          teacher: "mockTeacher2",
+          summary: "mockSummary2",
+          start: DateTime(2022, 9, 1, 9),
+          end: DateTime(2022, 9, 1, 10),
+          eventLastModified: DateTime(2022, 9, 1)),
+      EventModel(
+          location: "Nautibus",
+          description: "mockDecription3",
+          teacher: "mockTeacher3",
+          summary: "mockSummary3",
+          start: DateTime(2022, 9, 1, 10),
+          end: DateTime(2022, 9, 1, 11),
+          eventLastModified: DateTime(2022, 9, 1)),
+    ]),
+    DayModel(DateTime(2022, 9, 2), [
+      EventModel(
+          location: "quai 43",
+          description: "mockDecription4",
+          teacher: "mockTeacher4",
+          summary: "mockSummary4",
+          start: DateTime(2022, 9, 1, 11),
+          end: DateTime(2022, 9, 1, 12),
+          eventLastModified: DateTime(2022, 9, 1)),
+      EventModel(
+          location: "ISTIL",
+          description: "mockDecription5",
+          teacher: "mockTeacher5",
+          summary: "mockSummary5",
+          start: DateTime(2022, 9, 1, 12),
+          end: DateTime(2022, 9, 1, 13),
+          eventLastModified: DateTime(2022, 9, 1)),
+      EventModel(
+          location: "Forel",
+          description: "mockDecription6",
+          teacher: "mockTeacher6",
+          summary: "mockSummary6",
+          start: DateTime(2022, 9, 1, 13),
+          end: DateTime(2022, 9, 1, 14),
+          eventLastModified: DateTime(2022, 9, 1)),
+    ]),
+    DayModel(DateTime(2022, 9, 3), [
+      EventModel(
+          location: "Déambu",
+          description: "mockDecription7",
+          teacher: "mockTeacher7",
+          summary: "mockSummary7",
+          start: DateTime(2022, 9, 1, 14),
+          end: DateTime(2022, 9, 1, 15),
+          eventLastModified: DateTime(2022, 9, 1)),
+      EventModel(
+          location: "Thémis",
+          description: "mockDecription8",
+          teacher: "mockTeacher8",
+          summary: "mockSummary8",
+          start: DateTime(2022, 9, 1, 15),
+          end: DateTime(2022, 9, 1, 16),
+          eventLastModified: DateTime(2022, 9, 1)),
+      EventModel(
+          location: "Nautibus",
+          description: "mockDecription9",
+          teacher: "mockTeacher9",
+          summary: "mockSummary9",
+          start: DateTime(2022, 9, 1, 16),
+          end: DateTime(2022, 9, 1, 17),
+          eventLastModified: DateTime(2022, 9, 1)),
+    ]),
+  ];
 }
+
+

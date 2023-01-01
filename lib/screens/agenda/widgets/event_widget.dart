@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:oloid2/core/extensions/extensions_export.dart';
-import 'package:oloid2/screens/agenda/agenda_export.dart';
+import 'package:onyx/core/extensions/extensions_export.dart';
+import 'package:onyx/screens/agenda/agenda_export.dart';
 
 class EventWidget extends StatelessWidget {
   final EventModel event;

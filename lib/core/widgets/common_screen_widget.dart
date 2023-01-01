@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/core/res.dart';
+import 'package:onyx/core/res.dart';
 import 'package:sizer/sizer.dart';
 
 class CommonScreenWidget extends StatelessWidget {

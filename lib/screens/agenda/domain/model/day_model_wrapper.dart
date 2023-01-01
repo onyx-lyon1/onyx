@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/agenda/agenda_export.dart';
 
 part 'day_model_wrapper.g.dart';
 

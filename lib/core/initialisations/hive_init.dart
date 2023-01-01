@@ -1,9 +1,9 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:oloid2/screens/agenda/agenda_export.dart';
-import 'package:oloid2/screens/login/login_export.dart';
-import 'package:oloid2/screens/mails/mails_export.dart';
-import 'package:oloid2/screens/settings/settings_export.dart';
-import 'package:oloid2/screens/tomuss/tomuss_export.dart';
+import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/login/login_export.dart';
+import 'package:onyx/screens/mails/mails_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 Future<void> hiveInit({String? path}) async {
   Hive.registerAdapter(AuthenticationModelAdapter());
@@ -23,4 +23,13 @@ Future<void> hiveInit({String? path}) async {
   } else {
     await Hive.initFlutter();
   }
+}
+
+Future<void> hiveReset({String? path}) async {
+  hiveInit(path: path);
+  await Hive.deleteBoxFromDisk('settings');
+  await Hive.deleteBoxFromDisk('authentication');
+  await Hive.deleteBoxFromDisk('tomuss');
+  await Hive.deleteBoxFromDisk('agenda');
+  await Hive.deleteBoxFromDisk('mails');
 }

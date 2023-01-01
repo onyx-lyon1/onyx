@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/core/widgets/states_displaying/state_displaying_widget_export.dart';
+import 'package:onyx/core/widgets/states_displaying/state_displaying_widget_export.dart';
 import 'package:sizer/sizer.dart';
 
 class StateDisplayingPage extends StatelessWidget {

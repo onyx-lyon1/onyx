@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:oloid2/screens/map/map_export.dart';
+import 'package:onyx/screens/map/map_export.dart';
 
 part 'map_state.dart';
 

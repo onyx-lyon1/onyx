@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/core/widgets/core_widget_export.dart';
-import 'package:oloid2/screens/map/map_export.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/screens/map/map_export.dart';
 
 class BottomNavBarComponentWidget extends StatelessWidget {
   const BottomNavBarComponentWidget(

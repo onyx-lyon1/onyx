@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oloid2/screens/login/login_export.dart';
-import 'package:oloid2/screens/settings/settings_export.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/login/login_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
@@ -153,6 +154,9 @@ class _LoginPageState extends State<LoginPage> {
                           disabledBorder: InputBorder.none,
                         ),
                         validator: (value) {
+                          if (Res.mock) {
+                            return null;
+                          }
                           if (value == null || value.isEmpty) {
                             return 'Veuillez entrer l\'identifiant';
                           } else if (!(value.startsWith("P") ||
@@ -182,6 +186,9 @@ class _LoginPageState extends State<LoginPage> {
                         onSaved: (String? value) => password = value!,
                         // The validator receives the text that the user has entered.
                         validator: (value) {
+                          if (Res.mock) {
+                            return null;
+                          }
                           if (value == null || value.isEmpty) {
                             return 'Veuillez entrer un mot de passe';
                           }

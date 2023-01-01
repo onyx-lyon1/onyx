@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:oloid2/core/res.dart';
-import 'package:oloid2/core/widgets/common_screen_widget.dart';
-import 'package:oloid2/screens/login/login_export.dart';
-import 'package:oloid2/screens/settings/settings_export.dart';
-import 'package:oloid2/screens/tomuss/tomuss_export.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/core/widgets/common_screen_widget.dart';
+import 'package:onyx/screens/login/login_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';

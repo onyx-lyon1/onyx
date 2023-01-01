@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oloid2/screens/tomuss/tomuss_export.dart';
+import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
 
 class GradeListWidget extends StatelessWidget {
