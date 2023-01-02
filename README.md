@@ -9,7 +9,7 @@ start app in test mode : `flutter run integration_test/app_test.dart --host-vmse
 replace `an ip address` with the ip address of your computer (if using an emulator, set to 10.0.2.2)
 
 run the test manager (can be found here : https://github.com/fzyzcjy/flutter_convenient_test/)
-`flutter run --profile --dart-define CONVENIENT_TEST_WORKER_HOST="an ip address" -d linux`
+`flutter run packages/convenient_test_manager/lib/main.dart --profile --dart-define CONVENIENT_TEST_WORKER_HOST="an ip address" -d linux`
 
 replace `an ip address` with the ip address of your phone (if using an emulator, set to 127.0.0.1)
 
