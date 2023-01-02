@@ -98,6 +98,7 @@ class AgendaLogic {
       return [];
     }
   }
+
   static final List<DayModel> dayModelListMock = [
     DayModel(DateTime(2022, 9, 1), [
       EventModel(
@@ -177,7 +178,15 @@ class AgendaLogic {
           end: DateTime(2022, 9, 1, 17),
           eventLastModified: DateTime(2022, 9, 1)),
     ]),
-  ];
+  ]..addAll([
+      for (int i = 4; i < 300; i++)
+        DayModel(
+            DateTime(
+                    DateTime.now().year + ((DateTime.now().month < 6) ? -1 : 0),
+                    9)
+                .add(
+              Duration(days: i),
+            ),
+            [])
+    ]);
 }
-
-

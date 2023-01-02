@@ -89,6 +89,7 @@ class HomePageState extends State<HomePage> {
                           )
                         : null,
                     body: InfiniteScrollLoopWidget(
+                      key: const Key("home"),
                       builder: (context, index) {
                         switch ((index) % Res.screenCount) {
                           case 0:

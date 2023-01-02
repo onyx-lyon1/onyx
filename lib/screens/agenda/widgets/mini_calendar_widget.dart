@@ -19,16 +19,17 @@ class MiniCalendarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InfiniteScrollLoopWidget(
+      key: const Key('MiniCalendarWidget'),
       axisDirection: AxisDirection.right,
       scrollController: scrollController,
       builder: (context, index) {
         DateTime currentDate = DateTime.now().add(Duration(days: index));
-        if (context.read<AgendaCubit>().state.dayModels.isNotEmpty &&
-                currentDate.subtract(const Duration(days: 1)).isAfter(
-                    context.read<AgendaCubit>().state.dayModels.last.date) ||
-            context.read<AgendaCubit>().state.dayModels.isNotEmpty &&
-                currentDate.isBefore(
-                    context.read<AgendaCubit>().state.dayModels.first.date)) {
+        if (currentDate.subtract(const Duration(days: 1)).isAfter(DateTime(
+                DateTime.now().year + ((DateTime.now().month < 6) ? 0 : 1),
+                7)) ||
+            currentDate.isBefore(DateTime(
+                DateTime.now().year + ((DateTime.now().month < 6) ? -1 : 0),
+                9))) {
           return null;
         }
         return oneDay(context, currentDate);
@@ -43,6 +44,7 @@ class MiniCalendarWidget extends StatelessWidget {
           current.wantedDate.shrink(3) == currentDate.shrink(3),
       builder: (context, state) {
         return SizedBox(
+          key: Key(currentDate.shrink(3).toString()),
           height: Res.bottomNavBarHeight,
           width: 15.w,
           child: Padding(
