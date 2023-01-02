@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onyx/core/home/home_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/screens/map/map_export.dart';
 
 class BottomNavBarWidget extends StatelessWidget {
   final Function(int index) onTap;
@@ -25,10 +25,14 @@ class BottomNavBarWidget extends StatelessWidget {
           onTap: () => onTap(index),
           child: SizedBox(
             width: Res.bottomNavBarItemWidth,
-            child: BottomNavBarComponentWidget(
-              index: (index) % Res.screenCount,
-              currentIndex: (currentIndex) % Res.screenCount,
-            ),
+            child: [
+       TomussBottomNavBarIcon(selected: ((index) % Res.screenCount == (currentIndex) % Res.screenCount)),
+AgendaBottomNavBarIcon(selected: ((index) % Res.screenCount == (currentIndex) % Res.screenCount)),
+     EmailBottomNavBarIcon(selected: ((index) % Res.screenCount == (currentIndex) % Res.screenCount)),
+SettingsBottomNavBarIcon(selected: ((index) % Res.screenCount == (currentIndex) % Res.screenCount)),
+MapBottomNavBarIcon(selected: ((index) % Res.screenCount == (currentIndex) % Res.screenCount)),
+            ][(index) % Res.screenCount]
+
           ),
         );
       },
