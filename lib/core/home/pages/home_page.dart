@@ -24,26 +24,35 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   final ScrollController mainPageController = ScrollController();
-  late ScrollController scrollController;
-  late int currentRealIndex = 0;
-  bool isAnimating = false;
-  bool fromBottom = false;
+  late ScrollController bottomBarController;
 
   @override
   void initState() {
-    scrollController = ScrollController(initialScrollOffset: getOffset(-1));
+    bottomBarController =
+        ScrollController(initialScrollOffset: pageIndexToBottomBarOffset(-1));
     super.initState();
   }
 
-  double getOffset(int index) {
+  double pageIndexToBottomBarOffset(int index) {
     return (index - 1) * Res.bottomNavBarItemWidth;
     // return (index + 1) * Res.bottomNavBarItemWidth; //version a droite
   }
 
+  double pageOffsetToBottomBarOffset(double offset) {
+    return (offset / 100.w) * Res.bottomNavBarItemWidth;
+  }
+
+  double bottomBarOffsetToPageOffset(double offset) {
+    return (offset / Res.bottomNavBarItemWidth) * 100.w;
+  }
+
   void animateScroll() {
-    if (scrollController.hasClients && !isAnimating) {
-      scrollController.animateTo(getOffset(currentRealIndex - 1),
-          duration: Res.animationDuration, curve: Curves.easeInOut);
+    if (bottomBarController.hasClients) {
+      bottomBarController.jumpTo(
+        pageOffsetToBottomBarOffset(mainPageController.offset),
+      );
+      // bottomBarController.animateTo(pageIndexToBottomBarOffset(currentRealIndex - 1),
+      //     duration: Res.animationDuration, curve: Curves.easeInOut);
     }
   }
 
@@ -63,9 +72,9 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-  void animatePage() {
-    if (mainPageController.hasClients && !isAnimating) {
-      mainPageController.animateTo(currentRealIndex * 100.w,
+  void animatePage(int index) {
+    if (mainPageController.hasClients) {
+      mainPageController.animateTo(index * 100.w,
           duration: Res.animationDuration, curve: Curves.easeInOut);
     }
   }
@@ -124,10 +133,8 @@ class HomePageState extends State<HomePage> {
                       scrollController: mainPageController,
                       axisDirection: AxisDirection.right,
                       physics: const PageScrollPhysics(),
-                      onChange: (doubleIndex) {
-                        int index = doubleIndex.toInt();
+                      onChange: (offset) {
                         setState(() {
-                          currentRealIndex = index;
                           animateScroll();
                         });
                       },
@@ -137,23 +144,26 @@ class HomePageState extends State<HomePage> {
                 SizedBox(
                   height: Res.bottomNavBarHeight,
                   child: BottomNavBarWidget(
-                    scrollController: scrollController,
-                    currentIndex: currentRealIndex,
+                    scrollController: bottomBarController,
+                    currentIndex: bottomBarController.hasClients
+                        ? ((bottomBarController.offset -
+                                ((bottomBarController.offset > 0)
+                                    ? -Res.bottomNavBarItemWidth / 2
+                                    : Res.bottomNavBarItemWidth / 2)) ~/
+                            Res.bottomNavBarItemWidth)
+                        : 0,
                     onTap: (realIndex) {
                       if (realIndex % Res.screenCount == 1 &&
-                          currentRealIndex == realIndex) {
+                          (bottomBarController.hasClients
+                                  ? (bottomBarController.offset ~/
+                                      Res.bottomNavBarItemWidth)
+                                  : 0) ==
+                              realIndex) {
                         context.read<AgendaCubit>().updateDisplayedDate(
                             date: DateTime.now(), fromPageController: false);
                       }
                       setState(() {
-                        currentRealIndex = realIndex;
-                        fromBottom = true;
-                        animateScroll();
-                        animatePage();
-                        isAnimating = true;
-                        Future.delayed(Res.animationDuration, () {
-                          isAnimating = false;
-                        });
+                        animatePage(realIndex);
                       });
                     },
                   ),

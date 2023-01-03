@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:sizer/sizer.dart';
 
 class InfiniteScrollLoopWidget extends StatelessWidget {
   final ScrollController scrollController;
@@ -38,37 +37,11 @@ class InfiniteScrollLoopWidget extends StatelessWidget {
       ),
     );
     if (onChange != null) {
-      if (physics is PageScrollPhysics) {
-        int index = (scrollController.initialScrollOffset / 100.w).round();
-        if (axisDirection == AxisDirection.up ||
-            axisDirection == AxisDirection.down) {
-          scrollController.addListener(() {
-            if (scrollController.hasClients) {
-              if (index != (scrollController.offset / 100.h).round()) {
-                index = (scrollController.offset / 100.h).round();
-                onChange!((scrollController.offset / 100.h).roundToDouble());
-              }
-            }
-          });
-        } else {
-          scrollController.addListener(() {
-            if (scrollController.hasClients) {
-              // print(
-              //     "${scrollController.offset} ${(scrollController.offset / 100.w)} ${(scrollController.offset ~/ 100.w)} ${(scrollController.offset / 100.w).roundToDouble()} ${100.w}");
-              if (index != (scrollController.offset / 100.w).round()) {
-                index = (scrollController.offset / 100.w).round();
-                onChange!((scrollController.offset / 100.w).roundToDouble());
-              }
-            }
-          });
+      scrollController.addListener(() {
+        if (scrollController.hasClients) {
+          onChange!(scrollController.offset);
         }
-      } else {
-        scrollController.addListener(() {
-          if (scrollController.hasClients) {
-            onChange!(scrollController.offset);
-          }
-        });
-      }
+      });
     }
     return Scrollable(
       axisDirection: axisDirection,
