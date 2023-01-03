@@ -5,5 +5,5 @@ class Res {
   static const int screenCount = 5;
   static final double bottomNavBarItemWidth = 100.w / screenCount;
   static final double bottomNavBarHeight = 10.h;
-  static bool mock = false;
+  static bool mock = true;
 }

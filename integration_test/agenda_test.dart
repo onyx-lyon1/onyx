@@ -1,5 +1,6 @@
 import 'package:convenient_test_dev/convenient_test_dev.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
@@ -85,7 +86,10 @@ Future<void> agendaTest(ConvenientTest t) async {
       .text("Jeudi 1 Septembre")
       .should(findsNWidgets(2)); //aucune idée de pk il y en a 2
   await find.textContaining("Déambu").should(findsNWidgets(2));
+  await find.byType(PolylineLayer).should(findsNothing);
   await find.textContaining("Itinéraire").should(findsOneWidget);
+  await find.textContaining("Itinéraire").tap();
+  await find.byType(PolylineLayer).should(findsOneWidget);
 
   //quit and check we are on agenda page
   await find.byIcon(Icons.arrow_upward_rounded).tap();
