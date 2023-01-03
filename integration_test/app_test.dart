@@ -16,21 +16,7 @@ void main() {
         await find.text("Connection").tap();
         await find.text("Connection").should(findsNothing);
       });
-      tTestWidgets('check notes', (t) async {
-        await login(t);
-        await find.text("Notes").should(findsOneWidget);
-        await find.text("Algèbre 1 Cursus Prépa").should(findsOneWidget);
-        await find.text("9.94").should(findsOneWidget);
-        await find.text("WAGNER,  • grp ?").should(findsOneWidget);
-
-        await find.text("20.0").should(findsNWidgets(2));
-
-        await find
-            .text("Compétences Numériques et Préparation PIX - Module 1")
-            .should(findsOneWidget);
-        await find.text("17.3").should(findsOneWidget);
-        await find.text("TRILLAUD,  • grp ?").should(findsOneWidget);
-      });
+      tTestWidgets('check notes', tomussTest);
       tTestWidgets('test agenda', agendaTest);
     });
   });
