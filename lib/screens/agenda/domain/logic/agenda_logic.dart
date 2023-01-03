@@ -103,7 +103,7 @@ class AgendaLogic {
     DayModel(DateTime(2022, 9, 1), [
       EventModel(
           location: "Déambu",
-          description: "mockDecription1",
+          description: "mockDescription1",
           teacher: "mockTeacher1",
           summary: "mockSummary1",
           start: DateTime(2022, 9, 1, 8),
@@ -111,7 +111,7 @@ class AgendaLogic {
           eventLastModified: DateTime(2022, 9, 1)),
       EventModel(
           location: "Thémis",
-          description: "mockDecription2",
+          description: "mockDescription2",
           teacher: "mockTeacher2",
           summary: "mockSummary2",
           start: DateTime(2022, 9, 1, 9),
@@ -119,7 +119,7 @@ class AgendaLogic {
           eventLastModified: DateTime(2022, 9, 1)),
       EventModel(
           location: "Nautibus",
-          description: "mockDecription3",
+          description: "mockDescription3",
           teacher: "mockTeacher3",
           summary: "mockSummary3",
           start: DateTime(2022, 9, 1, 10),
@@ -129,7 +129,7 @@ class AgendaLogic {
     DayModel(DateTime(2022, 9, 2), [
       EventModel(
           location: "quai 43",
-          description: "mockDecription4",
+          description: "mockDescription4",
           teacher: "mockTeacher4",
           summary: "mockSummary4",
           start: DateTime(2022, 9, 1, 11),
@@ -137,7 +137,7 @@ class AgendaLogic {
           eventLastModified: DateTime(2022, 9, 1)),
       EventModel(
           location: "ISTIL",
-          description: "mockDecription5",
+          description: "mockDescription5",
           teacher: "mockTeacher5",
           summary: "mockSummary5",
           start: DateTime(2022, 9, 1, 12),
@@ -145,7 +145,7 @@ class AgendaLogic {
           eventLastModified: DateTime(2022, 9, 1)),
       EventModel(
           location: "Forel",
-          description: "mockDecription6",
+          description: "mockDescription6",
           teacher: "mockTeacher6",
           summary: "mockSummary6",
           start: DateTime(2022, 9, 1, 13),
@@ -155,7 +155,7 @@ class AgendaLogic {
     DayModel(DateTime(2022, 9, 3), [
       EventModel(
           location: "Déambu",
-          description: "mockDecription7",
+          description: "mockDescription7",
           teacher: "mockTeacher7",
           summary: "mockSummary7",
           start: DateTime(2022, 9, 1, 14),
@@ -163,7 +163,7 @@ class AgendaLogic {
           eventLastModified: DateTime(2022, 9, 1)),
       EventModel(
           location: "Thémis",
-          description: "mockDecription8",
+          description: "mockDescription8",
           teacher: "mockTeacher8",
           summary: "mockSummary8",
           start: DateTime(2022, 9, 1, 15),
@@ -171,7 +171,7 @@ class AgendaLogic {
           eventLastModified: DateTime(2022, 9, 1)),
       EventModel(
           location: "Nautibus",
-          description: "mockDecription9",
+          description: "mockDescription9",
           teacher: "mockTeacher9",
           summary: "mockSummary9",
           start: DateTime(2022, 9, 1, 16),

@@ -76,11 +76,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         color: Theme.of(context).textTheme.bodyText1!.color,
                       ),
                       SelectableText(
-                        "${widget.event.start.hour.toFixedLengthString(2)}h${widget.event.start.minute.toFixedLengthString(2)}",
-                        style: Theme.of(context).textTheme.bodyText1!,
-                      ),
-                      SelectableText(
-                        "${widget.event.end.hour.toFixedLengthString(2)}h${widget.event.end.minute.toFixedLengthString(2)}",
+                        "${widget.event.start.hour.toFixedLengthString(2)}h${widget.event.start.minute.toFixedLengthString(2)} ${widget.event.end.hour.toFixedLengthString(2)}h${widget.event.end.minute.toFixedLengthString(2)}",
                         style: Theme.of(context).textTheme.bodyText1!,
                       ),
                     ],
