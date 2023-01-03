@@ -30,7 +30,7 @@ class _EmailSendAttachmentWidgetState extends State<EmailSendAttachmentWidget> {
         itemBuilder: (context, index) {
           if (index == 0) {
             return EmailAttachmentWidget(
-              icon: Icons.add,
+              icon: Icons.add_rounded,
               fileName: "Ajouter\n une pièce jointe",
               onTap: () async {
                 FilePickerResult? result =

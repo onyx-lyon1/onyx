@@ -13,11 +13,15 @@ void main() {
       tTestWidgets('login', (t) async {
         Res.mock = true;
         await find.text("Connection").should(findsOneWidget);
+        await find
+            .byType(MaterialApp)
+            .should(matchesGoldenFile('golden/login.png'));
         await find.text("Connection").tap();
         await find.text("Connection").should(findsNothing);
       });
       tTestWidgets('check notes', tomussTest);
       tTestWidgets('test agenda', agendaTest);
+      tTestWidgets('test mail', mailTest);
     });
   });
 }

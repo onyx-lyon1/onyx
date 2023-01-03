@@ -64,7 +64,7 @@ class EmailsPage extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.all(1.5.h),
                   child: Icon(
-                    Icons.create,
+                    Icons.create_rounded,
                     color: Theme.of(context)
                         .bottomNavigationBarTheme
                         .unselectedItemColor,

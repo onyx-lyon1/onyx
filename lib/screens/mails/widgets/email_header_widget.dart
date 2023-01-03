@@ -32,7 +32,7 @@ class EmailHeaderWidget extends StatelessWidget {
               hintText:
                   "Recherche dans les ${context.read<EmailCubit>().emailNumber} derniers mails",
               prefixIcon: Icon(
-                Icons.search,
+                Icons.search_rounded,
                 color: Theme.of(context)
                     .bottomNavigationBarTheme
                     .unselectedItemColor,

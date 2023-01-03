@@ -6,7 +6,7 @@ class EmailAttachmentWidget extends StatelessWidget {
     Key? key,
     required this.fileName,
     required this.onTap,
-    this.icon = Icons.attach_file,
+    this.icon = Icons.attach_file_rounded,
     this.onLongPress,
   }) : super(key: key);
   final String fileName;

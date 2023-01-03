@@ -99,7 +99,7 @@ class EmailSendPage extends StatelessWidget {
                 },
                 child: Padding(
                   padding: EdgeInsets.all(1.5.h),
-                  child: Icon(Icons.send, size: 25.sp),
+                  child: Icon(Icons.send_rounded, size: 25.sp),
                 ),
               ),
             ),
@@ -121,7 +121,7 @@ class EmailSendPage extends StatelessWidget {
                             InkWell(
                               onTap: () => Navigator.pop(context),
                               child: Icon(
-                                Icons.arrow_back,
+                                Icons.arrow_back_rounded,
                                 color: Theme.of(context)
                                     .bottomNavigationBarTheme
                                     .unselectedItemColor,

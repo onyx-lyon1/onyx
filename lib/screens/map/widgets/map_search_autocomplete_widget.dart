@@ -75,7 +75,7 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
             ),
             decoration: InputDecoration(
               prefixIcon: Icon(
-                Icons.search,
+                Icons.search_rounded,
                 color: Theme.of(context)
                     .bottomNavigationBarTheme
                     .unselectedItemColor,

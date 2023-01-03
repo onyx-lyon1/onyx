@@ -121,7 +121,7 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                               enableFeedback: true,
                               splashColor: Colors.transparent,
                               icon: Icon(
-                                Icons.qr_code,
+                                Icons.qr_code_rounded,
                                 color: Theme.of(context)
                                     .textTheme
                                     .bodyText1!

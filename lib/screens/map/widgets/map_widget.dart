@@ -29,7 +29,7 @@ class MapWidget extends StatelessWidget {
       return Marker(
         point: element.position,
         builder: (context) => Icon(
-          Icons.location_on,
+          Icons.location_on_rounded,
           size: 15.sp,
           color: Colors.red,
         ),

@@ -76,14 +76,16 @@ class EmailCubit extends Cubit<EmailState> {
 
   void markAsRead({required EmailModel email}) async {
     if (!email.isRead) {
-      if (!mailClient.isAuthenticated) {
+      if (!mailClient.isAuthenticated && !Res.mock) {
         if (!await mailClient.login()) {
           emit(state.copyWith(status: EmailStatus.error));
           return;
         }
       }
-      await mailClient.fetchMessages(1);
-      await mailClient.markAsRead(email.id!);
+      if (!Res.mock) {
+        await mailClient.fetchMessages(1);
+        await mailClient.markAsRead(email.id!);
+      }
       emailsComplete[emailsComplete.indexOf(email)].isRead = true;
       List<EmailModel> emails = state.emails;
       emails[emails.indexOf(email)].isRead = true;
@@ -93,23 +95,29 @@ class EmailCubit extends Cubit<EmailState> {
   }
 
   void toggleFlag({required EmailModel email}) async {
-    if (!mailClient.isAuthenticated) {
+    if (!mailClient.isAuthenticated && !Res.mock) {
       if (!await mailClient.login()) {
         emit(state.copyWith(status: EmailStatus.error));
         return;
       }
     }
-    await mailClient.fetchMessages(1);
+    if (!Res.mock) {
+      await mailClient.fetchMessages(1);
+    }
 
     if (email.isFlagged) {
-      await mailClient.unmarkAsFlagged(email.id!);
+      if (!Res.mock) {
+        await mailClient.unmarkAsFlagged(email.id!);
+      }
       emailsComplete[emailsComplete.indexOf(email)].isFlagged = false;
       List<EmailModel> emails = state.emails;
       emails[emailsComplete.indexOf(email)].isFlagged = false;
       CacheService.set<EmailModelWrapper>(EmailModelWrapper(emailsComplete));
       emit(state.copyWith(status: EmailStatus.updated, emails: emails));
     } else {
-      await mailClient.markAsFlagged(email.id!);
+      if (!Res.mock) {
+        await mailClient.markAsFlagged(email.id!);
+      }
       emailsComplete[emailsComplete.indexOf(email)].isFlagged = true;
       List<EmailModel> emails = state.emails;
       emails[emailsComplete.indexOf(email)].isFlagged = true;

@@ -41,7 +41,7 @@ class EmailDetailsPage extends StatelessWidget {
                                     Navigator.pop(context);
                                   },
                                   child: Icon(
-                                    Icons.arrow_back,
+                                    Icons.arrow_back_rounded,
                                     color: Theme.of(context)
                                         .bottomNavigationBarTheme
                                         .unselectedItemColor,
@@ -159,7 +159,7 @@ class EmailDetailsPage extends StatelessWidget {
                               );
                             },
                       icon: const Icon(
-                        Icons.reply,
+                        Icons.reply_rounded,
                       )),
                   IconButton(
                       onPressed: (state.status == EmailStatus.initial ||
@@ -179,7 +179,7 @@ class EmailDetailsPage extends StatelessWidget {
                                 ),
                               );
                             },
-                      icon: const Icon(Icons.reply_all))
+                      icon: const Icon(Icons.reply_all_rounded))
                 ],
               ),
             ),

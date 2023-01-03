@@ -192,6 +192,7 @@ class EmailWidget extends StatelessWidget {
                               ),
                             ),
                             IconButton(
+                              key: Key("email flag ${email.id}"),
                               onPressed: () {
                                 context
                                     .read<EmailCubit>()
