@@ -84,14 +84,6 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthentificationCubit, AuthentificationState>(
       builder: (context, state) {
-        print(bottomBarController.hasClients
-            ? (((bottomBarController.offset + 2 * Res.bottomNavBarItemWidth) -
-                    ((bottomBarController.offset > 0)
-                        ? -Res.bottomNavBarItemWidth / 2
-                        : Res.bottomNavBarItemWidth / 2)) ~/
-                Res.bottomNavBarItemWidth)
-            : 0);
-        print(bottomBarController.offset);
         return Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
@@ -150,7 +142,8 @@ class HomePageState extends State<HomePage> {
                       if (realIndex % Res.screenCount == 1 &&
                           (bottomBarController.hasClients
                                   ? (bottomBarController.offset ~/
-                                      Res.bottomNavBarItemWidth)
+                                          Res.bottomNavBarItemWidth) +
+                                      2
                                   : 0) ==
                               realIndex) {
                         context.read<AgendaCubit>().updateDisplayedDate(
