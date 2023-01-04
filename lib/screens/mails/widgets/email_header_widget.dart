@@ -23,6 +23,9 @@ class EmailHeaderWidget extends StatelessWidget {
             onChanged: (String query) {
               context.read<EmailCubit>().filter(filter: query);
             },
+            onSubmitted: (String query) {
+              FocusScope.of(context).unfocus();
+            },
             style: TextStyle(
               color: Theme.of(context).textTheme.button!.color,
             ),

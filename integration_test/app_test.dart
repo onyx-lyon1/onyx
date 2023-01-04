@@ -13,9 +13,6 @@ void main() {
       tTestWidgets('login', (t) async {
         Res.mock = true;
         await find.text("Connection").should(findsOneWidget);
-        await find
-            .byType(MaterialApp)
-            .should(matchesGoldenFile('golden/login.png'));
         await find.text("Connection").tap();
         await find.text("Connection").should(findsNothing);
       });

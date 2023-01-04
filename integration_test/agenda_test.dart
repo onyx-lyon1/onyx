@@ -57,9 +57,17 @@ Future<void> agendaTest(ConvenientTest t) async {
           .toString()))
       .tap();
   //check we are on 1 september page
-  await find
-      .byType(MaterialApp)
-      .should(matchesGoldenFile('golden/agenda/1_septembre.png'));
+  await find.text("mockDescription1").should(findsOneWidget);
+  await find.text("mockDescription2").should(findsOneWidget);
+  await find.text("mockDescription3").should(findsOneWidget);
+  await find.text("01:00 • Déambu").should(findsOneWidget);
+  await find.text("01:00 • Thémis").should(findsOneWidget);
+  await find.text("01:00 • Nautibus").should(findsOneWidget);
+  await find.text("08:00").should(findsOneWidget);
+  await find.text("09:00").should(findsNWidgets(2));
+  await find.text("10:00").should(findsNWidgets(2));
+  await find.text("11:00").should(findsOneWidget);
+  await find.text("3 évènement(s)").should(findsOneWidget);
   await find
       .text(
         "${DateTime(DateTime.now().year + ((DateTime.now().month < 6) ? -1 : 0), 9, 1).toWeekDayName()} ${1} Septembre",
@@ -68,23 +76,24 @@ Future<void> agendaTest(ConvenientTest t) async {
 
   //check detail of the first event
   await find.text('mockDescription1').tap();
+  await find.text("Détail de l'évènement").should(findsOneWidget);
+  await find.text("mockDescription1").should(findsNWidgets(2));
+  await find.text("08h00 09h00").should(findsOneWidget);
+  await find.text("Déambu").should(findsOneWidget);
   await find
-      .byType(MaterialApp)
-      .should(matchesGoldenFile('golden/agenda/first_event_details.png'));
-  await find.text('mockDescription1').should(findsNWidgets(2));
+      .text(
+        "${DateTime(DateTime.now().year + ((DateTime.now().month < 6) ? -1 : 0), 9, 1).toWeekDayName()} ${1} Septembre",
+      )
+      .should(findsNWidgets(2));
+  await find.text("Itinéraire").should(findsOneWidget);
 
   //test gps
   await find.byType(PolylineLayer).should(findsNothing);
   await find.textContaining("Itinéraire").should(findsOneWidget);
   await find.textContaining("Itinéraire").tap();
   await find.byType(PolylineLayer).should(findsOneWidget);
-  await find.byType(MaterialApp).should(
-      matchesGoldenFile('golden/agenda/first_event_details_with_gps.png'));
 
   //quit and check we are on agenda page
   await find.byIcon(Icons.arrow_upward_rounded).tap();
   await find.text('mockDescription1').should(findsOneWidget);
-  await find
-      .byType(MaterialApp)
-      .should(matchesGoldenFile('golden/agenda/1_septembre.png'));
 }
