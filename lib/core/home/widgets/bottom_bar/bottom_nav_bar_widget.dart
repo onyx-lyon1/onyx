@@ -24,16 +24,24 @@ class BottomNavBarWidget extends StatelessWidget {
         return GestureDetector(
           onTap: () => onTap(index),
           child: SizedBox(
-            width: Res.bottomNavBarItemWidth,
-            child: [
-       TomussBottomNavBarIcon(selected: ((index) % Res.screenCount == (currentIndex) % Res.screenCount)),
-AgendaBottomNavBarIcon(selected: ((index) % Res.screenCount == (currentIndex) % Res.screenCount)),
-     EmailBottomNavBarIcon(selected: ((index) % Res.screenCount == (currentIndex) % Res.screenCount)),
-SettingsBottomNavBarIcon(selected: ((index) % Res.screenCount == (currentIndex) % Res.screenCount)),
-MapBottomNavBarIcon(selected: ((index) % Res.screenCount == (currentIndex) % Res.screenCount)),
-            ][(index) % Res.screenCount]
-
-          ),
+              width: Res.bottomNavBarItemWidth,
+              child: [
+                TomussBottomNavBarIcon(
+                    selected: ((index) % Res.screenCount ==
+                        (currentIndex) % Res.screenCount)),
+                AgendaBottomNavBarIcon(
+                    selected: ((index) % Res.screenCount ==
+                        (currentIndex) % Res.screenCount)),
+                EmailBottomNavBarIcon(
+                    selected: ((index) % Res.screenCount ==
+                        (currentIndex) % Res.screenCount)),
+                SettingsBottomNavBarIcon(
+                    selected: ((index) % Res.screenCount ==
+                        (currentIndex) % Res.screenCount)),
+                MapBottomNavBarIcon(
+                    selected: ((index) % Res.screenCount ==
+                        (currentIndex) % Res.screenCount)),
+              ][(index) % Res.screenCount]),
         );
       },
     );

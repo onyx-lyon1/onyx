@@ -39,7 +39,8 @@ class HomePageState extends State<HomePage> {
   }
 
   double pageOffsetToBottomBarOffset(double offset) {
-    return (offset / 100.w) * Res.bottomNavBarItemWidth;
+    return (offset / 100.w) * Res.bottomNavBarItemWidth -
+        2 * Res.bottomNavBarItemWidth;
   }
 
   double bottomBarOffsetToPageOffset(double offset) {
@@ -83,6 +84,14 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthentificationCubit, AuthentificationState>(
       builder: (context, state) {
+        print(bottomBarController.hasClients
+            ? (((bottomBarController.offset + 2 * Res.bottomNavBarItemWidth) -
+                    ((bottomBarController.offset > 0)
+                        ? -Res.bottomNavBarItemWidth / 2
+                        : Res.bottomNavBarItemWidth / 2)) ~/
+                Res.bottomNavBarItemWidth)
+            : 0);
+        print(bottomBarController.offset);
         return Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
@@ -100,35 +109,19 @@ class HomePageState extends State<HomePage> {
                     body: InfiniteScrollLoopWidget(
                       key: const Key("home"),
                       builder: (context, index) {
-                        switch ((index) % Res.screenCount) {
-                          case 0:
-                            return SizedBox(
-                                width: 100.w,
-                                height: 50.h - Res.bottomNavBarHeight,
-                                child: const TomussPage());
-                          case 1:
-                            return SizedBox(
-                                width: 100.w,
-                                height: 100.h,
-                                child: const AgendaPage());
-                          case 2:
-                            return SizedBox(
-                                width: 100.w,
-                                height: 100.h,
-                                child: const EmailsPage());
-                          case 3:
-                            return SizedBox(
-                                width: 100.w,
-                                height: 100.h,
-                                child: const SettingsPage());
-                          case 4:
-                            return SizedBox(
-                                width: 100.w,
-                                height: 100.h,
-                                child: const MapPage());
-                          default:
-                            return Container();
-                        }
+                        return [
+                          const TomussPage(),
+                          const AgendaPage(),
+                          SizedBox(
+                              width: 100.w,
+                              height: 100.h,
+                              child: const EmailsPage()),
+                          SizedBox(
+                              width: 100.w,
+                              height: 100.h,
+                              child: const SettingsPage()),
+                          const MapPage(),
+                        ][(index) % Res.screenCount];
                       },
                       scrollController: mainPageController,
                       axisDirection: AxisDirection.right,
@@ -146,11 +139,12 @@ class HomePageState extends State<HomePage> {
                   child: BottomNavBarWidget(
                     scrollController: bottomBarController,
                     currentIndex: bottomBarController.hasClients
-                        ? ((bottomBarController.offset -
-                                ((bottomBarController.offset > 0)
-                                    ? -Res.bottomNavBarItemWidth / 2
-                                    : Res.bottomNavBarItemWidth / 2)) ~/
-                            Res.bottomNavBarItemWidth)
+                        ? (((bottomBarController.offset +
+                                    ((bottomBarController.offset > 0)
+                                        ? Res.bottomNavBarItemWidth / 2
+                                        : -Res.bottomNavBarItemWidth / 2)) ~/
+                                Res.bottomNavBarItemWidth) +
+                            2)
                         : 0,
                     onTap: (realIndex) {
                       if (realIndex % Res.screenCount == 1 &&
