@@ -16,8 +16,6 @@ class SettingsModel {
   late bool newGradeNotification;
   @HiveField(4)
   late bool showHiddenUE;
-  @HiveField(12)
-  late bool previousSemester;
 
   @HiveField(5)
   late bool fetchAgendaAuto;
@@ -48,7 +46,6 @@ class SettingsModel {
     this.newMailNotification = false,
     this.blockTrackers = true,
     this.darkerMail = false,
-    this.previousSemester = false,
   });
 
   SettingsModel copyWith({
@@ -64,7 +61,6 @@ class SettingsModel {
     bool? newMailNotification,
     bool? blockTrackers,
     bool? darkerMail,
-    bool? previousSemester,
   }) {
     return SettingsModel(
       keepMeLoggedIn: keepMeLoggedIn ?? this.keepMeLoggedIn,
@@ -80,13 +76,12 @@ class SettingsModel {
       newMailNotification: newMailNotification ?? this.newMailNotification,
       blockTrackers: blockTrackers ?? this.blockTrackers,
       darkerMail: darkerMail ?? this.darkerMail,
-      previousSemester: previousSemester ?? this.previousSemester,
     );
   }
 
   @override
   String toString() {
-    return 'SettingsModel{keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, themeMode: $themeMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, previousSemester: $previousSemester, fetchAgendaAuto: $fetchAgendaAuto, showMiniCalendar: $showMiniCalendar, calendarUpdateNotification: $calendarUpdateNotification, agendaURL: $agendaURL, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail}';
+    return 'SettingsModel{keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, themeMode: $themeMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, fetchAgendaAuto: $fetchAgendaAuto, showMiniCalendar: $showMiniCalendar, calendarUpdateNotification: $calendarUpdateNotification, agendaURL: $agendaURL, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail}';
   }
 
   @override
@@ -105,7 +100,6 @@ class SettingsModel {
           agendaURL == other.agendaURL &&
           newMailNotification == other.newMailNotification &&
           blockTrackers == other.blockTrackers &&
-          previousSemester == other.previousSemester &&
           darkerMail == other.darkerMail;
 
   @override
@@ -121,6 +115,5 @@ class SettingsModel {
       agendaURL.hashCode ^
       newMailNotification.hashCode ^
       blockTrackers.hashCode ^
-      previousSemester.hashCode ^
       darkerMail.hashCode;
 }

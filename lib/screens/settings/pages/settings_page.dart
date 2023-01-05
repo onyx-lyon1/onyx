@@ -274,11 +274,7 @@ class SettingsPage extends StatelessWidget {
                                   .read<AuthentificationCubit>()
                                   .state
                                   .dartus!,
-                              previousSemester: context
-                                  .read<SettingsCubit>()
-                                  .state
-                                  .settings
-                                  .previousSemester,
+
                               cache: false);
                         },
                       ),

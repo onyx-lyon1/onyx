@@ -4,23 +4,41 @@ import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
+class GetCacheDataPass {
+  final String path;
+  final int currentSemesterIndex;
+
+  GetCacheDataPass(this.path, this.currentSemesterIndex);
+}
+
 class TomussLogic {
+  static Future<List<Semester>> getSemesters(Dartus dartus) async {
+    return (await dartus.getParsedPage(Dartus.currentSemester()))?.semesters ??
+        [];
+  }
+
   static Future<List<SchoolSubjectModel>> getGrades(
-      {required Dartus dartus, required bool previousSemester}) async {
+      {required Dartus dartus,
+      SemesterModel? semester,
+      int semestreIndex = 0}) async {
     if (Res.mock) {
       return schoolSubjectModelListMock;
     }
     List<SchoolSubjectModel> tmpTeachingUnits = [];
     ParsedPage? parsedPageOpt =
-        await dartus.getParsedPage((previousSemester) ? Dartus.previousSemester() :  Dartus.currentSemester());
+        await dartus.getParsedPage(semester?.url ?? Dartus.currentSemester());
     if (parsedPageOpt == null) {
       throw Exception('Error while getting grades page empty');
     }
     final ParsedPage parsedPage = parsedPageOpt;
-    final List<SchoolSubjectModel> cachedTeachingUnits =
-        (await CacheService.get<SchoolSubjectModelWrapper>())
-                ?.teachingUnitModels ??
-            [];
+    List<SchoolSubjectModel> cachedTeachingUnits = [];
+    if ((await CacheService.exist<SchoolSubjectModelWrapper>(
+        index: semestreIndex))) {
+      cachedTeachingUnits = (await CacheService.get<SchoolSubjectModelWrapper>(
+              index: semestreIndex))!
+          .teachingUnitModels;
+    }
+
     print("Cached teaching units: $cachedTeachingUnits");
     for (final TeachingUnit tu in parsedPage.teachingunits) {
       tmpTeachingUnits.add(SchoolSubjectModel(
@@ -30,26 +48,33 @@ class TomussLogic {
           masters: tu.masters.map((e) => TeacherModel.fromTeacher(e)).toList(),
           grades: tu.grades.map((e) {
             GradeModel tmpGrade = GradeModel.fromGrade(e);
-            GradeModel cachedGrade = cachedTeachingUnits
-                .firstWhere((element) => element.name == tu.name)
-                .grades
-                .firstWhere((element) => element.name == e.name);
-            print("Cached grade: $cachedGrade");
-            print("tmpGrade: $tmpGrade");
-            tmpGrade.coef = cachedGrade.coef;
+            if (cachedTeachingUnits.any((element) => element.name == tu.name)) {
+              SchoolSubjectModel cachedTeachingUnit = cachedTeachingUnits
+                  .firstWhere((element) => element.name == tu.name);
+              if (cachedTeachingUnit.grades
+                  .any((element) => element.name == e.name)) {
+                tmpGrade.coef = cachedTeachingUnit.grades
+                    .firstWhere((element) => element.name == e.name)
+                    .coef;
+              }
+            }
+
             return tmpGrade;
           }).toList()));
     }
     return tmpTeachingUnits;
   }
 
-  static Future<List<SchoolSubjectModel>> getCache(String path) async {
+  static Future<List<SchoolSubjectModel>> getTeachingUnitsCache(
+      GetCacheDataPass inputData) async {
     if (Res.mock) {
       return schoolSubjectModelListMock;
     }
-    await hiveInit(path: path);
-    if (await CacheService.exist<SchoolSubjectModelWrapper>()) {
-      return (await CacheService.get<SchoolSubjectModelWrapper>())!
+    await hiveInit(path: inputData.path);
+    if (await CacheService.exist<SchoolSubjectModelWrapper>(
+        index: inputData.currentSemesterIndex)) {
+      return (await CacheService.get<SchoolSubjectModelWrapper>(
+              index: inputData.currentSemesterIndex))!
           .teachingUnitModels;
     } else {
       return [];

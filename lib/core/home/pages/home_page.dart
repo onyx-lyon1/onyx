@@ -102,8 +102,14 @@ class HomePageState extends State<HomePage> {
                       key: const Key("home"),
                       builder: (context, index) {
                         return [
-                          const TomussPage(),
-                          const AgendaPage(),
+                          SizedBox(
+                              width: 100.w,
+                              height: 100.h,
+                              child: const TomussPage()),
+                          SizedBox(
+                              width: 100.w,
+                              height: 100.h,
+                              child: const AgendaPage()),
                           SizedBox(
                               width: 100.w,
                               height: 100.h,
@@ -112,7 +118,10 @@ class HomePageState extends State<HomePage> {
                               width: 100.w,
                               height: 100.h,
                               child: const SettingsPage()),
-                          const MapPage(),
+                          SizedBox(
+                              width: 100.w,
+                              height: 100.h,
+                              child: const MapPage()),
                         ][(index) % Res.screenCount];
                       },
                       scrollController: mainPageController,

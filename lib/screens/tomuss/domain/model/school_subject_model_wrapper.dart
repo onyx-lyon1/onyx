@@ -8,12 +8,14 @@ part 'school_subject_model_wrapper.g.dart';
 class SchoolSubjectModelWrapper {
   @HiveField(0)
   late List<SchoolSubjectModel> teachingUnitModels;
+  @HiveField(1)
+  final int semesterIndex;
 
-  SchoolSubjectModelWrapper(this.teachingUnitModels);
+  SchoolSubjectModelWrapper(this.teachingUnitModels, this.semesterIndex);
 
   @override
   String toString() {
-    return 'SchoolSubjectModelWrapper{teachingUnitModels: $teachingUnitModels}';
+    return 'SchoolSubjectModelWrapper{teachingUnitModels: $teachingUnitModels , semesterIndex: $semesterIndex}';
   }
 
   @override
@@ -21,8 +23,9 @@ class SchoolSubjectModelWrapper {
       identical(this, other) ||
       other is SchoolSubjectModelWrapper &&
           runtimeType == other.runtimeType &&
-          listEquals(teachingUnitModels, other.teachingUnitModels);
+          listEquals(teachingUnitModels, other.teachingUnitModels) &&
+          semesterIndex == other.semesterIndex;
 
   @override
-  int get hashCode => teachingUnitModels.hashCode;
+  int get hashCode => teachingUnitModels.hashCode ^ semesterIndex.hashCode;
 }

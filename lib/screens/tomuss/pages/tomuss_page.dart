@@ -60,25 +60,17 @@ class TomussPage extends StatelessWidget {
           print("Grades state : ${state.status}");
         }
         if (state.status == TomussStatus.initial) {
-          context
-              .read<TomussCubit>()
-              .load(dartus: context.read<AuthentificationCubit>().state.dartus,
-            previousSemester: context
-                .read<SettingsCubit>()
-                .state
-                .settings
-                .previousSemester,);
+          context.read<TomussCubit>().load(
+                dartus: context.read<AuthentificationCubit>().state.dartus,
+              );
           loadingHeader = const LoadingHeaderWidget(
             message: "Connection à tomuss",
           );
         } else if (state.status == TomussStatus.error) {
           Future.delayed(const Duration(seconds: 3), () {
             context.read<TomussCubit>().load(
-                dartus: context.read<AuthentificationCubit>().state.dartus!,                              previousSemester: context
-                .read<SettingsCubit>()
-                .state
-                .settings
-                .previousSemester,);
+                  dartus: context.read<AuthentificationCubit>().state.dartus!,
+                );
           });
           loadingHeader = const LoadingHeaderWidget(
             message: "Erreur pendant le chargement des notes",
@@ -106,31 +98,92 @@ class TomussPage extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: IconButton(
                     icon: Icon(
-                      Icons.refresh,
+                      Icons.list,
                       color: Theme.of(context).textTheme.bodyText1!.color,
                     ),
                     onPressed: () {
-                      context.read<SettingsCubit>().modify(
-                          settings: context
-                              .read<SettingsCubit>()
-                              .state
-                              .settings
-                              .copyWith(
-                                previousSemester: !context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .settings
-                                    .previousSemester,
-                              ));
-                      context.read<TomussCubit>().load(
-                          dartus: context
-                              .read<AuthentificationCubit>()
-                              .state
-                              .dartus!,                              previousSemester: context
-                          .read<SettingsCubit>()
-                          .state
-                          .settings
-                          .previousSemester,);
+                      //show a dialog to select the semester
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          backgroundColor: Theme.of(context).cardTheme.color,
+                          title: Text(
+                            "Sélectionner un semestre",
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).textTheme.bodyText1!.color,
+                              fontSize: 15.sp,
+                            ),
+                          ),
+                          content: SizedBox(
+                            height:
+                                30.h / ((state.semesters.length < 3) ? 2 : 1),
+                            width: 20.h,
+                            child: GridView(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisExtent: 20.w,
+                                  crossAxisSpacing: 3.w,
+                                  mainAxisSpacing: 3.w,
+                                ),
+                                shrinkWrap: true,
+                                children: [
+                                  for (var semester in state.semesters)
+                                    Material(
+                                      color: (state.currentSemesterIndex ==
+                                              state.semesters.indexOf(semester))
+                                          ? Theme.of(context).primaryColor
+                                          : Theme.of(context).backgroundColor,
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: InkWell(
+                                        onTap: () {
+                                          context.read<TomussCubit>().load(
+                                                dartus: context
+                                                    .read<
+                                                        AuthentificationCubit>()
+                                                    .state
+                                                    .dartus!,
+                                                semestreIndex: state.semesters
+                                                    .indexOf(semester),
+                                              );
+                                          Navigator.pop(context);
+                                        },
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                semester.name.split("/")[0],
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1!
+                                                      .color,
+                                                  fontSize: 15.sp,
+                                                ),
+                                              ),
+                                              Text(
+                                                semester.name.split("/")[1],
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1!
+                                                      .color,
+                                                  fontSize: 15.sp,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                ]),
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -168,11 +221,8 @@ class TomussPage extends StatelessWidget {
           ),
           onRefresh: () async {
             context.read<TomussCubit>().load(
-                dartus: context.read<AuthentificationCubit>().state.dartus!,                              previousSemester: context
-                .read<SettingsCubit>()
-                .state
-                .settings
-                .previousSemester,);
+                  dartus: context.read<AuthentificationCubit>().state.dartus!,
+                );
             while (context.read<TomussCubit>().state.status !=
                     TomussStatus.ready &&
                 context.read<TomussCubit>().state.status !=

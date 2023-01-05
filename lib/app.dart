@@ -63,11 +63,7 @@ class OloidAppState extends State<OloidApp> {
                 context.read<AgendaCubit>().load(
                     dartus: state.dartus!,
                     settings: context.read<SettingsCubit>().state.settings);
-                context.read<TomussCubit>().load(dartus: state.dartus!,                              previousSemester: context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .previousSemester,);
+                context.read<TomussCubit>().load(dartus: state.dartus!);
               }
             },
             builder: (context, authState) {

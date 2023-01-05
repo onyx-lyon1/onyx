@@ -31,14 +31,20 @@ void backgroundLogic() {
             keepLogedIn: settings.keepMeLoggedIn);
         if (settings.newGradeNotification) {
           List<SchoolSubjectModel> teachingUnits = [];
-          if (await CacheService.exist<SchoolSubjectModelWrapper>()) {
+          int? semesterIndex;
+          if (await CacheService.exist<SemesterModelWrapper>()){
+            SemesterModelWrapper? semesterModelWrapper =
+            await CacheService.get<SemesterModelWrapper>();
+            semesterIndex = semesterModelWrapper!.currentSemesterIndex;
+          }
+          if (await CacheService.exist<SchoolSubjectModelWrapper>(index: semesterIndex ?? 0)) {
             teachingUnits =
-                (await CacheService.get<SchoolSubjectModelWrapper>())!
+                (await CacheService.get<SchoolSubjectModelWrapper>(index: semesterIndex ?? 0))!
                     .teachingUnitModels;
           }
           List<SchoolSubjectModel> newTeachingUnits =
               await TomussLogic.getGrades(
-                  dartus: dartus, previousSemester: settings.previousSemester);
+                  dartus: dartus);
           for (var i in newTeachingUnits) {
             SchoolSubjectModel teachingUnitModel =
                 teachingUnits.firstWhere((element) => element.name == i.name);
@@ -52,8 +58,9 @@ void backgroundLogic() {
               }
             }
           }
+
           CacheService.set<SchoolSubjectModelWrapper>(
-              SchoolSubjectModelWrapper(teachingUnits));
+              SchoolSubjectModelWrapper(teachingUnits, semesterIndex ?? 0));
         }
         if (settings.newMailNotification) {
           List<EmailModel> emails = [];

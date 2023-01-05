@@ -19,15 +19,18 @@ class SchoolSubjectModelWrapperAdapter
     };
     return SchoolSubjectModelWrapper(
       (fields[0] as List).cast<SchoolSubjectModel>(),
+      fields[1] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, SchoolSubjectModelWrapper obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.teachingUnitModels);
+      ..write(obj.teachingUnitModels)
+      ..writeByte(1)
+      ..write(obj.semesterIndex);
   }
 
   @override

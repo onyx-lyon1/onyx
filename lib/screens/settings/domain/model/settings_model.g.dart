@@ -29,14 +29,13 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       newMailNotification: fields[9] as bool,
       blockTrackers: fields[10] as bool,
       darkerMail: fields[11] as bool,
-      previousSemester: fields[12] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(13)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.keepMeLoggedIn)
       ..writeByte(1)
@@ -47,8 +46,6 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..write(obj.newGradeNotification)
       ..writeByte(4)
       ..write(obj.showHiddenUE)
-      ..writeByte(12)
-      ..write(obj.previousSemester)
       ..writeByte(5)
       ..write(obj.fetchAgendaAuto)
       ..writeByte(6)
