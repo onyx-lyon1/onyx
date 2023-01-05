@@ -15,20 +15,20 @@ import 'package:sizer/sizer.dart';
 
 import 'core/widgets/states_displaying/state_displaying_widget_export.dart';
 
-class OloidApp extends StatefulWidget {
+class OnyxApp extends StatefulWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
-  const OloidApp({Key? key, required this.androidSdkVersion}) : super(key: key);
+  const OnyxApp({Key? key, required this.androidSdkVersion}) : super(key: key);
 
   final int androidSdkVersion;
 
   @override
   State<StatefulWidget> createState() {
-    return OloidAppState();
+    return OnyxAppState();
   }
 }
 
-class OloidAppState extends State<OloidApp> {
+class OnyxAppState extends State<OnyxApp> {
   final List<SchoolSubjectModel> teachingUnits = [];
   final List<DayModel> days = [];
   final List<Mail> emails = [];
@@ -73,12 +73,12 @@ class OloidAppState extends State<OloidApp> {
                       settingsState.status == SettingsStatus.error) {
                     return MaterialApp(
                         title: 'Oloid 2.0',
-                        navigatorKey: OloidApp.navigatorKey,
+                        navigatorKey: OnyxApp.navigatorKey,
                         scrollBehavior: const CustomScrollBehavior(),
                         debugShowCheckedModeBanner: false,
                         themeMode: settingsState.settings.themeMode.themeMode,
-                        theme: OloidTheme.lighTheme(),
-                        darkTheme: OloidTheme.darkTheme(),
+                        theme: OnyxTheme.lighTheme(),
+                        darkTheme: OnyxTheme.darkTheme(),
                         home: (context
                                         .read<AuthentificationCubit>()
                                         .state

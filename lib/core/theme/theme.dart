@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class OloidTheme {
+class OnyxTheme {
   static ThemeData darkTheme() {
     return ThemeData(
       useMaterial3: true,

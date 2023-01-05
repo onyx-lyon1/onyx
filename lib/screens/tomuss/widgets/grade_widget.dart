@@ -138,7 +138,7 @@ class GradeWidget extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: OloidTheme.darkTheme().backgroundColor,
+                        color: OnyxTheme.darkTheme().backgroundColor,
                         fontSize: 20.sp,
                       ),
                     ),
@@ -146,13 +146,13 @@ class GradeWidget extends StatelessWidget {
                   Container(
                     width: 15.w,
                     height: 0.2.h,
-                    color: OloidTheme.darkTheme().backgroundColor,
+                    color: OnyxTheme.darkTheme().backgroundColor,
                   ),
                   Text(
                     ((grades.isNotEmpty) ? denominator : '-').toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: OloidTheme.darkTheme().backgroundColor,
+                        color: OnyxTheme.darkTheme().backgroundColor,
                         fontSize: 15),
                   ),
                 ],

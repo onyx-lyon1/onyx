@@ -24,7 +24,7 @@ void main() async {
   final int androidSdkVersion =
       deviceInfo is AndroidDeviceInfo ? deviceInfo.version.sdkInt : 0;
 
-  runApp(OloidApp(
+  runApp(OnyxApp(
     androidSdkVersion: androidSdkVersion,
   ));
 }

@@ -29,7 +29,7 @@ class MyConvenientTestSlot extends ConvenientTestSlot {
 
   @override
   BuildContext? getNavContext(ConvenientTest t) =>
-      OloidApp.navigatorKey.currentContext;
+      OnyxApp.navigatorKey.currentContext;
 }
 
 Future<void> login(ConvenientTest t) async {
