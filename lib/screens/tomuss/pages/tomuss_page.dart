@@ -34,7 +34,7 @@ class TomussPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: GradeListWidget(
                   grades: schoolSubject.grades,
-                  depth: 0,
+                  depth: 1,
                   lastElement: true,
                 ),
               ),
@@ -62,14 +62,23 @@ class TomussPage extends StatelessWidget {
         if (state.status == TomussStatus.initial) {
           context
               .read<TomussCubit>()
-              .load(dartus: context.read<AuthentificationCubit>().state.dartus);
+              .load(dartus: context.read<AuthentificationCubit>().state.dartus,
+            previousSemester: context
+                .read<SettingsCubit>()
+                .state
+                .settings
+                .previousSemester,);
           loadingHeader = const LoadingHeaderWidget(
             message: "Connection à tomuss",
           );
         } else if (state.status == TomussStatus.error) {
           Future.delayed(const Duration(seconds: 3), () {
             context.read<TomussCubit>().load(
-                dartus: context.read<AuthentificationCubit>().state.dartus!);
+                dartus: context.read<AuthentificationCubit>().state.dartus!,                              previousSemester: context
+                .read<SettingsCubit>()
+                .state
+                .settings
+                .previousSemester,);
           });
           loadingHeader = const LoadingHeaderWidget(
             message: "Erreur pendant le chargement des notes",
@@ -80,21 +89,59 @@ class TomussPage extends StatelessWidget {
           header: Container(
             height: Res.bottomNavBarHeight,
             color: Theme.of(context).cardTheme.color,
-            child: Center(
-              child: Text(
-                'Notes',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1!.color,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
+            child: Stack(
+              children: [
+                Center(
+                  child: Text(
+                    'Notes',
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ),
+                //button to toggle semester with an icon
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.refresh,
+                      color: Theme.of(context).textTheme.bodyText1!.color,
+                    ),
+                    onPressed: () {
+                      context.read<SettingsCubit>().modify(
+                          settings: context
+                              .read<SettingsCubit>()
+                              .state
+                              .settings
+                              .copyWith(
+                                previousSemester: !context
+                                    .read<SettingsCubit>()
+                                    .state
+                                    .settings
+                                    .previousSemester,
+                              ));
+                      context.read<TomussCubit>().load(
+                          dartus: context
+                              .read<AuthentificationCubit>()
+                              .state
+                              .dartus!,                              previousSemester: context
+                          .read<SettingsCubit>()
+                          .state
+                          .settings
+                          .previousSemester,);
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
           body: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
             children: [
-              ...state.teachingUnits.where(
+              ...state.teachingUnits
+                  .where(
                     (element) =>
                         element.isHidden == false ||
                         context
@@ -105,8 +152,8 @@ class TomussPage extends StatelessWidget {
                   )
                   .map(
                     (schoolSubject) => Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 5.w, vertical: 1.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
                       child: GradeWidget(
                         grades: schoolSubject.grades,
                         isSeen: schoolSubject.isSeen,
@@ -121,7 +168,11 @@ class TomussPage extends StatelessWidget {
           ),
           onRefresh: () async {
             context.read<TomussCubit>().load(
-                dartus: context.read<AuthentificationCubit>().state.dartus!);
+                dartus: context.read<AuthentificationCubit>().state.dartus!,                              previousSemester: context
+                .read<SettingsCubit>()
+                .state
+                .settings
+                .previousSemester,);
             while (context.read<TomussCubit>().state.status !=
                     TomussStatus.ready &&
                 context.read<TomussCubit>().state.status !=

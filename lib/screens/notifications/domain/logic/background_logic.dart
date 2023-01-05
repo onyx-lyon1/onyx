@@ -23,7 +23,8 @@ void backgroundLogic() {
         await hiveInit();
         await NotificationLogic.init();
         SettingsModel settings = await SettingsLogic.load();
-        AuthenticationModel auth = (await AuthentificationLogic.fetchCredential());
+        AuthenticationModel auth =
+            (await AuthentificationLogic.fetchCredential());
         tomusslib.Dartus dartus = await AuthentificationLogic.login(
             username: auth.username,
             password: auth.password,
@@ -36,7 +37,8 @@ void backgroundLogic() {
                     .teachingUnitModels;
           }
           List<SchoolSubjectModel> newTeachingUnits =
-              await TomussLogic.getGrades(dartus: dartus);
+              await TomussLogic.getGrades(
+                  dartus: dartus, previousSemester: settings.previousSemester);
           for (var i in newTeachingUnits) {
             SchoolSubjectModel teachingUnitModel =
                 teachingUnits.firstWhere((element) => element.name == i.name);

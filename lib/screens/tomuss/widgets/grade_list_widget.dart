@@ -21,7 +21,7 @@ class GradeListWidget extends StatelessWidget {
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            if (depth == 0)
+            if (depth == 1)
               Container(
                 height: 2.h,
               ),
@@ -60,7 +60,7 @@ class GradeListWidget extends StatelessWidget {
 
   Widget treeBuilder(BuildContext context, int depth, bool lastElement,
       bool parentLastElement) {
-    if (depth == 0) {
+    if (depth == 1) {
       return Container();
     }
     //ATTENTION ATTENTION, VOUS ENTREZ DANS DES ENTRAILLES SOMBRE DE LA PROGRAMMATION
@@ -85,13 +85,13 @@ class GradeListWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        for (var i = 0; i < ((parentLastElement) ? 1 : depth); i++)
+        for (var i = 0; i < ((parentLastElement) ? 1 : depth - 1); i++)
           Padding(
             padding: EdgeInsets.only(
               left: (parentLastElement)
-                  ? (depth == 1)
+                  ? (depth == 2)
                       ? 10.w
-                      : ((10.w + 3.w) * depth) - 3.w
+                      : ((10.w + 3.w) * (depth - 1)) - 3.w
                   : (i == 0)
                       ? 10.w
                       : 10.w + 3.w,
@@ -102,7 +102,7 @@ class GradeListWidget extends StatelessWidget {
                 Container(
                   width: 1.w,
                   height:
-                      ((lastElement && (i >= depth - 1 || parentLastElement))
+                      ((lastElement && (i >= depth - 2 || parentLastElement))
                           ? (13.h / 2) + (0.5.h / 2)
                           : 13.h),
                   color: Theme.of(context).primaryColor,
@@ -110,7 +110,7 @@ class GradeListWidget extends StatelessWidget {
                 Container(
                   width: 1.w,
                   height:
-                      ((lastElement && (i >= depth - 1 || parentLastElement))
+                      ((lastElement && (i >= depth - 2 || parentLastElement))
                           ? (13.h / 2) - (0.5.h / 2)
                           : 0),
                   color: Theme.of(context).backgroundColor,

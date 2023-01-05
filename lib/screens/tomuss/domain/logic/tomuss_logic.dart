@@ -6,24 +6,39 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 class TomussLogic {
   static Future<List<SchoolSubjectModel>> getGrades(
-      {required Dartus dartus}) async {
+      {required Dartus dartus, required bool previousSemester}) async {
     if (Res.mock) {
       return schoolSubjectModelListMock;
     }
     List<SchoolSubjectModel> tmpTeachingUnits = [];
     ParsedPage? parsedPageOpt =
-        await dartus.getParsedPage(Dartus.currentSemester());
+        await dartus.getParsedPage((previousSemester) ? Dartus.previousSemester() :  Dartus.currentSemester());
     if (parsedPageOpt == null) {
       throw Exception('Error while getting grades page empty');
     }
     final ParsedPage parsedPage = parsedPageOpt;
+    final List<SchoolSubjectModel> cachedTeachingUnits =
+        (await CacheService.get<SchoolSubjectModelWrapper>())
+                ?.teachingUnitModels ??
+            [];
+    print("Cached teaching units: $cachedTeachingUnits");
     for (final TeachingUnit tu in parsedPage.teachingunits) {
       tmpTeachingUnits.add(SchoolSubjectModel(
           isSeen: false,
           isHidden: false,
           name: tu.name,
           masters: tu.masters.map((e) => TeacherModel.fromTeacher(e)).toList(),
-          grades: tu.grades.map((e) => GradeModel.fromGrade(e)).toList()));
+          grades: tu.grades.map((e) {
+            GradeModel tmpGrade = GradeModel.fromGrade(e);
+            GradeModel cachedGrade = cachedTeachingUnits
+                .firstWhere((element) => element.name == tu.name)
+                .grades
+                .firstWhere((element) => element.name == e.name);
+            print("Cached grade: $cachedGrade");
+            print("tmpGrade: $tmpGrade");
+            tmpGrade.coef = cachedGrade.coef;
+            return tmpGrade;
+          }).toList()));
     }
     return tmpTeachingUnits;
   }

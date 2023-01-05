@@ -84,22 +84,27 @@ class GradeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double numerator = 0;
     double denominator = 0;
-    if (grades.length == 1) {
+    if (depth != 0) {
+      numerator = grades.first.gradeNumerator;
       denominator = grades.first.gradeDenominator;
     } else {
-      denominator = 20;
-    }
-    double numerator = 0;
-    int numeratorCount = 0;
-    for (var i in grades) {
-      if (!i.gradeNumerator.isNaN && !i.gradeDenominator.isNaN) {
-        numerator += i.gradeNumerator / i.gradeDenominator;
-        numeratorCount++;
+      if (grades.length == 1) {
+        denominator = grades.first.gradeDenominator;
+      } else {
+        denominator = 20;
       }
+      double coefSum = 0.0;
+      for (var i in grades) {
+        if (!i.gradeNumerator.isNaN && !i.gradeDenominator.isNaN) {
+          numerator +=
+              (i.gradeNumerator / i.gradeDenominator) * (i.coef ?? 1.0);
+          coefSum += (i.coef ?? 1.0);
+        }
+      }
+      numerator = (numerator / ((coefSum != 0) ? coefSum : 1)) * denominator;
     }
-    numerator = (numerator / ((numeratorCount != 0) ? numeratorCount : 1)) *
-        denominator;
     String gradeNumerator =
         ((grades.isNotEmpty) ? numerator.toStringAsPrecision(3) : '-');
 
@@ -183,7 +188,40 @@ class GradeWidget extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
+            if (depth == 1)
+              Padding(
+                padding: EdgeInsets.only(right: 2.w),
+                child: SizedBox(
+                  width: 8.h,
+                  height: 8.h,
+                  child: TextField(
+                    controller: TextEditingController(
+                        text: (grades.first.coef ?? "").toString()),
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 10.sp,
+                        color: Theme.of(context).textTheme.bodyText1!.color!),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).textTheme.bodyText1!.color!,
+                        ),
+                      ),
+                      hintText: "1.0",
+                    ),
+                    onChanged: (value) {
+                      context.read<TomussCubit>().updateCoef(grades.first,
+                          (value.isNotEmpty) ? double.parse(value) : null);
+                    },
+                  ),
+                ),
+              ),
           ],
         ),
       ),

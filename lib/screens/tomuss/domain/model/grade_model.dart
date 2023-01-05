@@ -26,6 +26,8 @@ class GradeModel {
   final bool isValidGrade;
   @HiveField(9)
   final List<GradeModel> children;
+  @HiveField(10)
+  double? coef;
 
   GradeModel({
     required this.name,
@@ -38,6 +40,7 @@ class GradeModel {
     required this.mediane,
     required this.isValidGrade,
     required this.children,
+    this.coef,
   });
 
   GradeModel.fromGrade(Grade grade)
@@ -50,11 +53,13 @@ class GradeModel {
         average = grade.average,
         mediane = grade.mediane,
         isValidGrade = grade.isValidGrade,
-        children = grade.children.map((e) => GradeModel.fromGrade(e)).toList();
+        children = grade.children.map((e) => GradeModel.fromGrade(e)).toList(),
+        coef = null;
+
 
   @override
   String toString() {
-    return 'GradeModel{name: $name, author: $author, gradeNumerator: $gradeNumerator, gradeDenominator: $gradeDenominator, rank: $rank, average: $average, mediane: $mediane, groupSize: $groupSize, isValidGrade: $isValidGrade, children: $children}';
+    return 'GradeModel{name: $name, author: $author, gradeNumerator: $gradeNumerator, gradeDenominator: $gradeDenominator, rank: $rank, average: $average, mediane: $mediane, groupSize: $groupSize, isValidGrade: $isValidGrade, children: $children, coef: $coef}';
   }
 
   @override
@@ -71,6 +76,7 @@ class GradeModel {
           mediane == other.mediane &&
           groupSize == other.groupSize &&
           isValidGrade == other.isValidGrade &&
+          coef == other.coef &&
           listEquals(children, other.children);
 
   @override
@@ -84,5 +90,6 @@ class GradeModel {
       mediane.hashCode ^
       groupSize.hashCode ^
       isValidGrade.hashCode ^
+      coef.hashCode ^
       children.hashCode;
 }

@@ -10,7 +10,7 @@ part 'tomuss_state.dart';
 class TomussCubit extends Cubit<TomussState> {
   TomussCubit() : super(TomussState(status: TomussStatus.initial));
 
-  Future<void> load({required Dartus? dartus, bool cache = true}) async {
+  Future<void> load({required Dartus? dartus, bool cache = true, required bool previousSemester}) async {
     emit(TomussState(status: TomussStatus.loading));
     List<SchoolSubjectModel> teachingUnits = [];
     if (cache) {
@@ -21,7 +21,7 @@ class TomussCubit extends Cubit<TomussState> {
     }
     if (dartus != null) {
       try {
-        teachingUnits = await TomussLogic.getGrades(dartus: dartus);
+        teachingUnits = await TomussLogic.getGrades(dartus: dartus, previousSemester: previousSemester);
       } catch (e) {
         if (kDebugMode) {
           print("Error while loading grades: $e");
@@ -35,5 +35,13 @@ class TomussCubit extends Cubit<TomussState> {
       emit(TomussState(
           status: TomussStatus.ready, teachingUnits: teachingUnits));
     }
+  }
+
+  Future<void> updateCoef(GradeModel grade, double? coef) async {
+    grade.coef = coef;
+    //save in cache
+    CacheService.set<SchoolSubjectModelWrapper>(
+        SchoolSubjectModelWrapper(state.teachingUnits));
+    emit(state.copyWith(status: TomussStatus.updated));
   }
 }

@@ -27,13 +27,14 @@ class GradeModelAdapter extends TypeAdapter<GradeModel> {
       mediane: fields[6] as double,
       isValidGrade: fields[8] as bool,
       children: (fields[9] as List).cast<GradeModel>(),
+      coef: fields[10] as double?,
     );
   }
 
   @override
   void write(BinaryWriter writer, GradeModel obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -53,7 +54,9 @@ class GradeModelAdapter extends TypeAdapter<GradeModel> {
       ..writeByte(8)
       ..write(obj.isValidGrade)
       ..writeByte(9)
-      ..write(obj.children);
+      ..write(obj.children)
+      ..writeByte(10)
+      ..write(obj.coef);
   }
 
   @override
