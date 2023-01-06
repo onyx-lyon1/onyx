@@ -11,7 +11,6 @@ class CacheService {
   }
 
   static Future<void> set<E>(E data, {int index = 0}) async {
-    print("Setting cache for $E with index $index");
     Box box = await Hive.openBox<E>("cached_$E");
     box.put("cache$index", data);
   }

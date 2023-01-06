@@ -31,15 +31,15 @@ void backgroundLogic() {
             keepLogedIn: settings.keepMeLoggedIn);
         if (settings.newGradeNotification) {
           List<SchoolSubjectModel> teachingUnits = [];
-          int? semesterIndex;
-          if (await CacheService.exist<SemesterModelWrapper>()){
-            SemesterModelWrapper? semesterModelWrapper =
-            await CacheService.get<SemesterModelWrapper>();
-            semesterIndex = semesterModelWrapper!.currentSemesterIndex;
+          int? semestreIndex;
+          if (await CacheService.exist<SemestreModelWrapper>()){
+            SemestreModelWrapper? semestreModelWrapper =
+            await CacheService.get<SemestreModelWrapper>();
+            semestreIndex = semestreModelWrapper!.currentSemestreIndex;
           }
-          if (await CacheService.exist<SchoolSubjectModelWrapper>(index: semesterIndex ?? 0)) {
+          if (await CacheService.exist<SchoolSubjectModelWrapper>(index: semestreIndex ?? 0)) {
             teachingUnits =
-                (await CacheService.get<SchoolSubjectModelWrapper>(index: semesterIndex ?? 0))!
+                (await CacheService.get<SchoolSubjectModelWrapper>(index: semestreIndex ?? 0))!
                     .teachingUnitModels;
           }
           List<SchoolSubjectModel> newTeachingUnits =
@@ -60,7 +60,7 @@ void backgroundLogic() {
           }
 
           CacheService.set<SchoolSubjectModelWrapper>(
-              SchoolSubjectModelWrapper(teachingUnits, semesterIndex ?? 0));
+              SchoolSubjectModelWrapper(teachingUnits, semestreIndex ?? 0));
         }
         if (settings.newMailNotification) {
           List<EmailModel> emails = [];

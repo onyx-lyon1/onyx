@@ -12,8 +12,8 @@ Future<void> hiveInit({String? path}) async {
   Hive.registerAdapter(EventModelAdapter());
   Hive.registerAdapter(GradeModelAdapter());
   Hive.registerAdapter(TeacherModelAdapter());
-  Hive.registerAdapter(SemesterModelAdapter());
-  Hive.registerAdapter(SemesterModelWrapperAdapter());
+  Hive.registerAdapter(SemestreModelAdapter());
+  Hive.registerAdapter(SemestreModelWrapperAdapter());
   Hive.registerAdapter(SchoolSubjectModelAdapter());
   Hive.registerAdapter(SchoolSubjectModelWrapperAdapter());
   Hive.registerAdapter(EmailModelAdapter());

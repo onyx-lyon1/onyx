@@ -110,7 +110,6 @@ class GradeWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: (onTap != null) ? () => onTap!() : null,
-      // TODO: give it the required infos
       child: Container(
         height: 11.h,
         clipBehavior: Clip.antiAlias,
@@ -189,39 +188,7 @@ class GradeWidget extends StatelessWidget {
                 ),
               ),
             ),
-            if (depth == 1)
-              Padding(
-                padding: EdgeInsets.only(right: 2.w),
-                child: SizedBox(
-                  width: 8.h,
-                  height: 8.h,
-                  child: TextField(
-                    controller: TextEditingController(
-                        text: (grades.first.coef ?? "").toString()),
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 10.sp,
-                        color: Theme.of(context).textTheme.bodyText1!.color!),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).textTheme.bodyText1!.color!,
-                        ),
-                      ),
-                      hintText: "1.0",
-                    ),
-                    onChanged: (value) {
-                      context.read<TomussCubit>().updateCoef(grades.first,
-                          (value.isNotEmpty) ? double.parse(value) : null);
-                    },
-                  ),
-                ),
-              ),
+            if (depth == 1) GradeCoefWidget(grades: grades),
           ],
         ),
       ),

@@ -14,12 +14,12 @@ class TomussCubit extends Cubit<TomussState> {
       {required Dartus? dartus, bool cache = true, int? semestreIndex}) async {
     emit(state.copyWith(status: TomussStatus.loading));
     List<SchoolSubjectModel> teachingUnits = [];
-    List<SemesterModel> semesters = [];
+    List<SemestreModel> semesters = [];
 
-    SemesterModelWrapper? semesterModelWrapper =
-        await CacheService.get<SemesterModelWrapper>();
+    SemestreModelWrapper? semesterModelWrapper =
+        await CacheService.get<SemestreModelWrapper>();
     if (semesterModelWrapper != null) {
-      semestreIndex ??= semesterModelWrapper.currentSemesterIndex;
+      semestreIndex ??= semesterModelWrapper.currentSemestreIndex;
     }
     if (cache) {
       teachingUnits = await compute(
@@ -29,20 +29,20 @@ class TomussCubit extends Cubit<TomussState> {
       emit(state.copyWith(
         status: TomussStatus.cacheReady,
         teachingUnits: teachingUnits,
-        semesters: semesterModelWrapper?.semesters ?? [],
+        semesters: semesterModelWrapper?.semestres ?? [],
         currentSemesterIndex: semestreIndex ?? 0,
       ));
     }
     if (dartus != null) {
       try {
         semesters = (await TomussLogic.getSemesters(dartus))
-            .map((e) => SemesterModel.fromSemester(e))
+            .map((e) => SemestreModel.fromSemester(e))
             .toList();
         semestreIndex ??= semesters
             .indexWhere((element) => element.url == Dartus.currentSemester());
         teachingUnits = await TomussLogic.getGrades(
             dartus: dartus,
-            semester: semesters[semestreIndex],
+            semestre: semesters[semestreIndex],
             semestreIndex: semestreIndex);
       } catch (e) {
         if (kDebugMode) {
@@ -53,12 +53,11 @@ class TomussCubit extends Cubit<TomussState> {
       }
 
       teachingUnits.sort((a, b) => a.name.compareTo(b.name));
-      print("semesterIndex: $semestreIndex");
       CacheService.set<SchoolSubjectModelWrapper>(
           SchoolSubjectModelWrapper(teachingUnits, semestreIndex),
           index: semestreIndex);
-      CacheService.set<SemesterModelWrapper>(
-          SemesterModelWrapper(semesters, currentSemesterIndex: semestreIndex));
+      CacheService.set<SemestreModelWrapper>(
+          SemestreModelWrapper(semesters, currentSemestreIndex: semestreIndex));
       emit(state.copyWith(
           status: TomussStatus.ready,
           teachingUnits: teachingUnits,

@@ -6,9 +6,9 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 class GetCacheDataPass {
   final String path;
-  final int currentSemesterIndex;
+  final int currentSemestreIndex;
 
-  GetCacheDataPass(this.path, this.currentSemesterIndex);
+  GetCacheDataPass(this.path, this.currentSemestreIndex);
 }
 
 class TomussLogic {
@@ -19,14 +19,14 @@ class TomussLogic {
 
   static Future<List<SchoolSubjectModel>> getGrades(
       {required Dartus dartus,
-      SemesterModel? semester,
+      SemestreModel? semestre,
       int semestreIndex = 0}) async {
     if (Res.mock) {
       return schoolSubjectModelListMock;
     }
     List<SchoolSubjectModel> tmpTeachingUnits = [];
     ParsedPage? parsedPageOpt =
-        await dartus.getParsedPage(semester?.url ?? Dartus.currentSemester());
+        await dartus.getParsedPage(semestre?.url ?? Dartus.currentSemester());
     if (parsedPageOpt == null) {
       throw Exception('Error while getting grades page empty');
     }
@@ -39,7 +39,6 @@ class TomussLogic {
           .teachingUnitModels;
     }
 
-    print("Cached teaching units: $cachedTeachingUnits");
     for (final TeachingUnit tu in parsedPage.teachingunits) {
       tmpTeachingUnits.add(SchoolSubjectModel(
           isSeen: false,
@@ -72,9 +71,9 @@ class TomussLogic {
     }
     await hiveInit(path: inputData.path);
     if (await CacheService.exist<SchoolSubjectModelWrapper>(
-        index: inputData.currentSemesterIndex)) {
+        index: inputData.currentSemestreIndex)) {
       return (await CacheService.get<SchoolSubjectModelWrapper>(
-              index: inputData.currentSemesterIndex))!
+              index: inputData.currentSemestreIndex))!
           .teachingUnitModels;
     } else {
       return [];

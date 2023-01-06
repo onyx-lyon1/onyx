@@ -5,7 +5,7 @@ enum TomussStatus { initial, loading, cacheReady, ready, error, updated }
 class TomussState {
   final TomussStatus status;
   final List<SchoolSubjectModel> teachingUnits;
-  final List<SemesterModel> semesters;
+  final List<SemestreModel> semesters;
   final int currentSemesterIndex;
 
   TomussState({
@@ -18,7 +18,7 @@ class TomussState {
   TomussState copyWith({
     TomussStatus? status,
     List<SchoolSubjectModel>? teachingUnits,
-    List<SemesterModel>? semesters,
+    List<SemestreModel>? semesters,
     int? currentSemesterIndex,
   }) {
     return TomussState(

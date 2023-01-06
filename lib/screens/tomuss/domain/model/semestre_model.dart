@@ -1,18 +1,18 @@
 import 'package:dartus/tomuss.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'semester_model.g.dart';
+part 'semestre_model.g.dart';
 
 @HiveType(typeId: 13)
-class SemesterModel {
+class SemestreModel {
   @HiveField(0)
   final String name;
   @HiveField(1)
   final String url;
 
-  SemesterModel({required this.name, required this.url});
+  SemestreModel({required this.name, required this.url});
 
-  SemesterModel.fromSemester(Semester s) : name = s.name, url = s.url;
+  SemestreModel.fromSemester(Semester s) : name = s.name, url = s.url;
 
   @override
   String toString() {
@@ -22,7 +22,7 @@ class SemesterModel {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SemesterModel &&
+      other is SemestreModel &&
           runtimeType == other.runtimeType &&
           name == other.name &&
           url == other.url;
