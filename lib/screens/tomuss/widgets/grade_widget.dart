@@ -119,101 +119,115 @@ class _GradeWidgetState extends State<GradeWidget> {
     String gradeNumerator =
         ((widget.grades.isNotEmpty) ? numerator.toStringAsPrecision(3) : '-');
 
-    return GestureDetector(
-      onTap: (widget.onTap != null) ? () => widget.onTap!() : null,
-      onLongPress: () async {
-        Directory tmpDir = await getTemporaryDirectory();
-        await screenshotController.captureAndSave(
-          tmpDir.path,
-          pixelRatio: 3.0,
-          fileName: 'screenshot.png',
-        );
-        Share.shareXFiles([XFile("${tmpDir.path}/screenshot.png")],
-            text: "Voici ma note en ${widget.grades.first.name} !");
-      },
-      child: Screenshot(
-        controller: screenshotController,
-        child: Container(
-          height: 11.h,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            boxShadow: const [BoxShadow(color: Colors.black38, blurRadius: 1)],
-            color: Theme.of(context).cardTheme.color,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                height: 11.h,
-                width: 20.w,
-                decoration: BoxDecoration(color: _mainGradeColor(context)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        gradeNumerator,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: OnyxTheme.darkTheme().backgroundColor,
-                          fontSize: 20.sp,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 15.w,
-                      height: 0.2.h,
-                      color: OnyxTheme.darkTheme().backgroundColor,
-                    ),
-                    Text(
-                      ((widget.grades.isNotEmpty) ? denominator : '-')
-                          .toString(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: OnyxTheme.darkTheme().backgroundColor,
-                          fontSize: 15),
-                    ),
-                  ],
-                ),
+    return Material(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(10),
+      ),
+      color: Theme.of(context).cardTheme.color,
+      elevation: 5,
+      child: InkWell(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10),
+        ),
+        onTap: (widget.onTap != null) ? () => widget.onTap!() : null,
+        onLongPress: () async {
+          Directory tmpDir = await getTemporaryDirectory();
+          await screenshotController.captureAndSave(
+            tmpDir.path,
+            pixelRatio: 3.0,
+            fileName: 'screenshot.png',
+          );
+          Share.shareXFiles([XFile("${tmpDir.path}/screenshot.png")],
+              text: "Voici ma note en ${widget.grades.first.name} !");
+        },
+        child: Screenshot(
+          controller: screenshotController,
+          child: Container(
+            height: 11.h,
+            clipBehavior: Clip.antiAlias,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
               ),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(left: 10),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: 11.h,
+                  width: 20.w,
+                  decoration: BoxDecoration(
+                    color: _mainGradeColor(context),
+                    borderRadius: const BorderRadius.horizontal(
+                      left: Radius.circular(10),
+                    ),
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.text1,
-                        style: TextStyle(
+                      SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          gradeNumerator,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).textTheme.bodyText1!.color,
-                            overflow: TextOverflow.clip,
-                            fontSize: 10.sp),
+                            color: OnyxTheme.darkTheme().backgroundColor,
+                            fontSize: 20.sp,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 15.w,
+                        height: 0.2.h,
+                        color: OnyxTheme.darkTheme().backgroundColor,
                       ),
                       Text(
-                        widget.text2,
-                        textAlign: TextAlign.start,
+                        ((widget.grades.isNotEmpty) ? denominator : '-')
+                            .toString(),
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 8.sp,
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .color!
-                              .withOpacity(0.8),
-                        ),
+                            color: OnyxTheme.darkTheme().backgroundColor,
+                            fontSize: 15),
                       ),
                     ],
                   ),
                 ),
-              ),
-              if (widget.depth == 1) GradeCoefWidget(grades: widget.grades),
-            ],
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.text1,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color:
+                                  Theme.of(context).textTheme.bodyText1!.color,
+                              overflow: TextOverflow.clip,
+                              fontSize: 10.sp),
+                        ),
+                        Text(
+                          widget.text2,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 8.sp,
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .color!
+                                .withOpacity(0.8),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                if (widget.depth == 1) GradeCoefWidget(grades: widget.grades),
+              ],
+            ),
           ),
         ),
       ),
