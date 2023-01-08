@@ -5,22 +5,26 @@ import 'package:sizer/sizer.dart';
 class StateDisplayingPage extends StatelessWidget {
   final String message;
 
-  const StateDisplayingPage({Key? key, required this.message}) : super(key: key);
+  const StateDisplayingPage({Key? key, required this.message})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const CustomCircularProgressIndicatorWidget(),
-        SizedBox(
-          height: 2.h,
-        ),
-        Text(
-          message,
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-      ],
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const CustomCircularProgressIndicatorWidget(),
+          SizedBox(
+            height: 2.h,
+          ),
+          Text(
+            message,
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      ),
     );
   }
 }

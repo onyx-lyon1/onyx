@@ -290,7 +290,9 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
           ),
           suffixIcon: IconButton(
               icon: Icon(
-                _isObscure ? Icons.visibility_rounded : Icons.visibility_off_rounded,
+                _isObscure
+                    ? Icons.visibility_rounded
+                    : Icons.visibility_off_rounded,
                 color: Theme.of(context).textTheme.bodyText1!.color,
               ),
               onPressed: () {

@@ -92,7 +92,12 @@ class OnyxAppState extends State<OnyxApp> {
                             ? const HomePage()
                             : LoginPage(key: UniqueKey()));
                   } else {
-                    return const CustomCircularProgressIndicatorWidget();
+                    return MaterialApp(
+                      home: Scaffold(
+                          backgroundColor:
+                              OnyxTheme.darkTheme().backgroundColor,
+                          body: const CustomCircularProgressIndicatorWidget()),
+                    );
                   }
                 },
               );
