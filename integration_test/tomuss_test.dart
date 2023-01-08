@@ -32,9 +32,7 @@ Future<void> tomussTest(ConvenientTest t) async {
 
   await find.textContaining("PIX").tap();
   await find.text("TD/comp1.2_5.2/noteQUEST").should(findsOneWidget);
-  await find.text("TD/comp1.3/note").tap();
   await find.text("TD/comp1.3/noteQUEST").should(findsOneWidget);
-  await find.text("TD/comp3.1/note").tap();
   await find.text("TD/PIX_TEST/notePIX1.3").should(findsOneWidget);
   await t.tester
       .drag(find.text("TD/comp1.2_5.2/noteQUEST"), const Offset(0, 400));
