@@ -16,7 +16,7 @@ void main() {
         await find.text("Connection").tap();
         await find.text("Connection").should(findsNothing);
       });
-      tTestWidgets('check notes', tomussTest);
+      tTestWidgets('test tomuss', tomussTest);
       tTestWidgets('test agenda', agendaTest);
       tTestWidgets('test mail', mailTest);
     });

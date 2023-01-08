@@ -13,6 +13,9 @@ class GetCacheDataPass {
 
 class TomussLogic {
   static Future<List<Semester>> getSemesters(Dartus dartus) async {
+    if (Res.mock) {
+      return [Semester("2022/Automne", Dartus.currentSemester())];
+    }
     return (await dartus.getParsedPage(Dartus.currentSemester()))?.semesters ??
         [];
   }

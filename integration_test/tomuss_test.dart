@@ -1,4 +1,5 @@
 import 'package:convenient_test_dev/convenient_test_dev.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'integration_test_export.dart';
@@ -22,9 +23,12 @@ Future<void> tomussTest(ConvenientTest t) async {
   for (var i = 1; i < 6; i++) {
     await find.text("Colle$i").should(findsOneWidget);
   }
+  await find.byKey(const Key("GradeCoefWidgetColle5")).replaceText("5.0");
   await t.tester.drag(find.text("Colle1"), const Offset(0, 400));
   await t.pumpAndSettle();
   await find.textContaining("Colle").should(findsNothing);
+  await find.text("7.96").should(findsOneWidget);
+  await find.text("9.94").should(findsNothing);
 
   await find.textContaining("PIX").tap();
   await find.text("TD/comp1.2_5.2/noteQUEST").should(findsOneWidget);

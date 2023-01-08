@@ -27,6 +27,7 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
+      key: Key('GradeCoefWidget${widget.grades.first.name}'),
       padding: EdgeInsets.only(right: 2.w),
       child: SizedBox(
         width: 8.h,
