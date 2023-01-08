@@ -79,6 +79,7 @@ class OnyxAppState extends State<OnyxApp> {
                         themeMode: settingsState.settings.themeMode.themeMode,
                         theme: OnyxTheme.lighTheme(),
                         darkTheme: OnyxTheme.darkTheme(),
+                        // showPerformanceOverlay: true,
                         home: (context
                                         .read<AuthentificationCubit>()
                                         .state

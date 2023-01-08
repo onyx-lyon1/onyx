@@ -11,20 +11,25 @@ class BatimentsLogic {
     if (batiments.isEmpty) {
       await loadBatiments();
     }
-    return batiments
-        .where((element) =>
-            removeDiacritics(element.name)
+    List<BatimentModel> result = [];
+    List<String> queries = query.split(" ");
+    for (BatimentModel batiment in batiments) {
+      bool isFound = false;
+      for (String tmpQuery in queries) {
+        if (removeDiacritics(batiment.name)
                 .toLowerCase()
-                .contains(removeDiacritics(query).toLowerCase()) ||
-            removeDiacritics(query)
-                .toLowerCase()
-                .contains(removeDiacritics(element.name).toLowerCase()))
-        .map((element) {
-      return BatimentModel(
-        element.name,
-        element.position,
-      );
-    }).toList();
+                .contains(removeDiacritics(tmpQuery).toLowerCase()) ||
+            removeDiacritics(batiment.name.toLowerCase())
+                .contains(removeDiacritics(tmpQuery).toLowerCase())) {
+          isFound = true;
+          break;
+        }
+      }
+      if (isFound) {
+        result.add(batiment);
+      }
+    }
+    return result;
   }
 
   static Future<void> loadBatiments() async {
