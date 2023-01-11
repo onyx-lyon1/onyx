@@ -49,6 +49,7 @@ dependencies:
   share_plus: ^6.3.0
   firebase_crashlytics: ^3.0.9
   firebase_core: ^2.4.1
+  cryptography: ^2.0.5
 
 
 dependency_overrides:
@@ -91,6 +92,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/batiment_lyon1.json
+    - assets/agenda_ids.json.enc
+    - assets/key.txt
     - assets/icon.png
     - assets/map/18/134628/93483.png
     - assets/map/18/134628/93487.png
