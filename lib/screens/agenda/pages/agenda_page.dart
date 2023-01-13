@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/widgets/common_screen_widget.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
@@ -29,7 +30,7 @@ class AgendaPage extends StatelessWidget {
     return BlocListener<SettingsCubit, SettingsState>(
       //fetch agenda whenn settings change
       listenWhen: (previous, current) =>
-          previous.settings.agendaURL != current.settings.agendaURL ||
+          previous.settings.agendaId != current.settings.agendaId ||
           previous.settings.fetchAgendaAuto != current.settings.fetchAgendaAuto,
       listener: (context, state) {
         context.read<AgendaCubit>().load(
@@ -50,23 +51,23 @@ class AgendaPage extends StatelessWidget {
               headerState =
                   const LoadingHeaderWidget(message: "Chargement de l'agenda");
             } else if (state.status == AgendaStatus.error) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Erreur lors du chargement de l'agenda\nEssayez de désactiver la récuperation automatique de l'agenda dans les paramètres",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                      const SettingsCardWidget(
-                          name: "Paramètres de l'agenda",
-                          widgets: [AgendaUrlParameterWidget()]),
-                    ],
-                  ),
-                ),
+              return AgendaConfigPage(
+                onBack: (int agendaId) {
+                  context.read<SettingsCubit>().modify(
+                        settings: context
+                            .read<SettingsCubit>()
+                            .state
+                            .settings
+                            .copyWith(
+                              agendaId: agendaId,
+                              fetchAgendaAuto: false,
+                            ),
+                      );
+                  context.read<AgendaCubit>().load(
+                      dartus:
+                          context.read<AuthentificationCubit>().state.dartus!,
+                      settings: context.read<SettingsCubit>().state.settings);
+                },
               );
             }
             bool animating = false;
@@ -113,105 +114,105 @@ class AgendaPage extends StatelessWidget {
               child: CommonScreenWidget(
                 state: headerState,
                 header: context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .showMiniCalendar
-                ? MiniCalendarWidget(
-                    scrollController: scrollController,
-                    onUpdate: (DateTime newWantedDay) {
-                      context.read<AgendaCubit>().updateDisplayedDate(
-                          date: newWantedDay, fromPageController: false);
-                    },
-                  )
-                : Center(
-                    child: Text(
-                      'Agenda',
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.bodyText1!.color,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                body: PageView(
-              controller: pageController,
-              scrollDirection: Axis.vertical,
-              key: UniqueKey(),
-              // pas le plus propre mais force a rebuild et reinit le controller
-              onPageChanged: (index) {
-                if (context
                         .read<SettingsCubit>()
                         .state
                         .settings
-                        .showMiniCalendar &&
-                    !animating) {
-                  if (context.read<AgendaCubit>().state.dayModels.length >
-                      index) {
-                    context.read<AgendaCubit>().updateDisplayedDate(
-                        date: context
-                            .read<AgendaCubit>()
-                            .state
-                            .dayModels[index]
-                            .date,
-                        fromPageController: true);
-                  }
-                }
-              },
-              children: context
-                  .read<AgendaCubit>()
-                  .state
-                  .dayModels
-                  .map(
-                    (day) => SizedBox(
-                      height: 10,
-                      child: SingleChildScrollView(
-                        child: Column(children: [
-                          Container(
-                            padding: const EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                              top: 15,
-                            ),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "${day.date.toWeekDayName()} ${day.date.day} ${day.date.toMonthName()}",
-                                    style: TextStyle(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .color),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  Text('${day.events.length} évènement(s)'),
-                                ]),
+                        .showMiniCalendar
+                    ? MiniCalendarWidget(
+                        scrollController: scrollController,
+                        onUpdate: (DateTime newWantedDay) {
+                          context.read<AgendaCubit>().updateDisplayedDate(
+                              date: newWantedDay, fromPageController: false);
+                        },
+                      )
+                    : Center(
+                        child: Text(
+                          'Agenda',
+                          style: TextStyle(
+                            color: Theme.of(context).textTheme.bodyText1!.color,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                           ),
-                          ...day.events.map(
-                            (e) => EventWidget(
-                              event: e,
-                            ),
-                          ),
-                        ]),
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
+                body: PageView(
+                  controller: pageController,
+                  scrollDirection: Axis.vertical,
+                  key: UniqueKey(),
+                  // pas le plus propre mais force a rebuild et reinit le controller
+                  onPageChanged: (index) {
+                    if (context
+                            .read<SettingsCubit>()
+                            .state
+                            .settings
+                            .showMiniCalendar &&
+                        !animating) {
+                      if (context.read<AgendaCubit>().state.dayModels.length >
+                          index) {
+                        context.read<AgendaCubit>().updateDisplayedDate(
+                            date: context
+                                .read<AgendaCubit>()
+                                .state
+                                .dayModels[index]
+                                .date,
+                            fromPageController: true);
+                      }
+                    }
+                  },
+                  children: context
+                      .read<AgendaCubit>()
+                      .state
+                      .dayModels
+                      .map(
+                        (day) => SizedBox(
+                          height: 10,
+                          child: SingleChildScrollView(
+                            child: Column(children: [
+                              Container(
+                                padding: const EdgeInsets.only(
+                                  left: 20,
+                                  right: 20,
+                                  top: 15,
+                                ),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "${day.date.toWeekDayName()} ${day.date.day} ${day.date.toMonthName()}",
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .color),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text('${day.events.length} évènement(s)'),
+                                    ]),
+                              ),
+                              ...day.events.map(
+                                (e) => EventWidget(
+                                  event: e,
+                                ),
+                              ),
+                            ]),
+                          ),
+                        ),
+                      )
+                      .toList(),
                 ),
                 onRefresh: () async {
-              context.read<AgendaCubit>().load(
-                  dartus:
-                      context.read<AuthentificationCubit>().state.dartus!,
-                  settings: context.read<SettingsCubit>().state.settings);
-              while (context.read<AgendaCubit>().state.status !=
-                      AgendaStatus.ready &&
-                  context.read<AgendaCubit>().state.status !=
-                      AgendaStatus.error) {
-                await Future.delayed(const Duration(milliseconds: 100));
-              }
-              return;
+                  context.read<AgendaCubit>().load(
+                      dartus:
+                          context.read<AuthentificationCubit>().state.dartus!,
+                      settings: context.read<SettingsCubit>().state.settings);
+                  while (context.read<AgendaCubit>().state.status !=
+                          AgendaStatus.ready &&
+                      context.read<AgendaCubit>().state.status !=
+                          AgendaStatus.error) {
+                    await Future.delayed(const Duration(milliseconds: 100));
+                  }
+                  return;
                 },
               ),
             );

@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.12"
+  advance_expansion_tile:
+    dependency: "direct main"
+    description:
+      name: advance_expansion_tile
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   analyzer:
     dependency: transitive
     description:
@@ -147,7 +154,7 @@ packages:
       name: calendar_timeline
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.5"
+    version: "1.0.4"
   characters:
     dependency: transitive
     description:
@@ -253,13 +260,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
-  cryptography:
-    dependency: "direct main"
-    description:
-      name: cryptography
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.5"
   csslib:
     dependency: transitive
     description:
@@ -331,7 +331,7 @@ packages:
     source: hosted
     version: "4.0.1"
   encrypt:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: encrypt
       url: "https://pub.dartlang.org"
@@ -1052,7 +1052,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.4"
+    version: "6.0.5"
   pub_semver:
     dependency: transitive
     description:
@@ -1101,7 +1101,7 @@ packages:
       name: scrollable_positioned_list
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.5"
+    version: "0.2.3"
   share_plus:
     dependency: "direct main"
     description:
