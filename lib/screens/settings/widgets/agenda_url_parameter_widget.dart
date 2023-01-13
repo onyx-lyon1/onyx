@@ -1,17 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/screens/agenda_config/page/agenda_config_page.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:sizer/sizer.dart';
 
 class AgendaUrlParameterWidget extends StatelessWidget {
   const AgendaUrlParameterWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController qrCodeURLController = TextEditingController();
-    qrCodeURLController.text =
-        context.read<SettingsCubit>().state.settings.agendaURL;
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         return Column(
@@ -37,99 +34,37 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 65.w,
-                            height: 8.h,
-                            padding: EdgeInsets.only(left: 3.w),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).backgroundColor,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10)),
-                            ),
-                            child: Center(
-                              child: TextField(
-                                controller: qrCodeURLController,
-                                enableSuggestions: false,
-                                style: TextStyle(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .color,
+                      child: TextButton(
+                        style: ButtonStyle(
+                          overlayColor: MaterialStateProperty.all(
+                            Theme.of(context).primaryColor.withOpacity(0.2),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SafeArea(
+                                child: AgendaConfigPage(
+                                  onBack: (index) {
+                                    context.read<SettingsCubit>().modify(
+                                        settings: context
+                                            .read<SettingsCubit>()
+                                            .state
+                                            .settings
+                                            .copyWith(agendaId: index));
+                                    Navigator.pop(context);
+                                    print("poped");
+                                  },
                                 ),
-                                onChanged: (String value) {
-                                  context.read<SettingsCubit>().modify(
-                                      settings: context
-                                          .read<SettingsCubit>()
-                                          .state
-                                          .settings
-                                          .copyWith(agendaURL: value));
-                                  if (kDebugMode) {
-                                    print(
-                                        'value: ${context.read<SettingsCubit>().state.settings.agendaURL}');
-                                  }
-                                },
-                                decoration: const InputDecoration(
-                                  isDense: true,
-                                  labelStyle: TextStyle(fontSize: 12),
-                                  hintStyle: TextStyle(fontSize: 12),
-                                  hintText: 'URL de l\'agenda',
-                                  border: InputBorder.none,
-                                ),
-                                textAlignVertical: TextAlignVertical.center,
-                                maxLines: 1,
-                                minLines: 1,
                               ),
                             ),
-                          ),
-                          Container(
-                            height: 8.h,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).backgroundColor,
-                              borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                  bottomRight: Radius.circular(10)),
-                            ),
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      const QrCodeScannerPage(),
-                                ))
-                                    .then((dynamic url) {
-                                  qrCodeURLController.value = TextEditingValue(
-                                      text: url ??
-                                          qrCodeURLController.value.text);
-                                  context.read<SettingsCubit>().modify(
-                                      settings: context
-                                          .read<SettingsCubit>()
-                                          .state
-                                          .settings
-                                          .copyWith(
-                                              agendaURL: url ??
-                                                  context
-                                                      .read<SettingsCubit>()
-                                                      .state
-                                                      .settings
-                                                      .agendaURL));
-                                });
-                              },
-                              enableFeedback: true,
-                              splashColor: Colors.transparent,
-                              icon: Icon(
-                                Icons.qr_code_rounded,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .color,
-                              ),
-                            ),
-                          ),
-                        ],
+                          );
+                        },
+                        child: Text(
+                          'Selectionner l\'agenda',
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
                       ),
                     ),
                   )
