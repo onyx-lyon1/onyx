@@ -16,7 +16,7 @@ class AgendaLogic {
     Agenda? agendaOpt;
     try {
       agendaOpt = await agendaClient.getAgenda(
-          url: (settings.fetchAgendaAuto) ? "" : settings.agendaURL);
+          id: (settings.fetchAgendaAuto) ? null : settings.agendaId);
       if (agendaOpt == null || agendaOpt.events.isEmpty) {
         throw Exception("Agenda is empty");
       }

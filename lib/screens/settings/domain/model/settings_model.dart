@@ -24,7 +24,7 @@ class SettingsModel {
   @HiveField(7)
   late bool calendarUpdateNotification;
   @HiveField(8)
-  late String agendaURL;
+  late int? agendaId;
 
   @HiveField(9)
   late bool newMailNotification;
@@ -42,7 +42,7 @@ class SettingsModel {
     this.fetchAgendaAuto = true,
     this.showMiniCalendar = true,
     this.calendarUpdateNotification = true,
-    this.agendaURL = "",
+    this.agendaId,
     this.newMailNotification = false,
     this.blockTrackers = true,
     this.darkerMail = false,
@@ -57,7 +57,7 @@ class SettingsModel {
     bool? fetchAgendaAuto,
     bool? showMiniCalendar,
     bool? calendarUpdateNotification,
-    String? agendaURL,
+    int? agendaId,
     bool? newMailNotification,
     bool? blockTrackers,
     bool? darkerMail,
@@ -72,7 +72,7 @@ class SettingsModel {
       calendarUpdateNotification:
           calendarUpdateNotification ?? this.calendarUpdateNotification,
       showMiniCalendar: showMiniCalendar ?? this.showMiniCalendar,
-      agendaURL: agendaURL ?? this.agendaURL,
+      agendaId: agendaId ?? this.agendaId,
       newMailNotification: newMailNotification ?? this.newMailNotification,
       blockTrackers: blockTrackers ?? this.blockTrackers,
       darkerMail: darkerMail ?? this.darkerMail,
@@ -81,7 +81,7 @@ class SettingsModel {
 
   @override
   String toString() {
-    return 'SettingsModel{keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, themeMode: $themeMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, fetchAgendaAuto: $fetchAgendaAuto, showMiniCalendar: $showMiniCalendar, calendarUpdateNotification: $calendarUpdateNotification, agendaURL: $agendaURL, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail}';
+    return 'SettingsModel{keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, themeMode: $themeMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, fetchAgendaAuto: $fetchAgendaAuto, showMiniCalendar: $showMiniCalendar, calendarUpdateNotification: $calendarUpdateNotification, agendaURL: $agendaId, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail}';
   }
 
   @override
@@ -97,7 +97,7 @@ class SettingsModel {
           fetchAgendaAuto == other.fetchAgendaAuto &&
           showMiniCalendar == other.showMiniCalendar &&
           calendarUpdateNotification == other.calendarUpdateNotification &&
-          agendaURL == other.agendaURL &&
+          agendaId == other.agendaId &&
           newMailNotification == other.newMailNotification &&
           blockTrackers == other.blockTrackers &&
           darkerMail == other.darkerMail;
@@ -112,7 +112,7 @@ class SettingsModel {
       fetchAgendaAuto.hashCode ^
       showMiniCalendar.hashCode ^
       calendarUpdateNotification.hashCode ^
-      agendaURL.hashCode ^
+      agendaId.hashCode ^
       newMailNotification.hashCode ^
       blockTrackers.hashCode ^
       darkerMail.hashCode;

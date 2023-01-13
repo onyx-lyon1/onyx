@@ -25,7 +25,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       fetchAgendaAuto: fields[5] as bool,
       showMiniCalendar: fields[6] as bool,
       calendarUpdateNotification: fields[7] as bool,
-      agendaURL: fields[8] as String,
+      agendaId: fields[8] as int?,
       newMailNotification: fields[9] as bool,
       blockTrackers: fields[10] as bool,
       darkerMail: fields[11] as bool,
@@ -53,7 +53,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(7)
       ..write(obj.calendarUpdateNotification)
       ..writeByte(8)
-      ..write(obj.agendaURL)
+      ..write(obj.agendaId)
       ..writeByte(9)
       ..write(obj.newMailNotification)
       ..writeByte(10)
