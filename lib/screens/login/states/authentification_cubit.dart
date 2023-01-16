@@ -31,7 +31,9 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
       _password = auth.password;
     } catch (e) {
       emit(state.copyWith(
-          status: AuthentificationStatus.needCredential, dartus: _dartus));
+          status: AuthentificationStatus.needCredential,
+          dartus: _dartus,
+          firstLogin: true));
       return;
     }
     //login
@@ -44,12 +46,15 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
             status: AuthentificationStatus.authentificated,
             username: _usename,
             password: _password,
-            dartus: _dartus));
+            dartus: _dartus,
+            firstLogin: _usename.isEmpty && _password.isEmpty));
       } catch (e) {
         if (kDebugMode) {
           print(e);
         }
-        emit(state.copyWith(status: AuthentificationStatus.error));
+        emit(state.copyWith(
+            status: AuthentificationStatus.error,
+            firstLogin: _usename.isEmpty && _password.isEmpty));
         return;
       }
     } else {
