@@ -6,6 +6,7 @@ import 'package:onyx/core/home/home_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
@@ -118,6 +119,10 @@ class HomePageState extends State<HomePage> {
                               width: 100.w,
                               height: 100.h,
                               child: const SettingsPage()),
+                          SizedBox(
+                              width: 100.w,
+                              height: 100.h,
+                              child: const IzlyPage()),
                           SizedBox(
                               width: 100.w,
                               height: 100.h,
