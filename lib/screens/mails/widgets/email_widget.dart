@@ -74,14 +74,14 @@ class EmailWidget extends StatelessWidget {
               context: context,
               builder: (context) => AlertDialog(
                 backgroundColor: Theme.of(context).backgroundColor,
-                title: const Text("Suprimer"),
-                content: const Text(
-                    "Êtes vous sûr que vous voulez supprimer ce mail"),
+                title: const Text("Supprimer"),
+                content:
+                    const Text("Êtes-vous sûr de vouloir supprimer ce mail ?"),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context),
                     child: const Text(
-                      "non",
+                      "Annuler",
                       style: TextStyle(color: Colors.green),
                     ),
                   ),
@@ -91,7 +91,7 @@ class EmailWidget extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     child: const Text(
-                      "oui",
+                      "Supprimer",
                       style: TextStyle(color: Colors.red),
                     ),
                   ),

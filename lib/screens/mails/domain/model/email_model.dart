@@ -52,13 +52,12 @@ class EmailModel {
       date: mail.getDate,
       body: mail.getBody(excerpt: false),
       id: mail.getSequenceId,
-      receiver: "me",
+      receiver: "moi",
       attachments: mail.getAttachmentsNames,
       isFlagged: mail.isFlagged,
       rawMail: mail,
     );
   }
-
 
   @override
   String toString() {
