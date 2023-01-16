@@ -27,7 +27,11 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                         .copyWith(fetchAgendaAuto: b));
                 context.read<AgendaCubit>().load(
                     dartus: context.read<AuthentificationCubit>().state.dartus!,
-                    settings: context.read<SettingsCubit>().state.settings,
+                    settings: context
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .copyWith(fetchAgendaAuto: b),
                     cache: false);
               },
             ),
@@ -69,7 +73,8 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                                         settings: context
                                             .read<SettingsCubit>()
                                             .state
-                                            .settings,
+                                            .settings
+                                            .copyWith(agendaId: index),
                                         cache: false);
                                     Navigator.pop(context);
                                   },
