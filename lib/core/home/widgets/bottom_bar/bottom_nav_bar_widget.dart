@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 
 class BottomNavBarWidget extends StatelessWidget {
@@ -36,6 +37,9 @@ class BottomNavBarWidget extends StatelessWidget {
                     selected: ((index) % Res.screenCount ==
                         (currentIndex) % Res.screenCount)),
                 SettingsBottomNavBarIcon(
+                    selected: ((index) % Res.screenCount ==
+                        (currentIndex) % Res.screenCount)),
+                IzlyBottomNavBarIcon(
                     selected: ((index) % Res.screenCount ==
                         (currentIndex) % Res.screenCount)),
                 MapBottomNavBarIcon(
