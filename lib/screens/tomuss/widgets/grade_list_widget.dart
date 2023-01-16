@@ -39,7 +39,7 @@ class GradeListWidget extends StatelessWidget {
                       isSeen: true,
                       text1: grades[gradeIndex].name,
                       text2:
-                          "moyenne: ${grades[gradeIndex].average.toStringAsFixed(2)} · mediane: ${grades[gradeIndex].mediane.toStringAsFixed(2)}\nclassement:${grades[gradeIndex].rank + 1}/${grades[gradeIndex].groupSize}\nprofesseur: ${grades[gradeIndex].author}",
+                          "Moyenne: ${grades[gradeIndex].average.toStringAsFixed(2)} · Mediane: ${grades[gradeIndex].mediane.toStringAsFixed(2)}\nClassement:${grades[gradeIndex].rank + 1}/${grades[gradeIndex].groupSize}\nProfesseur: ${grades[gradeIndex].author}",
                       depth: depth,
                     ),
                   ),
