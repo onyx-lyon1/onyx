@@ -51,6 +51,7 @@ dependencies:
   firebase_core: ^2.4.1
   encrypt: ^5.0.1
   advance_expansion_tile: ^1.0.2
+  auto_size_text: ^3.0.0
 
 
 dependency_overrides:
