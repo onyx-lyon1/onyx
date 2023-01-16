@@ -29,7 +29,8 @@ class _LoginPageState extends State<LoginPage> {
       return const StateDisplayingPage(message: "Start authentification");
     } else if (state.status == AuthentificationStatus.authentificating) {
       return const StateDisplayingPage(message: "Authentification");
-    } else if (state.status == AuthentificationStatus.error) {
+    } else if (state.status == AuthentificationStatus.error &&
+        context.read<AuthentificationCubit>().state.firstLogin) {
       Future.delayed(const Duration(seconds: 1), () {
         context.read<AuthentificationCubit>().logout();
       });

@@ -745,6 +745,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  izlyclient:
+    dependency: "direct main"
+    description:
+      path: "../dart-izlyclient"
+      relative: true
+    source: path
+    version: "1.0.0"
   js:
     dependency: transitive
     description:
