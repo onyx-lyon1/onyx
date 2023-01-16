@@ -135,6 +135,7 @@ class _GradeWidgetState extends State<GradeWidget> {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 height: 11.h,

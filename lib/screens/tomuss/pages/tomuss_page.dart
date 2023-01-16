@@ -22,23 +22,25 @@ class TomussPage extends StatelessWidget {
       expand: false,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Theme.of(context).backgroundColor,
-      builder: (context) => SingleChildScrollView(
-        controller: ModalScrollController.of(context),
-        child: Container(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              GradeListHeaderWidget(name: schoolSubject.name),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                child: GradeListWidget(
-                  grades: schoolSubject.grades,
-                  depth: 1,
-                  lastElement: true,
+      builder: (context) => SafeArea(
+        child: SingleChildScrollView(
+          controller: ModalScrollController.of(context),
+          child: Container(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                GradeListHeaderWidget(name: schoolSubject.name),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  child: GradeListWidget(
+                    grades: schoolSubject.grades,
+                    depth: 1,
+                    lastElement: true,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -94,20 +96,23 @@ class TomussPage extends StatelessWidget {
                   ),
                 ),
                 //button to toggle semester with an icon
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.list,
-                      color: Theme.of(context).textTheme.bodyText1!.color,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.list,
+                        color: Theme.of(context).textTheme.bodyText1!.color,
+                      ),
+                      onPressed: () {
+                        //show a dialog to select the semester
+                        showDialog(
+                          context: context,
+                          builder: (context) => const SemestreChooserWidget(),
+                        );
+                      },
                     ),
-                    onPressed: () {
-                      //show a dialog to select the semester
-                      showDialog(
-                        context: context,
-                        builder: (context) => const SemestreChooserWidget(),
-                      );
-                    },
                   ),
                 ),
               ],
