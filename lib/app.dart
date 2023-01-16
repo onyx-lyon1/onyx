@@ -42,85 +42,70 @@ class OnyxAppState extends State<OnyxApp> {
   Widget build(BuildContext context) {
     return ConvenientTestWrapperWidget(
       child: Sizer(
-        builder: (context, orientation, deviceType) =>
-            MultiBlocProvider(
-              providers: [
-                BlocProvider<AuthentificationCubit>(
-                    create: (context) => AuthentificationCubit()),
-                BlocProvider<SettingsCubit>(
-                    create: (context) => SettingsCubit()),
-                BlocProvider<EmailCubit>(create: (context) => EmailCubit()),
-                BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
-                BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
-                BlocProvider<MapCubit>(create: (context) => MapCubit()),
-              ],
-              child: BlocConsumer<AuthentificationCubit, AuthentificationState>(
-                listener: (context, state) {
-                  if (state.status == AuthentificationStatus.authentificated) {
-                    context.read<EmailCubit>().connect(
-                        username:
-                        context
-                            .read<AuthentificationCubit>()
-                            .state
-                            .username!,
-                        password:
-                        context
-                            .read<AuthentificationCubit>()
-                            .state
-                            .password!);
-                    context.read<AgendaCubit>().load(
-                        dartus: state.dartus!,
-                        settings: context
-                            .read<SettingsCubit>()
-                            .state
-                            .settings);
-                    context.read<TomussCubit>().load(dartus: state.dartus!);
+        builder: (context, orientation, deviceType) => MultiBlocProvider(
+          providers: [
+            BlocProvider<AuthentificationCubit>(
+                create: (context) => AuthentificationCubit()),
+            BlocProvider<SettingsCubit>(create: (context) => SettingsCubit()),
+            BlocProvider<EmailCubit>(create: (context) => EmailCubit()),
+            BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
+            BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
+            BlocProvider<MapCubit>(create: (context) => MapCubit()),
+          ],
+          child: BlocConsumer<AuthentificationCubit, AuthentificationState>(
+            listener: (context, state) {
+              if (state.status == AuthentificationStatus.authentificated) {
+                context.read<EmailCubit>().connect(
+                    username:
+                        context.read<AuthentificationCubit>().state.username!,
+                    password:
+                        context.read<AuthentificationCubit>().state.password!);
+                context.read<AgendaCubit>().load(
+                    dartus: state.dartus!,
+                    settings: context.read<SettingsCubit>().state.settings);
+                context.read<TomussCubit>().load(dartus: state.dartus!);
+              }
+            },
+            builder: (context, authState) {
+              return BlocBuilder<SettingsCubit, SettingsState>(
+                builder: (context, settingsState) {
+                  if (settingsState.status == SettingsStatus.ready ||
+                      settingsState.status == SettingsStatus.error) {
+                    return MaterialApp(
+                        title: 'Oloid 2.0',
+                        navigatorKey: OnyxApp.navigatorKey,
+                        scrollBehavior: const CustomScrollBehavior(),
+                        debugShowCheckedModeBanner: false,
+                        themeMode: settingsState.settings.themeMode.themeMode,
+                        theme: OnyxTheme.lighTheme(),
+                        darkTheme: OnyxTheme.darkTheme(),
+                        // showPerformanceOverlay: true,
+                        home: (context
+                                        .read<AuthentificationCubit>()
+                                        .state
+                                        .status ==
+                                    AuthentificationStatus.authentificated ||
+                                context
+                                        .read<AuthentificationCubit>()
+                                        .state
+                                        .status ==
+                                    AuthentificationStatus.authentificating)
+                            ? const HomePage()
+                            : LoginPage(key: UniqueKey()));
+                  } else {
+                    return MaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      home: Scaffold(
+                          backgroundColor:
+                              OnyxTheme.darkTheme().backgroundColor,
+                          body: const CustomCircularProgressIndicatorWidget()),
+                    );
                   }
                 },
-                builder: (context, authState) {
-                  return BlocBuilder<SettingsCubit, SettingsState>(
-                    builder: (context, settingsState) {
-                      if (settingsState.status == SettingsStatus.ready ||
-                          settingsState.status == SettingsStatus.error) {
-                        return MaterialApp(
-                            title: 'Oloid 2.0',
-                            navigatorKey: OnyxApp.navigatorKey,
-                            scrollBehavior: const CustomScrollBehavior(),
-                            debugShowCheckedModeBanner: false,
-                            themeMode: settingsState.settings.themeMode
-                                .themeMode,
-                            theme: OnyxTheme.lighTheme(),
-                            darkTheme: OnyxTheme.darkTheme(),
-                            // showPerformanceOverlay: true,
-                            home: (context
-                                .read<AuthentificationCubit>()
-                                .state
-                                .status ==
-                                AuthentificationStatus.authentificated ||
-                                context
-                                    .read<AuthentificationCubit>()
-                                    .state
-                                    .status ==
-                                    AuthentificationStatus.authentificating ||
-                                !context.read<AuthentificationCubit>().state.firstLogin
-                            )
-                                ? const HomePage()
-                                : LoginPage(key: UniqueKey()));
-                      } else {
-                        return MaterialApp(
-                          home: Scaffold(
-                              backgroundColor:
-                              OnyxTheme
-                                  .darkTheme()
-                                  .backgroundColor,
-                              body: const CustomCircularProgressIndicatorWidget()),
-                        );
-                      }
-                    },
-                  );
-                },
-              ),
-            ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }

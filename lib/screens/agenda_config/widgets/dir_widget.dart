@@ -17,7 +17,9 @@ class DirWidget extends StatelessWidget {
         return const SizedBox.shrink();
       }
       return ListTile(
-        title: Text(dir.name.split(".").last),
+        title: Text(Uri.decodeFull(
+            Uri.encodeFull(dir.name.split(".").last.replaceAll("\\x", "%"))
+                .replaceAll("%25", "%"))),
         leading: const Icon(Icons.calendar_today_rounded),
         onTap: () {
           context.read<AgendaConfigCubit>().chooseDir(dir.id);
@@ -38,7 +40,9 @@ class DirWidget extends StatelessWidget {
                 if (i.name.isNotEmpty)
                   ListTile(
                     key: key,
-                    title: Text(i.name.split(".").last),
+                    title: Text(Uri.decodeFull(Uri.encodeFull(
+                            i.name.split(".").last.replaceAll("\\x", "%"))
+                        .replaceAll("%25", "%"))),
                     leading: const Icon(Icons.folder),
                     onTap: () {
                       context.read<AgendaConfigCubit>().expandDir(i, dir);
