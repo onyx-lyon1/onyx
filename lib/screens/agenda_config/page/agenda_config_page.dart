@@ -195,9 +195,6 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
       final RenderBox renderBox = _listScrollController
           .position.context.storageContext
           .findRenderObject() as RenderBox;
-      print(renderBox.paintBounds);
-      print(renderBox.paintBounds.shift(renderBox.localToGlobal(Offset.zero)));
-      print(details.globalPosition);
       if (renderBox.paintBounds
           .shift(renderBox.localToGlobal(Offset.zero))
           .contains(details.globalPosition)) {
@@ -211,17 +208,12 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
   }
 
   void _handleDragUpdate(DragUpdateDetails details) {
-    // print(
-    //     "${_activeScrollController == _listScrollController}  ${details.primaryDelta! > 0}  ${_listScrollController.position.pixels}  ${_listScrollController.position.minScrollExtent}");
-    if (_activeScrollController == _listScrollController &&
+   if (_activeScrollController == _listScrollController &&
         details.primaryDelta! > 0 &&
         _activeScrollController.position.pixels ==
             _activeScrollController.position.minScrollExtent) {
-      print("in if!!!!!");
       _activeScrollController = _pageController;
-      print(_drag);
       _drag?.cancel();
-      print(_drag);
       _drag = _pageController.position.drag(
           DragStartDetails(
               globalPosition: details.globalPosition,
