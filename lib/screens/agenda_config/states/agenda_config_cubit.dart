@@ -57,12 +57,16 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
 
   void search(String query) {
     List<DirModel> foundedDirs = [];
-    for (var dir = 0; dir < state.dirs.length; dir++) {
-      if (removeDiacritics(state.dirs[dir].name.toLowerCase())
+    for (var dir = 0; dir < dirs.length; dir++) {
+      if (Uri.decodeFull(Uri.encodeFull(
+                  removeDiacritics(dirs[dir].name.split(".").last)
+                      .replaceAll("\\x", "%"))
+              .replaceAll("%25", "%"))
+          .toLowerCase()
           .contains(removeDiacritics(query.toLowerCase()))) {
-        foundedDirs.add(state.dirs[dir]);
+        foundedDirs.add(dirs[dir]);
       } else {
-        subSearch(state.dirs[dir], query, foundedDirs);
+        subSearch(dirs[dir], query, foundedDirs);
       }
     }
     foundedDirs = foundedDirs.reversed.toList();
@@ -74,7 +78,11 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
 
   bool subSearch(DirModel dir, String query, List<DirModel> dirs) {
     for (int directory = 0; directory < dir.children.length; directory++) {
-      if (removeDiacritics(dir.children[directory].name.toLowerCase())
+      if (Uri.decodeFull(Uri.encodeFull(
+                  removeDiacritics(dir.children[directory].name.split(".").last)
+                      .replaceAll("\\x", "%"))
+              .replaceAll("%25", "%"))
+          .toLowerCase()
           .contains(removeDiacritics(query.toLowerCase()))) {
         dirs.add(dir.children[directory]);
         return true;
