@@ -19,7 +19,7 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
   late PageController _pageController;
   late ScrollController _listScrollController;
   late ScrollController _activeScrollController;
-  late Drag? _drag;
+  Drag? _drag;
 
   @override
   void initState() {
@@ -208,7 +208,7 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
   }
 
   void _handleDragUpdate(DragUpdateDetails details) {
-   if (_activeScrollController == _listScrollController &&
+    if (_activeScrollController == _listScrollController &&
         details.primaryDelta! > 0 &&
         _activeScrollController.position.pixels ==
             _activeScrollController.position.minScrollExtent) {
@@ -224,11 +224,15 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
   }
 
   void _handleDragEnd(DragEndDetails details) {
-    _drag?.end(details);
+    if (_drag != null) {
+      _drag?.end(details);
+    }
   }
 
   void _handleDragCancel() {
-    _drag?.cancel();
+    if (_drag != null) {
+      _drag?.cancel();
+    }
   }
 
   void _disposeDrag() {
