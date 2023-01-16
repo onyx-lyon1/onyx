@@ -11,7 +11,7 @@ class EmailHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(2.w),
+      margin: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(100),
