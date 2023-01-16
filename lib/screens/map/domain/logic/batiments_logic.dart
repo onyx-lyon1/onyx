@@ -16,13 +16,16 @@ class BatimentsLogic {
     for (BatimentModel batiment in batiments) {
       bool isFound = false;
       for (String tmpQuery in queries) {
-        if (removeDiacritics(batiment.name)
-                .toLowerCase()
-                .contains(removeDiacritics(tmpQuery).toLowerCase()) ||
-            removeDiacritics(batiment.name.toLowerCase())
-                .contains(removeDiacritics(tmpQuery).toLowerCase())) {
-          isFound = true;
-          break;
+        if (tmpQuery.isNotEmpty &&
+            !removeDiacritics(tmpQuery.toLowerCase()).contains("amphi")) {
+          if (removeDiacritics(batiment.name)
+                  .toLowerCase()
+                  .contains(removeDiacritics(tmpQuery).toLowerCase()) ||
+              removeDiacritics(batiment.name.toLowerCase())
+                  .contains(removeDiacritics(tmpQuery).toLowerCase())) {
+            isFound = true;
+            break;
+          }
         }
       }
       if (isFound) {
