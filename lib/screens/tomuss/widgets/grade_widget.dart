@@ -43,22 +43,24 @@ class _GradeWidgetState extends State<GradeWidget> {
       if (widget.grades.isEmpty) {
         return widget.isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
       } else {
-        int a = 0;
-        int r = 0;
-        int g = 0;
-        int b = 0;
+        double a = 0;
+        double r = 0;
+        double g = 0;
+        double b = 0;
+        double coefSum = 0;
         for (var i in widget.grades) {
           Color tmpColor = _gradeColor(context, i);
-          a += tmpColor.alpha;
-          r += tmpColor.red;
-          g += tmpColor.green;
-          b += tmpColor.blue;
+          a += tmpColor.alpha * (i.coef ?? 1.0);
+          r += tmpColor.red * (i.coef ?? 1.0);
+          g += tmpColor.green * (i.coef ?? 1.0);
+          b += tmpColor.blue * (i.coef ?? 1.0);
+          coefSum += i.coef ?? 1.0;
         }
-        a = (a / widget.grades.length).round();
-        r = (r / widget.grades.length).round();
-        g = (g / widget.grades.length).round();
-        b = (b / widget.grades.length).round();
-        return Color.fromARGB(a, r, g, b);
+        a = (a / coefSum);
+        r = (r / coefSum);
+        g = (g / coefSum);
+        b = (b / coefSum);
+        return Color.fromARGB(a.round(), r.round(), g.round(), b.round());
       }
     }
   }
