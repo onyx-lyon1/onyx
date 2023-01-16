@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/agenda_config/page/agenda_config_page.dart';
@@ -54,7 +53,6 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                                             .settings
                                             .copyWith(agendaId: index));
                                     Navigator.pop(context);
-                                    print("poped");
                                   },
                                 ),
                               ),
