@@ -39,7 +39,7 @@ class BottomNavBarWidget extends StatelessWidget {
                 SettingsBottomNavBarIcon(
                     selected: ((index) % Res.screenCount ==
                         (currentIndex) % Res.screenCount)),
-                IzlyBottomNavBarIcon(
+                IzlyBottomNavBarIconWidget(
                     selected: ((index) % Res.screenCount ==
                         (currentIndex) % Res.screenCount)),
                 MapBottomNavBarIcon(

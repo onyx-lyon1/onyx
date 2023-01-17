@@ -26,19 +26,16 @@ class IzlyPage extends StatelessWidget {
         Widget body = Container();
         switch (state.status) {
           case IzlyStatus.initial:
-            context.read<IzlyCubit>().login();
+            context.read<IzlyCubit>().connect();
             break;
           case IzlyStatus.connecting:
             body = const StateDisplayingPage(
               message: "Connection en cours",
             );
             break;
-          case IzlyStatus.connected:
-            context.read<IzlyCubit>().loadEveryone();
-            break;
           case IzlyStatus.error:
             Future.delayed(const Duration(seconds: 5), () {
-              context.read<IzlyCubit>().login();
+              context.read<IzlyCubit>().connect();
             });
             stateWidget =
                 const StateDisplayingPage(message: "Il y a eu une erreur");
@@ -56,35 +53,61 @@ class IzlyPage extends StatelessWidget {
             message: "Connection en cours",
           );
         } else {
-          body = Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          PageController pageController = PageController();
+          body = PageView(
+            controller: pageController,
+            scrollDirection: Axis.vertical,
             children: [
-              SizedBox(
-                height: 60.w,
-                width: 60.w,
-                child: Card(
-                  color: Colors.white,
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 60.w,
+                        width: 60.w,
+                        child: Card(
+                          color: Colors.white,
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Image.memory(state.qrCode!, scale: 0.6),
+                        ),
+                      ),
+                      Text(
+                        "${state.balance.toStringAsFixed(2)}€",
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              fontSize: 30.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ],
                   ),
-                  child: Image.memory(state.qrCode!, scale: 0.6),
-                ),
-              ),
-              Text(
-                "${state.balance.toStringAsFixed(2)}€",
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontSize: 30.sp,
-                      fontWeight: FontWeight.bold,
+                  Positioned(
+                    bottom: 0,
+                    child: IconButton(
+                      onPressed: () => pageController.animateToPage(1,
+                          duration: Res.animationDuration,
+                          curve: Curves.easeInOut),
+                      icon: Icon(Icons.keyboard_double_arrow_down_rounded,
+                          size: 40.sp,
+                          color: Theme.of(context)
+                              .bottomNavigationBarTheme
+                              .unselectedItemColor),
                     ),
+                  ),
+                ],
               ),
+              IzlyRechargePage(pageController: pageController),
             ],
           );
         }
         return CommonScreenWidget(
           state: stateWidget,
           onRefresh: () async {
-            context.read<IzlyCubit>().loadEveryone();
+            context.read<IzlyCubit>().connect();
             while (state.status != IzlyStatus.loaded &&
                 state.status != IzlyStatus.error) {
               await Future.delayed(const Duration(milliseconds: 100));

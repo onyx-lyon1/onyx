@@ -19,12 +19,9 @@ class IzlyLogic {
     return null;
   }
 
-  static Future<Uint8List> getQrCode(IzlyClient? izlyClient) async {
+  static Future<Uint8List> getQrCode() async {
     Box box = await Hive.openBox<List<dynamic>>("cached_qr_code");
     List<dynamic> qrCodes = box.get("qr_code", defaultValue: []);
-    if (izlyClient != null) {
-      qrCodes.addAll(await izlyClient.getNQRCode((3 - qrCodes.length)));
-    }
     Uint8List qrCode;
     if (qrCodes.isNotEmpty) {
       qrCode = qrCodes.removeAt(0);
@@ -32,7 +29,48 @@ class IzlyLogic {
     } else {
       qrCode = (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
     }
-
     return qrCode;
+  }
+
+  static Future<bool> completeQrCodeCache(IzlyClient izlyClient) async {
+    Box box = await Hive.openBox<List<dynamic>>("cached_qr_code");
+    List<dynamic> qrCodes = box.get("qr_code", defaultValue: []);
+    try {
+      qrCodes.addAll(await izlyClient.getNQRCode((3 - qrCodes.length)));
+      box.put("qr_code", qrCodes);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  static Future<void> reloginIfNeeded(IzlyClient izlyClient) async {
+    if (!(await izlyClient.isLogged())) {
+      await izlyClient.login();
+    }
+  }
+
+  static Future<String> getTransferUrl(
+      IzlyClient izlyClient, double amount) async {
+    await reloginIfNeeded(izlyClient);
+    return await izlyClient.getTransferPaymentUrl(amount);
+  }
+
+  static Future<SecurityModel> rechargeWithCB(
+      IzlyClient izlyClient, double amount, CbModel cb) async {
+    await reloginIfNeeded(izlyClient);
+    return await izlyClient.rechargeWithCB(
+        amount, (cb.id == "newCB") ? null : cb);
+  }
+
+  static Future<List<CbModel>> getCb(IzlyClient izlyClient) async {
+    await reloginIfNeeded(izlyClient);
+    return await izlyClient.getAvailableCBs();
+  }
+
+  static Future<bool> rechargeViaSomeoneElse(IzlyClient izlyClient,
+      double amount, String email, String message) async {
+    await reloginIfNeeded(izlyClient);
+    return await izlyClient.rechargeViaSomeoneElse(amount, email, message);
   }
 }
