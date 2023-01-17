@@ -90,7 +90,10 @@ class HomePageState extends State<HomePage> {
           body: SafeArea(
             child: Column(
               children: [
-                Expanded(
+                SizedBox(
+                  height: 100.h -
+                      Res.bottomNavBarHeight -
+                      MediaQuery.of(context).padding.top,
                   child: CommonScreenWidget(
                     onRefresh: () async {},
                     state: (state.status ==

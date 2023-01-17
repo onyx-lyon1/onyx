@@ -228,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     } else {
-      return const StateDisplayingPage(message: "Doing something");
+      return const StateDisplayingPage(message: "FATAL ERROR");
     }
   }
 

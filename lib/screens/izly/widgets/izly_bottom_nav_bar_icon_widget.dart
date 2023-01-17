@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class IzlyBottomNavBarIcon extends StatelessWidget {
-  const IzlyBottomNavBarIcon({Key? key, required this.selected})
+class IzlyBottomNavBarIconWidget extends StatelessWidget {
+  const IzlyBottomNavBarIconWidget({Key? key, required this.selected})
       : super(key: key);
   final bool selected;
 
