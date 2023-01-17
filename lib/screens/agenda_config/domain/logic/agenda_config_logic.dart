@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:encrypt/encrypt.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
@@ -18,7 +19,8 @@ class AgendaConfigLogic {
     final encrypter = Encrypter(AES(key));
     final decrypted =
         encrypter.decrypt(Encrypted.fromBase64(loadData.encryptedData), iv: iv);
-    final json = jsonDecode(decrypted);
+    final unCompressedData = utf8.decode(gzip.decode(base64.decode(decrypted)));
+    final json = jsonDecode(unCompressedData);
     for (var dir in json) {
       dirs.add(DirModel.fromJson(dir));
     }

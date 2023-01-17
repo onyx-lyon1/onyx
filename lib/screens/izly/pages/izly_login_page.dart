@@ -216,7 +216,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
   void send() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      context.read<IzlyCubit>().login(username: username, password: password);
+      context.read<IzlyCubit>().connect(username: username, password: password);
     }
   }
 }
