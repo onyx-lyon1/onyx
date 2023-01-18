@@ -101,6 +101,7 @@ flutter:
     - assets/agenda_ids.json.enc
     - assets/key.txt
     - assets/icon.png
+    - assets/izly.png
     - assets/map/18/134628/93483.png
     - assets/map/18/134628/93487.png
     - assets/map/18/134628/93488.png
