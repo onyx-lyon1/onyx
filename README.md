@@ -1,3 +1,3 @@
-# Oloid2
+# Onyx
 
 Run `flutter run --debug`
