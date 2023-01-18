@@ -28,7 +28,6 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
 
   void asyncInit() async {
     cbs = await IzlyLogic.getCb(context.read<IzlyCubit>().state.izlyClient!);
-    cbs.removeAt(cbs.length - 1);
     setState(() {
       dropDownValue = 0;
     });
@@ -124,23 +123,15 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
         for (String key in request3ds.body.keys) {
           bodyString = '$bodyString&$key=${request3ds.body[key]}';
         }
+        bodyString = bodyString.substring(1);
+        bodyString = Uri.encodeFull(bodyString);
         Uint8List body = Uint8List.fromList(bodyString.codeUnits);
-        // List<WebViewCookie> initialCookies = [];
-        // print(request3ds.initialCookies);
-        // for (var cookie in request3ds.initialCookies) {
-        //   initialCookies.add(WebViewCookie(
-        //       name: cookie.name,
-        //       value: cookie.value,
-        //       domain: "mon-espace.izly.fr"));
-        // }
-        // ignore: use_build_context_synchronously
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => SafeArea(
               child: WebView(
                   javascriptMode: JavascriptMode.unrestricted,
-                  // initialCookies: initialCookies,
                   onWebViewCreated: (controller) {
                     controller.loadRequest(
                       WebViewRequest(
