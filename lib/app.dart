@@ -6,6 +6,7 @@ import 'package:onyx/core/home/pages/home_page.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/theme/theme_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
@@ -51,6 +52,7 @@ class OnyxAppState extends State<OnyxApp> {
             BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
             BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
             BlocProvider<MapCubit>(create: (context) => MapCubit()),
+            BlocProvider<IzlyCubit>(create: (context) => IzlyCubit()),
           ],
           child: BlocConsumer<AuthentificationCubit, AuthentificationState>(
             listener: (context, state) {
@@ -95,6 +97,9 @@ class OnyxAppState extends State<OnyxApp> {
                   } else {
                     return MaterialApp(
                       debugShowCheckedModeBanner: false,
+                      themeMode: settingsState.settings.themeMode.themeMode,
+                      theme: OnyxTheme.lighTheme(),
+                      darkTheme: OnyxTheme.darkTheme(),
                       home: Scaffold(
                           backgroundColor:
                               OnyxTheme.darkTheme().backgroundColor,

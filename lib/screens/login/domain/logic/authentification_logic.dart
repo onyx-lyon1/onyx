@@ -23,6 +23,13 @@ class AuthentificationLogic {
     return auth;
   }
 
+  static Future<bool> firstLogin() async {
+    Box<AuthenticationModel> authBox =
+        await Hive.openBox<AuthenticationModel>("authentification");
+    AuthenticationModel? auth = authBox.get("credential");
+    return auth == null;
+  }
+
   static Future<tomusslib.Dartus> login(
       {required String username,
       required String password,

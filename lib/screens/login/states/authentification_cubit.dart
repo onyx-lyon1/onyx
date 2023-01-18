@@ -23,7 +23,9 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
   Future<void> login(
       {required bool keepLogedIn, String? username, String? password}) async {
     //fetch username and password
-    emit(state.copyWith(status: AuthentificationStatus.authentificating));
+    emit(state.copyWith(
+        status: AuthentificationStatus.authentificating,
+        firstLogin: await AuthentificationLogic.firstLogin()));
     try {
       AuthenticationModel auth = await AuthentificationLogic.fetchCredential(
           username: username, password: password);
@@ -31,9 +33,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
       _password = auth.password;
     } catch (e) {
       emit(state.copyWith(
-          status: AuthentificationStatus.needCredential,
-          dartus: _dartus,
-          firstLogin: true));
+          status: AuthentificationStatus.needCredential, dartus: _dartus));
       return;
     }
     //login
@@ -46,15 +46,14 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
             status: AuthentificationStatus.authentificated,
             username: _usename,
             password: _password,
-            dartus: _dartus,
-            firstLogin: _usename.isEmpty && _password.isEmpty));
+            dartus: _dartus));
       } catch (e) {
         if (kDebugMode) {
           print(e);
         }
-        emit(state.copyWith(
-            status: AuthentificationStatus.error,
-            firstLogin: _usename.isEmpty && _password.isEmpty));
+        emit(
+          state.copyWith(status: AuthentificationStatus.error),
+        );
         return;
       }
     } else {

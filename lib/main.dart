@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -14,7 +15,6 @@ void main() async {
 
   // debugRepaintRainbowEnabled = true;
   // debugRepaintTextRainbowEnabled = true;
-
 
   if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
     Workmanager().initialize(backgroundLogic, isInDebugMode: kDebugMode);
