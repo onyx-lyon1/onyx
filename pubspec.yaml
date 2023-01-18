@@ -38,7 +38,7 @@ dependencies:
   lyon1agenda:
     git: https://github.com/onyx-lyon1/lyon1-agendaclient.git
   izlyclient:
-    git: https://github.com/onyx-lyon1/dart-izlyclient.git
+    git: https://github.com/onyx-lyon1/izlyclient.git
   flutter_map: ^3.0.0
   latlong2: ^0.8.1
   requests: ^4.7.0
@@ -58,14 +58,14 @@ dependencies:
 
 dependency_overrides:
   # unindent for devlopment to use local version of the libraries
-  dartus:
-    path: ../dartus-tomuss-client
-  lyon1mail:
-    path: ../lyon1-mailclient
-  lyon1agenda:
-    path: ../lyon1-agendaclient
-  izlyclient:
-    path: ../dart-izlyclient
+#  dartus:
+#    path: ../dartus-tomuss-client
+#  lyon1mail:
+#    path: ../lyon1-mailclient
+#  lyon1agenda:
+#    path: ../lyon1-agendaclient
+#  izlyclient:
+#    path: ../izlyclient
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda_config/page/agenda_config_page.dart';
-import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 class AgendaUrlParameterWidget extends StatelessWidget {
@@ -25,14 +23,6 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                         .state
                         .settings
                         .copyWith(fetchAgendaAuto: b));
-                context.read<AgendaCubit>().load(
-                    dartus: context.read<AuthentificationCubit>().state.dartus!,
-                    settings: context
-                        .read<SettingsCubit>()
-                        .state
-                        .settings
-                        .copyWith(fetchAgendaAuto: b),
-                    cache: false);
               },
             ),
             (!context.read<SettingsCubit>().state.settings.fetchAgendaAuto)
@@ -65,17 +55,6 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                                             .state
                                             .settings
                                             .copyWith(agendaId: index));
-                                    context.read<AgendaCubit>().load(
-                                        dartus: context
-                                            .read<AuthentificationCubit>()
-                                            .state
-                                            .dartus!,
-                                        settings: context
-                                            .read<SettingsCubit>()
-                                            .state
-                                            .settings
-                                            .copyWith(agendaId: index),
-                                        cache: false);
                                     Navigator.pop(context);
                                   },
                                 ),

@@ -27,196 +27,181 @@ class AgendaPage extends StatelessWidget {
           dartus: context.read<AuthentificationCubit>().state.dartus,
           settings: context.read<SettingsCubit>().state.settings);
     }
-    return BlocListener<SettingsCubit, SettingsState>(
-      //fetch agenda whenn settings change
-      listenWhen: (previous, current) =>
-          previous.settings.agendaId != current.settings.agendaId ||
-          previous.settings.fetchAgendaAuto != current.settings.fetchAgendaAuto,
-      listener: (context, state) {
-        context.read<AgendaCubit>().load(
-            dartus: context.read<AuthentificationCubit>().state.dartus!,
-            settings: context.read<SettingsCubit>().state.settings);
-      },
-      child: BlocBuilder<AgendaCubit, AgendaState>(
-          buildWhen: (previous, current) =>
-              previous.status != AgendaStatus.dateUpdated,
-          builder: (context, state) {
-            if (kDebugMode) {
-              print("AgendaState: ${state.status}");
-            }
-            Widget? headerState;
-            if (state.status == AgendaStatus.loading ||
-                state.status == AgendaStatus.initial ||
-                state.status == AgendaStatus.cacheReady) {
-              headerState =
-                  const LoadingHeaderWidget(message: "Chargement de l'agenda");
-            } else if (state.status == AgendaStatus.error) {
-              return AgendaConfigPage(
-                onBack: (int agendaId) {
-                  context.read<SettingsCubit>().modify(
-                        settings: context
-                            .read<SettingsCubit>()
-                            .state
-                            .settings
-                            .copyWith(
-                              agendaId: agendaId,
-                              fetchAgendaAuto: false,
-                            ),
-                      );
-                  context.read<AgendaCubit>().load(
-                      dartus:
-                          context.read<AuthentificationCubit>().state.dartus!,
-                      settings: context.read<SettingsCubit>().state.settings);
-                },
-              );
-            }
-            bool animating = false;
-            PageController pageController = PageController();
-            ScrollController scrollController = ScrollController(
-                initialScrollOffset: indexToOffset(state.wantedDate
-                    .shrink(3)
-                    .difference(DateTime.now().shrink(3))
-                    .inDays));
-
-            pageController = PageController(
-                initialPage: state.dayModels.indexWhere((element) =>
-                    element.date.shrink(3) ==
-                    context.read<AgendaCubit>().state.wantedDate.shrink(3)));
-            return BlocListener<AgendaCubit, AgendaState>(
-              listenWhen: (previous, current) {
-                return current.status == AgendaStatus.dateUpdated;
-              },
-              listener: (context, state) {
-                if (scrollController.hasClients && pageController.hasClients) {
-                  final int pageIndex = state.dayModels.indexWhere((element) =>
-                      element.date.shrink(3) == state.wantedDate.shrink(3));
-                  if (!state.dateUpdateFromPageController) {
-                    animating = true;
-                  }
-                  pageController
-                      .animateToPage(
-                    pageIndex,
-                    curve: Curves.easeInOut,
-                    duration: const Duration(milliseconds: 500),
-                  )
-                      .then((value) {
-                    animating = false;
-                  });
-                  scrollController.animateTo(
-                      indexToOffset(state.wantedDate
-                          .shrink(3)
-                          .difference(DateTime.now().shrink(3))
-                          .inDays),
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInOut);
-                }
-              },
-              child: CommonScreenWidget(
-                state: headerState,
-                header: context
-                        .read<SettingsCubit>()
-                        .state
-                        .settings
-                        .showMiniCalendar
-                    ? MiniCalendarWidget(
-                        scrollController: scrollController,
-                        onUpdate: (DateTime newWantedDay) {
-                          context.read<AgendaCubit>().updateDisplayedDate(
-                              date: newWantedDay, fromPageController: false);
-                        },
-                      )
-                    : Center(
-                        child: Text(
-                          'Agenda',
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyText1!.color,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
+    return BlocBuilder<AgendaCubit, AgendaState>(
+        buildWhen: (previous, current) =>
+            previous.status != AgendaStatus.dateUpdated,
+        builder: (context, state) {
+          if (kDebugMode) {
+            print("AgendaState: ${state.status}");
+          }
+          Widget? headerState;
+          if (state.status == AgendaStatus.loading ||
+              state.status == AgendaStatus.initial ||
+              state.status == AgendaStatus.cacheReady) {
+            headerState =
+                const LoadingHeaderWidget(message: "Chargement de l'agenda");
+          } else if (state.status == AgendaStatus.error) {
+            return AgendaConfigPage(
+              onBack: (int agendaId) {
+                context.read<SettingsCubit>().modify(
+                      settings: context
+                          .read<SettingsCubit>()
+                          .state
+                          .settings
+                          .copyWith(
+                            agendaId: agendaId,
+                            fetchAgendaAuto: false,
                           ),
+                    );
+              },
+            );
+          }
+          bool animating = false;
+          PageController pageController = PageController();
+          ScrollController scrollController = ScrollController(
+              initialScrollOffset: indexToOffset(state.wantedDate
+                  .shrink(3)
+                  .difference(DateTime.now().shrink(3))
+                  .inDays));
+
+          pageController = PageController(
+              initialPage: state.dayModels.indexWhere((element) =>
+                  element.date.shrink(3) ==
+                  context.read<AgendaCubit>().state.wantedDate.shrink(3)));
+          return BlocListener<AgendaCubit, AgendaState>(
+            listenWhen: (previous, current) {
+              return current.status == AgendaStatus.dateUpdated;
+            },
+            listener: (context, state) {
+              if (scrollController.hasClients && pageController.hasClients) {
+                final int pageIndex = state.dayModels.indexWhere((element) =>
+                    element.date.shrink(3) == state.wantedDate.shrink(3));
+                if (!state.dateUpdateFromPageController) {
+                  animating = true;
+                }
+                pageController
+                    .animateToPage(
+                  pageIndex,
+                  curve: Curves.easeInOut,
+                  duration: const Duration(milliseconds: 500),
+                )
+                    .then((value) {
+                  animating = false;
+                });
+                scrollController.animateTo(
+                    indexToOffset(state.wantedDate
+                        .shrink(3)
+                        .difference(DateTime.now().shrink(3))
+                        .inDays),
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut);
+              }
+            },
+            child: CommonScreenWidget(
+              state: headerState,
+              header: context
+                      .read<SettingsCubit>()
+                      .state
+                      .settings
+                      .showMiniCalendar
+                  ? MiniCalendarWidget(
+                      scrollController: scrollController,
+                      onUpdate: (DateTime newWantedDay) {
+                        context.read<AgendaCubit>().updateDisplayedDate(
+                            date: newWantedDay, fromPageController: false);
+                      },
+                    )
+                  : Center(
+                      child: Text(
+                        'Agenda',
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyText1!.color,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                body: PageView(
-                  controller: pageController,
-                  scrollDirection: Axis.vertical,
-                  key: UniqueKey(),
-                  // pas le plus propre mais force a rebuild et reinit le controller
-                  onPageChanged: (index) {
-                    if (context
-                            .read<SettingsCubit>()
-                            .state
-                            .settings
-                            .showMiniCalendar &&
-                        !animating) {
-                      if (context.read<AgendaCubit>().state.dayModels.length >
-                          index) {
-                        context.read<AgendaCubit>().updateDisplayedDate(
-                            date: context
-                                .read<AgendaCubit>()
-                                .state
-                                .dayModels[index]
-                                .date,
-                            fromPageController: true);
-                      }
+                    ),
+              body: PageView(
+                controller: pageController,
+                scrollDirection: Axis.vertical,
+                key: UniqueKey(),
+                // pas le plus propre mais force a rebuild et reinit le controller
+                onPageChanged: (index) {
+                  if (context
+                          .read<SettingsCubit>()
+                          .state
+                          .settings
+                          .showMiniCalendar &&
+                      !animating) {
+                    if (context.read<AgendaCubit>().state.dayModels.length >
+                        index) {
+                      context.read<AgendaCubit>().updateDisplayedDate(
+                          date: context
+                              .read<AgendaCubit>()
+                              .state
+                              .dayModels[index]
+                              .date,
+                          fromPageController: true);
                     }
-                  },
-                  children: context
-                      .read<AgendaCubit>()
-                      .state
-                      .dayModels
-                      .map(
-                        (day) => SizedBox(
-                          height: 10,
-                          child: SingleChildScrollView(
-                            child: Column(children: [
-                              Container(
-                                padding: const EdgeInsets.only(
-                                  left: 20,
-                                  right: 20,
-                                  top: 15,
-                                ),
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "${day.date.toWeekDayName()} ${day.date.day} ${day.date.toMonthName()}",
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1!
-                                                .color),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Text('${day.events.length} évènement(s)'),
-                                    ]),
-                              ),
-                              ...day.events.map(
-                                (e) => EventWidget(
-                                  event: e,
-                                ),
-                              ),
-                            ]),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ),
-                onRefresh: () async {
-                  context.read<AgendaCubit>().load(
-                      dartus:
-                          context.read<AuthentificationCubit>().state.dartus!,
-                      settings: context.read<SettingsCubit>().state.settings);
-                  while (context.read<AgendaCubit>().state.status !=
-                          AgendaStatus.ready &&
-                      context.read<AgendaCubit>().state.status !=
-                          AgendaStatus.error) {
-                    await Future.delayed(const Duration(milliseconds: 100));
                   }
-                  return;
                 },
+                children: context
+                    .read<AgendaCubit>()
+                    .state
+                    .dayModels
+                    .map(
+                      (day) => SizedBox(
+                        height: 10,
+                        child: SingleChildScrollView(
+                          child: Column(children: [
+                            Container(
+                              padding: const EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                                top: 15,
+                              ),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "${day.date.toWeekDayName()} ${day.date.day} ${day.date.toMonthName()}",
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .color),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text('${day.events.length} évènement(s)'),
+                                  ]),
+                            ),
+                            ...day.events.map(
+                              (e) => EventWidget(
+                                event: e,
+                              ),
+                            ),
+                          ]),
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
-            );
-          }),
-    );
+              onRefresh: () async {
+                context.read<AgendaCubit>().load(
+                    dartus:
+                        context.read<AuthentificationCubit>().state.dartus!,
+                    settings: context.read<SettingsCubit>().state.settings);
+                while (context.read<AgendaCubit>().state.status !=
+                        AgendaStatus.ready &&
+                    context.read<AgendaCubit>().state.status !=
+                        AgendaStatus.error) {
+                  await Future.delayed(const Duration(milliseconds: 100));
+                }
+                return;
+              },
+            ),
+          );
+        });
   }
 }
