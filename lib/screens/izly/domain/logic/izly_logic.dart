@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:izlyclient/dart_izlyclient.dart';
+import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/izly/domain/model/izly_credential.dart';
 
@@ -50,17 +50,16 @@ class IzlyLogic {
     }
   }
 
-  static Future<String> getTransferUrl(
+  static Future<RequestDataModel> getTransferUrl(
       IzlyClient izlyClient, double amount) async {
     await reloginIfNeeded(izlyClient);
     return await izlyClient.getTransferPaymentUrl(amount);
   }
 
-  static Future<SecurityModel> rechargeWithCB(
+  static Future<RequestDataModel> rechargeWithCB(
       IzlyClient izlyClient, double amount, CbModel cb) async {
     await reloginIfNeeded(izlyClient);
-    return await izlyClient.rechargeWithCB(
-        amount, (cb.id == "newCB") ? null : cb);
+    return await izlyClient.rechargeWithCB(amount, cb);
   }
 
   static Future<List<CbModel>> getCb(IzlyClient izlyClient) async {
