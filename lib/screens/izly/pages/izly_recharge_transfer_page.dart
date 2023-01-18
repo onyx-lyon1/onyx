@@ -69,13 +69,13 @@ class IzlyRechargeTranferPage extends StatelessWidget {
                 double.parse(controller.text));
           }),
         ),
-      ).then((url) {
+      ).then((request) {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => SafeArea(
               child: WebView(
-                  initialUrl: url,
+                  initialUrl: request.url,
                   javascriptMode: JavascriptMode.unrestricted,
                   navigationDelegate: (NavigationRequest request) async {
                     if (request.url.contains("PaymentInitiationConfirmation")) {

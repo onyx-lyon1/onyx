@@ -1,7 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:izlyclient/dart_izlyclient.dart';
+import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 
 part 'izly_state.dart';
@@ -17,17 +18,25 @@ class IzlyCubit extends Cubit<IzlyState> {
     Uint8List qrCode = await IzlyLogic.getQrCode();
     emit(state.copyWith(
         status: IzlyStatus.connecting, qrCode: qrCode, balance: amount));
+    late IzlyCredential creds;
     try {
       if (_izlyClient == null || !(await _izlyClient!.isLogged())) {
-        IzlyCredential creds = (await IzlyLogic.getIzlyCredential(
+        creds = (await IzlyLogic.getIzlyCredential(
             username: username, password: password))!;
+      }
+    } catch (e) {
+      emit(state.copyWith(status: IzlyStatus.noCredentials));
+      return;
+    }
+    try {
+      if (_izlyClient == null || !(await _izlyClient!.isLogged())) {
         _izlyClient = IzlyClient(creds.username, creds.password);
         await _izlyClient!.login();
       }
       emit(state.copyWith(status: IzlyStatus.loading, izlyClient: _izlyClient));
       await IzlyLogic.completeQrCodeCache(_izlyClient!);
-      if (qrCode ==
-          (await rootBundle.load('assets/izly.png')).buffer.asUint8List()) {
+      if (listEquals(qrCode,
+          (await rootBundle.load('assets/izly.png')).buffer.asUint8List())) {
         qrCode = await IzlyLogic.getQrCode();
         await IzlyLogic.completeQrCodeCache(_izlyClient!);
       }
@@ -38,7 +47,7 @@ class IzlyCubit extends Cubit<IzlyState> {
       emit(state.copyWith(
           status: IzlyStatus.loaded, balance: balance, qrCode: qrCode));
     } catch (e) {
-      emit(state.copyWith(status: IzlyStatus.noCredentials));
+      emit(state.copyWith(status: IzlyStatus.error));
     }
   }
 }
