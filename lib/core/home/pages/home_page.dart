@@ -85,94 +85,107 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthentificationCubit, AuthentificationState>(
       builder: (context, state) {
-        return Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
-          body: SafeArea(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 100.h -
-                      Res.bottomNavBarHeight -
-                      MediaQuery.of(context).padding.top,
-                  child: CommonScreenWidget(
-                    onRefresh: () async {},
-                    state: (state.status ==
-                            AuthentificationStatus.authentificating)
-                        ? const LoadingHeaderWidget(
-                            message: "Connection à cas",
-                          )
-                        : null,
-                    body: InfiniteScrollLoopWidget(
-                      key: const Key("home"),
-                      builder: (context, index) {
-                        return [
-                          SizedBox(
-                              width: 100.w,
-                              height: 100.h,
-                              child: const TomussPage()),
-                          SizedBox(
-                              width: 100.w,
-                              height: 100.h,
-                              child: const AgendaPage()),
-                          SizedBox(
-                              width: 100.w,
-                              height: 100.h,
-                              child: const EmailsPage()),
-                          SizedBox(
-                              width: 100.w,
-                              height: 100.h,
-                              child: const SettingsPage()),
-                          SizedBox(
-                              width: 100.w,
-                              height: 100.h,
-                              child: const IzlyPage()),
-                          SizedBox(
-                              width: 100.w,
-                              height: 100.h,
-                              child: const MapPage()),
-                        ][(index) % Res.screenCount];
-                      },
-                      scrollController: mainPageController,
-                      axisDirection: AxisDirection.right,
-                      physics: const PageScrollPhysics(),
-                      onChange: (offset) {
+        return BlocListener<SettingsCubit, SettingsState>(
+          //fetch agenda whenn settings change
+          listenWhen: (previous, current) =>
+              previous.settings.agendaId != current.settings.agendaId ||
+              previous.settings.fetchAgendaAuto !=
+                  current.settings.fetchAgendaAuto,
+          listener: (context, state) {
+            context.read<AgendaCubit>().load(
+                dartus: context.read<AuthentificationCubit>().state.dartus!,
+                settings: context.read<SettingsCubit>().state.settings,
+                cache: false);
+          },
+          child: Scaffold(
+            backgroundColor: Theme.of(context).backgroundColor,
+            body: SafeArea(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 100.h -
+                        Res.bottomNavBarHeight -
+                        MediaQuery.of(context).padding.top,
+                    child: CommonScreenWidget(
+                      onRefresh: () async {},
+                      state: (state.status ==
+                              AuthentificationStatus.authentificating)
+                          ? const LoadingHeaderWidget(
+                              message: "Connection à cas",
+                            )
+                          : null,
+                      body: InfiniteScrollLoopWidget(
+                        key: const Key("home"),
+                        builder: (context, index) {
+                          return [
+                            SizedBox(
+                                width: 100.w,
+                                height: 100.h,
+                                child: const TomussPage()),
+                            SizedBox(
+                                width: 100.w,
+                                height: 100.h,
+                                child: const AgendaPage()),
+                            SizedBox(
+                                width: 100.w,
+                                height: 100.h,
+                                child: const EmailsPage()),
+                            SizedBox(
+                                width: 100.w,
+                                height: 100.h,
+                                child: const SettingsPage()),
+                            SizedBox(
+                                width: 100.w,
+                                height: 100.h,
+                                child: const IzlyPage()),
+                            SizedBox(
+                                width: 100.w,
+                                height: 100.h,
+                                child: const MapPage()),
+                          ][(index) % Res.screenCount];
+                        },
+                        scrollController: mainPageController,
+                        axisDirection: AxisDirection.right,
+                        physics: const PageScrollPhysics(),
+                        onChange: (offset) {
+                          setState(() {
+                            animateScroll();
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: Res.bottomNavBarHeight,
+                    child: BottomNavBarWidget(
+                      scrollController: bottomBarController,
+                      currentIndex: bottomBarController.hasClients
+                          ? (((bottomBarController.offset +
+                                      ((bottomBarController.offset > 0)
+                                          ? Res.bottomNavBarItemWidth / 2
+                                          : -Res.bottomNavBarItemWidth / 2)) ~/
+                                  Res.bottomNavBarItemWidth) +
+                              2)
+                          : 0,
+                      onTap: (realIndex) {
+                        if (realIndex % Res.screenCount == 1 &&
+                            (bottomBarController.hasClients
+                                    ? (bottomBarController.offset ~/
+                                            Res.bottomNavBarItemWidth) +
+                                        2
+                                    : 0) ==
+                                realIndex) {
+                          context.read<AgendaCubit>().updateDisplayedDate(
+                              date: DateTime.now(), fromPageController: false);
+                        }
                         setState(() {
-                          animateScroll();
+                          animatePage(realIndex);
                         });
                       },
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: Res.bottomNavBarHeight,
-                  child: BottomNavBarWidget(
-                    scrollController: bottomBarController,
-                    currentIndex: bottomBarController.hasClients
-                        ? (((bottomBarController.offset +
-                                    ((bottomBarController.offset > 0)
-                                        ? Res.bottomNavBarItemWidth / 2
-                                        : -Res.bottomNavBarItemWidth / 2)) ~/
-                                Res.bottomNavBarItemWidth) +
-                            2)
-                        : 0,
-                    onTap: (realIndex) {
-                      if (realIndex % Res.screenCount == 1 &&
-                          (bottomBarController.hasClients
-                                  ? (bottomBarController.offset ~/
-                                          Res.bottomNavBarItemWidth) +
-                                      2
-                                  : 0) ==
-                              realIndex) {
-                        context.read<AgendaCubit>().updateDisplayedDate(
-                            date: DateTime.now(), fromPageController: false);
-                      }
-                      setState(() {
-                        animatePage(realIndex);
-                      });
-                    },
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         );
