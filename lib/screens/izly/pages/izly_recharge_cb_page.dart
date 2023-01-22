@@ -39,7 +39,7 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
       child: Material(
         child: CommonScreenWidget(
           header: const IzlyRechargeHeaderWidget(
-              title: "Recharger par Carte bancaire"),
+              title: "Recharger par carte bancaire"),
           body: Center(
             child: SingleChildScrollView(
               child: Column(

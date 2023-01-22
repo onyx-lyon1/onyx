@@ -43,6 +43,9 @@ class _GradeWidgetState extends State<GradeWidget> {
       if (widget.grades.isEmpty) {
         return widget.isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
       } else {
+        if (widget.grades.length == 1) {
+          return _gradeColor(context, widget.grades.first);
+        }
         double a = 0;
         double r = 0;
         double g = 0;
@@ -55,6 +58,9 @@ class _GradeWidgetState extends State<GradeWidget> {
           g += tmpColor.green * (i.coef ?? 1.0);
           b += tmpColor.blue * (i.coef ?? 1.0);
           coefSum += i.coef ?? 1.0;
+        }
+        if (coefSum == 0) {
+          coefSum = 1;
         }
         a = (a / coefSum);
         r = (r / coefSum);
@@ -203,7 +209,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                         widget.text2,
                         textAlign: TextAlign.start,
                         maxLines: 3,
-                        maxFontSize: 15,
+                        maxFontSize: 12,
                         minFontSize: 5,
                       ),
                     ],
