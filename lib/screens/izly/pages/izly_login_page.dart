@@ -195,7 +195,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                       ),
                       child: Center(
                         child: Text(
-                          'Connection',
+                          'Connexion',
                           style:
                               Theme.of(context).textTheme.bodyText1!.copyWith(
                                     fontSize: 12.sp,

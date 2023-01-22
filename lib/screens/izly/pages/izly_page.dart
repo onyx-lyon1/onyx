@@ -30,7 +30,7 @@ class IzlyPage extends StatelessWidget {
             break;
           case IzlyStatus.connecting:
             body = const StateDisplayingPage(
-              message: "Connection en cours",
+              message: "Connexion en cours",
             );
             break;
           case IzlyStatus.error:
@@ -50,7 +50,7 @@ class IzlyPage extends StatelessWidget {
         }
         if (state.status == IzlyStatus.initial) {
           body = const StateDisplayingPage(
-            message: "Connection en cours",
+            message: "Connexion en cours",
           );
         } else {
           PageController pageController = PageController();
