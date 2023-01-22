@@ -30,7 +30,7 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
       key: Key('GradeCoefWidget${widget.grades.first.name}'),
       padding: EdgeInsets.only(right: 2.w),
       child: SizedBox(
-        width: 13.w,
+        width: 14.5.w,
         height: 13.w,
         child: TextField(
           controller: _controller,

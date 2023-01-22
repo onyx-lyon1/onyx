@@ -52,8 +52,8 @@ class SettingsPage extends StatelessWidget {
                       name: 'Général',
                       widgets: [
                         DropDownWidget(
-                            text: 'Activer le thème sombre',
-                            items: const ["system", "sombre", "claire"],
+                            text: 'Choisir le thème',
+                            items: const ["système", "sombre", "clair"],
                             value: state.settings.themeMode.index,
                             onChanged: (int b) {
                               switch (b) {
@@ -198,7 +198,7 @@ class SettingsPage extends StatelessWidget {
                       widgets: [
                         if (Platform.isAndroid || Platform.isIOS)
                           TextSwitchWidget(
-                            text: 'Notification en cas de nouveau mail',
+                            text: 'Notification en cas de nouveau Emails',
                             value: context
                                 .read<SettingsCubit>()
                                 .state

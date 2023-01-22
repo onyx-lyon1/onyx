@@ -45,7 +45,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     onPressed: () => Navigator.pop(context),
                     icon: const Icon(Icons.arrow_upward_rounded)),
                 Text(
-                  "Détail de l'évènement",
+                  "Détail de l'événement",
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 13.sp,
                       ),
@@ -127,7 +127,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             if (!snapshot.hasData) {
                               return const Center(
                                   child: StateDisplayingPage(
-                                      message: "Chargement des batiments"));
+                                      message: "Chargement des bâtiments"));
                             }
                             return MapWidget(
                               batiments: batiments,
