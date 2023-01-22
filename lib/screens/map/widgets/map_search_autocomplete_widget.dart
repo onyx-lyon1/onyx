@@ -80,7 +80,7 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
                     .bottomNavigationBarTheme
                     .unselectedItemColor,
               ),
-              hintText: "Batiment",
+              hintText: "Bâtiment",
               hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                   color: Theme.of(context)
                       .textTheme

@@ -30,7 +30,7 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
       key: Key('GradeCoefWidget${widget.grades.first.name}'),
       padding: EdgeInsets.only(right: 2.w),
       child: SizedBox(
-        width: 13.w,
+        width: 14.5.w,
         height: 13.w,
         child: TextField(
           controller: _controller,
@@ -39,6 +39,7 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
           style: TextStyle(
               fontSize: 10.sp,
               color: Theme.of(context).textTheme.bodyText1!.color!),
+          maxLines: 1,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -50,6 +51,7 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
               ),
             ),
             hintText: "1.0",
+            isDense: true,
           ),
           onChanged: (value) {
             context.read<TomussCubit>().updateCoef(widget.grades.first,

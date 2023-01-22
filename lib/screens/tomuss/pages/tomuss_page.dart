@@ -11,11 +11,16 @@ import 'package:sizer/sizer.dart';
 
 import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
 
-class TomussPage extends StatelessWidget {
+class TomussPage extends StatefulWidget {
   const TomussPage({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<TomussPage> createState() => _TomussPageState();
+}
+
+class _TomussPageState extends State<TomussPage> {
   void showAllGrades(BuildContext context, SchoolSubjectModel schoolSubject) {
     showMaterialModalBottomSheet(
       context: context,
@@ -44,22 +49,24 @@ class TomussPage extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ).then((value) {
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TomussCubit, TomussState>(
       builder: (context, state) {
+        if (kDebugMode) {
+          print("Grades state : ${state.status}");
+        }
         Widget? loadingHeader;
         if (state.status == TomussStatus.loading ||
             state.status == TomussStatus.cacheReady) {
           loadingHeader = const LoadingHeaderWidget(
             message: "Chargement des notes",
           );
-        }
-        if (kDebugMode) {
-          print("Grades state : ${state.status}");
         }
         if (state.status == TomussStatus.initial) {
           context.read<TomussCubit>().load(
