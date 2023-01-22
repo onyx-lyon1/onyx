@@ -85,6 +85,7 @@ class TomussCubit extends Cubit<TomussState> {
     //save in cache
     CacheService.set<SchoolSubjectModelWrapper>(SchoolSubjectModelWrapper(
         state.teachingUnits, state.currentSemesterIndex));
-    emit(state.copyWith(status: TomussStatus.updated));
+    emit(state.copyWith(
+        status: TomussStatus.updated, teachingUnits: state.teachingUnits));
   }
 }

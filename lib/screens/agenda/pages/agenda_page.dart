@@ -173,7 +173,7 @@ class AgendaPage extends StatelessWidget {
                                               .color),
                                       overflow: TextOverflow.ellipsis,
                                     ),
-                                    Text('${day.events.length} évènement(s)'),
+                                    Text('${day.events.length} événement(s)'),
                                   ]),
                             ),
                             ...day.events.map(
