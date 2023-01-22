@@ -32,19 +32,19 @@ void backgroundLogic() {
         if (settings.newGradeNotification) {
           List<SchoolSubjectModel> teachingUnits = [];
           int? semestreIndex;
-          if (await CacheService.exist<SemestreModelWrapper>()){
+          if (await CacheService.exist<SemestreModelWrapper>()) {
             SemestreModelWrapper? semestreModelWrapper =
-            await CacheService.get<SemestreModelWrapper>();
+                await CacheService.get<SemestreModelWrapper>();
             semestreIndex = semestreModelWrapper!.currentSemestreIndex;
           }
-          if (await CacheService.exist<SchoolSubjectModelWrapper>(index: semestreIndex ?? 0)) {
-            teachingUnits =
-                (await CacheService.get<SchoolSubjectModelWrapper>(index: semestreIndex ?? 0))!
-                    .teachingUnitModels;
+          if (await CacheService.exist<SchoolSubjectModelWrapper>(
+              index: semestreIndex ?? 0)) {
+            teachingUnits = (await CacheService.get<SchoolSubjectModelWrapper>(
+                    index: semestreIndex ?? 0))!
+                .teachingUnitModels;
           }
           List<SchoolSubjectModel> newTeachingUnits =
-              await TomussLogic.getGrades(
-                  dartus: dartus);
+              await TomussLogic.getGrades(dartus: dartus);
           for (var i in newTeachingUnits) {
             SchoolSubjectModel teachingUnitModel =
                 teachingUnits.firstWhere((element) => element.name == i.name);
@@ -104,9 +104,9 @@ void backgroundLogic() {
                   return element == i;
                 }))) {
               await NotificationLogic.showNotification(
-                  title: "Nouvel évènement",
+                  title: "Nouvel événement",
                   body:
-                      "Vous avez un nouvel évènement le : ${i.date.toString()}",
+                      "Vous avez un nouvel événement le : ${i.date.toString()}",
                   payload: "newEvent");
             }
           }

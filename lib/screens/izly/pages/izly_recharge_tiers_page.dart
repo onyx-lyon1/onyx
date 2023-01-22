@@ -18,8 +18,8 @@ class IzlyRechargeTiersPage extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           body: CommonScreenWidget(
-            header: const IzlyRechargeHeaderWidget(
-                title: "Recharger par un virement"),
+            header:
+                const IzlyRechargeHeaderWidget(title: "Recharger par un tiers"),
             body: Center(
               child: SingleChildScrollView(
                 child: Column(
@@ -38,9 +38,6 @@ class IzlyRechargeTiersPage extends StatelessWidget {
                         controller: emailController,
                         decoration: InputDecoration(
                           labelText: "Email",
-                          labelStyle: const TextStyle(
-                            color: Colors.black,
-                          ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                                 color: Theme.of(context).primaryColor),
@@ -55,9 +52,6 @@ class IzlyRechargeTiersPage extends StatelessWidget {
                         controller: messageController,
                         decoration: InputDecoration(
                           hintText: "Message",
-                          labelStyle: const TextStyle(
-                            color: Colors.black,
-                          ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                                 color: Theme.of(context).primaryColor),
