@@ -42,53 +42,55 @@ class EmailsPage extends StatelessWidget {
         }
         return Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
-          floatingActionButton: Hero(
+          floatingActionButton: CustomHeroWidget(
             tag: "writeEmail",
-            flightShuttleBuilder: (
-              BuildContext flightContext,
-              Animation<double> animation,
-              HeroFlightDirection flightDirection,
-              BuildContext fromHeroContext,
-              BuildContext toHeroContext,
-            ) {
-              Hero toHero;
-              if (flightDirection == HeroFlightDirection.pop) {
-                toHero = fromHeroContext.widget as Hero;
-              } else {
-                toHero = toHeroContext.widget as Hero;
-              }
-
-              final MediaQueryData? toMediaQueryData =
-                  MediaQuery.maybeOf(fromHeroContext);
-              final MediaQueryData? fromMediaQueryData =
-                  MediaQuery.maybeOf(toHeroContext);
-
-              if (toMediaQueryData == null || fromMediaQueryData == null) {
-                return toHero.child;
-              }
-
-              final EdgeInsets fromHeroPadding = fromMediaQueryData.padding;
-              final EdgeInsets toHeroPadding = toMediaQueryData.padding;
-
-              return AnimatedBuilder(
-                animation: animation,
-                builder: (BuildContext context, Widget? child) {
-                  return MediaQuery(
-                      data: toMediaQueryData.copyWith(
-                        padding: (flightDirection == HeroFlightDirection.push)
-                            ? EdgeInsetsTween(
-                                begin: fromHeroPadding,
-                                end: toHeroPadding,
-                              ).evaluate(animation)
-                            : EdgeInsetsTween(
-                                begin: toHeroPadding,
-                                end: fromHeroPadding,
-                              ).evaluate(animation),
-                      ),
-                      child: toHero.child);
-                },
-              );
-            },
+            beginColor: Theme.of(context).primaryColor,
+            endColor: Theme.of(context).backgroundColor,
+            // flightShuttleBuilder: (
+            //   BuildContext flightContext,
+            //   Animation<double> animation,
+            //   HeroFlightDirection flightDirection,
+            //   BuildContext fromHeroContext,
+            //   BuildContext toHeroContext,
+            // ) {
+            //   Hero toHero;
+            //   if (flightDirection == HeroFlightDirection.pop) {
+            //     toHero = fromHeroContext.widget as Hero;
+            //   } else {
+            //     toHero = toHeroContext.widget as Hero;
+            //   }
+            //
+            //   final MediaQueryData? toMediaQueryData =
+            //       MediaQuery.maybeOf(fromHeroContext);
+            //   final MediaQueryData? fromMediaQueryData =
+            //       MediaQuery.maybeOf(toHeroContext);
+            //
+            //   if (toMediaQueryData == null || fromMediaQueryData == null) {
+            //     return toHero.child;
+            //   }
+            //
+            //   final EdgeInsets fromHeroPadding = fromMediaQueryData.padding;
+            //   final EdgeInsets toHeroPadding = toMediaQueryData.padding;
+            //
+            //   return AnimatedBuilder(
+            //     animation: animation,
+            //     builder: (BuildContext context, Widget? child) {
+            //       return MediaQuery(
+            //           data: toMediaQueryData.copyWith(
+            //             padding: (flightDirection == HeroFlightDirection.push)
+            //                 ? EdgeInsetsTween(
+            //                     begin: fromHeroPadding,
+            //                     end: toHeroPadding,
+            //                   ).evaluate(animation)
+            //                 : EdgeInsetsTween(
+            //                     begin: toHeroPadding,
+            //                     end: fromHeroPadding,
+            //                   ).evaluate(animation),
+            //           ),
+            //           child: toHero.child);
+            //     },
+            //   );
+            // },
             child: Material(
               color: (!state.connected)
                   ? Theme.of(context).disabledColor
