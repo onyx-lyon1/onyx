@@ -118,56 +118,54 @@ class EmailsPage extends StatelessWidget {
               ),
             ),
           ),
-          body:
-         CommonScreenWidget(
-          state: loadingHeader,
-          header: const EmailHeaderWidget(),
-          body: ListView.custom(
-            controller: scrollController,
-            childrenDelegate: SliverChildBuilderDelegate((context, index) {
-              if (index < state.emails.length) {
-                return EmailWidget(email: state.emails[index]);
-              } else if ((index == state.emails.length) &&
-                  state.emails.isNotEmpty) {
-                return Material(
-                  color: Theme.of(context).backgroundColor,
-                  child: (state.status == EmailStatus.loading)
-                      ? Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(5.w),
-                            child: CircularProgressIndicator(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-                        )
-                      : InkWell(
-                          onTap: () =>
-                              context.read<EmailCubit>().increaseNumber(),
-                          child: Center(
+          body: CommonScreenWidget(
+            state: loadingHeader,
+            header: const EmailHeaderWidget(),
+            body: ListView.custom(
+              controller: scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
+              childrenDelegate: SliverChildBuilderDelegate((context, index) {
+                if (index < state.emails.length) {
+                  return EmailWidget(email: state.emails[index]);
+                } else if ((index == state.emails.length) &&
+                    state.emails.isNotEmpty) {
+                  return Material(
+                    color: Theme.of(context).backgroundColor,
+                    child: (state.status == EmailStatus.loading)
+                        ? Center(
                             child: Padding(
-                              padding: EdgeInsets.all(8.w),
-                              child:
-                                  const Text("Charger 20 messages de plus"),
+                              padding: EdgeInsets.all(5.w),
+                              child: CircularProgressIndicator(
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          )
+                        : InkWell(
+                            onTap: () =>
+                                context.read<EmailCubit>().increaseNumber(),
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(8.w),
+                                child:
+                                    const Text("Charger 20 messages de plus"),
+                              ),
                             ),
                           ),
-                        ),
-                );
+                  );
+                }
+                return null;
+              }),
+            ),
+            onRefresh: () async {
+              print("debuyt");
+              context.read<EmailCubit>().load();
+              while (state.status != EmailStatus.loaded &&
+                  state.status != EmailStatus.error &&
+                  state.status != EmailStatus.sorted) {
+                await Future.delayed(const Duration(milliseconds: 100));
               }
-              return null;
-            }),
-          ),
-
-
-          onRefresh: () async {
-            print("debuyt");
-            context.read<EmailCubit>().load();
-            while (state.status != EmailStatus.loaded &&
-                state.status != EmailStatus.error &&
-                state.status != EmailStatus.sorted) {
-              await Future.delayed(const Duration(milliseconds: 100));
-            }
-            return;
-          },
+              return;
+            },
           ),
         );
       },
