@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:sizer/sizer.dart';
 
 class IzlayRechargeCardWidget extends StatelessWidget {
@@ -16,8 +17,10 @@ class IzlayRechargeCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
+    return CustomHeroWidget(
       tag: tag,
+      beginColor: Theme.of(context).primaryColor,
+      endColor: Theme.of(context).backgroundColor,
       child: Material(
         color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(10),
