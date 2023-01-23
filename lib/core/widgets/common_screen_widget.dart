@@ -27,27 +27,19 @@ class CommonScreenWidget extends StatelessWidget {
                   onRefresh: onRefresh!,
                   backgroundColor: Theme.of(context).backgroundColor,
                   color: Theme.of(context).primaryColor,
-                  child: SingleChildScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    child: AnimatedContainer(
-                      duration: Res.animationDuration,
-                      width: 100.w,
-                      height: 100.h - (10.h - ((state != null) ? 5.h : 0)),
-                      child: Column(
-                        children: [
-                          if (header != null)
-                            Container(
-                              width: 100.w,
-                              height: Res.bottomNavBarHeight,
-                              color: Theme.of(context).cardColor,
-                              child: header,
-                            ),
-                          Expanded(
-                            child: body,
-                          ),
-                        ],
+                  child: Column(
+                    children: [
+                      if (header != null)
+                        Container(
+                          width: 100.w,
+                          height: Res.bottomNavBarHeight,
+                          color: Theme.of(context).cardColor,
+                          child: header,
+                        ),
+                      Expanded(
+                        child: body,
                       ),
-                    ),
+                    ],
                   ),
                 )
               : Column(
