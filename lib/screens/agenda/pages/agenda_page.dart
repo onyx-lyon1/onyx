@@ -44,14 +44,11 @@ class AgendaPage extends StatelessWidget {
             return AgendaConfigPage(
               onBack: (int agendaId) {
                 context.read<SettingsCubit>().modify(
-                      settings: context
-                          .read<SettingsCubit>()
-                          .state
-                          .settings
-                          .copyWith(
-                            agendaId: agendaId,
-                            fetchAgendaAuto: false,
-                          ),
+                      settings:
+                          context.read<SettingsCubit>().state.settings.copyWith(
+                                agendaId: agendaId,
+                                fetchAgendaAuto: false,
+                              ),
                     );
               },
             );
@@ -189,8 +186,7 @@ class AgendaPage extends StatelessWidget {
               ),
               onRefresh: () async {
                 context.read<AgendaCubit>().load(
-                    dartus:
-                        context.read<AuthentificationCubit>().state.dartus!,
+                    dartus: context.read<AuthentificationCubit>().state.dartus!,
                     settings: context.read<SettingsCubit>().state.settings);
                 while (context.read<AgendaCubit>().state.status !=
                         AgendaStatus.ready &&

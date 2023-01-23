@@ -40,7 +40,6 @@ class EmailsPage extends StatelessWidget {
         } else if (state.status == EmailStatus.connected) {
           context.read<EmailCubit>().load();
         }
-
         return Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           floatingActionButton: Hero(
@@ -119,52 +118,56 @@ class EmailsPage extends StatelessWidget {
               ),
             ),
           ),
-          body: CommonScreenWidget(
-            state: loadingHeader,
-            header: const EmailHeaderWidget(),
-            body: ListView.custom(
-              controller: scrollController,
-              childrenDelegate: SliverChildBuilderDelegate((context, index) {
-                if (index < state.emails.length) {
-                  return EmailWidget(email: state.emails[index]);
-                } else if ((index == state.emails.length) &&
-                    state.emails.isNotEmpty) {
-                  return Material(
-                    color: Theme.of(context).backgroundColor,
-                    child: (state.status == EmailStatus.loading)
-                        ? Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(5.w),
-                              child: CircularProgressIndicator(
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
-                          )
-                        : InkWell(
-                            onTap: () =>
-                                context.read<EmailCubit>().increaseNumber(),
-                            child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(8.w),
-                                child:
-                                    const Text("Charger 20 messages de plus"),
-                              ),
+          body:
+         CommonScreenWidget(
+          state: loadingHeader,
+          header: const EmailHeaderWidget(),
+          body: ListView.custom(
+            controller: scrollController,
+            childrenDelegate: SliverChildBuilderDelegate((context, index) {
+              if (index < state.emails.length) {
+                return EmailWidget(email: state.emails[index]);
+              } else if ((index == state.emails.length) &&
+                  state.emails.isNotEmpty) {
+                return Material(
+                  color: Theme.of(context).backgroundColor,
+                  child: (state.status == EmailStatus.loading)
+                      ? Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(5.w),
+                            child: CircularProgressIndicator(
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
-                  );
-                }
-                return null;
-              }),
-            ),
-            onRefresh: () async {
-              context.read<EmailCubit>().load();
-              while (state.status != EmailStatus.loaded &&
-                  state.status != EmailStatus.error &&
-                  state.status != EmailStatus.sorted) {
-                await Future.delayed(const Duration(milliseconds: 100));
+                        )
+                      : InkWell(
+                          onTap: () =>
+                              context.read<EmailCubit>().increaseNumber(),
+                          child: Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.w),
+                              child:
+                                  const Text("Charger 20 messages de plus"),
+                            ),
+                          ),
+                        ),
+                );
               }
-              return;
-            },
+              return null;
+            }),
+          ),
+
+
+          onRefresh: () async {
+            print("debuyt");
+            context.read<EmailCubit>().load();
+            while (state.status != EmailStatus.loaded &&
+                state.status != EmailStatus.error &&
+                state.status != EmailStatus.sorted) {
+              await Future.delayed(const Duration(milliseconds: 100));
+            }
+            return;
+          },
           ),
         );
       },
