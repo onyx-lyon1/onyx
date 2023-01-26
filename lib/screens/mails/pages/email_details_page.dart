@@ -17,7 +17,7 @@ class EmailDetailsPage extends StatelessWidget {
           tag: mail.id.toString(),
           child: Scaffold(
             body: Container(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).colorScheme.background,
               child: SafeArea(
                 child: SizedBox(
                   width: 100.w,
@@ -119,6 +119,7 @@ class EmailDetailsPage extends StatelessWidget {
                                                       state.emailNumber,
                                                   fileName:
                                                       mail.attachments[index]);
+                                      // ignore: use_build_context_synchronously
                                       showDialog(
                                           context: context,
                                           builder: (_) =>

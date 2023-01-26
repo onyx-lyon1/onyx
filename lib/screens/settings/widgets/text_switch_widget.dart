@@ -26,7 +26,7 @@ class TextSwitchWidget extends StatelessWidget {
               softWrap: true,
               overflow: TextOverflow.visible,
               style: TextStyle(
-                color: Theme.of(context).textTheme.bodyText1!.color,
+                color: Theme.of(context).textTheme.bodyLarge!.color,
                 fontSize: 12,
               ),
             ),

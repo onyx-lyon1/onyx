@@ -4,6 +4,15 @@ import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
+class GetSemesterAndNoteResultWaitingRecords{
+  List<SemestreModel>? semesters;
+  List<SchoolSubjectModel>? schoolSubjectModel;
+  Duration? timeout;
+
+  GetSemesterAndNoteResultWaitingRecords(this.semesters,
+      this.schoolSubjectModel, this.timeout);
+}
+
 class GetCacheDataPass {
   final String path;
   final int currentSemestreIndex;
@@ -12,37 +21,56 @@ class GetCacheDataPass {
 }
 
 class TomussLogic {
-  static Future<List<Semester>> getSemesters(Dartus dartus) async {
-    if (Res.mock) {
-      return [Semester("2022/Automne", Dartus.currentSemester())];
+  static Future
+  <GetSemesterAndNoteResultWaitingRecords>
+  getSemestersAndNote(
+      {required Dartus dartus, SemestreModel? semester, int semesterIndex = 0, bool autoRefresh = true}) async {
+    ParsedPage? parsedPage = await getParsedPage(
+        dartus: dartus, semestre: semester, autoRefresh: autoRefresh);
+    if (parsedPage == null) {
+      throw "Impossible de récuperer la page de tomuss";
     }
-    return (await dartus.getParsedPage(Dartus.currentSemester()))?.semesters ??
-        [];
+    if (parsedPage.isTimedOut) {
+      return GetSemesterAndNoteResultWaitingRecords(null,null, parsedPage.timeout);
+    }
+    List<SemestreModel> semesters = parseSemesters(parsedPage.semesters!);
+    List<SchoolSubjectModel> grades = await parseGrades(
+        parsedPage.teachingunits!, semesterIndex);
+    return GetSemesterAndNoteResultWaitingRecords(semesters,grades, null);
   }
 
-  static Future<List<SchoolSubjectModel>> getGrades(
-      {required Dartus dartus,
-      SemestreModel? semestre,
-      int semestreIndex = 0}) async {
+  static Future<ParsedPage?> getParsedPage({required Dartus dartus,
+    SemestreModel? semestre, bool autoRefresh = true}) async {
+    return await dartus.getParsedPage(
+        semestre?.url ?? Dartus.currentSemester(), autoRefresh: autoRefresh);
+  }
+
+
+  static List<SemestreModel> parseSemesters(List<Semester> semesters) {
+    if (Res.mock) {
+      return [Semester("2022/Automne", Dartus.currentSemester())].map((e) =>
+          SemestreModel.fromSemester(e))
+          .toList();
+    }
+    return semesters.map((e) => SemestreModel.fromSemester(e))
+        .toList();
+  }
+
+  static Future<List<SchoolSubjectModel>> parseGrades(
+      List<TeachingUnit> teachingUnits, int semesterIndex) async {
     if (Res.mock) {
       return schoolSubjectModelListMock;
     }
     List<SchoolSubjectModel> tmpTeachingUnits = [];
-    ParsedPage? parsedPageOpt =
-        await dartus.getParsedPage(semestre?.url ?? Dartus.currentSemester());
-    if (parsedPageOpt == null) {
-      throw Exception('Error while getting grades page empty');
-    }
-    final ParsedPage parsedPage = parsedPageOpt;
     List<SchoolSubjectModel> cachedTeachingUnits = [];
     if ((await CacheService.exist<SchoolSubjectModelWrapper>(
-        index: semestreIndex))) {
+        index: semesterIndex))) {
       cachedTeachingUnits = (await CacheService.get<SchoolSubjectModelWrapper>(
-              index: semestreIndex))!
+          index: semesterIndex))!
           .teachingUnitModels;
     }
 
-    for (final TeachingUnit tu in parsedPage.teachingunits) {
+    for (final TeachingUnit tu in teachingUnits) {
       tmpTeachingUnits.add(SchoolSubjectModel(
           isSeen: false,
           isHidden: false,
@@ -76,7 +104,7 @@ class TomussLogic {
     if (await CacheService.exist<SchoolSubjectModelWrapper>(
         index: inputData.currentSemestreIndex)) {
       return (await CacheService.get<SchoolSubjectModelWrapper>(
-              index: inputData.currentSemestreIndex))!
+          index: inputData.currentSemestreIndex))!
           .teachingUnitModels;
     } else {
       return [];

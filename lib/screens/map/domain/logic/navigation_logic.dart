@@ -18,10 +18,11 @@ class NavigationLogic {
         );
       }
     } else {
+      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
           title: const Text("Vous n'êtes pas sur le campus"),
         ),
       );

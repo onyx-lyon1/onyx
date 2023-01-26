@@ -76,6 +76,13 @@ class HomePageState extends State<HomePage> {
 
   void animatePage(int index) {
     if (mainPageController.hasClients) {
+      if (mainPageController.offset == index * 100.w) {
+        bottomBarController
+            .animateTo(pageOffsetToBottomBarOffset(mainPageController.offset),
+                duration: Res.animationDuration, curve: Curves.easeInOut)
+            .then((value) => setState(
+                () {})); //setState needed to get the right color at animation end
+      }
       mainPageController.animateTo(index * 100.w,
           duration: Res.animationDuration, curve: Curves.easeInOut);
     }
@@ -98,7 +105,7 @@ class HomePageState extends State<HomePage> {
                 cache: false);
           },
           child: Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             body: SafeArea(
               child: Column(
                 children: [
@@ -169,12 +176,11 @@ class HomePageState extends State<HomePage> {
                           : 0,
                       onTap: (realIndex) {
                         if (realIndex % Res.screenCount == 1 &&
-                            (bottomBarController.hasClients
-                                    ? (bottomBarController.offset ~/
-                                            Res.bottomNavBarItemWidth) +
-                                        2
+                            (mainPageController.hasClients
+                                    ? (mainPageController.offset ~/ 100.w)
                                     : 0) ==
                                 realIndex) {
+                          //TODO test if it's right
                           context.read<AgendaCubit>().updateDisplayedDate(
                               date: DateTime.now(), fromPageController: false);
                         }

@@ -25,8 +25,7 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                         .copyWith(fetchAgendaAuto: b));
               },
             ),
-            (!context.read<SettingsCubit>().state.settings.fetchAgendaAuto)
-                ? Container(
+            if (!context.read<SettingsCubit>().state.settings.fetchAgendaAuto) Container(
                     clipBehavior: Clip.hardEdge,
                     margin: const EdgeInsets.only(bottom: 15),
                     decoration: BoxDecoration(
@@ -64,12 +63,11 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                         },
                         child: Text(
                           'Selectionner l\'agenda',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
                     ),
-                  )
-                : Container(),
+                  ) else Container(),
           ],
         );
       },

@@ -102,7 +102,7 @@ class OnyxAppState extends State<OnyxApp> {
                       darkTheme: OnyxTheme.darkTheme(),
                       home: Scaffold(
                           backgroundColor:
-                              OnyxTheme.darkTheme().backgroundColor,
+                              OnyxTheme.darkTheme().colorScheme.background,
                           body: const CustomCircularProgressIndicatorWidget()),
                     );
                   }

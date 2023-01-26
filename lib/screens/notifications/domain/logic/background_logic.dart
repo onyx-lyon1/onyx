@@ -1,4 +1,5 @@
 import 'package:dartus/tomuss.dart' as tomusslib;
+import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:lyon1mail/lyon1mail.dart';
@@ -32,19 +33,28 @@ void backgroundLogic() {
         if (settings.newGradeNotification) {
           List<SchoolSubjectModel> teachingUnits = [];
           int? semestreIndex;
-          if (await CacheService.exist<SemestreModelWrapper>()){
+          SemestreModel? semestreModel;
+          if (await CacheService.exist<SemestreModelWrapper>()) {
             SemestreModelWrapper? semestreModelWrapper =
-            await CacheService.get<SemestreModelWrapper>();
+                await CacheService.get<SemestreModelWrapper>();
             semestreIndex = semestreModelWrapper!.currentSemestreIndex;
+            semestreModel = semestreModelWrapper.semestres[semestreIndex];
           }
-          if (await CacheService.exist<SchoolSubjectModelWrapper>(index: semestreIndex ?? 0)) {
-            teachingUnits =
-                (await CacheService.get<SchoolSubjectModelWrapper>(index: semestreIndex ?? 0))!
-                    .teachingUnitModels;
+          if (await CacheService.exist<SchoolSubjectModelWrapper>(
+              index: semestreIndex ?? 0)) {
+            teachingUnits = (await CacheService.get<SchoolSubjectModelWrapper>(
+                    index: semestreIndex ?? 0))!
+                .teachingUnitModels;
           }
           List<SchoolSubjectModel> newTeachingUnits =
-              await TomussLogic.getGrades(
-                  dartus: dartus);
+              (await TomussLogic.getSemestersAndNote(
+                      dartus: dartus,
+                      autoRefresh: true,
+                      semester: semestreModel ??
+                          SemestreModel(
+                              name: "default semester",
+                              url: Dartus.currentSemester())))
+                  .schoolSubjectModel!;
           for (var i in newTeachingUnits) {
             SchoolSubjectModel teachingUnitModel =
                 teachingUnits.firstWhere((element) => element.name == i.name);

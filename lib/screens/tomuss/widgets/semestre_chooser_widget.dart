@@ -14,7 +14,7 @@ class SemestreChooserWidget extends StatelessWidget {
       title: Text(
         "Sélectionner un semestre",
         style: TextStyle(
-          color: Theme.of(context).textTheme.bodyText1!.color,
+          color: Theme.of(context).textTheme.bodyLarge!.color,
           fontSize: 15.sp,
         ),
       ),
@@ -41,7 +41,7 @@ class SemestreChooserWidget extends StatelessWidget {
                                   .semesters
                                   .indexOf(semester))
                           ? Theme.of(context).primaryColor
-                          : Theme.of(context).backgroundColor,
+                          : Theme.of(context).colorScheme.background,
                   borderRadius: BorderRadius.circular(10),
                   child: InkWell(
                     onTap: () {
@@ -67,7 +67,7 @@ class SemestreChooserWidget extends StatelessWidget {
                             semester.name.split("/")[0],
                             style: TextStyle(
                               color:
-                                  Theme.of(context).textTheme.bodyText1!.color,
+                                  Theme.of(context).textTheme.bodyLarge!.color,
                               fontSize: 15.sp,
                             ),
                           ),
@@ -75,7 +75,7 @@ class SemestreChooserWidget extends StatelessWidget {
                             semester.name.split("/")[1],
                             style: TextStyle(
                               color:
-                                  Theme.of(context).textTheme.bodyText1!.color,
+                                  Theme.of(context).textTheme.bodyLarge!.color,
                               fontSize: 15.sp,
                             ),
                           ),

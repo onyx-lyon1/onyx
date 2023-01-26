@@ -159,7 +159,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: OnyxTheme.darkTheme().backgroundColor,
+                          color: OnyxTheme.darkTheme().colorScheme.background,
                           fontSize: 18.sp,
                         ),
                       ),
@@ -167,14 +167,14 @@ class _GradeWidgetState extends State<GradeWidget> {
                     Container(
                       width: 15.w,
                       height: 0.2.h,
-                      color: OnyxTheme.darkTheme().backgroundColor,
+                      color: OnyxTheme.darkTheme().colorScheme.background,
                     ),
                     Text(
                       ((widget.grades.isNotEmpty) ? denominator : '-')
                           .toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: OnyxTheme.darkTheme().backgroundColor,
+                          color: OnyxTheme.darkTheme().colorScheme.background,
                           fontSize: 15),
                     ),
                   ],
@@ -183,17 +183,21 @@ class _GradeWidgetState extends State<GradeWidget> {
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.only(left: 10),
+                  padding: EdgeInsets.symmetric(vertical: 0.5.h),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AutoSizeText(
-                        widget.text1,
-                        style: TextStyle(
+                      SizedBox(
+                        height: 3.h,
+                        child: AutoSizeText(
+                          widget.text1,
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).textTheme.bodyText1!.color,
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
                             overflow: TextOverflow.clip,
-                            fontSize: 10.sp),
+                          ),
+                        ),
                       ),
                       AutoSizeText(
                         widget.text2,

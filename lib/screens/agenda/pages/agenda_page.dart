@@ -115,7 +115,7 @@ class AgendaPage extends StatelessWidget {
                       child: Text(
                         'Agenda',
                         style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyText1!.color,
+                          color: Theme.of(context).textTheme.bodyLarge!.color,
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
@@ -169,7 +169,7 @@ class AgendaPage extends StatelessWidget {
                                       style: TextStyle(
                                           color: Theme.of(context)
                                               .textTheme
-                                              .bodyText1!
+                                              .bodyLarge!
                                               .color),
                                       overflow: TextOverflow.ellipsis,
                                     ),
