@@ -24,11 +24,11 @@ class CommonScreenWidget extends StatelessWidget {
           //     ? 95.h - Res.bottomNavBarHeight
           //     : 100.h - Res.bottomNavBarHeight,
           width: 100.w,
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
           child: (onRefresh != null)
               ? RefreshIndicator(
                   onRefresh: onRefresh!,
-                  backgroundColor: Theme.of(context).backgroundColor,
+                  backgroundColor: Theme.of(context).colorScheme.background,
                   color: Theme.of(context).primaryColor,
                   child: Column(
                     children: [

@@ -21,7 +21,7 @@ class GradeListHeaderWidget extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 10),
           decoration: BoxDecoration(
             color:
-                Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.3),
+                Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.3),
             borderRadius: BorderRadius.circular(5),
           ),
         ),

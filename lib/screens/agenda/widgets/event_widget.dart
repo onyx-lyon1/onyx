@@ -20,7 +20,7 @@ class EventWidget extends StatelessWidget {
           expand: false,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
           builder: (context) => EventDetailPage(event: event),
         );
       },
@@ -46,7 +46,7 @@ class EventWidget extends StatelessWidget {
                         '${event.start.hour.toFixedLengthString(2)}:${event.start.minute.toFixedLengthString(2)}',
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyText1!.color,
+                          color: Theme.of(context).textTheme.bodyLarge!.color,
                           fontSize: 16,
                         ),
                       ),
@@ -57,7 +57,7 @@ class EventWidget extends StatelessWidget {
                         style: TextStyle(
                             color: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .color!
                                 .withOpacity(0.8),
                             fontSize: 11),
@@ -94,7 +94,7 @@ class EventWidget extends StatelessWidget {
                     event.description,
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyText1!.color!,
+                      color: Theme.of(context).textTheme.bodyLarge!.color!,
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
                     ),
@@ -107,7 +107,7 @@ class EventWidget extends StatelessWidget {
                     style: TextStyle(
                       color: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .color!
                           .withOpacity(0.7),
                       fontSize: 12,

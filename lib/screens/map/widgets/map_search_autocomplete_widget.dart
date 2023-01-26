@@ -36,7 +36,7 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Material(
             elevation: 4.0,
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.background,
             child: ListView(
               padding: EdgeInsets.all(1.h),
               shrinkWrap: true,
@@ -61,7 +61,7 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
           VoidCallback onFieldSubmitted) {
         return Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.background,
             borderRadius: BorderRadius.circular(100),
           ),
           margin: const EdgeInsets.all(10),
@@ -69,9 +69,9 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
             controller: fieldTextEditingController,
             focusNode: fieldFocusNode,
             textAlignVertical: TextAlignVertical.top,
-            cursorColor: Theme.of(context).textTheme.button!.color!,
+            cursorColor: Theme.of(context).textTheme.labelLarge!.color!,
             style: TextStyle(
-              color: Theme.of(context).textTheme.button!.color!,
+              color: Theme.of(context).textTheme.labelLarge!.color!,
             ),
             decoration: InputDecoration(
               prefixIcon: Icon(
@@ -81,10 +81,10 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
                     .unselectedItemColor,
               ),
               hintText: "Batiment",
-              hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+              hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .color!
                       .withOpacity(0.5)),
               focusedBorder: InputBorder.none,

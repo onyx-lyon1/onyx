@@ -19,7 +19,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -40,13 +40,13 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("ONYX",
-                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
                               fontSize: 20.sp,
                             )),
                     Text("Pour Lyon 1",
                         style: Theme.of(context)
                             .textTheme
-                            .headline2!
+                            .displayMedium!
                             .copyWith(fontSize: 8.sp)),
                   ],
                 ),
@@ -70,7 +70,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                           "Authentification",
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(fontSize: 12.sp),
                         ),
                         Material(
@@ -86,7 +86,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                                 "confidentialité",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1!
+                                    .bodyLarge!
                                     .copyWith(fontSize: 10.sp),
                               ),
                             ),
@@ -108,10 +108,10 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                       decoration: InputDecoration(
                         labelText: 'Username',
                         labelStyle:
-                            Theme.of(context).textTheme.bodyText1!.copyWith(
+                            Theme.of(context).textTheme.bodyLarge!.copyWith(
                                   color: Theme.of(context)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .color!
                                       .withOpacity(0.5),
                                 ),
@@ -120,7 +120,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                           size: 18.sp,
                           color: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .color!
                               .withOpacity(0.5),
                         ),
@@ -129,7 +129,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                               width: 2,
                               color: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
+                                  .bodyLarge!
                                   .color!),
                         ),
                         disabledBorder: InputBorder.none,
@@ -160,7 +160,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                               width: 2,
                               color: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
+                                  .bodyLarge!
                                   .color!),
                         ),
                         disabledBorder: InputBorder.none,
@@ -197,7 +197,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                         child: Text(
                           'Connection',
                           style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     fontSize: 12.sp,
                                   ),
                         ),
@@ -254,10 +254,10 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       onFieldSubmitted: (String useless) => widget.onFieldSubmitted(),
       decoration: widget.decoration.copyWith(
           labelText: 'Password',
-          labelStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+          labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context)
                     .textTheme
-                    .bodyText1!
+                    .bodyLarge!
                     .color!
                     .withOpacity(0.5),
               ),
@@ -265,14 +265,14 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
             Icons.lock_rounded,
             size: 18.sp,
             color:
-                Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.5),
+                Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.5),
           ),
           suffixIcon: IconButton(
               icon: Icon(
                 _isObscure
                     ? Icons.visibility_rounded
                     : Icons.visibility_off_rounded,
-                color: Theme.of(context).textTheme.bodyText1!.color,
+                color: Theme.of(context).textTheme.bodyLarge!.color,
               ),
               onPressed: () {
                 setState(() {

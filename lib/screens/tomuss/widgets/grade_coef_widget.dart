@@ -38,7 +38,7 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
           textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 10.sp,
-              color: Theme.of(context).textTheme.bodyText1!.color!),
+              color: Theme.of(context).textTheme.bodyLarge!.color!),
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -46,7 +46,7 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-                color: Theme.of(context).textTheme.bodyText1!.color!,
+                color: Theme.of(context).textTheme.bodyLarge!.color!,
               ),
             ),
             hintText: "1.0",

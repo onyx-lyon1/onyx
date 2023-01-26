@@ -21,7 +21,7 @@ class TomussPage extends StatelessWidget {
       context: context,
       expand: false,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       builder: (context) => SafeArea(
         child: SingleChildScrollView(
           controller: ModalScrollController.of(context),
@@ -54,8 +54,13 @@ class TomussPage extends StatelessWidget {
         Widget? loadingHeader;
         if (state.status == TomussStatus.loading ||
             state.status == TomussStatus.cacheReady) {
-          loadingHeader = const LoadingHeaderWidget(
+          loadingHeader = LoadingHeaderWidget(
             message: "Chargement des notes",
+            timeout: state.timeout,
+            timeoutCallBack: () => context.read<TomussCubit>().load(
+                dartus: context.read<AuthentificationCubit>().state.dartus,
+                semestreIndex: state.currentSemesterIndex,
+                cache: false),
           );
         }
         if (kDebugMode) {
@@ -89,7 +94,7 @@ class TomussPage extends StatelessWidget {
                   child: Text(
                     'Notes',
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyText1!.color,
+                      color: Theme.of(context).textTheme.bodyLarge!.color,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -103,7 +108,7 @@ class TomussPage extends StatelessWidget {
                     child: IconButton(
                       icon: Icon(
                         Icons.list,
-                        color: Theme.of(context).textTheme.bodyText1!.color,
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
                       ),
                       onPressed: () {
                         //show a dialog to select the semester

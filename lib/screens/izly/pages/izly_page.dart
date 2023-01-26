@@ -78,7 +78,7 @@ class IzlyPage extends StatelessWidget {
                       ),
                       Text(
                         "${state.balance.toStringAsFixed(2)}€",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               fontSize: 30.sp,
                               fontWeight: FontWeight.bold,
                             ),
@@ -121,7 +121,7 @@ class IzlyPage extends StatelessWidget {
               child: Text(
                 'Izly',
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1!.color,
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                 ),

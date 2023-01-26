@@ -42,7 +42,7 @@ class EmailsPage extends StatelessWidget {
         }
 
         return Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
           floatingActionButton: Hero(
             tag: "writeEmail",
             flightShuttleBuilder: (
@@ -130,7 +130,7 @@ class EmailsPage extends StatelessWidget {
                 } else if ((index == state.emails.length) &&
                     state.emails.isNotEmpty) {
                   return Material(
-                    color: Theme.of(context).backgroundColor,
+                    color: Theme.of(context).colorScheme.background,
                     child: (state.status == EmailStatus.loading)
                         ? Center(
                             child: Padding(

@@ -22,7 +22,7 @@ class AgendaBottomNavBarIcon extends StatelessWidget {
           padding: EdgeInsets.only(top: 30.sp / 4),
           child: Text(
             DateTime.now().day.toString(),
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   fontSize: 15.sp,
                   color: (selected)
                       ? Theme.of(context)

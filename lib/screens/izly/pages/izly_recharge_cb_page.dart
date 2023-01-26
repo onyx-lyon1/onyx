@@ -55,7 +55,7 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
                     SizedBox(height: 5.h),
                     if (cbs.isNotEmpty)
                       DropdownButton(
-                        dropdownColor: Theme.of(context).backgroundColor,
+                        dropdownColor: Theme.of(context).colorScheme.background,
                         value: dropDownValue,
                         items: [
                           for (var i = 0; i < cbs.length; i++)
@@ -126,27 +126,31 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
         bodyString = bodyString.substring(1);
         bodyString = Uri.encodeFull(bodyString);
         Uint8List body = Uint8List.fromList(bodyString.codeUnits);
+
+        WebViewController controller = WebViewController();
+        controller.setJavaScriptMode(JavaScriptMode.unrestricted);
+        controller.setNavigationDelegate(
+          NavigationDelegate(
+            onNavigationRequest: (NavigationRequest request) async {
+              if (request.url.contains("izly")) {
+                Navigator.pop(context);
+              }
+              return NavigationDecision.navigate;
+            },
+          ),
+        );
+        controller.loadRequest(
+          Uri.parse(request3ds.url),
+          method: LoadRequestMethod.post,
+          body: body,
+        );
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => SafeArea(
-              child: WebView(
-                  javascriptMode: JavascriptMode.unrestricted,
-                  onWebViewCreated: (controller) {
-                    controller.loadRequest(
-                      WebViewRequest(
-                        uri: Uri.parse(request3ds.url),
-                        method: WebViewRequestMethod.post,
-                        body: body,
-                      ),
-                    );
-                  },
-                  navigationDelegate: (NavigationRequest request) async {
-                    if (request.url.contains("izly")) {
-                      Navigator.pop(context);
-                    }
-                    return NavigationDecision.navigate;
-                  }),
+              child: WebViewWidget(
+                controller: controller,
+              ),
             ),
           ),
         ).then((value) {

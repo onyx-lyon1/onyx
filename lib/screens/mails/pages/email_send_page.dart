@@ -55,7 +55,7 @@ class EmailSendPage extends StatelessWidget {
         return Hero(
           tag: 'writeEmail',
           child: Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             floatingActionButton: Material(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(100),
@@ -90,7 +90,7 @@ class EmailSendPage extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        backgroundColor: Theme.of(context).backgroundColor,
+                        backgroundColor: Theme.of(context).colorScheme.background,
                         title: const Text(
                             "Veuillez remplir correctement tous les champs"),
                       ),
@@ -140,23 +140,23 @@ class EmailSendPage extends StatelessWidget {
                                             TextAlignVertical.top,
                                         cursorColor: Theme.of(context)
                                             .textTheme
-                                            .button!
+                                            .labelLarge!
                                             .color!,
                                         style: TextStyle(
                                           color: Theme.of(context)
                                               .textTheme
-                                              .button!
+                                              .labelLarge!
                                               .color!,
                                         ),
                                         decoration: InputDecoration(
                                             hintText: "Objets",
                                             hintStyle: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1!
+                                                .bodyLarge!
                                                 .copyWith(
                                                     color: Theme.of(context)
                                                         .textTheme
-                                                        .bodyText1!
+                                                        .bodyLarge!
                                                         .color!
                                                         .withOpacity(0.5)),
                                             isDense: true,
@@ -164,14 +164,14 @@ class EmailSendPage extends StatelessWidget {
                                               borderSide: BorderSide(
                                                   color: Theme.of(context)
                                                       .textTheme
-                                                      .bodyText1!
+                                                      .bodyLarge!
                                                       .color!,
                                                   width: 1),
                                             ),
                                             border: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Theme.of(context)
-                                                    .backgroundColor,
+                                                    .colorScheme.background,
                                                 width: 1,
                                               ),
                                             )),
@@ -221,10 +221,10 @@ class EmailSendPage extends StatelessWidget {
                               controller: bodyEditor,
                               textAlignVertical: TextAlignVertical.top,
                               cursorColor:
-                                  Theme.of(context).textTheme.button!.color!,
+                                  Theme.of(context).textTheme.labelLarge!.color!,
                               style: TextStyle(
                                 color:
-                                    Theme.of(context).textTheme.button!.color!,
+                                    Theme.of(context).textTheme.labelLarge!.color!,
                               ),
                               keyboardType: TextInputType.multiline,
                               maxLines: null,
@@ -232,11 +232,11 @@ class EmailSendPage extends StatelessWidget {
                                 hintText: "Message",
                                 hintStyle: Theme.of(context)
                                     .textTheme
-                                    .bodyText1!
+                                    .bodyLarge!
                                     .copyWith(
                                         color: Theme.of(context)
                                             .textTheme
-                                            .bodyText1!
+                                            .bodyLarge!
                                             .color!
                                             .withOpacity(0.5)),
                                 focusedBorder: InputBorder.none,

@@ -40,7 +40,7 @@ class EmailSendAutocompleteWidget extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Material(
             elevation: 4.0,
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.background,
             child: SizedBox(
               height: 20.h,
               child: ListView(
@@ -70,28 +70,28 @@ class EmailSendAutocompleteWidget extends StatelessWidget {
             controller: fieldTextEditingController,
             focusNode: fieldFocusNode,
             textAlignVertical: TextAlignVertical.top,
-            cursorColor: Theme.of(context).textTheme.button!.color!,
+            cursorColor: Theme.of(context).textTheme.labelLarge!.color!,
             style: TextStyle(
-              color: Theme.of(context).textTheme.button!.color!,
+              color: Theme.of(context).textTheme.labelLarge!.color!,
             ),
             decoration: InputDecoration(
                 hintText:
                     "Destinataire : PXXXXXXX, prenom.nom@status.univ-lyon1.fr",
-                hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Theme.of(context)
                         .textTheme
-                        .bodyText1!
+                        .bodyLarge!
                         .color!
                         .withOpacity(0.5)),
                 isDense: true,
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                      color: Theme.of(context).textTheme.bodyText1!.color!,
+                      color: Theme.of(context).textTheme.bodyLarge!.color!,
                       width: 1),
                 ),
                 border: UnderlineInputBorder(
                   borderSide: BorderSide(
-                    color: Theme.of(context).backgroundColor,
+                    color: Theme.of(context).colorScheme.background,
                     width: 1,
                   ),
                 )),
