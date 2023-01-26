@@ -19,12 +19,12 @@ class MapPopupWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(batiment.name, style: Theme.of(context).textTheme.bodyText1),
+          Text(batiment.name, style: Theme.of(context).textTheme.bodyLarge),
           IconButton(
             onPressed: () {
               onTap(batiment);

@@ -46,7 +46,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     icon: const Icon(Icons.arrow_upward_rounded)),
                 Text(
                   "Détail de l'évènement",
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 13.sp,
                       ),
                 ),
@@ -63,7 +63,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   widget.event.description,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w500),
                 ),
                 Padding(
@@ -73,11 +73,11 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     children: [
                       Icon(
                         Icons.access_time_rounded,
-                        color: Theme.of(context).textTheme.bodyText1!.color,
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
                       ),
                       SelectableText(
                         "${widget.event.start.hour.toFixedLengthString(2)}h${widget.event.start.minute.toFixedLengthString(2)} ${widget.event.end.hour.toFixedLengthString(2)}h${widget.event.end.minute.toFixedLengthString(2)}",
-                        style: Theme.of(context).textTheme.bodyText1!,
+                        style: Theme.of(context).textTheme.bodyLarge!,
                       ),
                     ],
                   ),
@@ -89,11 +89,11 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     children: [
                       Icon(
                         Icons.calendar_month_rounded,
-                        color: Theme.of(context).textTheme.bodyText1!.color,
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
                       ),
                       SelectableText(
                         '${widget.event.start.toWeekDayName()} ${widget.event.start.day} ${widget.event.start.toMonthName()}',
-                        style: Theme.of(context).textTheme.bodyText1!,
+                        style: Theme.of(context).textTheme.bodyLarge!,
                       ),
                     ],
                   ),
@@ -105,11 +105,11 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     children: [
                       Icon(
                         Icons.location_on_rounded,
-                        color: Theme.of(context).textTheme.bodyText1!.color,
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
                       ),
                       SelectableText(
                         widget.event.location,
-                        style: Theme.of(context).textTheme.bodyText1!,
+                        style: Theme.of(context).textTheme.bodyLarge!,
                       ),
                     ],
                   ),
@@ -173,7 +173,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             "Itinéraire",
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .copyWith(
                                     fontSize: 15.sp,
                                     fontWeight: FontWeight.w500),

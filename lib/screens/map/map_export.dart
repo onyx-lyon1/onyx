@@ -1,5 +1,4 @@
 export 'domain/logic/batiments_logic.dart';
-export 'domain/logic/batiments_logic.dart';
 export 'domain/logic/geolocation_logic.dart';
 export 'domain/logic/navigation_logic.dart';
 export 'domain/logic/osrm_logic.dart';

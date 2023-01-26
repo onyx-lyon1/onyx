@@ -113,7 +113,7 @@ class GradeListWidget extends StatelessWidget {
                       ((lastElement && (i >= depth - 2 || parentLastElement))
                           ? (13.h / 2) - (0.5.h / 2)
                           : 0),
-                  color: Theme.of(context).backgroundColor,
+                  color: Theme.of(context).colorScheme.background,
                 ),
               ],
             ),

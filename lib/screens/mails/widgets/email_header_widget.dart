@@ -13,7 +13,7 @@ class EmailHeaderWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
       decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(100),
       ),
       child: Padding(
@@ -27,9 +27,9 @@ class EmailHeaderWidget extends StatelessWidget {
               FocusScope.of(context).unfocus();
             },
             style: TextStyle(
-              color: Theme.of(context).textTheme.button!.color,
+              color: Theme.of(context).textTheme.labelLarge!.color,
             ),
-            cursorColor: Theme.of(context).textTheme.bodyText1!.color,
+            cursorColor: Theme.of(context).textTheme.bodyLarge!.color,
             textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
               hintText:

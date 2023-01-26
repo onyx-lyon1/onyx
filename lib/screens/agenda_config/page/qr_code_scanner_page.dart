@@ -30,9 +30,9 @@ class QrCodeScannerPageState extends State<QrCodeScannerPage> {
         backgroundColor: Theme.of(context).cardTheme.color,
         elevation: 2,
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         child: cameraGranted
             ? MobileScanner(
                 allowDuplicates: false,

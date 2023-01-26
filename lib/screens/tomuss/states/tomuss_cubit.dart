@@ -12,7 +12,9 @@ class TomussCubit extends Cubit<TomussState> {
 
   Future<void> load(
       {required Dartus? dartus, bool cache = true, int? semestreIndex}) async {
-    emit(state.copyWith(status: TomussStatus.loading));
+    print(semestreIndex);
+    emit(state.copyWith(
+        status: TomussStatus.loading, currentSemesterIndex: semestreIndex));
     List<SchoolSubjectModel> teachingUnits = [];
     List<SemestreModel> semesters = [];
 
@@ -20,30 +22,41 @@ class TomussCubit extends Cubit<TomussState> {
         await CacheService.get<SemestreModelWrapper>();
     if (semesterModelWrapper != null) {
       semestreIndex ??= semesterModelWrapper.currentSemestreIndex;
+      semesters = semesterModelWrapper.semestres;
     }
+    semestreIndex ??= 0;
     if (cache) {
       teachingUnits = await compute(
           TomussLogic.getTeachingUnitsCache,
-          GetCacheDataPass((await getApplicationDocumentsDirectory()).path,
-              semestreIndex ?? 0));
+          GetCacheDataPass(
+              (await getApplicationDocumentsDirectory()).path, semestreIndex));
       emit(state.copyWith(
         status: TomussStatus.cacheReady,
         teachingUnits: teachingUnits,
         semesters: semesterModelWrapper?.semestres ?? [],
-        currentSemesterIndex: semestreIndex ?? 0,
+        currentSemesterIndex: semestreIndex,
       ));
     }
     if (dartus != null) {
       try {
-        semesters = (await TomussLogic.getSemesters(dartus))
-            .map((e) => SemestreModel.fromSemester(e))
-            .toList();
-        semestreIndex ??= semesters
-            .indexWhere((element) => element.url == Dartus.currentSemester());
-        teachingUnits = await TomussLogic.getGrades(
-            dartus: dartus,
-            semestre: semesters[semestreIndex],
-            semestreIndex: semestreIndex);
+        GetSemesterAndNoteResultWaitingRecords result =
+            await TomussLogic.getSemestersAndNote(
+                dartus: dartus,
+                semesterIndex: semestreIndex,
+                autoRefresh: false,
+                semester: (semesters.length > semestreIndex)
+                    ? semesters[semestreIndex]
+                    : null);
+        if (result.timeout != null) {
+          emit(state.copyWith(
+            currentSemesterIndex: semestreIndex,
+            status: TomussStatus.loading,
+            timeout: result.timeout,
+          ));
+          return;
+        }
+        semesters = result.semesters!;
+        teachingUnits = result.schoolSubjectModel!;
       } catch (e) {
         if (kDebugMode) {
           print("Error while loading grades: $e");

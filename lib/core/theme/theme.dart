@@ -12,9 +12,6 @@ class OnyxTheme {
         cursorColor: const Color(0xffd08770),
         selectionColor: const Color(0xffd08770).withOpacity(0.7),
       ),
-
-      // 0xffff9f00
-      backgroundColor: const Color(0xff434c5e),
       brightness: Brightness.dark,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Color(0xff4c566a),
@@ -22,9 +19,12 @@ class OnyxTheme {
         selectedItemColor: Color(0xffd08770),
       ),
       textTheme: const TextTheme(
-        button: TextStyle(color: Color(0xffffffff)),
-        bodyText1: TextStyle(color: Color(0xffd8dee9)),
-        bodyText2: TextStyle(color: Color(0xffc2c8d2)),
+        labelLarge: TextStyle(color: Color(0xffffffff)),
+        bodyLarge: TextStyle(color: Color(0xffd8dee9)),
+        bodyMedium: TextStyle(color: Color(0xffc2c8d2)),
+      ),
+      colorScheme: const ColorScheme.dark(
+        background: Color(0xff434c5e),
       ),
     );
   }
@@ -40,10 +40,6 @@ class OnyxTheme {
         cursorColor: const Color(0xffd08770),
         selectionColor: const Color(0xffd08770).withOpacity(0.7),
       ),
-      // but now it should be declared like this
-
-      // 0xffff9f00
-      backgroundColor: const Color(0xffd8dee9),
       brightness: Brightness.light,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Color(0xffd8dee9),
@@ -51,9 +47,12 @@ class OnyxTheme {
         selectedItemColor: Color(0xffd08770),
       ),
       textTheme: const TextTheme(
-        button: TextStyle(color: Color(0xff4c566a)),
-        bodyText1: TextStyle(color: Color(0xff4c566a)),
-        bodyText2: TextStyle(color: Color(0xff4c566a)),
+        labelLarge: TextStyle(color: Color(0xff4c566a)),
+        bodyLarge: TextStyle(color: Color(0xff4c566a)),
+        bodyMedium: TextStyle(color: Color(0xff4c566a)),
+      ),
+      colorScheme: const ColorScheme.light(
+        background: Color(0xffd8dee9),
       ),
     );
   }

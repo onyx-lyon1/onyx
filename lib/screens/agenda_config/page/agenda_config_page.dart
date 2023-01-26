@@ -135,7 +135,7 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
               header: Container(
                 margin: EdgeInsets.all(2.w),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).backgroundColor,
+                  color: Theme.of(context).colorScheme.background,
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: Padding(
@@ -148,9 +148,9 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
                         FocusScope.of(context).unfocus();
                       },
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.button!.color,
+                        color: Theme.of(context).textTheme.labelLarge!.color,
                       ),
-                      cursorColor: Theme.of(context).textTheme.bodyText1!.color,
+                      cursorColor: Theme.of(context).textTheme.bodyLarge!.color,
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
                         hintText: "Recherche dans les agendas",

@@ -25,7 +25,7 @@ class SettingsPage extends StatelessWidget {
           print('Settings state: ${state.status}');
         }
         return Container(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -36,7 +36,7 @@ class SettingsPage extends StatelessWidget {
                   child: Text(
                     'Paramètres',
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyText1!.color,
+                      color: Theme.of(context).textTheme.bodyLarge!.color,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),

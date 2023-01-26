@@ -26,7 +26,7 @@ class DropDownWidget extends StatelessWidget {
             softWrap: true,
             overflow: TextOverflow.visible,
             style: TextStyle(
-              color: Theme.of(context).textTheme.bodyText1!.color,
+              color: Theme.of(context).textTheme.bodyLarge!.color,
               fontSize: 12,
             ),
           ),
@@ -43,7 +43,7 @@ class DropDownWidget extends StatelessWidget {
           onChanged: (value) => onChanged(value as int),
           value: value,
           borderRadius: BorderRadius.circular(10),
-          dropdownColor: Theme.of(context).backgroundColor,
+          dropdownColor: Theme.of(context).colorScheme.background,
         ),
       ],
     );

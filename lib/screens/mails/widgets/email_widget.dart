@@ -7,23 +7,23 @@ class EmailWidget extends StatelessWidget {
   final EmailModel email;
 
   Color unreadText1Color(BuildContext c) {
-    return Theme.of(c).textTheme.bodyText1!.color!;
+    return Theme.of(c).textTheme.bodyLarge!.color!;
   }
 
   Color unreadText2Color(BuildContext c) {
-    return Theme.of(c).textTheme.bodyText2!.color!;
+    return Theme.of(c).textTheme.bodyMedium!.color!;
   }
 
   Color unreadBgColor(BuildContext c) {
-    return Theme.of(c).backgroundColor;
+    return Theme.of(c).colorScheme.background;
   }
 
   Color readText1Color(BuildContext c) {
-    return Theme.of(c).textTheme.bodyText1!.color!.withOpacity(0.3);
+    return Theme.of(c).textTheme.bodyLarge!.color!.withOpacity(0.3);
   }
 
   Color readText2Color(BuildContext c) {
-    return Theme.of(c).textTheme.bodyText1!.color!.withOpacity(0.3);
+    return Theme.of(c).textTheme.bodyLarge!.color!.withOpacity(0.3);
   }
 
   Color readBgColor(BuildContext c) {
@@ -73,7 +73,7 @@ class EmailWidget extends StatelessWidget {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 title: const Text("Supprimer"),
                 content:
                     const Text("Êtes-vous sûr de vouloir supprimer ce mail ?"),
@@ -228,7 +228,7 @@ class EmailWidget extends StatelessWidget {
                 // color: Color(0xff3b4252),
                 color: Theme.of(context)
                     .textTheme
-                    .bodyText1!
+                    .bodyLarge!
                     .color!
                     .withOpacity(0.1),
               )
