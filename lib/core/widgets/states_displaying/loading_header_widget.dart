@@ -12,8 +12,8 @@ class LoadingHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (timeout!=null) {
-      Future.delayed(timeout!,timeoutCallBack!);
+    if (timeout != null) {
+      Future.delayed(timeout!, timeoutCallBack!);
     }
     return AnimatedContainer(
         duration: const Duration(milliseconds: 1000),
@@ -41,17 +41,19 @@ class LoadingHeaderWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 5.w,
-                    height: 5.w,
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).primaryColor,
-                      strokeWidth: 2.sp,
+                  if (timeout == null)
+                    SizedBox(
+                      width: 5.w,
+                      height: 5.w,
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).primaryColor,
+                        strokeWidth: 2.sp,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 2.w,
-                  ),
+                  if (timeout == null)
+                    SizedBox(
+                      width: 2.w,
+                    ),
                   Text(
                     message,
                     style: Theme.of(context).textTheme.bodyLarge,

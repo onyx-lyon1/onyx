@@ -25,6 +25,7 @@ class OnyxTheme {
       ),
       colorScheme: const ColorScheme.dark(
         background: Color(0xff434c5e),
+        primary: Color(0xffd08770),
       ),
     );
   }
@@ -53,6 +54,7 @@ class OnyxTheme {
       ),
       colorScheme: const ColorScheme.light(
         background: Color(0xffd8dee9),
+        primary: Color(0xffd08770),
       ),
     );
   }

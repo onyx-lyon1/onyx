@@ -39,7 +39,6 @@ void main() async {
       return true;
     };
   }
-
   runApp(OnyxApp(
     androidSdkVersion: androidSdkVersion,
   ));
