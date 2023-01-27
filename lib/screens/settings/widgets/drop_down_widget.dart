@@ -44,6 +44,7 @@ class DropDownWidget extends StatelessWidget {
           value: value,
           borderRadius: BorderRadius.circular(10),
           dropdownColor: Theme.of(context).colorScheme.background,
+          focusColor: Theme.of(context).cardTheme.color,
         ),
       ],
     );
