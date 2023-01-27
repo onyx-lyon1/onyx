@@ -58,10 +58,12 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("ONYX",
-                          style:
-                              Theme.of(context).textTheme.displayLarge!.copyWith(
-                                    fontSize: 20.sp,
-                                  )),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .copyWith(
+                                fontSize: 20.sp,
+                              )),
                       Text("Pour Lyon 1",
                           style: Theme.of(context)
                               .textTheme
@@ -222,6 +224,24 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
+              ),
+            ),
+            const Spacer(),
+            Padding(
+              padding: EdgeInsets.all(5.h),
+              child: TextButton(
+                onPressed: () {
+                  Res.mock = true;
+                  context.read<AuthentificationCubit>().login(
+                      username: username,
+                      password: password,
+                      keepLogedIn: context
+                          .read<SettingsCubit>()
+                          .state
+                          .settings
+                          .keepMeLoggedIn);
+                },
+                child: const Text("Découvrir l'application"),
               ),
             ),
           ],

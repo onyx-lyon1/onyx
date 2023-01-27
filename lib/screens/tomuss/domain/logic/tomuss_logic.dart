@@ -4,13 +4,13 @@ import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
-class GetSemesterAndNoteResultWaitingRecords{
+class GetSemesterAndNoteResultWaitingRecords {
   List<SemestreModel>? semesters;
   List<SchoolSubjectModel>? schoolSubjectModel;
   Duration? timeout;
 
-  GetSemesterAndNoteResultWaitingRecords(this.semesters,
-      this.schoolSubjectModel, this.timeout);
+  GetSemesterAndNoteResultWaitingRecords(
+      this.semesters, this.schoolSubjectModel, this.timeout);
 }
 
 class GetCacheDataPass {
@@ -21,39 +21,46 @@ class GetCacheDataPass {
 }
 
 class TomussLogic {
-  static Future
-  <GetSemesterAndNoteResultWaitingRecords>
-  getSemestersAndNote(
-      {required Dartus dartus, SemestreModel? semester, int semesterIndex = 0, bool autoRefresh = true}) async {
-    ParsedPage? parsedPage = await getParsedPage(
-        dartus: dartus, semestre: semester, autoRefresh: autoRefresh);
-    if (parsedPage == null) {
-      throw "Impossible de récuperer la page de tomuss";
+  static Future<GetSemesterAndNoteResultWaitingRecords> getSemestersAndNote(
+      {required Dartus dartus,
+      SemestreModel? semester,
+      int semesterIndex = 0,
+      bool autoRefresh = true}) async {
+    List<SemestreModel> semesters;
+    List<SchoolSubjectModel> grades;
+    if (!Res.mock) {
+      ParsedPage? parsedPage = await getParsedPage(
+          dartus: dartus, semestre: semester, autoRefresh: autoRefresh);
+
+      if (parsedPage == null) {
+        throw "Impossible de récuperer la page de tomuss";
+      }
+      if (parsedPage.isTimedOut) {
+        return GetSemesterAndNoteResultWaitingRecords(
+            null, null, parsedPage.timeout);
+      }
+      semesters = parseSemesters(parsedPage.semesters!);
+      grades =
+          await parseGrades(parsedPage.teachingunits!, semesterIndex);
+    } else {
+      semesters = [Semester("2022/Automne", Dartus.currentSemester())]
+          .map((e) => SemestreModel.fromSemester(e))
+          .toList();
+      grades = schoolSubjectModelListMock;
     }
-    if (parsedPage.isTimedOut) {
-      return GetSemesterAndNoteResultWaitingRecords(null,null, parsedPage.timeout);
-    }
-    List<SemestreModel> semesters = parseSemesters(parsedPage.semesters!);
-    List<SchoolSubjectModel> grades = await parseGrades(
-        parsedPage.teachingunits!, semesterIndex);
-    return GetSemesterAndNoteResultWaitingRecords(semesters,grades, null);
+    return GetSemesterAndNoteResultWaitingRecords(semesters, grades, null);
   }
 
-  static Future<ParsedPage?> getParsedPage({required Dartus dartus,
-    SemestreModel? semestre, bool autoRefresh = true}) async {
-    return await dartus.getParsedPage(
-        semestre?.url ?? Dartus.currentSemester(), autoRefresh: autoRefresh);
+  static Future<ParsedPage?> getParsedPage(
+      {required Dartus dartus,
+      SemestreModel? semestre,
+      bool autoRefresh = true}) async {
+    return await dartus.getParsedPage(semestre?.url ?? Dartus.currentSemester(),
+        autoRefresh: autoRefresh);
   }
-
 
   static List<SemestreModel> parseSemesters(List<Semester> semesters) {
-    if (Res.mock) {
-      return [Semester("2022/Automne", Dartus.currentSemester())].map((e) =>
-          SemestreModel.fromSemester(e))
-          .toList();
-    }
-    return semesters.map((e) => SemestreModel.fromSemester(e))
-        .toList();
+    return semesters.map((e) => SemestreModel.fromSemester(e)).toList();
   }
 
   static Future<List<SchoolSubjectModel>> parseGrades(
@@ -66,7 +73,7 @@ class TomussLogic {
     if ((await CacheService.exist<SchoolSubjectModelWrapper>(
         index: semesterIndex))) {
       cachedTeachingUnits = (await CacheService.get<SchoolSubjectModelWrapper>(
-          index: semesterIndex))!
+              index: semesterIndex))!
           .teachingUnitModels;
     }
 
@@ -104,7 +111,7 @@ class TomussLogic {
     if (await CacheService.exist<SchoolSubjectModelWrapper>(
         index: inputData.currentSemestreIndex)) {
       return (await CacheService.get<SchoolSubjectModelWrapper>(
-          index: inputData.currentSemestreIndex))!
+              index: inputData.currentSemestreIndex))!
           .teachingUnitModels;
     } else {
       return [];
