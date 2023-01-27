@@ -22,7 +22,7 @@ class IzlyCubit extends Cubit<IzlyState> {
     try {
       if (_izlyClient == null || !(await _izlyClient!.isLogged())) {
         creds = (await IzlyLogic.getIzlyCredential(
-            username: username, password: password))!;
+            username: username, password: password));
       }
     } catch (e) {
       emit(state.copyWith(status: IzlyStatus.noCredentials));
