@@ -12,7 +12,6 @@ class TomussCubit extends Cubit<TomussState> {
 
   Future<void> load(
       {required Dartus? dartus, bool cache = true, int? semestreIndex}) async {
-    print(semestreIndex);
     emit(state.copyWith(
         status: TomussStatus.loading, currentSemesterIndex: semestreIndex));
     List<SchoolSubjectModel> teachingUnits = [];
@@ -24,17 +23,16 @@ class TomussCubit extends Cubit<TomussState> {
       semestreIndex ??= semesterModelWrapper.currentSemestreIndex;
       semesters = semesterModelWrapper.semestres;
     }
-    semestreIndex ??= 0;
     if (cache) {
       teachingUnits = await compute(
           TomussLogic.getTeachingUnitsCache,
-          GetCacheDataPass(
-              (await getApplicationDocumentsDirectory()).path, semestreIndex));
+          GetCacheDataPass((await getApplicationDocumentsDirectory()).path,
+              semestreIndex ?? 0));
       emit(state.copyWith(
         status: TomussStatus.cacheReady,
         teachingUnits: teachingUnits,
         semesters: semesterModelWrapper?.semestres ?? [],
-        currentSemesterIndex: semestreIndex,
+        currentSemesterIndex: semestreIndex ?? 0,
       ));
     }
     if (dartus != null) {
@@ -44,17 +42,20 @@ class TomussCubit extends Cubit<TomussState> {
                 dartus: dartus,
                 semesterIndex: semestreIndex,
                 autoRefresh: false,
-                semester: (semesters.length > semestreIndex)
-                    ? semesters[semestreIndex]
+                semester: (semesters.length > (semestreIndex ?? 0))
+                    ? semesters[semestreIndex ?? 0]
                     : null);
+
         if (result.timeout != null) {
           emit(state.copyWith(
-            currentSemesterIndex: semestreIndex,
+            currentSemesterIndex: semestreIndex ?? 0,
             status: TomussStatus.loading,
             timeout: result.timeout,
           ));
           return;
         }
+        semestreIndex ??= result.semesters!
+            .indexWhere((element) => element.url == Dartus.currentSemester());
         semesters = result.semesters!;
         teachingUnits = result.schoolSubjectModel!;
       } catch (e) {

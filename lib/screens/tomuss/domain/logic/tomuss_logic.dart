@@ -24,7 +24,7 @@ class TomussLogic {
   static Future<GetSemesterAndNoteResultWaitingRecords> getSemestersAndNote(
       {required Dartus dartus,
       SemestreModel? semester,
-      int semesterIndex = 0,
+      int? semesterIndex,
       bool autoRefresh = true}) async {
     List<SemestreModel> semesters;
     List<SchoolSubjectModel> grades;
@@ -40,6 +40,7 @@ class TomussLogic {
             null, null, parsedPage.timeout);
       }
       semesters = parseSemesters(parsedPage.semesters!);
+      semesterIndex??= semesters.indexWhere((element) => element.url == Dartus.currentSemester());
       grades =
           await parseGrades(parsedPage.teachingunits!, semesterIndex);
     } else {
