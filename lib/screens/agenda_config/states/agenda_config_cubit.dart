@@ -1,7 +1,7 @@
-import 'package:diacritic/diacritic.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 
 part 'agenda_config_state.dart';
@@ -58,12 +58,10 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
   void search(String query) {
     List<DirModel> foundedDirs = [];
     for (var dir = 0; dir < dirs.length; dir++) {
-      if (Uri.decodeFull(Uri.encodeFull(
-                  removeDiacritics(dirs[dir].name.split(".").last)
-                      .replaceAll("\\x", "%"))
-              .replaceAll("%25", "%"))
-          .toLowerCase()
-          .contains(removeDiacritics(query.toLowerCase()))) {
+      if (SearchService.isMatch(
+          query,
+          Uri.decodeFull(
+              Uri.encodeFull(dirs[dir].name.replaceAll("\\x", "%"))))) {
         foundedDirs.add(dirs[dir]);
       } else {
         subSearch(dirs[dir], query, foundedDirs);
@@ -76,23 +74,17 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
         status: AgendaConfigStatus.searchResult));
   }
 
-  bool subSearch(DirModel dir, String query, List<DirModel> dirs) {
+  void subSearch(DirModel dir, String query, List<DirModel> dirs) {
     for (int directory = 0; directory < dir.children.length; directory++) {
-      if (Uri.decodeFull(Uri.encodeFull(
-                  removeDiacritics(dir.children[directory].name.split(".").last)
-                      .replaceAll("\\x", "%"))
-              .replaceAll("%25", "%"))
-          .toLowerCase()
-          .contains(removeDiacritics(query.toLowerCase()))) {
+      if (SearchService.isMatch(
+          query,
+          Uri.decodeFull(Uri.encodeFull(
+                  dir.children[directory].name.replaceAll("\\x", "%")))
+              .replaceAll(dir.name, ""))) {
         dirs.add(dir.children[directory]);
-        return true;
-      } else {
-        if (subSearch(dir.children[directory], query, dirs)) {
-          return true;
-        }
       }
+      subSearch(dir.children[directory], query, dirs);
     }
-    return false;
   }
 
   void chooseDir(int id) {
