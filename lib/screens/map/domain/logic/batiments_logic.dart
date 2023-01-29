@@ -13,10 +13,7 @@ class BatimentsLogic {
     }
     List<BatimentModel> result = [];
     for (BatimentModel batiment in batiments) {
-      if (await SearchService.isMatch(query, batiment.name)) {
-        print(batiment.name);
-        print(query);
-        print("");
+      if (SearchService.isMatch(query, batiment.name)) {
         result.add(batiment);
       }
     }

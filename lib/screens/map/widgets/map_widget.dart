@@ -14,11 +14,13 @@ class MapWidget extends StatelessWidget {
       this.batiments = const [],
       this.polylines = const [],
       required this.onTapNavigate,
+      this.mapController,
       this.center})
       : super(key: key);
   final List<BatimentModel> batiments;
   final List<Polyline> polylines;
   final LatLng? center;
+  final MapController? mapController;
   final void Function(BatimentModel) onTapNavigate;
 
   @override
@@ -46,6 +48,7 @@ class MapWidget extends StatelessWidget {
           MapRes.maxBound,
         ),
       ),
+      mapController: mapController,
       children: [
         TileLayer(
           urlTemplate: "assets/map/{z}/{x}/{y}.png",
