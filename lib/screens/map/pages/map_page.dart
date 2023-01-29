@@ -10,6 +10,7 @@ class MapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textEditingController = TextEditingController();
+    final MapController mapController = MapController();
     return BlocBuilder<MapCubit, MapState>(
       builder: (context, state) {
         if (state.status == MapStatus.initial) {
@@ -19,10 +20,12 @@ class MapPage extends StatelessWidget {
           header: Center(
             child: MapSearchAutocompleteWidget(
               controller: textEditingController,
+              mapController: mapController,
             ),
           ),
           body: MapWidget(
             batiments: state.batiments,
+            mapController: mapController,
             polylines: [
               Polyline(
                 points: state.path,
@@ -31,7 +34,9 @@ class MapPage extends StatelessWidget {
               ),
             ],
             onTapNavigate: (batiment) {
-              context.read<MapCubit>().navigate(context, batiment);
+              context
+                  .read<MapCubit>()
+                  .navigate(context, batiment, mapController);
             },
           ),
         );

@@ -28,7 +28,6 @@ class SearchService {
 
     for (var term in aTerms) {
       if (b.contains(term!)) {
-        print("term: $term, b: $b");
         return true;
       }
     }
