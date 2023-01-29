@@ -71,16 +71,18 @@ class IzlyRechargeTranferPage extends StatelessWidget {
         ),
       ).then((request) {
         WebViewController controller = WebViewController();
-        controller.loadRequest(request.url);
+        controller.loadRequest(Uri.parse(request.url));
         controller.setJavaScriptMode(JavaScriptMode.unrestricted);
-        controller.setNavigationDelegate(NavigationDelegate(
-          onNavigationRequest: (NavigationRequest request) async {
-            if (request.url.contains("PaymentInitiationConfirmation")) {
-              Navigator.pop(context);
-            }
-            return NavigationDecision.navigate;
-          },
-        ),);
+        controller.setNavigationDelegate(
+          NavigationDelegate(
+            onNavigationRequest: (NavigationRequest request) async {
+              if (request.url.contains("PaymentInitiationConfirmation")) {
+                Navigator.pop(context);
+              }
+              return NavigationDecision.navigate;
+            },
+          ),
+        );
         Navigator.push(
           context,
           MaterialPageRoute(
