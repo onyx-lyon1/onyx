@@ -33,53 +33,26 @@ class IzlyRechargePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IzlayRechargeCardWidget(
-                  tag: "izly_recharge_transfer",
                   icon: Icons.compare_arrows_rounded,
                   text: "Virement",
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const IzlyRechargeTranferPage())).then(
-                        (value) => pageController.animateToPage(0,
-                            duration: Res.animationDuration,
-                            curve: Curves.easeInOut));
-                  },
+                  child: const IzlyRechargeTranferPage(),
+                  pageController: pageController,
                 ),
                 SizedBox(width: 5.w),
                 IzlayRechargeCardWidget(
-                  tag: "izly_recharge_cb",
                   icon: Icons.credit_card_rounded,
                   text: "Carte Bancaire",
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const IzlyRechargeCBPage())).then((value) =>
-                        pageController.animateToPage(0,
-                            duration: Res.animationDuration,
-                            curve: Curves.easeInOut));
-                  },
+                  pageController: pageController,
+                  child: const IzlyRechargeCBPage(),
                 ),
               ],
             ),
             SizedBox(height: 5.w),
             IzlayRechargeCardWidget(
-              tag: "izly_recharge_tiers",
               icon: Icons.person_rounded,
               text: "Tiers",
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const IzlyRechargeTiersPage())).then((value) =>
-                    pageController.animateToPage(0,
-                        duration: Res.animationDuration,
-                        curve: Curves.easeInOut));
-              },
+              pageController: pageController,
+              child: const IzlyRechargeTiersPage(),
             ),
           ],
         ),

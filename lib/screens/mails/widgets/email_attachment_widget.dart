@@ -17,7 +17,7 @@ class EmailAttachmentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(1.h),
+      padding: EdgeInsets.all(0.9.h),
       child: Material(
         color: Colors.transparent,
         child: InkWell(

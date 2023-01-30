@@ -1,6 +1,8 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
@@ -43,79 +45,23 @@ class EmailsPage extends StatelessWidget {
 
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
-          floatingActionButton: Hero(
-            tag: "writeEmail",
-            flightShuttleBuilder: (
-              BuildContext flightContext,
-              Animation<double> animation,
-              HeroFlightDirection flightDirection,
-              BuildContext fromHeroContext,
-              BuildContext toHeroContext,
-            ) {
-              Hero toHero;
-              if (flightDirection == HeroFlightDirection.pop) {
-                toHero = fromHeroContext.widget as Hero;
-              } else {
-                toHero = toHeroContext.widget as Hero;
-              }
-
-              final MediaQueryData? toMediaQueryData =
-                  MediaQuery.maybeOf(fromHeroContext);
-              final MediaQueryData? fromMediaQueryData =
-                  MediaQuery.maybeOf(toHeroContext);
-
-              if (toMediaQueryData == null || fromMediaQueryData == null) {
-                return toHero.child;
-              }
-
-              final EdgeInsets fromHeroPadding = fromMediaQueryData.padding;
-              final EdgeInsets toHeroPadding = toMediaQueryData.padding;
-
-              return AnimatedBuilder(
-                animation: animation,
-                builder: (BuildContext context, Widget? child) {
-                  return MediaQuery(
-                      data: toMediaQueryData.copyWith(
-                        padding: (flightDirection == HeroFlightDirection.push)
-                            ? EdgeInsetsTween(
-                                begin: fromHeroPadding,
-                                end: toHeroPadding,
-                              ).evaluate(animation)
-                            : EdgeInsetsTween(
-                                begin: toHeroPadding,
-                                end: fromHeroPadding,
-                              ).evaluate(animation),
-                      ),
-                      child: toHero.child);
-                },
-              );
-            },
-            child: Material(
-              color: (!state.connected)
-                  ? Theme.of(context).disabledColor
-                  : Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(100),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(100),
-                onTap: (!state.connected)
-                    ? null
-                    : () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const EmailSendPage(),
-                          ),
-                        );
-                      },
-                child: Padding(
-                  padding: EdgeInsets.all(1.5.h),
-                  child: Icon(
-                    Icons.create_rounded,
-                    color: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .unselectedItemColor,
-                    size: 25.sp,
-                  ),
-                ),
+          floatingActionButton: OpenContainer(
+            openColor: Theme.of(context).colorScheme.background,
+            closedColor: (!state.connected)
+                ? Theme.of(context).disabledColor
+                : Theme.of(context).primaryColor,
+            closedShape: const CircleBorder(),
+            closedElevation: 6,
+            transitionDuration: Res.animationDuration,
+            openBuilder: (context, closedContainer) => const EmailSendPage(),
+            closedBuilder: (context, openContainer) => Padding(
+              padding: EdgeInsets.all(1.5.h),
+              child: Icon(
+                Icons.create_rounded,
+                color: Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .unselectedItemColor,
+                size: 25.sp,
               ),
             ),
           ),
