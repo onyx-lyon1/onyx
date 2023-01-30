@@ -29,8 +29,10 @@ class IzlayRechargeCardWidget extends StatelessWidget {
       openColor: Theme.of(context).colorScheme.background,
       transitionDuration: Res.animationDuration,
       onClosed: (value) {
-        pageController.animateToPage(0,
-            duration: Res.animationDuration, curve: Curves.easeInOut);
+        Future.delayed(Res.animationDuration, () {
+          pageController.animateToPage(0,
+              duration: Res.animationDuration, curve: Curves.easeInOut);
+        });
       },
       openBuilder: (context, closeContainer) => child,
       closedBuilder: (context, openContainer) => SizedBox(

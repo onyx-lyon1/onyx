@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
@@ -256,7 +258,19 @@ class SettingsPage extends StatelessWidget {
                           textColor: Colors.white70,
                           child: const Text('Déconnexion'),
                           onPressed: () {
+                            CacheService.reset<IzlyCredential>();
+                            context.read<IzlyCubit>().disconnect();
                             context.read<AuthentificationCubit>().logout();
+                          },
+                        ),
+                        MaterialButton(
+                          minWidth: MediaQuery.of(context).size.width,
+                          color: const Color(0xffbf616a),
+                          textColor: Colors.white70,
+                          child: const Text('Déconnexion de izly'),
+                          onPressed: () {
+                            CacheService.reset<IzlyCredential>();
+                            context.read<IzlyCubit>().disconnect();
                           },
                         )
                       ],
@@ -274,7 +288,6 @@ class SettingsPage extends StatelessWidget {
                                   .read<AuthentificationCubit>()
                                   .state
                                   .dartus!,
-
                               cache: false);
                         },
                       ),
@@ -303,6 +316,17 @@ class SettingsPage extends StatelessWidget {
                         onPressed: () {
                           CacheService.reset<EmailModelWrapper>();
                           context.read<EmailCubit>().load(cache: false);
+                        },
+                      ),
+                      MaterialButton(
+                        minWidth: MediaQuery.of(context).size.width,
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: const Text('Vider le cache de izly'),
+                        onPressed: () {
+                          Hive.deleteBoxFromDisk("cached_qr_code");
+                          Hive.deleteBoxFromDisk("cached_izly_amount");
+                          context.read<IzlyCubit>().connect();
                         },
                       ),
                     ])
