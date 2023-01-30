@@ -50,4 +50,11 @@ class IzlyCubit extends Cubit<IzlyState> {
       emit(state.copyWith(status: IzlyStatus.error));
     }
   }
+
+  void disconnect() async {
+    if (_izlyClient != null) {
+      await _izlyClient!.logout();
+    }
+    emit(state.copyWith(status: IzlyStatus.initial));
+  }
 }
