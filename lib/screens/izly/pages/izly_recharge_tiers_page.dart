@@ -13,71 +13,62 @@ class IzlyRechargeTiersPage extends StatelessWidget {
     TextEditingController emailController = TextEditingController();
     TextEditingController messageController = TextEditingController();
 
-    return Hero(
-      tag: "izly_recharge_tiers",
-      child: SafeArea(
-        child: Scaffold(
-          body: CommonScreenWidget(
-            header: const IzlyRechargeHeaderWidget(
-                title: "Recharger par un virement"),
-            body: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IzlyRechargeAmountWidget(
-                      min: 10,
-                      controller: controller,
-                      onSaved: () => _pay(context, controller, emailController,
-                          messageController),
-                    ),
-                    SizedBox(height: 5.h),
-                    SizedBox(
-                      width: 80.w,
-                      child: TextField(
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          labelText: "Email",
-                          labelStyle: const TextStyle(
-                            color: Colors.black,
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor),
-                          ),
+    return SafeArea(
+      child: Scaffold(
+        body: CommonScreenWidget(
+          header:
+              const IzlyRechargeHeaderWidget(title: "Recharger par un tiers"),
+          body: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IzlyRechargeAmountWidget(
+                    min: 10,
+                    controller: controller,
+                    onSaved: () => _pay(context, controller, emailController,
+                        messageController),
+                  ),
+                  SizedBox(height: 5.h),
+                  SizedBox(
+                    width: 80.w,
+                    child: TextField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        hintText: "Email",
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Theme.of(context).primaryColor),
                         ),
                       ),
                     ),
-                    SizedBox(height: 5.h),
-                    SizedBox(
-                      width: 80.w,
-                      child: TextField(
-                        controller: messageController,
-                        decoration: InputDecoration(
-                          hintText: "Message",
-                          labelStyle: const TextStyle(
-                            color: Colors.black,
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor),
-                          ),
+                  ),
+                  SizedBox(height: 5.h),
+                  SizedBox(
+                    width: 80.w,
+                    child: TextField(
+                      controller: messageController,
+                      decoration: InputDecoration(
+                        hintText: "Message",
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Theme.of(context).primaryColor),
                         ),
                       ),
                     ),
-                    SizedBox(height: 5.h),
-                    MaterialButton(
-                      onPressed: () => _pay(context, controller,
-                          emailController, messageController),
-                      color: Theme.of(context).primaryColor,
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Text("Transferer"),
+                  ),
+                  SizedBox(height: 5.h),
+                  MaterialButton(
+                    onPressed: () => _pay(context, controller, emailController,
+                        messageController),
+                    color: Theme.of(context).primaryColor,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                  ],
-                ),
+                    child: const Text("Transferer"),
+                  ),
+                ],
               ),
             ),
           ),

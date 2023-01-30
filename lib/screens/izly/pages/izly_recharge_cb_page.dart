@@ -35,57 +35,54 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: "izly_recharge_cb",
-      child: SafeArea(
-        child: Material(
-          child: CommonScreenWidget(
-            header: const IzlyRechargeHeaderWidget(
-                title: "Recharger par Carte bancaire"),
-            body: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IzlyRechargeAmountWidget(
-                      min: 10,
-                      controller: controller,
-                      onSaved: () => _pay(context, controller),
+    return SafeArea(
+      child: Material(
+        child: CommonScreenWidget(
+          header: const IzlyRechargeHeaderWidget(
+              title: "Recharger par Carte bancaire"),
+          body: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IzlyRechargeAmountWidget(
+                    min: 10,
+                    controller: controller,
+                    onSaved: () => _pay(context, controller),
+                  ),
+                  SizedBox(height: 5.h),
+                  if (cbs.isNotEmpty)
+                    DropdownButton(
+                      dropdownColor: Theme.of(context).colorScheme.background,
+                      value: dropDownValue,
+                      items: [
+                        for (var i = 0; i < cbs.length; i++)
+                          DropdownMenuItem(
+                            value: i,
+                            child: Text(cbs[i].name),
+                          ),
+                      ],
+                      onChanged: (id) {
+                        setState(() {
+                          dropDownValue = id as int;
+                        });
+                      },
                     ),
-                    SizedBox(height: 5.h),
-                    if (cbs.isNotEmpty)
-                      DropdownButton(
-                        dropdownColor: Theme.of(context).colorScheme.background,
-                        value: dropDownValue,
-                        items: [
-                          for (var i = 0; i < cbs.length; i++)
-                            DropdownMenuItem(
-                              value: i,
-                              child: Text(cbs[i].name),
-                            ),
-                        ],
-                        onChanged: (id) {
-                          setState(() {
-                            dropDownValue = id as int;
-                          });
-                        },
-                      ),
-                    if (cbs.isEmpty)
-                      CircularProgressIndicator(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    SizedBox(height: 5.h),
-                    MaterialButton(
-                      onPressed: () => _pay(context, controller),
+                  if (cbs.isEmpty)
+                    CircularProgressIndicator(
                       color: Theme.of(context).primaryColor,
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Text("Payer"),
-                    )
-                  ],
-                ),
+                    ),
+                  SizedBox(height: 5.h),
+                  MaterialButton(
+                    onPressed: () => _pay(context, controller),
+                    color: Theme.of(context).primaryColor,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Text("Payer"),
+                  )
+                ],
               ),
             ),
           ),

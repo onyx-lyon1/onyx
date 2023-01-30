@@ -11,35 +11,32 @@ class IzlyRechargeTranferPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController controller = TextEditingController();
-    return Hero(
-      tag: "izly_recharge_transfer",
-      child: SafeArea(
-        child: Material(
-          child: CommonScreenWidget(
-            header: const IzlyRechargeHeaderWidget(
-                title: "Recharger par un virement"),
-            body: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IzlyRechargeAmountWidget(
-                      min: 5,
-                      controller: controller,
-                      onSaved: () => _pay(context, controller),
+    return SafeArea(
+      child: Material(
+        child: CommonScreenWidget(
+          header: const IzlyRechargeHeaderWidget(
+              title: "Recharger par un virement"),
+          body: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IzlyRechargeAmountWidget(
+                    min: 5,
+                    controller: controller,
+                    onSaved: () => _pay(context, controller),
+                  ),
+                  SizedBox(height: 5.h),
+                  MaterialButton(
+                    onPressed: () => _pay(context, controller),
+                    color: Theme.of(context).primaryColor,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    SizedBox(height: 5.h),
-                    MaterialButton(
-                      onPressed: () => _pay(context, controller),
-                      color: Theme.of(context).primaryColor,
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Text("Transferer"),
-                    ),
-                  ],
-                ),
+                    child: const Text("Transferer"),
+                  ),
+                ],
               ),
             ),
           ),
