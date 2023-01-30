@@ -15,41 +15,45 @@ class EmailContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WebViewController webViewController = WebViewController();
-    webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
-    webViewController.setNavigationDelegate(
-      NavigationDelegate(
-        onNavigationRequest: (NavigationRequest request) async {
-          if (await canLaunchUrl(Uri.parse(request.url))) {
-            await launchUrl(Uri.parse(request.url),
-                mode: LaunchMode.externalApplication);
-          } else {
-            throw 'Could not launch ${request.url}';
-          }
-          return NavigationDecision.prevent;
-        },
-      ),
-    );
-    webViewController.loadHtmlString(
-      (context.read<SettingsCubit>().state.settings.darkerMail)
-          ?
-          //add background screen
-          '<!DOCTYPE html>'
-              '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
-              '<style>body { background-color: ${Theme.of(context).cardTheme.color!.toHex()}; } </style>'
-              '</head>'
-              '<body text="${Theme.of(context).textTheme.bodyMedium?.color?.toHex()}" >'
-              '${mail.body}'
-              '</body>'
-          :
-          //add background screen
-          '<!DOCTYPE html>'
-              '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
-              '</head>'
-              '<body>'
-              '${mail.body}'
-              '</body>',
-    );
+    late WebViewController webViewController;
+    if ((mail.body.toLowerCase().contains("html") &&
+        (Platform.isAndroid || Platform.isIOS))) {
+      webViewController = WebViewController();
+      webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
+      webViewController.setNavigationDelegate(
+        NavigationDelegate(
+          onNavigationRequest: (NavigationRequest request) async {
+            if (await canLaunchUrl(Uri.parse(request.url))) {
+              await launchUrl(Uri.parse(request.url),
+                  mode: LaunchMode.externalApplication);
+            } else {
+              throw 'Could not launch ${request.url}';
+            }
+            return NavigationDecision.prevent;
+          },
+        ),
+      );
+      webViewController.loadHtmlString(
+        (context.read<SettingsCubit>().state.settings.darkerMail)
+            ?
+            //add background screen
+            '<!DOCTYPE html>'
+                '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
+                '<style>body { background-color: ${Theme.of(context).cardTheme.color!.toHex()}; } </style>'
+                '</head>'
+                '<body text="${Theme.of(context).textTheme.bodyMedium?.color?.toHex()}" >'
+                '${mail.body}'
+                '</body>'
+            :
+            //add background screen
+            '<!DOCTYPE html>'
+                '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
+                '</head>'
+                '<body>'
+                '${mail.body}'
+                '</body>',
+      );
+    }
     return (mail.body.toLowerCase().contains("html") &&
             (Platform.isAndroid || Platform.isIOS))
         ? WebViewWidget(
