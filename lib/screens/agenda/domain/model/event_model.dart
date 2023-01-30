@@ -45,8 +45,7 @@ class EventModel {
           teacher == other.teacher &&
           summary == other.summary &&
           start == other.start &&
-          end == other.end &&
-          eventLastModified == other.eventLastModified;
+          end == other.end;
 
   @override
   int get hashCode =>
