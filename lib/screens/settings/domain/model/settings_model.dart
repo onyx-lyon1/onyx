@@ -37,15 +37,15 @@ class SettingsModel {
     this.keepMeLoggedIn = true,
     this.forceGreen = false,
     this.themeMode = ThemeModeEnum.system,
-    this.newGradeNotification = false,
+    this.newGradeNotification = true,
     this.showHiddenUE = false,
     this.fetchAgendaAuto = true,
     this.showMiniCalendar = true,
     this.calendarUpdateNotification = true,
     this.agendaId,
-    this.newMailNotification = false,
+    this.newMailNotification = true,
     this.blockTrackers = true,
-    this.darkerMail = false,
+    this.darkerMail = true,
   });
 
   SettingsModel copyWith({
