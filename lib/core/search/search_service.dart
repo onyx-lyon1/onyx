@@ -1,6 +1,6 @@
 class SearchService {
   static bool isMatch(String a, String b) {
-    final stopWords = ["le", "la", "un", "une", "des", "d'un", "d'une"];
+    final stopWords = ["le", "la", "un", "une", "des", "d'un", "d'une", "en"];
 
     List<String?> aTerms = a.toLowerCase().split(" ");
     aTerms = aTerms.where((term) => !stopWords.contains(term)).toList();
