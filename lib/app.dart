@@ -91,11 +91,7 @@ class OnyxAppState extends State<OnyxApp> {
                                         .read<AuthentificationCubit>()
                                         .state
                                         .status ==
-                                    AuthentificationStatus.authentificating ||
-                                !context
-                                    .read<AuthentificationCubit>()
-                                    .state
-                                    .firstLogin)
+                                    AuthentificationStatus.authentificating)
                             ? const HomePage()
                             : LoginPage(key: UniqueKey()));
                   } else {
