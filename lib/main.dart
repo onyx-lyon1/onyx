@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:onyx/app.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
@@ -15,6 +16,9 @@ void main() async {
 
   // debugRepaintRainbowEnabled = true;
   // debugRepaintTextRainbowEnabled = true;
+
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
     Workmanager().initialize(backgroundLogic, isInDebugMode: kDebugMode);
