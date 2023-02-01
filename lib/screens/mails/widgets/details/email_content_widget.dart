@@ -16,7 +16,7 @@ class EmailContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late WebViewController webViewController;
-    if ((mail.body.contains("<!DOCTYPE html>") &&
+    if ((mail.body.contains("<html>") &&
         (Platform.isAndroid || Platform.isIOS))) {
       webViewController = WebViewController();
       webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
@@ -54,7 +54,7 @@ class EmailContentWidget extends StatelessWidget {
                 '</body>',
       );
     }
-    return (mail.body.contains("<!DOCTYPE html>") &&
+    return (mail.body.contains("<html>") &&
             (Platform.isAndroid || Platform.isIOS))
         ? WebViewWidget(
             controller: webViewController,
