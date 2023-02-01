@@ -1,5 +1,7 @@
 export 'domain/logic/izly_logic.dart';
 export 'domain/model/izly_credential.dart';
+export 'domain/model/izly_qrcode_model.dart';
+export 'domain/model/izly_qrcode_model_wrapper.dart';
 export 'pages/izly_login_page.dart';
 export 'pages/izly_page.dart';
 export 'pages/izly_recharge_cb_page.dart';

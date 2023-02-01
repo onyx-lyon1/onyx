@@ -260,6 +260,11 @@ class SettingsPage extends StatelessWidget {
                           onPressed: () {
                             CacheService.reset<IzlyCredential>();
                             context.read<IzlyCubit>().disconnect();
+                            Hive.deleteBoxFromDisk("cached_qr_code");
+                            Hive.deleteBoxFromDisk("cached_izly_amount");
+                            CacheService.reset<EmailModelWrapper>();
+                            CacheService.reset<DayModelWrapper>();
+                            CacheService.reset<SchoolSubjectModelWrapper>();
                             context.read<AuthentificationCubit>().logout();
                           },
                         ),
@@ -288,6 +293,7 @@ class SettingsPage extends StatelessWidget {
                                   .read<AuthentificationCubit>()
                                   .state
                                   .dartus!,
+
                               cache: false);
                         },
                       ),
@@ -316,17 +322,6 @@ class SettingsPage extends StatelessWidget {
                         onPressed: () {
                           CacheService.reset<EmailModelWrapper>();
                           context.read<EmailCubit>().load(cache: false);
-                        },
-                      ),
-                      MaterialButton(
-                        minWidth: MediaQuery.of(context).size.width,
-                        color: const Color(0xffbf616a),
-                        textColor: Colors.white70,
-                        child: const Text('Vider le cache de izly'),
-                        onPressed: () {
-                          Hive.deleteBoxFromDisk("cached_qr_code");
-                          Hive.deleteBoxFromDisk("cached_izly_amount");
-                          context.read<IzlyCubit>().connect();
                         },
                       ),
                     ])

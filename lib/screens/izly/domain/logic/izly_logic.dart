@@ -1,8 +1,9 @@
 import 'package:flutter/services.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/izly/domain/model/izly_credential.dart';
+import 'package:onyx/screens/izly/domain/model/izly_qrcode_model.dart';
+import 'package:onyx/screens/izly/domain/model/izly_qrcode_model_wrapper.dart';
 
 class IzlyLogic {
   static Future<IzlyCredential> getIzlyCredential(
@@ -20,24 +21,38 @@ class IzlyLogic {
   }
 
   static Future<Uint8List> getQrCode() async {
-    Box box = await Hive.openBox<List<dynamic>>("cached_qr_code");
-    List<dynamic> qrCodes = box.get("qr_code", defaultValue: []);
-    Uint8List qrCode;
-    if (qrCodes.isNotEmpty) {
-      qrCode = qrCodes.removeAt(0);
-      box.put("qr_code", qrCodes);
+    if (!(await CacheService.exist<IzlyQrCodeModelWrapper>())) {
+      return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
     } else {
-      qrCode = (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
+      List<IzlyQrCodeModel> qrCodeModels =
+          (await CacheService.get<IzlyQrCodeModelWrapper>())!.qrCodes;
+      for (IzlyQrCodeModel qrCodeModel in qrCodeModels) {
+        if (qrCodeModel.expirationDate.isBefore(DateTime.now())) {
+          qrCodeModels.remove(qrCodeModel);
+        }
+      }
+      if (qrCodeModels.isEmpty) {
+        return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
+      } else {
+        IzlyQrCodeModel qrCodeModel = qrCodeModels.removeAt(0);
+        await CacheService.set<IzlyQrCodeModelWrapper>(
+            IzlyQrCodeModelWrapper(qrCodes: qrCodeModels));
+        return qrCodeModel.qrCode;
+      }
     }
-    return qrCode;
   }
 
   static Future<bool> completeQrCodeCache(IzlyClient izlyClient) async {
-    Box box = await Hive.openBox<List<dynamic>>("cached_qr_code");
-    List<dynamic> qrCodes = box.get("qr_code", defaultValue: []);
+    List<IzlyQrCodeModel> qrCodes =
+        ((await CacheService.get<IzlyQrCodeModelWrapper>())?.qrCodes) ?? [];
     try {
-      qrCodes.addAll(await izlyClient.getNQRCode((3 - qrCodes.length)));
-      box.put("qr_code", qrCodes);
+      qrCodes.addAll((await izlyClient.getNQRCode((3 - qrCodes.length)))
+          .map((e) => IzlyQrCodeModel(
+              qrCode: e,
+              expirationDate: DateTime.now().add(const Duration(days: 3))))
+          .toList());
+      await CacheService.set<IzlyQrCodeModelWrapper>(
+          IzlyQrCodeModelWrapper(qrCodes: qrCodes));
     } catch (e) {
       return false;
     }

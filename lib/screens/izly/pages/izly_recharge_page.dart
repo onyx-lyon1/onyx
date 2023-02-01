@@ -35,8 +35,8 @@ class IzlyRechargePage extends StatelessWidget {
                 IzlayRechargeCardWidget(
                   icon: Icons.compare_arrows_rounded,
                   text: "Virement",
-                  child: const IzlyRechargeTranferPage(),
                   pageController: pageController,
+                  child: const IzlyRechargeTranferPage(),
                 ),
                 SizedBox(width: 5.w),
                 IzlayRechargeCardWidget(
