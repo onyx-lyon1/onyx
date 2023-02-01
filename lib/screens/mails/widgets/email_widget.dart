@@ -62,9 +62,6 @@ class EmailWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        print("tap");
-      },
       onLongPress: () {
         showDialog(
           context: context,

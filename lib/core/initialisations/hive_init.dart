@@ -22,6 +22,7 @@ Future<void> hiveInit({String? path}) async {
   Hive.registerAdapter(SettingsModelAdapter());
   Hive.registerAdapter(ThemeModeEnumAdapter());
   Hive.registerAdapter(IzlyCredentialAdapter());
+  Hive.registerAdapter(IzlyQrCodeModelAdapter());
   if (path != null) {
     Hive.init(path);
   } else {
