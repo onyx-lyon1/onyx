@@ -180,7 +180,7 @@ class EmailSendPage extends StatelessWidget {
                                   width: 70.w,
                                   child: const Center(
                                     child: Text(
-                                      "reponse",
+                                      "Réponse",
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
