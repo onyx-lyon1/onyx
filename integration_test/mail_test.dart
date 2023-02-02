@@ -51,7 +51,7 @@ Future<void> mailTest(ConvenientTest t) async {
 
   //reply to mail
   await find.byIcon(Icons.reply_rounded).tap();
-  await find.text("reponse").should(findsOneWidget);
+  await find.text("Réponse").should(findsOneWidget);
   await find.text("Message").should(findsOneWidget);
   await find.text("bodyMock1").should(findsOneWidget);
   await find.text("Ajouter\n une pièce jointe").should(findsOneWidget);
