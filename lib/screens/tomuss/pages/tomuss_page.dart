@@ -82,8 +82,19 @@ class _TomussPageState extends State<TomussPage> {
           );
         } else if (state.status == TomussStatus.error) {
           Future.delayed(const Duration(seconds: 3), () {
-            context.read<TomussCubit>().load(
-                  dartus: context.read<AuthentificationCubit>().state.dartus!,
+            context
+                .read<AuthentificationCubit>()
+                .login(
+                    keepLogedIn: context
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .keepMeLoggedIn)
+                .then(
+                  (value) => context.read<TomussCubit>().load(
+                        dartus:
+                            context.read<AuthentificationCubit>().state.dartus!,
+                      ),
                 );
           });
           loadingHeader = const LoadingHeaderWidget(
