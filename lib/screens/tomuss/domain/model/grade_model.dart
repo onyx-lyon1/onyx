@@ -56,7 +56,6 @@ class GradeModel {
         children = grade.children.map((e) => GradeModel.fromGrade(e)).toList(),
         coef = null;
 
-
   @override
   String toString() {
     return 'GradeModel{name: $name, author: $author, gradeNumerator: $gradeNumerator, gradeDenominator: $gradeDenominator, rank: $rank, average: $average, mediane: $mediane, groupSize: $groupSize, isValidGrade: $isValidGrade, children: $children, coef: $coef}';
@@ -71,12 +70,6 @@ class GradeModel {
           author == other.author &&
           gradeNumerator == other.gradeNumerator &&
           gradeDenominator == other.gradeDenominator &&
-          rank == other.rank &&
-          average == other.average &&
-          mediane == other.mediane &&
-          groupSize == other.groupSize &&
-          isValidGrade == other.isValidGrade &&
-          coef == other.coef &&
           listEquals(children, other.children);
 
   @override
@@ -85,11 +78,5 @@ class GradeModel {
       author.hashCode ^
       gradeNumerator.hashCode ^
       gradeDenominator.hashCode ^
-      rank.hashCode ^
-      average.hashCode ^
-      mediane.hashCode ^
-      groupSize.hashCode ^
-      isValidGrade.hashCode ^
-      coef.hashCode ^
       children.hashCode;
 }
