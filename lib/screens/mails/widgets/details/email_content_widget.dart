@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
@@ -15,14 +17,16 @@ class EmailContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late WebViewController webViewController;
+    late WebViewController webViewController = WebViewController();
     if ((mail.body.contains("<html") &&
         (Platform.isAndroid || Platform.isIOS))) {
-      webViewController = WebViewController();
       webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
+      webViewController
+          .setBackgroundColor(Theme.of(context).colorScheme.background);
       webViewController.setNavigationDelegate(
         NavigationDelegate(
           onNavigationRequest: (NavigationRequest request) async {
+            print("nav request: ${request.url}");
             if (await canLaunchUrl(Uri.parse(request.url))) {
               await launchUrl(Uri.parse(request.url),
                   mode: LaunchMode.externalApplication);
@@ -58,9 +62,9 @@ class EmailContentWidget extends StatelessWidget {
             (Platform.isAndroid || Platform.isIOS))
         ? WebViewWidget(
             controller: webViewController,
-            // gestureRecognizers: Platform.isAndroid
-            //     ? {Factory(() => EagerGestureRecognizer())}
-            //     : null,
+            gestureRecognizers: {
+              Factory(() => EagerGestureRecognizer())
+            }, //maybe causing bug on ios
           )
         : SelectableText(
             mail.body,
