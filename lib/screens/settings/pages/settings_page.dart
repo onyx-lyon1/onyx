@@ -293,7 +293,6 @@ class SettingsPage extends StatelessWidget {
                                   .read<AuthentificationCubit>()
                                   .state
                                   .dartus!,
-
                               cache: false);
                         },
                       ),
@@ -324,7 +323,8 @@ class SettingsPage extends StatelessWidget {
                           context.read<EmailCubit>().load(cache: false);
                         },
                       ),
-                    ])
+                    ]),
+                    const SettingsLinkWidget(),
                   ],
                 ),
               ),
