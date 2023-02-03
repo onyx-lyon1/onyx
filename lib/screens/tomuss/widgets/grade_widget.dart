@@ -195,7 +195,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 3.h,
+                        height: 5.h,
                         child: AutoSizeText(
                           widget.text1,
                           style: TextStyle(

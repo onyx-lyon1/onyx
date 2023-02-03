@@ -61,48 +61,50 @@ class EmailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onLongPress: () {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            backgroundColor: Theme.of(context).colorScheme.background,
-            title: const Text("Supprimer"),
-            content: const Text("Êtes-vous sûr de vouloir supprimer ce mail ?"),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text(
-                  "Annuler",
-                  style: TextStyle(color: Colors.green),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.read<EmailCubit>().delete(email: email);
-                  Navigator.pop(context);
-                },
-                child: const Text(
-                  "Supprimer",
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-            ],
-          ),
-        );
+    return OpenContainer(
+      useRootNavigator: true,
+      transitionDuration: Res.animationDuration,
+      closedColor: email.isRead ? readBgColor(context) : unreadBgColor(context),
+      openColor: Theme.of(context).colorScheme.background,
+      onClosed: (value) {
+        context.read<EmailCubit>().markAsRead(email: email);
       },
-      child: OpenContainer(
-        transitionDuration: Res.animationDuration,
-        closedColor:
-            email.isRead ? readBgColor(context) : unreadBgColor(context),
-        openColor: Theme.of(context).colorScheme.background,
-        onClosed: (value) {
-          context.read<EmailCubit>().markAsRead(email: email);
+      openBuilder: (context, closeContainer) => EmailDetailsPage(
+        mail: email,
+      ),
+      closedBuilder: (context, openContainer) => InkWell(
+        onTap: openContainer,
+        onLongPress: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              title: const Text("Supprimer"),
+              content:
+                  const Text("Êtes-vous sûr de vouloir supprimer ce mail ?"),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text(
+                    "Annuler",
+                    style: TextStyle(color: Colors.green),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    context.read<EmailCubit>().delete(email: email);
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "Supprimer",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+              ],
+            ),
+          );
         },
-        openBuilder: (context, closeContainer) => EmailDetailsPage(
-          mail: email,
-        ),
-        closedBuilder: (context, openContainer) => Column(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(

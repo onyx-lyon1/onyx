@@ -35,20 +35,23 @@ class IzlayRechargeCardWidget extends StatelessWidget {
         });
       },
       openBuilder: (context, closeContainer) => child,
-      closedBuilder: (context, openContainer) => SizedBox(
-        width: 30.w,
-        height: 30.w,
-        child: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon),
-            Text(
-              text,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        )),
+      closedBuilder: (context, openContainer) => InkWell(
+        onTap: openContainer,
+        child: SizedBox(
+          width: 30.w,
+          height: 30.w,
+          child: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon),
+              Text(
+                text,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )),
+        ),
       ),
     );
   }

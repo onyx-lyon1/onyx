@@ -103,15 +103,18 @@ class _LoginPageState extends State<LoginPage> {
                                   Theme.of(context).secondaryHeaderColor,
                               openBuilder: (context, closewidget) =>
                                   const PrivacyPolicyPage(),
-                              closedBuilder: (context, openwidget) => Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 3.w, vertical: 0.5.h),
-                                child: Text(
-                                  "confidentialité",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(fontSize: 10.sp),
+                              closedBuilder: (context, openwidget) => InkWell(
+                                onTap: openwidget,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 3.w, vertical: 0.5.h),
+                                  child: Text(
+                                    "confidentialité",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(fontSize: 10.sp),
+                                  ),
                                 ),
                               ),
                             ),
