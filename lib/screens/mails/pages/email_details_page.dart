@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
@@ -29,7 +30,7 @@ class EmailDetailsPage extends StatelessWidget {
                       color: Theme.of(context).cardTheme.color,
                       child: Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 2.w, vertical: 1.h),
+                            horizontal: 2.w, vertical: 2.h),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -42,6 +43,7 @@ class EmailDetailsPage extends StatelessWidget {
                                 color: Theme.of(context)
                                     .bottomNavigationBarTheme
                                     .unselectedItemColor,
+                                size: 20.sp,
                               ),
                             ),
                             SizedBox(
@@ -87,7 +89,7 @@ class EmailDetailsPage extends StatelessWidget {
                     ),
                     Container(
                       color: Theme.of(context).cardTheme.color,
-                      height: (mail.attachments.isNotEmpty) ? 60.h : 72.h,
+                      height: (mail.attachments.isNotEmpty) ? 60.h : 70.h,
                       width: 100.w,
                       padding: EdgeInsets.all(1.h),
                       child: EmailContentWidget(mail: mail),
@@ -140,38 +142,34 @@ class EmailDetailsPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(
-                      onPressed: (!state.connected)
-                          ? null
-                          : () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EmailSendPage(
-                                    replyAll: false,
-                                    replyOriginalMessage: mail.id,
-                                  ),
-                                ),
-                              );
-                            },
-                      icon: const Icon(
+                  OpenContainer(
+                    closedColor: Colors.transparent,
+                    closedElevation: 0,
+                    openBuilder: (context, closewidget) => EmailSendPage(
+                      replyAll: false,
+                      replyOriginalMessage: mail.id,
+                    ),
+                    closedBuilder: (context, openwidget) => InkWell(
+                      onTap: (!state.connected) ? null : openwidget,
+                      child: const Icon(
                         Icons.reply_rounded,
-                      )),
-                  IconButton(
-                      onPressed: (!state.connected)
-                          ? null
-                          : () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EmailSendPage(
-                                    replyAll: true,
-                                    replyOriginalMessage: mail.id,
-                                  ),
-                                ),
-                              );
-                            },
-                      icon: const Icon(Icons.reply_all_rounded))
+                      ),
+                    ),
+                  ),
+                  OpenContainer(
+                    closedColor: Colors.transparent,
+                    closedElevation: 0,
+                    openBuilder: (context, closewidget) => EmailSendPage(
+                      replyAll: true,
+                      replyOriginalMessage: mail.id,
+                    ),
+                    closedBuilder: (context, openwidget) => InkWell(
+                      onTap: (!state.connected) ? null : openwidget,
+                      child: const Icon(
+                        Icons.reply_all_rounded,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

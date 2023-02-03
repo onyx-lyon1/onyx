@@ -10,23 +10,26 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class EmailContentWidget extends StatelessWidget {
+class EmailContentWidget extends StatefulWidget {
   final EmailModel mail;
 
   const EmailContentWidget({Key? key, required this.mail}) : super(key: key);
 
   @override
+  State<EmailContentWidget> createState() => _EmailContentWidgetState();
+}
+
+class _EmailContentWidgetState extends State<EmailContentWidget> {
+  final WebViewController webViewController = WebViewController();
+
+  @override
   Widget build(BuildContext context) {
-    late WebViewController webViewController = WebViewController();
-    if ((mail.body.contains("<html") &&
+    if ((widget.mail.body.contains("<html") &&
         (Platform.isAndroid || Platform.isIOS))) {
       webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
-      webViewController
-          .setBackgroundColor(Theme.of(context).colorScheme.background);
       webViewController.setNavigationDelegate(
         NavigationDelegate(
           onNavigationRequest: (NavigationRequest request) async {
-            print("nav request: ${request.url}");
             if (await canLaunchUrl(Uri.parse(request.url))) {
               await launchUrl(Uri.parse(request.url),
                   mode: LaunchMode.externalApplication);
@@ -37,6 +40,9 @@ class EmailContentWidget extends StatelessWidget {
           },
         ),
       );
+
+      webViewController
+          .setBackgroundColor(Theme.of(context).colorScheme.background);
       webViewController.loadHtmlString(
         (context.read<SettingsCubit>().state.settings.darkerMail)
             ?
@@ -46,7 +52,7 @@ class EmailContentWidget extends StatelessWidget {
                 '<style>body { background-color: ${Theme.of(context).cardTheme.color!.toHex()}; } </style>'
                 '</head>'
                 '<body text="${Theme.of(context).textTheme.bodyMedium?.color?.toHex()}" >'
-                '${mail.body}'
+                '${widget.mail.body}'
                 '</body>'
             :
             //add background screen
@@ -54,20 +60,21 @@ class EmailContentWidget extends StatelessWidget {
                 '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
                 '</head>'
                 '<body>'
-                '${mail.body}'
+                '${widget.mail.body}'
                 '</body>',
       );
     }
-    return (mail.body.contains("<html") &&
+    return (widget.mail.body.contains("<html") &&
             (Platform.isAndroid || Platform.isIOS))
         ? WebViewWidget(
             controller: webViewController,
             gestureRecognizers: {
               Factory(() => EagerGestureRecognizer())
-            }, //maybe causing bug on ios
+            },
+      //maybe causing bug on ios
           )
         : SelectableText(
-            mail.body,
+            widget.mail.body,
             textAlign: TextAlign.left,
           );
   }
