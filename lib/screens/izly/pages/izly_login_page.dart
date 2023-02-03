@@ -1,6 +1,8 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/core/screens/privacy_policie_page.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:sizer/sizer.dart';
 
@@ -40,9 +42,10 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("ONYX",
-                        style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                              fontSize: 20.sp,
-                            )),
+                        style:
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontSize: 20.sp,
+                                )),
                     Text("Pour Lyon 1",
                         style: Theme.of(context)
                             .textTheme
@@ -74,12 +77,12 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                               .copyWith(fontSize: 12.sp),
                         ),
                         Material(
-                          color: Theme.of(context).secondaryHeaderColor,
                           borderRadius: BorderRadius.circular(5),
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(5),
-                            onTap: () {},
-                            child: Padding(
+                          child: OpenContainer(
+                            closedColor: Theme.of(context).secondaryHeaderColor,
+                            openBuilder: (context, closewidget) =>
+                                const PrivacyPolicyPage(),
+                            closedBuilder: (context, openwidget) => Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 3.w, vertical: 0.5.h),
                               child: Text(
