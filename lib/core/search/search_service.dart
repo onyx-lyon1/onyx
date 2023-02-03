@@ -15,6 +15,7 @@ class SearchService {
         .toList();
     //remove special characters
     aTerms = aTerms.map((e) => e!.replaceAll(RegExp(r"[^\w\s]"), '')).toList();
+    aTerms = aTerms.where((term) => !term!.contains("amphi")).toList();
 
     b = b.toLowerCase();
     b = b
