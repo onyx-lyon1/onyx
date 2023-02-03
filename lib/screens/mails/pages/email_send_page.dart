@@ -111,8 +111,8 @@ class EmailSendPage extends StatelessWidget {
                   Container(
                     color: Theme.of(context).cardTheme.color,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 2.w, vertical: 0.5.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -123,6 +123,7 @@ class EmailSendPage extends StatelessWidget {
                               color: Theme.of(context)
                                   .bottomNavigationBarTheme
                                   .unselectedItemColor,
+                              size: 20.sp,
                             ),
                           ),
                           SizedBox(
@@ -134,8 +135,7 @@ class EmailSendPage extends StatelessWidget {
                                     child: TextField(
                                       controller: subjectEditor,
                                       maxLines: 1,
-                                      textAlignVertical:
-                                          TextAlignVertical.top,
+                                      textAlignVertical: TextAlignVertical.top,
                                       cursorColor: Theme.of(context)
                                           .textTheme
                                           .labelLarge!
@@ -169,7 +169,8 @@ class EmailSendPage extends StatelessWidget {
                                           border: UnderlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Theme.of(context)
-                                                  .colorScheme.background,
+                                                  .colorScheme
+                                                  .background,
                                               width: 1,
                                             ),
                                           )),
@@ -209,49 +210,56 @@ class EmailSendPage extends StatelessWidget {
                   ),
                   Container(
                     color: Theme.of(context).cardTheme.color,
-                    height: (replyOriginalMessage == null) ? 65.h : 75.h,
+                    height: (replyOriginalMessage == null) ? 62.5.h : 75.h,
                     width: 100.w,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(1.h),
-                          child: TextField(
-                            controller: bodyEditor,
-                            textAlignVertical: TextAlignVertical.top,
-                            cursorColor:
-                                Theme.of(context).textTheme.labelLarge!.color!,
-                            style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.labelLarge!.color!,
-                            ),
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            decoration: InputDecoration(
-                              hintText: "Message",
-                              hintStyle: Theme.of(context)
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(1.h),
+                            child: TextField(
+                              controller: bodyEditor,
+                              textAlignVertical: TextAlignVertical.top,
+                              cursorColor: Theme.of(context)
                                   .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .color!
-                                          .withOpacity(0.5)),
-                              focusedBorder: InputBorder.none,
-                              border: InputBorder.none,
+                                  .labelLarge!
+                                  .color!,
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge!
+                                    .color!,
+                              ),
+                              keyboardType: TextInputType.multiline,
+                              maxLines: null,
+                              decoration: InputDecoration(
+                                hintText: "Message",
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .color!
+                                            .withOpacity(0.5)),
+                                focusedBorder: InputBorder.none,
+                                border: InputBorder.none,
+                              ),
                             ),
                           ),
-                        ),
-                        (replyOriginalMessage != null)
-                            ? Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.all(1.h),
-                                child: EmailContentWidget(
-                                    mail: state.emails.firstWhere((element) =>
-                                        element.id == replyOriginalMessage)),
-                              )
-                            : Container(),
-                      ],
+                          (replyOriginalMessage != null)
+                              ? Container(
+                                  width: 100.w,
+                                  height: 75.h,
+                                  padding: EdgeInsets.all(1.h),
+                                  child: EmailContentWidget(
+                                      mail: state.emails.firstWhere((element) =>
+                                          element.id == replyOriginalMessage)),
+                                )
+                              : Container(),
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(

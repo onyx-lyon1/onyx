@@ -54,14 +54,17 @@ class EmailsPage extends StatelessWidget {
             closedElevation: 6,
             transitionDuration: Res.animationDuration,
             openBuilder: (context, closedContainer) => const EmailSendPage(),
-            closedBuilder: (context, openContainer) => Padding(
-              padding: EdgeInsets.all(1.5.h),
-              child: Icon(
-                Icons.create_rounded,
-                color: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .unselectedItemColor,
-                size: 25.sp,
+            closedBuilder: (context, openContainer) => InkWell(
+              onTap: openContainer,
+              child: Padding(
+                padding: EdgeInsets.all(1.5.h),
+                child: Icon(
+                  Icons.create_rounded,
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .unselectedItemColor,
+                  size: 25.sp,
+                ),
               ),
             ),
           ),

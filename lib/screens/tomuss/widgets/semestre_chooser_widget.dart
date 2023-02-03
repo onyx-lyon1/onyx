@@ -19,8 +19,9 @@ class SemestreChooserWidget extends StatelessWidget {
         ),
       ),
       content: SizedBox(
-        height: 30.h /
-            ((context.read<TomussCubit>().state.semesters.length < 3) ? 2 : 1),
+        height: ((context.read<TomussCubit>().state.semesters.length < 3)
+            ? 10.h
+            : 30.h),
         width: 20.h,
         child: GridView(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

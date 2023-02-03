@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -110,30 +111,30 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
             floatingActionButton: Material(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(100),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(100),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const QrCodeScannerPage();
-                  })).then((value) => context
-                      .read<AgendaConfigCubit>()
-                      .chooseDir(AgendaConfigLogic.urlToIndex(value)));
-                },
-                child: Padding(
-                  padding: EdgeInsets.all(1.5.h),
-                  child: Icon(
-                    Icons.qr_code_rounded,
-                    color: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .unselectedItemColor,
-                    size: 30.sp,
+              child: OpenContainer(
+                transitionDuration: Res.animationDuration,
+                openBuilder: (context, closechild) => const QrCodeScannerPage(),
+                closedColor: Theme.of(context).primaryColor,
+                closedShape: const CircleBorder(),
+                closedBuilder: (context, openchild) => InkWell(
+                  borderRadius: BorderRadius.circular(100),
+                  onTap: openchild,
+                  child: Padding(
+                    padding: EdgeInsets.all(1.5.h),
+                    child: Icon(
+                      Icons.qr_code_rounded,
+                      color: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .unselectedItemColor,
+                      size: 30.sp,
+                    ),
                   ),
                 ),
               ),
             ),
             body: CommonScreenWidget(
               header: Container(
-                margin: EdgeInsets.all(2.w),
+                margin: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.background,
                   borderRadius: BorderRadius.circular(100),

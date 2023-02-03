@@ -1,7 +1,9 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/agenda_config/page/agenda_config_page.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:sizer/sizer.dart';
 
 class AgendaUrlParameterWidget extends StatelessWidget {
   const AgendaUrlParameterWidget({Key? key}) : super(key: key);
@@ -25,49 +27,47 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                         .copyWith(fetchAgendaAuto: b));
               },
             ),
-            if (!context.read<SettingsCubit>().state.settings.fetchAgendaAuto) Container(
-                    clipBehavior: Clip.hardEdge,
-                    margin: const EdgeInsets.only(bottom: 15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: TextButton(
-                        style: ButtonStyle(
-                          overlayColor: MaterialStateProperty.all(
-                            Theme.of(context).primaryColor.withOpacity(0.2),
-                          ),
-                          backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SafeArea(
-                                child: AgendaConfigPage(
-                                  onBack: (index) {
-                                    context.read<SettingsCubit>().modify(
-                                        settings: context
-                                            .read<SettingsCubit>()
-                                            .state
-                                            .settings
-                                            .copyWith(agendaId: index));
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ),
-                            ),
-                          );
+            if (!context.read<SettingsCubit>().state.settings.fetchAgendaAuto)
+              Container(
+                clipBehavior: Clip.hardEdge,
+                margin: const EdgeInsets.only(bottom: 15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: OpenContainer(
+                    openBuilder: (context, closechild) => SafeArea(
+                      child: AgendaConfigPage(
+                        onBack: (index) {
+                          context.read<SettingsCubit>().modify(
+                              settings: context
+                                  .read<SettingsCubit>()
+                                  .state
+                                  .settings
+                                  .copyWith(agendaId: index));
+                          Navigator.pop(context);
                         },
+                      ),
+                    ),
+                    closedColor: Theme.of(context).primaryColor,
+                    closedShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    closedBuilder: (context, openchild) => InkWell(
+                      onTap: openchild,
+                      child: Container(
+                        padding: EdgeInsets.all(2.5.w),
                         child: Text(
                           'Sélectionner l\'agenda',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
                     ),
-                  ) else Container(),
+                  ),
+                ),
+              )
+            else
+              Container(),
           ],
         );
       },
