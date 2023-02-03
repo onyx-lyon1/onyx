@@ -177,7 +177,8 @@ class HomePageState extends State<HomePage> {
                       onTap: (realIndex) {
                         if (realIndex % Res.screenCount == 1 &&
                             (mainPageController.hasClients
-                                    ? (mainPageController.offset ~/ 100.w)
+                                    ? ((mainPageController.offset + 1) ~/
+                                        100.w) //simple +1 to avoid bug
                                     : 0) ==
                                 realIndex) {
                           //TODO test if it's right
