@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/theme/theme_export.dart';
@@ -196,21 +195,31 @@ class _GradeWidgetState extends State<GradeWidget> {
                     children: [
                       SizedBox(
                         height: 5.h,
-                        child: AutoSizeText(
+                        width: 70.w,
+                        child: Text(
                           widget.text1,
+                          maxLines: 1,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).textTheme.bodyLarge!.color,
-                            overflow: TextOverflow.clip,
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 11.sp,
                           ),
                         ),
                       ),
-                      AutoSizeText(
-                        widget.text2,
-                        textAlign: TextAlign.start,
-                        maxLines: 3,
-                        maxFontSize: 12,
-                        minFontSize: 5,
+                      SizedBox(
+                        height: 5.h,
+                        width: 70.w,
+                        child: Text(
+                          widget.text2,
+                          textAlign: TextAlign.start,
+                          maxLines: 3,
+                          style: TextStyle(
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 11.sp,
+                          ),
+                        ),
                       ),
                     ],
                   ),
