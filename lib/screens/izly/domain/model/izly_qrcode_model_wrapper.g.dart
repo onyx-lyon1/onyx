@@ -9,7 +9,7 @@ part of 'izly_qrcode_model_wrapper.dart';
 class IzlyQrCodeModelWrapperAdapter
     extends TypeAdapter<IzlyQrCodeModelWrapper> {
   @override
-  final int typeId = 16;
+  final int typeId = 17;
 
   @override
   IzlyQrCodeModelWrapper read(BinaryReader reader) {
