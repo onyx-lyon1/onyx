@@ -108,7 +108,7 @@ class EmailWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             Row(
               children: [
@@ -223,7 +223,7 @@ class EmailWidget extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             Divider(
               height: 1,
