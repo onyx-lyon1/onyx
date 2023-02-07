@@ -194,7 +194,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 5.h,
+                        height: 3.h,
                         width: 70.w,
                         child: Text(
                           widget.text1,
@@ -208,7 +208,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                         ),
                       ),
                       SizedBox(
-                        height: 5.h,
+                        height: 7.h,
                         width: 70.w,
                         child: Text(
                           widget.text2,
@@ -217,7 +217,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                           style: TextStyle(
                             color: Theme.of(context).textTheme.bodyLarge!.color,
                             overflow: TextOverflow.ellipsis,
-                            fontSize: 11.sp,
+                            fontSize: 7.sp,
                           ),
                         ),
                       ),
