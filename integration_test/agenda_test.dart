@@ -67,7 +67,7 @@ Future<void> agendaTest(ConvenientTest t) async {
   await find.text("09:00").should(findsNWidgets(2));
   await find.text("10:00").should(findsNWidgets(2));
   await find.text("11:00").should(findsOneWidget);
-  await find.text("3 évènement(s)").should(findsOneWidget);
+  await find.text("3 événement(s)").should(findsOneWidget);
   await find
       .text(
         "${DateTime(DateTime.now().year + ((DateTime.now().month < 6) ? -1 : 0), 9, 1).toWeekDayName()} ${1} Septembre",
@@ -76,7 +76,7 @@ Future<void> agendaTest(ConvenientTest t) async {
 
   //check detail of the first event
   await find.text('mockDescription1').tap();
-  await find.text("Détail de l'évènement").should(findsOneWidget);
+  await find.text("Détail de l'événement").should(findsOneWidget);
   await find.text("mockDescription1").should(findsNWidgets(2));
   await find.text("08h00 09h00").should(findsOneWidget);
   await find.text("Déambu").should(findsOneWidget);
