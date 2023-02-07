@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/res.dart';
@@ -6,6 +9,9 @@ import 'package:onyx/screens/map/map_export.dart';
 class GeolocationLogic {
   static Future<LatLng> getCurrentLocation() async {
     if (Res.mock) {
+      return mockLatLng;
+    }
+    if (kIsWeb || Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
       return mockLatLng;
     }
     LocationPermission permission;
