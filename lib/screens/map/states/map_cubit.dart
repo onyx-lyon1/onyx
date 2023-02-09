@@ -37,4 +37,8 @@ class MapCubit extends Cubit<MapState> {
         status: MapStatus.batimentsUpdated,
         batiments: BatimentsLogic.batiments));
   }
+
+  void resetCubit() {
+    emit(MapState(status: MapStatus.initial));
+  }
 }

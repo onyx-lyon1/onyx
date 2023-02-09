@@ -57,4 +57,8 @@ class IzlyCubit extends Cubit<IzlyState> {
     }
     emit(state.copyWith(status: IzlyStatus.initial));
   }
+
+  void resetCubit(){
+    emit(state.copyWith(status: IzlyStatus.initial));
+  }
 }

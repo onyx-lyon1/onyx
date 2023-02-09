@@ -2,7 +2,6 @@ import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/cache_service.dart';
-import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -78,10 +77,6 @@ class TomussCubit extends Cubit<TomussState> {
           teachingUnits: teachingUnits,
           semesters: semesters,
           currentSemesterIndex: semestreIndex));
-    } else if (Res.mock) {
-      emit(state.copyWith(
-        status: TomussStatus.ready,
-      ));
     }
   }
 
@@ -92,5 +87,9 @@ class TomussCubit extends Cubit<TomussState> {
         state.teachingUnits, state.currentSemesterIndex));
     emit(state.copyWith(
         status: TomussStatus.updated, teachingUnits: state.teachingUnits));
+  }
+
+  void resetCubit() async {
+    emit(TomussState(status: TomussStatus.initial));
   }
 }
