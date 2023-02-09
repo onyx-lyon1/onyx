@@ -78,8 +78,7 @@ class EmailModel {
           date == other.date &&
           receiver == other.receiver &&
           listEquals(attachments, other.attachments) &&
-          isFlagged == other.isFlagged &&
-          rawMail == other.rawMail;
+          isFlagged == other.isFlagged;
 
   @override
   int get hashCode =>
@@ -92,6 +91,5 @@ class EmailModel {
       date.hashCode ^
       receiver.hashCode ^
       attachments.hashCode ^
-      isFlagged.hashCode ^
-      rawMail.hashCode;
+      isFlagged.hashCode;
 }
