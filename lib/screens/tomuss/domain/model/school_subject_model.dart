@@ -50,16 +50,8 @@ class SchoolSubjectModel {
       other is SchoolSubjectModel &&
           runtimeType == other.runtimeType &&
           name == other.name &&
-          listEquals(masters, other.masters) &&
-          listEquals(grades, other.grades) &&
-          isSeen == other.isSeen &&
-          isHidden == other.isHidden;
+          listEquals(masters, other.masters);
 
   @override
-  int get hashCode =>
-      name.hashCode ^
-      masters.hashCode ^
-      grades.hashCode ^
-      isSeen.hashCode ^
-      isHidden.hashCode;
+  int get hashCode => name.hashCode ^ masters.hashCode;
 }
