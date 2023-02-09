@@ -16,7 +16,7 @@ class SettingsLinkWidget extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              launchUrl(Uri.parse('https://discord.gg/DxJb39u'));
+              launchUrl(Uri.parse('https://discord.gg/DxJb39u'), mode: LaunchMode.externalApplication);
             },
             child: Image.asset(
               'assets/discord_Logo.png',
@@ -27,7 +27,7 @@ class SettingsLinkWidget extends StatelessWidget {
           const SizedBox(width: 8),
           InkWell(
               onTap: () {
-                launchUrl(Uri.parse('https://oloid.clementherve.fr/'));
+                launchUrl(Uri.parse('https://oloid.clementherve.fr/'), mode: LaunchMode.externalApplication);
               },
               child: Icon(
                 Icons.info_outline,
