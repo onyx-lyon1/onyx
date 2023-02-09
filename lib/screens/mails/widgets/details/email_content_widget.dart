@@ -68,10 +68,8 @@ class _EmailContentWidgetState extends State<EmailContentWidget> {
             (Platform.isAndroid || Platform.isIOS))
         ? WebViewWidget(
             controller: webViewController,
-            gestureRecognizers: {
-              Factory(() => EagerGestureRecognizer())
-            },
-      //maybe causing bug on ios
+            gestureRecognizers: {Factory(() => EagerGestureRecognizer())},
+            //maybe causing bug on ios
           )
         : SelectableText(
             widget.mail.body,
