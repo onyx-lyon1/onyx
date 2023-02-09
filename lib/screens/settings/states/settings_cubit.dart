@@ -43,4 +43,9 @@ class SettingsCubit extends Cubit<SettingsState> {
     await SettingsLogic.modify(settings: settings);
     emit(state.copyWith(status: SettingsStatus.ready, settings: settings));
   }
+
+  void resetCubit() async {
+    emit(SettingsState(
+        settings: SettingsModel(), status: SettingsStatus.initial));
+  }
 }

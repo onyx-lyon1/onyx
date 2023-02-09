@@ -96,9 +96,22 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
       await _dartus!.logout();
     }
     emit(state.copyWith(
-        status: AuthentificationStatus.needCredential,
-        username: "",
-        password: "",
-        dartus: _dartus));
+      status: AuthentificationStatus.needCredential,
+      username: "",
+      password: "",
+      dartus: _dartus,
+    ));
+  }
+
+  void resetCubit() {
+    _dartus = null;
+    _usename = "";
+    _password = "";
+    emit(state.copyWith(
+      status: AuthentificationStatus.initial,
+      username: "",
+      password: "",
+      dartus: _dartus,
+    ));
   }
 }

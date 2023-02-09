@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 part 'email_state.dart';
 
 class EmailCubit extends Cubit<EmailState> {
-  late Lyon1Mail mailClient;
+  Lyon1Mail? mailClient;
   List<EmailModel> emailsComplete = [];
   late String username;
   late String password;
@@ -64,9 +64,9 @@ class EmailCubit extends Cubit<EmailState> {
   }
 
   void delete({required EmailModel email}) async {
-    if (mailClient.isAuthenticated) {
-      await mailClient.fetchMessages(20);
-      await mailClient.delete(email.id!);
+    if (mailClient!.isAuthenticated) {
+      await mailClient!.fetchMessages(20);
+      await mailClient!.delete(email.id!);
       emit(state.copyWith(
           status: EmailStatus.updated, emails: state.emails..remove(email)));
       load(cache: false);
@@ -76,15 +76,15 @@ class EmailCubit extends Cubit<EmailState> {
 
   void markAsRead({required EmailModel email}) async {
     if (!email.isRead) {
-      if (!mailClient.isAuthenticated && !Res.mock) {
-        if (!await mailClient.login()) {
+      if (!mailClient!.isAuthenticated && !Res.mock) {
+        if (!await mailClient!.login()) {
           emit(state.copyWith(status: EmailStatus.error));
           return;
         }
       }
       if (!Res.mock) {
-        await mailClient.fetchMessages(1);
-        await mailClient.markAsRead(email.id!);
+        await mailClient!.fetchMessages(1);
+        await mailClient!.markAsRead(email.id!);
       }
       emailsComplete[emailsComplete.indexOf(email)].isRead = true;
       List<EmailModel> emails = state.emails;
@@ -95,19 +95,19 @@ class EmailCubit extends Cubit<EmailState> {
   }
 
   void toggleFlag({required EmailModel email}) async {
-    if (!mailClient.isAuthenticated && !Res.mock) {
-      if (!await mailClient.login()) {
+    if (!mailClient!.isAuthenticated && !Res.mock) {
+      if (!await mailClient!.login()) {
         emit(state.copyWith(status: EmailStatus.error));
         return;
       }
     }
     if (!Res.mock) {
-      await mailClient.fetchMessages(1);
+      await mailClient!.fetchMessages(1);
     }
 
     if (email.isFlagged) {
       if (!Res.mock) {
-        await mailClient.unmarkAsFlagged(email.id!);
+        await mailClient!.unmarkAsFlagged(email.id!);
       }
       emailsComplete[emailsComplete.indexOf(email)].isFlagged = false;
       List<EmailModel> emails = state.emails;
@@ -116,7 +116,7 @@ class EmailCubit extends Cubit<EmailState> {
       emit(state.copyWith(status: EmailStatus.updated, emails: emails));
     } else {
       if (!Res.mock) {
-        await mailClient.markAsFlagged(email.id!);
+        await mailClient!.markAsFlagged(email.id!);
       }
       emailsComplete[emailsComplete.indexOf(email)].isFlagged = true;
       List<EmailModel> emails = state.emails;
@@ -140,7 +140,7 @@ class EmailCubit extends Cubit<EmailState> {
     }
     try {
       emailsComplete = await EmailLogic.load(
-          emailNumber: emailNumber, mailClient: mailClient);
+          emailNumber: emailNumber, mailClient: mailClient!);
     } catch (e) {
       emit(state.copyWith(status: EmailStatus.error));
       return;
@@ -160,7 +160,7 @@ class EmailCubit extends Cubit<EmailState> {
       try {
         await EmailLogic.send(
           email: email,
-          mailClient: mailClient,
+          mailClient: mailClient!,
           replyOriginalMessageId: replyOriginalMessageId,
           replyAll: replyAll,
           emailNumber: emailNumber,
@@ -180,5 +180,13 @@ class EmailCubit extends Cubit<EmailState> {
     emit(state.copyWith(status: EmailStatus.loading));
     load(cache: false);
     return;
+  }
+
+  void resetCubit() {
+    mailClient = null;
+    emailsComplete = [];
+    emailNumber = 20;
+    lastFilter = "";
+    emit(EmailState(status: EmailStatus.initial));
   }
 }

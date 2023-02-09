@@ -114,7 +114,7 @@ class EmailDetailsPage extends StatelessWidget {
                                                 email: mail,
                                                 mailClient: context
                                                     .read<EmailCubit>()
-                                                    .mailClient,
+                                                    .mailClient!,
                                                 emailNumber: state.emailNumber,
                                                 fileName:
                                                     mail.attachments[index]);

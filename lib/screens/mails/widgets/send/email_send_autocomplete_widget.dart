@@ -17,7 +17,7 @@ class EmailSendAutocompleteWidget extends StatelessWidget {
         if (Res.mock) {
           return EmailLogic.mockAddresses;
         }
-        if (!context.read<EmailCubit>().mailClient.isAuthenticated) {
+        if (!context.read<EmailCubit>().mailClient!.isAuthenticated) {
           context.read<EmailCubit>().connect(
               username: context.read<AuthentificationCubit>().state.username!,
               password: context.read<AuthentificationCubit>().state.password!);
@@ -25,7 +25,7 @@ class EmailSendAutocompleteWidget extends StatelessWidget {
         } else {
           return (await context
                   .read<EmailCubit>()
-                  .mailClient
+                  .mailClient!
                   .resolveContact(textEditingValue.text))
               .map((e) => e.email.toString())
               .toList();

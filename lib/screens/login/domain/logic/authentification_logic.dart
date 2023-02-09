@@ -6,7 +6,9 @@ import 'package:onyx/screens/login/login_export.dart';
 class AuthentificationLogic {
   static Future<AuthenticationModel> fetchCredential(
       {String? username, String? password}) async {
-    if (Res.mock) {}
+    if (Res.mock) {
+      return mockCredential;
+    }
     Box<AuthenticationModel> authBox =
         await Hive.openBox<AuthenticationModel>("authentification");
     AuthenticationModel? auth;
