@@ -36,7 +36,7 @@ void backgroundLogic() {
     if (await CacheService.exist<SemestreModelWrapper>()) {
       SemestreModelWrapper? semestreModelWrapper =
           await CacheService.get<SemestreModelWrapper>();
-      semestreIndex = semestreModelWrapper!.currentSemestreIndex;
+      semestreIndex = semestreModelWrapper!.semestres.length - 1;
       semestreModel = semestreModelWrapper.semestres[semestreIndex];
     }
     if (await CacheService.exist<SchoolSubjectModelWrapper>(
@@ -56,7 +56,7 @@ void backgroundLogic() {
             .schoolSubjectModel!;
     for (var i in newTeachingUnits) {
       SchoolSubjectModel teachingUnitModel =
-          teachingUnits.firstWhere((element) => element.name == i.name);
+          teachingUnits.firstWhere((element) => element == i);
       for (var x in i.grades) {
         if (!teachingUnitModel.grades.any((element) => element == x)) {
           await NotificationLogic.showNotification(
