@@ -90,4 +90,12 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
   void chooseDir(int id) {
     onBack(id);
   }
+
+  void resetCubit(){
+    emit(AgendaConfigState(
+            choosedId: 0,
+            dirs: [],
+            error: '',
+            status: AgendaConfigStatus.initial));
+  }
 }

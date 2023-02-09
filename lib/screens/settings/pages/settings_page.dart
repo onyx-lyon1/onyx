@@ -10,6 +10,7 @@ import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
+import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/widgets/drop_down_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
@@ -262,9 +263,19 @@ class SettingsPage extends StatelessWidget {
                             context.read<IzlyCubit>().disconnect();
                             Hive.deleteBoxFromDisk("cached_qr_code");
                             Hive.deleteBoxFromDisk("cached_izly_amount");
+                            CacheService.reset<IzlyQrCodeModelWrapper>();
                             CacheService.reset<EmailModelWrapper>();
                             CacheService.reset<DayModelWrapper>();
                             CacheService.reset<SchoolSubjectModelWrapper>();
+                            CacheService.reset<AuthenticationModel>();
+                            CacheService.reset<SettingsModel>();
+                            context.read<AgendaCubit>().resetCubit();
+                            context.read<IzlyCubit>().resetCubit();
+                            context.read<EmailCubit>().resetCubit();
+                            context.read<MapCubit>().resetCubit();
+                            context.read<SettingsCubit>().resetCubit();
+                            context.read<SettingsCubit>().load();
+                            context.read<TomussCubit>().resetCubit();
                             context.read<AuthentificationCubit>().logout();
                           },
                         ),

@@ -55,4 +55,11 @@ class AgendaCubit extends Cubit<AgendaState> {
         wantedDate: date,
         dateUpdateFromPageController: fromPageController));
   }
+
+  void resetCubit() {
+    emit(AgendaState(
+        status: AgendaStatus.initial,
+        wantedDate: DateTime.now(),
+        dayModels: []));
+  }
 }
