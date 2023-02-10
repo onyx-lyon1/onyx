@@ -60,6 +60,6 @@ class AuthentificationState {
 
   @override
   String toString() {
-    return 'AuthentificationState{status: $status, username: $username, password: $password, dartus: $dartus}';
+    return 'AuthentificationState{status: $status, username: $username, password: $password, dartus: $dartus, firstLogin: $firstLogin}';
   }
 }
