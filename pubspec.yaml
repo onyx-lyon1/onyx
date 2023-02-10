@@ -3,7 +3,7 @@ description: ade, tomuss email pour lyon1
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.5+5
+version: 1.0.6+6
 
 environment:
   sdk: ">=2.15.1 <4.0.0"
@@ -58,14 +58,14 @@ dependencies:
 
 dependency_overrides:
   # unindent for devlopment to use local version of the libraries
-  dartus:
-    path: ../dartus-tomuss-client
-  lyon1mail:
-    path: ../lyon1-mailclient
-  lyon1agenda:
-    path: ../lyon1-agendaclient
-  izlyclient:
-    path: ../izlyclient
+#  dartus:
+#    path: ../dartus-tomuss-client
+#  lyon1mail:
+#    path: ../lyon1-mailclient
+#  lyon1agenda:
+#    path: ../lyon1-agendaclient
+#  izlyclient:
+#    path: ../izlyclient
 
 dev_dependencies:
   flutter_test:
