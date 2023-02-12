@@ -56,16 +56,16 @@ dependencies:
   animations: ^2.0.7
 
 
-dependency_overrides:
-  # unindent for devlopment to use local version of the libraries
-  dartus:
-    path: ../dartus-tomuss-client
-  lyon1mail:
-    path: ../lyon1-mailclient
-  lyon1agenda:
-    path: ../lyon1-agendaclient
-  izlyclient:
-    path: ../izlyclient
+#dependency_overrides:
+# unindent for devlopment to use local version of the libraries
+#  dartus:
+#    path: ../dartus-tomuss-client
+#  lyon1mail:
+#    path: ../lyon1-mailclient
+#  lyon1agenda:
+#    path: ../lyon1-agendaclient
+#  izlyclient:
+#    path: ../izlyclient
 
 dev_dependencies:
   flutter_test:
