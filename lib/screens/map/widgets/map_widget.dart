@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
@@ -39,7 +38,7 @@ class MapWidget extends StatelessWidget {
       );
     }).toList();
     if (center == null) {
-      GeolocationLogic.getCurrentLocation().then((value) {
+      GeolocationLogic.getCurrentLocation(askPermission: false).then((value) {
         if (value.inside(MapRes.minBound, MapRes.maxBound)) {
           mapController?.move(value, 16.5);
         }
@@ -65,7 +64,7 @@ class MapWidget extends StatelessWidget {
         ),
         if (polylines.isNotEmpty) PolylineLayer(polylines: polylines),
         if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
-          CurrentLocationLayer(),
+          const CustomCurrentLocationLayerWidget(),
         if (batiments.isNotEmpty)
           PopupMarkerLayerWidget(
             options: PopupMarkerLayerOptions(

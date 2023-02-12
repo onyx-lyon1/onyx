@@ -10,3 +10,4 @@ export 'widgets/map_bottom_nav_bar_icon.dart';
 export 'widgets/map_pop_up_widget.dart';
 export 'widgets/map_search_autocomplete_widget.dart';
 export 'widgets/map_widget.dart';
+export 'widgets/custom_current_location_layer_widget.dart';
