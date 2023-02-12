@@ -7,7 +7,7 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/map/map_export.dart';
 
 class GeolocationLogic {
-  static Future<LatLng> getCurrentLocation() async {
+  static Future<LatLng> getCurrentLocation({bool askPermission = true}) async {
     if (Res.mock) {
       return mockLatLng;
     }
@@ -22,7 +22,9 @@ class GeolocationLogic {
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
+      if (askPermission) {
+        permission = await Geolocator.requestPermission();
+      }
       if (permission == LocationPermission.denied) {
         return Future.error('Location permissions are denied');
       }
