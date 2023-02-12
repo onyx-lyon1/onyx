@@ -20,7 +20,7 @@ class AuthentificationState {
       this.username,
       this.password,
       this.dartus,
-      this.firstLogin = false});
+      this.firstLogin = true});
 
   @override
   bool operator ==(Object other) =>
