@@ -24,7 +24,7 @@ class _EmailContentWidgetState extends State<EmailContentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if ((widget.mail.body.contains("<html") &&
+    if (((widget.mail.body.contains("<html") || widget.mail.body.contains("text/html")) &&
         (Platform.isAndroid || Platform.isIOS))) {
       webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
       webViewController.setNavigationDelegate(
@@ -64,7 +64,7 @@ class _EmailContentWidgetState extends State<EmailContentWidget> {
                 '</body>',
       );
     }
-    return (widget.mail.body.contains("<html") &&
+    return ((widget.mail.body.contains("<html") || widget.mail.body.contains("text/html")) &&
             (Platform.isAndroid || Platform.isIOS))
         ? WebViewWidget(
             controller: webViewController,
