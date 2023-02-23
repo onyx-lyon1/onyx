@@ -161,7 +161,7 @@ class _TomussPageState extends State<TomussPage> {
                       child: GradeWidget(
                         grades: schoolSubject.grades,
                         isSeen: schoolSubject.isSeen,
-                        text2: "${schoolSubject.mastersShort()} • grp ?",
+                        text2: schoolSubject.mastersShort(),
                         text1: schoolSubject.name,
                         onTap: () => showAllGrades(context, schoolSubject),
                         depth: 0,
