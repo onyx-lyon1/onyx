@@ -184,7 +184,6 @@ class HomePageState extends State<HomePage> {
                                         100.w) //simple +-1 to avoid bug
                                     : 0) ==
                                 realIndex) {
-                          //TODO test if it's right
                           context.read<AgendaCubit>().updateDisplayedDate(
                               date: DateTime.now(), fromPageController: false);
                         }
