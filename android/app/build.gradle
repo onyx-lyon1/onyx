@@ -53,7 +53,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.e.oloid2"
+        applicationId "com.onyx.lyon1"
         minSdkVersion 23
         multiDexEnabled true
         targetSdkVersion flutter.targetSdkVersion
