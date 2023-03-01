@@ -2,21 +2,21 @@ extension MonthName on DateTime{
   String toMonthName({bool short=false}) {
     switch (month) {
       case 1:
-        return short ? "Jan." : "Janvier";
+        return short ? "Janv." : "Janvier";
       case 2:
-        return short ? "Fév." : "Février";
+        return short ? "Févr." : "Février";
       case 3:
-        return short ? "Mar." : "Mars";
+        return short ? "Mars." : "Mars";
       case 4:
-        return short ? "Avr." : "Avril";
+        return short ? "Avril" : "Avril";
       case 5:
-        return short ? "Mai." : "Mai";
+        return short ? "Mai" : "Mai";
       case 6:
-        return short ? "Juin." : "Juin";
+        return short ? "Juin" : "Juin";
       case 7:
         return short ? "Juil." : "Juillet";
       case 8:
-        return short ? "Août." : "Août";
+        return short ? "Août" : "Août";
       case 9:
         return short ? "Sept." : "Septembre";
       case 10:
