@@ -1,4 +1,4 @@
-package com.e.oloid2
+package com.onyx.lyon1
 
 import io.flutter.embedding.android.FlutterActivity
 
