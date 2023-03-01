@@ -175,7 +175,7 @@ class HomePageState extends State<HomePage> {
                               2)
                           : 0,
                       onTap: (realIndex) {
-                        if (context.read<AgendaCubit>().state.status ==
+                        if (context.read<AgendaCubit>().state.status !=
                             AgendaStatus.error) {
                           if (realIndex % Res.screenCount == 1 &&
                               (mainPageController.hasClients
