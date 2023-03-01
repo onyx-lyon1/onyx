@@ -175,17 +175,21 @@ class HomePageState extends State<HomePage> {
                               2)
                           : 0,
                       onTap: (realIndex) {
-                        if (realIndex % Res.screenCount == 1 &&
-                            (mainPageController.hasClients
-                                    ? ((mainPageController.offset +
-                                            ((mainPageController.offset < 0)
-                                                ? -1
-                                                : 1)) ~/
-                                        100.w) //simple +-1 to avoid bug
-                                    : 0) ==
-                                realIndex) {
-                          context.read<AgendaCubit>().updateDisplayedDate(
-                              date: DateTime.now(), fromPageController: false);
+                        if (context.read<AgendaCubit>().state.status ==
+                            AgendaStatus.error) {
+                          if (realIndex % Res.screenCount == 1 &&
+                              (mainPageController.hasClients
+                                      ? ((mainPageController.offset +
+                                              ((mainPageController.offset < 0)
+                                                  ? -1
+                                                  : 1)) ~/
+                                          100.w) //simple +-1 to avoid bug
+                                      : 0) ==
+                                  realIndex) {
+                            context.read<AgendaCubit>().updateDisplayedDate(
+                                date: DateTime.now(),
+                                fromPageController: false);
+                          }
                         }
                         setState(() {
                           animatePage(realIndex);
