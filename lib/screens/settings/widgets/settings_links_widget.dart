@@ -16,7 +16,7 @@ class SettingsLinkWidget extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              launchUrl(Uri.parse('https://discord.gg/DxJb39u'),
+              launchUrl(Uri.parse('https://discord.gg/fT78SjM88d'),
                   mode: LaunchMode.externalApplication);
             },
             child: Image.asset(

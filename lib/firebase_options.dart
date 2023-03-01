@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
     projectId: 'onyx-2cac8',
     storageBucket: 'onyx-2cac8.appspot.com',
     iosClientId: '274123084294-4bq3lgl0qilu7ps4k9j07vd6s568kdie.apps.googleusercontent.com',
-    iosBundleId: 'com.e.oloid2',
+    iosBundleId: 'com.onyx.lyon1',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -77,6 +77,6 @@ class DefaultFirebaseOptions {
     projectId: 'onyx-2cac8',
     storageBucket: 'onyx-2cac8.appspot.com',
     iosClientId: '274123084294-4bq3lgl0qilu7ps4k9j07vd6s568kdie.apps.googleusercontent.com',
-    iosBundleId: 'com.e.oloid2',
+    iosBundleId: 'com.onyx.lyon1',
   );
 }
