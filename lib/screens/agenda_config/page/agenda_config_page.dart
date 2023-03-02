@@ -111,9 +111,16 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
             floatingActionButton: Material(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(100),
-              child: OpenContainer(
+              child: OpenContainer<String>(
                 transitionDuration: Res.animationDuration,
                 openBuilder: (context, closechild) => const QrCodeScannerPage(),
+                onClosed: (result) {
+                  if (result != null) {
+                    context
+                        .read<AgendaConfigCubit>()
+                        .chooseDir(AgendaConfigLogic.urlToIndex(result));
+                  }
+                },
                 closedColor: Theme.of(context).primaryColor,
                 closedShape: const CircleBorder(),
                 closedBuilder: (context, openchild) => InkWell(
