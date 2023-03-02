@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: e440ac42679dfc04bbbefb58ed225c994bc7e07fccc8a68ec7d3631a127e5da9
+      sha256: "98d1d33ed129b372846e862de23a0fc365745f4d7b5e786ce667fcbbb7ac5c07"
       url: "https://pub.dev"
     source: hosted
-    version: "54.0.0"
+    version: "55.0.0"
   _flutterfire_internals:
     dependency: transitive
     description:
@@ -29,10 +29,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "2c2e3721ee9fb36de92faa060f3480c81b23e904352b087e5c64224b1a044427"
+      sha256: "881348aed9b0b425882c97732629a6a31093c8ff20fc4b3b03fb9d3d50a3a126"
       url: "https://pub.dev"
     source: hosted
-    version: "5.6.0"
+    version: "5.7.1"
   animated_stack_widget:
     dependency: transitive
     description:
@@ -340,9 +340,11 @@ packages:
   dartus:
     dependency: "direct main"
     description:
-      path: "../dartus-tomuss-client"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "664b9ad11be305612eef975114f89150fae43e24"
+      url: "https://github.com/onyx-lyon1/dartus-tomuss-client.git"
+    source: git
     version: "1.0.3"
   date_picker_timeline:
     dependency: "direct main"
@@ -606,10 +608,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: "4bef634684b2c7f3468c77c766c831229af829a0cd2d4ee6c1b99558bd14e5d2"
+      sha256: c224ac897bed083dabf11f238dd11a239809b446740be0c2044608c50029ffdf
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.8"
+    version: "2.0.9"
   flutter_speed_dial:
     dependency: "direct main"
     description:
@@ -849,9 +851,11 @@ packages:
   izlyclient:
     dependency: "direct main"
     description:
-      path: "../izlyclient"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "0059e505209e6af88b0cf24125135e348d6827ec"
+      url: "https://github.com/onyx-lyon1/izlyclient.git"
+    source: git
     version: "1.0.0"
   js:
     dependency: transitive
@@ -912,16 +916,20 @@ packages:
   lyon1agenda:
     dependency: "direct main"
     description:
-      path: "../lyon1-agendaclient"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "834500537be4b526aeaf1a6ac69618eaa38ac526"
+      url: "https://github.com/onyx-lyon1/lyon1-agendaclient.git"
+    source: git
     version: "1.0.0"
   lyon1mail:
     dependency: "direct main"
     description:
-      path: "../lyon1-mailclient"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "1ddee01efafb828863a6318cfced7e6c7987e6de"
+      url: "https://github.com/onyx-lyon1/lyon1-mailclient.git"
+    source: git
     version: "1.0.0"
   matcher:
     dependency: transitive
@@ -1548,10 +1556,10 @@ packages:
     dependency: "direct main"
     description:
       name: webview_flutter
-      sha256: "9ba213434f13e760ea0f175fbc4d6bb6aeafd7dfc6c7d973f15d3e47a5d6686e"
+      sha256: b6cd42db3ced5411f3d01599906156885b18e4188f7065a8a351eb84bee347e0
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.5"
+    version: "4.0.6"
   webview_flutter_android:
     dependency: transitive
     description:
@@ -1572,10 +1580,10 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter_wkwebview
-      sha256: "283a38c2a2544768033864c698e0133aa9eee0f2c800f494b538a3d1044f7ecb"
+      sha256: "87b6353b40e04f04d5f895a484ad6d92d682d9cce4d2d5b32d2d8aca2448d46e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.1"
+    version: "3.2.0"
   win32:
     dependency: transitive
     description:
