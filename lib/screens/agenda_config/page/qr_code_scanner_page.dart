@@ -35,9 +35,11 @@ class QrCodeScannerPageState extends State<QrCodeScannerPage> {
         color: Theme.of(context).colorScheme.background,
         child: cameraGranted
             ? MobileScanner(
-                allowDuplicates: false,
-                onDetect: (barcode, args) {
-                  final String code = barcode.rawValue ?? '';
+                controller: MobileScannerController(
+                  detectionSpeed: DetectionSpeed.noDuplicates,
+                ),
+                onDetect: (barcode) {
+                  final String code = barcode.barcodes.first.rawValue ?? '';
                   if (code.isNotEmpty && code.startsWith('http')) {
                     Navigator.pop(context, code);
                   }
