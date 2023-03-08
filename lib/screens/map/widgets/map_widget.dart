@@ -9,13 +9,12 @@ import 'package:onyx/screens/map/map_export.dart';
 import 'package:sizer/sizer.dart';
 
 class MapWidget extends StatelessWidget {
-  const MapWidget(
-      {Key? key,
-      this.batiments = const [],
-      this.polylines = const [],
-      required this.onTapNavigate,
-      this.mapController,
-      this.center})
+  const MapWidget({Key? key,
+    this.batiments = const [],
+    this.polylines = const [],
+    required this.onTapNavigate,
+    this.mapController,
+    this.center})
       : super(key: key);
   final List<BatimentModel> batiments;
   final List<Polyline> polylines;
@@ -30,11 +29,12 @@ class MapWidget extends StatelessWidget {
     List<Marker> markers = batiments.map((element) {
       return Marker(
         point: element.position,
-        builder: (context) => Icon(
-          Icons.location_on_rounded,
-          size: 15.sp,
-          color: Colors.red,
-        ),
+        builder: (context) =>
+            Icon(
+              Icons.location_on_rounded,
+              size: 15.sp,
+              color: Colors.red,
+            ),
       );
     }).toList();
     if (center == null) {
@@ -73,7 +73,7 @@ class MapWidget extends StatelessWidget {
               popupBuilder: (BuildContext context, Marker marker) {
                 return MapPopupWidget(
                   batiment: batiments.firstWhere(
-                      (element) => element.position == marker.point),
+                          (element) => element.position == marker.point),
                   onTap: onTapNavigate,
                   popupController: popupLayerController,
                 );
