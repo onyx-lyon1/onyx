@@ -340,9 +340,11 @@ packages:
   dartus:
     dependency: "direct main"
     description:
-      path: "../dartus-tomuss-client"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "664b9ad11be305612eef975114f89150fae43e24"
+      url: "https://github.com/onyx-lyon1/dartus-tomuss-client.git"
+    source: git
     version: "1.0.3"
   date_picker_timeline:
     dependency: "direct main"
@@ -849,9 +851,11 @@ packages:
   izlyclient:
     dependency: "direct main"
     description:
-      path: "../izlyclient"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "0059e505209e6af88b0cf24125135e348d6827ec"
+      url: "https://github.com/onyx-lyon1/izlyclient.git"
+    source: git
     version: "1.0.0"
   js:
     dependency: transitive
@@ -912,16 +916,20 @@ packages:
   lyon1agenda:
     dependency: "direct main"
     description:
-      path: "../lyon1-agendaclient"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "834500537be4b526aeaf1a6ac69618eaa38ac526"
+      url: "https://github.com/onyx-lyon1/lyon1-agendaclient.git"
+    source: git
     version: "1.0.0"
   lyon1mail:
     dependency: "direct main"
     description:
-      path: "../lyon1-mailclient"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "1ddee01efafb828863a6318cfced7e6c7987e6de"
+      url: "https://github.com/onyx-lyon1/lyon1-mailclient.git"
+    source: git
     version: "1.0.0"
   matcher:
     dependency: transitive
