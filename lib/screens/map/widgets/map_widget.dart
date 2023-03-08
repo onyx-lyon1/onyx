@@ -39,7 +39,7 @@ class MapWidget extends StatelessWidget {
     }).toList();
     if (center == null) {
       GeolocationLogic.getCurrentLocation(askPermission: false).then((value) {
-        if (value.inside(MapRes.minBound, MapRes.maxBound)) {
+        if ((value != null) && value.inside(MapRes.minBound, MapRes.maxBound)) {
           mapController?.move(value, 16.5);
         }
       });
