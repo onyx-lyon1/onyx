@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
@@ -20,6 +21,7 @@ Future<void> hiveInit({String? path}) async {
   Hive.registerAdapter(EmailModelAdapter());
   Hive.registerAdapter(EmailModelWrapperAdapter());
   Hive.registerAdapter(SettingsModelAdapter());
+  Hive.registerAdapter(FunctionalitiesAdapter());
   Hive.registerAdapter(ThemeModeEnumAdapter());
   Hive.registerAdapter(IzlyCredentialAdapter());
   Hive.registerAdapter(IzlyQrCodeModelAdapter());

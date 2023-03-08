@@ -16,9 +16,9 @@ class SettingsCardWidget extends StatelessWidget {
       return Container();
     } else {
       return Card(
-        elevation: 2,
+        elevation: 0,
         margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-        color: Theme.of(context).cardTheme.color,
+        color: Theme.of(context).cardColor,
         child: Padding(
           padding: const EdgeInsets.only(
             top: 15.0,
