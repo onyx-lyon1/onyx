@@ -7,6 +7,8 @@ class CustomCurrentLocationLayerWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -15,6 +17,7 @@ class CustomCurrentLocationLayerWidget extends StatelessWidget {
           if (snapshot.hasData &&
               (snapshot.data == LocationPermission.always ||
                   snapshot.data == LocationPermission.whileInUse)) {
+
             return CurrentLocationLayer();
           }
           return Container();
