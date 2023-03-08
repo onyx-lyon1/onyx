@@ -7,7 +7,7 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/map/map_export.dart';
 
 class GeolocationLogic {
-  static Future<LatLng> getCurrentLocation({bool askPermission = true}) async {
+  static Future<LatLng?> getCurrentLocation({bool askPermission = true}) async {
     if (Res.mock) {
       return mockLatLng;
     }
@@ -19,20 +19,18 @@ class GeolocationLogic {
     if (!serviceEnabled) {
       return Future.error('Location services are disabled.');
     }
-
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       if (askPermission) {
         permission = await Geolocator.requestPermission();
       }
       if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+        return null;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      return null;
     }
     Position userPos = await Geolocator.getCurrentPosition();
     return LatLng(userPos.latitude, userPos.longitude);
