@@ -74,7 +74,7 @@ class OnyxAppState extends State<OnyxApp> {
                   if (settingsState.status == SettingsStatus.ready ||
                       settingsState.status == SettingsStatus.error) {
                     return MaterialApp(
-                        title: 'Oloid 2.0',
+                        title: 'Onyx',
                         navigatorKey: OnyxApp.navigatorKey,
                         scrollBehavior: const CustomScrollBehavior(),
                         debugShowCheckedModeBanner: false,

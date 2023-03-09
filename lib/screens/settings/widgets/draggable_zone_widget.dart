@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:sizer/sizer.dart';
 
 class DraggableZoneWidget extends StatelessWidget {
   const DraggableZoneWidget({Key? key}) : super(key: key);
@@ -32,6 +31,7 @@ class DraggableZoneWidget extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
+              horizontalAlignment: MainAxisAlignment.center,
               children: context
                   .read<SettingsCubit>()
                   .state
@@ -58,6 +58,7 @@ class DraggableZoneWidget extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
+              horizontalAlignment: MainAxisAlignment.center,
               children: context
                   .read<SettingsCubit>()
                   .state
@@ -74,35 +75,18 @@ class DraggableZoneWidget extends StatelessWidget {
             height: 2,
             color: Colors.transparent,
           ),
-          itemDecorationWhileDragging: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 3,
-                offset: const Offset(0, 0), // changes position of shadow
-              ),
-            ],
-          ),
-          itemDragOnLongPress: true,
-          itemDragHandle: DragHandle(
-            verticalAlignment: DragHandleVerticalAlignment.top,
-            child: Padding(
-              padding: EdgeInsets.only(right: 10, top: 2.25.h),
-              child: Icon(
-                Icons.drag_indicator_rounded,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-          ),
-          verticalAlignment: CrossAxisAlignment.center,
+          itemSizeAnimationDurationMilliseconds: 200,
           children: contents,
           lastListTargetSize: 0.0,
           onItemReorder: (int oldItemIndex, int oldListIndex, int newItemIndex,
               int newListIndex) {
-            if (oldListIndex == 0 && newListIndex == 1) {
+            if ((oldListIndex == 0 && newListIndex == 1) &&
+                context
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .enabledFunctionalities[oldItemIndex] !=
+                    Functionalities.settings) {
               Functionalities item = context
                   .read<SettingsCubit>()
                   .state
@@ -175,7 +159,13 @@ class DraggableZoneWidget extends StatelessWidget {
                               .toList()
                             ..removeAt(oldItemIndex)
                             ..insert(newItemIndex, item)));
-            } else if (oldListIndex == 1 && newListIndex == 1) {
+            } else if ((oldListIndex == 1 && newListIndex == 1) &&
+                context
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .enabledFunctionalities[oldItemIndex] !=
+                    Functionalities.settings) {
               Functionalities item = context
                   .read<SettingsCubit>()
                   .state

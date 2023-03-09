@@ -30,7 +30,7 @@ class _ScreenSettingsDragAndDropContentState
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 85.w,
+      margin: EdgeInsets.symmetric(horizontal: 2.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Theme.of(context).colorScheme.background,
@@ -43,7 +43,13 @@ class _ScreenSettingsDragAndDropContentState
               _isExpanded = value;
             });
           },
-          trailing: const SizedBox(height: 0, width: 0),
+          trailing: DragHandle(
+            verticalAlignment: DragHandleVerticalAlignment.center,
+            child: Icon(
+              Icons.drag_indicator_rounded,
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
           leading: AnimatedRotation(
               turns: _isExpanded ? .5 : 0,
               duration: Res.animationDuration,
