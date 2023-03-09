@@ -34,9 +34,16 @@ class SettingsModel {
   @HiveField(11)
   late bool darkerMail;
 
-  @HiveField(12)
+  @HiveField(12, defaultValue: [
+    Functionalities.tomuss,
+    Functionalities.agenda,
+    Functionalities.mail,
+    Functionalities.settings,
+    Functionalities.izly,
+    Functionalities.map,
+  ])
   late List<Functionalities> enabledFunctionalities;
-  @HiveField(13)
+  @HiveField(13, defaultValue: [])
   late List<Functionalities> disabledFunctionalities;
 
   SettingsModel({
