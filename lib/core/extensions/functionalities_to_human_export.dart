@@ -7,7 +7,7 @@ import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
-extension FixedLengthString on Functionalities {
+extension HumanFunctionalities on Functionalities {
   String toCleanString() {
     switch (this) {
       case Functionalities.tomuss:
@@ -73,6 +73,23 @@ extension FixedLengthString on Functionalities {
         return IzlyBottomNavBarIconWidget(selected: selected);
       case Functionalities.settings:
         return SettingsBottomNavBarIcon(selected: selected);
+    }
+  }
+
+  Widget toSettings() {
+    switch (this) {
+      case Functionalities.tomuss:
+        return const TomussSettingsWidget();
+      case Functionalities.agenda:
+        return const AgendaSettingsWidget();
+      case Functionalities.mail:
+        return const EMailSettingsWidget();
+      case Functionalities.map:
+        return const MapSettingsWidget();
+      case Functionalities.izly:
+        return const IzlySettingsWidget();
+      case Functionalities.settings:
+        return const SettingsSettingsWidget();
     }
   }
 }
