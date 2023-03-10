@@ -98,17 +98,17 @@ extension HumanFunctionalities on Functionalities {
     //TODO: adapt to smartphone
     switch (this) {
       case Functionalities.tomuss:
-        return 30.h;
+        return 20.h;
       case Functionalities.agenda:
-        return 35.h;
+        return 32.5.h;
       case Functionalities.mail:
-        return 27.h;
+        return 20.h;
       case Functionalities.map:
-        return 17.h;
+        return 12.5.h;
       case Functionalities.izly:
-        return 17.h;
+        return 15.h;
       case Functionalities.settings:
-        return 17.h;
+        return 12.5.h;
     }
   }
 }
