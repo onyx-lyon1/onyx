@@ -37,7 +37,7 @@ class _ScreenSettingsDragAndDropContentState
       ),
       child: AnimatedContainer(
         duration: Res.animationDuration,
-        height: _isExpanded ? widget.functionality.toSettingsHeight() : 8.h,
+        height: _isExpanded ? widget.functionality.toSettingsHeight() : 6.3.h,
         child: Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
           child: ExpansionTile(
