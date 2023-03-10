@@ -13,7 +13,11 @@ class AgendaSettingsWidget extends StatelessWidget {
       children: [
         TextSwitchWidget(
           text: 'Montrer le mini calendrier en haut de page',
-          value: context.read<SettingsCubit>().state.settings.showMiniCalendar,
+          value: context
+              .read<SettingsCubit>()
+              .state
+              .settings
+              .showMiniCalendar,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
                 settings: context
