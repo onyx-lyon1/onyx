@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class TextSwitchWidget extends StatelessWidget {
   final String text;
@@ -20,7 +21,7 @@ class TextSwitchWidget extends StatelessWidget {
         GestureDetector(
           onTap: () => onChanged(!value),
           child: SizedBox(
-            width: MediaQuery.of(context).size.width - 150,
+            width: 60.w,
             child: Text(
               text,
               softWrap: true,

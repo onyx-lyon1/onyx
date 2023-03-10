@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:sizer/sizer.dart';
 
 class DraggableZoneWidget extends StatelessWidget {
   const DraggableZoneWidget({Key? key}) : super(key: key);
@@ -75,7 +76,18 @@ class DraggableZoneWidget extends StatelessWidget {
             height: 2,
             color: Colors.transparent,
           ),
+          itemDragHandle: DragHandle(
+            verticalAlignment: DragHandleVerticalAlignment.top,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+              child: Icon(
+                Icons.drag_indicator_rounded,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          ),
           itemSizeAnimationDurationMilliseconds: 200,
+          listSizeAnimationDurationMilliseconds: 200,
           children: contents,
           lastListTargetSize: 0.0,
           onItemReorder: (int oldItemIndex, int oldListIndex, int newItemIndex,
