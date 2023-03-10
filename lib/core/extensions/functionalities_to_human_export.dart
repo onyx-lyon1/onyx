@@ -6,6 +6,7 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
+import 'package:sizer/sizer.dart';
 
 extension HumanFunctionalities on Functionalities {
   String toCleanString() {
@@ -90,6 +91,24 @@ extension HumanFunctionalities on Functionalities {
         return const IzlySettingsWidget();
       case Functionalities.settings:
         return const SettingsSettingsWidget();
+    }
+  }
+
+  double toSettingsHeight() {
+    //TODO: adapt to smartphone
+    switch (this) {
+      case Functionalities.tomuss:
+        return 30.h;
+      case Functionalities.agenda:
+        return 35.h;
+      case Functionalities.mail:
+        return 27.h;
+      case Functionalities.map:
+        return 17.h;
+      case Functionalities.izly:
+        return 17.h;
+      case Functionalities.settings:
+        return 17.h;
     }
   }
 }

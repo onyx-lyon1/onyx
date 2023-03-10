@@ -35,36 +35,35 @@ class _ScreenSettingsDragAndDropContentState
         borderRadius: BorderRadius.circular(10),
         color: Theme.of(context).colorScheme.background,
       ),
-      child: Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-        child: ExpansionTile(
-          onExpansionChanged: (value) {
-            setState(() {
-              _isExpanded = value;
-            });
-          },
-          trailing: DragHandle(
-            verticalAlignment: DragHandleVerticalAlignment.center,
-            child: Icon(
-              Icons.drag_indicator_rounded,
-              color: Theme.of(context).primaryColor,
+      child: AnimatedContainer(
+        duration: Res.animationDuration,
+        height: _isExpanded ? widget.functionality.toSettingsHeight() : 8.h,
+        child: Theme(
+          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+          child: ExpansionTile(
+            onExpansionChanged: (value) {
+              setState(() {
+                _isExpanded = value;
+              });
+            },
+            maintainState: true,
+            trailing: const SizedBox.shrink(),
+            leading: AnimatedRotation(
+                turns: _isExpanded ? .5 : 0,
+                duration: Res.animationDuration,
+                child: const Icon(
+                    Icons.keyboard_arrow_down_outlined) // your svgImage here
+                ),
+            title: Row(
+              children: [
+                Icon(widget.functionality.toIcon()),
+                Text(widget.functionality.toCleanString())
+              ],
             ),
+            childrenPadding: const EdgeInsets.all(15),
+            expandedCrossAxisAlignment: CrossAxisAlignment.center,
+            children: [widget.functionality.toSettings()],
           ),
-          leading: AnimatedRotation(
-              turns: _isExpanded ? .5 : 0,
-              duration: Res.animationDuration,
-              child: const Icon(
-                  Icons.keyboard_arrow_down_outlined) // your svgImage here
-              ),
-          title: Row(
-            children: [
-              Icon(widget.functionality.toIcon()),
-              Text(widget.functionality.toCleanString())
-            ],
-          ),
-          childrenPadding: const EdgeInsets.all(15),
-          expandedCrossAxisAlignment: CrossAxisAlignment.center,
-          children: [widget.functionality.toSettings()],
         ),
       ),
     );
