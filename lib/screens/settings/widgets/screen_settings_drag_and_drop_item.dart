@@ -48,44 +48,47 @@ class _ScreenSettingsDragAndDropContentState
         height: childHeight,
         child: Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-          child: ExpansionTile(
-            onExpansionChanged: (value) async {
-              // This is a hack to wait for the widget to be built
-              if (value) {
-                int i = 0;
-                while (key.currentContext?.size?.height == null && i < 10) {
-                  i++;
-                  await Future.delayed(Duration(milliseconds: 100), () {});
+          child: Padding(
+            padding: EdgeInsets.only(top: 0.5.h),
+            child: ExpansionTile(
+              onExpansionChanged: (value) async {
+                // This is a hack to wait for the widget to be built
+                if (value) {
+                  int i = 0;
+                  while (key.currentContext?.size?.height == null && i < 10) {
+                    i++;
+                    await Future.delayed(Duration(milliseconds: 100), () {});
+                  }
                 }
-              }
-              setState(() {
-                _isExpanded = value;
-                if (_isExpanded) {
-                  // set the height to the height of the child for the animation
-                  childHeight =
-                      (key.currentContext?.size?.height ?? 0.0) + 13.h;
-                } else {
-                  childHeight = 9.h;
-                }
-              });
-            },
-            maintainState: true,
-            trailing: const SizedBox.shrink(),
-            leading: AnimatedRotation(
-                turns: _isExpanded ? .5 : 0,
-                duration: Res.animationDuration,
-                child: const Icon(
-                    Icons.keyboard_arrow_down_outlined) // your svgImage here
-                ),
-            title: Row(
-              children: [
-                Icon(widget.functionality.toIcon()),
-                Text(widget.functionality.toCleanString())
-              ],
+                setState(() {
+                  _isExpanded = value;
+                  if (_isExpanded) {
+                    // set the height to the height of the child for the animation
+                    childHeight =
+                        (key.currentContext?.size?.height ?? 0.0) + 15.h;
+                  } else {
+                    childHeight = 9.h;
+                  }
+                });
+              },
+              maintainState: true,
+              trailing: const SizedBox.shrink(),
+              leading: AnimatedRotation(
+                  turns: _isExpanded ? .5 : 0,
+                  duration: Res.animationDuration,
+                  child: const Icon(
+                      Icons.keyboard_arrow_down_outlined) // your svgImage here
+                  ),
+              title: Row(
+                children: [
+                  Icon(widget.functionality.toIcon()),
+                  Text(widget.functionality.toCleanString())
+                ],
+              ),
+              childrenPadding: const EdgeInsets.all(15),
+              expandedCrossAxisAlignment: CrossAxisAlignment.center,
+              children: [widget.functionality.toSettings(key: key)],
             ),
-            childrenPadding: const EdgeInsets.all(15),
-            expandedCrossAxisAlignment: CrossAxisAlignment.center,
-            children: [widget.functionality.toSettings(key: key)],
           ),
         ),
       ),
