@@ -26,6 +26,14 @@ class ScreenSettingsDragAndDropContent extends StatefulWidget {
 class _ScreenSettingsDragAndDropContentState
     extends State<ScreenSettingsDragAndDropContent> {
   bool _isExpanded = false;
+  GlobalKey key = GlobalKey();
+  late double childHeight;
+
+  @override
+  void initState() {
+    childHeight = 9.h;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +45,28 @@ class _ScreenSettingsDragAndDropContentState
       ),
       child: AnimatedContainer(
         duration: Res.animationDuration,
-        height: _isExpanded ? widget.functionality.toSettingsHeight() : 6.3.h,
+        height: childHeight,
         child: Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
           child: ExpansionTile(
-            onExpansionChanged: (value) {
+            onExpansionChanged: (value) async {
+              // This is a hack to wait for the widget to be built
+              if (value) {
+                int i = 0;
+                while (key.currentContext?.size?.height == null && i < 10) {
+                  i++;
+                  await Future.delayed(Duration(milliseconds: 100), () {});
+                }
+              }
               setState(() {
                 _isExpanded = value;
+                if (_isExpanded) {
+                  // set the height to the height of the child for the animation
+                  childHeight =
+                      (key.currentContext?.size?.height ?? 0.0) + 13.h;
+                } else {
+                  childHeight = 9.h;
+                }
               });
             },
             maintainState: true,
@@ -62,7 +85,7 @@ class _ScreenSettingsDragAndDropContentState
             ),
             childrenPadding: const EdgeInsets.all(15),
             expandedCrossAxisAlignment: CrossAxisAlignment.center,
-            children: [widget.functionality.toSettings()],
+            children: [widget.functionality.toSettings(key: key)],
           ),
         ),
       ),

@@ -6,7 +6,6 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:sizer/sizer.dart';
 
 extension HumanFunctionalities on Functionalities {
   String toCleanString() {
@@ -77,38 +76,32 @@ extension HumanFunctionalities on Functionalities {
     }
   }
 
-  Widget toSettings() {
+  Widget toSettings({Key? key}) {
     switch (this) {
       case Functionalities.tomuss:
-        return const TomussSettingsWidget();
+        return TomussSettingsWidget(
+          key: key,
+        );
       case Functionalities.agenda:
-        return const AgendaSettingsWidget();
+        return AgendaSettingsWidget(
+          key: key,
+        );
       case Functionalities.mail:
-        return const EMailSettingsWidget();
+        return EMailSettingsWidget(
+          key: key,
+        );
       case Functionalities.map:
-        return const MapSettingsWidget();
+        return MapSettingsWidget(
+          key: key,
+        );
       case Functionalities.izly:
-        return const IzlySettingsWidget();
+        return IzlySettingsWidget(
+          key: key,
+        );
       case Functionalities.settings:
-        return const SettingsSettingsWidget();
-    }
-  }
-
-  double toSettingsHeight() {
-    //TODO: adapt to smartphone
-    switch (this) {
-      case Functionalities.tomuss:
-        return 20.h;
-      case Functionalities.agenda:
-        return 32.5.h;
-      case Functionalities.mail:
-        return 20.h;
-      case Functionalities.map:
-        return 12.5.h;
-      case Functionalities.izly:
-        return 15.h;
-      case Functionalities.settings:
-        return 12.5.h;
+        return SettingsSettingsWidget(
+          key: key,
+        );
     }
   }
 }
