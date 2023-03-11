@@ -29,8 +29,19 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       newMailNotification: fields[9] as bool,
       blockTrackers: fields[10] as bool,
       darkerMail: fields[11] as bool,
-      enabledFunctionalities: (fields[12] as List).cast<Functionalities>(),
-      disabledFunctionalities: (fields[13] as List).cast<Functionalities>(),
+      enabledFunctionalities: fields[12] == null
+          ? [
+              Functionalities.tomuss,
+              Functionalities.agenda,
+              Functionalities.mail,
+              Functionalities.settings,
+              Functionalities.izly,
+              Functionalities.map
+            ]
+          : (fields[12] as List).cast<Functionalities>(),
+      disabledFunctionalities: fields[13] == null
+          ? []
+          : (fields[13] as List).cast<Functionalities>(),
     );
   }
 
