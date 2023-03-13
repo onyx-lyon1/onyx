@@ -30,6 +30,8 @@ class _TomussPageState extends State<TomussPage> {
       builder: (context) => SafeArea(
         child: SingleChildScrollView(
           controller: ModalScrollController.of(context),
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Container(
             padding: const EdgeInsets.only(bottom: 20),
             child: Column(
