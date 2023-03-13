@@ -6,18 +6,32 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
 class AgendaUrlParameterWidget extends StatelessWidget {
-  const AgendaUrlParameterWidget({Key? key}) : super(key: key);
+  const AgendaUrlParameterWidget({Key? key, required this.sizeUpdate})
+      : super(key: key);
+  final VoidCallback sizeUpdate;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, SettingsState>(
+      buildWhen: (previous, current) {
+        if (previous.settings.fetchAgendaAuto !=
+            current.settings.fetchAgendaAuto) {
+          WidgetsBinding.instance
+              .addPostFrameCallback((_) => sizeUpdate());
+        }
+        return true;
+      },
       builder: (context, state) {
         return Column(
           children: [
             TextSwitchWidget(
               text: 'Récupérer automatiquement les ressources de l\'agenda',
               value:
-                  context.read<SettingsCubit>().state.settings.fetchAgendaAuto,
+              context
+                  .read<SettingsCubit>()
+                  .state
+                  .settings
+                  .fetchAgendaAuto,
               onChanged: (bool b) {
                 context.read<SettingsCubit>().modify(
                     settings: context
@@ -27,7 +41,11 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                         .copyWith(fetchAgendaAuto: b));
               },
             ),
-            if (!context.read<SettingsCubit>().state.settings.fetchAgendaAuto)
+            if (!context
+                .read<SettingsCubit>()
+                .state
+                .settings
+                .fetchAgendaAuto)
               Container(
                 clipBehavior: Clip.hardEdge,
                 margin: const EdgeInsets.only(bottom: 15),
@@ -36,33 +54,40 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                 ),
                 child: Center(
                   child: OpenContainer(
-                    openBuilder: (context, closechild) => SafeArea(
-                      child: AgendaConfigPage(
-                        onBack: (index) {
-                          context.read<SettingsCubit>().modify(
-                              settings: context
-                                  .read<SettingsCubit>()
-                                  .state
-                                  .settings
-                                  .copyWith(agendaId: index));
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                    closedColor: Theme.of(context).primaryColor,
+                    openBuilder: (context, closechild) =>
+                        SafeArea(
+                          child: AgendaConfigPage(
+                            onBack: (index) {
+                              context.read<SettingsCubit>().modify(
+                                  settings: context
+                                      .read<SettingsCubit>()
+                                      .state
+                                      .settings
+                                      .copyWith(agendaId: index));
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                    closedColor: Theme
+                        .of(context)
+                        .primaryColor,
                     closedShape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
-                    closedBuilder: (context, openchild) => InkWell(
-                      onTap: openchild,
-                      child: Container(
-                        padding: EdgeInsets.all(2.5.w),
-                        child: Text(
-                          'Sélectionner l\'agenda',
-                          style: Theme.of(context).textTheme.bodyLarge,
+                    closedBuilder: (context, openchild) =>
+                        InkWell(
+                          onTap: openchild,
+                          child: Container(
+                            padding: EdgeInsets.all(2.5.w),
+                            child: Text(
+                              'Sélectionner l\'agenda',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .bodyLarge,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
                   ),
                 ),
               )

@@ -76,7 +76,7 @@ extension HumanFunctionalities on Functionalities {
     }
   }
 
-  Widget toSettings({Key? key}) {
+  Widget toSettings({Key? key, VoidCallback? sizeUpdate}) {
     switch (this) {
       case Functionalities.tomuss:
         return TomussSettingsWidget(
@@ -85,6 +85,7 @@ extension HumanFunctionalities on Functionalities {
       case Functionalities.agenda:
         return AgendaSettingsWidget(
           key: key,
+          sizeUpdate: sizeUpdate!,
         );
       case Functionalities.mail:
         return EMailSettingsWidget(
