@@ -35,6 +35,24 @@ class _ScreenSettingsDragAndDropContentState
     super.initState();
   }
 
+  Future<void> updateChildHeight() async {
+    if (_isExpanded) {
+      int i = 0;
+      while (key.currentContext?.size?.height == null && i < 10) {
+        i++;
+        await Future.delayed(const Duration(milliseconds: 100), () {});
+      }
+    }
+    setState(() {
+      if (_isExpanded) {
+        // set the height to the height of the child for the animation
+        childHeight = (key.currentContext?.size?.height ?? 0.0) + 15.h;
+      } else {
+        childHeight = 9.h;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,23 +71,9 @@ class _ScreenSettingsDragAndDropContentState
             child: ExpansionTile(
               onExpansionChanged: (value) async {
                 // This is a hack to wait for the widget to be built
-                if (value) {
-                  int i = 0;
-                  while (key.currentContext?.size?.height == null && i < 10) {
-                    i++;
-                    await Future.delayed(Duration(milliseconds: 100), () {});
-                  }
-                }
-                setState(() {
-                  _isExpanded = value;
-                  if (_isExpanded) {
-                    // set the height to the height of the child for the animation
-                    childHeight =
-                        (key.currentContext?.size?.height ?? 0.0) + 15.h;
-                  } else {
-                    childHeight = 9.h;
-                  }
-                });
+                _isExpanded = value;
+                await updateChildHeight();
+                setState(() {});
               },
               maintainState: true,
               trailing: const SizedBox.shrink(),
@@ -87,7 +91,10 @@ class _ScreenSettingsDragAndDropContentState
               ),
               childrenPadding: const EdgeInsets.all(15),
               expandedCrossAxisAlignment: CrossAxisAlignment.center,
-              children: [widget.functionality.toSettings(key: key)],
+              children: [
+                widget.functionality
+                    .toSettings(key: key, sizeUpdate: updateChildHeight)
+              ],
             ),
           ),
         ),

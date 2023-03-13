@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 class AgendaSettingsWidget extends StatelessWidget {
-  const AgendaSettingsWidget({Key? key}) : super(key: key);
+  const AgendaSettingsWidget({Key? key, required this.sizeUpdate})
+      : super(key: key);
+  final VoidCallback sizeUpdate;
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +15,7 @@ class AgendaSettingsWidget extends StatelessWidget {
       children: [
         TextSwitchWidget(
           text: 'Montrer le mini calendrier en haut de page',
-          value: context
-              .read<SettingsCubit>()
-              .state
-              .settings
-              .showMiniCalendar,
+          value: context.read<SettingsCubit>().state.settings.showMiniCalendar,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
                 settings: context
@@ -44,7 +42,7 @@ class AgendaSettingsWidget extends StatelessWidget {
                       .copyWith(calendarUpdateNotification: b));
             },
           ),
-        const AgendaUrlParameterWidget(),
+        AgendaUrlParameterWidget(sizeUpdate: sizeUpdate),
       ],
     );
   }
