@@ -55,7 +55,7 @@ dependencies:
   auto_size_text: ^3.0.0
   animations: ^2.0.7
   drag_and_drop_lists: #^0.3.3
-    path: /home/eymeric/tmp/DragAndDropLists
+    git: https://github.com/onyx-lyon1/DragAndDropLists.git
 
 
 #dependency_overrides:
