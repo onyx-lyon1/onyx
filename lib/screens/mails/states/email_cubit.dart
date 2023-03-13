@@ -154,15 +154,19 @@ class EmailCubit extends Cubit<EmailState> {
   void send(
       {required EmailModel email,
       int? replyOriginalMessageId,
-      bool? replyAll}) async {
+      bool? replyAll,
+      bool reply = false,
+      bool forward = false}) async {
     if (state.status != EmailStatus.sending) {
       emit(state.copyWith(status: EmailStatus.sending));
       try {
         await EmailLogic.send(
           email: email,
           mailClient: mailClient!,
-          replyOriginalMessageId: replyOriginalMessageId,
+          originalMessageId: replyOriginalMessageId,
           replyAll: replyAll,
+          forward: forward,
+          reply: reply,
           emailNumber: emailNumber,
           emailsComplete: emailsComplete,
         );

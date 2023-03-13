@@ -8,10 +8,17 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 
 class EmailSendPage extends StatelessWidget {
-  final int? replyOriginalMessage;
+  final int? originalMessage;
   final bool? replyAll;
+  final bool reply;
+  final bool forward;
 
-  const EmailSendPage({Key? key, this.replyAll, this.replyOriginalMessage})
+  const EmailSendPage(
+      {Key? key,
+      this.replyAll,
+      this.originalMessage,
+      this.forward = false,
+      this.reply = false})
       : super(key: key);
 
   @override
@@ -40,7 +47,9 @@ class EmailSendPage extends StatelessWidget {
             context.read<EmailCubit>().send(
                 email: email,
                 replyAll: replyAll,
-                replyOriginalMessageId: replyOriginalMessage);
+                reply: reply,
+                forward: forward,
+                replyOriginalMessageId: originalMessage);
           });
           return const StateDisplayingPage(
               message: "Something went wrong with emails");
@@ -66,7 +75,7 @@ class EmailSendPage extends StatelessWidget {
                         bodyEditor.value.text.isNotEmpty &&
                         destinationEditor.value.text.contains("@") &&
                         destinationEditor.value.text.contains(".")) ||
-                    (replyOriginalMessage != null &&
+                    (originalMessage != null &&
                         bodyEditor.value.text.isNotEmpty)) {
                   EmailModel email = EmailModel(
                     subject: subjectEditor.text,
@@ -83,7 +92,9 @@ class EmailSendPage extends StatelessWidget {
                   context.read<EmailCubit>().send(
                       email: email,
                       replyAll: replyAll,
-                      replyOriginalMessageId: replyOriginalMessage);
+                      replyOriginalMessageId: originalMessage,
+                      reply: reply,
+                      forward: forward);
                 } else {
                   showDialog(
                     context: context,
@@ -129,7 +140,7 @@ class EmailSendPage extends StatelessWidget {
                           SizedBox(
                             width: 3.w,
                           ),
-                          (replyOriginalMessage == null)
+                          (originalMessage == null)
                               ? Expanded(
                                   child: Center(
                                     child: TextField(
@@ -194,7 +205,7 @@ class EmailSendPage extends StatelessWidget {
                   SizedBox(
                     height: 1.h,
                   ),
-                  (replyOriginalMessage == null)
+                  (!reply)
                       ? Container(
                           color: Theme.of(context).cardTheme.color,
                           width: 100.w,
@@ -210,7 +221,7 @@ class EmailSendPage extends StatelessWidget {
                   ),
                   Container(
                     color: Theme.of(context).cardTheme.color,
-                    height: (replyOriginalMessage == null) ? 62.5.h : 75.h,
+                    height: (originalMessage == null) ? 62.5.h : 75.h,
                     width: 100.w,
                     child: SingleChildScrollView(
                       child: Column(
@@ -248,14 +259,14 @@ class EmailSendPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          (replyOriginalMessage != null)
+                          (originalMessage != null)
                               ? Container(
                                   width: 100.w,
                                   height: 75.h,
                                   padding: EdgeInsets.all(1.h),
                                   child: EmailContentWidget(
                                       mail: state.emails.firstWhere((element) =>
-                                          element.id == replyOriginalMessage)),
+                                          element.id == originalMessage)),
                                 )
                               : Container(),
                         ],

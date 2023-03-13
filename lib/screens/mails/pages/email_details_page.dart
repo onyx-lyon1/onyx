@@ -147,7 +147,8 @@ class EmailDetailsPage extends StatelessWidget {
                     closedElevation: 0,
                     openBuilder: (context, closewidget) => EmailSendPage(
                       replyAll: false,
-                      replyOriginalMessage: mail.id,
+                      reply: true,
+                      originalMessage: mail.id,
                     ),
                     closedBuilder: (context, openwidget) => InkWell(
                       onTap: (!state.connected) ? null : openwidget,
@@ -161,12 +162,27 @@ class EmailDetailsPage extends StatelessWidget {
                     closedElevation: 0,
                     openBuilder: (context, closewidget) => EmailSendPage(
                       replyAll: true,
-                      replyOriginalMessage: mail.id,
+                      reply: true,
+                      originalMessage: mail.id,
                     ),
                     closedBuilder: (context, openwidget) => InkWell(
                       onTap: (!state.connected) ? null : openwidget,
                       child: const Icon(
                         Icons.reply_all_rounded,
+                      ),
+                    ),
+                  ),
+                  OpenContainer(
+                    closedColor: Colors.transparent,
+                    closedElevation: 0,
+                    openBuilder: (context, closewidget) => EmailSendPage(
+                      forward: true,
+                      originalMessage: mail.id,
+                    ),
+                    closedBuilder: (context, openwidget) => InkWell(
+                      onTap: (!state.connected) ? null : openwidget,
+                      child: const Icon(
+                        Icons.forward_rounded,
                       ),
                     ),
                   ),
