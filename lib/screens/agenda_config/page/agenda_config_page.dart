@@ -46,9 +46,11 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
             print("AgendaConfigState: ${state.status}");
           }
           Widget body;
+          if (state.status == AgendaConfigStatus.initial) {
+            context.read<AgendaConfigCubit>().loadDirs();
+          }
           if (state.status == AgendaConfigStatus.loading ||
               state.status == AgendaConfigStatus.initial) {
-            context.read<AgendaConfigCubit>().loadDirs();
             body = const StateDisplayingPage(
                 message: "Chargement de la liste des agendas");
           } else {
