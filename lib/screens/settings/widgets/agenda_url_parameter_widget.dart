@@ -65,9 +65,10 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                         );
                       },
                       child: Container(
-                        padding: EdgeInsets.all(2.5.w),
+                        padding: EdgeInsets.all(2.w),
                         child: Text(
                           'Sélectionner l\'agenda',
+                          maxLines: 1,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),

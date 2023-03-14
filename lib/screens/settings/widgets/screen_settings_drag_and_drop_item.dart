@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/functionalities_to_human_export.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 @override
@@ -28,11 +32,20 @@ class _ScreenSettingsDragAndDropContentState
   bool _isExpanded = false;
   GlobalKey key = GlobalKey();
   late double childHeight;
+  late int _key;
 
   @override
   void initState() {
     childHeight = 9.h;
+    _collapse();
     super.initState();
+  }
+
+  _collapse() {
+    int newKey = 0;
+    do {
+      _key = Random().nextInt(10000);
+    } while (newKey == _key);
   }
 
   Future<void> updateChildHeight() async {
@@ -55,46 +68,57 @@ class _ScreenSettingsDragAndDropContentState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 2.w),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).colorScheme.background,
-      ),
-      child: AnimatedContainer(
-        duration: Res.animationDuration,
-        height: childHeight,
-        child: Theme(
-          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-          child: Padding(
-            padding: EdgeInsets.only(top: 0.5.h),
-            child: ExpansionTile(
-              onExpansionChanged: (value) async {
-                // This is a hack to wait for the widget to be built
-                _isExpanded = value;
-                await updateChildHeight();
-                setState(() {});
-              },
-              maintainState: true,
-              trailing: const SizedBox.shrink(),
-              leading: AnimatedRotation(
-                  turns: _isExpanded ? .5 : 0,
-                  duration: Res.animationDuration,
-                  child: const Icon(
-                      Icons.keyboard_arrow_down_outlined) // your svgImage here
-                  ),
-              title: Row(
+    return BlocListener<SettingsCubit, SettingsState>(
+      listener: (context, state) {
+        if (state.collapseAll) {
+          _isExpanded = false;
+          _collapse();
+          updateChildHeight();
+        }
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 2.w),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Theme.of(context).colorScheme.background,
+        ),
+        child: AnimatedContainer(
+          duration: Res.animationDuration,
+          height: childHeight,
+          child: Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            child: Padding(
+              padding: EdgeInsets.only(top: 0.5.h),
+              child: ExpansionTile(
+                key: Key(_key.toString()),
+                onExpansionChanged: (value) async {
+                  // This is a hack to wait for the widget to be built
+                  _isExpanded = value;
+                  await updateChildHeight();
+                  setState(() {});
+                },
+                initiallyExpanded: false,
+                maintainState: true,
+                trailing: const SizedBox.shrink(),
+                leading: AnimatedRotation(
+                    turns: _isExpanded ? .5 : 0,
+                    duration: Res.animationDuration,
+                    child: const Icon(Icons
+                        .keyboard_arrow_down_outlined) // your svgImage here
+                    ),
+                title: Row(
+                  children: [
+                    Icon(widget.functionality.toIcon()),
+                    Text(widget.functionality.toCleanString())
+                  ],
+                ),
+                childrenPadding: const EdgeInsets.all(15),
+                expandedCrossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(widget.functionality.toIcon()),
-                  Text(widget.functionality.toCleanString())
+                  widget.functionality
+                      .toSettings(key: key, sizeUpdate: updateChildHeight)
                 ],
               ),
-              childrenPadding: const EdgeInsets.all(15),
-              expandedCrossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                widget.functionality
-                    .toSettings(key: key, sizeUpdate: updateChildHeight)
-              ],
             ),
           ),
         ),
