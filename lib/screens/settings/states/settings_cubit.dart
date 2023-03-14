@@ -24,8 +24,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(state.copyWith(status: SettingsStatus.loading));
     try {
       emit(state.copyWith(
-          status: SettingsStatus.ready,
-          settings: await SettingsLogic.load()));
+          status: SettingsStatus.ready, settings: await SettingsLogic.load()));
     } catch (e) {
       emit(state.copyWith(
           status: SettingsStatus.error, settings: SettingsModel()));
@@ -33,7 +32,8 @@ class SettingsCubit extends Cubit<SettingsState> {
     if (!(state.settings.calendarUpdateNotification &&
         state.settings.newMailNotification &&
         state.settings.newGradeNotification)) {
-      if (!Platform.environment.containsKey('FLUTTER_TEST') && (!kIsWeb && (Platform.isAndroid || Platform.isIOS))) {
+      if (!Platform.environment.containsKey('FLUTTER_TEST') &&
+          (!kIsWeb && (Platform.isAndroid || Platform.isIOS))) {
         Workmanager().cancelByUniqueName("updateChecking");
       }
     }
@@ -47,5 +47,9 @@ class SettingsCubit extends Cubit<SettingsState> {
   void resetCubit() async {
     emit(SettingsState(
         settings: SettingsModel(), status: SettingsStatus.initial));
+  }
+
+  void collapseAll() {
+    emit(state.copyWith(collapseAll: true));
   }
 }
