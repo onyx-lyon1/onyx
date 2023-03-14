@@ -11,6 +11,9 @@ class DraggableZoneWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, SettingsState>(
+      buildWhen: (previous, current) {
+        return !current.collapseAll;
+      },
       builder: (context, state) {
         List<DragAndDropList> contents = [
           DragAndDropList(
@@ -90,6 +93,11 @@ class DraggableZoneWidget extends StatelessWidget {
           listSizeAnimationDurationMilliseconds: 200,
           children: contents,
           lastListTargetSize: 0.0,
+          onItemDraggingChanged: (DragAndDropItem item, bool isDragging) {
+            if (isDragging) {
+              context.read<SettingsCubit>().collapseAll();
+            }
+          },
           onItemReorder: (int oldItemIndex, int oldListIndex, int newItemIndex,
               int newListIndex) {
             if ((oldListIndex == 0 && newListIndex == 1) &&
