@@ -63,47 +63,56 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
                       curve: Curves.easeInOut);
                 }
               },
-              child: RawGestureDetector(
-                gestures: <Type, GestureRecognizerFactory>{
-                  VerticalDragGestureRecognizer:
-                      GestureRecognizerFactoryWithHandlers<
-                              VerticalDragGestureRecognizer>(
-                          () => VerticalDragGestureRecognizer(),
-                          (VerticalDragGestureRecognizer instance) {
-                    instance
-                      ..onStart = _handleDragStart
-                      ..onUpdate = _handleDragUpdate
-                      ..onEnd = _handleDragEnd
-                      ..onCancel = _handleDragCancel;
-                  })
+              child: WillPopScope(
+                onWillPop: () async {
+                  _pageController.animateToPage(
+                      _pageController.page!.toInt() - 1,
+                      duration: Res.animationDuration,
+                      curve: Curves.easeInOut);
+                  return false;
                 },
-                behavior: HitTestBehavior.opaque,
-                child: PageView.custom(
-                  controller: _pageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  childrenDelegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      if (index == 0) {
-                        return DirWidget(
-                          dir: DirModel(
-                            name: "Agendas",
-                            id: 0,
-                            children: state.dirs,
-                          ),
-                          scrollController: _listScrollController,
-                        );
-                      } else {
-                        if (state.dirs.isNotEmpty &&
-                            index - 1 < state.expandedDirs.length) {
+                child: RawGestureDetector(
+                  gestures: <Type, GestureRecognizerFactory>{
+                    VerticalDragGestureRecognizer:
+                        GestureRecognizerFactoryWithHandlers<
+                                VerticalDragGestureRecognizer>(
+                            () => VerticalDragGestureRecognizer(),
+                            (VerticalDragGestureRecognizer instance) {
+                      instance
+                        ..onStart = _handleDragStart
+                        ..onUpdate = _handleDragUpdate
+                        ..onEnd = _handleDragEnd
+                        ..onCancel = _handleDragCancel;
+                    })
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  child: PageView.custom(
+                    controller: _pageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    childrenDelegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        if (index == 0) {
                           return DirWidget(
-                            dir: state.expandedDirs[index - 1],
+                            dir: DirModel(
+                              name: "Agendas",
+                              id: 0,
+                              children: state.dirs,
+                            ),
                             scrollController: _listScrollController,
                           );
+                        } else {
+                          if (state.dirs.isNotEmpty &&
+                              index - 1 < state.expandedDirs.length) {
+                            return DirWidget(
+                              dir: state.expandedDirs[index - 1],
+                              scrollController: _listScrollController,
+                            );
+                          }
                         }
-                      }
-                      return null;
-                    },
+                        return null;
+                      },
+                    ),
                   ),
                 ),
               ),
