@@ -17,7 +17,6 @@ class HybridTileProvider extends TileProvider {
     if (coords.toDeg().inside(MapRes.minBound, MapRes.maxBound) &&
         coords.z > MapRes.minZoom &&
         coords.z < MapRes.maxZoom) {
-      print("if");
       options = TileLayer(
         urlTemplate: "assets/map/{z}/{x}/{y}.png",
         userAgentPackageName: 'dev.fleaflet.flutter_map.example',
@@ -25,7 +24,6 @@ class HybridTileProvider extends TileProvider {
       );
       return _offlineTileProvider!.getImage(coords, options);
     } else {
-      print("else");
       options = TileLayer(
         urlTemplate: "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
         tileProvider: _onlineTileProvider,

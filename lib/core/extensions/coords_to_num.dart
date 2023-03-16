@@ -6,10 +6,10 @@ import 'package:latlong2/latlong.dart';
 extension CoordsToNum on Coords<num> {
   LatLng toDeg() {
     final n = math.pow(2.0, z);
-    final lon_deg = x / n * 360.0 - 180.0;
-    final lat_rad = math.atan(sinh(math.pi * (1 - 2 * y / n)));
-    final lat_deg = lat_rad * 180.0 / math.pi;
-    return LatLng(lat_deg, lon_deg);
+    final lonDeg = x / n * 360.0 - 180.0;
+    final latRad = math.atan(sinh(math.pi * (1 - 2 * y / n)));
+    final latDeg = latRad * 180.0 / math.pi;
+    return LatLng(latDeg, lonDeg);
   }
 }
 
