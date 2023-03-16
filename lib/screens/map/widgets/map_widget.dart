@@ -51,6 +51,8 @@ class MapWidget extends StatelessWidget {
           options: MapOptions(
             center: center ?? MapRes.center,
             zoom: 16.5,
+            maxZoom: MapRes.maxZoom,
+            minZoom: 0,
           ),
           mapController: mapController,
           children: [
