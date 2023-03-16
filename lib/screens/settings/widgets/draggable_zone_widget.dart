@@ -1,7 +1,6 @@
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
@@ -100,112 +99,11 @@ class DraggableZoneWidget extends StatelessWidget {
           },
           onItemReorder: (int oldItemIndex, int oldListIndex, int newItemIndex,
               int newListIndex) {
-            if ((oldListIndex == 0 && newListIndex == 1) &&
-                context
-                        .read<SettingsCubit>()
-                        .state
-                        .settings
-                        .enabledFunctionalities[oldItemIndex] !=
-                    Functionalities.settings) {
-              Functionalities item = context
-                  .read<SettingsCubit>()
-                  .state
-                  .settings
-                  .enabledFunctionalities[oldItemIndex];
-
-              context.read<SettingsCubit>().modify(
-                  settings: context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .copyWith(
-                          enabledFunctionalities: context
-                              .read<SettingsCubit>()
-                              .state
-                              .settings
-                              .enabledFunctionalities
-                              .where((element) => element != item)
-                              .toList(),
-                          disabledFunctionalities: context
-                              .read<SettingsCubit>()
-                              .state
-                              .settings
-                              .disabledFunctionalities
-                              .toList()
-                            ..insert(newItemIndex, item)));
-            } else if (oldListIndex == 1 && newListIndex == 0) {
-              Functionalities item = context
-                  .read<SettingsCubit>()
-                  .state
-                  .settings
-                  .disabledFunctionalities[oldItemIndex];
-              context.read<SettingsCubit>().modify(
-                  settings: context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .copyWith(
-                          disabledFunctionalities: context
-                              .read<SettingsCubit>()
-                              .state
-                              .settings
-                              .disabledFunctionalities
-                              .where((element) => element != item)
-                              .toList(),
-                          enabledFunctionalities: context
-                              .read<SettingsCubit>()
-                              .state
-                              .settings
-                              .enabledFunctionalities
-                              .toList()
-                            ..insert(newItemIndex, item)));
-            } else if (oldListIndex == 0 && newListIndex == 0) {
-              Functionalities item = context
-                  .read<SettingsCubit>()
-                  .state
-                  .settings
-                  .enabledFunctionalities[oldItemIndex];
-              context.read<SettingsCubit>().modify(
-                  settings: context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .copyWith(
-                          enabledFunctionalities: context
-                              .read<SettingsCubit>()
-                              .state
-                              .settings
-                              .enabledFunctionalities
-                              .toList()
-                            ..removeAt(oldItemIndex)
-                            ..insert(newItemIndex, item)));
-            } else if ((oldListIndex == 1 && newListIndex == 1) &&
-                context
-                        .read<SettingsCubit>()
-                        .state
-                        .settings
-                        .enabledFunctionalities[oldItemIndex] !=
-                    Functionalities.settings) {
-              Functionalities item = context
-                  .read<SettingsCubit>()
-                  .state
-                  .settings
-                  .disabledFunctionalities[oldItemIndex];
-              context.read<SettingsCubit>().modify(
-                  settings: context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .copyWith(
-                          disabledFunctionalities: context
-                              .read<SettingsCubit>()
-                              .state
-                              .settings
-                              .disabledFunctionalities
-                              .toList()
-                            ..removeAt(oldItemIndex)
-                            ..insert(newItemIndex, item)));
-            }
+            context.read<SettingsCubit>().move(
+                oldEnabled: oldListIndex == 0,
+                newEnabled: newListIndex == 0,
+                oldIndex: oldItemIndex,
+                newIndex: newItemIndex);
           },
           onListReorder: (int oldListIndex, int newListIndex) {},
         );
