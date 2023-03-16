@@ -171,7 +171,12 @@ class HomePageState extends State<HomePage> {
                                           .settings
                                           .enabledFunctionalities
                                           .length ==
-                                  1 &&
+                                  context
+                                      .read<SettingsCubit>()
+                                      .state
+                                      .settings
+                                      .enabledFunctionalities
+                                      .indexOf(Functionalities.agenda) &&
                               (mainPageController.hasClients
                                       ? ((mainPageController.offset +
                                               ((mainPageController.offset < 0)
