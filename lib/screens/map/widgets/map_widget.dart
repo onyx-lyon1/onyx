@@ -57,6 +57,48 @@ class MapWidget extends StatelessWidget {
         if (polylines.isNotEmpty) PolylineLayer(polylines: polylines),
         if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
           const CustomCurrentLocationLayerWidget(),
+        if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: EdgeInsets.only(left: 2.h, bottom: 2.h),
+              child: IconButton(
+                  onPressed: () {
+                    GeolocationLogic.getCurrentLocation(askPermission: true)
+                        .then((value) {
+                      if ((value != null)) {
+                        mapController?.move(value, 15);
+                      }
+                    });
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Theme.of(context).primaryColor),
+                  ),
+                  icon: Icon(
+                    Icons.location_searching_rounded,
+                    size: 25.sp,
+                  )),
+            ),
+          ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: EdgeInsets.only(right: 2.h, bottom: 2.h),
+            child: IconButton(
+                onPressed: () {
+                  mapController!.move(MapRes.center, 16.5);
+                },
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Theme.of(context).primaryColor),
+                ),
+                icon: Icon(
+                  Icons.location_city_rounded,
+                  size: 25.sp,
+                )),
+          ),
+        ),
         if (batiments.isNotEmpty)
           PopupMarkerLayerWidget(
             options: PopupMarkerLayerOptions(
