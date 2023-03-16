@@ -45,18 +45,37 @@ class MapWidget extends StatelessWidget {
         }
       });
     }
-    return FlutterMap(
-      options: MapOptions(
-        center: center ?? MapRes.center,
-        zoom: 16.5,
-      ),
-      mapController: mapController,
+    return Stack(
       children: [
-        TileLayer(tileProvider: HybridTileProvider() //AssetTileProvider(),
-            ),
-        if (polylines.isNotEmpty) PolylineLayer(polylines: polylines),
-        if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
-          const CustomCurrentLocationLayerWidget(),
+        FlutterMap(
+          options: MapOptions(
+            center: center ?? MapRes.center,
+            zoom: 16.5,
+          ),
+          mapController: mapController,
+          children: [
+            TileLayer(tileProvider: HybridTileProvider() //AssetTileProvider(),
+                ),
+            if (polylines.isNotEmpty) PolylineLayer(polylines: polylines),
+            if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
+              const CustomCurrentLocationLayerWidget(),
+            if (batiments.isNotEmpty)
+              PopupMarkerLayerWidget(
+                options: PopupMarkerLayerOptions(
+                  markers: markers,
+                  popupController: popupLayerController,
+                  popupBuilder: (BuildContext context, Marker marker) {
+                    return MapPopupWidget(
+                      batiment: batiments.firstWhere(
+                          (element) => element.position == marker.point),
+                      onTap: onTapNavigate,
+                      popupController: popupLayerController,
+                    );
+                  },
+                ),
+              ),
+          ],
+        ),
         if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
           Align(
             alignment: Alignment.bottomLeft,
@@ -99,21 +118,6 @@ class MapWidget extends StatelessWidget {
                 )),
           ),
         ),
-        if (batiments.isNotEmpty)
-          PopupMarkerLayerWidget(
-            options: PopupMarkerLayerOptions(
-              markers: markers,
-              popupController: popupLayerController,
-              popupBuilder: (BuildContext context, Marker marker) {
-                return MapPopupWidget(
-                  batiment: batiments.firstWhere(
-                      (element) => element.position == marker.point),
-                  onTap: onTapNavigate,
-                  popupController: popupLayerController,
-                );
-              },
-            ),
-          ),
       ],
     );
   }
