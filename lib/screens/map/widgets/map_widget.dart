@@ -9,7 +9,7 @@ import 'package:onyx/screens/map/domain/logic/tile_provider_logic.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:sizer/sizer.dart';
 
-class MapWidget extends StatelessWidget {
+class MapWidget extends StatefulWidget {
   const MapWidget(
       {Key? key,
       this.batiments = const [],
@@ -25,10 +25,22 @@ class MapWidget extends StatelessWidget {
   final void Function(BatimentModel) onTapNavigate;
 
   @override
+  State<MapWidget> createState() => _MapWidgetState();
+}
+
+class _MapWidgetState extends State<MapWidget> {
+  late MapController? mapController;
+
+  @override
+  void initState() {
+    mapController = widget.mapController ?? MapController();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    /// Used to trigger showing/hiding of popups.
     final PopupController popupLayerController = PopupController();
-    List<Marker> markers = batiments.map((element) {
+    List<Marker> markers = widget.batiments.map((element) {
       return Marker(
         point: element.position,
         builder: (context) => Icon(
@@ -38,10 +50,18 @@ class MapWidget extends StatelessWidget {
         ),
       );
     }).toList();
-    if (center == null) {
-      GeolocationLogic.getCurrentLocation(askPermission: false).then((value) {
+    if (widget.center == null) {
+      GeolocationLogic.getCurrentLocation(askPermission: false)
+          .then((value) async {
         if ((value != null) && value.inside(MapRes.minBound, MapRes.maxBound)) {
-          mapController?.move(value, 16.5);
+          //loop 10 times to make sure the map controller is initialized
+          for (int i = 0; i < 10; i++) {
+            if (mapController != null) {
+              mapController?.move(value, 16.5);
+              break;
+            }
+            await Future.delayed(const Duration(milliseconds: 100));
+          }
         }
       });
     }
@@ -49,7 +69,7 @@ class MapWidget extends StatelessWidget {
       children: [
         FlutterMap(
           options: MapOptions(
-            center: center ?? MapRes.center,
+            center: widget.center ?? MapRes.center,
             zoom: 16.5,
             maxZoom: MapRes.maxZoom,
             minZoom: 0,
@@ -58,19 +78,20 @@ class MapWidget extends StatelessWidget {
           children: [
             TileLayer(tileProvider: HybridTileProvider() //AssetTileProvider(),
                 ),
-            if (polylines.isNotEmpty) PolylineLayer(polylines: polylines),
+            if (widget.polylines.isNotEmpty)
+              PolylineLayer(polylines: widget.polylines),
             if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
               const CustomCurrentLocationLayerWidget(),
-            if (batiments.isNotEmpty)
+            if (widget.batiments.isNotEmpty)
               PopupMarkerLayerWidget(
                 options: PopupMarkerLayerOptions(
                   markers: markers,
                   popupController: popupLayerController,
                   popupBuilder: (BuildContext context, Marker marker) {
                     return MapPopupWidget(
-                      batiment: batiments.firstWhere(
+                      batiment: widget.batiments.firstWhere(
                           (element) => element.position == marker.point),
-                      onTap: onTapNavigate,
+                      onTap: widget.onTapNavigate,
                       popupController: popupLayerController,
                     );
                   },
