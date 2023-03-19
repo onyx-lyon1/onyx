@@ -63,13 +63,13 @@ class EmailCubit extends Cubit<EmailState> {
             : EmailStatus.sorted));
   }
 
-  void delete({required EmailModel email}) async {
+  void delete({required EmailModel email, required bool blockTrackers}) async {
     if (mailClient!.isAuthenticated) {
       await mailClient!.fetchMessages(20);
       await mailClient!.delete(email.id!);
       emit(state.copyWith(
           status: EmailStatus.updated, emails: state.emails..remove(email)));
-      load(cache: false);
+      load(cache: false, blockTrackers: blockTrackers);
     }
     emit(state.copyWith(status: EmailStatus.updated));
   }
@@ -126,7 +126,7 @@ class EmailCubit extends Cubit<EmailState> {
     }
   }
 
-  void load({bool cache = true}) async {
+  void load({bool cache = true, required bool blockTrackers}) async {
     emit(state.copyWith(status: EmailStatus.loading));
     if (cache && !Res.mock) {
       List<EmailModel> emailCache = await compute(EmailLogic.cacheLoad,
@@ -140,7 +140,9 @@ class EmailCubit extends Cubit<EmailState> {
     }
     try {
       emailsComplete = await EmailLogic.load(
-          emailNumber: emailNumber, mailClient: mailClient!);
+          emailNumber: emailNumber,
+          mailClient: mailClient!,
+          blockTrackers: blockTrackers);
     } catch (e) {
       emit(state.copyWith(status: EmailStatus.error));
       return;
@@ -179,10 +181,10 @@ class EmailCubit extends Cubit<EmailState> {
     }
   }
 
-  void increaseNumber() {
+  void increaseNumber({required bool blockTrackers}) {
     emailNumber += 20;
     emit(state.copyWith(status: EmailStatus.loading));
-    load(cache: false);
+    load(cache: false, blockTrackers: blockTrackers);
     return;
   }
 

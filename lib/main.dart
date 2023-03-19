@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -29,9 +28,9 @@ void main() async {
   }
   await hiveInit();
 
-  final deviceInfo = await DeviceInfoPlugin().deviceInfo;
-  final int androidSdkVersion =
-      deviceInfo is AndroidDeviceInfo ? deviceInfo.version.sdkInt : 0;
+  // final deviceInfo = await DeviceInfoPlugin().deviceInfo;
+  // final int androidSdkVersion =
+  //     deviceInfo is AndroidDeviceInfo ? deviceInfo.version.sdkInt : 0;
 
   if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS || kIsWeb) {
     await Firebase.initializeApp();
@@ -43,7 +42,5 @@ void main() async {
       return true;
     };
   }
-  runApp(OnyxApp(
-    androidSdkVersion: androidSdkVersion,
-  ));
+  runApp(const OnyxApp());
 }

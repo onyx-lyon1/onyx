@@ -6,6 +6,7 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
 class EmailsPage extends StatelessWidget {
@@ -40,7 +41,10 @@ class EmailsPage extends StatelessWidget {
               username: context.read<AuthentificationCubit>().state.username,
               password: context.read<AuthentificationCubit>().state.password);
         } else if (state.status == EmailStatus.connected) {
-          context.read<EmailCubit>().load();
+          context.read<EmailCubit>().load(
+                blockTrackers:
+                    context.read<SettingsCubit>().state.settings.blockTrackers,
+              );
         }
 
         return Scaffold(
@@ -91,7 +95,13 @@ class EmailsPage extends StatelessWidget {
                           )
                         : InkWell(
                             onTap: () =>
-                                context.read<EmailCubit>().increaseNumber(),
+                                context.read<EmailCubit>().increaseNumber(
+                                      blockTrackers: context
+                                          .read<SettingsCubit>()
+                                          .state
+                                          .settings
+                                          .blockTrackers,
+                                    ),
                             child: Center(
                               child: Padding(
                                 padding: EdgeInsets.all(8.w),
@@ -106,7 +116,13 @@ class EmailsPage extends StatelessWidget {
               }),
             ),
             onRefresh: () async {
-              context.read<EmailCubit>().load();
+              context.read<EmailCubit>().load(
+                    blockTrackers: context
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .blockTrackers,
+                  );
               while (state.status != EmailStatus.loaded &&
                   state.status != EmailStatus.error &&
                   state.status != EmailStatus.sorted) {

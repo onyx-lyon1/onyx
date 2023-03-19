@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
 class EmailSendPage extends StatelessWidget {
@@ -54,7 +55,11 @@ class EmailSendPage extends StatelessWidget {
           return const StateDisplayingPage(
               message: "Something went wrong with emails");
         } else if (state.status == EmailStatus.sended) {
-          context.read<EmailCubit>().load(cache: false);
+          context.read<EmailCubit>().load(
+                cache: false,
+                blockTrackers:
+                    context.read<SettingsCubit>().state.settings.blockTrackers,
+              );
           SchedulerBinding.instance.addPostFrameCallback((_) {
             Navigator.pop(context);
           });
