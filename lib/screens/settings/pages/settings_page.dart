@@ -183,7 +183,13 @@ class _SettingsPageState extends State<SettingsPage> {
                         child: const Text('Vider le cache des mails'),
                         onPressed: () {
                           CacheService.reset<EmailModelWrapper>();
-                          context.read<EmailCubit>().load(cache: false);
+                          context.read<EmailCubit>().load(
+                              cache: false,
+                              blockTrackers: context
+                                  .read<SettingsCubit>()
+                                  .state
+                                  .settings
+                                  .blockTrackers);
                         },
                       ),
                       MaterialButton(

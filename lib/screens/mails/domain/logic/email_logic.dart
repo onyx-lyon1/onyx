@@ -21,7 +21,9 @@ class EmailLogic {
   }
 
   static Future<List<EmailModel>> load(
-      {required Lyon1Mail mailClient, required int emailNumber}) async {
+      {required Lyon1Mail mailClient,
+      required int emailNumber,
+      required bool blockTrackers}) async {
     if (Res.mock) {
       return emailListMock;
     }
@@ -41,7 +43,8 @@ class EmailLogic {
         if (!tmpEmailsComplete.any((element) =>
             element.date == mail.getDate &&
             element.body == mail.getBody(excerpt: false))) {
-          tmpEmailsComplete.add(EmailModel.fromMailLib(mail));
+          tmpEmailsComplete.add(EmailModel.fromMailLib(mail,
+              removeTrackingImages: blockTrackers));
         }
       }
     }
@@ -153,6 +156,7 @@ class EmailLogic {
         isRead: false,
         date: DateTime(2022, 9, 1, 8),
         body: "bodyMock1",
+        blackBody: "blackBodyMock1",
         id: 1,
         receiver: "receiverMock1",
         attachments: ["attachmentMock1", "attachmentMock2"],
@@ -164,6 +168,7 @@ class EmailLogic {
         isRead: true,
         date: DateTime(2022, 9, 1, 9),
         body: "bodyMock2",
+        blackBody: "blackBodyMock2",
         id: 2,
         receiver: "receiverMock2",
         attachments: ["attachmentMock1", "attachmentMock2"],
@@ -175,6 +180,7 @@ class EmailLogic {
         isRead: false,
         date: DateTime(2022, 9, 1, 10),
         body: "bodyMock3",
+        blackBody: "blackBodyMock3",
         id: 3,
         receiver: "receiverMock3",
         attachments: ["attachmentMock1", "attachmentMock2"],
@@ -186,6 +192,7 @@ class EmailLogic {
         isRead: true,
         date: DateTime(2022, 9, 1, 11),
         body: "bodyMock4",
+        blackBody: "blackBodyMock4",
         id: 4,
         receiver: "receiverMock4",
         attachments: ["attachmentMock1", "attachmentMock2"],
@@ -197,6 +204,7 @@ class EmailLogic {
         isRead: false,
         date: DateTime(2022, 9, 1, 12),
         body: "bodyMock5",
+        blackBody: "blackBodyMock5",
         id: 5,
         receiver: "receiverMock5",
         attachments: ["attachmentMock1", "attachmentMock2"],

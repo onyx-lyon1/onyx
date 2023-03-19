@@ -30,11 +30,7 @@ class EMailSettingsWidget extends StatelessWidget {
           ),
         TextSwitchWidget(
           text: 'Forcer le thème des mails',
-          value: context
-              .read<SettingsCubit>()
-              .state
-              .settings
-              .darkerMail,
+          value: context.read<SettingsCubit>().state.settings.darkerMail,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
                 settings: context
@@ -44,7 +40,18 @@ class EMailSettingsWidget extends StatelessWidget {
                     .copyWith(darkerMail: b));
           },
         ),
-
+        TextSwitchWidget(
+          text: 'Bloquer les trackers',
+          value: context.read<SettingsCubit>().state.settings.blockTrackers,
+          onChanged: (bool b) {
+            context.read<SettingsCubit>().modify(
+                settings: context
+                    .read<SettingsCubit>()
+                    .state
+                    .settings
+                    .copyWith(blockTrackers: b));
+          },
+        ),
       ],
     );
   }

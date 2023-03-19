@@ -19,9 +19,7 @@ import 'core/widgets/states_displaying/state_displaying_widget_export.dart';
 class OnyxApp extends StatefulWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
-  const OnyxApp({Key? key, required this.androidSdkVersion}) : super(key: key);
-
-  final int androidSdkVersion;
+  const OnyxApp({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
