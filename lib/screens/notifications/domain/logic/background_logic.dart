@@ -79,8 +79,8 @@ void backgroundLogic() {
           }
           Lyon1Mail mail = await EmailLogic.connect(
               username: auth.username, password: auth.password);
-          List<EmailModel> newEmails =
-              await EmailLogic.load(mailClient: mail, emailNumber: 20);
+          List<EmailModel> newEmails = await EmailLogic.load(
+              mailClient: mail, emailNumber: 20, blockTrackers: true);
           for (var i in newEmails) {
             if (!i.isRead &&
                 !emails.any((element) {

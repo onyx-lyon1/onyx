@@ -3,7 +3,6 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  advance_expansion_tile
   url_launcher_linux
 )
 

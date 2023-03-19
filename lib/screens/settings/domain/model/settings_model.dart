@@ -9,6 +9,7 @@ class SettingsModel {
   @HiveField(0)
   late bool keepMeLoggedIn;
 
+  //tomuss
   @HiveField(1)
   late bool forceGreen;
   @HiveField(2)
@@ -18,6 +19,7 @@ class SettingsModel {
   @HiveField(4)
   late bool showHiddenUE;
 
+  //agenda
   @HiveField(5)
   late bool fetchAgendaAuto;
   @HiveField(6)
@@ -27,6 +29,7 @@ class SettingsModel {
   @HiveField(8)
   late int? agendaId;
 
+  //email
   @HiveField(9)
   late bool newMailNotification;
   @HiveField(10)

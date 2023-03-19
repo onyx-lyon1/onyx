@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/screens/mails/domain/model/email_model.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,7 +23,8 @@ class _EmailContentWidgetState extends State<EmailContentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (((widget.mail.body.contains("<html") || widget.mail.body.contains("text/html")) &&
+    if (((widget.mail.body.contains("<html") ||
+            widget.mail.body.contains("text/html")) &&
         (Platform.isAndroid || Platform.isIOS))) {
       webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
       webViewController.setNavigationDelegate(
@@ -43,28 +43,18 @@ class _EmailContentWidgetState extends State<EmailContentWidget> {
 
       webViewController
           .setBackgroundColor(Theme.of(context).colorScheme.background);
+      String html = widget.mail.body;
+      if (context.read<SettingsCubit>().state.settings.darkerMail) {
+        if (Theme.of(context).brightness == Brightness.dark) {
+          html = widget.mail.blackBody;
+        }
+      }
       webViewController.loadHtmlString(
-        (context.read<SettingsCubit>().state.settings.darkerMail)
-            ?
-            //add background screen
-            '<!DOCTYPE html>'
-                '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
-                '<style>body { background-color: ${Theme.of(context).cardTheme.color!.toHex()}; } </style>'
-                '</head>'
-                '<body text="${Theme.of(context).textTheme.bodyMedium?.color?.toHex()}" >'
-                '${widget.mail.body}'
-                '</body>'
-            :
-            //add background screen
-            '<!DOCTYPE html>'
-                '<head><meta name="viewport" content="width=device-width, initial-scale=1.0">'
-                '</head>'
-                '<body>'
-                '${widget.mail.body}'
-                '</body>',
+        html,
       );
     }
-    return ((widget.mail.body.contains("<html") || widget.mail.body.contains("text/html")) &&
+    return ((widget.mail.body.contains("<html") ||
+                widget.mail.body.contains("text/html")) &&
             (Platform.isAndroid || Platform.isIOS))
         ? WebViewWidget(
             controller: webViewController,
