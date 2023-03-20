@@ -46,7 +46,6 @@ class EmailsPage extends StatelessWidget {
                     context.read<SettingsCubit>().state.settings.blockTrackers,
               );
         }
-
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
           floatingActionButton: OpenContainer(
@@ -57,9 +56,10 @@ class EmailsPage extends StatelessWidget {
             closedShape: const CircleBorder(),
             closedElevation: 6,
             transitionDuration: Res.animationDuration,
+            tappable: state.connected,
             openBuilder: (context, closedContainer) => const EmailSendPage(),
             closedBuilder: (context, openContainer) => InkWell(
-              onTap: openContainer,
+              onTap: (state.connected) ? openContainer : null,
               child: Padding(
                 padding: EdgeInsets.all(1.5.h),
                 child: Icon(
