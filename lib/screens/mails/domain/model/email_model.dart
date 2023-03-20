@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:lyon1mail/lyon1mail.dart' as lyon1mail;
 
 part 'email_model.g.dart';
 
@@ -46,26 +45,25 @@ class EmailModel {
       required this.isFlagged,
       this.rawMail});
 
-  static EmailModel fromMailLib(lyon1mail.Mail mail,
-      {bool removeTrackingImages = false}) {
+  static EmailModel fromMailLib(List params
+      // lyon1mail.Mail mail,
+      //     {bool removeTrackingImages = false}
+      ) {
     return EmailModel(
-      subject: mail.getSubject,
-      sender: mail.getSender,
-      excerpt: mail.getBody(
-          excerpt: true, removeTrackingImages: removeTrackingImages),
-      isRead: mail.isSeen,
-      date: mail.getDate,
-      body: mail.getBody(
-          excerpt: false, removeTrackingImages: removeTrackingImages),
-      blackBody: mail.getBody(
-          excerpt: false,
-          darkMode: true,
-          removeTrackingImages: removeTrackingImages),
-      id: mail.getSequenceId,
+      subject: params[0].getSubject,
+      sender: params[0].getSender,
+      excerpt:
+          params[0].getBody(excerpt: true, removeTrackingImages: params[1]),
+      isRead: params[0].isSeen,
+      date: params[0].getDate,
+      body: params[0].getBody(excerpt: false, removeTrackingImages: params[1]),
+      blackBody: params[0].getBody(
+          excerpt: false, darkMode: true, removeTrackingImages: params[1]),
+      id: params[0].getSequenceId,
       receiver: "moi",
-      attachments: mail.getAttachmentsNames,
-      isFlagged: mail.isFlagged,
-      rawMail: mail,
+      attachments: params[0].getAttachmentsNames,
+      isFlagged: params[0].isFlagged,
+      rawMail: params[0],
     );
   }
 
