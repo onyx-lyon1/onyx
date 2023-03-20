@@ -43,6 +43,9 @@ dependencies:
   file_picker: ^5.2.2
   open_filex: ^4.3.1
   flutter_file_dialog: ^3.0.0
+  enough_html_editor: ^0.0.5
+  flutter_quill: ^7.0.1
+  vsc_quill_delta_to_html: ^1.0.2
 
   #tomuss
   dartus:
