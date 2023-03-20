@@ -39,19 +39,15 @@ class EmailLogic {
         print("no emails");
       }
     } else {
-      print("begin email conversion to new model");
       for (final Mail mail in emailOpt) {
         if (!tmpEmailsComplete.any((element) =>
             element.date == mail.getDate &&
             element.body == mail.getBody(excerpt: false))) {
-          print("adding email: ${mail.getSubject}");
-          tmpEmailsComplete.add(EmailModel.fromMailLib(mail,
-              removeTrackingImages: blockTrackers));
+          tmpEmailsComplete.add(
+              await compute(EmailModel.fromMailLib, [mail, blockTrackers]));
         }
       }
-      print("end email conversion to new model");
     }
-    print("end email loading");
     return tmpEmailsComplete;
   }
 
