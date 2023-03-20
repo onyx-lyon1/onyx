@@ -21,6 +21,7 @@ class EmailHeaderWidget extends StatelessWidget {
         child: Center(
           child: TextField(
             onChanged: (String query) {
+              print("filter on query: $query");
               context.read<EmailCubit>().filter(filter: query);
             },
             onSubmitted: (String query) {
