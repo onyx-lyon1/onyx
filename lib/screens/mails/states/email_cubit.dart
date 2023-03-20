@@ -28,22 +28,17 @@ class EmailCubit extends Cubit<EmailState> {
       try {
         username = username;
         password = password;
-        print("Connecting to mail");
         mailClient =
-            await EmailLogic.connect(username: username, password: password);
-        print("Connected to mail");
+        await EmailLogic.connect(username: username, password: password);
         emit(state.copyWith(status: EmailStatus.connected, connected: true));
       } catch (e) {
-        if (kDebugMode) {
-          print("Error while connecting to mail: $e");
-        }
+        if (kDebugMode) {}
         emit(state.copyWith(status: EmailStatus.error));
       }
     }
   }
 
   void filter({required String filter}) async {
-    print("Filtering: $filter");
     lastFilter = filter;
     List<EmailModel> emails = [];
     if (filter != "") {
@@ -54,14 +49,11 @@ class EmailCubit extends Cubit<EmailState> {
             i.sender.toLowerCase().contains(filter.toLowerCase()) ||
             i.body.toLowerCase().contains(filter.toLowerCase())) {
           emails.add(i);
-          print("Added: ${i.subject}");
         }
       }
     } else {
       emails = emailsComplete;
-      print("Added all");
     }
-    print("emit");
     emit(state.copyWith(
         emails: emails,
         status: (state.status == EmailStatus.cacheLoaded)
@@ -141,7 +133,6 @@ class EmailCubit extends Cubit<EmailState> {
         emailsComplete = emailCache;
         emit(state.copyWith(
             emails: emailsComplete, status: EmailStatus.cacheLoaded));
-        print("filter from cache");
         filter(filter: lastFilter);
       }
     }
@@ -156,19 +147,16 @@ class EmailCubit extends Cubit<EmailState> {
     }
     CacheService.set<EmailModelWrapper>(
         EmailModelWrapper(emailsComplete)); //await à definir
-    print("emit loaded");
     emit(state.copyWith(status: EmailStatus.loaded, emails: emailsComplete));
-    print("filter from load");
 
     filter(filter: lastFilter);
   }
 
-  void send(
-      {required EmailModel email,
-      int? replyOriginalMessageId,
-      bool? replyAll,
-      bool reply = false,
-      bool forward = false}) async {
+  void send({required EmailModel email,
+    int? replyOriginalMessageId,
+    bool? replyAll,
+    bool reply = false,
+    bool forward = false}) async {
     if (state.status != EmailStatus.sending) {
       emit(state.copyWith(status: EmailStatus.sending));
       try {
@@ -183,7 +171,6 @@ class EmailCubit extends Cubit<EmailState> {
           emailsComplete: emailsComplete,
         );
       } catch (e) {
-        print(e);
         emit(state.copyWith(status: EmailStatus.error));
         return;
       }

@@ -37,7 +37,7 @@ class EmailSendPage extends StatelessWidget {
     final TextEditingController destinationEditor = TextEditingController();
     // final TextEditingController bodyEditor = TextEditingController();
     List<File> attachments = [];
-    QuillController _controller = QuillController.basic();
+    QuillController controller = QuillController.basic();
 
     return BlocBuilder<EmailCubit, EmailState>(
       builder: (context, state) {
@@ -49,7 +49,7 @@ class EmailSendPage extends StatelessWidget {
               excerpt: "",
               isRead: false,
               date: DateTime.now(),
-              body: bodyHtml(_controller),
+              body: bodyHtml(controller),
               id: 0,
               receiver: destinationEditor.text,
               isFlagged: false,
@@ -88,18 +88,18 @@ class EmailSendPage extends StatelessWidget {
               onTap: () {
                 if ((destinationEditor.value.text.isNotEmpty &&
                         subjectEditor.value.text.isNotEmpty &&
-                        bodyHtml(_controller).isNotEmpty &&
+                        bodyHtml(controller).isNotEmpty &&
                         destinationEditor.value.text.contains("@") &&
                         destinationEditor.value.text.contains(".")) ||
                     (originalMessage != null &&
-                        bodyHtml(_controller).isNotEmpty)) {
+                        bodyHtml(controller).isNotEmpty)) {
                   EmailModel email = EmailModel(
                     subject: subjectEditor.text,
                     sender: "moi",
                     excerpt: "",
                     isRead: false,
                     date: DateTime.now(),
-                    body: bodyHtml(_controller),
+                    body: bodyHtml(controller),
                     id: 0,
                     receiver: destinationEditor.text,
                     isFlagged: false,
@@ -242,12 +242,12 @@ class EmailSendPage extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          QuillToolbar.basic(controller: _controller),
-                          Container(
+                          QuillToolbar.basic(controller: controller),
+                          SizedBox(
                             height: (originalMessage != null) ? 40.h : 52.h,
                             width: 100.w,
                             child: QuillEditor.basic(
-                              controller: _controller,
+                              controller: controller,
                               readOnly: false, // true for view only mode
                             ),
                           ),
