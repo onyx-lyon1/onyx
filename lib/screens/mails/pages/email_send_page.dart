@@ -257,8 +257,9 @@ class EmailSendPage extends StatelessWidget {
                                   height: 75.h,
                                   padding: EdgeInsets.all(1.h),
                                   child: EmailContentWidget(
-                                      mail: state.emails.firstWhere((element) =>
-                                          element.id == originalMessage)),
+                                      mail: state.currentMailBox!.emails
+                                          .firstWhere((element) =>
+                                              element.id == originalMessage)),
                                 )
                               : Container(),
                         ],

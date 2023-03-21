@@ -342,7 +342,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "7a43ab9f50ce0c0877d9321b1f565643df9ac6ff"
+      resolved-ref: "8c67ed0e275531e73bed4b56c1be0dab4ebdb952"
       url: "https://github.com/onyx-lyon1/dartus-tomuss-client.git"
     source: git
     version: "1.0.3"
@@ -420,7 +420,7 @@ packages:
     source: hosted
     version: "0.0.5"
   enough_mail:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: enough_mail
       sha256: da5acfe639663485f9e869b0b7f90c3d9d5d99f4aa4fdd3bee3ac0f8597d631c
@@ -1174,10 +1174,10 @@ packages:
     dependency: "direct main"
     description:
       name: path_provider
-      sha256: "04890b994ee89bfa80bf3080bfec40d5a92c5c7a785ebb02c13084a099d2b6f9"
+      sha256: c7edf82217d4b2952b2129a61d3ad60f1075b9299e629e149a8d2e39c2e6aad4
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.13"
+    version: "2.0.14"
   path_provider_android:
     dependency: transitive
     description:

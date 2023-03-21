@@ -17,27 +17,31 @@ enum EmailStatus {
 
 class EmailState {
   final EmailStatus status;
-  final List<EmailModel> emails;
+  final List<MailBoxModel> mailBoxes;
+  final MailBoxModel? currentMailBox;
   final int emailNumber;
   final bool connected;
 
   EmailState({
     this.status = EmailStatus.initial,
-    this.emails = const [],
+    this.mailBoxes = const [],
+    this.currentMailBox,
     this.emailNumber = 20,
     this.connected = false,
   });
 
   EmailState copyWith({
     EmailStatus? status,
-    List<EmailModel>? emails,
+    List<MailBoxModel>? mailBoxes,
+    MailBoxModel? currentMailBox,
     int? emailNumber,
     bool? connected,
   }) {
     return EmailState(
       status: status ?? this.status,
-      emails: emails ?? this.emails,
+      mailBoxes: mailBoxes ?? this.mailBoxes,
       emailNumber: emailNumber ?? this.emailNumber,
+      currentMailBox: currentMailBox ?? this.currentMailBox,
       connected: connected ?? this.connected,
     );
   }

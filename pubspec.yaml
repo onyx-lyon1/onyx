@@ -46,6 +46,7 @@ dependencies:
   enough_html_editor: ^0.0.5
   flutter_quill: ^7.0.1
   vsc_quill_delta_to_html: ^1.0.2
+  enough_mail: ^2.1.1
 
   #tomuss
   dartus:
