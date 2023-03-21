@@ -103,6 +103,22 @@ class _TomussPageState extends State<TomussPage> {
             message: "Erreur pendant le chargement des notes",
           );
         }
+
+        List<GradeModel> newGrades = [];
+        for (var teachingUnit in state.teachingUnits.where(
+          (element) =>
+              element.isHidden == false ||
+              context.read<SettingsCubit>().state.settings.showHiddenUE,
+        )) {
+          for (var grade in teachingUnit.grades) {
+            if ((grade.date != null) &&
+                grade.date!.isAfter(
+                    DateTime.now().subtract(const Duration(days: 7)))) {
+              newGrades.add(grade);
+            }
+          }
+        }
+        newGrades.sort((a, b) => b.date!.compareTo(a.date!));
         return CommonScreenWidget(
           state: loadingHeader,
           header: Container(
@@ -110,15 +126,32 @@ class _TomussPageState extends State<TomussPage> {
             color: Theme.of(context).cardTheme.color,
             child: Stack(
               children: [
-                Center(
-                  child: Text(
-                    'Notes',
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ...newGrades.map(
+                      (grade) => Container(
+                        width: Res.bottomNavBarItemWidth,
+                        height: Res.bottomNavBarHeight,
+                        padding: EdgeInsets.all(0.8.w),
+                        child: GradeWidget(
+                            grades: [grade],
+                            text1: grade.name,
+                            text2: state.teachingUnits
+                                .firstWhere(
+                                    (element) => element.grades.contains(grade))
+                                .name,
+                            depth: 0,
+                            compact: true,
+                            onTap: () => showAllGrades(
+                                  context,
+                                  state.teachingUnits.firstWhere((element) =>
+                                      element.grades.contains(grade)),
+                                )),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
                 //button to toggle semester with an icon
                 Padding(
@@ -145,33 +178,28 @@ class _TomussPageState extends State<TomussPage> {
           ),
           body: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
-            children: [
-              ...state.teachingUnits
-                  .where(
-                    (element) =>
-                        element.isHidden == false ||
-                        context
-                            .read<SettingsCubit>()
-                            .state
-                            .settings
-                            .showHiddenUE,
-                  )
-                  .map(
-                    (schoolSubject) => Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
-                      child: GradeWidget(
-                        grades: schoolSubject.grades,
-                        isSeen: schoolSubject.isSeen,
-                        text2:
-                            schoolSubject.masters.map((e) => e.name).join(", "),
-                        text1: schoolSubject.name,
-                        onTap: () => showAllGrades(context, schoolSubject),
-                        depth: 0,
-                      ),
+            children: state.teachingUnits
+                .where(
+                  (element) =>
+                      element.isHidden == false ||
+                      context.read<SettingsCubit>().state.settings.showHiddenUE,
+                )
+                .map(
+                  (schoolSubject) => Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+                    child: GradeWidget(
+                      grades: schoolSubject.grades,
+                      isSeen: schoolSubject.isSeen,
+                      text2:
+                          schoolSubject.masters.map((e) => e.name).join(", "),
+                      text1: schoolSubject.name,
+                      onTap: () => showAllGrades(context, schoolSubject),
+                      depth: 0,
                     ),
-                  )
-            ],
+                  ),
+                )
+                .toList(),
           ),
           onRefresh: () async {
             context.read<TomussCubit>().load(
