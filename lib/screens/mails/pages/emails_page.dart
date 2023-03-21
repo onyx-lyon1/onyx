@@ -78,10 +78,11 @@ class EmailsPage extends StatelessWidget {
             body: ListView.custom(
               controller: scrollController,
               childrenDelegate: SliverChildBuilderDelegate((context, index) {
-                if (index < state.emails.length) {
-                  return EmailWidget(email: state.emails[index]);
-                } else if ((index == state.emails.length) &&
-                    state.emails.isNotEmpty) {
+                if (index < state.currentMailBox!.emails.length) {
+                  return EmailWidget(
+                      email: state.currentMailBox!.emails[index]);
+                } else if ((index == state.currentMailBox!.emails.length) &&
+                    state.currentMailBox!.emails.isNotEmpty) {
                   return Material(
                     color: Theme.of(context).colorScheme.background,
                     child: (state.status == EmailStatus.loading)

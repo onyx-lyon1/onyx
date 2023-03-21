@@ -20,20 +20,28 @@ class EmailLogic {
     return mailClient;
   }
 
-  static Future<List<EmailModel>> load(
+  static Future<MailBoxModel> load(
       {required Lyon1Mail mailClient,
       required int emailNumber,
-      required bool blockTrackers}) async {
+      required bool blockTrackers,
+      MailBoxModel? mailBox}) async {
     if (Res.mock) {
-      return emailListMock;
+      return mailboxesMock.first;
     }
+
     List<EmailModel> tmpEmailsComplete = [];
     if (!mailClient.isAuthenticated) {
       if (!await mailClient.login()) {
         throw Exception("Login failed");
       }
     }
-    final List<Mail>? emailOpt = await mailClient.fetchMessages(emailNumber);
+    final List<Mail>? emailOpt =
+        await mailClient.fetchMessages(emailNumber, mailboxName: mailBox?.name);
+
+    mailBox ??= MailBoxModel(
+        name: "Boite de réception",
+        specialMailBox: SpecialMailBox.inbox,
+        emails: []);
     if (emailOpt == null || emailOpt.isEmpty) {
       if (kDebugMode) {
         print("no emails");
@@ -47,8 +55,25 @@ class EmailLogic {
               await compute(EmailModel.fromMailLib, [mail, blockTrackers]));
         }
       }
+      mailBox.emails = tmpEmailsComplete;
     }
-    return tmpEmailsComplete;
+
+    return mailBox;
+  }
+
+  static Future<List<MailBoxModel>> getMailboxes(
+      {required Lyon1Mail mailClient}) async {
+    if (Res.mock) {
+      return mailboxesMock;
+    }
+    if (!mailClient.isAuthenticated) {
+      if (!await mailClient.login()) {
+        throw Exception("Login failed");
+      }
+    }
+    return (await mailClient.getMailboxes())
+        .map((e) => MailBoxModel.fromMailLib(e))
+        .toList();
   }
 
   static Future<bool> send(
@@ -128,17 +153,26 @@ class EmailLogic {
     return true;
   }
 
-  static Future<List<EmailModel>> cacheLoad(String path) async {
+  static Future<List<MailBoxModel>> cacheLoad(String path) async {
     if (Res.mock) {
-      return emailListMock;
+      return mailboxesMock;
     }
     hiveInit(path: path);
-    if (await CacheService.exist<EmailModelWrapper>()) {
-      return (await CacheService.get<EmailModelWrapper>())!.emailModels;
+    if (await CacheService.exist<MailBoxWrapper>()) {
+      return (await CacheService.get<MailBoxWrapper>())!.mailBoxes;
     } else {
       return [];
     }
   }
+
+  static List<MailBoxModel> mailboxesMock = [
+    MailBoxModel(name: "INBOX", emails: emailListMock),
+    MailBoxModel(name: "SENT", emails: emailListMock),
+    MailBoxModel(name: "DRAFT", emails: emailListMock),
+    MailBoxModel(name: "TRASH", emails: emailListMock),
+    MailBoxModel(name: "SPAM", emails: emailListMock),
+    MailBoxModel(name: "ARCHIVE", emails: emailListMock),
+  ];
 
   static const List<String> mockAddresses = [
     "mockaddress1@univ-lyon1.fr",

@@ -9,12 +9,15 @@ class AttachmentLogic {
       {required EmailModel email,
       required Lyon1Mail mailClient,
       required int emailNumber,
-      required String fileName}) async {
+      required String fileName,
+      required MailBoxModel folder}) async {
     if (email.rawMail == null) {
-      List<EmailModel> mails = await EmailLogic.load(
-          mailClient: mailClient,
-          emailNumber: emailNumber,
-          blockTrackers: false);
+      List<EmailModel> mails = (await EmailLogic.load(
+              mailClient: mailClient,
+              emailNumber: emailNumber,
+              blockTrackers: false,
+              mailBox: folder))
+          .emails;
       email = mails.firstWhere((element) => element.id == email.id);
     }
     final directory = await getApplicationDocumentsDirectory();

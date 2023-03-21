@@ -126,7 +126,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             Hive.deleteBoxFromDisk("cached_qr_code");
                             Hive.deleteBoxFromDisk("cached_izly_amount");
                             CacheService.reset<IzlyQrCodeModelWrapper>();
-                            CacheService.reset<EmailModelWrapper>();
+                            CacheService.reset<MailBoxWrapper>();
                             CacheService.reset<DayModelWrapper>();
                             CacheService.reset<SchoolSubjectModelWrapper>();
                             CacheService.reset<AuthenticationModel>();
@@ -182,7 +182,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         textColor: Colors.white70,
                         child: const Text('Vider le cache des mails'),
                         onPressed: () {
-                          CacheService.reset<EmailModelWrapper>();
+                          CacheService.reset<MailBoxWrapper>();
                           context.read<EmailCubit>().load(
                               cache: false,
                               blockTrackers: context
