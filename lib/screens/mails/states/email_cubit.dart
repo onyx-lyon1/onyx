@@ -165,8 +165,13 @@ class EmailCubit extends Cubit<EmailState> {
     CacheService.set<MailBoxWrapper>(
         MailBoxWrapper(mailBoxes: emailsBoxesComplete)); //await à definir
     emit(state.copyWith(
-        status: EmailStatus.loaded, mailBoxes: emailsBoxesComplete));
-
+        status: EmailStatus.loaded, mailBoxes: emailsBoxesComplete,
+        currentMailBox: (mailbox == null)
+            ? emailsBoxesComplete.firstWhere(
+                (element) => element.specialMailBox == SpecialMailBox.inbox)
+            : mailbox
+    ));
+    print("emit loaded");
     filter(filter: lastFilter);
   }
 
