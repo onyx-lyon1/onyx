@@ -38,8 +38,47 @@ class MailBoxModel {
         case MailboxFlag.archive:
           specialMailBox = SpecialMailBox.archive;
           break;
-        default:
-          specialMailBox = null;
+        case MailboxFlag.marked:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.unMarked:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.hasChildren:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.hasNoChildren:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.noSelect:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.select:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.noInferior:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.subscribed:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.remote:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.nonExistent:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.all:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.drafts:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.junk:
+          // TODO: Handle this case.
+          break;
+        case MailboxFlag.virtual:
+          // TODO: Handle this case.
           break;
       }
     }
@@ -48,6 +87,11 @@ class MailBoxModel {
       emails: [],
       specialMailBox: specialMailBox,
     );
+  }
+
+  @override
+  String toString() {
+    return 'MailBoxModel{name: $name, specialMailBox: $specialMailBox, emails: ${emails.length}}';
   }
 }
 
