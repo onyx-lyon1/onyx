@@ -12,13 +12,14 @@ enum EmailStatus {
   updated,
   error,
   sorted,
-  cacheSorted
+  cacheSorted,
+  mailboxesLoaded
 }
 
 class EmailState {
   final EmailStatus status;
   final List<MailBoxModel> mailBoxes;
-  final MailBoxModel? currentMailBox;
+  MailBoxModel? currentMailBox;
   final int emailNumber;
   final bool connected;
 
@@ -28,7 +29,12 @@ class EmailState {
     this.currentMailBox,
     this.emailNumber = 20,
     this.connected = false,
-  });
+  }) {
+    currentMailBox ??= MailBoxModel(
+        name: "Boite de réception",
+        specialMailBox: SpecialMailBox.inbox,
+        emails: []);
+  }
 
   EmailState copyWith({
     EmailStatus? status,
