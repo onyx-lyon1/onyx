@@ -3,7 +3,7 @@ import 'package:onyx/screens/mails/domain/model/mail_box_model.dart';
 
 part 'mail_box_wrapper.g.dart';
 
-@HiveType(typeId: 20)
+@HiveType(typeId: 21)
 class MailBoxWrapper {
   @HiveField(0)
   late List<MailBoxModel> mailBoxes;
@@ -11,6 +11,4 @@ class MailBoxWrapper {
   MailBoxWrapper({
     required this.mailBoxes,
   });
-
-
 }

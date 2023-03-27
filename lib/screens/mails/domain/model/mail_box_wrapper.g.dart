@@ -8,7 +8,7 @@ part of 'mail_box_wrapper.dart';
 
 class MailBoxWrapperAdapter extends TypeAdapter<MailBoxWrapper> {
   @override
-  final int typeId = 20;
+  final int typeId = 21;
 
   @override
   MailBoxWrapper read(BinaryReader reader) {
