@@ -136,19 +136,20 @@ class _TomussPageState extends State<TomussPage> {
                         height: Res.bottomNavBarHeight,
                         padding: EdgeInsets.all(0.8.w),
                         child: GradeWidget(
-                            grades: [grade],
-                            text1: grade.name,
-                            text2: state.teachingUnits
-                                .firstWhere(
-                                    (element) => element.grades.contains(grade))
-                                .name,
-                            depth: 0,
-                            compact: true,
-                            onTap: () => showAllGrades(
-                                  context,
-                                  state.teachingUnits.firstWhere((element) =>
-                                      element.grades.contains(grade)),
-                                )),
+                          grades: [grade],
+                          text1: grade.name,
+                          text2: state.teachingUnits
+                              .firstWhere(
+                                  (element) => element.grades.contains(grade))
+                              .name,
+                          depth: 0,
+                          compact: true,
+                          onTap: () => showAllGrades(
+                            context,
+                            state.teachingUnits.firstWhere(
+                                (element) => element.grades.contains(grade)),
+                          ),
+                        ),
                       ),
                     ),
                   ],
