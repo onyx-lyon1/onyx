@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lyon1mail/lyon1mail.dart';
-import 'package:lyon1mail/lyon1mail.dart' as lyon1mail;
 
 part 'email_model.g.dart';
 
@@ -15,6 +14,8 @@ class EmailModel {
   final String excerpt;
   @HiveField(3)
   final String body;
+  @HiveField(10, defaultValue: "")
+  final String blackBody;
   @HiveField(4)
   final int? id;
   @HiveField(5)
@@ -37,31 +38,38 @@ class EmailModel {
       required this.isRead,
       required this.date,
       required this.body,
+      this.blackBody = "",
       required this.id,
       required this.receiver,
       required this.attachments,
       required this.isFlagged,
       this.rawMail});
 
-  static EmailModel fromMailLib(lyon1mail.Mail mail) {
+  static EmailModel fromMailLib(List params
+      // lyon1mail.Mail mail,
+      //     {bool removeTrackingImages = false}
+      ) {
     return EmailModel(
-      subject: mail.getSubject,
-      sender: mail.getSender,
-      excerpt: mail.getBody(excerpt: true),
-      isRead: mail.isSeen,
-      date: mail.getDate,
-      body: mail.getBody(excerpt: false),
-      id: mail.getSequenceId,
+      subject: params[0].getSubject,
+      sender: params[0].getSender,
+      excerpt:
+          params[0].getBody(excerpt: true, removeTrackingImages: params[1]),
+      isRead: params[0].isSeen,
+      date: params[0].getDate,
+      body: params[0].getBody(excerpt: false, removeTrackingImages: params[1]),
+      blackBody: params[0].getBody(
+          excerpt: false, darkMode: true, removeTrackingImages: params[1]),
+      id: params[0].getSequenceId,
       receiver: "moi",
-      attachments: mail.getAttachmentsNames,
-      isFlagged: mail.isFlagged,
-      rawMail: mail,
+      attachments: params[0].getAttachmentsNames,
+      isFlagged: params[0].isFlagged,
+      rawMail: params[0],
     );
   }
 
   @override
   String toString() {
-    return 'EmailModel{subject: $subject, sender: $sender, excerpt: $excerpt, body: $body, id: $id, isRead: $isRead, isFlagged: $isFlagged, date: $date, receiver: $receiver, attachments: $attachments, rawMail: $rawMail}';
+    return 'EmailModel{subject: $subject, sender: $sender, excerpt: $excerpt, body: $body, blackBody: $blackBody, id: $id, isRead: $isRead, isFlagged: $isFlagged, date: $date, receiver: $receiver, attachments: $attachments, rawMail: $rawMail}';
   }
 
   @override
@@ -72,7 +80,6 @@ class EmailModel {
           subject == other.subject &&
           sender == other.sender &&
           excerpt == other.excerpt &&
-          body == other.body &&
           id == other.id &&
           isRead == other.isRead &&
           date == other.date &&
@@ -85,7 +92,6 @@ class EmailModel {
       subject.hashCode ^
       sender.hashCode ^
       excerpt.hashCode ^
-      body.hashCode ^
       id.hashCode ^
       isRead.hashCode ^
       date.hashCode ^

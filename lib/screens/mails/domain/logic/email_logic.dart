@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/core/extensions/mail_box_extension.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
@@ -20,32 +21,76 @@ class EmailLogic {
     return mailClient;
   }
 
-  static Future<List<EmailModel>> load(
-      {required Lyon1Mail mailClient, required int emailNumber}) async {
+  static Future<List<MailBoxModel>> getMailBoxList(
+      {required Lyon1Mail mailClient}) async {
     if (Res.mock) {
-      return emailListMock;
+      return mailboxesMock;
     }
+    if (!mailClient.isAuthenticated) {
+      if (!await mailClient.login()) {
+        throw Exception("Login failed");
+      }
+    }
+    final List<MailBoxModel> mailboxesOpt = (await mailClient.getMailboxes())
+        .map((e) => MailBoxModel.fromMailLib(e))
+        .toList();
+    return mailboxesOpt;
+  }
+
+  static Future<MailBoxModel> load(
+      {required Lyon1Mail mailClient,
+      required int emailNumber,
+      required bool blockTrackers,
+      MailBoxModel? mailBox}) async {
+    if (Res.mock) {
+      return mailboxesMock.first;
+    }
+
     List<EmailModel> tmpEmailsComplete = [];
     if (!mailClient.isAuthenticated) {
       if (!await mailClient.login()) {
         throw Exception("Login failed");
       }
     }
-    final List<Mail>? emailOpt = await mailClient.fetchMessages(emailNumber);
+    final List<Mail>? emailOpt = await mailClient.fetchMessages(emailNumber,
+        mailboxName: mailBox?.name,
+        mailboxFlags: mailBox?.specialMailBox?.toMailBoxTag());
+    mailBox ??= MailBoxModel(
+        name: "Boite de réception",
+        specialMailBox: SpecialMailBox.inbox,
+        emails: []);
     if (emailOpt == null || emailOpt.isEmpty) {
       if (kDebugMode) {
         print("no emails");
       }
     } else {
       for (final Mail mail in emailOpt) {
-        if (!tmpEmailsComplete.any((element) =>
-            element.date == mail.getDate &&
-            element.body == mail.getBody(excerpt: false))) {
-          tmpEmailsComplete.add(EmailModel.fromMailLib(mail));
-        }
+        // if (!tmpEmailsComplete.any((element) =>
+        //    element.date == mail.getDate &&
+        //   element.body == mail.getBody(excerpt: false))) {
+        tmpEmailsComplete
+            .add(await compute(EmailModel.fromMailLib, [mail, blockTrackers]));
+        //}
+      }
+      mailBox.emails = tmpEmailsComplete;
+    }
+
+    return mailBox;
+  }
+
+  static Future<List<MailBoxModel>> getMailboxes(
+      {required Lyon1Mail mailClient}) async {
+    if (Res.mock) {
+      return mailboxesMock;
+    }
+    if (!mailClient.isAuthenticated) {
+      if (!await mailClient.login()) {
+        throw Exception("Login failed");
       }
     }
-    return tmpEmailsComplete;
+    return (await mailClient.getMailboxes())
+        .map((e) => MailBoxModel.fromMailLib(e))
+        .toList();
   }
 
   static Future<bool> send(
@@ -125,17 +170,26 @@ class EmailLogic {
     return true;
   }
 
-  static Future<List<EmailModel>> cacheLoad(String path) async {
+  static Future<List<MailBoxModel>> cacheLoad(String path) async {
     if (Res.mock) {
-      return emailListMock;
+      return mailboxesMock;
     }
     hiveInit(path: path);
-    if (await CacheService.exist<EmailModelWrapper>()) {
-      return (await CacheService.get<EmailModelWrapper>())!.emailModels;
+    if (await CacheService.exist<MailBoxWrapper>()) {
+      return (await CacheService.get<MailBoxWrapper>())!.mailBoxes;
     } else {
       return [];
     }
   }
+
+  static List<MailBoxModel> mailboxesMock = [
+    MailBoxModel(name: "INBOX", emails: emailListMock),
+    MailBoxModel(name: "SENT", emails: emailListMock),
+    MailBoxModel(name: "DRAFT", emails: emailListMock),
+    MailBoxModel(name: "TRASH", emails: emailListMock),
+    MailBoxModel(name: "SPAM", emails: emailListMock),
+    MailBoxModel(name: "ARCHIVE", emails: emailListMock),
+  ];
 
   static const List<String> mockAddresses = [
     "mockaddress1@univ-lyon1.fr",
@@ -153,6 +207,7 @@ class EmailLogic {
         isRead: false,
         date: DateTime(2022, 9, 1, 8),
         body: "bodyMock1",
+        blackBody: "blackBodyMock1",
         id: 1,
         receiver: "receiverMock1",
         attachments: ["attachmentMock1", "attachmentMock2"],
@@ -164,6 +219,7 @@ class EmailLogic {
         isRead: true,
         date: DateTime(2022, 9, 1, 9),
         body: "bodyMock2",
+        blackBody: "blackBodyMock2",
         id: 2,
         receiver: "receiverMock2",
         attachments: ["attachmentMock1", "attachmentMock2"],
@@ -175,6 +231,7 @@ class EmailLogic {
         isRead: false,
         date: DateTime(2022, 9, 1, 10),
         body: "bodyMock3",
+        blackBody: "blackBodyMock3",
         id: 3,
         receiver: "receiverMock3",
         attachments: ["attachmentMock1", "attachmentMock2"],
@@ -186,6 +243,7 @@ class EmailLogic {
         isRead: true,
         date: DateTime(2022, 9, 1, 11),
         body: "bodyMock4",
+        blackBody: "blackBodyMock4",
         id: 4,
         receiver: "receiverMock4",
         attachments: ["attachmentMock1", "attachmentMock2"],
@@ -197,6 +255,7 @@ class EmailLogic {
         isRead: false,
         date: DateTime(2022, 9, 1, 12),
         body: "bodyMock5",
+        blackBody: "blackBodyMock5",
         id: 5,
         receiver: "receiverMock5",
         attachments: ["attachmentMock1", "attachmentMock2"],

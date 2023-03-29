@@ -87,7 +87,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     authBox.delete("credential");
     CacheService.reset<SchoolSubjectModelWrapper>();
     CacheService.reset<DayModelWrapper>();
-    CacheService.reset<EmailModelWrapper>();
+    CacheService.reset<MailBoxWrapper>();
     SettingsLogic.reset();
     _usename = "";
     _password = "";

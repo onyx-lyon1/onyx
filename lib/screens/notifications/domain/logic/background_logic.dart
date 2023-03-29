@@ -74,13 +74,19 @@ void backgroundLogic() {
         }
         if (settings.newMailNotification) {
           List<EmailModel> emails = [];
-          if (await CacheService.exist<EmailModelWrapper>()) {
-            emails = (await CacheService.get<EmailModelWrapper>())!.emailModels;
+          List<MailBoxModel> mailBoxes = [];
+          if (await CacheService.exist<MailBoxWrapper>()) {
+            mailBoxes = (await CacheService.get<MailBoxWrapper>())!.mailBoxes;
+            emails = mailBoxes
+                .firstWhere(
+                    (element) => element.specialMailBox == SpecialMailBox.inbox)
+                .emails;
           }
           Lyon1Mail mail = await EmailLogic.connect(
               username: auth.username, password: auth.password);
-          List<EmailModel> newEmails =
-              await EmailLogic.load(mailClient: mail, emailNumber: 20);
+          List<EmailModel> newEmails = (await EmailLogic.load(
+                  mailClient: mail, emailNumber: 20, blockTrackers: true))
+              .emails;
           for (var i in newEmails) {
             if (!i.isRead &&
                 !emails.any((element) {
@@ -93,8 +99,12 @@ void backgroundLogic() {
                   payload: "newMail");
             }
           }
-          await CacheService.set<EmailModelWrapper>(
-              EmailModelWrapper(newEmails));
+          mailBoxes
+              .firstWhere(
+                  (element) => element.specialMailBox == SpecialMailBox.inbox)
+              .emails = newEmails;
+          await CacheService.set<MailBoxWrapper>(
+              MailBoxWrapper(mailBoxes: mailBoxes));
         }
         if (settings.calendarUpdateNotification) {
           List<DayModel> days = [];

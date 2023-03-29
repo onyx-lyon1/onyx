@@ -10,7 +10,7 @@ part 'email_state.dart';
 
 class EmailCubit extends Cubit<EmailState> {
   Lyon1Mail? mailClient;
-  List<EmailModel> emailsComplete = [];
+  List<MailBoxModel> emailsBoxesComplete = [];
   late String username;
   late String password;
   String lastFilter = "";
@@ -20,10 +20,20 @@ class EmailCubit extends Cubit<EmailState> {
 
   void connect({required String? username, required String? password}) async {
     emit(state.copyWith(status: EmailStatus.connecting, connected: false));
-    emailsComplete = await compute(
+    emailsBoxesComplete = await compute(
         EmailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
-    emit(state.copyWith(
-        emails: emailsComplete, status: EmailStatus.cacheLoaded));
+    if (emailsBoxesComplete.isNotEmpty) {
+      emit(
+        state.copyWith(
+          mailBoxes: emailsBoxesComplete,
+          status: EmailStatus.cacheLoaded,
+          currentMailBox: emailsBoxesComplete.firstWhere(
+            (element) => element.specialMailBox == SpecialMailBox.inbox,
+          ),
+        ),
+      );
+    }
+
     if (username != null && password != null) {
       try {
         username = username;
@@ -31,20 +41,108 @@ class EmailCubit extends Cubit<EmailState> {
         mailClient =
             await EmailLogic.connect(username: username, password: password);
         emit(state.copyWith(status: EmailStatus.connected, connected: true));
+        // List<MailBoxModel> mailboxesOpt =
+        // await EmailLogic.getMailBoxList(mailClient: mailClient!);
+        // print("mailboxes fetched");
+        // int index = mailboxesOpt.indexWhere(
+        //       (element) => element.specialMailBox == SpecialMailBox.inbox,
+        // );
+        // emit(state.copyWith(
+        //     mailBoxes: mailboxesOpt,
+        //     status: EmailStatus.mailboxesLoaded,
+        //     currentMailBox: (index != -1) ? mailboxesOpt[index] : null));
       } catch (e) {
-        if (kDebugMode) {
-          print("Error while connecting to mail: $e");
-        }
+        if (kDebugMode) {}
         emit(state.copyWith(status: EmailStatus.error));
       }
     }
+  }
+
+  void load(
+      {bool cache = true,
+      required bool blockTrackers,
+      MailBoxModel? mailbox}) async {
+    emit(state.copyWith(status: EmailStatus.loading));
+    if (cache && !Res.mock) {
+      List<MailBoxModel> emailCache = await compute(EmailLogic.cacheLoad,
+          (await getApplicationDocumentsDirectory()).path);
+      if (emailCache.isNotEmpty &&
+          !listEquals(emailCache, emailsBoxesComplete)) {
+        emailsBoxesComplete = emailCache;
+        int emailBoxIndex = -1;
+        late MailBoxModel currentMailBox;
+        if (mailbox != null) {
+          if (mailbox.specialMailBox != null) {
+            emailBoxIndex = emailsBoxesComplete.indexWhere(
+                (element) => element.specialMailBox == mailbox.specialMailBox);
+          } else {
+            emailBoxIndex = emailsBoxesComplete
+                .indexWhere((element) => element.name == mailbox.name);
+          }
+        }
+        if (emailBoxIndex == -1) {
+          Future.error("Mailbox not found in cache");
+          currentMailBox = emailsBoxesComplete[0];
+        } else {
+          currentMailBox = emailsBoxesComplete[emailBoxIndex];
+        }
+        emit(state.copyWith(
+            mailBoxes: emailsBoxesComplete,
+            status: EmailStatus.cacheLoaded,
+            currentMailBox: currentMailBox));
+        filter(filter: lastFilter);
+      }
+    }
+    try {
+      List<MailBoxModel> emailBoxes =
+          await EmailLogic.getMailboxes(mailClient: mailClient!);
+      for (var i in emailBoxes) {
+        if (emailsBoxesComplete
+                .indexWhere((element) => element.name == i.name) ==
+            -1) {
+          emailsBoxesComplete.add(i);
+        }
+      }
+      emit(state.copyWith(
+          mailBoxes: emailsBoxesComplete, status: EmailStatus.mailboxesLoaded));
+      MailBoxModel loadedMail = (await EmailLogic.load(
+        emailNumber: emailNumber,
+        mailClient: mailClient!,
+        blockTrackers: blockTrackers,
+        mailBox: mailbox,
+      ));
+      int index = emailsBoxesComplete.indexWhere((element) =>
+          element.name == loadedMail.name ||
+          element.specialMailBox == loadedMail.specialMailBox);
+      if (index != -1) {
+        emailsBoxesComplete[index].emails = loadedMail.emails;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("error: $e");
+      }
+      emit(state.copyWith(status: EmailStatus.error));
+      return;
+    }
+    CacheService.set<MailBoxWrapper>(
+        MailBoxWrapper(mailBoxes: emailsBoxesComplete)); //await à definir
+    int index = emailsBoxesComplete.indexWhere(
+        (element) => element.specialMailBox == SpecialMailBox.inbox);
+
+    emit(state.copyWith(
+        status: EmailStatus.loaded,
+        mailBoxes: emailsBoxesComplete,
+        currentMailBox: (mailbox == null && index != -1)
+            ? emailsBoxesComplete[index]
+            : mailbox));
+    filter(filter: lastFilter);
   }
 
   void filter({required String filter}) async {
     lastFilter = filter;
     List<EmailModel> emails = [];
     if (filter != "") {
-      for (var i in emailsComplete) {
+      for (var i in state.currentMailBox!.emails) {
         if (i.subject.toLowerCase().contains(filter.toLowerCase()) ||
             i.excerpt.toLowerCase().contains(filter.toLowerCase()) ||
             i.date.toString().toLowerCase().contains(filter.toLowerCase()) ||
@@ -54,22 +152,22 @@ class EmailCubit extends Cubit<EmailState> {
         }
       }
     } else {
-      emails = emailsComplete;
+      emails = state.currentMailBox!.emails;
     }
     emit(state.copyWith(
-        emails: emails,
         status: (state.status == EmailStatus.cacheLoaded)
             ? EmailStatus.cacheSorted
             : EmailStatus.sorted));
   }
 
-  void delete({required EmailModel email}) async {
+  void delete({required EmailModel email, required bool blockTrackers}) async {
     if (mailClient!.isAuthenticated) {
       await mailClient!.fetchMessages(20);
       await mailClient!.delete(email.id!);
       emit(state.copyWith(
-          status: EmailStatus.updated, emails: state.emails..remove(email)));
-      load(cache: false);
+          status: EmailStatus.updated,
+          currentMailBox: state.currentMailBox!..emails.remove(email)));
+      load(cache: false, blockTrackers: blockTrackers);
     }
     emit(state.copyWith(status: EmailStatus.updated));
   }
@@ -86,11 +184,13 @@ class EmailCubit extends Cubit<EmailState> {
         await mailClient!.fetchMessages(1);
         await mailClient!.markAsRead(email.id!);
       }
-      emailsComplete[emailsComplete.indexOf(email)].isRead = true;
-      List<EmailModel> emails = state.emails;
+      state.currentMailBox!.emails[state.currentMailBox!.emails.indexOf(email)]
+          .isRead = true;
+      List<EmailModel> emails = state.currentMailBox!.emails;
       emails[emails.indexOf(email)].isRead = true;
-      CacheService.set<EmailModelWrapper>(EmailModelWrapper(emailsComplete));
-      emit(state.copyWith(status: EmailStatus.updated, emails: emails));
+      CacheService.set<MailBoxWrapper>(
+          MailBoxWrapper(mailBoxes: emailsBoxesComplete));
+      emit(state.copyWith(status: EmailStatus.updated));
     }
   }
 
@@ -109,46 +209,25 @@ class EmailCubit extends Cubit<EmailState> {
       if (!Res.mock) {
         await mailClient!.unmarkAsFlagged(email.id!);
       }
-      emailsComplete[emailsComplete.indexOf(email)].isFlagged = false;
-      List<EmailModel> emails = state.emails;
-      emails[emailsComplete.indexOf(email)].isFlagged = false;
-      CacheService.set<EmailModelWrapper>(EmailModelWrapper(emailsComplete));
-      emit(state.copyWith(status: EmailStatus.updated, emails: emails));
+      state.currentMailBox!.emails[state.currentMailBox!.emails.indexOf(email)]
+          .isFlagged = false;
+      List<EmailModel> emails = state.currentMailBox!.emails;
+      emails[state.currentMailBox!.emails.indexOf(email)].isFlagged = false;
+      CacheService.set<MailBoxWrapper>(
+          MailBoxWrapper(mailBoxes: emailsBoxesComplete));
+      emit(state.copyWith(status: EmailStatus.updated));
     } else {
       if (!Res.mock) {
         await mailClient!.markAsFlagged(email.id!);
       }
-      emailsComplete[emailsComplete.indexOf(email)].isFlagged = true;
-      List<EmailModel> emails = state.emails;
-      emails[emailsComplete.indexOf(email)].isFlagged = true;
-      CacheService.set<EmailModelWrapper>(EmailModelWrapper(emailsComplete));
-      emit(state.copyWith(status: EmailStatus.updated, emails: emails));
+      state.currentMailBox!.emails[state.currentMailBox!.emails.indexOf(email)]
+          .isFlagged = true;
+      List<EmailModel> emails = state.currentMailBox!.emails;
+      emails[state.currentMailBox!.emails.indexOf(email)].isFlagged = true;
+      CacheService.set<MailBoxWrapper>(
+          MailBoxWrapper(mailBoxes: emailsBoxesComplete));
+      emit(state.copyWith(status: EmailStatus.updated));
     }
-  }
-
-  void load({bool cache = true}) async {
-    emit(state.copyWith(status: EmailStatus.loading));
-    if (cache && !Res.mock) {
-      List<EmailModel> emailCache = await compute(EmailLogic.cacheLoad,
-          (await getApplicationDocumentsDirectory()).path);
-      if (emailCache.isNotEmpty && !listEquals(emailCache, emailsComplete)) {
-        emailsComplete = emailCache;
-        emit(state.copyWith(
-            emails: emailsComplete, status: EmailStatus.cacheLoaded));
-        filter(filter: lastFilter);
-      }
-    }
-    try {
-      emailsComplete = await EmailLogic.load(
-          emailNumber: emailNumber, mailClient: mailClient!);
-    } catch (e) {
-      emit(state.copyWith(status: EmailStatus.error));
-      return;
-    }
-    CacheService.set<EmailModelWrapper>(
-        EmailModelWrapper(emailsComplete)); //await à definir
-    emit(state.copyWith(status: EmailStatus.loaded, emails: emailsComplete));
-    filter(filter: lastFilter);
   }
 
   void send(
@@ -168,7 +247,7 @@ class EmailCubit extends Cubit<EmailState> {
           forward: forward,
           reply: reply,
           emailNumber: emailNumber,
-          emailsComplete: emailsComplete,
+          emailsComplete: state.currentMailBox!.emails,
         );
       } catch (e) {
         emit(state.copyWith(status: EmailStatus.error));
@@ -179,16 +258,16 @@ class EmailCubit extends Cubit<EmailState> {
     }
   }
 
-  void increaseNumber() {
+  void increaseNumber({required bool blockTrackers}) {
     emailNumber += 20;
     emit(state.copyWith(status: EmailStatus.loading));
-    load(cache: false);
+    load(cache: false, blockTrackers: blockTrackers);
     return;
   }
 
   void resetCubit() {
     mailClient = null;
-    emailsComplete = [];
+    emailsBoxesComplete = [];
     emailNumber = 20;
     lastFilter = "";
     emit(EmailState(status: EmailStatus.initial));
