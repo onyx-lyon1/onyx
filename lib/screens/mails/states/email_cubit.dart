@@ -20,10 +20,8 @@ class EmailCubit extends Cubit<EmailState> {
 
   void connect({required String? username, required String? password}) async {
     emit(state.copyWith(status: EmailStatus.connecting, connected: false));
-    print("connecting");
     emailsBoxesComplete = await compute(
         EmailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
-    print("cache loaded");
     if (emailsBoxesComplete.isNotEmpty) {
       emit(
         state.copyWith(
@@ -34,19 +32,15 @@ class EmailCubit extends Cubit<EmailState> {
           ),
         ),
       );
-      print("emited cache loaded");
     }
 
     if (username != null && password != null) {
       try {
         username = username;
         password = password;
-        print("lets connect");
         mailClient =
             await EmailLogic.connect(username: username, password: password);
-        print("connected");
         emit(state.copyWith(status: EmailStatus.connected, connected: true));
-        print("emited connected");
         // List<MailBoxModel> mailboxesOpt =
         // await EmailLogic.getMailBoxList(mailClient: mailClient!);
         // print("mailboxes fetched");
@@ -68,45 +62,38 @@ class EmailCubit extends Cubit<EmailState> {
       {bool cache = true,
       required bool blockTrackers,
       MailBoxModel? mailbox}) async {
-    print("load");
     emit(state.copyWith(status: EmailStatus.loading));
-    // if (cache && !Res.mock) {
-    //   print("cache");
-    //   List<MailBoxModel> emailCache = await compute(EmailLogic.cacheLoad,
-    //       (await getApplicationDocumentsDirectory()).path);
-    //   print("cache loaded");
-    //   if (emailCache.isNotEmpty &&
-    //       !listEquals(emailCache, emailsBoxesComplete)) {
-    //     print("cache not empty");
-    //     emailsBoxesComplete = emailCache;
-    //     int emailBoxIndex = -1;
-    //     late MailBoxModel currentMailBox;
-    //     if (mailbox != null) {
-    //       if (mailbox.specialMailBox != null) {
-    //         emailBoxIndex = emailsBoxesComplete.indexWhere(
-    //                 (element) =>
-    //             element.specialMailBox == mailbox.specialMailBox);
-    //       } else {
-    //         emailBoxIndex = emailsBoxesComplete
-    //             .indexWhere((element) => element.name == mailbox.name);
-    //       }
-    //     }
-    //     if (emailBoxIndex == -1) {
-    //       Future.error("Mailbox not found in cache");
-    //       // currentMailBox = emailsBoxesComplete[0];
-    //     } else {
-    //       currentMailBox = emailsBoxesComplete[emailBoxIndex];
-    //     }
-    //     emit(state.copyWith(
-    //         mailBoxes: emailsBoxesComplete,
-    //         status: EmailStatus.cacheLoaded,
-    //         currentMailBox: currentMailBox));
-    //     print("emit cache loaded");
-    //     filter(filter: lastFilter);
-    //   }
-    // }
+    if (cache && !Res.mock) {
+      List<MailBoxModel> emailCache = await compute(EmailLogic.cacheLoad,
+          (await getApplicationDocumentsDirectory()).path);
+      if (emailCache.isNotEmpty &&
+          !listEquals(emailCache, emailsBoxesComplete)) {
+        emailsBoxesComplete = emailCache;
+        int emailBoxIndex = -1;
+        late MailBoxModel currentMailBox;
+        if (mailbox != null) {
+          if (mailbox.specialMailBox != null) {
+            emailBoxIndex = emailsBoxesComplete.indexWhere(
+                (element) => element.specialMailBox == mailbox.specialMailBox);
+          } else {
+            emailBoxIndex = emailsBoxesComplete
+                .indexWhere((element) => element.name == mailbox.name);
+          }
+        }
+        if (emailBoxIndex == -1) {
+          Future.error("Mailbox not found in cache");
+          currentMailBox = emailsBoxesComplete[0];
+        } else {
+          currentMailBox = emailsBoxesComplete[emailBoxIndex];
+        }
+        emit(state.copyWith(
+            mailBoxes: emailsBoxesComplete,
+            status: EmailStatus.cacheLoaded,
+            currentMailBox: currentMailBox));
+        filter(filter: lastFilter);
+      }
+    }
     try {
-      print("load mailboxes");
       List<MailBoxModel> emailBoxes =
           await EmailLogic.getMailboxes(mailClient: mailClient!);
       for (var i in emailBoxes) {
@@ -116,41 +103,31 @@ class EmailCubit extends Cubit<EmailState> {
           emailsBoxesComplete.add(i);
         }
       }
-      print("mailboxes loaded");
       emit(state.copyWith(
           mailBoxes: emailsBoxesComplete, status: EmailStatus.mailboxesLoaded));
-      print("load emails");
       MailBoxModel loadedMail = (await EmailLogic.load(
         emailNumber: emailNumber,
         mailClient: mailClient!,
         blockTrackers: blockTrackers,
         mailBox: mailbox,
       ));
-      print("emails loaded");
       int index = emailsBoxesComplete.indexWhere((element) =>
           element.name == loadedMail.name ||
           element.specialMailBox == loadedMail.specialMailBox);
-      print("index: $index");
-      print("emailsBoxesComplete : $emailsBoxesComplete");
-      print("loadedMail : $loadedMail");
       if (index != -1) {
         emailsBoxesComplete[index].emails = loadedMail.emails;
       }
-      print("emails second");
     } catch (e) {
-      print("error: $e");
+      if (kDebugMode) {
+        print("error: $e");
+      }
       emit(state.copyWith(status: EmailStatus.error));
       return;
     }
-    print("saving cache");
     CacheService.set<MailBoxWrapper>(
         MailBoxWrapper(mailBoxes: emailsBoxesComplete)); //await à definir
     int index = emailsBoxesComplete.indexWhere(
         (element) => element.specialMailBox == SpecialMailBox.inbox);
-    print("lets emit");
-    print("index: $index");
-    print(mailbox);
-    print(emailsBoxesComplete);
 
     emit(state.copyWith(
         status: EmailStatus.loaded,
@@ -158,7 +135,6 @@ class EmailCubit extends Cubit<EmailState> {
         currentMailBox: (mailbox == null && index != -1)
             ? emailsBoxesComplete[index]
             : mailbox));
-    print("emit loaded");
     filter(filter: lastFilter);
   }
 
