@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
 class EmailWidget extends StatelessWidget {
@@ -92,7 +93,13 @@ class EmailWidget extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    context.read<EmailCubit>().delete(email: email);
+                    context.read<EmailCubit>().delete(
+                        email: email,
+                        blockTrackers: context
+                            .read<SettingsCubit>()
+                            .state
+                            .settings
+                            .blockTrackers);
                     Navigator.pop(context);
                   },
                   child: const Text(
