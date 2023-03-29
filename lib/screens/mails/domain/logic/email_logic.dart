@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/core/cache_service.dart';
-import 'package:onyx/core/extensions/MailBox_extension.dart';
+import 'package:onyx/core/extensions/mail_box_extension.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
@@ -31,11 +31,9 @@ class EmailLogic {
         throw Exception("Login failed");
       }
     }
-    print("fetching mailboxes");
     final List<MailBoxModel> mailboxesOpt = (await mailClient.getMailboxes())
         .map((e) => MailBoxModel.fromMailLib(e))
         .toList();
-    print("mailboxes fetched");
     return mailboxesOpt;
   }
 
@@ -54,14 +52,9 @@ class EmailLogic {
         throw Exception("Login failed");
       }
     }
-    print("fetching messages");
     final List<Mail>? emailOpt = await mailClient.fetchMessages(emailNumber,
         mailboxName: mailBox?.name,
         mailboxFlags: mailBox?.specialMailBox?.toMailBoxTag());
-    print("messages fetched");
-
-    print(mailBox);
-    print(emailOpt);
     mailBox ??= MailBoxModel(
         name: "Boite de réception",
         specialMailBox: SpecialMailBox.inbox,
@@ -81,8 +74,6 @@ class EmailLogic {
       }
       mailBox.emails = tmpEmailsComplete;
     }
-    print("mailBox : $mailBox");
-    print("mailBox.emails : ${mailBox.emails.length}");
 
     return mailBox;
   }
