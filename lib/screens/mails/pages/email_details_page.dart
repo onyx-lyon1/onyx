@@ -117,7 +117,8 @@ class EmailDetailsPage extends StatelessWidget {
                                                     .mailClient!,
                                                 emailNumber: state.emailNumber,
                                                 fileName:
-                                                    mail.attachments[index]);
+                                                    mail.attachments[index],
+                                                folder: state.currentMailBox!);
                                     // ignore: use_build_context_synchronously
                                     showDialog(
                                         context: context,
