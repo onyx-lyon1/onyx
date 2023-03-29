@@ -20,7 +20,9 @@ class MailBoxModel {
   });
 
   static MailBoxModel fromMailLib(Mailbox mailbox) {
+    //print("Mailbox : ${mailbox.name}, ${mailbox.flags}, ${mailbox}");
     SpecialMailBox? specialMailBox;
+
     for (final MailboxFlag flag in mailbox.flags) {
       switch (flag) {
         case MailboxFlag.inbox:

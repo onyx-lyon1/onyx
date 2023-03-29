@@ -135,7 +135,7 @@ class EmailsPage extends StatelessWidget {
                     }),
                   ),
                 ),
-                EmailMailboxChooserWidget(),
+                const EmailMailboxChooserWidget(),
               ],
             ),
             onRefresh: () async {
