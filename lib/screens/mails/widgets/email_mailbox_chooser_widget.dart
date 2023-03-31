@@ -7,8 +7,6 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../core/res.dart';
-
 class EmailMailboxChooserWidget extends StatefulWidget {
   const EmailMailboxChooserWidget({Key? key}) : super(key: key);
 
@@ -38,14 +36,18 @@ class _EmailMailboxChooserWidgetState extends State<EmailMailboxChooserWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<EmailCubit, EmailState>(
       builder: (context, state) {
-        return SizedBox(
-          height: 100.h - 2 * Res.bottomNavBarHeight,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ExpansionTile(
+        return SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 0.5.h),
+                child: ExpansionTile(
                   key: Key(_key.toString()),
-                  title: Text(state.currentMailBox!.name),
+                  title: Text(
+                    state.currentMailBox!.name,
+                    textAlign: TextAlign.center,
+                  ),
                   children: state.mailBoxes
                       .map((e) => Material(
                             color: (state.currentMailBox!.name == e.name)
@@ -73,8 +75,8 @@ class _EmailMailboxChooserWidgetState extends State<EmailMailboxChooserWidget> {
                           ))
                       .toList(),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

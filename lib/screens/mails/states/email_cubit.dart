@@ -258,6 +258,28 @@ class EmailCubit extends Cubit<EmailState> {
     }
   }
 
+  void selectEmail({required EmailModel email}) {
+    emit(state.copyWith(
+        selectedEmails: List.from(state.selectedEmails)..add(email)));
+  }
+
+  void unselectEmail({required EmailModel email}) {
+    emit(state.copyWith(
+        selectedEmails: List.from(state.selectedEmails)..remove(email)));
+  }
+
+  void unselectAllEmails() {
+    emit(state.copyWith(selectedEmails: []));
+  }
+
+  void toggleEmailSelection({required EmailModel email}) {
+    if (state.selectedEmails.contains(email)) {
+      unselectEmail(email: email);
+    } else {
+      selectEmail(email: email);
+    }
+  }
+
   void increaseNumber({required bool blockTrackers}) {
     emailNumber += 20;
     emit(state.copyWith(status: EmailStatus.loading));
