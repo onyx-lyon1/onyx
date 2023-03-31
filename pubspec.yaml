@@ -23,6 +23,7 @@ dependencies:
   firebase_crashlytics: ^3.0.9
   firebase_core: ^2.4.1
   auto_size_text: ^3.0.0
+  desktop_window: ^0.4.0
 
 
   #agenda
@@ -76,11 +77,11 @@ dependencies:
     git: https://github.com/onyx-lyon1/DragAndDropLists.git
 
 dependency_overrides:
-  # unindent for devlopment to use local version of the libraries
-  #  dartus:
-  #    path: ../dartus-tomuss-client
-  lyon1mail:
-    path: ../lyon1-mailclient
+# unindent for devlopment to use local version of the libraries
+#  dartus:
+#    path: ../dartus-tomuss-client
+#  lyon1mail:
+#    path: ../lyon1-mailclient
 #  lyon1agenda:
 #    path: ../lyon1-agendaclient
 #  izlyclient:

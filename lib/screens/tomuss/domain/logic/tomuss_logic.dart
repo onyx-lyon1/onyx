@@ -29,10 +29,8 @@ class TomussLogic {
     List<SemestreModel> semesters;
     List<SchoolSubjectModel> grades;
     if (!Res.mock) {
-      print("get semesters and notes");
       ParsedPage? parsedPage = await getParsedPage(
           dartus: dartus, semestre: semester, autoRefresh: autoRefresh);
-      print("parsed page : $parsedPage");
       if (parsedPage == null) {
         throw "Impossible de récuperer la page de tomuss";
       }
@@ -41,10 +39,8 @@ class TomussLogic {
             null, null, parsedPage.timeout);
       }
       semesters = parseSemesters(parsedPage.semesters!);
-      print("semesters : $semesters");
       semesterIndex ??= semesters
           .indexWhere((element) => element.url == Dartus.currentSemester());
-      print("semester index : $semesterIndex");
       grades = await parseGrades(parsedPage.teachingunits!, semesterIndex);
     } else {
       semesters = [Semester("2022/Automne", Dartus.currentSemester())]

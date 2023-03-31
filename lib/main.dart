@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:desktop_window/desktop_window.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -28,10 +29,6 @@ void main() async {
   }
   await hiveInit();
 
-  // final deviceInfo = await DeviceInfoPlugin().deviceInfo;
-  // final int androidSdkVersion =
-  //     deviceInfo is AndroidDeviceInfo ? deviceInfo.version.sdkInt : 0;
-
   if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS || kIsWeb) {
     await Firebase.initializeApp();
     // Pass all uncaught "fatal" errors from the framework to Crashlytics
@@ -42,5 +39,8 @@ void main() async {
       return true;
     };
   }
+//an iphone se size
+  await DesktopWindow.setWindowSize(const Size(375, 667));
+
   runApp(const OnyxApp());
 }
