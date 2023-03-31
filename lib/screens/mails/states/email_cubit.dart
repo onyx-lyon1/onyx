@@ -194,6 +194,52 @@ class EmailCubit extends Cubit<EmailState> {
     }
   }
 
+  Future<void> archive({required EmailModel email}) async {
+    if (!mailClient!.isAuthenticated && !Res.mock) {
+      if (!await mailClient!.login()) {
+        emit(state.copyWith(status: EmailStatus.error));
+        return;
+      }
+    }
+    EmailLogic.archiveEmail(mailClient: mailClient!, email: email);
+    load(blockTrackers: true, cache: false);
+  }
+
+  Future<void> move(
+      {required EmailModel email, required MailBoxModel folder}) async {
+    if (!mailClient!.isAuthenticated && !Res.mock) {
+      if (!await mailClient!.login()) {
+        emit(state.copyWith(status: EmailStatus.error));
+        return;
+      }
+    }
+    EmailLogic.moveEmail(
+        mailClient: mailClient!, email: email, destinationMailbox: folder);
+    load(blockTrackers: true, cache: false);
+  }
+
+  void markAsUnread({required EmailModel email}) async {
+    if (email.isRead) {
+      if (!mailClient!.isAuthenticated && !Res.mock) {
+        if (!await mailClient!.login()) {
+          emit(state.copyWith(status: EmailStatus.error));
+          return;
+        }
+      }
+      if (!Res.mock) {
+        await mailClient!.fetchMessages(1);
+        await mailClient!.markAsUnread(email.id!);
+      }
+      state.currentMailBox!.emails[state.currentMailBox!.emails.indexOf(email)]
+          .isRead = false;
+      List<EmailModel> emails = state.currentMailBox!.emails;
+      emails[emails.indexOf(email)].isRead = false;
+      CacheService.set<MailBoxWrapper>(
+          MailBoxWrapper(mailBoxes: emailsBoxesComplete));
+      emit(state.copyWith(status: EmailStatus.updated));
+    }
+  }
+
   void toggleFlag({required EmailModel email}) async {
     if (!mailClient!.isAuthenticated && !Res.mock) {
       if (!await mailClient!.login()) {

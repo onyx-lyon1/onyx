@@ -50,9 +50,9 @@ class EmailWidget extends StatelessWidget {
       return "now";
     } else if (diffH < 1) {
       return "${diffMin.toString()}min";
-    } else if (diffH > 1 && diffH < 24) {
+    } else if (diffH >= 1 && diffH < 24) {
       return "${diffH.toString()}h";
-    } else if (diffH > 24 && diffDays < 8) {
+    } else if (diffH > 24) {
       return "${diffDays.toString()}j";
     } else {
       return date.toString().split(' ')[0].replaceAll('-', '/');
@@ -87,8 +87,8 @@ class EmailWidget extends StatelessWidget {
             leading:
                 (context.read<EmailCubit>().state.selectedEmails.isNotEmpty)
                     ? Container(
-                        height: 7.w,
-                        width: 7.w,
+                        height: 9.w,
+                        width: 9.w,
                         margin: const EdgeInsets.all(10),
                         child: InkWell(
                             onTap: () {
@@ -108,8 +108,8 @@ class EmailWidget extends StatelessWidget {
                             )),
                       )
                     : Container(
-                        height: 7.w,
-                        width: 7.w,
+                        height: 9.w,
+                        width: 9.w,
                         margin: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
@@ -117,17 +117,15 @@ class EmailWidget extends StatelessWidget {
                               ? readBgColor(context)
                               : unreadAccent(context),
                         ),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            _firstLetter(email.sender),
-                            style: TextStyle(
-                              fontSize: 22,
-                              color: email.isRead
-                                  ? readText1Color(context)
-                                  : unreadText1Color(context),
-                            ),
+                        child: Text(
+                          _firstLetter(email.sender).toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: email.isRead
+                                ? readText1Color(context)
+                                : unreadText1Color(context),
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
             title: Row(
@@ -152,6 +150,7 @@ class EmailWidget extends StatelessWidget {
                   padding: EdgeInsets.only(right: 3.w),
                   child: Text(
                     _toHumanDate(email.date),
+                    maxLines: 1,
                     style: TextStyle(
                         color: email.isRead
                             ? readText1Color(context)
