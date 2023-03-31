@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:enough_mail/enough_mail.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/core/cache_service.dart';
@@ -76,6 +77,48 @@ class EmailLogic {
     }
 
     return mailBox;
+  }
+
+  static Future<void> archiveEmail(
+      {required Lyon1Mail mailClient, required EmailModel email}) async {
+    if (Res.mock) {
+      return;
+    }
+    if (!mailClient.isAuthenticated) {
+      if (!await mailClient.login()) {
+        throw Exception("Login failed");
+      }
+    }
+    List<Mailbox> mailboxes = await mailClient.getMailboxes();
+    int mailboxIndex = mailboxes.indexWhere(
+        (element) => element.name.toLowerCase().contains("archive"));
+    if (mailboxIndex == -1) {
+      mailClient.createFolder("Archive");
+      mailboxes = await mailClient.getMailboxes();
+      mailboxIndex = mailboxes.indexWhere(
+          (element) => element.name.toLowerCase().contains("archive"));
+    }
+    Mailbox mailbox = mailboxes[mailboxIndex];
+    await mailClient.move(id: email.id!, to: mailbox);
+  }
+
+  static Future<void> moveEmail(
+      {required Lyon1Mail mailClient,
+      required EmailModel email,
+      required MailBoxModel destinationMailbox}) async {
+    if (Res.mock) {
+      return;
+    }
+    if (!mailClient.isAuthenticated) {
+      if (!await mailClient.login()) {
+        throw Exception("Login failed");
+      }
+    }
+    List<Mailbox> mailboxes = await mailClient.getMailboxes();
+    int mailboxIndex = mailboxes
+        .indexWhere((element) => element.name == destinationMailbox.name);
+    Mailbox mailbox = mailboxes[mailboxIndex];
+    await mailClient.move(id: email.id!, to: mailbox);
   }
 
   static Future<List<MailBoxModel>> getMailboxes(

@@ -30,24 +30,78 @@ class EmailHeaderWidget extends StatelessWidget {
                               .settings
                               .blockTrackers);
                     }
+                    context.read<EmailCubit>().unselectAllEmails();
                   },
                   icon: const Icon(Icons.delete)),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.archive)),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.mark_email_unread_rounded)),
               IconButton(
                   onPressed: () {
                     for (var email in state.selectedEmails) {
-                      context.read<EmailCubit>().markAsRead(email: email);
+                      context.read<EmailCubit>().archive(email: email);
                     }
+                    context.read<EmailCubit>().unselectAllEmails();
+                  },
+                  icon: const Icon(Icons.archive)),
+              IconButton(
+                  onPressed: () {
+                    int readedMail = 0;
+                    int unreadedMail = 0;
+                    for (var email in state.selectedEmails) {
+                      if (email.isRead) {
+                        readedMail++;
+                      } else {
+                        unreadedMail++;
+                      }
+                    }
+                    for (var email in state.selectedEmails) {
+                      if (readedMail < unreadedMail) {
+                        context.read<EmailCubit>().markAsRead(email: email);
+                      } else {
+                        context.read<EmailCubit>().markAsUnread(email: email);
+                      }
+                    }
+                    context.read<EmailCubit>().unselectAllEmails();
                   },
                   icon: const Icon(Icons.mark_email_read_rounded)),
+              IconButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Déplacer vers"),
+                            content: SizedBox(
+                              height: 30.h,
+                              width: 100.w,
+                              child: ListView.builder(
+                                itemCount: state.mailBoxes.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    onTap: () {
+                                      Navigator.pop(
+                                          context, state.mailBoxes[index]);
+                                    },
+                                    title: Text(state.mailBoxes[index].name),
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        }).then((folder) {
+                      for (var email in state.selectedEmails) {
+                        context
+                            .read<EmailCubit>()
+                            .move(email: email, folder: folder);
+                      }
+                      context.read<EmailCubit>().unselectAllEmails();
+                    });
+                  },
+                  icon: const Icon(Icons.folder_copy_rounded)),
               IconButton(
                   onPressed: () {
                     for (var email in state.selectedEmails) {
                       context.read<EmailCubit>().toggleFlag(email: email);
                     }
+                    context.read<EmailCubit>().unselectAllEmails();
                   },
                   icon: const Icon(Icons.flag_rounded)),
             ],
