@@ -23,6 +23,7 @@ class TomussCubit extends Cubit<TomussState> {
       semestreIndex ??= semesterModelWrapper.currentSemestreIndex;
       semesters = semesterModelWrapper.semestres;
     }
+    print("semester index : $semestreIndex");
     if (cache) {
       teachingUnits = await compute(
           TomussLogic.getTeachingUnitsCache,
@@ -35,8 +36,14 @@ class TomussCubit extends Cubit<TomussState> {
         currentSemesterIndex: semestreIndex ?? 0,
       ));
     }
+    print("cache end");
     if (dartus != null) {
       try {
+        print((semesters.length > (semestreIndex ?? 0))
+            ? semesters[semestreIndex ?? 0]
+            : null);
+        print(semesters.length);
+        print(semesters);
         GetSemesterAndNoteResultWaitingRecords result =
             await TomussLogic.getSemestersAndNote(
                 dartus: dartus,
@@ -45,7 +52,7 @@ class TomussCubit extends Cubit<TomussState> {
                 semester: (semesters.length > (semestreIndex ?? 0))
                     ? semesters[semestreIndex ?? 0]
                     : null);
-
+        print("result : $result");
         if (result.timeout != null) {
           emit(state.copyWith(
             currentSemesterIndex: semestreIndex ?? 0,
