@@ -25,6 +25,9 @@ Future<void> hiveInit({String? path}) async {
   Hive.registerAdapter(MailBoxModelAdapter());
   Hive.registerAdapter(MailBoxWrapperAdapter());
   Hive.registerAdapter(SpecialMailBoxAdapter());
+  Hive.registerAdapter(ActionModelAdapter());
+  Hive.registerAdapter(ActionModelWrapperAdapter());
+  Hive.registerAdapter(ActionTypeAdapter());
 
   Hive.registerAdapter(SettingsModelAdapter());
   Hive.registerAdapter(FunctionalitiesAdapter());

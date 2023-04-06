@@ -11,6 +11,7 @@ enum EmailStatus {
   sended,
   updated,
   error,
+  nonFatalError,
   sorted,
   cacheSorted,
   mailboxesLoaded
