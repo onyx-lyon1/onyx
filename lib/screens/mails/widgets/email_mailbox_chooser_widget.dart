@@ -42,38 +42,44 @@ class _EmailMailboxChooserWidgetState extends State<EmailMailboxChooserWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.only(top: 0.5.h),
-                child: ExpansionTile(
-                  key: Key(_key.toString()),
-                  title: Text(
-                    state.currentMailBox!.name,
-                    textAlign: TextAlign.center,
-                  ),
-                  children: state.mailBoxes
-                      .map((e) => Material(
-                            color: (state.currentMailBox!.name == e.name)
-                                ? Theme.of(context).primaryColor
-                                : null,
-                            child: InkWell(
-                              onTap: () {
-                                context.read<EmailCubit>().load(
-                                      blockTrackers: context
-                                          .read<SettingsCubit>()
-                                          .state
-                                          .settings
-                                          .blockTrackers,
-                                      mailbox: e,
-                                    );
-                                _collapse();
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(e.toIcon()),
-                                  Text(e.name),
-                                ],
+                child: Theme(
+                  data: Theme.of(context)
+                      .copyWith(dividerColor: Colors.transparent),
+                  child: ExpansionTile(
+                    key: Key(_key.toString()),
+                    //disable the divider at top and bottom whenn expanded
+
+                    title: Text(
+                      state.currentMailBox!.name,
+                      textAlign: TextAlign.center,
+                    ),
+                    children: state.mailBoxes
+                        .map((e) => Material(
+                              color: (state.currentMailBox!.name == e.name)
+                                  ? Theme.of(context).primaryColor
+                                  : null,
+                              child: InkWell(
+                                onTap: () {
+                                  context.read<EmailCubit>().load(
+                                        blockTrackers: context
+                                            .read<SettingsCubit>()
+                                            .state
+                                            .settings
+                                            .blockTrackers,
+                                        mailbox: e,
+                                      );
+                                  _collapse();
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(e.toIcon()),
+                                    Text(e.name),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ))
-                      .toList(),
+                            ))
+                        .toList(),
+                  ),
                 ),
               ),
             ],

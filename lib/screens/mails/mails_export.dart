@@ -1,5 +1,8 @@
 export 'domain/logic/attachment_logic.dart';
 export 'domain/logic/email_logic.dart';
+export 'domain/model/action_model.dart';
+export 'domain/model/action_model_wrapper.dart';
+export 'domain/model/action_type_model.dart';
 export 'domain/model/email_model.dart';
 export 'domain/model/mail_box_model.dart';
 export 'domain/model/mail_box_wrapper.dart';
