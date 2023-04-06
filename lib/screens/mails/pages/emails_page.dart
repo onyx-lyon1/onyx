@@ -37,6 +37,10 @@ class EmailsPage extends StatelessWidget {
           loadingHeader = const LoadingHeaderWidget(
             message: "Erreur de chargement des emails",
           );
+        } else if (state.status == EmailStatus.nonFatalError) {
+          loadingHeader = const LoadingHeaderWidget(
+            message: "Une erreur non fatale est survenue",
+          );
         } else if (state.status == EmailStatus.initial) {
           context.read<EmailCubit>().connect(
               username: context.read<AuthentificationCubit>().state.username,

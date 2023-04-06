@@ -143,8 +143,11 @@ class EmailLogic {
       bool? replyAll,
       bool forward = false,
       bool reply = false,
-      required int emailNumber,
-      required List<EmailModel> emailsComplete}) async {
+      int? emailNumber}) async {
+    assert((reply || forward) ==
+        (originalMessageId != null &&
+            emailNumber !=
+                null)); //assert that we are replying or forwarding if we have the original message id and the email number
     if (Res.mock) {
       return true;
     }
@@ -155,7 +158,7 @@ class EmailLogic {
     }
     if (reply) {
       try {
-        await mailClient.fetchMessages(emailNumber);
+        await mailClient.fetchMessages(emailNumber!);
         await mailClient.reply(
           originalMessageId: originalMessageId!,
           body: email.body,
@@ -175,7 +178,7 @@ class EmailLogic {
           recipients
               .add((await mailClient.resolveContact(email.receiver)).first);
         }
-        await mailClient.fetchMessages(emailNumber);
+        await mailClient.fetchMessages(emailNumber!);
         await mailClient.forward(
           originalMessageId: originalMessageId!,
           body: email.body,
@@ -223,6 +226,24 @@ class EmailLogic {
     } else {
       return [];
     }
+  }
+
+  static Future<void> addAction(ActionModel action) async {
+    ActionModelWrapper wrapper = await CacheService.get<ActionModelWrapper>() ??
+        ActionModelWrapper(action: []);
+    if (!wrapper.action.contains(action)) {
+      wrapper.action.add(action);
+      await CacheService.set<ActionModelWrapper>(wrapper);
+    }
+  }
+
+  static Future<void> removeAction(ActionModel action) async {
+    ActionModelWrapper wrapper = await CacheService.get<ActionModelWrapper>() ??
+        ActionModelWrapper(action: []);
+    while (wrapper.action.contains(action)) {
+      wrapper.action.remove(action);
+    }
+    await CacheService.set<ActionModelWrapper>(wrapper);
   }
 
   static List<MailBoxModel> mailboxesMock = [
