@@ -111,24 +111,27 @@ class EmailWidget extends StatelessWidget {
                             )),
                       )
                     : Container(
-                        height: 9.w,
-                        width: 9.w,
-                        margin: const EdgeInsets.all(10),
+                        height: 10.w,
+                        width: 10.w,
+                        margin: EdgeInsets.all(1.w),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(100),
                           color: email.isRead
                               ? readBgColor(context)
                               : unreadAccent(context),
                         ),
-                        child: Text(
-                          _firstLetter(email.sender).toUpperCase(),
-                          style: TextStyle(
-                            fontSize: 22,
-                            color: email.isRead
-                                ? readText1Color(context)
-                                : unreadText1Color(context),
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 1.5.w),
+                          child: Text(
+                            _firstLetter(email.sender).toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 22,
+                              color: email.isRead
+                                  ? readText1Color(context)
+                                  : unreadText1Color(context),
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
             title: Row(
