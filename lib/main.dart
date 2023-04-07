@@ -39,8 +39,10 @@ void main() async {
       return true;
     };
   }
-//an iphone se size
-  await DesktopWindow.setWindowSize(const Size(375, 667));
+  //an iphone se size
+  if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
+    await DesktopWindow.setWindowSize(const Size(375, 667));
+  }
 
   runApp(const OnyxApp());
 }
