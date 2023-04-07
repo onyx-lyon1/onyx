@@ -59,6 +59,7 @@ class _TomussPageState extends State<TomussPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TomussCubit, TomussState>(
+      buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         if (kDebugMode) {
           print("Grades state : ${state.status}");
@@ -69,13 +70,18 @@ class _TomussPageState extends State<TomussPage> {
           loadingHeader = LoadingHeaderWidget(
             message: "Chargement des notes",
             timeout: state.timeout,
+            timeoutCallBack: () {},
+          );
+        } else if (state.status == TomussStatus.timeout) {
+          loadingHeader = LoadingHeaderWidget(
+            message: "Chargement des notes",
+            timeout: state.timeout,
             timeoutCallBack: () => context.read<TomussCubit>().load(
                 dartus: context.read<AuthentificationCubit>().state.dartus,
                 semestreIndex: state.currentSemesterIndex,
                 cache: false),
           );
-        }
-        if (state.status == TomussStatus.initial) {
+        } else if (state.status == TomussStatus.initial) {
           context.read<TomussCubit>().load(
                 dartus: context.read<AuthentificationCubit>().state.dartus,
               );

@@ -53,6 +53,8 @@ class OnyxAppState extends State<OnyxApp> {
             BlocProvider<IzlyCubit>(create: (context) => IzlyCubit()),
           ],
           child: BlocConsumer<AuthentificationCubit, AuthentificationState>(
+            listenWhen: (previous, current) =>
+                previous.status != current.status,
             listener: (context, state) {
               if (state.status == AuthentificationStatus.authentificated) {
                 context.read<EmailCubit>().connect(

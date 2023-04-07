@@ -48,7 +48,7 @@ class TomussCubit extends Cubit<TomussState> {
         if (result.timeout != null) {
           emit(state.copyWith(
             currentSemesterIndex: semestreIndex ?? 0,
-            status: TomussStatus.loading,
+            status: TomussStatus.timeout,
             timeout: result.timeout,
           ));
           return;
