@@ -1,6 +1,14 @@
 part of 'tomuss_cubit.dart';
 
-enum TomussStatus { initial, loading, cacheReady, ready, error, updated }
+enum TomussStatus {
+  initial,
+  loading,
+  cacheReady,
+  ready,
+  error,
+  updated,
+  timeout
+}
 
 class TomussState {
   final TomussStatus status;
