@@ -8,7 +8,7 @@ class ActionModel {
   @HiveField(0)
   final ActionType type;
   @HiveField(1)
-  final MailBoxModel mailBox;
+  final MailBoxModel fromMailBox;
   @HiveField(4)
   final EmailModel? email;
   @HiveField(5)
@@ -22,7 +22,7 @@ class ActionModel {
 
   ActionModel({
     required this.type,
-    required this.mailBox,
+    required this.fromMailBox,
     this.email,
     this.originalMessageId,
     this.replyAll,
@@ -32,7 +32,7 @@ class ActionModel {
 
   @override
   String toString() {
-    return 'ActionModel{type: $type, mailBox: $mailBox, email: $email, originalMessageId: $originalMessageId, replyAll: $replyAll, emailNumber: $emailNumber, destinationMailBox: $destinationMailBox}';
+    return 'ActionModel{type: $type, mailBox: $fromMailBox, email: $email, originalMessageId: $originalMessageId, replyAll: $replyAll, emailNumber: $emailNumber, destinationMailBox: $destinationMailBox}';
   }
 
   @override
@@ -41,7 +41,7 @@ class ActionModel {
       other is ActionModel &&
           runtimeType == other.runtimeType &&
           type == other.type &&
-          mailBox == other.mailBox &&
+          fromMailBox == other.fromMailBox &&
           email == other.email &&
           originalMessageId == other.originalMessageId &&
           replyAll == other.replyAll &&
@@ -51,7 +51,7 @@ class ActionModel {
   @override
   int get hashCode =>
       type.hashCode ^
-      mailBox.hashCode ^
+      fromMailBox.hashCode ^
       email.hashCode ^
       originalMessageId.hashCode ^
       replyAll.hashCode ^

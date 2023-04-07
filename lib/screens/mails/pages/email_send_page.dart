@@ -56,11 +56,13 @@ class EmailSendPage extends StatelessWidget {
               attachments: [],
             );
             context.read<EmailCubit>().send(
-                email: email,
-                replyAll: replyAll,
-                reply: reply,
-                forward: forward,
-                replyOriginalMessageId: originalMessage);
+                  email: email,
+                  replyAll: replyAll,
+                  reply: reply,
+                  forward: forward,
+                  replyOriginalMessageId: originalMessage,
+                  from: state.currentMailBox!,
+                );
           });
           return const StateDisplayingPage(
               message: "Something went wrong with emails");
@@ -106,11 +108,13 @@ class EmailSendPage extends StatelessWidget {
                     attachments: attachments.map((e) => e.path).toList(),
                   );
                   context.read<EmailCubit>().send(
-                      email: email,
-                      replyAll: replyAll,
-                      replyOriginalMessageId: originalMessage,
-                      reply: reply,
-                      forward: forward);
+                        email: email,
+                        replyAll: replyAll,
+                        replyOriginalMessageId: originalMessage,
+                        reply: reply,
+                        forward: forward,
+                        from: state.currentMailBox!,
+                      );
                 } else {
                   showDialog(
                     context: context,

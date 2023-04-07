@@ -18,7 +18,7 @@ class ActionModelAdapter extends TypeAdapter<ActionModel> {
     };
     return ActionModel(
       type: fields[0] as ActionType,
-      mailBox: fields[1] as MailBoxModel,
+      fromMailBox: fields[1] as MailBoxModel,
       email: fields[4] as EmailModel?,
       originalMessageId: fields[5] as int?,
       replyAll: fields[6] as bool?,
@@ -34,7 +34,7 @@ class ActionModelAdapter extends TypeAdapter<ActionModel> {
       ..writeByte(0)
       ..write(obj.type)
       ..writeByte(1)
-      ..write(obj.mailBox)
+      ..write(obj.fromMailBox)
       ..writeByte(4)
       ..write(obj.email)
       ..writeByte(5)
