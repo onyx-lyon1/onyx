@@ -22,22 +22,6 @@ class EmailLogic {
     return mailClient;
   }
 
-  static Future<List<MailBoxModel>> getMailBoxList(
-      {required Lyon1Mail mailClient}) async {
-    if (Res.mock) {
-      return mailboxesMock;
-    }
-    if (!mailClient.isAuthenticated) {
-      if (!await mailClient.login()) {
-        throw Exception("Login failed");
-      }
-    }
-    final List<MailBoxModel> mailboxesOpt = (await mailClient.getMailboxes())
-        .map((e) => MailBoxModel.fromMailLib(e))
-        .toList();
-    return mailboxesOpt;
-  }
-
   static Future<MailBoxModel> load(
       {required Lyon1Mail mailClient,
       required int emailNumber,
@@ -80,7 +64,9 @@ class EmailLogic {
   }
 
   static Future<void> archiveEmail(
-      {required Lyon1Mail mailClient, required EmailModel email}) async {
+      {required Lyon1Mail mailClient,
+      required EmailModel email,
+      required MailBoxModel from}) async {
     if (Res.mock) {
       return;
     }
@@ -90,6 +76,8 @@ class EmailLogic {
       }
     }
     List<Mailbox> mailboxes = await mailClient.getMailboxes();
+    int fromMailboxIndex =
+        mailboxes.indexWhere((element) => element.name == from.name);
     int mailboxIndex = mailboxes.indexWhere(
         (element) => element.name.toLowerCase().contains("archive"));
     if (mailboxIndex == -1) {
@@ -98,14 +86,17 @@ class EmailLogic {
       mailboxIndex = mailboxes.indexWhere(
           (element) => element.name.toLowerCase().contains("archive"));
     }
-    Mailbox mailbox = mailboxes[mailboxIndex];
-    await mailClient.move(id: email.id!, to: mailbox);
+    await mailClient.move(
+        id: email.id!,
+        to: mailboxes[mailboxIndex],
+        from: mailboxes[fromMailboxIndex]);
   }
 
   static Future<void> moveEmail(
       {required Lyon1Mail mailClient,
       required EmailModel email,
-      required MailBoxModel destinationMailbox}) async {
+      required MailBoxModel destinationMailbox,
+      required MailBoxModel from}) async {
     if (Res.mock) {
       return;
     }
@@ -115,10 +106,14 @@ class EmailLogic {
       }
     }
     List<Mailbox> mailboxes = await mailClient.getMailboxes();
-    int mailboxIndex = mailboxes
+    int destinationMailboxIndex = mailboxes
         .indexWhere((element) => element.name == destinationMailbox.name);
-    Mailbox mailbox = mailboxes[mailboxIndex];
-    await mailClient.move(id: email.id!, to: mailbox);
+    int fromMailboxIndex =
+        mailboxes.indexWhere((element) => element.name == from.name);
+    await mailClient.move(
+        id: email.id!,
+        to: mailboxes[destinationMailboxIndex],
+        from: mailboxes[fromMailboxIndex]);
   }
 
   static Future<List<MailBoxModel>> getMailboxes(
@@ -136,14 +131,16 @@ class EmailLogic {
         .toList();
   }
 
-  static Future<bool> send(
-      {required Lyon1Mail mailClient,
-      required EmailModel email,
-      int? originalMessageId,
-      bool? replyAll,
-      bool forward = false,
-      bool reply = false,
-      int? emailNumber}) async {
+  static Future<bool> send({
+    required Lyon1Mail mailClient,
+    required EmailModel email,
+    int? originalMessageId,
+    bool? replyAll,
+    bool forward = false,
+    bool reply = false,
+    int? emailNumber,
+    MailBoxModel? from,
+  }) async {
     assert((reply || forward) ==
         (originalMessageId != null &&
             emailNumber !=
@@ -155,6 +152,10 @@ class EmailLogic {
       if (!await mailClient.login()) {
         throw Exception("Login failed");
       }
+    }
+    if (reply || forward) {
+      await mailClient.selectMailbox((await mailBoxToMailLib(
+          mailClient: mailClient, mailBoxModel: from!))!);
     }
     if (reply) {
       try {
@@ -229,6 +230,9 @@ class EmailLogic {
   }
 
   static Future<void> addAction(ActionModel action) async {
+    if (kDebugMode) {
+      print("add action : $action");
+    }
     ActionModelWrapper wrapper = await CacheService.get<ActionModelWrapper>() ??
         ActionModelWrapper(action: []);
     if (!wrapper.action.contains(action)) {
@@ -238,12 +242,32 @@ class EmailLogic {
   }
 
   static Future<void> removeAction(ActionModel action) async {
+    if (kDebugMode) {
+      print("remove action : $action");
+    }
     ActionModelWrapper wrapper = await CacheService.get<ActionModelWrapper>() ??
         ActionModelWrapper(action: []);
     while (wrapper.action.contains(action)) {
       wrapper.action.remove(action);
     }
     await CacheService.set<ActionModelWrapper>(wrapper);
+  }
+
+  static Future<Mailbox?> mailBoxToMailLib(
+      {required Lyon1Mail mailClient,
+      required MailBoxModel mailBoxModel}) async {
+    if (!mailClient.isAuthenticated) {
+      if (!await mailClient.login()) {
+        throw Exception("Login failed");
+      }
+    }
+    List<Mailbox> mailboxes = await mailClient.getMailboxes();
+    int index =
+        mailboxes.indexWhere((element) => element.name == mailBoxModel.name);
+    if (index == -1) {
+      return null;
+    }
+    return mailboxes[index];
   }
 
   static List<MailBoxModel> mailboxesMock = [

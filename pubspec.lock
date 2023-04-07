@@ -511,10 +511,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: d8e9ca7e5d1983365c277f12c21b4362df6cf659c99af146ad4d04eb33033013
+      sha256: "0d923fb610d0abf67f2149c3a50ef85f78bebecfc4d645719ca70bcf4abc788f"
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.6"
+    version: "5.2.7"
   firebase_core:
     dependency: "direct main"
     description:
@@ -721,10 +721,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_map_marker_popup
-      sha256: b83e11dd8611f27d02050de3f262fac8eeb888abb5e562113b3be578573914f2
+      sha256: "6ccec27667bba1e1cae9bb3a4100627ba3c341c088b38a484b46cde75e38789e"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.2"
   flutter_platform_widgets:
     dependency: transitive
     description:
@@ -745,10 +745,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: "8592b6752635e680a9b640cf198cf4a674eb4efa1b4654137043379c87de648d"
+      sha256: "0a6087c325ec4346a8be0ca7b02a427b40789c15b7cd6cf78e0a0dfaa150682d"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.3"
+    version: "7.1.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -1070,11 +1070,9 @@ packages:
   lyon1mail:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: d03b017ba2c1fcb6dad1c97af9821cc7ebb69fc3
-      url: "https://github.com/onyx-lyon1/lyon1-mailclient.git"
-    source: git
+      path: "../lyon1-mailclient"
+      relative: true
+    source: path
     version: "1.0.0"
   matcher:
     dependency: transitive
@@ -1733,10 +1731,10 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter_android
-      sha256: "9e223788e1954087dac30d813dc151f8e12f09f1139f116ce20b5658893f3627"
+      sha256: "5906c9aa8c88ed372b2ad3c88c942790b4fb16f73fdd1c0647b4d747d9cf5b3f"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.4"
+    version: "3.4.5"
   webview_flutter_platform_interface:
     dependency: transitive
     description:

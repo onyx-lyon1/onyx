@@ -69,7 +69,7 @@ class EmailModel {
 
   @override
   String toString() {
-    return 'EmailModel{subject: $subject, sender: $sender, excerpt: $excerpt, body: $body, blackBody: $blackBody, id: $id, isRead: $isRead, isFlagged: $isFlagged, date: $date, receiver: $receiver, attachments: $attachments, rawMail: $rawMail}';
+    return 'EmailModel{subject: $subject, sender: $sender, id: $id, isRead: $isRead, isFlagged: $isFlagged, date: $date, receiver: $receiver, attachments: $attachments, rawMail: $rawMail}';
   }
 
   @override
