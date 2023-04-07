@@ -17,7 +17,16 @@ class EmailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
-    return BlocBuilder<EmailCubit, EmailState>(
+    return BlocConsumer<EmailCubit, EmailState>(
+      listenWhen: (previous, current) =>
+          (current.status == EmailStatus.connected ||
+              current.status == EmailStatus.loaded) &&
+          current.status != previous.status,
+      listener: (context, state) {
+        context.read<EmailCubit>().doQueuedAction(
+            blockTrackers:
+                context.read<SettingsCubit>().state.settings.blockTrackers);
+      },
       builder: (context, state) {
         if (kDebugMode) {
           print("EmailsState: ${state.status}");
@@ -39,7 +48,7 @@ class EmailsPage extends StatelessWidget {
           );
         } else if (state.status == EmailStatus.nonFatalError) {
           loadingHeader = const LoadingHeaderWidget(
-            message: "Une erreur non fatale est survenue",
+            message: "Une erreur est survenue",
           );
         } else if (state.status == EmailStatus.initial) {
           context.read<EmailCubit>().connect(

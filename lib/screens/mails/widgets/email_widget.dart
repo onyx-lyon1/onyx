@@ -67,7 +67,10 @@ class EmailWidget extends StatelessWidget {
       closedColor: email.isRead ? readBgColor(context) : unreadBgColor(context),
       openColor: Theme.of(context).colorScheme.background,
       onClosed: (value) {
-        context.read<EmailCubit>().markAsRead(email: email);
+        context.read<EmailCubit>().markAsRead(
+              email: email,
+              from: context.read<EmailCubit>().state.currentMailBox!,
+            );
       },
       openBuilder: (context, closeContainer) => EmailDetailsPage(
         mail: email,
@@ -181,7 +184,11 @@ class EmailWidget extends StatelessWidget {
                 IconButton(
                   key: Key("email flag ${email.id}"),
                   onPressed: () {
-                    context.read<EmailCubit>().toggleFlag(email: email);
+                    context.read<EmailCubit>().toggleFlag(
+                          email: email,
+                          from:
+                              context.read<EmailCubit>().state.currentMailBox!,
+                        );
                   },
                   icon: Icon(
                     email.isFlagged

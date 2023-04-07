@@ -77,11 +77,11 @@ dependencies:
     git: https://github.com/onyx-lyon1/DragAndDropLists.git
 
 dependency_overrides:
-# unindent for devlopment to use local version of the libraries
-#  dartus:
-#    path: ../dartus-tomuss-client
-#  lyon1mail:
-#    path: ../lyon1-mailclient
+  # unindent for devlopment to use local version of the libraries
+  #  dartus:
+  #    path: ../dartus-tomuss-client
+  lyon1mail:
+    path: ../lyon1-mailclient
 #  lyon1agenda:
 #    path: ../lyon1-agendaclient
 #  izlyclient:

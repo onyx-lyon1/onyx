@@ -23,12 +23,14 @@ class EmailHeaderWidget extends StatelessWidget {
                   onPressed: () {
                     for (var email in state.selectedEmails) {
                       context.read<EmailCubit>().delete(
-                          email: email,
-                          blockTrackers: context
-                              .read<SettingsCubit>()
-                              .state
-                              .settings
-                              .blockTrackers);
+                            email: email,
+                            blockTrackers: context
+                                .read<SettingsCubit>()
+                                .state
+                                .settings
+                                .blockTrackers,
+                            from: state.currentMailBox!,
+                          );
                     }
                     context.read<EmailCubit>().unselectAllEmails();
                   },
@@ -36,7 +38,10 @@ class EmailHeaderWidget extends StatelessWidget {
               IconButton(
                   onPressed: () {
                     for (var email in state.selectedEmails) {
-                      context.read<EmailCubit>().archive(email: email);
+                      context.read<EmailCubit>().archive(
+                            email: email,
+                            from: state.currentMailBox!,
+                          );
                     }
                     context.read<EmailCubit>().unselectAllEmails();
                   },
@@ -54,9 +59,15 @@ class EmailHeaderWidget extends StatelessWidget {
                     }
                     for (var email in state.selectedEmails) {
                       if (readedMail < unreadedMail) {
-                        context.read<EmailCubit>().markAsRead(email: email);
+                        context.read<EmailCubit>().markAsRead(
+                              email: email,
+                              from: state.currentMailBox!,
+                            );
                       } else {
-                        context.read<EmailCubit>().markAsUnread(email: email);
+                        context.read<EmailCubit>().markAsUnread(
+                              email: email,
+                              from: state.currentMailBox!,
+                            );
                       }
                     }
                     context.read<EmailCubit>().unselectAllEmails();
@@ -88,9 +99,11 @@ class EmailHeaderWidget extends StatelessWidget {
                           );
                         }).then((folder) {
                       for (var email in state.selectedEmails) {
-                        context
-                            .read<EmailCubit>()
-                            .move(email: email, folder: folder);
+                        context.read<EmailCubit>().move(
+                              email: email,
+                              folder: folder,
+                              from: state.currentMailBox!,
+                            );
                       }
                       context.read<EmailCubit>().unselectAllEmails();
                     });
@@ -99,7 +112,10 @@ class EmailHeaderWidget extends StatelessWidget {
               IconButton(
                   onPressed: () {
                     for (var email in state.selectedEmails) {
-                      context.read<EmailCubit>().toggleFlag(email: email);
+                      context.read<EmailCubit>().toggleFlag(
+                            email: email,
+                            from: state.currentMailBox!,
+                          );
                     }
                     context.read<EmailCubit>().unselectAllEmails();
                   },
