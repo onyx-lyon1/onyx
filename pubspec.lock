@@ -1070,9 +1070,11 @@ packages:
   lyon1mail:
     dependency: "direct main"
     description:
-      path: "../lyon1-mailclient"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: fb8182d765458d41b4b87ecfc9d649a803af6490
+      url: "https://github.com/onyx-lyon1/lyon1-mailclient.git"
+    source: git
     version: "1.0.0"
   matcher:
     dependency: transitive
