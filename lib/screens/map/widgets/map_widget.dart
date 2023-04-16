@@ -112,9 +112,11 @@ class _MapWidgetState extends State<MapWidget> {
                       onPressed: () {
                         GeolocationLogic.getCurrentLocation(askPermission: true)
                             .then((value) {
-                          if ((value != null)) {
-                            mapController?.move(value, 15);
-                          }
+                          setState(() {
+                            if ((value != null)) {
+                              mapController?.move(value, 15);
+                            }
+                          });
                         });
                       },
                       style: ButtonStyle(
