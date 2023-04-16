@@ -129,8 +129,8 @@ class TomussLogic {
     )) {
       for (var grade in teachingUnit.grades) {
         if ((grade.date != null) &&
-            grade.date!.isAfter(
-                DateTime.now().subtract(settings.recentGradeDuration))) {
+            grade.date!.isAfter(DateTime.now()
+                .subtract(Duration(days: settings.recentGradeDuration)))) {
           newGrades.add(grade);
         }
       }
