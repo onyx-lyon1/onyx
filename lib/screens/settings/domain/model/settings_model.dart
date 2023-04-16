@@ -18,6 +18,8 @@ class SettingsModel {
   late bool newGradeNotification;
   @HiveField(4)
   late bool showHiddenUE;
+  @HiveField(14, defaultValue: Duration(days: 7))
+  late Duration recentGradeDuration;
 
   //agenda
   @HiveField(5)
@@ -71,6 +73,7 @@ class SettingsModel {
       Functionalities.map,
     ],
     this.disabledFunctionalities = const [],
+    this.recentGradeDuration = const Duration(days: 7),
   });
 
   SettingsModel copyWith({
@@ -88,6 +91,7 @@ class SettingsModel {
     bool? darkerMail,
     List<Functionalities>? enabledFunctionalities,
     List<Functionalities>? disabledFunctionalities,
+    Duration? recentGradeDuration,
   }) {
     return SettingsModel(
       keepMeLoggedIn: keepMeLoggedIn ?? this.keepMeLoggedIn,
@@ -107,12 +111,13 @@ class SettingsModel {
           enabledFunctionalities ?? this.enabledFunctionalities,
       disabledFunctionalities:
           disabledFunctionalities ?? this.disabledFunctionalities,
+      recentGradeDuration: recentGradeDuration ?? this.recentGradeDuration,
     );
   }
 
   @override
   String toString() {
-    return 'SettingsModel{keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, themeMode: $themeMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, fetchAgendaAuto: $fetchAgendaAuto, showMiniCalendar: $showMiniCalendar, calendarUpdateNotification: $calendarUpdateNotification, agendaURL: $agendaId, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail enabledFunctionalities: $enabledFunctionalities, disabledFunctionalities: $disabledFunctionalities}';
+    return 'SettingsModel{keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, themeMode: $themeMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, recentGradeDuration: $recentGradeDuration, fetchAgendaAuto: $fetchAgendaAuto, showMiniCalendar: $showMiniCalendar, calendarUpdateNotification: $calendarUpdateNotification, agendaId: $agendaId, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail, enabledFunctionalities: $enabledFunctionalities, disabledFunctionalities: $disabledFunctionalities}';
   }
 
   @override
@@ -125,6 +130,7 @@ class SettingsModel {
           themeMode == other.themeMode &&
           newGradeNotification == other.newGradeNotification &&
           showHiddenUE == other.showHiddenUE &&
+          recentGradeDuration == other.recentGradeDuration &&
           fetchAgendaAuto == other.fetchAgendaAuto &&
           showMiniCalendar == other.showMiniCalendar &&
           calendarUpdateNotification == other.calendarUpdateNotification &&
@@ -142,6 +148,7 @@ class SettingsModel {
       themeMode.hashCode ^
       newGradeNotification.hashCode ^
       showHiddenUE.hashCode ^
+      recentGradeDuration.hashCode ^
       fetchAgendaAuto.hashCode ^
       showMiniCalendar.hashCode ^
       calendarUpdateNotification.hashCode ^
