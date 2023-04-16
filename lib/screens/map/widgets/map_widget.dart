@@ -5,10 +5,11 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
+import 'package:onyx/screens/map/domain/logic/tile_provider_logic.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:sizer/sizer.dart';
 
-class MapWidget extends StatelessWidget {
+class MapWidget extends StatefulWidget {
   const MapWidget(
       {Key? key,
       this.batiments = const [],
@@ -24,10 +25,22 @@ class MapWidget extends StatelessWidget {
   final void Function(BatimentModel) onTapNavigate;
 
   @override
+  State<MapWidget> createState() => _MapWidgetState();
+}
+
+class _MapWidgetState extends State<MapWidget> {
+  late MapController? mapController;
+
+  @override
+  void initState() {
+    mapController = widget.mapController ?? MapController();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    /// Used to trigger showing/hiding of popups.
     final PopupController popupLayerController = PopupController();
-    List<Marker> markers = batiments.map((element) {
+    List<Marker> markers = widget.batiments.map((element) {
       return Marker(
         point: element.position,
         builder: (context) => Icon(
@@ -37,49 +50,102 @@ class MapWidget extends StatelessWidget {
         ),
       );
     }).toList();
-    if (center == null) {
-      GeolocationLogic.getCurrentLocation(askPermission: false).then((value) {
-        if (value.inside(MapRes.minBound, MapRes.maxBound)) {
-          mapController?.move(value, 16.5);
+    if (widget.center == null) {
+      GeolocationLogic.getCurrentLocation(askPermission: false)
+          .then((value) async {
+        if ((value != null) && value.inside(MapRes.minBound, MapRes.maxBound)) {
+          //loop 10 times to make sure the map controller is initialized
+          for (int i = 0; i < 10; i++) {
+            if (mapController != null) {
+              mapController?.move(value, 16.5);
+              break;
+            }
+            await Future.delayed(const Duration(milliseconds: 100));
+          }
         }
       });
     }
-    return FlutterMap(
-      options: MapOptions(
-        center: center ?? MapRes.center,
-        zoom: 16.5,
-        maxZoom: MapRes.maxZoom,
-        minZoom: MapRes.minZoom,
-        maxBounds: LatLngBounds(
-          MapRes.minBound,
-          MapRes.maxBound,
-        ),
-      ),
-      mapController: mapController,
+    return Stack(
       children: [
-        TileLayer(
-          urlTemplate: "assets/map/{z}/{x}/{y}.png",
-          userAgentPackageName: 'dev.fleaflet.flutter_map.example',
-          tileProvider: AssetTileProvider(),
-        ),
-        if (polylines.isNotEmpty) PolylineLayer(polylines: polylines),
-        if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
-          const CustomCurrentLocationLayerWidget(),
-        if (batiments.isNotEmpty)
-          PopupMarkerLayerWidget(
-            options: PopupMarkerLayerOptions(
-              markers: markers,
-              popupController: popupLayerController,
-              popupBuilder: (BuildContext context, Marker marker) {
-                return MapPopupWidget(
-                  batiment: batiments.firstWhere(
-                      (element) => element.position == marker.point),
-                  onTap: onTapNavigate,
-                  popupController: popupLayerController,
-                );
-              },
-            ),
+        FlutterMap(
+          options: MapOptions(
+            center: widget.center ?? MapRes.center,
+            zoom: 16.5,
+            maxZoom: MapRes.maxZoom,
+            minZoom: 0,
           ),
+          mapController: mapController,
+          children: [
+            TileLayer(tileProvider: HybridTileProvider() //AssetTileProvider(),
+                ),
+            if (widget.polylines.isNotEmpty)
+              PolylineLayer(polylines: widget.polylines),
+            if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
+              const CustomCurrentLocationLayerWidget(),
+            if (widget.batiments.isNotEmpty)
+              PopupMarkerLayerWidget(
+                options: PopupMarkerLayerOptions(
+                  markers: markers,
+                  popupController: popupLayerController,
+                  popupBuilder: (BuildContext context, Marker marker) {
+                    return MapPopupWidget(
+                      batiment: widget.batiments.firstWhere(
+                          (element) => element.position == marker.point),
+                      onTap: widget.onTapNavigate,
+                      popupController: popupLayerController,
+                    );
+                  },
+                ),
+              ),
+          ],
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
+                Padding(
+                  padding: EdgeInsets.all(2.h),
+                  child: IconButton(
+                      onPressed: () {
+                        GeolocationLogic.getCurrentLocation(askPermission: true)
+                            .then((value) {
+                          setState(() {
+                            if ((value != null)) {
+                              mapController?.move(value, 15);
+                            }
+                          });
+                        });
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).primaryColor),
+                      ),
+                      icon: Icon(
+                        Icons.location_searching_rounded,
+                        size: 25.sp,
+                      )),
+                ),
+              Padding(
+                padding: EdgeInsets.all(2.h),
+                child: IconButton(
+                    onPressed: () {
+                      mapController!.move(MapRes.center, 16.5);
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor),
+                    ),
+                    icon: Icon(
+                      Icons.location_city_rounded,
+                      size: 25.sp,
+                    )),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

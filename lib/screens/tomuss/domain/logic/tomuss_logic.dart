@@ -1,7 +1,10 @@
+import 'dart:core';
+
 import 'package:dartus/tomuss.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 class GetSemesterAndNoteResultWaitingRecords {
@@ -31,7 +34,6 @@ class TomussLogic {
     if (!Res.mock) {
       ParsedPage? parsedPage = await getParsedPage(
           dartus: dartus, semestre: semester, autoRefresh: autoRefresh);
-
       if (parsedPage == null) {
         throw "Impossible de récuperer la page de tomuss";
       }
@@ -40,9 +42,9 @@ class TomussLogic {
             null, null, parsedPage.timeout);
       }
       semesters = parseSemesters(parsedPage.semesters!);
-      semesterIndex??= semesters.indexWhere((element) => element.url == Dartus.currentSemester());
-      grades =
-          await parseGrades(parsedPage.teachingunits!, semesterIndex);
+      semesterIndex ??= semesters
+          .indexWhere((element) => element.url == Dartus.currentSemester());
+      grades = await parseGrades(parsedPage.teachingunits!, semesterIndex);
     } else {
       semesters = [Semester("2022/Automne", Dartus.currentSemester())]
           .map((e) => SemestreModel.fromSemester(e))
@@ -117,6 +119,24 @@ class TomussLogic {
     } else {
       return [];
     }
+  }
+
+  static List<GradeModel> parseRecentGrades(
+      List<SchoolSubjectModel> teachingUnits, SettingsModel settings) {
+    List<GradeModel> newGrades = [];
+    for (var teachingUnit in teachingUnits.where(
+      (element) => element.isHidden == false || settings.showHiddenUE,
+    )) {
+      for (var grade in teachingUnit.grades) {
+        if ((grade.date != null) &&
+            grade.date!.isAfter(
+                DateTime.now().subtract(settings.recentGradeDuration))) {
+          newGrades.add(grade);
+        }
+      }
+    }
+    newGrades.sort((a, b) => b.date!.compareTo(a.date!));
+    return newGrades;
   }
 
   static final List<SchoolSubjectModel> schoolSubjectModelListMock = [

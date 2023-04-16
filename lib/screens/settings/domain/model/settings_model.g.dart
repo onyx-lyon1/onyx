@@ -29,13 +29,28 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       newMailNotification: fields[9] as bool,
       blockTrackers: fields[10] as bool,
       darkerMail: fields[11] as bool,
+      enabledFunctionalities: fields[12] == null
+          ? [
+              Functionalities.tomuss,
+              Functionalities.agenda,
+              Functionalities.mail,
+              Functionalities.settings,
+              Functionalities.izly,
+              Functionalities.map
+            ]
+          : (fields[12] as List).cast<Functionalities>(),
+      disabledFunctionalities: fields[13] == null
+          ? []
+          : (fields[13] as List).cast<Functionalities>(),
+      recentGradeDuration:
+          fields[14] == null ? const Duration(days: 7) : fields[14] as Duration,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.keepMeLoggedIn)
       ..writeByte(1)
@@ -46,6 +61,8 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..write(obj.newGradeNotification)
       ..writeByte(4)
       ..write(obj.showHiddenUE)
+      ..writeByte(14)
+      ..write(obj.recentGradeDuration)
       ..writeByte(5)
       ..write(obj.fetchAgendaAuto)
       ..writeByte(6)
@@ -59,7 +76,11 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(10)
       ..write(obj.blockTrackers)
       ..writeByte(11)
-      ..write(obj.darkerMail);
+      ..write(obj.darkerMail)
+      ..writeByte(12)
+      ..write(obj.enabledFunctionalities)
+      ..writeByte(13)
+      ..write(obj.disabledFunctionalities);
   }
 
   @override
