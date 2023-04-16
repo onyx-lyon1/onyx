@@ -65,7 +65,10 @@ class OnyxAppState extends State<OnyxApp> {
                 context.read<AgendaCubit>().load(
                     dartus: state.dartus!,
                     settings: context.read<SettingsCubit>().state.settings);
-                context.read<TomussCubit>().load(dartus: state.dartus!);
+                context.read<TomussCubit>().load(
+                      dartus: state.dartus!,
+                      settings: context.read<SettingsCubit>().state.settings,
+                    );
               }
             },
             builder: (context, authState) {

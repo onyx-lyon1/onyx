@@ -77,13 +77,16 @@ class _TomussPageState extends State<TomussPage> {
             message: "Chargement des notes",
             timeout: state.timeout,
             timeoutCallBack: () => context.read<TomussCubit>().load(
-                dartus: context.read<AuthentificationCubit>().state.dartus,
-                semestreIndex: state.currentSemesterIndex,
-                cache: false),
+                  dartus: context.read<AuthentificationCubit>().state.dartus,
+                  semestreIndex: state.currentSemesterIndex,
+                  cache: false,
+                  settings: context.read<SettingsCubit>().state.settings,
+                ),
           );
         } else if (state.status == TomussStatus.initial) {
           context.read<TomussCubit>().load(
                 dartus: context.read<AuthentificationCubit>().state.dartus,
+                settings: context.read<SettingsCubit>().state.settings,
               );
           loadingHeader = const LoadingHeaderWidget(
             message: "Connection à tomuss",
@@ -102,6 +105,7 @@ class _TomussPageState extends State<TomussPage> {
                   (value) => context.read<TomussCubit>().load(
                         dartus:
                             context.read<AuthentificationCubit>().state.dartus!,
+                        settings: context.read<SettingsCubit>().state.settings,
                       ),
                 );
           });
@@ -109,22 +113,6 @@ class _TomussPageState extends State<TomussPage> {
             message: "Erreur pendant le chargement des notes",
           );
         }
-
-        List<GradeModel> newGrades = [];
-        for (var teachingUnit in state.teachingUnits.where(
-          (element) =>
-              element.isHidden == false ||
-              context.read<SettingsCubit>().state.settings.showHiddenUE,
-        )) {
-          for (var grade in teachingUnit.grades) {
-            if ((grade.date != null) &&
-                grade.date!.isAfter(
-                    DateTime.now().subtract(const Duration(days: 7)))) {
-              newGrades.add(grade);
-            }
-          }
-        }
-        newGrades.sort((a, b) => b.date!.compareTo(a.date!));
         return CommonScreenWidget(
           state: loadingHeader,
           header: Container(
@@ -136,7 +124,7 @@ class _TomussPageState extends State<TomussPage> {
                   physics: const AlwaysScrollableScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   children: [
-                    ...newGrades.map(
+                    ...state.newGrades.map(
                       (grade) => Container(
                         width: Res.bottomNavBarItemWidth,
                         height: Res.bottomNavBarHeight,
@@ -211,6 +199,7 @@ class _TomussPageState extends State<TomussPage> {
           onRefresh: () async {
             context.read<TomussCubit>().load(
                   dartus: context.read<AuthentificationCubit>().state.dartus!,
+                  settings: context.read<SettingsCubit>().state.settings,
                 );
             while (context.read<TomussCubit>().state.status !=
                     TomussStatus.ready &&

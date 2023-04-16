@@ -156,7 +156,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                   .read<AuthentificationCubit>()
                                   .state
                                   .dartus!,
-                              cache: false);
+                              cache: false,
+                              settings:
+                                  context.read<SettingsCubit>().state.settings);
                         },
                       ),
                       MaterialButton(
