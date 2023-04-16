@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 part 'settings_model.g.dart';
@@ -8,6 +9,7 @@ class SettingsModel {
   @HiveField(0)
   late bool keepMeLoggedIn;
 
+  //tomuss
   @HiveField(1)
   late bool forceGreen;
   @HiveField(2)
@@ -16,7 +18,10 @@ class SettingsModel {
   late bool newGradeNotification;
   @HiveField(4)
   late bool showHiddenUE;
+  @HiveField(14, defaultValue: Duration(days: 7))
+  late Duration recentGradeDuration;
 
+  //agenda
   @HiveField(5)
   late bool fetchAgendaAuto;
   @HiveField(6)
@@ -26,12 +31,25 @@ class SettingsModel {
   @HiveField(8)
   late int? agendaId;
 
+  //email
   @HiveField(9)
   late bool newMailNotification;
   @HiveField(10)
   late bool blockTrackers;
   @HiveField(11)
   late bool darkerMail;
+
+  @HiveField(12, defaultValue: [
+    Functionalities.tomuss,
+    Functionalities.agenda,
+    Functionalities.mail,
+    Functionalities.settings,
+    Functionalities.izly,
+    Functionalities.map,
+  ])
+  late List<Functionalities> enabledFunctionalities;
+  @HiveField(13, defaultValue: [])
+  late List<Functionalities> disabledFunctionalities;
 
   SettingsModel({
     this.keepMeLoggedIn = true,
@@ -46,6 +64,16 @@ class SettingsModel {
     this.newMailNotification = true,
     this.blockTrackers = true,
     this.darkerMail = true,
+    this.enabledFunctionalities = const [
+      Functionalities.tomuss,
+      Functionalities.agenda,
+      Functionalities.mail,
+      Functionalities.settings,
+      Functionalities.izly,
+      Functionalities.map,
+    ],
+    this.disabledFunctionalities = const [],
+    this.recentGradeDuration = const Duration(days: 7),
   });
 
   SettingsModel copyWith({
@@ -61,6 +89,9 @@ class SettingsModel {
     bool? newMailNotification,
     bool? blockTrackers,
     bool? darkerMail,
+    List<Functionalities>? enabledFunctionalities,
+    List<Functionalities>? disabledFunctionalities,
+    Duration? recentGradeDuration,
   }) {
     return SettingsModel(
       keepMeLoggedIn: keepMeLoggedIn ?? this.keepMeLoggedIn,
@@ -76,12 +107,17 @@ class SettingsModel {
       newMailNotification: newMailNotification ?? this.newMailNotification,
       blockTrackers: blockTrackers ?? this.blockTrackers,
       darkerMail: darkerMail ?? this.darkerMail,
+      enabledFunctionalities:
+          enabledFunctionalities ?? this.enabledFunctionalities,
+      disabledFunctionalities:
+          disabledFunctionalities ?? this.disabledFunctionalities,
+      recentGradeDuration: recentGradeDuration ?? this.recentGradeDuration,
     );
   }
 
   @override
   String toString() {
-    return 'SettingsModel{keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, themeMode: $themeMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, fetchAgendaAuto: $fetchAgendaAuto, showMiniCalendar: $showMiniCalendar, calendarUpdateNotification: $calendarUpdateNotification, agendaURL: $agendaId, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail}';
+    return 'SettingsModel{keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, themeMode: $themeMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, recentGradeDuration: $recentGradeDuration, fetchAgendaAuto: $fetchAgendaAuto, showMiniCalendar: $showMiniCalendar, calendarUpdateNotification: $calendarUpdateNotification, agendaId: $agendaId, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail, enabledFunctionalities: $enabledFunctionalities, disabledFunctionalities: $disabledFunctionalities}';
   }
 
   @override
@@ -94,13 +130,16 @@ class SettingsModel {
           themeMode == other.themeMode &&
           newGradeNotification == other.newGradeNotification &&
           showHiddenUE == other.showHiddenUE &&
+          recentGradeDuration == other.recentGradeDuration &&
           fetchAgendaAuto == other.fetchAgendaAuto &&
           showMiniCalendar == other.showMiniCalendar &&
           calendarUpdateNotification == other.calendarUpdateNotification &&
           agendaId == other.agendaId &&
           newMailNotification == other.newMailNotification &&
           blockTrackers == other.blockTrackers &&
-          darkerMail == other.darkerMail;
+          darkerMail == other.darkerMail &&
+          enabledFunctionalities == other.enabledFunctionalities &&
+          disabledFunctionalities == other.disabledFunctionalities;
 
   @override
   int get hashCode =>
@@ -109,11 +148,14 @@ class SettingsModel {
       themeMode.hashCode ^
       newGradeNotification.hashCode ^
       showHiddenUE.hashCode ^
+      recentGradeDuration.hashCode ^
       fetchAgendaAuto.hashCode ^
       showMiniCalendar.hashCode ^
       calendarUpdateNotification.hashCode ^
       agendaId.hashCode ^
       newMailNotification.hashCode ^
       blockTrackers.hashCode ^
-      darkerMail.hashCode;
+      darkerMail.hashCode ^
+      enabledFunctionalities.hashCode ^
+      disabledFunctionalities.hashCode;
 }

@@ -19,9 +19,7 @@ import 'core/widgets/states_displaying/state_displaying_widget_export.dart';
 class OnyxApp extends StatefulWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
-  const OnyxApp({Key? key, required this.androidSdkVersion}) : super(key: key);
-
-  final int androidSdkVersion;
+  const OnyxApp({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -55,6 +53,8 @@ class OnyxAppState extends State<OnyxApp> {
             BlocProvider<IzlyCubit>(create: (context) => IzlyCubit()),
           ],
           child: BlocConsumer<AuthentificationCubit, AuthentificationState>(
+            listenWhen: (previous, current) =>
+                previous.status != current.status,
             listener: (context, state) {
               if (state.status == AuthentificationStatus.authentificated) {
                 context.read<EmailCubit>().connect(
@@ -65,7 +65,10 @@ class OnyxAppState extends State<OnyxApp> {
                 context.read<AgendaCubit>().load(
                     dartus: state.dartus!,
                     settings: context.read<SettingsCubit>().state.settings);
-                context.read<TomussCubit>().load(dartus: state.dartus!);
+                context.read<TomussCubit>().load(
+                      dartus: state.dartus!,
+                      settings: context.read<SettingsCubit>().state.settings,
+                    );
               }
             },
             builder: (context, authState) {
@@ -74,7 +77,7 @@ class OnyxAppState extends State<OnyxApp> {
                   if (settingsState.status == SettingsStatus.ready ||
                       settingsState.status == SettingsStatus.error) {
                     return MaterialApp(
-                        title: 'Oloid 2.0',
+                        title: 'Onyx',
                         navigatorKey: OnyxApp.navigatorKey,
                         scrollBehavior: const CustomScrollBehavior(),
                         debugShowCheckedModeBanner: false,

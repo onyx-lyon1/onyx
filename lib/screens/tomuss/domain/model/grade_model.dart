@@ -28,6 +28,8 @@ class GradeModel {
   final List<GradeModel> children;
   @HiveField(10)
   double? coef;
+  @HiveField(11, defaultValue: null)
+  DateTime? date;
 
   GradeModel({
     required this.name,
@@ -40,6 +42,7 @@ class GradeModel {
     required this.mediane,
     required this.isValidGrade,
     required this.children,
+    this.date,
     this.coef,
   });
 
@@ -54,6 +57,7 @@ class GradeModel {
         mediane = grade.mediane,
         isValidGrade = grade.isValidGrade,
         children = grade.children.map((e) => GradeModel.fromGrade(e)).toList(),
+        date = grade.date,
         coef = null;
 
   @override

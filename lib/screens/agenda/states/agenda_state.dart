@@ -1,6 +1,14 @@
 part of 'agenda_cubit.dart';
 
-enum AgendaStatus { initial, loading, ready, cacheReady, dateUpdated, error }
+enum AgendaStatus {
+  initial,
+  loading,
+  ready,
+  cacheReady,
+  dateUpdated,
+  error,
+  haveToChooseManualy
+}
 
 class AgendaState {
   AgendaStatus status;

@@ -49,7 +49,8 @@ class IzlyLogic {
       qrCodes.addAll((await izlyClient.getNQRCode((3 - qrCodes.length)))
           .map((e) => IzlyQrCodeModel(
               qrCode: e,
-              expirationDate: DateTime.now().add(const Duration(days: 3))))
+              expirationDate: DateTime(DateTime.now().year,
+                  DateTime.now().month, DateTime.now().day + 1, 14)))
           .toList());
       await CacheService.set<IzlyQrCodeModelWrapper>(
           IzlyQrCodeModelWrapper(qrCodes: qrCodes));

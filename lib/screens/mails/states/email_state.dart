@@ -11,34 +11,49 @@ enum EmailStatus {
   sended,
   updated,
   error,
+  nonFatalError,
   sorted,
-  cacheSorted
+  cacheSorted,
+  mailboxesLoaded
 }
 
 class EmailState {
   final EmailStatus status;
-  final List<EmailModel> emails;
+  final List<MailBoxModel> mailBoxes;
+  MailBoxModel? currentMailBox;
   final int emailNumber;
   final bool connected;
+  final List<EmailModel> selectedEmails;
 
   EmailState({
     this.status = EmailStatus.initial,
-    this.emails = const [],
+    this.mailBoxes = const [],
+    this.currentMailBox,
     this.emailNumber = 20,
     this.connected = false,
-  });
+    this.selectedEmails = const [],
+  }) {
+    currentMailBox ??= MailBoxModel(
+        name: "Boite de réception",
+        specialMailBox: SpecialMailBox.inbox,
+        emails: []);
+  }
 
   EmailState copyWith({
     EmailStatus? status,
-    List<EmailModel>? emails,
+    List<MailBoxModel>? mailBoxes,
+    MailBoxModel? currentMailBox,
     int? emailNumber,
     bool? connected,
+    List<EmailModel>? selectedEmails,
   }) {
     return EmailState(
       status: status ?? this.status,
-      emails: emails ?? this.emails,
+      mailBoxes: mailBoxes ?? this.mailBoxes,
       emailNumber: emailNumber ?? this.emailNumber,
+      currentMailBox: currentMailBox ?? this.currentMailBox,
       connected: connected ?? this.connected,
+      selectedEmails: selectedEmails ?? this.selectedEmails,
     );
   }
 }

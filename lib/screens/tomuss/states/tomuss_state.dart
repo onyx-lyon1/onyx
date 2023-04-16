@@ -1,6 +1,14 @@
 part of 'tomuss_cubit.dart';
 
-enum TomussStatus { initial, loading, cacheReady, ready, error, updated }
+enum TomussStatus {
+  initial,
+  loading,
+  cacheReady,
+  ready,
+  error,
+  updated,
+  timeout
+}
 
 class TomussState {
   final TomussStatus status;
@@ -8,6 +16,7 @@ class TomussState {
   final List<SemestreModel> semesters;
   final int currentSemesterIndex;
   final Duration? timeout;
+  final List<GradeModel> newGrades;
 
   @override
   bool operator ==(Object other) =>
@@ -18,6 +27,7 @@ class TomussState {
           teachingUnits == other.teachingUnits &&
           semesters == other.semesters &&
           currentSemesterIndex == other.currentSemesterIndex &&
+          newGrades == other.newGrades &&
           timeout == other.timeout;
 
   @override
@@ -26,6 +36,7 @@ class TomussState {
       teachingUnits.hashCode ^
       semesters.hashCode ^
       currentSemesterIndex.hashCode ^
+      newGrades.hashCode ^
       timeout.hashCode;
 
   TomussState({
@@ -34,6 +45,7 @@ class TomussState {
     this.semesters = const [],
     this.currentSemesterIndex = 0,
     this.timeout,
+    this.newGrades = const [],
   });
 
   @override
@@ -46,13 +58,15 @@ class TomussState {
       List<SchoolSubjectModel>? teachingUnits,
       List<SemestreModel>? semesters,
       int? currentSemesterIndex,
-      Duration? timeout}) {
+      Duration? timeout,
+      List<GradeModel>? newGrades}) {
     return TomussState(
       status: status ?? this.status,
       teachingUnits: teachingUnits ?? this.teachingUnits,
       semesters: semesters ?? this.semesters,
       currentSemesterIndex: currentSemesterIndex ?? this.currentSemesterIndex,
       timeout: timeout ?? this.timeout,
+      newGrades: newGrades ?? this.newGrades,
     );
   }
 }

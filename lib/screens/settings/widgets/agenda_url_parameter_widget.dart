@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/agenda_config/page/agenda_config_page.dart';
@@ -6,11 +5,20 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
 class AgendaUrlParameterWidget extends StatelessWidget {
-  const AgendaUrlParameterWidget({Key? key}) : super(key: key);
+  const AgendaUrlParameterWidget({Key? key, required this.sizeUpdate})
+      : super(key: key);
+  final VoidCallback sizeUpdate;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, SettingsState>(
+      buildWhen: (previous, current) {
+        if (previous.settings.fetchAgendaAuto !=
+            current.settings.fetchAgendaAuto) {
+          WidgetsBinding.instance.addPostFrameCallback((_) => sizeUpdate());
+        }
+        return true;
+      },
       builder: (context, state) {
         return Column(
           children: [
@@ -28,37 +36,39 @@ class AgendaUrlParameterWidget extends StatelessWidget {
               },
             ),
             if (!context.read<SettingsCubit>().state.settings.fetchAgendaAuto)
-              Container(
-                clipBehavior: Clip.hardEdge,
-                margin: const EdgeInsets.only(bottom: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+              SizedBox(
+                width: 50.w,
                 child: Center(
-                  child: OpenContainer(
-                    openBuilder: (context, closechild) => SafeArea(
-                      child: AgendaConfigPage(
-                        onBack: (index) {
-                          context.read<SettingsCubit>().modify(
-                              settings: context
-                                  .read<SettingsCubit>()
-                                  .state
-                                  .settings
-                                  .copyWith(agendaId: index));
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                    closedColor: Theme.of(context).primaryColor,
-                    closedShape: RoundedRectangleBorder(
+                  child: Material(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Theme.of(context).primaryColor,
+                    child: InkWell(
                       borderRadius: BorderRadius.circular(100),
-                    ),
-                    closedBuilder: (context, openchild) => InkWell(
-                      onTap: openchild,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SafeArea(
+                              child: AgendaConfigPage(
+                                onBack: (index) {
+                                  context.read<SettingsCubit>().modify(
+                                      settings: context
+                                          .read<SettingsCubit>()
+                                          .state
+                                          .settings
+                                          .copyWith(agendaId: index));
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                       child: Container(
-                        padding: EdgeInsets.all(2.5.w),
+                        padding: EdgeInsets.all(2.w),
                         child: Text(
                           'Sélectionner l\'agenda',
+                          maxLines: 1,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),

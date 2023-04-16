@@ -89,7 +89,7 @@ class EmailDetailsPage extends StatelessWidget {
                     ),
                     Container(
                       color: Theme.of(context).cardTheme.color,
-                      height: (mail.attachments.isNotEmpty) ? 60.h : 70.h,
+                      height: (mail.attachments.isNotEmpty) ? 58.h : 70.h,
                       width: 100.w,
                       padding: EdgeInsets.all(1.h),
                       child: EmailContentWidget(mail: mail),
@@ -117,7 +117,8 @@ class EmailDetailsPage extends StatelessWidget {
                                                     .mailClient!,
                                                 emailNumber: state.emailNumber,
                                                 fileName:
-                                                    mail.attachments[index]);
+                                                    mail.attachments[index],
+                                                folder: state.currentMailBox!);
                                     // ignore: use_build_context_synchronously
                                     showDialog(
                                         context: context,
@@ -147,7 +148,8 @@ class EmailDetailsPage extends StatelessWidget {
                     closedElevation: 0,
                     openBuilder: (context, closewidget) => EmailSendPage(
                       replyAll: false,
-                      replyOriginalMessage: mail.id,
+                      reply: true,
+                      originalMessage: mail.id,
                     ),
                     closedBuilder: (context, openwidget) => InkWell(
                       onTap: (!state.connected) ? null : openwidget,
@@ -161,12 +163,27 @@ class EmailDetailsPage extends StatelessWidget {
                     closedElevation: 0,
                     openBuilder: (context, closewidget) => EmailSendPage(
                       replyAll: true,
-                      replyOriginalMessage: mail.id,
+                      reply: true,
+                      originalMessage: mail.id,
                     ),
                     closedBuilder: (context, openwidget) => InkWell(
                       onTap: (!state.connected) ? null : openwidget,
                       child: const Icon(
                         Icons.reply_all_rounded,
+                      ),
+                    ),
+                  ),
+                  OpenContainer(
+                    closedColor: Colors.transparent,
+                    closedElevation: 0,
+                    openBuilder: (context, closewidget) => EmailSendPage(
+                      forward: true,
+                      originalMessage: mail.id,
+                    ),
+                    closedBuilder: (context, openwidget) => InkWell(
+                      onTap: (!state.connected) ? null : openwidget,
+                      child: const Icon(
+                        Icons.forward_rounded,
                       ),
                     ),
                   ),

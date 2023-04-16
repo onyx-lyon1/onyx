@@ -3,7 +3,8 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  advance_expansion_tile
+  desktop_window
+  pasteboard
   url_launcher_linux
 )
 
