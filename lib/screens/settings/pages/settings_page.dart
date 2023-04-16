@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,14 +10,20 @@ import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/screens/settings/widgets/draggable_zone_widget.dart';
 import 'package:onyx/screens/settings/widgets/drop_down_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, SettingsState>(
@@ -87,151 +91,9 @@ class SettingsPage extends StatelessWidget {
                                   break;
                               }
                             }),
-                        // TextSwitchWidget(
-                        //   text: 'Activer le thème sombre',
-                        //   value: context.read<SettingsCubit>().state.settings.darkMode,
-                        //   onChanged: (bool b) {
-                        //     context.read<SettingsCubit>().modify(settings:
-                        //         context
-                        //             .read<SettingsCubit>()
-                        //             .state.settings
-                        //             .copyWith(darkMode: b));
-                        //   },
-                        // )
                       ],
                     ),
-                    SettingsCardWidget(
-                      name: 'Tomuss',
-                      widgets: [
-                        if (Platform.isAndroid || Platform.isIOS)
-                          TextSwitchWidget(
-                            text: 'Notification en cas de nouvelle note',
-                            value: context
-                                .read<SettingsCubit>()
-                                .state
-                                .settings
-                                .newGradeNotification,
-                            onChanged: (bool b) {
-                              context.read<SettingsCubit>().modify(
-                                  settings: context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .settings
-                                      .copyWith(newGradeNotification: b));
-                            },
-                          ),
-                        TextSwitchWidget(
-                          text: 'Forcer les notes en vert',
-                          value: context
-                              .read<SettingsCubit>()
-                              .state
-                              .settings
-                              .forceGreen,
-                          onChanged: (bool b) {
-                            context.read<SettingsCubit>().modify(
-                                settings: context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .settings
-                                    .copyWith(forceGreen: b));
-                          },
-                        ),
-                        // TextSwitchWidget(
-                        //   text: 'Montrer les UEs cachées',
-                        //   value: context
-                        //       .read<SettingsCubit>()
-                        //       .state
-                        //       .settings
-                        //       .showHiddenUE,
-                        //   onChanged: (bool b) {
-                        //     context.read<SettingsCubit>().modify(
-                        //         settings: context
-                        //             .read<SettingsCubit>()
-                        //             .state
-                        //             .settings
-                        //             .copyWith(showHiddenUE: b));
-                        //   },
-                        // ),
-                      ],
-                    ),
-                    SettingsCardWidget(
-                      name: 'Agenda',
-                      widgets: [
-                        TextSwitchWidget(
-                          text: 'Montrer le mini calendrier en haut de page',
-                          value: context
-                              .read<SettingsCubit>()
-                              .state
-                              .settings
-                              .showMiniCalendar,
-                          onChanged: (bool b) {
-                            context.read<SettingsCubit>().modify(
-                                settings: context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .settings
-                                    .copyWith(showMiniCalendar: b));
-                          },
-                        ),
-                        if (Platform.isAndroid || Platform.isIOS)
-                          TextSwitchWidget(
-                            text:
-                                'Notification en cas de modification de l\'agenda',
-                            value: context
-                                .read<SettingsCubit>()
-                                .state
-                                .settings
-                                .calendarUpdateNotification,
-                            onChanged: (bool b) {
-                              context.read<SettingsCubit>().modify(
-                                  settings: context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .settings
-                                      .copyWith(calendarUpdateNotification: b));
-                            },
-                          ),
-                        const AgendaUrlParameterWidget(),
-                      ],
-                    ),
-                    SettingsCardWidget(
-                      name: 'Email',
-                      widgets: [
-                        if (Platform.isAndroid || Platform.isIOS)
-                          TextSwitchWidget(
-                            text: 'Notification en cas de nouveau Emails',
-                            value: context
-                                .read<SettingsCubit>()
-                                .state
-                                .settings
-                                .newMailNotification,
-                            onChanged: (bool b) {
-                              context.read<SettingsCubit>().modify(
-                                  settings: context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .settings
-                                      .copyWith(newMailNotification: b));
-                            },
-                          ),
-                        TextSwitchWidget(
-                          text: 'Forcer le thème des mails',
-                          value: context
-                              .read<SettingsCubit>()
-                              .state
-                              .settings
-                              .darkerMail,
-                          onChanged: (bool b) {
-                            context.read<SettingsCubit>().modify(
-                                settings: context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .settings
-                                    .copyWith(darkerMail: b));
-                          },
-                        ),
-                      ],
-                    ),
+                    const DraggableZoneWidget(),
                     SettingsCardWidget(
                       name: 'Connexion',
                       widgets: [
@@ -264,7 +126,7 @@ class SettingsPage extends StatelessWidget {
                             Hive.deleteBoxFromDisk("cached_qr_code");
                             Hive.deleteBoxFromDisk("cached_izly_amount");
                             CacheService.reset<IzlyQrCodeModelWrapper>();
-                            CacheService.reset<EmailModelWrapper>();
+                            CacheService.reset<MailBoxWrapper>();
                             CacheService.reset<DayModelWrapper>();
                             CacheService.reset<SchoolSubjectModelWrapper>();
                             CacheService.reset<AuthenticationModel>();
@@ -279,16 +141,6 @@ class SettingsPage extends StatelessWidget {
                             context.read<AuthentificationCubit>().logout();
                           },
                         ),
-                        MaterialButton(
-                          minWidth: MediaQuery.of(context).size.width,
-                          color: const Color(0xffbf616a),
-                          textColor: Colors.white70,
-                          child: const Text('Déconnexion de izly'),
-                          onPressed: () {
-                            CacheService.reset<IzlyCredential>();
-                            context.read<IzlyCubit>().disconnect();
-                          },
-                        )
                       ],
                     ),
                     SettingsCardWidget(name: "Cache", widgets: [
@@ -304,7 +156,9 @@ class SettingsPage extends StatelessWidget {
                                   .read<AuthentificationCubit>()
                                   .state
                                   .dartus!,
-                              cache: false);
+                              cache: false,
+                              settings:
+                                  context.read<SettingsCubit>().state.settings);
                         },
                       ),
                       MaterialButton(
@@ -330,10 +184,30 @@ class SettingsPage extends StatelessWidget {
                         textColor: Colors.white70,
                         child: const Text('Vider le cache des mails'),
                         onPressed: () {
-                          CacheService.reset<EmailModelWrapper>();
-                          context.read<EmailCubit>().load(cache: false);
+                          CacheService.reset<MailBoxWrapper>();
+                          context.read<EmailCubit>().load(
+                              cache: false,
+                              blockTrackers: context
+                                  .read<SettingsCubit>()
+                                  .state
+                                  .settings
+                                  .blockTrackers);
                         },
                       ),
+                      MaterialButton(
+                        minWidth: MediaQuery.of(context).size.width,
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: const Text('Vider le cache de Izly'),
+                        onPressed: () {
+                          CacheService.reset<IzlyQrCodeModelWrapper>();
+                          CacheService.reset<IzlyCredential>();
+                          Hive.deleteBoxFromDisk("cached_qr_code");
+                          Hive.deleteBoxFromDisk("cached_izly_amount");
+                          context.read<IzlyCubit>().resetCubit();
+                          context.read<IzlyCubit>().connect();
+                        },
+                      )
                     ]),
                     const SettingsLinkWidget(),
                   ],

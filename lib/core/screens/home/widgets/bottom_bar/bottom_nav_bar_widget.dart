@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/extensions/functionalities_to_human_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
-import 'package:onyx/screens/izly/izly_export.dart';
-import 'package:onyx/screens/map/map_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 
 class BottomNavBarWidget extends StatelessWidget {
   final Function(int index) onTap;
@@ -26,26 +27,32 @@ class BottomNavBarWidget extends StatelessWidget {
           onTap: () => onTap(index),
           child: SizedBox(
               width: Res.bottomNavBarItemWidth,
-              child: [
-                TomussBottomNavBarIcon(
-                    selected: ((index) % Res.screenCount ==
-                        (currentIndex) % Res.screenCount)),
-                AgendaBottomNavBarIcon(
-                    selected: ((index) % Res.screenCount ==
-                        (currentIndex) % Res.screenCount)),
-                EmailBottomNavBarIcon(
-                    selected: ((index) % Res.screenCount ==
-                        (currentIndex) % Res.screenCount)),
-                SettingsBottomNavBarIcon(
-                    selected: ((index) % Res.screenCount ==
-                        (currentIndex) % Res.screenCount)),
-                IzlyBottomNavBarIconWidget(
-                    selected: ((index) % Res.screenCount ==
-                        (currentIndex) % Res.screenCount)),
-                MapBottomNavBarIcon(
-                    selected: ((index) % Res.screenCount ==
-                        (currentIndex) % Res.screenCount)),
-              ][(index) % Res.screenCount]),
+              child: context
+                  .read<SettingsCubit>()
+                  .state
+                  .settings
+                  .enabledFunctionalities[index %
+                      context
+                          .read<SettingsCubit>()
+                          .state
+                          .settings
+                          .enabledFunctionalities
+                          .length]
+                  .toBottomBarIcon(
+                      selected: ((index) %
+                              context
+                                  .read<SettingsCubit>()
+                                  .state
+                                  .settings
+                                  .enabledFunctionalities
+                                  .length ==
+                          (currentIndex) %
+                              context
+                                  .read<SettingsCubit>()
+                                  .state
+                                  .settings
+                                  .enabledFunctionalities
+                                  .length))),
         );
       },
     );

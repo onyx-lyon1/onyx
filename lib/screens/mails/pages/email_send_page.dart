@@ -3,23 +3,41 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
+import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 
 class EmailSendPage extends StatelessWidget {
-  final int? replyOriginalMessage;
+  final int? originalMessage;
   final bool? replyAll;
+  final bool reply;
+  final bool forward;
 
-  const EmailSendPage({Key? key, this.replyAll, this.replyOriginalMessage})
+  const EmailSendPage(
+      {Key? key,
+      this.replyAll,
+      this.originalMessage,
+      this.forward = false,
+      this.reply = false})
       : super(key: key);
+
+  String bodyHtml(QuillController controller) {
+    return QuillDeltaToHtmlConverter(
+            List.castFrom(controller.document.toDelta().toJson()),
+            ConverterOptions.forEmail())
+        .convert();
+  }
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController subjectEditor = TextEditingController();
     final TextEditingController destinationEditor = TextEditingController();
-    final TextEditingController bodyEditor = TextEditingController();
+    // final TextEditingController bodyEditor = TextEditingController();
     List<File> attachments = [];
+    QuillController controller = QuillController.basic();
 
     return BlocBuilder<EmailCubit, EmailState>(
       builder: (context, state) {
@@ -31,27 +49,36 @@ class EmailSendPage extends StatelessWidget {
               excerpt: "",
               isRead: false,
               date: DateTime.now(),
-              body: bodyEditor.text,
+              body: bodyHtml(controller),
               id: 0,
               receiver: destinationEditor.text,
               isFlagged: false,
               attachments: [],
             );
             context.read<EmailCubit>().send(
-                email: email,
-                replyAll: replyAll,
-                replyOriginalMessageId: replyOriginalMessage);
+                  email: email,
+                  replyAll: replyAll,
+                  reply: reply,
+                  forward: forward,
+                  replyOriginalMessageId: originalMessage,
+                  from: state.currentMailBox!,
+                );
           });
           return const StateDisplayingPage(
               message: "Something went wrong with emails");
         } else if (state.status == EmailStatus.sended) {
-          context.read<EmailCubit>().load(cache: false);
+          context.read<EmailCubit>().load(
+                cache: false,
+                blockTrackers:
+                    context.read<SettingsCubit>().state.settings.blockTrackers,
+              );
           SchedulerBinding.instance.addPostFrameCallback((_) {
             Navigator.pop(context);
           });
         } else if (state.status == EmailStatus.sending) {
           return const StateDisplayingPage(message: "Sending message");
         }
+
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
           floatingActionButton: Material(
@@ -63,27 +90,31 @@ class EmailSendPage extends StatelessWidget {
               onTap: () {
                 if ((destinationEditor.value.text.isNotEmpty &&
                         subjectEditor.value.text.isNotEmpty &&
-                        bodyEditor.value.text.isNotEmpty &&
+                        bodyHtml(controller).isNotEmpty &&
                         destinationEditor.value.text.contains("@") &&
                         destinationEditor.value.text.contains(".")) ||
-                    (replyOriginalMessage != null &&
-                        bodyEditor.value.text.isNotEmpty)) {
+                    (originalMessage != null &&
+                        bodyHtml(controller).isNotEmpty)) {
                   EmailModel email = EmailModel(
                     subject: subjectEditor.text,
                     sender: "moi",
                     excerpt: "",
                     isRead: false,
                     date: DateTime.now(),
-                    body: bodyEditor.text,
+                    body: bodyHtml(controller),
                     id: 0,
                     receiver: destinationEditor.text,
                     isFlagged: false,
                     attachments: attachments.map((e) => e.path).toList(),
                   );
                   context.read<EmailCubit>().send(
-                      email: email,
-                      replyAll: replyAll,
-                      replyOriginalMessageId: replyOriginalMessage);
+                        email: email,
+                        replyAll: replyAll,
+                        replyOriginalMessageId: originalMessage,
+                        reply: reply,
+                        forward: forward,
+                        from: state.currentMailBox!,
+                      );
                 } else {
                   showDialog(
                     context: context,
@@ -129,7 +160,7 @@ class EmailSendPage extends StatelessWidget {
                           SizedBox(
                             width: 3.w,
                           ),
-                          (replyOriginalMessage == null)
+                          (originalMessage == null)
                               ? Expanded(
                                   child: Center(
                                     child: TextField(
@@ -194,7 +225,7 @@ class EmailSendPage extends StatelessWidget {
                   SizedBox(
                     height: 1.h,
                   ),
-                  (replyOriginalMessage == null)
+                  (!reply)
                       ? Container(
                           color: Theme.of(context).cardTheme.color,
                           width: 100.w,
@@ -210,52 +241,29 @@ class EmailSendPage extends StatelessWidget {
                   ),
                   Container(
                     color: Theme.of(context).cardTheme.color,
-                    height: (replyOriginalMessage == null) ? 62.5.h : 75.h,
+                    height: (originalMessage == null) ? 62.5.h : 75.h,
                     width: 100.w,
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.all(1.h),
-                            child: TextField(
-                              controller: bodyEditor,
-                              textAlignVertical: TextAlignVertical.top,
-                              cursorColor: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge!
-                                  .color!,
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge!
-                                    .color!,
-                              ),
-                              keyboardType: TextInputType.multiline,
-                              maxLines: null,
-                              decoration: InputDecoration(
-                                hintText: "Message",
-                                hintStyle: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .color!
-                                            .withOpacity(0.5)),
-                                focusedBorder: InputBorder.none,
-                                border: InputBorder.none,
-                              ),
+                          QuillToolbar.basic(controller: controller),
+                          SizedBox(
+                            height: (originalMessage != null) ? 40.h : 52.h,
+                            width: 100.w,
+                            child: QuillEditor.basic(
+                              controller: controller,
+                              readOnly: false, // true for view only mode
                             ),
                           ),
-                          (replyOriginalMessage != null)
+                          (originalMessage != null)
                               ? Container(
                                   width: 100.w,
                                   height: 75.h,
                                   padding: EdgeInsets.all(1.h),
                                   child: EmailContentWidget(
-                                      mail: state.emails.firstWhere((element) =>
-                                          element.id == replyOriginalMessage)),
+                                      mail: state.currentMailBox!.emails
+                                          .firstWhere((element) =>
+                                              element.id == originalMessage)),
                                 )
                               : Container(),
                         ],

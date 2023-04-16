@@ -5,13 +5,18 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../settings/settings_export.dart';
+
 part 'tomuss_state.dart';
 
 class TomussCubit extends Cubit<TomussState> {
   TomussCubit() : super(TomussState(status: TomussStatus.initial));
 
   Future<void> load(
-      {required Dartus? dartus, bool cache = true, int? semestreIndex}) async {
+      {required Dartus? dartus,
+      bool cache = true,
+      int? semestreIndex,
+      required SettingsModel settings}) async {
     emit(state.copyWith(
         status: TomussStatus.loading, currentSemesterIndex: semestreIndex));
     List<SchoolSubjectModel> teachingUnits = [];
@@ -33,6 +38,7 @@ class TomussCubit extends Cubit<TomussState> {
         teachingUnits: teachingUnits,
         semesters: semesterModelWrapper?.semestres ?? [],
         currentSemesterIndex: semestreIndex ?? 0,
+        newGrades: TomussLogic.parseRecentGrades(teachingUnits, settings),
       ));
     }
     if (dartus != null) {
@@ -45,12 +51,12 @@ class TomussCubit extends Cubit<TomussState> {
                 semester: (semesters.length > (semestreIndex ?? 0))
                     ? semesters[semestreIndex ?? 0]
                     : null);
-
         if (result.timeout != null) {
           emit(state.copyWith(
             currentSemesterIndex: semestreIndex ?? 0,
-            status: TomussStatus.loading,
+            status: TomussStatus.timeout,
             timeout: result.timeout,
+            newGrades: TomussLogic.parseRecentGrades(teachingUnits, settings),
           ));
           return;
         }
@@ -73,10 +79,12 @@ class TomussCubit extends Cubit<TomussState> {
       CacheService.set<SemestreModelWrapper>(
           SemestreModelWrapper(semesters, currentSemestreIndex: semestreIndex));
       emit(state.copyWith(
-          status: TomussStatus.ready,
-          teachingUnits: teachingUnits,
-          semesters: semesters,
-          currentSemesterIndex: semestreIndex));
+        status: TomussStatus.ready,
+        teachingUnits: teachingUnits,
+        semesters: semesters,
+        currentSemesterIndex: semestreIndex,
+        newGrades: TomussLogic.parseRecentGrades(teachingUnits, settings),
+      ));
     }
   }
 

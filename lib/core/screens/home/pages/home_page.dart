@@ -2,16 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/extensions/functionalities_to_human_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
-import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
-import 'package:onyx/screens/mails/mails_export.dart';
-import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
 
 class HomePage extends StatefulWidget {
@@ -124,32 +121,22 @@ class HomePageState extends State<HomePage> {
                       body: InfiniteScrollLoopWidget(
                         key: const Key("home"),
                         builder: (context, index) {
-                          return [
-                            SizedBox(
-                                width: 100.w,
-                                height: 100.h,
-                                child: const TomussPage()),
-                            SizedBox(
-                                width: 100.w,
-                                height: 100.h,
-                                child: const AgendaPage()),
-                            SizedBox(
-                                width: 100.w,
-                                height: 100.h,
-                                child: const EmailsPage()),
-                            SizedBox(
-                                width: 100.w,
-                                height: 100.h,
-                                child: const SettingsPage()),
-                            SizedBox(
-                                width: 100.w,
-                                height: 100.h,
-                                child: const IzlyPage()),
-                            SizedBox(
-                                width: 100.w,
-                                height: 100.h,
-                                child: const MapPage()),
-                          ][(index) % Res.screenCount];
+                          return SizedBox(
+                            height: 100.h,
+                            width: 100.w,
+                            child: context
+                                .read<SettingsCubit>()
+                                .state
+                                .settings
+                                .enabledFunctionalities[index %
+                                    context
+                                        .read<SettingsCubit>()
+                                        .state
+                                        .settings
+                                        .enabledFunctionalities
+                                        .length]
+                                .toPage(),
+                          );
                         },
                         scrollController: mainPageController,
                         axisDirection: AxisDirection.right,
@@ -177,7 +164,19 @@ class HomePageState extends State<HomePage> {
                       onTap: (realIndex) {
                         if (context.read<AgendaCubit>().state.status !=
                             AgendaStatus.error) {
-                          if (realIndex % Res.screenCount == 1 &&
+                          if (realIndex %
+                                      context
+                                          .read<SettingsCubit>()
+                                          .state
+                                          .settings
+                                          .enabledFunctionalities
+                                          .length ==
+                                  context
+                                      .read<SettingsCubit>()
+                                      .state
+                                      .settings
+                                      .enabledFunctionalities
+                                      .indexOf(Functionalities.agenda) &&
                               (mainPageController.hasClients
                                       ? ((mainPageController.offset +
                                               ((mainPageController.offset < 0)

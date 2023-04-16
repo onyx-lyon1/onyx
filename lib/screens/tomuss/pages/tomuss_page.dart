@@ -30,6 +30,8 @@ class _TomussPageState extends State<TomussPage> {
       builder: (context) => SafeArea(
         child: SingleChildScrollView(
           controller: ModalScrollController.of(context),
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Container(
             padding: const EdgeInsets.only(bottom: 20),
             child: Column(
@@ -57,6 +59,7 @@ class _TomussPageState extends State<TomussPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TomussCubit, TomussState>(
+      buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         if (kDebugMode) {
           print("Grades state : ${state.status}");
@@ -67,15 +70,23 @@ class _TomussPageState extends State<TomussPage> {
           loadingHeader = LoadingHeaderWidget(
             message: "Chargement des notes",
             timeout: state.timeout,
-            timeoutCallBack: () => context.read<TomussCubit>().load(
-                dartus: context.read<AuthentificationCubit>().state.dartus,
-                semestreIndex: state.currentSemesterIndex,
-                cache: false),
+            timeoutCallBack: () {},
           );
-        }
-        if (state.status == TomussStatus.initial) {
+        } else if (state.status == TomussStatus.timeout) {
+          loadingHeader = LoadingHeaderWidget(
+            message: "Chargement des notes",
+            timeout: state.timeout,
+            timeoutCallBack: () => context.read<TomussCubit>().load(
+                  dartus: context.read<AuthentificationCubit>().state.dartus,
+                  semestreIndex: state.currentSemesterIndex,
+                  cache: false,
+                  settings: context.read<SettingsCubit>().state.settings,
+                ),
+          );
+        } else if (state.status == TomussStatus.initial) {
           context.read<TomussCubit>().load(
                 dartus: context.read<AuthentificationCubit>().state.dartus,
+                settings: context.read<SettingsCubit>().state.settings,
               );
           loadingHeader = const LoadingHeaderWidget(
             message: "Connection à tomuss",
@@ -94,6 +105,7 @@ class _TomussPageState extends State<TomussPage> {
                   (value) => context.read<TomussCubit>().load(
                         dartus:
                             context.read<AuthentificationCubit>().state.dartus!,
+                        settings: context.read<SettingsCubit>().state.settings,
                       ),
                 );
           });
@@ -108,15 +120,33 @@ class _TomussPageState extends State<TomussPage> {
             color: Theme.of(context).cardTheme.color,
             child: Stack(
               children: [
-                Center(
-                  child: Text(
-                    'Notes',
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ...state.newGrades.map(
+                      (grade) => Container(
+                        width: Res.bottomNavBarItemWidth,
+                        height: Res.bottomNavBarHeight,
+                        padding: EdgeInsets.all(0.8.w),
+                        child: GradeWidget(
+                          grades: [grade],
+                          text1: grade.name,
+                          text2: state.teachingUnits
+                              .firstWhere(
+                                  (element) => element.grades.contains(grade))
+                              .name,
+                          depth: 0,
+                          compact: true,
+                          onTap: () => showAllGrades(
+                            context,
+                            state.teachingUnits.firstWhere(
+                                (element) => element.grades.contains(grade)),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
                 //button to toggle semester with an icon
                 Padding(
@@ -143,36 +173,33 @@ class _TomussPageState extends State<TomussPage> {
           ),
           body: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
-            children: [
-              ...state.teachingUnits
-                  .where(
-                    (element) =>
-                        element.isHidden == false ||
-                        context
-                            .read<SettingsCubit>()
-                            .state
-                            .settings
-                            .showHiddenUE,
-                  )
-                  .map(
-                    (schoolSubject) => Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
-                      child: GradeWidget(
-                        grades: schoolSubject.grades,
-                        isSeen: schoolSubject.isSeen,
-                        text2: schoolSubject.mastersShort(),
-                        text1: schoolSubject.name,
-                        onTap: () => showAllGrades(context, schoolSubject),
-                        depth: 0,
-                      ),
+            children: state.teachingUnits
+                .where(
+                  (element) =>
+                      element.isHidden == false ||
+                      context.read<SettingsCubit>().state.settings.showHiddenUE,
+                )
+                .map(
+                  (schoolSubject) => Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+                    child: GradeWidget(
+                      grades: schoolSubject.grades,
+                      isSeen: schoolSubject.isSeen,
+                      text2:
+                          schoolSubject.masters.map((e) => e.name).join(", "),
+                      text1: schoolSubject.name,
+                      onTap: () => showAllGrades(context, schoolSubject),
+                      depth: 0,
                     ),
-                  )
-            ],
+                  ),
+                )
+                .toList(),
           ),
           onRefresh: () async {
             context.read<TomussCubit>().load(
                   dartus: context.read<AuthentificationCubit>().state.dartus!,
+                  settings: context.read<SettingsCubit>().state.settings,
                 );
             while (context.read<TomussCubit>().state.status !=
                     TomussStatus.ready &&
