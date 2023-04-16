@@ -32,6 +32,10 @@ class AgendaCubit extends Cubit<AgendaState> {
       emit(state.copyWith(
           status: AgendaStatus.cacheReady, dayModels: state.dayModels));
     }
+    if (!settings.fetchAgendaAuto && settings.agendaId == null) {
+      emit(state.copyWith(status: AgendaStatus.error));
+      return;
+    }
     if (dartus != null) {
       _agendaClient = Lyon1Agenda.useAuthentication(dartus.authentication);
       try {
