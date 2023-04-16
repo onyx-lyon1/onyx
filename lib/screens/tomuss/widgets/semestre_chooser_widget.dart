@@ -21,7 +21,7 @@ class SemestreChooserWidget extends StatelessWidget {
       ),
       content: SizedBox(
         height: ((context.read<TomussCubit>().state.semesters.length < 3)
-            ? 10.h
+            ? 12.5.h
             : 30.h),
         width: 20.h,
         child: GridView(
