@@ -40,21 +40,21 @@ class AgendaPage extends StatelessWidget {
               state.status == AgendaStatus.cacheReady) {
             headerState =
                 const LoadingHeaderWidget(message: "Chargement de l'agenda");
-          } else if (state.status == AgendaStatus.error) {
+          } else if (state.status == AgendaStatus.haveToChooseManualy) {
             return AgendaConfigPage(
               onBack: (int agendaId) {
                 context.read<SettingsCubit>().modify(
-                      settings: context
-                          .read<SettingsCubit>()
-                          .state
-                          .settings
-                          .copyWith(
-                            agendaId: agendaId,
-                            fetchAgendaAuto: false,
-                          ),
+                      settings:
+                          context.read<SettingsCubit>().state.settings.copyWith(
+                                agendaId: agendaId,
+                                fetchAgendaAuto: false,
+                              ),
                     );
               },
             );
+          } else if (state.status == AgendaStatus.error) {
+            headerState = const LoadingHeaderWidget(
+                message: "Erreur lors du chargement de l'agenda");
           }
           bool animating = false;
           PageController pageController = PageController();
@@ -189,8 +189,7 @@ class AgendaPage extends StatelessWidget {
               ),
               onRefresh: () async {
                 context.read<AgendaCubit>().load(
-                    dartus:
-                        context.read<AuthentificationCubit>().state.dartus!,
+                    dartus: context.read<AuthentificationCubit>().state.dartus!,
                     settings: context.read<SettingsCubit>().state.settings);
                 while (context.read<AgendaCubit>().state.status !=
                         AgendaStatus.ready &&
