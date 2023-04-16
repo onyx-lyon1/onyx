@@ -87,39 +87,47 @@ class EmailWidget extends StatelessWidget {
           context.read<EmailCubit>().selectEmail(email: email);
         },
         child: ListTile(
-            leading:
-                (context.read<EmailCubit>().state.selectedEmails.isNotEmpty)
-                    ? Container(
-                        height: 9.w,
-                        width: 9.w,
-                        margin: const EdgeInsets.all(10),
-                        child: InkWell(
-                            onTap: () {
-                              context
+            leading: (context
+                    .read<EmailCubit>()
+                    .state
+                    .selectedEmails
+                    .isNotEmpty)
+                ? Container(
+                    height: 10.w,
+                    width: 10.w,
+                    margin: EdgeInsets.all(1.w),
+                    child: InkWell(
+                        borderRadius: BorderRadius.circular(100),
+                        onTap: () {
+                          context
+                              .read<EmailCubit>()
+                              .toggleEmailSelection(email: email);
+                        },
+                        child: Icon(
+                          context
                                   .read<EmailCubit>()
-                                  .toggleEmailSelection(email: email);
-                            },
-                            child: Icon(
-                              context
-                                      .read<EmailCubit>()
-                                      .state
-                                      .selectedEmails
-                                      .contains(email)
-                                  ? Icons.check_box
-                                  : Icons.check_box_outline_blank,
-                              color: Theme.of(context).primaryColor,
-                            )),
-                      )
-                    : Container(
-                        height: 10.w,
-                        width: 10.w,
-                        margin: EdgeInsets.all(1.w),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: email.isRead
-                              ? readBgColor(context)
-                              : unreadAccent(context),
-                        ),
+                                  .state
+                                  .selectedEmails
+                                  .contains(email)
+                              ? Icons.check_box
+                              : Icons.check_box_outline_blank,
+                          color: Theme.of(context).primaryColor,
+                        )),
+                  )
+                : Container(
+                    height: 10.w,
+                    width: 10.w,
+                    margin: EdgeInsets.all(1.w),
+                    child: Material(
+                      borderRadius: BorderRadius.circular(100),
+                      color: email.isRead
+                          ? readBgColor(context)
+                          : unreadAccent(context),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(100),
+                        onTap: () {
+                          context.read<EmailCubit>().selectEmail(email: email);
+                        },
                         child: Padding(
                           padding: EdgeInsets.only(top: 1.5.w),
                           child: Text(
@@ -134,6 +142,8 @@ class EmailWidget extends StatelessWidget {
                           ),
                         ),
                       ),
+                    ),
+                  ),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
