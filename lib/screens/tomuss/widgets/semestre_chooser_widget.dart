@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/login/login_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
 
@@ -56,6 +57,8 @@ class SemestreChooserWidget extends StatelessWidget {
                                 .state
                                 .semesters
                                 .indexOf(semester),
+                            settings:
+                                context.read<SettingsCubit>().state.settings,
                           );
                       Navigator.pop(context);
                     },

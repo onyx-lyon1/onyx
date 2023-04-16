@@ -42,13 +42,15 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       disabledFunctionalities: fields[13] == null
           ? []
           : (fields[13] as List).cast<Functionalities>(),
+      recentGradeDuration:
+          fields[14] == null ? const Duration(days: 7) : fields[14] as Duration,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.keepMeLoggedIn)
       ..writeByte(1)
@@ -59,6 +61,8 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..write(obj.newGradeNotification)
       ..writeByte(4)
       ..write(obj.showHiddenUE)
+      ..writeByte(14)
+      ..write(obj.recentGradeDuration)
       ..writeByte(5)
       ..write(obj.fetchAgendaAuto)
       ..writeByte(6)
