@@ -33,7 +33,7 @@ class AgendaCubit extends Cubit<AgendaState> {
           status: AgendaStatus.cacheReady, dayModels: state.dayModels));
     }
     if (!settings.fetchAgendaAuto && settings.agendaId == null) {
-      emit(state.copyWith(status: AgendaStatus.error));
+      emit(state.copyWith(status: AgendaStatus.haveToChooseManualy));
       return;
     }
     if (dartus != null) {
