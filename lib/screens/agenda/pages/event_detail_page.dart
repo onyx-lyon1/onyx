@@ -100,18 +100,21 @@ class _EventDetailPageState extends State<EventDetailPage> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 1.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.location_on_rounded,
-                        color: Theme.of(context).textTheme.bodyLarge!.color,
-                      ),
-                      SelectableText(
-                        widget.event.location,
-                        style: Theme.of(context).textTheme.bodyLarge!,
-                      ),
-                    ],
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.location_on_rounded,
+                          color: Theme.of(context).textTheme.bodyLarge!.color,
+                        ),
+                        SelectableText(
+                          widget.event.location,
+                          style: Theme.of(context).textTheme.bodyLarge!,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
