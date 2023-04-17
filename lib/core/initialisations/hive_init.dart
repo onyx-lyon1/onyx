@@ -29,9 +29,9 @@ Future<void> hiveInit({String? path}) async {
   Hive.registerAdapter(ActionModelWrapperAdapter());
   Hive.registerAdapter(ActionTypeAdapter());
 
-  Hive.registerAdapter(SettingsModelAdapter());
   Hive.registerAdapter(FunctionalitiesAdapter());
   Hive.registerAdapter(ThemeModeEnumAdapter());
+  Hive.registerAdapter(SettingsModelAdapter());
 
   Hive.registerAdapter(IzlyCredentialAdapter());
   Hive.registerAdapter(IzlyQrCodeModelAdapter());
