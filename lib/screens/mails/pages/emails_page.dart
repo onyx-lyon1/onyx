@@ -32,33 +32,60 @@ class EmailsPage extends StatelessWidget {
           print("EmailsState: ${state.status}");
         }
         Widget? loadingHeader;
-        if (state.status == EmailStatus.connecting) {
-          loadingHeader = const LoadingHeaderWidget(
-            message: "Connection au emails",
-          );
-        } else if (state.status == EmailStatus.loading ||
-            state.status == EmailStatus.cacheLoaded ||
-            state.status == EmailStatus.cacheSorted ||
-            state.status == EmailStatus.mailboxesLoaded) {
-          loadingHeader =
-              const LoadingHeaderWidget(message: "Chargement des emails");
-        } else if (state.status == EmailStatus.error) {
-          loadingHeader = const LoadingHeaderWidget(
-            message: "Erreur de chargement des emails",
-          );
-        } else if (state.status == EmailStatus.nonFatalError) {
-          loadingHeader = const LoadingHeaderWidget(
-            message: "Une erreur est survenue",
-          );
-        } else if (state.status == EmailStatus.initial) {
-          context.read<EmailCubit>().connect(
-              username: context.read<AuthentificationCubit>().state.username,
-              password: context.read<AuthentificationCubit>().state.password);
-        } else if (state.status == EmailStatus.connected) {
-          context.read<EmailCubit>().load(
-                blockTrackers:
-                    context.read<SettingsCubit>().state.settings.blockTrackers,
-              );
+        switch (state.status) {
+          case EmailStatus.connecting:
+            loadingHeader = const LoadingHeaderWidget(
+              message: "Connection au emails",
+            );
+            break;
+          case EmailStatus.loading:
+          case EmailStatus.cacheLoaded:
+          case EmailStatus.cacheSorted:
+          case EmailStatus.mailboxesLoaded:
+            loadingHeader =
+                const LoadingHeaderWidget(message: "Chargement des emails");
+            break;
+          case EmailStatus.error:
+            loadingHeader = const LoadingHeaderWidget(
+              message: "Erreur de chargement des emails",
+            );
+            break;
+          case EmailStatus.nonFatalError:
+            loadingHeader = const LoadingHeaderWidget(
+              message: "Une erreur est survenue",
+            );
+            break;
+          case EmailStatus.initial:
+            context.read<EmailCubit>().connect(
+                username: context.read<AuthentificationCubit>().state.username,
+                password: context.read<AuthentificationCubit>().state.password);
+            break;
+          case EmailStatus.connected:
+            context.read<EmailCubit>().load(
+                  blockTrackers: context
+                      .read<SettingsCubit>()
+                      .state
+                      .settings
+                      .blockTrackers,
+                );
+
+            break;
+          case EmailStatus.sending:
+            loadingHeader =
+                const LoadingHeaderWidget(message: "Envoie du mail");
+            break;
+          case EmailStatus.loaded:
+            // TODO: Handle this case.
+            break;
+          case EmailStatus.sended:
+            // TODO: Handle this case.
+            break;
+          case EmailStatus.updated:
+            // TODO: Handle this case.
+            break;
+          case EmailStatus.sorted:
+            // TODO: Handle this case.
+            break;
         }
         return WillPopScope(
           onWillPop: () {
