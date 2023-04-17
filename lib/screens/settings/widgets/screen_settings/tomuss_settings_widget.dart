@@ -75,10 +75,9 @@ class TomussSettingsWidget extends StatelessWidget {
                   .recentGradeDuration,
               items: [
                 for (var i = 0; i <= 10; i++)
-                  DropdownMenuItem(
-                      value: Duration(days: i), child: Text("$i jours")),
+                  DropdownMenuItem(value: i, child: Text("$i jours")),
               ],
-              onChanged: (Duration? value) {
+              onChanged: (int? value) {
                 context.read<SettingsCubit>().modify(
                     settings: context
                         .read<SettingsCubit>()

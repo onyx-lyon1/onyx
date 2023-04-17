@@ -42,8 +42,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       disabledFunctionalities: fields[13] == null
           ? []
           : (fields[13] as List).cast<Functionalities>(),
-      recentGradeDuration:
-          fields[14] == null ? const Duration(days: 7) : fields[14] as Duration,
+      recentGradeDuration: fields[14] == null ? 7 : fields[14] as int,
     );
   }
 
