@@ -154,11 +154,6 @@ class EmailsPage extends StatelessWidget {
                           .settings
                           .blockTrackers,
                     );
-                while (state.status != EmailStatus.loaded &&
-                    state.status != EmailStatus.error &&
-                    state.status != EmailStatus.sorted) {
-                  await Future.delayed(const Duration(milliseconds: 100));
-                }
                 return;
               },
             ),
