@@ -131,7 +131,9 @@ class EmailCubit extends Cubit<EmailState> {
     lastFilter = filter;
     List<EmailModel> emails = [];
     if (filter != "") {
-      for (var i in state.currentMailBox!.emails) {
+      for (var i in emailsBoxesComplete
+          .firstWhere((element) => state.currentMailBox!.name == element.name)
+          .emails) {
         if (i.subject.toLowerCase().contains(filter.toLowerCase()) ||
             i.excerpt.toLowerCase().contains(filter.toLowerCase()) ||
             i.date.toString().toLowerCase().contains(filter.toLowerCase()) ||
@@ -144,9 +146,11 @@ class EmailCubit extends Cubit<EmailState> {
       emails = state.currentMailBox!.emails;
     }
     emit(state.copyWith(
-        status: (state.status == EmailStatus.cacheLoaded)
-            ? EmailStatus.cacheSorted
-            : EmailStatus.sorted));
+      status: (state.status == EmailStatus.cacheLoaded)
+          ? EmailStatus.cacheSorted
+          : EmailStatus.sorted,
+      currentMailBox: state.currentMailBox!..emails = emails,
+    ));
   }
 
   void delete(
