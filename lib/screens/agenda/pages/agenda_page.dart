@@ -35,26 +35,36 @@ class AgendaPage extends StatelessWidget {
             print("AgendaState: ${state.status}");
           }
           Widget? headerState;
-          if (state.status == AgendaStatus.loading ||
-              state.status == AgendaStatus.initial ||
-              state.status == AgendaStatus.cacheReady) {
-            headerState =
-                const LoadingHeaderWidget(message: "Chargement de l'agenda");
-          } else if (state.status == AgendaStatus.haveToChooseManualy) {
-            return AgendaConfigPage(
-              onBack: (int agendaId) {
-                context.read<SettingsCubit>().modify(
-                      settings:
-                          context.read<SettingsCubit>().state.settings.copyWith(
-                                agendaId: agendaId,
-                                fetchAgendaAuto: false,
-                              ),
-                    );
-              },
-            );
-          } else if (state.status == AgendaStatus.error) {
-            headerState = const LoadingHeaderWidget(
-                message: "Erreur lors du chargement de l'agenda");
+          switch (state.status) {
+            case AgendaStatus.initial:
+            case AgendaStatus.loading:
+            case AgendaStatus.cacheReady:
+              headerState =
+                  const LoadingHeaderWidget(message: "Chargement de l'agenda");
+              break;
+            case AgendaStatus.ready:
+              break;
+            case AgendaStatus.dateUpdated:
+              break;
+            case AgendaStatus.error:
+              headerState = const LoadingHeaderWidget(
+                  message: "Erreur lors du chargement de l'agenda");
+              break;
+            case AgendaStatus.haveToChooseManualy:
+              return AgendaConfigPage(
+                onBack: (int agendaId) {
+                  context.read<SettingsCubit>().modify(
+                        settings: context
+                            .read<SettingsCubit>()
+                            .state
+                            .settings
+                            .copyWith(
+                              agendaId: agendaId,
+                              fetchAgendaAuto: false,
+                            ),
+                      );
+                },
+              );
           }
           bool animating = false;
           PageController pageController = PageController();

@@ -75,16 +75,12 @@ class EmailsPage extends StatelessWidget {
                 const LoadingHeaderWidget(message: "Envoie du mail");
             break;
           case EmailStatus.loaded:
-            // TODO: Handle this case.
             break;
           case EmailStatus.sended:
-            // TODO: Handle this case.
             break;
           case EmailStatus.updated:
-            // TODO: Handle this case.
             break;
           case EmailStatus.sorted:
-            // TODO: Handle this case.
             break;
         }
         return WillPopScope(
