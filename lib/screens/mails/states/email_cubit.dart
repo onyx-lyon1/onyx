@@ -85,6 +85,11 @@ class EmailCubit extends Cubit<EmailState> {
     try {
       List<MailBoxModel> emailBoxes =
           await EmailLogic.getMailboxes(mailClient: mailClient!);
+      //ensure that there is a sending box
+      if (emailBoxes.indexWhere((element) => element.name == "Boîte d'envoi") !=
+          -1) {
+        emailBoxes.add(MailBoxModel(name: "Boîte d'envoi", emails: []));
+      }
       for (var i in emailBoxes) {
         if (emailsBoxesComplete
                 .indexWhere((element) => element.name == i.name) ==
@@ -113,11 +118,26 @@ class EmailCubit extends Cubit<EmailState> {
       emit(state.copyWith(status: EmailStatus.error));
       return;
     }
+
+    final List<ActionModel> actions =
+        (await CacheService.get<ActionModelWrapper>())?.action ?? [];
+    for (var action in actions) {
+      print(action);
+      if (action.type == ActionType.send ||
+          action.type == ActionType.reply ||
+          action.type == ActionType.forward ||
+          action.type == ActionType.replyAll) {
+        emailsBoxesComplete
+            .firstWhere((element) => element.name == "Boîte d'envoi")
+            .emails
+            .add(action.email!);
+      }
+    }
+
     CacheService.set<MailBoxWrapper>(
         MailBoxWrapper(mailBoxes: emailsBoxesComplete)); //await à definir
     currentMailBoxIndex = emailsBoxesComplete.indexWhere(
         (element) => element.specialMailBox == SpecialMailBox.inbox);
-
     emit(state.copyWith(
         status: EmailStatus.loaded,
         mailBoxes: emailsBoxesComplete,
@@ -447,6 +467,12 @@ class EmailCubit extends Cubit<EmailState> {
         originalMessageId: replyOriginalMessageId,
         replyAll: replyAll);
     await EmailLogic.addAction(action);
+    emailsBoxesComplete
+        .firstWhere((element) => element.name == "Boîte d'envoi")
+        .emails
+        .add(action.email!);
+    CacheService.set<MailBoxWrapper>(
+        MailBoxWrapper(mailBoxes: emailsBoxesComplete));
     if (state.status != EmailStatus.sending) {
       emit(state.copyWith(status: EmailStatus.sending));
       try {
@@ -457,6 +483,7 @@ class EmailCubit extends Cubit<EmailState> {
           replyAll: replyAll,
           forward: forward,
           reply: reply,
+          from: from,
           emailNumber: emailNumber,
         );
         await EmailLogic.removeAction(action);

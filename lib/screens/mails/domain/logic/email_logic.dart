@@ -233,7 +233,8 @@ class EmailLogic {
     if (kDebugMode) {
       print("add action : $action");
     }
-    ActionModelWrapper wrapper = await CacheService.get<ActionModelWrapper>() ??
+    ActionModelWrapper
+        wrapper = //await CacheService.get<ActionModelWrapper>() ??
         ActionModelWrapper(action: []);
     if (!wrapper.action.contains(action)) {
       wrapper.action.add(action);

@@ -1,12 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
-import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
-import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 
@@ -41,44 +38,6 @@ class EmailSendPage extends StatelessWidget {
 
     return BlocBuilder<EmailCubit, EmailState>(
       builder: (context, state) {
-        if (state.status == EmailStatus.error) {
-          Future.delayed(const Duration(seconds: 1), () {
-            EmailModel email = EmailModel(
-              subject: subjectEditor.text,
-              sender: "moi",
-              excerpt: "",
-              isRead: false,
-              date: DateTime.now(),
-              body: bodyHtml(controller),
-              id: 0,
-              receiver: destinationEditor.text,
-              isFlagged: false,
-              attachments: [],
-            );
-            context.read<EmailCubit>().send(
-                  email: email,
-                  replyAll: replyAll,
-                  reply: reply,
-                  forward: forward,
-                  replyOriginalMessageId: originalMessage,
-                  from: state.currentMailBox!,
-                );
-          });
-          return const StateDisplayingPage(
-              message: "Something went wrong with emails");
-        } else if (state.status == EmailStatus.sended) {
-          context.read<EmailCubit>().load(
-                cache: false,
-                blockTrackers:
-                    context.read<SettingsCubit>().state.settings.blockTrackers,
-              );
-          SchedulerBinding.instance.addPostFrameCallback((_) {
-            Navigator.pop(context);
-          });
-        } else if (state.status == EmailStatus.sending) {
-          return const StateDisplayingPage(message: "Sending message");
-        }
-
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
           floatingActionButton: Material(
@@ -115,6 +74,7 @@ class EmailSendPage extends StatelessWidget {
                         forward: forward,
                         from: state.currentMailBox!,
                       );
+                  Navigator.pop(context);
                 } else {
                   showDialog(
                     context: context,
