@@ -65,53 +65,66 @@ class _TomussPageState extends State<TomussPage> {
           print("Grades state : ${state.status}");
         }
         Widget? loadingHeader;
-        if (state.status == TomussStatus.loading ||
-            state.status == TomussStatus.cacheReady) {
-          loadingHeader = LoadingHeaderWidget(
-            message: "Chargement des notes",
-            timeout: state.timeout,
-            timeoutCallBack: () {},
-          );
-        } else if (state.status == TomussStatus.timeout) {
-          loadingHeader = LoadingHeaderWidget(
-            message: "Chargement des notes",
-            timeout: state.timeout,
-            timeoutCallBack: () => context.read<TomussCubit>().load(
+        switch (state.status) {
+          case TomussStatus.initial:
+            context.read<TomussCubit>().load(
                   dartus: context.read<AuthentificationCubit>().state.dartus,
-                  semestreIndex: state.currentSemesterIndex,
-                  cache: false,
                   settings: context.read<SettingsCubit>().state.settings,
-                ),
-          );
-        } else if (state.status == TomussStatus.initial) {
-          context.read<TomussCubit>().load(
-                dartus: context.read<AuthentificationCubit>().state.dartus,
-                settings: context.read<SettingsCubit>().state.settings,
-              );
-          loadingHeader = const LoadingHeaderWidget(
-            message: "Connection à tomuss",
-          );
-        } else if (state.status == TomussStatus.error) {
-          Future.delayed(const Duration(seconds: 3), () {
-            context
-                .read<AuthentificationCubit>()
-                .login(
-                    keepLogedIn: context
-                        .read<SettingsCubit>()
-                        .state
-                        .settings
-                        .keepMeLoggedIn)
-                .then(
-                  (value) => context.read<TomussCubit>().load(
-                        dartus:
-                            context.read<AuthentificationCubit>().state.dartus!,
-                        settings: context.read<SettingsCubit>().state.settings,
-                      ),
                 );
-          });
-          loadingHeader = const LoadingHeaderWidget(
-            message: "Erreur pendant le chargement des notes",
-          );
+            loadingHeader = const LoadingHeaderWidget(
+              message: "Connection à tomuss",
+            );
+            break;
+          case TomussStatus.loading:
+          case TomussStatus.cacheReady:
+            loadingHeader = LoadingHeaderWidget(
+              message: "Chargement des notes",
+              timeout: state.timeout,
+              timeoutCallBack: () {},
+            );
+            break;
+
+          case TomussStatus.ready:
+            break;
+          case TomussStatus.error:
+            Future.delayed(const Duration(seconds: 3), () {
+              context
+                  .read<AuthentificationCubit>()
+                  .login(
+                      keepLogedIn: context
+                          .read<SettingsCubit>()
+                          .state
+                          .settings
+                          .keepMeLoggedIn)
+                  .then(
+                    (value) => context.read<TomussCubit>().load(
+                          dartus: context
+                              .read<AuthentificationCubit>()
+                              .state
+                              .dartus!,
+                          settings:
+                              context.read<SettingsCubit>().state.settings,
+                        ),
+                  );
+            });
+            loadingHeader = const LoadingHeaderWidget(
+              message: "Erreur pendant le chargement des notes",
+            );
+            break;
+          case TomussStatus.updated:
+            break;
+          case TomussStatus.timeout:
+            loadingHeader = LoadingHeaderWidget(
+              message: "Chargement des notes",
+              timeout: state.timeout,
+              timeoutCallBack: () => context.read<TomussCubit>().load(
+                    dartus: context.read<AuthentificationCubit>().state.dartus,
+                    semestreIndex: state.currentSemesterIndex,
+                    cache: false,
+                    settings: context.read<SettingsCubit>().state.settings,
+                  ),
+            );
+            break;
         }
         return CommonScreenWidget(
           state: loadingHeader,

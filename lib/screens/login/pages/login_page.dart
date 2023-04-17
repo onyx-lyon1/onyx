@@ -23,239 +23,244 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    AuthentificationState state = context.read<AuthentificationCubit>().state;
-    if (state.status == AuthentificationStatus.initial) {
-      context.read<AuthentificationCubit>().login(
-          keepLogedIn:
-              context.read<SettingsCubit>().state.settings.keepMeLoggedIn);
-      return const StateDisplayingPage(message: "Start authentification");
-    } else if (state.status == AuthentificationStatus.authentificating) {
-      return const StateDisplayingPage(message: "Authentification");
-    } else if (state.status == AuthentificationStatus.error &&
-        context.read<AuthentificationCubit>().state.firstLogin) {
-      Future.delayed(const Duration(seconds: 1), () {
-        context.read<AuthentificationCubit>().logout();
-      });
-      return const StateDisplayingPage(message: "Login error");
-    } else if (state.status == AuthentificationStatus.needCredential) {
-      return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 40.h,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/icon.png",
-                    width: 25.w,
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("ONYX",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                                fontSize: 20.sp,
-                              )),
-                      Text("Pour Lyon 1",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium!
-                              .copyWith(fontSize: 8.sp)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Form(
-              key: _formKey,
-              child: AutofillGroup(
-                child: Column(
+    switch (context.read<AuthentificationCubit>().state.status) {
+      case AuthentificationStatus.initial:
+        context.read<AuthentificationCubit>().login(
+            keepLogedIn:
+                context.read<SettingsCubit>().state.settings.keepMeLoggedIn);
+        return const StateDisplayingPage(message: "Start authentification");
+      case AuthentificationStatus.needCredential:
+        return Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 40.h,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Image.asset(
+                      "assets/icon.png",
+                      width: 25.w,
+                    ),
                     SizedBox(
-                      width: 70.w,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Authentification",
+                      width: 5.w,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("ONYX",
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyLarge!
-                                .copyWith(fontSize: 12.sp),
-                          ),
-                          Material(
-                            borderRadius: BorderRadius.circular(5),
-                            child: OpenContainer(
-                              closedColor:
-                                  Theme.of(context).secondaryHeaderColor,
-                              openBuilder: (context, closewidget) =>
-                                  const PrivacyPolicyPage(),
-                              closedBuilder: (context, openwidget) => InkWell(
-                                onTap: openwidget,
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 3.w, vertical: 0.5.h),
-                                  child: Text(
-                                    "confidentialité",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(fontSize: 10.sp),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Container(
-                      color: Theme.of(context).secondaryHeaderColor,
-                      width: 70.w,
-                      child: TextFormField(
-                        autofillHints: const [AutofillHints.username],
-                        onSaved: (String? value) =>
-                            username = value!.replaceFirst("p", "P"),
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          labelText: 'Username',
-                          labelStyle:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .color!
-                                        .withOpacity(0.5),
-                                  ),
-                          prefixIcon: Icon(
-                            Icons.school_rounded,
-                            size: 18.sp,
-                            color: Theme.of(context)
+                                .displayLarge!
+                                .copyWith(
+                                  fontSize: 20.sp,
+                                )),
+                        Text("Pour Lyon 1",
+                            style: Theme.of(context)
                                 .textTheme
-                                .bodyLarge!
-                                .color!
-                                .withOpacity(0.5),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                width: 2,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .color!),
-                          ),
-                          disabledBorder: InputBorder.none,
-                        ),
-                        validator: (value) {
-                          if (Res.mock) {
-                            return null;
-                          }
-                          if (value == null || value.isEmpty) {
-                            return 'Veuillez entrer l\'identifiant';
-                          } else if (!(value.startsWith("P") ||
-                              value.startsWith("p"))) {
-                            return "l'identifiant doit commencer par P";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      color: Theme.of(context).secondaryHeaderColor,
-                      width: 70.w,
-                      child: PasswordFormField(
-                        onFieldSubmitted: send,
-                        decoration: InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                width: 2,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .color!),
-                          ),
-                          disabledBorder: InputBorder.none,
-                        ),
-                        onSaved: (String? value) => password = value!,
-                        // The validator receives the text that the user has entered.
-                        validator: (value) {
-                          if (Res.mock) {
-                            return null;
-                          }
-                          if (value == null || value.isEmpty) {
-                            return 'Veuillez entrer un mot de passe';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    InkWell(
-                      onTap: send,
-                      child: Container(
-                        width: 70.w,
-                        padding: EdgeInsets.symmetric(vertical: 2.h),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Connection',
-                            style:
-                                Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      fontSize: 12.sp,
-                                    ),
-                          ),
-                        ),
-                      ),
+                                .displayMedium!
+                                .copyWith(fontSize: 8.sp)),
+                      ],
                     ),
                   ],
                 ),
               ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: EdgeInsets.all(5.h),
-              child: TextButton(
-                onPressed: () {
-                  Res.mock = true;
-                  context.read<AuthentificationCubit>().login(
-                      username: username,
-                      password: password,
-                      keepLogedIn: context
-                          .read<SettingsCubit>()
-                          .state
-                          .settings
-                          .keepMeLoggedIn);
-                },
-                child: const Text("Découvrir l'application"),
+              Form(
+                key: _formKey,
+                child: AutofillGroup(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 70.w,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Authentification",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(fontSize: 12.sp),
+                            ),
+                            Material(
+                              borderRadius: BorderRadius.circular(5),
+                              child: OpenContainer(
+                                closedColor:
+                                    Theme.of(context).secondaryHeaderColor,
+                                openBuilder: (context, closewidget) =>
+                                    const PrivacyPolicyPage(),
+                                closedBuilder: (context, openwidget) => InkWell(
+                                  onTap: openwidget,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 3.w, vertical: 0.5.h),
+                                    child: Text(
+                                      "confidentialité",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(fontSize: 10.sp),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      Container(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        width: 70.w,
+                        child: TextFormField(
+                          autofillHints: const [AutofillHints.username],
+                          onSaved: (String? value) =>
+                              username = value!.replaceFirst("p", "P"),
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            labelText: 'Username',
+                            labelStyle:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .color!
+                                          .withOpacity(0.5),
+                                    ),
+                            prefixIcon: Icon(
+                              Icons.school_rounded,
+                              size: 18.sp,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .color!
+                                  .withOpacity(0.5),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 2,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .color!),
+                            ),
+                            disabledBorder: InputBorder.none,
+                          ),
+                          validator: (value) {
+                            if (Res.mock) {
+                              return null;
+                            }
+                            if (value == null || value.isEmpty) {
+                              return 'Veuillez entrer l\'identifiant';
+                            } else if (!(value.startsWith("P") ||
+                                value.startsWith("p"))) {
+                              return "l'identifiant doit commencer par P";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        width: 70.w,
+                        child: PasswordFormField(
+                          onFieldSubmitted: send,
+                          decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 2,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .color!),
+                            ),
+                            disabledBorder: InputBorder.none,
+                          ),
+                          onSaved: (String? value) => password = value!,
+                          // The validator receives the text that the user has entered.
+                          validator: (value) {
+                            if (Res.mock) {
+                              return null;
+                            }
+                            if (value == null || value.isEmpty) {
+                              return 'Veuillez entrer un mot de passe';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      InkWell(
+                        onTap: send,
+                        child: Container(
+                          width: 70.w,
+                          padding: EdgeInsets.symmetric(vertical: 2.h),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Connection',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    fontSize: 12.sp,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
-        ),
-      );
-    } else {
-      return const StateDisplayingPage(message: "FATAL ERROR");
+              const Spacer(),
+              Padding(
+                padding: EdgeInsets.all(5.h),
+                child: TextButton(
+                  onPressed: () {
+                    Res.mock = true;
+                    context.read<AuthentificationCubit>().login(
+                        username: username,
+                        password: password,
+                        keepLogedIn: context
+                            .read<SettingsCubit>()
+                            .state
+                            .settings
+                            .keepMeLoggedIn);
+                  },
+                  child: const Text("Découvrir l'application"),
+                ),
+              ),
+            ],
+          ),
+        );
+      case AuthentificationStatus.authentificating:
+        return const StateDisplayingPage(message: "Authentification");
+      case AuthentificationStatus.authentificated:
+        return const StateDisplayingPage(message: "Vous êtes authentifié");
+      case AuthentificationStatus.error:
+        if (context.read<AuthentificationCubit>().state.firstLogin) {
+          Future.delayed(const Duration(seconds: 1), () {
+            context.read<AuthentificationCubit>().logout();
+          });
+          return const StateDisplayingPage(message: "Login error");
+        }
+        break;
     }
+    return const StateDisplayingPage(message: "FATAL ERROR");
   }
 
   void send() async {

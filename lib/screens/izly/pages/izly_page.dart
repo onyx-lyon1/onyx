@@ -27,6 +27,9 @@ class IzlyPage extends StatelessWidget {
         switch (state.status) {
           case IzlyStatus.initial:
             context.read<IzlyCubit>().connect();
+            body = const StateDisplayingPage(
+              message: "Connexion en cours",
+            );
             break;
           case IzlyStatus.connecting:
             body = const StateDisplayingPage(
@@ -45,14 +48,12 @@ class IzlyPage extends StatelessWidget {
           case IzlyStatus.loading:
             stateWidget = const LoadingHeaderWidget(message: "Chargement...");
             break;
-          default:
+          case IzlyStatus.connected:
+            break;
+          case IzlyStatus.loaded:
             break;
         }
-        if (state.status == IzlyStatus.initial) {
-          body = const StateDisplayingPage(
-            message: "Connexion en cours",
-          );
-        } else {
+        if (state.status != IzlyStatus.initial) {
           PageController pageController = PageController();
           body = PageView(
             controller: pageController,

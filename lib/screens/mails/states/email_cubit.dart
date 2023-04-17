@@ -122,7 +122,6 @@ class EmailCubit extends Cubit<EmailState> {
     final List<ActionModel> actions =
         (await CacheService.get<ActionModelWrapper>())?.action ?? [];
     for (var action in actions) {
-      print(action);
       if (action.type == ActionType.send ||
           action.type == ActionType.reply ||
           action.type == ActionType.forward ||
