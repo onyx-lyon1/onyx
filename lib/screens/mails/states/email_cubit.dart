@@ -187,10 +187,10 @@ class EmailCubit extends Cubit<EmailState> {
       ActionModel action = ActionModel(
           type: ActionType.markAsRead, email: email, fromMailBox: from);
       await EmailLogic.addAction(action);
-      emailsBoxesComplete[currentMailBoxIndex]
-          .emails[
-              emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email)]
-          .isRead = true;
+      int index =
+          emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email);
+      if (index == -1) return;
+      emailsBoxesComplete[currentMailBoxIndex].emails[index].isRead = true;
       CacheService.set<MailBoxWrapper>(
           MailBoxWrapper(mailBoxes: emailsBoxesComplete));
       emit(state.copyWith(
@@ -309,10 +309,10 @@ class EmailCubit extends Cubit<EmailState> {
       ActionModel action = ActionModel(
           type: ActionType.markAsUnread, email: email, fromMailBox: from);
       await EmailLogic.addAction(action);
-      emailsBoxesComplete[currentMailBoxIndex]
-          .emails[
-              emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email)]
-          .isRead = false;
+      int index =
+          emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email);
+      if (index == -1) return;
+      emailsBoxesComplete[currentMailBoxIndex].emails[index].isRead = false;
       CacheService.set<MailBoxWrapper>(
           MailBoxWrapper(mailBoxes: emailsBoxesComplete));
       emit(state.copyWith(
@@ -356,9 +356,9 @@ class EmailCubit extends Cubit<EmailState> {
     ActionModel action =
         ActionModel(type: ActionType.flag, email: email, fromMailBox: from);
     await EmailLogic.addAction(action);
-    emailsBoxesComplete[currentMailBoxIndex]
-        .emails[emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email)]
-        .isFlagged = true;
+    int index = emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email);
+    if (index == -1) return;
+    emailsBoxesComplete[currentMailBoxIndex].emails[index].isFlagged = true;
     CacheService.set<MailBoxWrapper>(
         MailBoxWrapper(mailBoxes: emailsBoxesComplete));
     emit(state.copyWith(
@@ -395,9 +395,9 @@ class EmailCubit extends Cubit<EmailState> {
     ActionModel action =
         ActionModel(type: ActionType.unflag, email: email, fromMailBox: from);
     await EmailLogic.addAction(action);
-    emailsBoxesComplete[currentMailBoxIndex]
-        .emails[emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email)]
-        .isFlagged = false;
+    int index = emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email);
+    if (index == -1) return;
+    emailsBoxesComplete[currentMailBoxIndex].emails[index].isFlagged = false;
     CacheService.set<MailBoxWrapper>(
         MailBoxWrapper(mailBoxes: emailsBoxesComplete));
     emit(state.copyWith(
@@ -505,7 +505,7 @@ class EmailCubit extends Cubit<EmailState> {
   void doQueuedAction({required bool blockTrackers}) async {
     final List<ActionModel> actions =
         (await CacheService.get<ActionModelWrapper>())?.action ?? [];
-    if (actions.isEmpty || state.status != EmailStatus.initial) return;
+    if (actions.isEmpty || !state.connected) return;
     for (ActionModel action in actions) {
       if (kDebugMode) {
         print("action: $action");
