@@ -18,8 +18,8 @@ class SettingsModel {
   late bool newGradeNotification;
   @HiveField(4)
   late bool showHiddenUE;
-  @HiveField(14, defaultValue: Duration(days: 7))
-  late Duration recentGradeDuration;
+  @HiveField(14, defaultValue: 7)
+  late int recentGradeDuration;
 
   //agenda
   @HiveField(5)
@@ -73,7 +73,7 @@ class SettingsModel {
       Functionalities.map,
     ],
     this.disabledFunctionalities = const [],
-    this.recentGradeDuration = const Duration(days: 7),
+    this.recentGradeDuration = 7,
   });
 
   SettingsModel copyWith({
@@ -91,7 +91,7 @@ class SettingsModel {
     bool? darkerMail,
     List<Functionalities>? enabledFunctionalities,
     List<Functionalities>? disabledFunctionalities,
-    Duration? recentGradeDuration,
+    int? recentGradeDuration,
   }) {
     return SettingsModel(
       keepMeLoggedIn: keepMeLoggedIn ?? this.keepMeLoggedIn,
