@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 
-part 'email_model.g.dart';
+part 'generated/email_model.g.dart';
 
 @HiveType(typeId: 5)
 class EmailModel {

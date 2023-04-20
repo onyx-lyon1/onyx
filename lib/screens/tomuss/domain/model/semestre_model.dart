@@ -1,7 +1,7 @@
 import 'package:dartus/tomuss.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'semestre_model.g.dart';
+part 'generated/semestre_model.g.dart';
 
 @HiveType(typeId: 13)
 class SemestreModel {
@@ -12,7 +12,9 @@ class SemestreModel {
 
   SemestreModel({required this.name, required this.url});
 
-  SemestreModel.fromSemester(Semester s) : name = s.name, url = s.url;
+  SemestreModel.fromSemester(Semester s)
+      : name = s.name,
+        url = s.url;
 
   @override
   String toString() {

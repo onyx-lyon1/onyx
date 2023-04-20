@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 
-part 'day_model_wrapper.g.dart';
+part 'generated/day_model_wrapper.g.dart';
 
 @HiveType(typeId: 2)
 class DayModelWrapper {

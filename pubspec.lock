@@ -281,6 +281,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  cookie_jar:
+    dependency: transitive
+    description:
+      name: cookie_jar
+      sha256: "253920541bf248e4eda6eac5df6aa00c19c183e1fe333629925d8df666a27815"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
   cross_file:
     dependency: transitive
     description:
@@ -348,11 +356,9 @@ packages:
   dartus:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "94ce011965a99e7d01a937478873a72a4aacf119"
-      url: "https://github.com/onyx-lyon1/dartus-tomuss-client.git"
-    source: git
+      path: "../dartus-tomuss-client"
+      relative: true
+    source: path
     version: "1.0.3"
   dbus:
     dependency: transitive
@@ -394,6 +400,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.1"
+  dio:
+    dependency: transitive
+    description:
+      name: dio
+      sha256: "0894a098594263fe1caaba3520e3016d8a855caeb010a882273189cca10f11e9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.1"
+  dio_cookie_manager:
+    dependency: transitive
+    description:
+      name: dio_cookie_manager
+      sha256: ff1755fd56d02485146d95a589fb4ace1f0ae0c0f3ca702a817de2dc1fbb835e
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   dotenv:
     dependency: transitive
     description:
@@ -996,11 +1018,9 @@ packages:
   izlyclient:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "0059e505209e6af88b0cf24125135e348d6827ec"
-      url: "https://github.com/onyx-lyon1/izlyclient.git"
-    source: git
+      path: "../izlyclient"
+      relative: true
+    source: path
     version: "1.0.0"
   js:
     dependency: transitive
@@ -1061,20 +1081,16 @@ packages:
   lyon1agenda:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "6e17319dd50a5ff8d7f7ab9a6a15821fdb692c97"
-      url: "https://github.com/onyx-lyon1/lyon1-agendaclient.git"
-    source: git
+      path: "../lyon1-agendaclient"
+      relative: true
+    source: path
     version: "1.0.0"
   lyon1mail:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: fb8182d765458d41b4b87ecfc9d649a803af6490
-      url: "https://github.com/onyx-lyon1/lyon1-mailclient.git"
-    source: git
+      path: "../lyon1-mailclient"
+      relative: true
+    source: path
     version: "1.0.0"
   matcher:
     dependency: transitive

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'email_model.dart';
+part of '../email_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

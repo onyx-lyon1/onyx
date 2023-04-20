@@ -187,18 +187,12 @@ class _TomussPageState extends State<TomussPage> {
           body: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
             children: state.teachingUnits
-                .where(
-                  (element) =>
-                      element.isHidden == false ||
-                      context.read<SettingsCubit>().state.settings.showHiddenUE,
-                )
                 .map(
                   (schoolSubject) => Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
                     child: GradeWidget(
                       grades: schoolSubject.grades,
-                      isSeen: schoolSubject.isSeen,
                       text2:
                           schoolSubject.masters.map((e) => e.name).join(", "),
                       text1: schoolSubject.name,

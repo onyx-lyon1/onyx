@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/screens/tomuss/domain/model/semestre_model.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
-part 'semestre_model_wrapper.g.dart';
+part 'generated/semestre_model_wrapper.g.dart';
 
 @HiveType(typeId: 14)
 class SemestreModelWrapper {

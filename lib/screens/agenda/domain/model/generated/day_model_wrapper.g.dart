@@ -1,35 +1,32 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'teacher_model.dart';
+part of '../day_model_wrapper.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TeacherModelAdapter extends TypeAdapter<TeacherModel> {
+class DayModelWrapperAdapter extends TypeAdapter<DayModelWrapper> {
   @override
-  final int typeId = 12;
+  final int typeId = 2;
 
   @override
-  TeacherModel read(BinaryReader reader) {
+  DayModelWrapper read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return TeacherModel(
-      fields[0] as String,
-      fields[1] as String,
+    return DayModelWrapper(
+      (fields[0] as List).cast<DayModel>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, TeacherModel obj) {
+  void write(BinaryWriter writer, DayModelWrapper obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj._name)
       ..writeByte(1)
-      ..write(obj._email);
+      ..writeByte(0)
+      ..write(obj.dayModels);
   }
 
   @override
@@ -38,7 +35,7 @@ class TeacherModelAdapter extends TypeAdapter<TeacherModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TeacherModelAdapter &&
+      other is DayModelWrapperAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
