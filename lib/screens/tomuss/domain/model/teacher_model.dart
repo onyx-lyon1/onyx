@@ -1,7 +1,7 @@
 import 'package:dartus/tomuss.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'teacher_model.g.dart';
+part 'generated/teacher_model.g.dart';
 
 @HiveType(typeId: 12)
 class TeacherModel {

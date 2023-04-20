@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'authentication_model.dart';
+part of '../authentication_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
-part 'school_subject_model_wrapper.g.dart';
+part 'generated/school_subject_model_wrapper.g.dart';
 
 @HiveType(typeId: 11)
 class SchoolSubjectModelWrapper {

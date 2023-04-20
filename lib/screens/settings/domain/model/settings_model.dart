@@ -2,7 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
-part 'settings_model.g.dart';
+part 'generated/settings_model.g.dart';
 
 @HiveType(typeId: 7)
 class SettingsModel {

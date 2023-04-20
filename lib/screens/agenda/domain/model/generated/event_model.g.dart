@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'event_model.dart';
+part of '../event_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

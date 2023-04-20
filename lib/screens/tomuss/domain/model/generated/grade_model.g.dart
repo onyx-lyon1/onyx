@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'grade_model.dart';
+part of '../grade_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

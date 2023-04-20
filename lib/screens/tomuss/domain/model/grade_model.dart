@@ -2,7 +2,7 @@ import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'grade_model.g.dart';
+part 'generated/grade_model.g.dart';
 
 @HiveType(typeId: 9)
 class GradeModel {

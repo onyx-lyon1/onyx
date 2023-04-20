@@ -1,7 +1,7 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:sizer/sizer.dart';
 
-part 'res.g.dart';
+part 'generated/res.g.dart';
 
 class Res {
   static const Duration animationDuration = Duration(milliseconds: 300);

@@ -1,36 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'school_subject_model_wrapper.dart';
+part of '../semestre_model_wrapper.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SchoolSubjectModelWrapperAdapter
-    extends TypeAdapter<SchoolSubjectModelWrapper> {
+class SemestreModelWrapperAdapter extends TypeAdapter<SemestreModelWrapper> {
   @override
-  final int typeId = 11;
+  final int typeId = 14;
 
   @override
-  SchoolSubjectModelWrapper read(BinaryReader reader) {
+  SemestreModelWrapper read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return SchoolSubjectModelWrapper(
-      (fields[0] as List).cast<SchoolSubjectModel>(),
-      fields[1] as int,
+    return SemestreModelWrapper(
+      (fields[0] as List).cast<SemestreModel>(),
+      currentSemestreIndex: fields[1] as int,
     );
   }
 
   @override
-  void write(BinaryWriter writer, SchoolSubjectModelWrapper obj) {
+  void write(BinaryWriter writer, SemestreModelWrapper obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.teachingUnitModels)
+      ..write(obj.semestres)
       ..writeByte(1)
-      ..write(obj.semesterIndex);
+      ..write(obj.currentSemestreIndex);
   }
 
   @override
@@ -39,7 +38,7 @@ class SchoolSubjectModelWrapperAdapter
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SchoolSubjectModelWrapperAdapter &&
+      other is SemestreModelWrapperAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'izly_credential.g.dart';
+part 'generated/izly_credential.g.dart';
 
 @HiveType(typeId: 15)
 class IzlyCredential {

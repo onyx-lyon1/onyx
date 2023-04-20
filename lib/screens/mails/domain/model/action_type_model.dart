@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'action_type_model.g.dart';
+part 'generated/action_type_model.g.dart';
 
 @HiveType(typeId: 22)
 enum ActionType {
