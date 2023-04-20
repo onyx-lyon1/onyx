@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
-part 'school_subject_model.g.dart';
+part 'generated/school_subject_model.g.dart';
 
 @HiveType(typeId: 10)
 class SchoolSubjectModel {
@@ -12,14 +12,8 @@ class SchoolSubjectModel {
   final List<TeacherModel> masters;
   @HiveField(2)
   final List<GradeModel> grades;
-  @HiveField(4)
-  final bool isSeen;
-  @HiveField(5)
-  final bool isHidden;
 
   SchoolSubjectModel({
-    required this.isSeen,
-    required this.isHidden,
     required this.name,
     required this.masters,
     required this.grades,
@@ -41,7 +35,7 @@ class SchoolSubjectModel {
 
   @override
   String toString() {
-    return 'SchoolSubjectModel{name: $name, masters: $masters, grades: $grades, isSeen: $isSeen, isHidden: $isHidden}';
+    return 'SchoolSubjectModel{name: $name, masters: $masters, grades: $grades}';
   }
 
   @override

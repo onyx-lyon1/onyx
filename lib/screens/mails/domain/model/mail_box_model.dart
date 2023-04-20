@@ -2,7 +2,7 @@ import 'package:enough_mail/enough_mail.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 
-part 'mail_box_model.g.dart';
+part 'generated/mail_box_model.g.dart';
 
 @HiveType(typeId: 19)
 class MailBoxModel {

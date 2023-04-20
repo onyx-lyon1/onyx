@@ -1,35 +1,32 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'day_model.dart';
+part of '../action_model_wrapper.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class DayModelAdapter extends TypeAdapter<DayModel> {
+class ActionModelWrapperAdapter extends TypeAdapter<ActionModelWrapper> {
   @override
-  final int typeId = 1;
+  final int typeId = 24;
 
   @override
-  DayModel read(BinaryReader reader) {
+  ActionModelWrapper read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return DayModel(
-      fields[1] as DateTime,
-      (fields[0] as List).cast<EventModel>(),
+    return ActionModelWrapper(
+      action: (fields[0] as List).cast<ActionModel>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, DayModel obj) {
+  void write(BinaryWriter writer, ActionModelWrapper obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.events)
       ..writeByte(1)
-      ..write(obj.date);
+      ..writeByte(0)
+      ..write(obj.action);
   }
 
   @override
@@ -38,7 +35,7 @@ class DayModelAdapter extends TypeAdapter<DayModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DayModelAdapter &&
+      other is ActionModelWrapperAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

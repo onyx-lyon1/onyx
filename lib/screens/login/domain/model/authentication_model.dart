@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'authentication_model.g.dart';
+part 'generated/authentication_model.g.dart';
 
 @HiveType(typeId: 4)
 class AuthenticationModel {

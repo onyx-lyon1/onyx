@@ -1,7 +1,7 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 
-part 'action_model.g.dart';
+part 'generated/action_model.g.dart';
 
 @HiveType(typeId: 23)
 class ActionModel {

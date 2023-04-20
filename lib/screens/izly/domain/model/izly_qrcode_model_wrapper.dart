@@ -1,10 +1,10 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 
-part 'izly_qrcode_model_wrapper.g.dart';
+part 'generated/izly_qrcode_model_wrapper.g.dart';
 
 @HiveType(typeId: 17)
-class IzlyQrCodeModelWrapper{
+class IzlyQrCodeModelWrapper {
   @HiveField(0)
   List<IzlyQrCodeModel> qrCodes;
 

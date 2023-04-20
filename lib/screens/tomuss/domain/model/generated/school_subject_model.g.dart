@@ -1,35 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'izly_qrcode_model.dart';
+part of '../school_subject_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class IzlyQrCodeModelAdapter extends TypeAdapter<IzlyQrCodeModel> {
+class SchoolSubjectModelAdapter extends TypeAdapter<SchoolSubjectModel> {
   @override
-  final int typeId = 16;
+  final int typeId = 10;
 
   @override
-  IzlyQrCodeModel read(BinaryReader reader) {
+  SchoolSubjectModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return IzlyQrCodeModel(
-      qrCode: fields[0] as Uint8List,
-      expirationDate: fields[1] as DateTime,
+    return SchoolSubjectModel(
+      name: fields[0] as String,
+      masters: (fields[1] as List).cast<TeacherModel>(),
+      grades: (fields[2] as List).cast<GradeModel>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, IzlyQrCodeModel obj) {
+  void write(BinaryWriter writer, SchoolSubjectModel obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.qrCode)
+      ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.expirationDate);
+      ..write(obj.masters)
+      ..writeByte(2)
+      ..write(obj.grades);
   }
 
   @override
@@ -38,7 +41,7 @@ class IzlyQrCodeModelAdapter extends TypeAdapter<IzlyQrCodeModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is IzlyQrCodeModelAdapter &&
+      other is SchoolSubjectModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

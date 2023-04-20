@@ -1,32 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'action_model_wrapper.dart';
+part of '../izly_credential.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ActionModelWrapperAdapter extends TypeAdapter<ActionModelWrapper> {
+class IzlyCredentialAdapter extends TypeAdapter<IzlyCredential> {
   @override
-  final int typeId = 24;
+  final int typeId = 15;
 
   @override
-  ActionModelWrapper read(BinaryReader reader) {
+  IzlyCredential read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ActionModelWrapper(
-      action: (fields[0] as List).cast<ActionModel>(),
+    return IzlyCredential(
+      username: fields[0] as String,
+      password: fields[1] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, ActionModelWrapper obj) {
+  void write(BinaryWriter writer, IzlyCredential obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.action);
+      ..write(obj.username)
+      ..writeByte(1)
+      ..write(obj.password);
   }
 
   @override
@@ -35,7 +38,7 @@ class ActionModelWrapperAdapter extends TypeAdapter<ActionModelWrapper> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ActionModelWrapperAdapter &&
+      other is IzlyCredentialAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

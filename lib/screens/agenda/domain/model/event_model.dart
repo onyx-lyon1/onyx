@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'event_model.g.dart';
+part 'generated/event_model.g.dart';
 
 @HiveType(typeId: 3)
 class EventModel {

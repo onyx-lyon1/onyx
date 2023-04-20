@@ -2,10 +2,10 @@ import 'dart:typed_data';
 
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'izly_qrcode_model.g.dart';
+part 'generated/izly_qrcode_model.g.dart';
 
 @HiveType(typeId: 16)
-class IzlyQrCodeModel{
+class IzlyQrCodeModel {
   @HiveField(0)
   Uint8List qrCode;
   @HiveField(1)

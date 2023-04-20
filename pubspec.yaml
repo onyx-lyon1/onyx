@@ -3,7 +3,7 @@ description: ade, tomuss email pour lyon1
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.0.1+36
+version: 2.0.1+38
 
 environment:
   sdk: ">=2.15.1 <4.0.0"
@@ -76,16 +76,16 @@ dependencies:
   drag_and_drop_lists: #^0.3.3
     git: https://github.com/onyx-lyon1/DragAndDropLists.git
 
-#dependency_overrides:
-# unindent for devlopment to use local version of the libraries
-#  dartus:
-#    path: ../dartus-tomuss-client
-#  lyon1mail:
-#    path: ../lyon1-mailclient
-#  lyon1agenda:
-#    path: ../lyon1-agendaclient
-#  izlyclient:
-#    path: ../izlyclient
+dependency_overrides:
+  # unindent for devlopment to use local version of the libraries
+  dartus:
+    path: ../dartus-tomuss-client
+  lyon1mail:
+    path: ../lyon1-mailclient
+  lyon1agenda:
+    path: ../lyon1-agendaclient
+  izlyclient:
+    path: ../izlyclient
 
 dev_dependencies:
   flutter_test:
