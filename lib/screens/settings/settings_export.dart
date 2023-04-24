@@ -6,7 +6,6 @@ export 'pages/settings_page.dart';
 export 'states/settings_cubit.dart';
 export 'widgets/agenda_url_parameter_widget.dart';
 export 'widgets/screen_settings/agenda_settings_widget.dart';
-export 'widgets/screen_settings/email_settings_widget.dart';
 export 'widgets/screen_settings/izly_settings_widget.dart';
 export 'widgets/screen_settings/map_settings_widget.dart';
 export 'widgets/screen_settings/settings_settings_widget.dart';

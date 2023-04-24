@@ -1,6 +1,8 @@
 import 'package:convenient_test/convenient_test.dart';
+import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
@@ -28,8 +30,8 @@ class OnyxApp extends StatefulWidget {
 }
 
 class OnyxAppState extends State<OnyxApp> {
-  final List<SchoolSubjectModel> teachingUnits = [];
-  final List<DayModel> days = [];
+  final List<TeachingUnit> teachingUnits = [];
+  final List<Day> days = [];
   final List<Mail> emails = [];
 
   @override

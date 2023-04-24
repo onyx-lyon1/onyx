@@ -24,72 +24,70 @@ void backgroundLogic() {
         await hiveInit();
         await NotificationLogic.init();
         SettingsModel settings = await SettingsLogic.load();
-        AuthenticationModel auth =
-            (await AuthentificationLogic.fetchCredential());
+        Credential auth = (await AuthentificationLogic.fetchCredential());
         tomusslib.Dartus dartus = await AuthentificationLogic.login(
             username: auth.username,
             password: auth.password,
             keepLogedIn: settings.keepMeLoggedIn);
         if (settings.newGradeNotification) {
-          List<SchoolSubjectModel> teachingUnits = [];
+          List<TeachingUnit> teachingUnits = [];
           int? semestreIndex;
-          SemestreModel? semestreModel;
-          if (await CacheService.exist<SemestreModelWrapper>()) {
-            SemestreModelWrapper? semestreModelWrapper =
-                await CacheService.get<SemestreModelWrapper>();
+          Semester? semestreModel;
+          if (await CacheService.exist<SemesterList>()) {
+            SemesterList? semestreModelWrapper =
+                await CacheService.get<SemesterList>();
             semestreIndex = semestreModelWrapper!.semestres.length - 1;
             semestreModel = semestreModelWrapper.semestres[semestreIndex];
           }
-          if (await CacheService.exist<SchoolSubjectModelWrapper>(
+          if (await CacheService.exist<TeachingUnitList>(
               index: semestreIndex ?? 0)) {
-            teachingUnits = (await CacheService.get<SchoolSubjectModelWrapper>(
+            teachingUnits = (await CacheService.get<TeachingUnitList>(
                     index: semestreIndex ?? 0))!
                 .teachingUnitModels;
           }
-          List<SchoolSubjectModel> newTeachingUnits =
+          List<TeachingUnit> newTeachingUnits =
               (await TomussLogic.getSemestersAndNote(
                       dartus: dartus,
                       autoRefresh: true,
                       semester: semestreModel ??
-                          SemestreModel(
-                              name: "default semester",
-                              url: Dartus.currentSemester())))
+                          Semester(
+                              "default semester", Dartus.currentSemester())))
                   .schoolSubjectModel!;
           for (var i in newTeachingUnits) {
-            SchoolSubjectModel teachingUnitModel =
+            TeachingUnit teachingUnitModel =
                 teachingUnits.firstWhere((element) => element == i);
             for (var x in i.grades) {
               if (!teachingUnitModel.grades.any((element) => element == x)) {
                 await NotificationLogic.showNotification(
                     title: "Nouvelles notes",
                     body:
-                        "Vous avez eu ${x.gradeNumerator}/${x.gradeDenominator} en : ${i.name}",
+                        "Vous avez eu ${x.numerator}/${x.denominator} en : ${i.name}",
                     payload: "newGrades");
               }
             }
           }
 
-          await CacheService.set<SchoolSubjectModelWrapper>(
-              SchoolSubjectModelWrapper(teachingUnits, semestreIndex ?? 0));
+          await CacheService.set<TeachingUnitList>(
+              TeachingUnitList(teachingUnits, semestreIndex ?? 0));
         }
         if (settings.newMailNotification) {
-          List<EmailModel> emails = [];
-          List<MailBoxModel> mailBoxes = [];
-          if (await CacheService.exist<MailBoxWrapper>()) {
-            mailBoxes = (await CacheService.get<MailBoxWrapper>())!.mailBoxes;
-            emails = mailBoxes
+          List<Mail> email = [];
+          List<MailBox> mailBoxes = [];
+          if (await CacheService.exist<MailBoxList>()) {
+            mailBoxes = (await CacheService.get<MailBoxList>())!.mailBoxes;
+            email = mailBoxes
                 .firstWhere(
                     (element) => element.specialMailBox == SpecialMailBox.inbox)
                 .emails;
           }
-          Lyon1Mail mail = await EmailLogic.connect(
+          Lyon1Mail mail = await MailLogic.connect(
               username: auth.username, password: auth.password);
-          List<EmailModel> newEmails = (await EmailLogic.load(
+          List<Mail> newMails = (await MailLogic.load(
                   mailClient: mail, emailNumber: 20, blockTrackers: true))
               .emails;
-          for (var i in newEmails) {
+          for (var i in newMails) {
             if (!i.isRead &&
-                !emails.any((element) {
+                !email.any((element) {
                   return element == i;
                 })) {
               await NotificationLogic.showNotification(
@@ -102,20 +100,20 @@ void backgroundLogic() {
           mailBoxes
               .firstWhere(
                   (element) => element.specialMailBox == SpecialMailBox.inbox)
-              .emails = newEmails;
-          await CacheService.set<MailBoxWrapper>(
-              MailBoxWrapper(mailBoxes: mailBoxes));
+              .emails = newMails;
+          await CacheService.set<MailBoxList>(
+              MailBoxList(mailBoxes: mailBoxes));
         }
         if (settings.calendarUpdateNotification) {
-          List<DayModel> days = [];
-          if (await CacheService.exist<DayModelWrapper>()) {
-            days = (await CacheService.get<DayModelWrapper>())!.dayModels;
+          List<Day> days = [];
+          if (await CacheService.exist<Agenda>()) {
+            days = (await CacheService.get<Agenda>())!.days;
           }
-          List<DayModel> newDays = await AgendaLogic.load(
+          List<Day> newDays = await AgendaLogic.load(
               agendaClient:
                   Lyon1Agenda.useAuthentication(dartus.authentication),
               settings: settings);
-          List<DayModel> notifyDays = [];
+          List<Day> notifyDays = [];
           for (var i in newDays) {
             if (i.date.difference(DateTime.now()).inMilliseconds > 0 &&
                 i.date
@@ -143,7 +141,7 @@ void backgroundLogic() {
                   payload: "newEvent");
             }
           }
-          await CacheService.set<DayModelWrapper>(DayModelWrapper(newDays));
+          await CacheService.set<Agenda>(Agenda(newDays));
         }
         break;
     }

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
-class EMailSettingsWidget extends StatelessWidget {
-  const EMailSettingsWidget({Key? key}) : super(key: key);
+class MailSettingsWidget extends StatelessWidget {
+  const MailSettingsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class EMailSettingsWidget extends StatelessWidget {
       children: [
         if (Platform.isAndroid || Platform.isIOS)
           TextSwitchWidget(
-            text: 'Notification en cas de nouveau Emails',
+            text: 'Notification en cas de nouveau Mails',
             value: context
                 .read<SettingsCubit>()
                 .state

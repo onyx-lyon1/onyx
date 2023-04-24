@@ -1,7 +1,11 @@
+import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:izlyclient/izlyclient.dart';
+import 'package:lyon1agenda/lyon1agenda.dart';
+import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
@@ -125,11 +129,11 @@ class _SettingsPageState extends State<SettingsPage> {
                             context.read<IzlyCubit>().disconnect();
                             Hive.deleteBoxFromDisk("cached_qr_code");
                             Hive.deleteBoxFromDisk("cached_izly_amount");
-                            CacheService.reset<IzlyQrCodeModelWrapper>();
-                            CacheService.reset<MailBoxWrapper>();
-                            CacheService.reset<DayModelWrapper>();
-                            CacheService.reset<SchoolSubjectModelWrapper>();
-                            CacheService.reset<AuthenticationModel>();
+                            CacheService.reset<IzlyQrCodeList>();
+                            CacheService.reset<MailBoxList>();
+                            CacheService.reset<Agenda>();
+                            CacheService.reset<TeachingUnitList>();
+                            CacheService.reset<Authentication>();
                             CacheService.reset<SettingsModel>();
                             context.read<AgendaCubit>().resetCubit();
                             context.read<IzlyCubit>().resetCubit();
@@ -150,7 +154,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         textColor: Colors.white70,
                         child: const Text('Vider le cache des notes'),
                         onPressed: () {
-                          CacheService.reset<SchoolSubjectModelWrapper>();
+                          CacheService.reset<TeachingUnitList>();
                           context.read<TomussCubit>().load(
                               dartus: context
                                   .read<AuthentificationCubit>()
@@ -167,7 +171,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         textColor: Colors.white70,
                         child: const Text('Vider le cache de l\'agenda'),
                         onPressed: () {
-                          CacheService.reset<DayModelWrapper>();
+                          CacheService.reset<Agenda>();
                           context.read<AgendaCubit>().load(
                               dartus: context
                                   .read<AuthentificationCubit>()
@@ -184,7 +188,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         textColor: Colors.white70,
                         child: const Text('Vider le cache des mails'),
                         onPressed: () {
-                          CacheService.reset<MailBoxWrapper>();
+                          CacheService.reset<MailBoxList>();
                           context.read<EmailCubit>().load(
                               cache: false,
                               blockTrackers: context
@@ -200,7 +204,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         textColor: Colors.white70,
                         child: const Text('Vider le cache de Izly'),
                         onPressed: () {
-                          CacheService.reset<IzlyQrCodeModelWrapper>();
+                          CacheService.reset<IzlyQrCodeList>();
                           CacheService.reset<IzlyCredential>();
                           Hive.deleteBoxFromDisk("cached_qr_code");
                           Hive.deleteBoxFromDisk("cached_izly_amount");

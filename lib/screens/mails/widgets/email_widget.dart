@@ -1,12 +1,13 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 
-class EmailWidget extends StatelessWidget {
-  final EmailModel email;
+class MailWidget extends StatelessWidget {
+  final Mail email;
 
   Color unreadText1Color(BuildContext c) {
     return Theme.of(c).textTheme.bodyLarge!.color!;
@@ -36,7 +37,7 @@ class EmailWidget extends StatelessWidget {
     return Theme.of(c).primaryColor.withOpacity(0.7);
   }
 
-  const EmailWidget({Key? key, required this.email}) : super(key: key);
+  const MailWidget({Key? key, required this.email}) : super(key: key);
 
   String _firstLetter(String sender) {
     return sender.isNotEmpty ? sender[0] : '-';
@@ -72,26 +73,22 @@ class EmailWidget extends StatelessWidget {
               from: context.read<EmailCubit>().state.currentMailBox!,
             );
       },
-      openBuilder: (context, closeContainer) => EmailDetailsPage(
+      openBuilder: (context, closeContainer) => MailDetailsPage(
         mail: email,
       ),
       closedBuilder: (context, openContainer) => InkWell(
         onTap: () {
-          if (context.read<EmailCubit>().state.selectedEmails.isNotEmpty) {
-            context.read<EmailCubit>().toggleEmailSelection(email: email);
+          if (context.read<EmailCubit>().state.selectedMails.isNotEmpty) {
+            context.read<EmailCubit>().toggleMailSelection(emails: email);
           } else {
             openContainer();
           }
         },
         onLongPress: () {
-          context.read<EmailCubit>().selectEmail(email: email);
+          context.read<EmailCubit>().selectMail(email: email);
         },
         child: ListTile(
-            leading: (context
-                    .read<EmailCubit>()
-                    .state
-                    .selectedEmails
-                    .isNotEmpty)
+            leading: (context.read<EmailCubit>().state.selectedMails.isNotEmpty)
                 ? Container(
                     height: 10.w,
                     width: 10.w,
@@ -101,13 +98,13 @@ class EmailWidget extends StatelessWidget {
                         onTap: () {
                           context
                               .read<EmailCubit>()
-                              .toggleEmailSelection(email: email);
+                              .toggleMailSelection(emails: email);
                         },
                         child: Icon(
                           context
                                   .read<EmailCubit>()
                                   .state
-                                  .selectedEmails
+                                  .selectedMails
                                   .contains(email)
                               ? Icons.check_box
                               : Icons.check_box_outline_blank,
@@ -126,7 +123,7 @@ class EmailWidget extends StatelessWidget {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(100),
                         onTap: () {
-                          context.read<EmailCubit>().selectEmail(email: email);
+                          context.read<EmailCubit>().selectMail(email: email);
                         },
                         child: Padding(
                           padding: EdgeInsets.only(top: 1.5.w),
@@ -195,7 +192,7 @@ class EmailWidget extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  key: Key("email flag ${email.id}"),
+                  key: Key("Mail flag ${email.id}"),
                   onPressed: () {
                     context.read<EmailCubit>().toggleFlag(
                           email: email,

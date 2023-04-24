@@ -31,7 +31,7 @@ class SettingsModel {
   @HiveField(8)
   late int? agendaId;
 
-  //email
+  //Mail
   @HiveField(9)
   late bool newMailNotification;
   @HiveField(10)

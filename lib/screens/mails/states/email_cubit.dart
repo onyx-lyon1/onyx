@@ -8,9 +8,11 @@ import 'package:path_provider/path_provider.dart';
 
 part 'email_state.dart';
 
+//TODO add the parameter for tracking image due to new Mail lia
+
 class EmailCubit extends Cubit<EmailState> {
   Lyon1Mail? mailClient;
-  List<MailBoxModel> emailsBoxesComplete = [];
+  List<MailBox> emailsBoxesComplete = [];
   int currentMailBoxIndex = 0;
   late String username;
   late String password;
@@ -20,9 +22,9 @@ class EmailCubit extends Cubit<EmailState> {
   EmailCubit() : super(EmailState());
 
   void connect({required String? username, required String? password}) async {
-    emit(state.copyWith(status: EmailStatus.connecting, connected: false));
+    emit(state.copyWith(status: MailStatus.connecting, connected: false));
     emailsBoxesComplete = await compute(
-        EmailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
+        MailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
     if (emailsBoxesComplete.isNotEmpty) {
       currentMailBoxIndex = emailsBoxesComplete.indexWhere(
         (element) => element.specialMailBox == SpecialMailBox.inbox,
@@ -30,7 +32,7 @@ class EmailCubit extends Cubit<EmailState> {
       emit(
         state.copyWith(
             mailBoxes: emailsBoxesComplete,
-            status: EmailStatus.cacheLoaded,
+            status: MailStatus.cacheLoaded,
             currentMailBox: emailsBoxesComplete[currentMailBoxIndex]),
       );
     }
@@ -40,10 +42,11 @@ class EmailCubit extends Cubit<EmailState> {
         username = username;
         password = password;
         mailClient =
-            await EmailLogic.connect(username: username, password: password);
-        emit(state.copyWith(status: EmailStatus.connected, connected: true));
+            await MailLogic.connect(username: username, password: password);
+        emit(state.copyWith(status: MailStatus.connected, connected: true));
       } catch (e) {
-        emit(state.copyWith(status: EmailStatus.error));
+        if (kDebugMode) print("error: $e");
+        emit(state.copyWith(status: MailStatus.error));
       }
     }
   }
@@ -51,15 +54,15 @@ class EmailCubit extends Cubit<EmailState> {
   void load(
       {bool cache = true,
       required bool blockTrackers,
-      MailBoxModel? mailbox}) async {
-    emit(state.copyWith(status: EmailStatus.loading));
+      MailBox? mailbox}) async {
+    emit(state.copyWith(status: MailStatus.loading));
     if (cache && !Res.mock) {
-      List<MailBoxModel> emailCache = await compute(EmailLogic.cacheLoad,
-          (await getApplicationDocumentsDirectory()).path);
+      List<MailBox> emailCache = await compute(
+          MailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
       if (emailCache.isNotEmpty &&
           !listEquals(emailCache, emailsBoxesComplete)) {
         emailsBoxesComplete = emailCache;
-        late MailBoxModel currentMailBox;
+        late MailBox currentMailBox;
         if (mailbox != null) {
           if (mailbox.specialMailBox != null) {
             currentMailBoxIndex = emailsBoxesComplete.indexWhere(
@@ -77,19 +80,14 @@ class EmailCubit extends Cubit<EmailState> {
         }
         emit(state.copyWith(
             mailBoxes: emailsBoxesComplete,
-            status: EmailStatus.cacheLoaded,
+            status: MailStatus.cacheLoaded,
             currentMailBox: currentMailBox));
         filter(filter: lastFilter);
       }
     }
     try {
-      List<MailBoxModel> emailBoxes =
-          await EmailLogic.getMailboxes(mailClient: mailClient!);
-      //ensure that there is a sending box
-      if (emailBoxes.indexWhere((element) => element.name == "Boîte d'envoi") !=
-          -1) {
-        emailBoxes.add(MailBoxModel(name: "Boîte d'envoi", emails: []));
-      }
+      List<MailBox> emailBoxes = await mailClient!.getMailboxes();
+
       for (var i in emailBoxes) {
         if (emailsBoxesComplete
                 .indexWhere((element) => element.name == i.name) ==
@@ -98,8 +96,8 @@ class EmailCubit extends Cubit<EmailState> {
         }
       }
       emit(state.copyWith(
-          mailBoxes: emailsBoxesComplete, status: EmailStatus.mailboxesLoaded));
-      MailBoxModel loadedMail = (await EmailLogic.load(
+          mailBoxes: emailsBoxesComplete, status: MailStatus.mailboxesLoaded));
+      MailBox loadedMail = (await MailLogic.load(
         emailNumber: emailNumber,
         mailClient: mailClient!,
         blockTrackers: blockTrackers,
@@ -109,36 +107,23 @@ class EmailCubit extends Cubit<EmailState> {
           element.name == loadedMail.name ||
           element.specialMailBox == loadedMail.specialMailBox);
       if (index != -1) {
-        emailsBoxesComplete[index].emails = loadedMail.emails;
+        emailsBoxesComplete[index] =
+            emailsBoxesComplete[index].copyWith.emails(loadedMail.emails);
       }
     } catch (e) {
       if (kDebugMode) {
         print("error: $e");
       }
-      emit(state.copyWith(status: EmailStatus.error));
+      emit(state.copyWith(status: MailStatus.error));
       return;
     }
 
-    final List<ActionModel> actions =
-        (await CacheService.get<ActionModelWrapper>())?.action ?? [];
-    for (var action in actions) {
-      if (action.type == ActionType.send ||
-          action.type == ActionType.reply ||
-          action.type == ActionType.forward ||
-          action.type == ActionType.replyAll) {
-        emailsBoxesComplete
-            .firstWhere((element) => element.name == "Boîte d'envoi")
-            .emails
-            .add(action.email!);
-      }
-    }
-
-    CacheService.set<MailBoxWrapper>(
-        MailBoxWrapper(mailBoxes: emailsBoxesComplete)); //await à definir
+    CacheService.set<MailBoxList>(
+        MailBoxList(mailBoxes: emailsBoxesComplete)); //await à definir
     currentMailBoxIndex = emailsBoxesComplete.indexWhere(
         (element) => element.specialMailBox == SpecialMailBox.inbox);
     emit(state.copyWith(
-        status: EmailStatus.loaded,
+        status: MailStatus.loaded,
         mailBoxes: emailsBoxesComplete,
         currentMailBox: (mailbox == null && currentMailBoxIndex != -1)
             ? emailsBoxesComplete[currentMailBoxIndex]
@@ -148,7 +133,7 @@ class EmailCubit extends Cubit<EmailState> {
 
   void filter({required String filter}) async {
     lastFilter = filter;
-    List<EmailModel> emails = [];
+    List<Mail> email = [];
     if (filter != "") {
       for (var i in emailsBoxesComplete
           .firstWhere((element) => state.currentMailBox!.name == element.name)
@@ -158,97 +143,55 @@ class EmailCubit extends Cubit<EmailState> {
             i.date.toString().toLowerCase().contains(filter.toLowerCase()) ||
             i.sender.toLowerCase().contains(filter.toLowerCase()) ||
             i.body.toLowerCase().contains(filter.toLowerCase())) {
-          emails.add(i);
+          email.add(i);
         }
       }
     } else {
-      emails = state.currentMailBox!.emails;
+      email = state.currentMailBox!.emails;
     }
     emit(state.copyWith(
-      status: (state.status == EmailStatus.cacheLoaded)
-          ? EmailStatus.cacheSorted
-          : EmailStatus.sorted,
-      currentMailBox: state.currentMailBox!..emails = emails,
+      status: (state.status == MailStatus.cacheLoaded)
+          ? MailStatus.cacheSorted
+          : MailStatus.sorted,
+      currentMailBox: state.currentMailBox!.copyWith.emails(email),
     ));
   }
 
-  void delete(
-      {required EmailModel email,
-      required bool blockTrackers,
-      required MailBoxModel from}) async {
-    ActionModel action =
-        ActionModel(type: ActionType.delete, email: email, fromMailBox: from);
-    await EmailLogic.addAction(action);
+  void delete({required Mail email, required MailBox from}) async {
+    mailClient!.addAction(
+        Action(type: ActionType.delete, mail: email, fromMailBox: from));
     emailsBoxesComplete[currentMailBoxIndex].emails.remove(email);
     emit(state.copyWith(
-        status: EmailStatus.updated,
+        status: MailStatus.updated,
         mailBoxes: emailsBoxesComplete,
         currentMailBox:
             emailsBoxesComplete[currentMailBoxIndex])); //do it locally
-    CacheService.set<MailBoxWrapper>(
-        MailBoxWrapper(mailBoxes: emailsBoxesComplete));
-    if (mailClient!.isAuthenticated) {
-      try {
-        await mailClient!.selectMailbox((await EmailLogic.mailBoxToMailLib(
-            mailClient: mailClient!, mailBoxModel: from))!);
-        await mailClient!.fetchMessages(20);
-        await mailClient!.delete(email.id!);
-        await EmailLogic.removeAction(action);
-      } catch (e) {
-        if (kDebugMode) {
-          print("error: $e");
-        }
-        emit(state.copyWith(status: EmailStatus.nonFatalError));
-      }
-    }
-    emit(state.copyWith(status: EmailStatus.updated));
+    CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
   }
 
-  void markAsRead(
-      {required EmailModel email, required MailBoxModel from}) async {
+  void markAsRead({required Mail email, required MailBox from}) async {
     if (!email.isRead) {
-      ActionModel action = ActionModel(
-          type: ActionType.markAsRead, email: email, fromMailBox: from);
-      await EmailLogic.addAction(action);
+      mailClient!.addAction(
+          Action(type: ActionType.markAsRead, mail: email, fromMailBox: from));
       int index =
           emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email);
       if (index == -1) return;
-      emailsBoxesComplete[currentMailBoxIndex].emails[index].isRead = true;
-      CacheService.set<MailBoxWrapper>(
-          MailBoxWrapper(mailBoxes: emailsBoxesComplete));
+      emailsBoxesComplete[currentMailBoxIndex].emails[index] =
+          emailsBoxesComplete[currentMailBoxIndex].emails[index].copyWith(
+                isRead: true,
+              );
+      CacheService.set<MailBoxList>(
+          MailBoxList(mailBoxes: emailsBoxesComplete));
       emit(state.copyWith(
-          status: EmailStatus.updated,
+          status: MailStatus.updated,
           mailBoxes: emailsBoxesComplete,
           currentMailBox: emailsBoxesComplete[currentMailBoxIndex]));
-
-      if (!mailClient!.isAuthenticated && !Res.mock) {
-        if (!await mailClient!.login()) {
-          emit(state.copyWith(status: EmailStatus.nonFatalError));
-          return;
-        }
-      }
-      if (!Res.mock) {
-        try {
-          await mailClient!.selectMailbox((await EmailLogic.mailBoxToMailLib(
-              mailClient: mailClient!, mailBoxModel: from))!);
-          await mailClient!.fetchMessages(1);
-          await mailClient!.markAsRead(email.id!);
-          await EmailLogic.removeAction(action);
-        } catch (e) {
-          if (kDebugMode) {
-            print("error: $e");
-          }
-          emit(state.copyWith(status: EmailStatus.nonFatalError));
-        }
-      }
     }
   }
 
-  Future<void> archive(
-      {required EmailModel email, required MailBoxModel from}) async {
-    ActionModel action =
-        ActionModel(type: ActionType.archive, email: email, fromMailBox: from);
-    await EmailLogic.addAction(action);
+  Future<void> archive({required Mail email, required MailBox from}) async {
+    mailClient!.addAction(
+        Action(type: ActionType.archive, mail: email, fromMailBox: from));
 
     emailsBoxesComplete[currentMailBoxIndex].emails.remove(email);
     int index = emailsBoxesComplete.indexWhere(
@@ -256,118 +199,60 @@ class EmailCubit extends Cubit<EmailState> {
     if (index != -1) {
       emailsBoxesComplete[index].emails.add(email);
     } else {
-      emailsBoxesComplete.add(MailBoxModel(
+      emailsBoxesComplete.add(MailBox(
           name: "Archive",
           specialMailBox: SpecialMailBox.archive,
           emails: [email]));
     }
-    CacheService.set<MailBoxWrapper>(
-        MailBoxWrapper(mailBoxes: emailsBoxesComplete));
+    CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
     emit(state.copyWith(
-        status: EmailStatus.updated,
+        status: MailStatus.updated,
         mailBoxes: emailsBoxesComplete,
         currentMailBox:
             emailsBoxesComplete[currentMailBoxIndex])); //do it locally
-
-    if (!mailClient!.isAuthenticated && !Res.mock) {
-      if (!await mailClient!.login()) {
-        emit(state.copyWith(status: EmailStatus.nonFatalError));
-        return;
-      }
-    }
-    try {
-      await EmailLogic.archiveEmail(
-          mailClient: mailClient!, email: email, from: from);
-      await EmailLogic.removeAction(action);
-    } catch (e) {
-      if (kDebugMode) {
-        print("error: $e");
-      }
-      emit(state.copyWith(status: EmailStatus.nonFatalError));
-    }
   }
 
   Future<void> move(
-      {required EmailModel email,
-      required MailBoxModel folder,
-      required MailBoxModel from}) async {
-    ActionModel action = ActionModel(
+      {required Mail email,
+      required MailBox folder,
+      required MailBox from}) async {
+    mailClient!.addAction(Action(
         type: ActionType.move,
-        email: email,
-        destinationMailBox: folder,
-        fromMailBox: from);
-    await EmailLogic.addAction(action);
+        mail: email,
+        fromMailBox: from,
+        destinationMailBox: folder));
 
     emailsBoxesComplete[currentMailBoxIndex].emails.remove(email);
     emailsBoxesComplete[emailsBoxesComplete.indexOf(folder)].emails.add(email);
-    CacheService.set<MailBoxWrapper>(
-        MailBoxWrapper(mailBoxes: emailsBoxesComplete));
+    CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
     emit(state.copyWith(
-        status: EmailStatus.updated,
+        status: MailStatus.updated,
         mailBoxes: emailsBoxesComplete,
         currentMailBox:
             emailsBoxesComplete[currentMailBoxIndex])); //do it locally
-
-    if (!mailClient!.isAuthenticated && !Res.mock) {
-      if (!await mailClient!.login()) {
-        emit(state.copyWith(status: EmailStatus.error));
-        return;
-      }
-    }
-    try {
-      await EmailLogic.moveEmail(
-          mailClient: mailClient!,
-          email: email,
-          destinationMailbox: folder,
-          from: from);
-      await EmailLogic.removeAction(action);
-    } catch (e) {
-      emit(state.copyWith(status: EmailStatus.nonFatalError));
-    }
   }
 
-  void markAsUnread(
-      {required EmailModel email, required MailBoxModel from}) async {
+  void markAsUnread({required Mail email, required MailBox from}) async {
     if (email.isRead) {
-      ActionModel action = ActionModel(
-          type: ActionType.markAsUnread, email: email, fromMailBox: from);
-      await EmailLogic.addAction(action);
+      mailClient!.addAction(Action(
+          type: ActionType.markAsUnread, mail: email, fromMailBox: from));
       int index =
           emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email);
       if (index == -1) return;
-      emailsBoxesComplete[currentMailBoxIndex].emails[index].isRead = false;
-      CacheService.set<MailBoxWrapper>(
-          MailBoxWrapper(mailBoxes: emailsBoxesComplete));
+      emailsBoxesComplete[currentMailBoxIndex].emails[index] =
+          emailsBoxesComplete[currentMailBoxIndex].emails[index].copyWith(
+                isRead: false,
+              );
+      CacheService.set<MailBoxList>(
+          MailBoxList(mailBoxes: emailsBoxesComplete));
       emit(state.copyWith(
-          status: EmailStatus.updated,
+          status: MailStatus.updated,
           mailBoxes: emailsBoxesComplete,
           currentMailBox: emailsBoxesComplete[currentMailBoxIndex]));
-
-      if (!mailClient!.isAuthenticated && !Res.mock) {
-        if (!await mailClient!.login()) {
-          emit(state.copyWith(status: EmailStatus.nonFatalError));
-          return;
-        }
-      }
-      if (!Res.mock) {
-        try {
-          await mailClient!.selectMailbox((await EmailLogic.mailBoxToMailLib(
-              mailClient: mailClient!, mailBoxModel: from))!);
-          await mailClient!.fetchMessages(1);
-          await mailClient!.markAsUnread(email.id!);
-          await EmailLogic.removeAction(action);
-        } catch (e) {
-          if (kDebugMode) {
-            print("error: $e");
-          }
-          emit(state.copyWith(status: EmailStatus.nonFatalError));
-        }
-      }
     }
   }
 
-  void toggleFlag(
-      {required EmailModel email, required MailBoxModel from}) async {
+  void toggleFlag({required Mail email, required MailBox from}) async {
     if (email.isFlagged) {
       unflag(email: email, from: from);
     } else {
@@ -375,151 +260,91 @@ class EmailCubit extends Cubit<EmailState> {
     }
   }
 
-  void flag({required EmailModel email, required MailBoxModel from}) async {
-    ActionModel action =
-        ActionModel(type: ActionType.flag, email: email, fromMailBox: from);
-    await EmailLogic.addAction(action);
+  void flag({required Mail email, required MailBox from}) async {
+    mailClient!.addAction(
+        Action(type: ActionType.flag, mail: email, fromMailBox: from));
     int index = emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email);
     if (index == -1) return;
-    emailsBoxesComplete[currentMailBoxIndex].emails[index].isFlagged = true;
-    CacheService.set<MailBoxWrapper>(
-        MailBoxWrapper(mailBoxes: emailsBoxesComplete));
+    emailsBoxesComplete[currentMailBoxIndex].emails[index] =
+        emailsBoxesComplete[currentMailBoxIndex].emails[index].copyWith(
+              isFlagged: true,
+            );
+    CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
     emit(state.copyWith(
-        status: EmailStatus.updated,
+        status: MailStatus.updated,
         mailBoxes: emailsBoxesComplete,
         currentMailBox: emailsBoxesComplete[currentMailBoxIndex]));
-
-    if (!mailClient!.isAuthenticated && !Res.mock) {
-      if (!await mailClient!.login()) {
-        emit(state.copyWith(status: EmailStatus.nonFatalError));
-        return;
-      }
-    }
-    if (!Res.mock) {
-      try {
-        await mailClient!.selectMailbox((await EmailLogic.mailBoxToMailLib(
-            mailClient: mailClient!, mailBoxModel: from))!);
-        await mailClient!.fetchMessages(1);
-        await mailClient!.unmarkAsFlagged(email.id!);
-        await EmailLogic.removeAction(action);
-      } catch (e) {
-        if (kDebugMode) {
-          print("error: $e");
-        }
-        emit(state.copyWith(status: EmailStatus.nonFatalError));
-      }
-    }
   }
 
   void unflag({
-    required EmailModel email,
-    required MailBoxModel from,
+    required Mail email,
+    required MailBox from,
   }) async {
-    ActionModel action =
-        ActionModel(type: ActionType.unflag, email: email, fromMailBox: from);
-    await EmailLogic.addAction(action);
+    mailClient!.addAction(
+        Action(type: ActionType.unflag, mail: email, fromMailBox: from));
     int index = emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email);
     if (index == -1) return;
-    emailsBoxesComplete[currentMailBoxIndex].emails[index].isFlagged = false;
-    CacheService.set<MailBoxWrapper>(
-        MailBoxWrapper(mailBoxes: emailsBoxesComplete));
+    emailsBoxesComplete[currentMailBoxIndex].emails[index] =
+        emailsBoxesComplete[currentMailBoxIndex].emails[index].copyWith(
+              isFlagged: false,
+            );
+    CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
     emit(state.copyWith(
-        status: EmailStatus.updated,
+        status: MailStatus.updated,
         mailBoxes: emailsBoxesComplete,
         currentMailBox: emailsBoxesComplete[currentMailBoxIndex]));
     if (!mailClient!.isAuthenticated && !Res.mock) {
       if (!await mailClient!.login()) {
-        emit(state.copyWith(status: EmailStatus.nonFatalError));
+        emit(state.copyWith(status: MailStatus.nonFatalError));
         return;
-      }
-    }
-    if (!Res.mock) {
-      try {
-        await mailClient!.selectMailbox((await EmailLogic.mailBoxToMailLib(
-            mailClient: mailClient!, mailBoxModel: from))!);
-        await mailClient!.fetchMessages(1);
-        await mailClient!.markAsFlagged(email.id!);
-        await EmailLogic.removeAction(action);
-      } catch (e) {
-        if (kDebugMode) {
-          print("error: $e");
-        }
-        emit(state.copyWith(status: EmailStatus.nonFatalError));
       }
     }
   }
 
   void send({
-    required EmailModel email,
+    required Mail email,
     int? replyOriginalMessageId,
     bool? replyAll,
     bool reply = false,
     bool forward = false,
-    required MailBoxModel from,
+    required MailBox from,
   }) async {
-    ActionModel action = ActionModel(
+    Action action = Action(
         type: (reply)
             ? ActionType.reply
             : ((forward) ? ActionType.forward : ActionType.send),
-        email: email,
+        mail: email,
         fromMailBox: from,
         originalMessageId: replyOriginalMessageId,
         replyAll: replyAll);
-    await EmailLogic.addAction(action);
-    emailsBoxesComplete
-        .firstWhere((element) => element.name == "Boîte d'envoi")
-        .emails
-        .add(action.email!);
-    CacheService.set<MailBoxWrapper>(
-        MailBoxWrapper(mailBoxes: emailsBoxesComplete));
-    if (state.status != EmailStatus.sending) {
-      emit(state.copyWith(status: EmailStatus.sending));
-      try {
-        await EmailLogic.send(
-          email: email,
-          mailClient: mailClient!,
-          originalMessageId: replyOriginalMessageId,
-          replyAll: replyAll,
-          forward: forward,
-          reply: reply,
-          from: from,
-          emailNumber: emailNumber,
-        );
-        await EmailLogic.removeAction(action);
-      } catch (e) {
-        emit(state.copyWith(status: EmailStatus.error));
-        return;
-      }
-
-      emit(state.copyWith(status: EmailStatus.sended));
-    }
+    mailClient!.addAction(action);
   }
 
-  void selectEmail({required EmailModel email}) {
+  void selectMail({required Mail email}) {
     emit(state.copyWith(
-        selectedEmails: List.from(state.selectedEmails)..add(email)));
+        selectedMails: List.from(state.selectedMails)..add(email)));
   }
 
-  void unselectEmail({required EmailModel email}) {
+  void unselectMail({required Mail emails}) {
     emit(state.copyWith(
-        selectedEmails: List.from(state.selectedEmails)..remove(email)));
+        selectedMails: List.from(state.selectedMails)..remove(emails)));
   }
 
-  void unselectAllEmails() {
-    emit(state.copyWith(selectedEmails: []));
+  void unselectAllMails() {
+    emit(state.copyWith(selectedMails: []));
   }
 
-  void toggleEmailSelection({required EmailModel email}) {
-    if (state.selectedEmails.contains(email)) {
-      unselectEmail(email: email);
+  void toggleMailSelection({required Mail emails}) {
+    if (state.selectedMails.contains(emails)) {
+      unselectMail(emails: emails);
     } else {
-      selectEmail(email: email);
+      selectMail(email: emails);
     }
   }
 
   void increaseNumber({required bool blockTrackers}) {
     emailNumber += 20;
-    emit(state.copyWith(status: EmailStatus.loading));
+    emit(state.copyWith(status: MailStatus.loading));
     load(cache: false, blockTrackers: blockTrackers);
     return;
   }
@@ -529,72 +354,60 @@ class EmailCubit extends Cubit<EmailState> {
     emailsBoxesComplete = [];
     emailNumber = 20;
     lastFilter = "";
-    emit(EmailState(status: EmailStatus.initial));
+    emit(EmailState(status: MailStatus.initial));
   }
 
   void doQueuedAction({required bool blockTrackers}) async {
-    final List<ActionModel> actions =
-        (await CacheService.get<ActionModelWrapper>())?.action ?? [];
+    final List<Action> actions = await mailClient!.getActions();
     if (actions.isEmpty || !state.connected) return;
-    for (ActionModel action in actions) {
+    for (Action action in actions) {
       if (kDebugMode) {
         print("action: $action");
       }
       currentMailBoxIndex = emailsBoxesComplete
-          .indexWhere((element) => element.name == action.fromMailBox.name);
+          .indexWhere((element) => element.name == action.fromMailBox!.name);
       switch (action.type) {
         case ActionType.archive:
-          archive(email: action.email!, from: action.fromMailBox);
+          archive(email: action.mail, from: action.fromMailBox!);
           break;
         case ActionType.move:
           move(
-              email: action.email!,
+              email: action.mail,
               folder: action.destinationMailBox!,
-              from: action.fromMailBox);
+              from: action.fromMailBox!);
           break;
         case ActionType.markAsUnread:
-          markAsUnread(email: action.email!, from: action.fromMailBox);
+          markAsUnread(email: action.mail, from: action.fromMailBox!);
           break;
         case ActionType.send:
-          send(email: action.email!, from: action.fromMailBox);
+          send(email: action.mail, from: action.fromMailBox!);
           break;
         case ActionType.markAsRead:
-          markAsRead(email: action.email!, from: action.fromMailBox);
+          markAsRead(email: action.mail, from: action.fromMailBox!);
           break;
         case ActionType.reply:
           send(
-              email: action.email!,
+              email: action.mail,
               replyOriginalMessageId: action.originalMessageId!,
               replyAll: action.replyAll,
               reply: true,
-              from: action.fromMailBox);
-          break;
-        case ActionType.replyAll:
-          send(
-              email: action.email!,
-              replyOriginalMessageId: action.originalMessageId!,
-              replyAll: action.replyAll,
-              reply: true,
-              from: action.fromMailBox);
+              from: action.fromMailBox!);
           break;
         case ActionType.forward:
           send(
-              email: action.email!,
+              email: action.mail,
               replyOriginalMessageId: action.originalMessageId!,
               forward: true,
-              from: action.fromMailBox);
+              from: action.fromMailBox!);
           break;
         case ActionType.delete:
-          delete(
-              email: action.email!,
-              blockTrackers: blockTrackers,
-              from: action.fromMailBox);
+          delete(email: action.mail, from: action.fromMailBox!);
           break;
         case ActionType.flag:
-          flag(email: action.email!, from: action.fromMailBox);
+          flag(email: action.mail, from: action.fromMailBox!);
           break;
         case ActionType.unflag:
-          unflag(email: action.email!, from: action.fromMailBox);
+          unflag(email: action.mail, from: action.fromMailBox!);
           break;
       }
     }

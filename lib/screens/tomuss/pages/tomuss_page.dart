@@ -1,3 +1,4 @@
+import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,7 @@ class TomussPage extends StatefulWidget {
 }
 
 class _TomussPageState extends State<TomussPage> {
-  void showAllGrades(BuildContext context, SchoolSubjectModel schoolSubject) {
+  void showAllGrades(BuildContext context, TeachingUnit schoolSubject) {
     showMaterialModalBottomSheet(
       context: context,
       expand: false,
@@ -175,7 +176,7 @@ class _TomussPageState extends State<TomussPage> {
                         //show a dialog to select the semester
                         showDialog(
                           context: context,
-                          builder: (context) => const SemestreChooserWidget(),
+                          builder: (context) => const SemesterChooserWidget(),
                         );
                       },
                     ),

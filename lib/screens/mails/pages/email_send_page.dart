@@ -3,17 +3,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
+import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 
-class EmailSendPage extends StatelessWidget {
+class MailSendPage extends StatelessWidget {
   final int? originalMessage;
   final bool? replyAll;
   final bool reply;
   final bool forward;
 
-  const EmailSendPage(
+  const MailSendPage(
       {Key? key,
       this.replyAll,
       this.originalMessage,
@@ -51,7 +52,7 @@ class EmailSendPage extends StatelessWidget {
                     destinationEditor.value.text.contains("@") &&
                     destinationEditor.value.text.contains(".")) ||
                 (originalMessage != null && bodyHtml(controller).isNotEmpty)) {
-              EmailModel email = EmailModel(
+              Mail email = Mail(
                 subject: subjectEditor.text,
                 sender: "moi",
                 excerpt: "",
@@ -187,7 +188,7 @@ class EmailSendPage extends StatelessWidget {
                       width: 100.w,
                       child: Padding(
                         padding: EdgeInsets.all(1.h),
-                        child: EmailSendAutocompleteWidget(
+                        child: MailSendAutocompleteWidget(
                             destinationEditor: destinationEditor),
                       ),
                     )
@@ -216,7 +217,7 @@ class EmailSendPage extends StatelessWidget {
                               width: 100.w,
                               height: 75.h,
                               padding: EdgeInsets.all(1.h),
-                              child: EmailContentWidget(
+                              child: MailContentWidget(
                                   mail: context
                                       .read<EmailCubit>()
                                       .state
@@ -233,7 +234,7 @@ class EmailSendPage extends StatelessWidget {
               SizedBox(
                 height: 1.h,
               ),
-              EmailSendAttachmentWidget(attachments: attachments),
+              MailSendAttachmentWidget(attachments: attachments),
             ],
           ),
         ),

@@ -35,7 +35,7 @@ class IzlyRechargeTiersPage extends StatelessWidget {
                     child: TextField(
                       controller: emailController,
                       decoration: InputDecoration(
-                        hintText: "Email",
+                        hintText: "Mail",
                         focusedBorder: UnderlineInputBorder(
                           borderSide:
                               BorderSide(color: Theme.of(context).primaryColor),
