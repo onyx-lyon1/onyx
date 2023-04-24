@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:desktop_window/desktop_window.dart';
+import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -43,6 +44,8 @@ void main() async {
   if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
     await DesktopWindow.setWindowSize(const Size(375, 667));
   }
+
+  EquatableConfig.stringify = true;
 
   runApp(const OnyxApp());
 }

@@ -5,8 +5,8 @@ import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 
-class EmailSendAutocompleteWidget extends StatelessWidget {
-  const EmailSendAutocompleteWidget({Key? key, required this.destinationEditor})
+class MailSendAutocompleteWidget extends StatelessWidget {
+  const MailSendAutocompleteWidget({Key? key, required this.destinationEditor})
       : super(key: key);
   final TextEditingController destinationEditor;
 
@@ -15,7 +15,7 @@ class EmailSendAutocompleteWidget extends StatelessWidget {
     return RawAutocomplete<String>(
       optionsBuilder: (TextEditingValue textEditingValue) async {
         if (Res.mock) {
-          return EmailLogic.mockAddresses;
+          return MailLogic.mockAddresses;
         }
         if (!context.read<EmailCubit>().mailClient!.isAuthenticated) {
           context.read<EmailCubit>().connect(

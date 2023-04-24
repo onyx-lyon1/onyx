@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
-import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/agenda/logic/agenda_logic.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -17,7 +17,7 @@ class AgendaCubit extends Cubit<AgendaState> {
       : super(AgendaState(
             status: AgendaStatus.initial,
             wantedDate: DateTime.now(),
-            dayModels: []));
+            days: []));
 
   Future<void> load(
       {required Dartus? dartus,
@@ -25,12 +25,11 @@ class AgendaCubit extends Cubit<AgendaState> {
       bool cache = true}) async {
     emit(state.copyWith(status: AgendaStatus.loading));
     if (cache && !Res.mock) {
-      state.dayModels = await compute(
+      state.days = await compute(
         AgendaLogic.getCache,
         (await getApplicationDocumentsDirectory()).path,
       );
-      emit(state.copyWith(
-          status: AgendaStatus.cacheReady, dayModels: state.dayModels));
+      emit(state.copyWith(status: AgendaStatus.cacheReady, days: state.days));
     }
     if (!settings.fetchAgendaAuto && settings.agendaId == null) {
       emit(state.copyWith(status: AgendaStatus.haveToChooseManualy));
@@ -39,16 +38,14 @@ class AgendaCubit extends Cubit<AgendaState> {
     if (dartus != null) {
       _agendaClient = Lyon1Agenda.useAuthentication(dartus.authentication);
       try {
-        state.dayModels = await AgendaLogic.load(
+        state.days = await AgendaLogic.load(
             agendaClient: _agendaClient!, settings: settings);
       } catch (e) {
         emit(state.copyWith(status: AgendaStatus.error));
         return;
       }
-      CacheService.set<DayModelWrapper>(
-          DayModelWrapper(state.dayModels)); //await à definir
-      emit(state.copyWith(
-          status: AgendaStatus.ready, dayModels: state.dayModels));
+      CacheService.set<Agenda>(Agenda(state.days)); //await à definir
+      emit(state.copyWith(status: AgendaStatus.ready, days: state.days));
     }
   }
 
@@ -62,8 +59,6 @@ class AgendaCubit extends Cubit<AgendaState> {
 
   void resetCubit() {
     emit(AgendaState(
-        status: AgendaStatus.initial,
-        wantedDate: DateTime.now(),
-        dayModels: []));
+        status: AgendaStatus.initial, wantedDate: DateTime.now(), days: []));
   }
 }

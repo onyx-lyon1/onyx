@@ -4,10 +4,8 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../settings/settings_export.dart';
-
-class EmailHeaderWidget extends StatelessWidget {
-  const EmailHeaderWidget({
+class MailHeaderWidget extends StatelessWidget {
+  const MailHeaderWidget({
     Key? key,
   }) : super(key: key);
 
@@ -15,49 +13,44 @@ class EmailHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EmailCubit, EmailState>(
       builder: (context, state) {
-        if (state.selectedEmails.isNotEmpty) {
+        if (state.selectedMails.isNotEmpty) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
                   onPressed: () {
-                    for (var email in state.selectedEmails) {
+                    for (var email in state.selectedMails) {
                       context.read<EmailCubit>().delete(
                             email: email,
-                            blockTrackers: context
-                                .read<SettingsCubit>()
-                                .state
-                                .settings
-                                .blockTrackers,
                             from: state.currentMailBox!,
                           );
                     }
-                    context.read<EmailCubit>().unselectAllEmails();
+                    context.read<EmailCubit>().unselectAllMails();
                   },
                   icon: const Icon(Icons.delete)),
               IconButton(
                   onPressed: () {
-                    for (var email in state.selectedEmails) {
+                    for (var email in state.selectedMails) {
                       context.read<EmailCubit>().archive(
                             email: email,
                             from: state.currentMailBox!,
                           );
                     }
-                    context.read<EmailCubit>().unselectAllEmails();
+                    context.read<EmailCubit>().unselectAllMails();
                   },
                   icon: const Icon(Icons.archive)),
               IconButton(
                   onPressed: () {
                     int readedMail = 0;
                     int unreadedMail = 0;
-                    for (var email in state.selectedEmails) {
+                    for (var email in state.selectedMails) {
                       if (email.isRead) {
                         readedMail++;
                       } else {
                         unreadedMail++;
                       }
                     }
-                    for (var email in state.selectedEmails) {
+                    for (var email in state.selectedMails) {
                       if (readedMail < unreadedMail) {
                         context.read<EmailCubit>().markAsRead(
                               email: email,
@@ -70,7 +63,7 @@ class EmailHeaderWidget extends StatelessWidget {
                             );
                       }
                     }
-                    context.read<EmailCubit>().unselectAllEmails();
+                    context.read<EmailCubit>().unselectAllMails();
                   },
                   icon: const Icon(Icons.mark_email_read_rounded)),
               IconButton(
@@ -98,26 +91,26 @@ class EmailHeaderWidget extends StatelessWidget {
                             ),
                           );
                         }).then((folder) {
-                      for (var email in state.selectedEmails) {
+                      for (var email in state.selectedMails) {
                         context.read<EmailCubit>().move(
                               email: email,
                               folder: folder,
                               from: state.currentMailBox!,
                             );
                       }
-                      context.read<EmailCubit>().unselectAllEmails();
+                      context.read<EmailCubit>().unselectAllMails();
                     });
                   },
                   icon: const Icon(Icons.folder_copy_rounded)),
               IconButton(
                   onPressed: () {
-                    for (var email in state.selectedEmails) {
+                    for (var email in state.selectedMails) {
                       context.read<EmailCubit>().toggleFlag(
                             email: email,
                             from: state.currentMailBox!,
                           );
                     }
-                    context.read<EmailCubit>().unselectAllEmails();
+                    context.read<EmailCubit>().unselectAllMails();
                   },
                   icon: const Icon(Icons.flag_rounded)),
             ],

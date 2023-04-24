@@ -1,6 +1,6 @@
 import 'package:enough_mail/enough_mail.dart';
 import 'package:flutter/material.dart';
-import 'package:onyx/screens/mails/domain/model/mail_box_model.dart';
+import 'package:lyon1mail/lyon1mail.dart';
 
 extension MailBoxTag on SpecialMailBox {
   MailboxFlag toMailBoxTag() {
@@ -19,7 +19,7 @@ extension MailBoxTag on SpecialMailBox {
   }
 }
 
-extension MailBoxModelExtension on MailBoxModel {
+extension MailBoxExtension on MailBox {
   IconData toIcon() {
     switch (specialMailBox) {
       case SpecialMailBox.inbox:

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class EmailAttachmentWidget extends StatelessWidget {
-  const EmailAttachmentWidget({
+class MailAttachmentWidget extends StatelessWidget {
+  const MailAttachmentWidget({
     Key? key,
     required this.fileName,
     required this.onTap,

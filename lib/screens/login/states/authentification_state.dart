@@ -12,7 +12,7 @@ class AuthentificationState {
   final AuthentificationStatus status;
   final String? username;
   final String? password;
-  final tomusslib.Dartus? dartus;
+  final Dartus? dartus;
   final bool firstLogin;
 
   AuthentificationState(
@@ -46,7 +46,7 @@ class AuthentificationState {
     String? username,
     String? password,
     bool? keepLogedIn,
-    tomusslib.Dartus? dartus,
+    Dartus? dartus,
     bool? firstLogin,
   }) {
     return AuthentificationState(

@@ -1,14 +1,15 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 
-class EmailDetailsPage extends StatelessWidget {
-  final EmailModel mail;
+class MailDetailsPage extends StatelessWidget {
+  final Mail mail;
 
-  const EmailDetailsPage({Key? key, required this.mail}) : super(key: key);
+  const MailDetailsPage({Key? key, required this.mail}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +93,7 @@ class EmailDetailsPage extends StatelessWidget {
                       height: (mail.attachments.isNotEmpty) ? 58.h : 70.h,
                       width: 100.w,
                       padding: EdgeInsets.all(1.h),
-                      child: EmailContentWidget(mail: mail),
+                      child: MailContentWidget(mail: mail),
                     ),
                     (mail.attachments.isNotEmpty)
                         ? Container(
@@ -104,7 +105,7 @@ class EmailDetailsPage extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               itemCount: mail.attachments.length,
                               itemBuilder: (context, index) {
-                                return EmailAttachmentWidget(
+                                return MailAttachmentWidget(
                                   fileName: mail.attachments[index],
                                   onTap: () async {
                                     //save data in a file and open it
@@ -146,7 +147,7 @@ class EmailDetailsPage extends StatelessWidget {
                   OpenContainer(
                     closedColor: Colors.transparent,
                     closedElevation: 0,
-                    openBuilder: (context, closewidget) => EmailSendPage(
+                    openBuilder: (context, closewidget) => MailSendPage(
                       replyAll: false,
                       reply: true,
                       originalMessage: mail.id,
@@ -161,7 +162,7 @@ class EmailDetailsPage extends StatelessWidget {
                   OpenContainer(
                     closedColor: Colors.transparent,
                     closedElevation: 0,
-                    openBuilder: (context, closewidget) => EmailSendPage(
+                    openBuilder: (context, closewidget) => MailSendPage(
                       replyAll: true,
                       reply: true,
                       originalMessage: mail.id,
@@ -176,7 +177,7 @@ class EmailDetailsPage extends StatelessWidget {
                   OpenContainer(
                     closedColor: Colors.transparent,
                     closedElevation: 0,
-                    openBuilder: (context, closewidget) => EmailSendPage(
+                    openBuilder: (context, closewidget) => MailSendPage(
                       forward: true,
                       originalMessage: mail.id,
                     ),

@@ -1,3 +1,4 @@
+import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
@@ -9,7 +10,7 @@ class GradeListWidget extends StatelessWidget {
       required this.depth,
       required this.lastElement})
       : super(key: key);
-  final List<GradeModel> grades;
+  final List<Grade> grades;
   final int depth;
   final bool lastElement;
 
@@ -39,7 +40,7 @@ class GradeListWidget extends StatelessWidget {
                       isSeen: true,
                       text1: grades[gradeIndex].name,
                       text2:
-                          "Moyenne : ${grades[gradeIndex].average.toStringAsFixed(2)} · Mediane : ${grades[gradeIndex].mediane.toStringAsFixed(2)}\nClassement : ${grades[gradeIndex].rank + 1}/${grades[gradeIndex].groupSize}\nProfesseur : ${grades[gradeIndex].author}",
+                          "Moyenne : ${grades[gradeIndex].average.toStringAsFixed(2)} · Mediane : ${grades[gradeIndex].mediane.toStringAsFixed(2)}\nClassement : ${grades[gradeIndex].rank + 1}/${grades[gradeIndex].groupeSize}\nProfesseur : ${grades[gradeIndex].author}",
                       depth: depth,
                     ),
                   ),

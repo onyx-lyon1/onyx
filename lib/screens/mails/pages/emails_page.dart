@@ -9,8 +9,8 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
-class EmailsPage extends StatelessWidget {
-  const EmailsPage({
+class MailsPage extends StatelessWidget {
+  const MailsPage({
     Key? key,
   }) : super(key: key);
 
@@ -19,8 +19,8 @@ class EmailsPage extends StatelessWidget {
     final ScrollController scrollController = ScrollController();
     return BlocConsumer<EmailCubit, EmailState>(
       listenWhen: (previous, current) =>
-          (current.status == EmailStatus.connected ||
-              current.status == EmailStatus.loaded) &&
+          (current.status == MailStatus.connected ||
+              current.status == MailStatus.loaded) &&
           current.status != previous.status,
       listener: (context, state) {
         context.read<EmailCubit>().doQueuedAction(
@@ -29,38 +29,38 @@ class EmailsPage extends StatelessWidget {
       },
       builder: (context, state) {
         if (kDebugMode) {
-          print("EmailsState: ${state.status}");
+          print("MailsState: ${state.status}");
         }
         Widget? loadingHeader;
         switch (state.status) {
-          case EmailStatus.connecting:
+          case MailStatus.connecting:
             loadingHeader = const LoadingHeaderWidget(
-              message: "Connection au emails",
+              message: "Connection au Mails",
             );
             break;
-          case EmailStatus.loading:
-          case EmailStatus.cacheLoaded:
-          case EmailStatus.cacheSorted:
-          case EmailStatus.mailboxesLoaded:
+          case MailStatus.loading:
+          case MailStatus.cacheLoaded:
+          case MailStatus.cacheSorted:
+          case MailStatus.mailboxesLoaded:
             loadingHeader =
-                const LoadingHeaderWidget(message: "Chargement des emails");
+                const LoadingHeaderWidget(message: "Chargement des Mails");
             break;
-          case EmailStatus.error:
+          case MailStatus.error:
             loadingHeader = const LoadingHeaderWidget(
-              message: "Erreur de chargement des emails",
+              message: "Erreur de chargement des Mails",
             );
             break;
-          case EmailStatus.nonFatalError:
+          case MailStatus.nonFatalError:
             loadingHeader = const LoadingHeaderWidget(
               message: "Une erreur est survenue",
             );
             break;
-          case EmailStatus.initial:
+          case MailStatus.initial:
             context.read<EmailCubit>().connect(
                 username: context.read<AuthentificationCubit>().state.username,
                 password: context.read<AuthentificationCubit>().state.password);
             break;
-          case EmailStatus.connected:
+          case MailStatus.connected:
             context.read<EmailCubit>().load(
                   blockTrackers: context
                       .read<SettingsCubit>()
@@ -70,22 +70,22 @@ class EmailsPage extends StatelessWidget {
                 );
 
             break;
-          case EmailStatus.sending:
+          case MailStatus.sending:
             loadingHeader =
                 const LoadingHeaderWidget(message: "Envoie du mail");
             break;
-          case EmailStatus.loaded:
+          case MailStatus.loaded:
             break;
-          case EmailStatus.sended:
+          case MailStatus.sended:
             break;
-          case EmailStatus.updated:
+          case MailStatus.updated:
             break;
-          case EmailStatus.sorted:
+          case MailStatus.sorted:
             break;
         }
         return WillPopScope(
           onWillPop: () {
-            context.read<EmailCubit>().unselectAllEmails();
+            context.read<EmailCubit>().unselectAllMails();
             return Future.value(true);
           },
           child: Scaffold(
@@ -99,7 +99,7 @@ class EmailsPage extends StatelessWidget {
               closedElevation: 6,
               transitionDuration: Res.animationDuration,
               tappable: state.connected,
-              openBuilder: (context, closedContainer) => const EmailSendPage(),
+              openBuilder: (context, closedContainer) => const MailSendPage(),
               closedBuilder: (context, openContainer) => InkWell(
                 onTap: (state.connected) ? openContainer : null,
                 child: Padding(
@@ -116,7 +116,7 @@ class EmailsPage extends StatelessWidget {
             ),
             body: CommonScreenWidget(
               state: loadingHeader,
-              header: const EmailHeaderWidget(),
+              header: const MailHeaderWidget(),
               body: Stack(
                 children: [
                   Padding(
@@ -126,14 +126,14 @@ class EmailsPage extends StatelessWidget {
                       childrenDelegate:
                           SliverChildBuilderDelegate((context, index) {
                         if (index < state.currentMailBox!.emails.length) {
-                          return EmailWidget(
+                          return MailWidget(
                               email: state.currentMailBox!.emails[index]);
                         } else if ((index ==
                                 state.currentMailBox!.emails.length) &&
                             state.currentMailBox!.emails.isNotEmpty) {
                           return Material(
                             color: Theme.of(context).colorScheme.background,
-                            child: (state.status == EmailStatus.loading)
+                            child: (state.status == MailStatus.loading)
                                 ? Center(
                                     child: Padding(
                                       padding: EdgeInsets.all(5.w),
@@ -166,7 +166,7 @@ class EmailsPage extends StatelessWidget {
                       }),
                     ),
                   ),
-                  const EmailMailboxChooserWidget(),
+                  const MailMailboxChooserWidget(),
                 ],
               ),
               onRefresh: () async {

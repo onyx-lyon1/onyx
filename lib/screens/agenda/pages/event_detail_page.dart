@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
-import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:sizer/sizer.dart';
 
 class EventDetailPage extends StatefulWidget {
-  final EventModel event;
+  final Event event;
 
   const EventDetailPage({Key? key, required this.event}) : super(key: key);
 
@@ -60,7 +60,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SelectableText(
-                  widget.event.description,
+                  widget.event.name,
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!

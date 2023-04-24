@@ -4,21 +4,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/screens/mails/domain/model/email_model.dart';
+import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class EmailContentWidget extends StatefulWidget {
-  final EmailModel mail;
+class MailContentWidget extends StatefulWidget {
+  final Mail mail;
 
-  const EmailContentWidget({Key? key, required this.mail}) : super(key: key);
+  const MailContentWidget({Key? key, required this.mail}) : super(key: key);
 
   @override
-  State<EmailContentWidget> createState() => _EmailContentWidgetState();
+  State<MailContentWidget> createState() => _MailContentWidgetState();
 }
 
-class _EmailContentWidgetState extends State<EmailContentWidget> {
+class _MailContentWidgetState extends State<MailContentWidget> {
   final WebViewController webViewController = WebViewController();
 
   @override

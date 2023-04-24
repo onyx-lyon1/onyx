@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 
 class EventWidget extends StatelessWidget {
-  final EventModel event;
+  final Event event;
 
   const EventWidget({
     Key? key,
@@ -91,7 +92,7 @@ class EventWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    event.description,
+                    event.name,
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Theme.of(context).textTheme.bodyLarge!.color!,
