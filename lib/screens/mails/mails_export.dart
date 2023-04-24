@@ -1,11 +1,5 @@
-export 'domain/logic/attachment_logic.dart';
-export 'domain/logic/email_logic.dart';
-export 'domain/model/action_model.dart';
-export 'domain/model/action_model_wrapper.dart';
-export 'domain/model/action_type_model.dart';
-export 'domain/model/email_model.dart';
-export 'domain/model/mail_box_model.dart';
-export 'domain/model/mail_box_wrapper.dart';
+export 'logic/attachment_logic.dart';
+export 'logic/email_logic.dart';
 export 'pages/email_details_page.dart';
 export 'pages/email_send_page.dart';
 export 'pages/emails_page.dart';

@@ -5,6 +5,7 @@ import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/screens/settings/widgets/screen_settings/email_settings_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 extension HumanFunctionalities on Functionalities {
@@ -15,7 +16,7 @@ extension HumanFunctionalities on Functionalities {
       case Functionalities.agenda:
         return "Agenda";
       case Functionalities.mail:
-        return "Email";
+        return "Mail";
       case Functionalities.map:
         return "Carte";
       case Functionalities.izly:
@@ -49,7 +50,7 @@ extension HumanFunctionalities on Functionalities {
       case Functionalities.agenda:
         return const AgendaPage();
       case Functionalities.mail:
-        return const EmailsPage();
+        return const MailsPage();
       case Functionalities.map:
         return const MapPage();
       case Functionalities.izly:
@@ -66,7 +67,7 @@ extension HumanFunctionalities on Functionalities {
       case Functionalities.agenda:
         return AgendaBottomNavBarIcon(selected: selected);
       case Functionalities.mail:
-        return EmailBottomNavBarIcon(selected: selected);
+        return MailBottomNavBarIcon(selected: selected);
       case Functionalities.map:
         return MapBottomNavBarIcon(selected: selected);
       case Functionalities.izly:
@@ -88,7 +89,7 @@ extension HumanFunctionalities on Functionalities {
           sizeUpdate: sizeUpdate!,
         );
       case Functionalities.mail:
-        return EMailSettingsWidget(
+        return MailSettingsWidget(
           key: key,
         );
       case Functionalities.map:

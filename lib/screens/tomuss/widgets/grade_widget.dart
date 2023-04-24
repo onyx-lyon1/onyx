@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
@@ -13,7 +14,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 
 class GradeWidget extends StatefulWidget {
-  final List<GradeModel> grades;
+  final List<Grade> grades;
   final String text1;
   final String text2;
   final bool isSeen;
@@ -56,11 +57,11 @@ class _GradeWidgetState extends State<GradeWidget> {
         double coefSum = 0;
         for (var i in widget.grades) {
           Color tmpColor = _gradeColor(context, i);
-          a += tmpColor.alpha * (i.coef ?? 1.0);
-          r += tmpColor.red * (i.coef ?? 1.0);
-          g += tmpColor.green * (i.coef ?? 1.0);
-          b += tmpColor.blue * (i.coef ?? 1.0);
-          coefSum += i.coef ?? 1.0;
+          a += tmpColor.alpha * (i.coef);
+          r += tmpColor.red * (i.coef);
+          g += tmpColor.green * (i.coef);
+          b += tmpColor.blue * (i.coef);
+          coefSum += i.coef;
         }
         if (coefSum == 0) {
           coefSum = 1;
@@ -89,14 +90,14 @@ class _GradeWidgetState extends State<GradeWidget> {
     return 'background: rgb(' + b + ')' + c
   }
    */
-  Color _gradeColor(BuildContext context, GradeModel grade) {
+  Color _gradeColor(BuildContext context, Grade grade) {
     if (context.read<SettingsCubit>().state.settings.forceGreen ||
-        !grade.isValidGrade) {
+        !grade.isValid) {
       return widget.isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
     } else {
-      var x = (511 * grade.rank / grade.groupSize).floor();
+      var x = (511 * grade.rank / grade.groupeSize).floor();
       Color b = Colors.red;
-      if (grade.rank > grade.groupSize / 2) {
+      if (grade.rank > grade.groupeSize / 2) {
         b = Color.fromARGB(255, 255, 511 - x, 511 - x);
       } else {
         b = Color.fromARGB(255, x, 255, x);
@@ -110,20 +111,19 @@ class _GradeWidgetState extends State<GradeWidget> {
     double numerator = 0;
     double denominator = 0;
     if (widget.depth != 0) {
-      numerator = widget.grades.first.gradeNumerator;
-      denominator = widget.grades.first.gradeDenominator;
+      numerator = widget.grades.first.numerator;
+      denominator = widget.grades.first.denominator;
     } else {
       if (widget.grades.length == 1) {
-        denominator = widget.grades.first.gradeDenominator;
+        denominator = widget.grades.first.denominator;
       } else {
         denominator = 20;
       }
       double coefSum = 0.0;
       for (var i in widget.grades) {
-        if (!i.gradeNumerator.isNaN && !i.gradeDenominator.isNaN) {
-          numerator +=
-              (i.gradeNumerator / i.gradeDenominator) * (i.coef ?? 1.0);
-          coefSum += (i.coef ?? 1.0);
+        if (!i.numerator.isNaN && !i.denominator.isNaN) {
+          numerator += (i.numerator / i.denominator) * (i.coef);
+          coefSum += (i.coef);
         }
       }
       numerator = (numerator / ((coefSum != 0) ? coefSum : 1)) * denominator;

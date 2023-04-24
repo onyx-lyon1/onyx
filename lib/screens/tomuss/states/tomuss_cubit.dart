@@ -19,13 +19,12 @@ class TomussCubit extends Cubit<TomussState> {
       required SettingsModel settings}) async {
     emit(state.copyWith(
         status: TomussStatus.loading, currentSemesterIndex: semestreIndex));
-    List<SchoolSubjectModel> teachingUnits = [];
-    List<SemestreModel> semesters = [];
+    List<TeachingUnit> teachingUnits = [];
+    List<Semester> semesters = [];
 
-    SemestreModelWrapper? semesterModelWrapper =
-        await CacheService.get<SemestreModelWrapper>();
+    SemesterList? semesterModelWrapper = await CacheService.get<SemesterList>();
     if (semesterModelWrapper != null) {
-      semestreIndex ??= semesterModelWrapper.currentSemestreIndex;
+      semestreIndex ??= semesterModelWrapper.currentSemesterIndex;
       semesters = semesterModelWrapper.semestres;
     }
     if (cache) {
@@ -73,11 +72,11 @@ class TomussCubit extends Cubit<TomussState> {
       }
 
       teachingUnits.sort((a, b) => a.name.compareTo(b.name));
-      CacheService.set<SchoolSubjectModelWrapper>(
-          SchoolSubjectModelWrapper(teachingUnits, semestreIndex),
+      CacheService.set<TeachingUnitList>(
+          TeachingUnitList(teachingUnits, semestreIndex),
           index: semestreIndex);
-      CacheService.set<SemestreModelWrapper>(
-          SemestreModelWrapper(semesters, currentSemestreIndex: semestreIndex));
+      CacheService.set<SemesterList>(
+          SemesterList(semesters, currentSemesterIndex: semestreIndex));
       emit(state.copyWith(
         status: TomussStatus.ready,
         teachingUnits: teachingUnits,
@@ -88,11 +87,11 @@ class TomussCubit extends Cubit<TomussState> {
     }
   }
 
-  Future<void> updateCoef(GradeModel grade, double? coef) async {
-    grade.coef = coef;
+  Future<void> updateCoef(Grade grade, double? coef) async {
+    grade = grade.copyWith.coef(coef ?? 1.0);
     //save in cache
-    CacheService.set<SchoolSubjectModelWrapper>(SchoolSubjectModelWrapper(
-        state.teachingUnits, state.currentSemesterIndex));
+    CacheService.set<TeachingUnitList>(
+        TeachingUnitList(state.teachingUnits, state.currentSemesterIndex));
     emit(state.copyWith(
         status: TomussStatus.updated, teachingUnits: state.teachingUnits));
   }

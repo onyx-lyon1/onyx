@@ -75,7 +75,7 @@ class AgendaPage extends StatelessWidget {
                   .inDays));
 
           pageController = PageController(
-              initialPage: state.dayModels.indexWhere((element) =>
+              initialPage: state.days.indexWhere((element) =>
                   element.date.shrink(3) ==
                   context.read<AgendaCubit>().state.wantedDate.shrink(3)));
           return BlocListener<AgendaCubit, AgendaState>(
@@ -84,7 +84,7 @@ class AgendaPage extends StatelessWidget {
             },
             listener: (context, state) {
               if (scrollController.hasClients && pageController.hasClients) {
-                final int pageIndex = state.dayModels.indexWhere((element) =>
+                final int pageIndex = state.days.indexWhere((element) =>
                     element.date.shrink(3) == state.wantedDate.shrink(3));
                 if (!state.dateUpdateFromPageController) {
                   animating = true;
@@ -143,13 +143,12 @@ class AgendaPage extends StatelessWidget {
                           .settings
                           .showMiniCalendar &&
                       !animating) {
-                    if (context.read<AgendaCubit>().state.dayModels.length >
-                        index) {
+                    if (context.read<AgendaCubit>().state.days.length > index) {
                       context.read<AgendaCubit>().updateDisplayedDate(
                           date: context
                               .read<AgendaCubit>()
                               .state
-                              .dayModels[index]
+                              .days[index]
                               .date,
                           fromPageController: true);
                     }
@@ -158,7 +157,7 @@ class AgendaPage extends StatelessWidget {
                 children: context
                     .read<AgendaCubit>()
                     .state
-                    .dayModels
+                    .days
                     .map(
                       (day) => SizedBox(
                         height: 10,

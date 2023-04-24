@@ -7,15 +7,15 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
-class EmailMailboxChooserWidget extends StatefulWidget {
-  const EmailMailboxChooserWidget({Key? key}) : super(key: key);
+class MailMailboxChooserWidget extends StatefulWidget {
+  const MailMailboxChooserWidget({Key? key}) : super(key: key);
 
   @override
-  State<EmailMailboxChooserWidget> createState() =>
-      _EmailMailboxChooserWidgetState();
+  State<MailMailboxChooserWidget> createState() =>
+      _MailMailboxChooserWidgetState();
 }
 
-class _EmailMailboxChooserWidgetState extends State<EmailMailboxChooserWidget> {
+class _MailMailboxChooserWidgetState extends State<MailMailboxChooserWidget> {
   GlobalKey key = GlobalKey();
   late int _key;
 

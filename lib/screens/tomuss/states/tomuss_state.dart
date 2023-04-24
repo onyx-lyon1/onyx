@@ -12,11 +12,11 @@ enum TomussStatus {
 
 class TomussState {
   final TomussStatus status;
-  final List<SchoolSubjectModel> teachingUnits;
-  final List<SemestreModel> semesters;
+  final List<TeachingUnit> teachingUnits;
+  final List<Semester> semesters;
   final int currentSemesterIndex;
   final Duration? timeout;
-  final List<GradeModel> newGrades;
+  final List<Grade> newGrades;
 
   @override
   bool operator ==(Object other) =>
@@ -55,11 +55,11 @@ class TomussState {
 
   TomussState copyWith(
       {TomussStatus? status,
-      List<SchoolSubjectModel>? teachingUnits,
-      List<SemestreModel>? semesters,
+      List<TeachingUnit>? teachingUnits,
+      List<Semester>? semesters,
       int? currentSemesterIndex,
       Duration? timeout,
-      List<GradeModel>? newGrades}) {
+      List<Grade>? newGrades}) {
     return TomussState(
       status: status ?? this.status,
       teachingUnits: teachingUnits ?? this.teachingUnits,

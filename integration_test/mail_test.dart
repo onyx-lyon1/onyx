@@ -40,7 +40,7 @@ Future<void> mailTest(ConvenientTest t) async {
   await find.byIcon(Icons.flag_rounded).should(findsNWidgets(2));
   await find.byIcon(Icons.outlined_flag_rounded).should(findsNWidgets(3));
   for (int i = 1; i < 6; i++) {
-    await find.byKey(Key("email flag $i")).tap();
+    await find.byKey(Key("Mail flag $i")).tap();
   }
   await find.byIcon(Icons.flag_rounded).should(findsNWidgets(3));
   await find.byIcon(Icons.outlined_flag_rounded).should(findsNWidgets(2));

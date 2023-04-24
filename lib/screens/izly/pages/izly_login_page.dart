@@ -149,7 +149,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                         } else if (!(RegExp(
                                 r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
                             .hasMatch(value))) {
-                          return "Veuillez entrer un email valide";
+                          return "Veuillez entrer un Mail valide";
                         }
                         return null;
                       },

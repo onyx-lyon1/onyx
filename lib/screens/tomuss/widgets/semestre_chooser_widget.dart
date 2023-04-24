@@ -5,8 +5,8 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
 
-class SemestreChooserWidget extends StatelessWidget {
-  const SemestreChooserWidget({Key? key}) : super(key: key);
+class SemesterChooserWidget extends StatelessWidget {
+  const SemesterChooserWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

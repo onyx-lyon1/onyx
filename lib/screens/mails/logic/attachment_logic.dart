@@ -6,13 +6,13 @@ import 'package:path_provider/path_provider.dart';
 
 class AttachmentLogic {
   static Future<String> getAttachmentLocalPath(
-      {required EmailModel email,
+      {required Mail email,
       required Lyon1Mail mailClient,
       required int emailNumber,
       required String fileName,
-      required MailBoxModel folder}) async {
+      required MailBox folder}) async {
     if (email.rawMail == null) {
-      List<EmailModel> mails = (await EmailLogic.load(
+      List<Mail> mails = (await MailLogic.load(
               mailClient: mailClient,
               emailNumber: emailNumber,
               blockTrackers: false,
@@ -25,7 +25,7 @@ class AttachmentLogic {
     if (await file.exists()) {
       return file.path;
     } else {
-      List<int> attachment = email.rawMail!.getAttachment(fileName);
+      List<int> attachment = email.getAttachment(fileName);
       await file.writeAsBytes(attachment);
       return file.path;
     }

@@ -1,19 +1,18 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dartus/tomuss.dart' as tomusslib;
+import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:lyon1agenda/lyon1agenda.dart';
+import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/core/cache_service.dart';
-import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
-import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 part 'authentification_state.dart';
 
 class AuthentificationCubit extends Cubit<AuthentificationState> {
-  tomusslib.Dartus? _dartus;
+  Dartus? _dartus;
   late String _usename;
   late String _password;
 
@@ -27,7 +26,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
         status: AuthentificationStatus.authentificating,
         firstLogin: await AuthentificationLogic.firstLogin()));
     try {
-      AuthenticationModel auth = await AuthentificationLogic.fetchCredential(
+      Credential auth = await AuthentificationLogic.fetchCredential(
           username: username, password: password);
       _usename = auth.username;
       _password = auth.password;
@@ -73,8 +72,8 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     if (kDebugMode) {
       print("forget credential");
     }
-    Box<AuthenticationModel> authBox =
-        await Hive.openBox<AuthenticationModel>("authentification");
+    Box<Authentication> authBox =
+        await Hive.openBox<Authentication>("authentification");
     authBox.delete("credential");
   }
 
@@ -82,12 +81,12 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     if (kDebugMode) {
       print("logout");
     }
-    Box<AuthenticationModel> authBox =
-        await Hive.openBox<AuthenticationModel>("authentification");
+    Box<Authentication> authBox =
+        await Hive.openBox<Authentication>("authentification");
     authBox.delete("credential");
-    CacheService.reset<SchoolSubjectModelWrapper>();
-    CacheService.reset<DayModelWrapper>();
-    CacheService.reset<MailBoxWrapper>();
+    CacheService.reset<TeachingUnitList>();
+    CacheService.reset<Agenda>();
+    CacheService.reset<MailBoxList>();
     SettingsLogic.reset();
     _usename = "";
     _password = "";

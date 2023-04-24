@@ -6,17 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 
-class EmailSendAttachmentWidget extends StatefulWidget {
-  const EmailSendAttachmentWidget({Key? key, required this.attachments})
+class MailSendAttachmentWidget extends StatefulWidget {
+  const MailSendAttachmentWidget({Key? key, required this.attachments})
       : super(key: key);
   final List<File> attachments;
 
   @override
-  State<EmailSendAttachmentWidget> createState() =>
-      _EmailSendAttachmentWidgetState();
+  State<MailSendAttachmentWidget> createState() =>
+      _MailSendAttachmentWidgetState();
 }
 
-class _EmailSendAttachmentWidgetState extends State<EmailSendAttachmentWidget> {
+class _MailSendAttachmentWidgetState extends State<MailSendAttachmentWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +29,7 @@ class _EmailSendAttachmentWidgetState extends State<EmailSendAttachmentWidget> {
         itemCount: widget.attachments.length + 1,
         itemBuilder: (context, index) {
           if (index == 0) {
-            return EmailAttachmentWidget(
+            return MailAttachmentWidget(
               icon: Icons.add_rounded,
               fileName: "Ajouter\n une pièce jointe",
               onTap: () async {
@@ -54,7 +54,7 @@ class _EmailSendAttachmentWidgetState extends State<EmailSendAttachmentWidget> {
               },
             );
           } else {
-            return EmailAttachmentWidget(
+            return MailAttachmentWidget(
               fileName: widget.attachments[index - 1].path.split("/").last,
               onTap: () async {
                 showDialog(

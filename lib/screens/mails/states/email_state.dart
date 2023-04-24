@@ -1,6 +1,6 @@
 part of 'email_cubit.dart';
 
-enum EmailStatus {
+enum MailStatus {
   initial,
   connecting,
   connected,
@@ -18,34 +18,34 @@ enum EmailStatus {
 }
 
 class EmailState {
-  final EmailStatus status;
-  final List<MailBoxModel> mailBoxes;
-  MailBoxModel? currentMailBox;
+  final MailStatus status;
+  final List<MailBox> mailBoxes;
+  MailBox? currentMailBox;
   final int emailNumber;
   final bool connected;
-  final List<EmailModel> selectedEmails;
+  final List<Mail> selectedMails;
 
   EmailState({
-    this.status = EmailStatus.initial,
+    this.status = MailStatus.initial,
     this.mailBoxes = const [],
     this.currentMailBox,
     this.emailNumber = 20,
     this.connected = false,
-    this.selectedEmails = const [],
+    this.selectedMails = const [],
   }) {
-    currentMailBox ??= MailBoxModel(
+    currentMailBox ??= MailBox(
         name: "Boite de réception",
         specialMailBox: SpecialMailBox.inbox,
-        emails: []);
+        emails: const []);
   }
 
   EmailState copyWith({
-    EmailStatus? status,
-    List<MailBoxModel>? mailBoxes,
-    MailBoxModel? currentMailBox,
+    MailStatus? status,
+    List<MailBox>? mailBoxes,
+    MailBox? currentMailBox,
     int? emailNumber,
     bool? connected,
-    List<EmailModel>? selectedEmails,
+    List<Mail>? selectedMails,
   }) {
     return EmailState(
       status: status ?? this.status,
@@ -53,7 +53,7 @@ class EmailState {
       emailNumber: emailNumber ?? this.emailNumber,
       currentMailBox: currentMailBox ?? this.currentMailBox,
       connected: connected ?? this.connected,
-      selectedEmails: selectedEmails ?? this.selectedEmails,
+      selectedMails: selectedMails ?? this.selectedMails,
     );
   }
 }

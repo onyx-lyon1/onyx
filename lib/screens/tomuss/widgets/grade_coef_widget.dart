@@ -1,3 +1,4 @@
+import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
@@ -9,7 +10,7 @@ class GradeCoefWidget extends StatefulWidget {
     required this.grades,
   }) : super(key: key);
 
-  final List<GradeModel> grades;
+  final List<Grade> grades;
 
   @override
   State<GradeCoefWidget> createState() => _GradeCoefWidgetState();
@@ -20,7 +21,7 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
 
   @override
   void initState() {
-    _controller.text = (widget.grades.first.coef ?? "").toString();
+    _controller.text = (widget.grades.first.coef).toString();
     super.initState();
   }
 
