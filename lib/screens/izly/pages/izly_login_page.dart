@@ -1,9 +1,11 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/privacy_policie_page.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
 class IzlyLoginPage extends StatefulWidget {
@@ -219,10 +221,12 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
     );
   }
 
-  void send() async {
+  void send() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      context.read<IzlyCubit>().connect(username: username, password: password);
+      context.read<IzlyCubit>().connect(
+          credential: IzlyCredential(username: username, password: password),
+          settings: context.read<SettingsCubit>().state.settings);
     }
   }
 }

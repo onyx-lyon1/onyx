@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 
 class IzlyPage extends StatelessWidget {
@@ -26,7 +27,8 @@ class IzlyPage extends StatelessWidget {
         Widget body = Container();
         switch (state.status) {
           case IzlyStatus.initial:
-            context.read<IzlyCubit>().connect();
+            context.read<IzlyCubit>().connect(
+                settings: context.read<SettingsCubit>().state.settings);
             body = const StateDisplayingPage(
               message: "Connexion en cours",
             );
@@ -38,7 +40,8 @@ class IzlyPage extends StatelessWidget {
             break;
           case IzlyStatus.error:
             Future.delayed(const Duration(seconds: 5), () {
-              context.read<IzlyCubit>().connect();
+              context.read<IzlyCubit>().connect(
+                  settings: context.read<SettingsCubit>().state.settings);
             });
             stateWidget =
                 const StateDisplayingPage(message: "Il y a eu une erreur");
@@ -108,7 +111,8 @@ class IzlyPage extends StatelessWidget {
         return CommonScreenWidget(
           state: stateWidget,
           onRefresh: () async {
-            context.read<IzlyCubit>().connect();
+            context.read<IzlyCubit>().connect(
+                settings: context.read<SettingsCubit>().state.settings);
             while (state.status != IzlyStatus.loaded &&
                 state.status != IzlyStatus.error) {
               await Future.delayed(const Duration(milliseconds: 100));

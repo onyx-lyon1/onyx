@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:biometric_storage/biometric_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:onyx/core/res.dart';
 
 class CacheService {
+  static List<int>? secureKey;
+
   static Future<E?> get<E>({int index = 0, List<int>? secureKey}) async {
     try {
       Box<E> box = await Hive.openBox<E>("cached_$E",
@@ -55,8 +56,8 @@ class CacheService {
   }
 
   static Future<List<int>> getEncryptionKey(bool biometricAuth) async {
-    if (Res.secureKey != null) {
-      return Res.secureKey!;
+    if (secureKey != null) {
+      return secureKey!;
     }
     if (biometricAuth) {
       final canAuthentificate = await BiometricStorage().canAuthenticate();
@@ -77,7 +78,7 @@ class CacheService {
       data = base64Url.encode((Hive.generateSecureKey()));
       await storageFile.write(data);
     }
-    Res.secureKey = base64Url.decode(data);
+    secureKey = base64Url.decode(data);
     return base64Url.decode(data);
   }
 }
