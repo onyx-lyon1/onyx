@@ -7,7 +7,7 @@ class CacheService {
   static List<int>? secureKey;
 
   static Future<E?> get<E>({int index = 0, List<int>? secureKey}) async {
-    print("getting cache for $E, with key : $secureKey");
+    // print("getting cache for $E, with key : $secureKey");
     try {
       Box<E> box = await Hive.openBox<E>(
         "cached_$E",
@@ -23,7 +23,7 @@ class CacheService {
 
   static Future<void> set<E>(E data,
       {int index = 0, List<int>? secureKey}) async {
-    print("settings cache for $E, with key : $secureKey");
+    // print("settings cache for $E, with key : $secureKey");
     Box box = await Hive.openBox<E>(
       "cached_$E",
       encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
