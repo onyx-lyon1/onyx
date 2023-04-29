@@ -7,28 +7,37 @@ class CacheService {
   static List<int>? secureKey;
 
   static Future<E?> get<E>({int index = 0, List<int>? secureKey}) async {
+    print("getting cache for $E, with key : $secureKey");
     try {
-      Box<E> box = await Hive.openBox<E>("cached_$E",
-          encryptionCipher:
-              (secureKey != null) ? HiveAesCipher(secureKey) : null);
+      Box<E> box = await Hive.openBox<E>(
+        "cached_$E",
+        encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
+        crashRecovery: false,
+      );
       return box.get("cache$index");
     } catch (e) {
+      print("error while getting cache : $e");
       return null;
     }
   }
 
   static Future<void> set<E>(E data,
       {int index = 0, List<int>? secureKey}) async {
-    Box box = await Hive.openBox<E>("cached_$E",
-        encryptionCipher:
-            (secureKey != null) ? HiveAesCipher(secureKey) : null);
-    box.put("cache$index", data);
+    print("settings cache for $E, with key : $secureKey");
+    Box box = await Hive.openBox<E>(
+      "cached_$E",
+      encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
+      crashRecovery: false,
+    );
+    await box.put("cache$index", data);
   }
 
   static Future<bool> exist<E>({int index = 0, List<int>? secureKey}) async {
-    Box box = await Hive.openBox<E>("cached_$E",
-        encryptionCipher:
-            (secureKey != null) ? HiveAesCipher(secureKey) : null);
+    Box box = await Hive.openBox<E>(
+      "cached_$E",
+      encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
+      crashRecovery: false,
+    );
     return box.containsKey("cache$index");
   }
 
