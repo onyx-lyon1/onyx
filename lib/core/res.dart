@@ -8,7 +8,6 @@ class Res {
   static final double bottomNavBarItemWidth = 100.w / 5;
   static final double bottomNavBarHeight = 10.h;
   static bool mock = false;
-  static List<int>? secureKey;
 }
 
 @HiveType(typeId: 18)
