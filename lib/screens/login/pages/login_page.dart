@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
@@ -25,10 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     switch (context.read<AuthentificationCubit>().state.status) {
       case AuthentificationStatus.initial:
-        context.read<AuthentificationCubit>().login(
-            keepLogedIn:
-                context.read<SettingsCubit>().state.settings.keepMeLoggedIn);
-        return const StateDisplayingPage(message: "Start authentification");
+        //Already handled in the app.dart
+        break;
       case AuthentificationStatus.needCredential:
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
@@ -233,13 +232,8 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     Res.mock = true;
                     context.read<AuthentificationCubit>().login(
-                        username: username,
-                        password: password,
-                        keepLogedIn: context
-                            .read<SettingsCubit>()
-                            .state
-                            .settings
-                            .keepMeLoggedIn);
+                        creds: Credential(username, password),
+                        settings: context.read<SettingsCubit>().state.settings);
                   },
                   child: const Text("Découvrir l'application"),
                 ),
@@ -252,7 +246,7 @@ class _LoginPageState extends State<LoginPage> {
       case AuthentificationStatus.authentificated:
         return const StateDisplayingPage(message: "Vous êtes authentifié");
       case AuthentificationStatus.error:
-        if (context.read<AuthentificationCubit>().state.firstLogin) {
+        if (context.read<SettingsCubit>().state.settings.firstLogin) {
           Future.delayed(const Duration(seconds: 1), () {
             context.read<AuthentificationCubit>().logout();
           });
@@ -263,14 +257,12 @@ class _LoginPageState extends State<LoginPage> {
     return const StateDisplayingPage(message: "FATAL ERROR");
   }
 
-  void send() async {
+  void send() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       context.read<AuthentificationCubit>().login(
-          username: username,
-          password: password,
-          keepLogedIn:
-              context.read<SettingsCubit>().state.settings.keepMeLoggedIn);
+          creds: Credential(username, password),
+          settings: context.read<SettingsCubit>().state.settings);
     }
   }
 }

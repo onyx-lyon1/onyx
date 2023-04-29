@@ -89,23 +89,9 @@ class _TomussPageState extends State<TomussPage> {
             break;
           case TomussStatus.error:
             Future.delayed(const Duration(seconds: 3), () {
-              context
-                  .read<AuthentificationCubit>()
-                  .login(
-                      keepLogedIn: context
-                          .read<SettingsCubit>()
-                          .state
-                          .settings
-                          .keepMeLoggedIn)
-                  .then(
-                    (value) => context.read<TomussCubit>().load(
-                          dartus: context
-                              .read<AuthentificationCubit>()
-                              .state
-                              .dartus!,
-                          settings:
-                              context.read<SettingsCubit>().state.settings,
-                        ),
+              context.read<TomussCubit>().load(
+                    dartus: context.read<AuthentificationCubit>().state.dartus!,
+                    settings: context.read<SettingsCubit>().state.settings,
                   );
             });
             loadingHeader = const LoadingHeaderWidget(

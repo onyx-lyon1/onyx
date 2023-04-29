@@ -11,14 +11,14 @@ part 'settings_state.dart';
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit()
       : super(SettingsState(
-            settings: SettingsModel(), status: SettingsStatus.initial)) {
+            settings: const SettingsModel(), status: SettingsStatus.initial)) {
     load();
   }
 
   Future<void> reset() async {
     await SettingsLogic.reset();
     emit(state.copyWith(
-        status: SettingsStatus.ready, settings: SettingsModel()));
+        status: SettingsStatus.ready, settings: const SettingsModel()));
   }
 
   Future<void> load() async {
@@ -28,7 +28,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           status: SettingsStatus.ready, settings: await SettingsLogic.load()));
     } catch (e) {
       emit(state.copyWith(
-          status: SettingsStatus.error, settings: SettingsModel()));
+          status: SettingsStatus.error, settings: const SettingsModel()));
     }
     if (!(state.settings.calendarUpdateNotification &&
         state.settings.newMailNotification &&
@@ -47,7 +47,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   void resetCubit() async {
     emit(SettingsState(
-        settings: SettingsModel(), status: SettingsStatus.initial));
+        settings: const SettingsModel(), status: SettingsStatus.initial));
   }
 
   Future<void> move(
