@@ -1,0 +1,20 @@
+appId: com.onyx.lyon1
+---
+- assertVisible: "17.3\n20.0\nCompétences Numériques et Préparation PIX - Module 1\n\
+    Christian TRILLAUD"
+- assertVisible: "9.83\n/10\nTD/comp3.1/note\nCompétences Numériques et Préparation\
+    \ PIX - Module 1"
+- tapOn:
+    point: "94%,7%"
+- assertVisible: "Sélectionner un semestre"
+- tapOn:
+    point: "50%,25%"
+- tapOn:
+    point: "50%,30%"
+- tapOn:
+    text: "1.0"
+    index: 2
+- "eraseText"
+- inputText: "5.0"
+- pressKey: "Enter"
+
