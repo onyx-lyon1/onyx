@@ -86,7 +86,6 @@ class OnyxAppState extends State<OnyxApp> {
                   if (settingsState.status == SettingsStatus.ready ||
                       settingsState.status == SettingsStatus.error) {
                     if (authState.status == AuthentificationStatus.initial) {
-                      print("initial");
                       CacheService.getEncryptionKey(context
                               .read<SettingsCubit>()
                               .state
