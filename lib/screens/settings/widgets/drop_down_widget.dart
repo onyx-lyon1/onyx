@@ -19,16 +19,13 @@ class DropDownWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width - 150,
-          child: Text(
-            text,
-            softWrap: true,
-            overflow: TextOverflow.visible,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodyLarge!.color,
-              fontSize: 12,
-            ),
+        Text(
+          text,
+          softWrap: true,
+          overflow: TextOverflow.visible,
+          style: TextStyle(
+            color: Theme.of(context).textTheme.bodyLarge!.color,
+            fontSize: 12,
           ),
         ),
         DropdownButton(

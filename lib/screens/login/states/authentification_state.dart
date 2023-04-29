@@ -8,58 +8,21 @@ enum AuthentificationStatus {
   error
 }
 
-class AuthentificationState {
+class AuthentificationState extends Equatable {
   final AuthentificationStatus status;
-  final String? username;
-  final String? password;
   final Dartus? dartus;
-  final bool firstLogin;
 
-  AuthentificationState(
-      {required this.status,
-      this.username,
-      this.password,
-      this.dartus,
-      this.firstLogin = true});
+  const AuthentificationState({required this.status, this.dartus});
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AuthentificationState &&
-          runtimeType == other.runtimeType &&
-          status == other.status &&
-          username == other.username &&
-          password == other.password &&
-          dartus == other.dartus &&
-          firstLogin == other.firstLogin;
-
-  @override
-  int get hashCode =>
-      status.hashCode ^
-      username.hashCode ^
-      password.hashCode ^
-      dartus.hashCode ^
-      firstLogin.hashCode;
-
-  AuthentificationState copyWith({
-    AuthentificationStatus? status,
-    String? username,
-    String? password,
-    bool? keepLogedIn,
-    Dartus? dartus,
-    bool? firstLogin,
-  }) {
+  AuthentificationState copyWith(
+      {AuthentificationStatus? status, Dartus? dartus}) {
     return AuthentificationState(
-      status: status ?? this.status,
-      username: username ?? this.username,
-      password: password ?? this.password,
-      dartus: dartus ?? this.dartus,
-      firstLogin: firstLogin ?? this.firstLogin,
-    );
+        status: status ?? this.status, dartus: dartus ?? this.dartus);
   }
 
   @override
-  String toString() {
-    return 'AuthentificationState{status: $status, username: $username, password: $password, dartus: $dartus, firstLogin: $firstLogin}';
-  }
+  List<Object?> get props => [status, dartus];
+
+  @override
+  bool? get stringify => true;
 }

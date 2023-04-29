@@ -1,10 +1,11 @@
 import 'package:animations/animations.dart';
+import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
-import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
@@ -56,9 +57,12 @@ class MailsPage extends StatelessWidget {
             );
             break;
           case MailStatus.initial:
-            context.read<EmailCubit>().connect(
-                username: context.read<AuthentificationCubit>().state.username,
-                password: context.read<AuthentificationCubit>().state.password);
+            CacheService.getEncryptionKey(
+                    context.read<SettingsCubit>().state.settings.biometricAuth)
+                .then((key) => CacheService.get<Credential>(secureKey: key))
+                .then((value) => context.read<EmailCubit>().connect(
+                    username: value!.username, password: value.password));
+
             break;
           case MailStatus.connected:
             context.read<EmailCubit>().load(

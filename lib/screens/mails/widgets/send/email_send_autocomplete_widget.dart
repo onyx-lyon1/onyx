@@ -1,8 +1,10 @@
+import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
-import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
+import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 class MailSendAutocompleteWidget extends StatelessWidget {
@@ -18,9 +20,15 @@ class MailSendAutocompleteWidget extends StatelessWidget {
           return MailLogic.mockAddresses;
         }
         if (!context.read<EmailCubit>().mailClient!.isAuthenticated) {
-          context.read<EmailCubit>().connect(
-              username: context.read<AuthentificationCubit>().state.username!,
-              password: context.read<AuthentificationCubit>().state.password!);
+          Credential? creds = await CacheService.get<Credential>(
+              secureKey: await CacheService.getEncryptionKey(
+                  context.read<SettingsCubit>().state.settings.biometricAuth));
+          if (creds != null) {
+            // ignore: use_build_context_synchronously
+            context
+                .read<EmailCubit>()
+                .connect(username: creds.username, password: creds.password);
+          }
           return [];
         } else {
           return (await context
