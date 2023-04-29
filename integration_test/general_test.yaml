@@ -1,0 +1,15 @@
+appId: com.onyx.lyon1
+---
+- clearState
+- launchApp
+- tapOn: "Découvrir l'application"
+- runFlow: note_test.yaml
+- tapOn:
+    point: "70%,91%"
+- runFlow: agenda_test.yaml
+- swipe:
+    direction: "LEFT"
+- runFlow: mail_test.yaml
+- tapOn:
+    point: "70%,91%"
+- runFlow: settings_test.yaml

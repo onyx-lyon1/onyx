@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:biometric_storage/biometric_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class CacheService {
@@ -16,7 +17,9 @@ class CacheService {
       );
       return box.get("cache$index");
     } catch (e) {
-      print("error while getting cache : $e");
+      if (kDebugMode) {
+        print("error while getting cache : $e");
+      }
       return null;
     }
   }
