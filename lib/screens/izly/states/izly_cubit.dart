@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
+import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
+import 'package:onyx/screens/settings/domain/model/settings_model.dart';
 
 part 'izly_state.dart';
 
@@ -12,25 +14,26 @@ class IzlyCubit extends Cubit<IzlyState> {
 
   IzlyCubit() : super(IzlyState(status: IzlyStatus.initial));
 
-  void connect({String username = "", String password = ""}) async {
+  void connect(
+      {IzlyCredential? credential, required SettingsModel settings}) async {
     Box box = await Hive.openBox<double>("cached_izly_amount");
     double amount = box.get("amount") ?? 0.0;
     Uint8List qrCode = await IzlyLogic.getQrCode();
     emit(state.copyWith(
         status: IzlyStatus.connecting, qrCode: qrCode, balance: amount));
-    late IzlyCredential creds;
     try {
       if (_izlyClient == null || !(await _izlyClient!.isLogged())) {
-        creds = (await IzlyLogic.getIzlyCredential(
-            username: username, password: password));
-      }
-    } catch (e) {
-      emit(state.copyWith(status: IzlyStatus.noCredentials));
-      return;
-    }
-    try {
-      if (_izlyClient == null || !(await _izlyClient!.isLogged())) {
-        _izlyClient = IzlyClient(creds.username, creds.password);
+        credential ??= await CacheService.get<IzlyCredential>(
+            secureKey:
+                await CacheService.getEncryptionKey(settings.biometricAuth));
+        if (credential == null) {
+          emit(state.copyWith(status: IzlyStatus.noCredentials));
+          return;
+        }
+        await CacheService.set<IzlyCredential>(credential,
+            secureKey:
+                await CacheService.getEncryptionKey(settings.biometricAuth));
+        _izlyClient = IzlyClient(credential.username, credential.password);
         await _izlyClient!.login();
       }
       emit(state.copyWith(status: IzlyStatus.loading, izlyClient: _izlyClient));

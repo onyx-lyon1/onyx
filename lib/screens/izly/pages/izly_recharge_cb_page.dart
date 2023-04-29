@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:sizer/sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -151,7 +152,9 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
             ),
           ),
         ).then((value) {
-          context.read<IzlyCubit>().connect();
+          context
+              .read<IzlyCubit>()
+              .connect(settings: context.read<SettingsCubit>().state.settings);
           Navigator.pop(context);
         });
       });

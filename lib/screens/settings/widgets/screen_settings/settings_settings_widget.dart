@@ -4,8 +4,8 @@ import 'package:biometric_storage/biometric_storage.dart';
 import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/cache_service.dart';
-import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 class SettingsSettingsWidget extends StatelessWidget {
@@ -62,16 +62,28 @@ class SettingsSettingsWidget extends StatelessWidget {
                         ));
               }
               Credential? creds;
+              IzlyCredential? izlyCreds;
               try {
                 creds = await CacheService.get<Credential>(
                     secureKey: await CacheService.getEncryptionKey(!value));
               } catch (e) {
                 creds = null;
               }
+              try {
+                izlyCreds = await CacheService.get<IzlyCredential>(
+                    secureKey: await CacheService.getEncryptionKey(!value));
+              } catch (e) {
+                izlyCreds = null;
+              }
               await CacheService.reset<Credential>();
-              Res.secureKey = null;
+              await CacheService.reset<IzlyCredential>();
+              CacheService.secureKey = null;
               if (creds != null) {
                 await CacheService.set<Credential>(creds,
+                    secureKey: await CacheService.getEncryptionKey(value));
+              }
+              if (izlyCreds != null) {
+                await CacheService.set<IzlyCredential>(izlyCreds,
                     secureKey: await CacheService.getEncryptionKey(value));
               }
               context.read<SettingsCubit>().modify(

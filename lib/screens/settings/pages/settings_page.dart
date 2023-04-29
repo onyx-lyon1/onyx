@@ -192,7 +192,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           Hive.deleteBoxFromDisk("cached_qr_code");
                           Hive.deleteBoxFromDisk("cached_izly_amount");
                           context.read<IzlyCubit>().resetCubit();
-                          context.read<IzlyCubit>().connect();
+                          context.read<IzlyCubit>().connect(
+                              settings:
+                                  context.read<SettingsCubit>().state.settings);
                         },
                       )
                     ]),

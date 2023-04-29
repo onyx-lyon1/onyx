@@ -8,6 +8,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/app.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
@@ -60,6 +61,15 @@ void main() async {
       if (creds != null) {
         await CacheService.reset<Credential>();
         await CacheService.set<Credential>(creds,
+            secureKey:
+                await CacheService.getEncryptionKey(settings.biometricAuth));
+      }
+    }
+    if (await CacheService.exist<IzlyCredential>()) {
+      IzlyCredential? creds = await CacheService.get<IzlyCredential>();
+      if (creds != null) {
+        await CacheService.reset<IzlyCredential>();
+        await CacheService.set<IzlyCredential>(creds,
             secureKey:
                 await CacheService.getEncryptionKey(settings.biometricAuth));
       }

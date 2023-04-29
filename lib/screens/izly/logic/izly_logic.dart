@@ -3,20 +3,6 @@ import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/cache_service.dart';
 
 class IzlyLogic {
-  static Future<IzlyCredential> getIzlyCredential(
-      {String username = '', String password = ''}) async {
-    if (username.isEmpty || password.isEmpty) {
-      if (await CacheService.exist<IzlyCredential>()) {
-        return (await CacheService.get<IzlyCredential>())!;
-      }
-    } else {
-      await CacheService.set<IzlyCredential>(
-          IzlyCredential(username: username, password: password));
-      return IzlyCredential(username: username, password: password);
-    }
-    throw Exception("No credentials");
-  }
-
   static Future<Uint8List> getQrCode() async {
     if (!(await CacheService.exist<IzlyQrCodeList>())) {
       return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
