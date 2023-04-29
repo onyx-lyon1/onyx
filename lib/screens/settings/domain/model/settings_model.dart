@@ -1,43 +1,48 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 part 'generated/settings_model.g.dart';
 
+@CopyWith()
 @HiveType(typeId: 7)
-class SettingsModel {
-  @HiveField(0)
-  late bool keepMeLoggedIn;
+class SettingsModel extends Equatable {
+  @HiveField(15, defaultValue: true)
+  final bool firstLogin;
+  @HiveField(16, defaultValue: false)
+  final bool biometricAuth;
 
   //tomuss
   @HiveField(1)
-  late bool forceGreen;
+  final bool forceGreen;
   @HiveField(2)
-  late ThemeModeEnum themeMode;
+  final ThemeModeEnum themeMode;
   @HiveField(3)
-  late bool newGradeNotification;
+  final bool newGradeNotification;
   @HiveField(4)
-  late bool showHiddenUE;
+  final bool showHiddenUE;
   @HiveField(14, defaultValue: 7)
-  late int recentGradeDuration;
+  final int recentGradeDuration;
 
   //agenda
   @HiveField(5)
-  late bool fetchAgendaAuto;
+  final bool fetchAgendaAuto;
   @HiveField(6)
-  late bool showMiniCalendar;
+  final bool showMiniCalendar;
   @HiveField(7)
-  late bool calendarUpdateNotification;
+  final bool calendarUpdateNotification;
   @HiveField(8)
-  late int? agendaId;
+  final int? agendaId;
 
   //Mail
   @HiveField(9)
-  late bool newMailNotification;
+  final bool newMailNotification;
   @HiveField(10)
-  late bool blockTrackers;
+  final bool blockTrackers;
   @HiveField(11)
-  late bool darkerMail;
+  final bool darkerMail;
 
   @HiveField(12, defaultValue: [
     Functionalities.tomuss,
@@ -47,12 +52,12 @@ class SettingsModel {
     Functionalities.izly,
     Functionalities.map,
   ])
-  late List<Functionalities> enabledFunctionalities;
+  final List<Functionalities> enabledFunctionalities;
   @HiveField(13, defaultValue: [])
-  late List<Functionalities> disabledFunctionalities;
+  final List<Functionalities> disabledFunctionalities;
 
-  SettingsModel({
-    this.keepMeLoggedIn = true,
+  const SettingsModel({
+    this.biometricAuth = false,
     this.forceGreen = false,
     this.themeMode = ThemeModeEnum.system,
     this.newGradeNotification = true,
@@ -74,88 +79,29 @@ class SettingsModel {
     ],
     this.disabledFunctionalities = const [],
     this.recentGradeDuration = 7,
+    this.firstLogin = true,
   });
 
-  SettingsModel copyWith({
-    bool? keepMeLoggedIn,
-    bool? forceGreen,
-    ThemeModeEnum? themeMode,
-    bool? newGradeNotification,
-    bool? showHiddenUE,
-    bool? fetchAgendaAuto,
-    bool? showMiniCalendar,
-    bool? calendarUpdateNotification,
-    int? agendaId,
-    bool? newMailNotification,
-    bool? blockTrackers,
-    bool? darkerMail,
-    List<Functionalities>? enabledFunctionalities,
-    List<Functionalities>? disabledFunctionalities,
-    int? recentGradeDuration,
-  }) {
-    return SettingsModel(
-      keepMeLoggedIn: keepMeLoggedIn ?? this.keepMeLoggedIn,
-      forceGreen: forceGreen ?? this.forceGreen,
-      themeMode: themeMode ?? this.themeMode,
-      newGradeNotification: newGradeNotification ?? this.newGradeNotification,
-      showHiddenUE: showHiddenUE ?? this.showHiddenUE,
-      fetchAgendaAuto: fetchAgendaAuto ?? this.fetchAgendaAuto,
-      calendarUpdateNotification:
-          calendarUpdateNotification ?? this.calendarUpdateNotification,
-      showMiniCalendar: showMiniCalendar ?? this.showMiniCalendar,
-      agendaId: agendaId ?? this.agendaId,
-      newMailNotification: newMailNotification ?? this.newMailNotification,
-      blockTrackers: blockTrackers ?? this.blockTrackers,
-      darkerMail: darkerMail ?? this.darkerMail,
-      enabledFunctionalities:
-          enabledFunctionalities ?? this.enabledFunctionalities,
-      disabledFunctionalities:
-          disabledFunctionalities ?? this.disabledFunctionalities,
-      recentGradeDuration: recentGradeDuration ?? this.recentGradeDuration,
-    );
-  }
+  @override
+  List<Object?> get props => [
+        forceGreen,
+        themeMode,
+        newGradeNotification,
+        showHiddenUE,
+        fetchAgendaAuto,
+        showMiniCalendar,
+        calendarUpdateNotification,
+        agendaId,
+        newMailNotification,
+        blockTrackers,
+        darkerMail,
+        enabledFunctionalities,
+        disabledFunctionalities,
+        recentGradeDuration,
+        firstLogin,
+        biometricAuth,
+      ];
 
   @override
-  String toString() {
-    return 'SettingsModel{keepMeLoggedIn: $keepMeLoggedIn, forceGreen: $forceGreen, themeMode: $themeMode, newGradeNotification: $newGradeNotification, showHiddenUE: $showHiddenUE, recentGradeDuration: $recentGradeDuration, fetchAgendaAuto: $fetchAgendaAuto, showMiniCalendar: $showMiniCalendar, calendarUpdateNotification: $calendarUpdateNotification, agendaId: $agendaId, newMailNotification: $newMailNotification, blockTrackers: $blockTrackers, darkerMail: $darkerMail, enabledFunctionalities: $enabledFunctionalities, disabledFunctionalities: $disabledFunctionalities}';
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is SettingsModel &&
-          runtimeType == other.runtimeType &&
-          keepMeLoggedIn == other.keepMeLoggedIn &&
-          forceGreen == other.forceGreen &&
-          themeMode == other.themeMode &&
-          newGradeNotification == other.newGradeNotification &&
-          showHiddenUE == other.showHiddenUE &&
-          recentGradeDuration == other.recentGradeDuration &&
-          fetchAgendaAuto == other.fetchAgendaAuto &&
-          showMiniCalendar == other.showMiniCalendar &&
-          calendarUpdateNotification == other.calendarUpdateNotification &&
-          agendaId == other.agendaId &&
-          newMailNotification == other.newMailNotification &&
-          blockTrackers == other.blockTrackers &&
-          darkerMail == other.darkerMail &&
-          enabledFunctionalities == other.enabledFunctionalities &&
-          disabledFunctionalities == other.disabledFunctionalities;
-
-  @override
-  int get hashCode =>
-      keepMeLoggedIn.hashCode ^
-      forceGreen.hashCode ^
-      themeMode.hashCode ^
-      newGradeNotification.hashCode ^
-      showHiddenUE.hashCode ^
-      recentGradeDuration.hashCode ^
-      fetchAgendaAuto.hashCode ^
-      showMiniCalendar.hashCode ^
-      calendarUpdateNotification.hashCode ^
-      agendaId.hashCode ^
-      newMailNotification.hashCode ^
-      blockTrackers.hashCode ^
-      darkerMail.hashCode ^
-      enabledFunctionalities.hashCode ^
-      disabledFunctionalities.hashCode;
+  bool? get stringify => true;
 }

@@ -13,7 +13,7 @@ Future<void> hiveInit({String? path}) async {
 
   IzlyClient.registerAdapters();
   Dartus.registerAdapters();
-  Authentication.registerAdapters();
+  Authentication.registerAdapters(initHive: false);
   Lyon1Agenda.registerAdapters();
   Lyon1Mail.registerAdapters(initHive: false);
 

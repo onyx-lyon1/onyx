@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:biometric_storage/biometric_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/functionalities_to_human_export.dart';
@@ -103,6 +104,29 @@ class HomePageState extends State<HomePage> {
           },
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async {
+                bool biometricAuth =
+                    context.read<SettingsCubit>().state.settings.biometricAuth;
+                if (biometricAuth) {
+                  final canAuthentificate =
+                      await BiometricStorage().canAuthenticate();
+                  if (canAuthentificate != CanAuthenticateResponse.success) {
+                    throw "unable to store secret securly : $canAuthentificate";
+                  }
+                }
+                BiometricStorageFile storageFile = await BiometricStorage()
+                    .getStorage(
+                        "encryptionKey_${(biometricAuth) ? "biometric" : "password"})}",
+                        options: StorageFileInitOptions(
+                          androidBiometricOnly: true,
+                          authenticationValidityDurationSeconds: 30,
+                          authenticationRequired: biometricAuth,
+                        ));
+                storageFile.delete();
+              },
+              child: const Icon(Icons.delete),
+            ),
             body: SafeArea(
               child: Column(
                 children: [

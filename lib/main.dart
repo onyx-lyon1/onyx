@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dartus/tomuss.dart';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,8 +9,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:onyx/app.dart';
+import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
+import 'package:onyx/screens/settings/domain/model/settings_model.dart';
 import 'package:workmanager/workmanager.dart';
 
 void main() async {
@@ -40,12 +43,28 @@ void main() async {
       return true;
     };
   }
-  //an iphone se size
   if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
+    //an iphone se size
     await DesktopWindow.setWindowSize(const Size(375, 667));
   }
 
   EquatableConfig.stringify = true;
+
+  //Code to handle the migration to secured credentials storage
+  SettingsModel settings =
+      await CacheService.get<SettingsModel>() ?? const SettingsModel();
+  if (!(await CacheService.existEncryptionKey(settings.biometricAuth))) {
+    //migration needed
+    if (await CacheService.exist<Credential>()) {
+      Credential? creds = await CacheService.get<Credential>();
+      if (creds != null) {
+        await CacheService.reset<Credential>();
+        await CacheService.set<Credential>(creds,
+            secureKey:
+                await CacheService.getEncryptionKey(settings.biometricAuth));
+      }
+    }
+  }
 
   runApp(const OnyxApp());
 }

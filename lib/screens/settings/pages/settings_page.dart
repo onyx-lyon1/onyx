@@ -101,23 +101,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     SettingsCardWidget(
                       name: 'Connexion',
                       widgets: [
-                        TextSwitchWidget(
-                          text: 'Rester connecté',
-                          value: context
-                              .read<SettingsCubit>()
-                              .state
-                              .settings
-                              .keepMeLoggedIn,
-                          onChanged: (bool b) {
-                            context.read<SettingsCubit>().modify(
-                                settings: context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .settings
-                                    .copyWith(keepMeLoggedIn: b));
-                            context.read<AuthentificationCubit>().forget();
-                          },
-                        ),
                         const SizedBox(height: 20),
                         MaterialButton(
                           minWidth: MediaQuery.of(context).size.width,

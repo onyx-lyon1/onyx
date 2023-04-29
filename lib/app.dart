@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:lyon1mail/lyon1mail.dart';
+import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
 import 'package:onyx/core/theme/theme_export.dart';
@@ -54,30 +55,61 @@ class OnyxAppState extends State<OnyxApp> {
             BlocProvider<MapCubit>(create: (context) => MapCubit()),
             BlocProvider<IzlyCubit>(create: (context) => IzlyCubit()),
           ],
-          child: BlocConsumer<AuthentificationCubit, AuthentificationState>(
-            listenWhen: (previous, current) =>
-                previous.status != current.status,
-            listener: (context, state) {
-              if (state.status == AuthentificationStatus.authentificated) {
-                context.read<EmailCubit>().connect(
-                    username:
-                        context.read<AuthentificationCubit>().state.username!,
-                    password:
-                        context.read<AuthentificationCubit>().state.password!);
+          child: BlocBuilder<AuthentificationCubit, AuthentificationState>(
+            builder: (context, authState) {
+              if (authState.status == AuthentificationStatus.initial) {
+                CacheService.getEncryptionKey(context
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .biometricAuth)
+                    .then((key) => CacheService.get<Credential>(secureKey: key)
+                        .then((value) => context
+                            .read<AuthentificationCubit>()
+                            .login(
+                                creds: value,
+                                settings: context
+                                    .read<SettingsCubit>()
+                                    .state
+                                    .settings)));
+              }
+              if (authState.status == AuthentificationStatus.authentificated) {
+                context.read<SettingsCubit>().modify(
+                    settings: context
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .copyWith(firstLogin: false));
+                CacheService.getEncryptionKey(context
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .biometricAuth)
+                    .then((key) => CacheService.get<Credential>(secureKey: key)
+                        .then((value) => context.read<EmailCubit>().connect(
+                            username: value!.username,
+                            password: value.password)));
                 context.read<AgendaCubit>().load(
-                    dartus: state.dartus!,
+                    dartus: authState.dartus!,
                     settings: context.read<SettingsCubit>().state.settings);
                 context.read<TomussCubit>().load(
-                      dartus: state.dartus!,
+                      dartus: authState.dartus!,
                       settings: context.read<SettingsCubit>().state.settings,
                     );
               }
-            },
-            builder: (context, authState) {
               return BlocBuilder<SettingsCubit, SettingsState>(
                 builder: (context, settingsState) {
                   if (settingsState.status == SettingsStatus.ready ||
                       settingsState.status == SettingsStatus.error) {
+                    if (authState.status ==
+                        AuthentificationStatus.authentificated) {
+                      context.read<SettingsCubit>().modify(
+                          settings: context
+                              .read<SettingsCubit>()
+                              .state
+                              .settings
+                              .copyWith(firstLogin: false));
+                    }
                     return MaterialApp(
                         title: 'Onyx',
                         navigatorKey: OnyxApp.navigatorKey,
@@ -97,10 +129,7 @@ class OnyxAppState extends State<OnyxApp> {
                                         .state
                                         .status ==
                                     AuthentificationStatus.authentificating ||
-                                !context
-                                    .read<AuthentificationCubit>()
-                                    .state
-                                    .firstLogin)
+                                !settingsState.settings.firstLogin)
                             ? const HomePage()
                             : LoginPage(key: UniqueKey()));
                   } else {
