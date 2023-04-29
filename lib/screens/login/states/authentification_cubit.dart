@@ -53,7 +53,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
                 ? AuthentificationStatus.authentificated
                 : AuthentificationStatus.error,
             dartus: _dartus));
-        CacheService.set<Credential>(auth.credential,
+        await CacheService.set<Credential>(auth.credential,
           secureKey: await CacheService.getEncryptionKey(
               settings.biometricAuth),
         );

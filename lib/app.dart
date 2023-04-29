@@ -57,22 +57,6 @@ class OnyxAppState extends State<OnyxApp> {
           ],
           child: BlocBuilder<AuthentificationCubit, AuthentificationState>(
             builder: (context, authState) {
-              if (authState.status == AuthentificationStatus.initial) {
-                CacheService.getEncryptionKey(context
-                        .read<SettingsCubit>()
-                        .state
-                        .settings
-                        .biometricAuth)
-                    .then((key) => CacheService.get<Credential>(secureKey: key)
-                        .then((value) => context
-                            .read<AuthentificationCubit>()
-                            .login(
-                                creds: value,
-                                settings: context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .settings)));
-              }
               if (authState.status == AuthentificationStatus.authentificated) {
                 context.read<SettingsCubit>().modify(
                     settings: context
@@ -101,7 +85,24 @@ class OnyxAppState extends State<OnyxApp> {
                 builder: (context, settingsState) {
                   if (settingsState.status == SettingsStatus.ready ||
                       settingsState.status == SettingsStatus.error) {
-                    if (authState.status ==
+                    if (authState.status == AuthentificationStatus.initial) {
+                      print("initial");
+                      CacheService.getEncryptionKey(context
+                              .read<SettingsCubit>()
+                              .state
+                              .settings
+                              .biometricAuth)
+                          .then((key) =>
+                              CacheService.get<Credential>(secureKey: key).then(
+                                  (value) => context
+                                      .read<AuthentificationCubit>()
+                                      .login(
+                                          creds: value,
+                                          settings: context
+                                              .read<SettingsCubit>()
+                                              .state
+                                              .settings)));
+                    } else if (authState.status ==
                         AuthentificationStatus.authentificated) {
                       context.read<SettingsCubit>().modify(
                           settings: context
