@@ -14,7 +14,11 @@ appId: com.onyx.lyon1
 - tapOn:
     text: "1.0"
     index: 2
-- "eraseText"
-- inputText: "5.0"
+- inputText: "9999"
 - pressKey: "Enter"
-
+- swipe:
+    direction: "DOWN"
+- assertVisible: "19.7\n20.0\nCompétences Numériques et Préparation PIX - Module 1\n\
+    Christian TRILLAUD"
+- assertNotVisible: "17.3\n20.0\nCompétences Numériques et Préparation PIX - Module 1\n\
+    Christian TRILLAUD"

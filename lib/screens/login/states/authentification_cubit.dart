@@ -30,6 +30,11 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
   Future<void> login(
       {required Credential? creds, required SettingsModel settings}) async {
     if (Res.mock) {
+      await CacheService.set<Credential>(
+        Credential("mockUsername", "mockPassword"),
+        secureKey: await CacheService.getEncryptionKey(
+            settings.biometricAuth),
+      );
       emit(state.copyWith(
           status: AuthentificationStatus.authentificated,
           dartus: _dartus));

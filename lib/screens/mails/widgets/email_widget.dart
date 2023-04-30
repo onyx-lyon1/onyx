@@ -204,6 +204,9 @@ class MailWidget extends StatelessWidget {
                     email.isFlagged
                         ? Icons.flag_rounded
                         : Icons.outlined_flag_rounded,
+                    semanticLabel: email.isFlagged
+                        ? "Flagged email : ${email.subject}"
+                        : "UnFlaged email : ${email.subject}",
                     size: 20.sp,
                     color: email.isFlagged
                         ? Theme.of(context).primaryColor

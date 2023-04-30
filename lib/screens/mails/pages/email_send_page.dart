@@ -33,7 +33,6 @@ class MailSendPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController subjectEditor = TextEditingController();
     final TextEditingController destinationEditor = TextEditingController();
-    // final TextEditingController bodyEditor = TextEditingController();
     List<File> attachments = [];
     QuillController controller = QuillController.basic();
 
@@ -203,7 +202,8 @@ class MailSendPage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      QuillToolbar.basic(controller: controller),
+                      QuillToolbar.basic(
+                          controller: controller, multiRowsDisplay: false),
                       SizedBox(
                         height: (originalMessage != null) ? 40.h : 52.h,
                         width: 100.w,
