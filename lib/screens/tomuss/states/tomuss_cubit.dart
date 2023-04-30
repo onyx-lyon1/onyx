@@ -88,8 +88,6 @@ class TomussCubit extends Cubit<TomussState> {
   }
 
   Future<void> updateCoef(Grade grade, double? coef) async {
-    print("updateCoef");
-
     //update state
     List<TeachingUnit> teachingUnits = state.teachingUnits;
     int index =
@@ -103,7 +101,6 @@ class TomussCubit extends Cubit<TomussState> {
     //save in cache
     await CacheService.set<TeachingUnitList>(
         TeachingUnitList(teachingUnits, state.currentSemesterIndex));
-    print("save in cache");
     emit(state.copyWith(
         status: TomussStatus.updated, teachingUnits: teachingUnits));
   }

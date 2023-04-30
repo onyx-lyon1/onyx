@@ -55,7 +55,6 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
             hintText: "1.0",
           ),
           onChanged: (value) {
-            print("change : $value");
             context.read<TomussCubit>().updateCoef(
                 widget.grade, (value.isNotEmpty) ? double.parse(value) : null);
           },
