@@ -24,12 +24,10 @@ class MiniCalendarWidget extends StatelessWidget {
       scrollController: scrollController,
       builder: (context, index) {
         DateTime currentDate = DateTime.now().add(Duration(days: index));
-        if (currentDate.subtract(const Duration(days: 1)).isAfter(DateTime(
-                DateTime.now().year + ((DateTime.now().month < 6) ? 0 : 1),
-                7)) ||
-            currentDate.isBefore(DateTime(
-                DateTime.now().year + ((DateTime.now().month < 6) ? -1 : 0),
-                9))) {
+        if (currentDate
+                .isBefore(context.read<AgendaCubit>().state.days.first.date) ||
+            currentDate
+                .isAfter(context.read<AgendaCubit>().state.days.last.date)) {
           return null;
         }
         return oneDay(context, currentDate);
