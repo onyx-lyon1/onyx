@@ -8,12 +8,14 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/app.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
 import 'package:onyx/screens/settings/domain/model/settings_model.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:workmanager/workmanager.dart';
 
 void main() async {
@@ -54,12 +56,17 @@ void main() async {
   //Code to handle the migration to secured credentials storage
   SettingsModel settings =
       await CacheService.get<SettingsModel>() ?? const SettingsModel();
-  if (!(await CacheService.existEncryptionKey(settings.biometricAuth))) {
+  bool authFileExist = await File(
+          "${(await getApplicationDocumentsDirectory()).path}/authentification.hive")
+      .exists();
+  if (authFileExist) {
     //migration needed
-    if (await CacheService.exist<Credential>()) {
-      Credential? creds = await CacheService.get<Credential>();
+    Box<Credential> authBox =
+        await Hive.openBox<Credential>("authentification");
+    if (authBox.containsKey("credential")) {
+      Credential? creds = authBox.get("credential");
       if (creds != null) {
-        await CacheService.reset<Credential>();
+        await authBox.deleteFromDisk();
         await CacheService.set<Credential>(creds,
             secureKey:
                 await CacheService.getEncryptionKey(settings.biometricAuth));
