@@ -36,7 +36,7 @@ class _ScreenSettingsDragAndDropContentState
 
   @override
   void initState() {
-    childHeight = 7.h;
+    childHeight = 8.h;
     _collapse();
     super.initState();
   }
@@ -59,9 +59,9 @@ class _ScreenSettingsDragAndDropContentState
     setState(() {
       if (_isExpanded) {
         // set the height to the height of the child for the animation
-        childHeight = (key.currentContext?.size?.height ?? 0.0) + 12.h;
+        childHeight = (key.currentContext?.size?.height ?? 0.0) + 13.h;
       } else {
-        childHeight = 7.h;
+        childHeight = 8.h;
       }
     });
   }
