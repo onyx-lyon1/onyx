@@ -47,6 +47,7 @@ class _MapWidgetState extends State<MapWidget> {
           Icons.location_on_rounded,
           size: 15.sp,
           color: Colors.red,
+          semanticLabel: element.name,
         ),
       );
     }).toList();

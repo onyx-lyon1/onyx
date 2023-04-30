@@ -87,8 +87,7 @@ class _ScreenSettingsDragAndDropContentState
           height: childHeight,
           child: Theme(
             data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-            child: Padding(
-              padding: EdgeInsets.only(top: 0.5.h),
+            child: Center(
               child: ExpansionTile(
                 key: Key(_key.toString()),
                 onExpansionChanged: (value) async {

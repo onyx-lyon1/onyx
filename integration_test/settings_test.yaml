@@ -1,18 +1,5 @@
 appId: com.onyx.lyon1
 ---
-- clearState
-- launchApp
-- tapOn: "Découvrir l'application"
-- tapOn:
-    point: "70%,91%"
-- swipe:
-    direction: "LEFT"
-- tapOn:
-    point: "70%,91%"
-- tapOn:
-    point: "70%,91%"
-
-
 - tapOn: "Agenda"
 - tapOn: "Récupérer automatiquement les ressources de l'agenda"
 - tapOn: "Sélectionner l'agenda"
@@ -34,8 +21,10 @@ appId: com.onyx.lyon1
 - assertVisible: "Montrer le mini calendrier en haut de page"
 - tapOn: "Agenda"
 - swipe:
-    start: "91%, 38%"
-    end: "91%, 50%"
+    start: "91%, 40%"
+    end: "91%, 55%"
 - tapOn:
     point: "30%,91%"
 - assertVisible: "Samedi 3 Septembre"
+- tapOn:
+    point: "70%,91%"

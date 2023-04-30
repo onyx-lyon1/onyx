@@ -77,7 +77,8 @@ class IzlyPage extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: Image.memory(state.qrCode!, scale: 0.6),
+                          child: Image.memory(state.qrCode!,
+                              scale: 0.6, semanticLabel: "QR Code"),
                         ),
                       ),
                       Text(
