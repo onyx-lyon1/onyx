@@ -63,7 +63,7 @@ class IzlyLogic {
   static Future<RequestData> getTransferUrl(
       IzlyClient izlyClient, double amount) async {
     if (Res.mock) {
-      return RequestData("google.com", {});
+      return RequestData("google.com", const {});
     }
     await reloginIfNeeded(izlyClient);
     return await izlyClient.getTransferPaymentUrl(amount);
@@ -72,7 +72,7 @@ class IzlyLogic {
   static Future<RequestData> rechargeWithCB(
       IzlyClient izlyClient, double amount, CbModel cb) async {
     if (Res.mock) {
-      return RequestData("google.com", {});
+      return RequestData("google.com", const {});
     }
     await reloginIfNeeded(izlyClient);
     return await izlyClient.rechargeWithCB(amount, cb);

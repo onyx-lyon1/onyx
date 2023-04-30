@@ -25,7 +25,8 @@ class AgendaSettingsWidget extends StatelessWidget {
                     .copyWith(showMiniCalendar: b));
           },
         ),
-        if (Platform.isAndroid || Platform.isIOS)
+        if ((Platform.isAndroid || Platform.isIOS) &&
+            !context.read<SettingsCubit>().state.settings.biometricAuth)
           TextSwitchWidget(
             text: 'Notification en cas de modification de l\'agenda',
             value: context
