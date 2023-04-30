@@ -215,9 +215,10 @@ class _GradeWidgetState extends State<GradeWidget> {
                     maxLines: 1,
                     minFontSize: 7,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                       overflow: TextOverflow.clip,
+                      color: OnyxTheme.darkTheme().colorScheme.background,
                     ),
                   ),
                 ),
@@ -229,8 +230,9 @@ class _GradeWidgetState extends State<GradeWidget> {
                     maxLines: 1,
                     minFontSize: 8,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       overflow: TextOverflow.clip,
+                      color: OnyxTheme.darkTheme().colorScheme.background,
                     ),
                   ),
                 ),
@@ -340,7 +342,8 @@ class _GradeWidgetState extends State<GradeWidget> {
                     ),
                   ),
                 ),
-                if (widget.depth == 1) GradeCoefWidget(grades: widget.grades),
+                if (widget.depth == 1)
+                  GradeCoefWidget(grade: widget.grades.first),
                 IconButton(
                     onPressed: () async {
                       Directory tmpDir = await getTemporaryDirectory();

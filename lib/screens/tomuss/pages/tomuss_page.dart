@@ -118,35 +118,40 @@ class _TomussPageState extends State<TomussPage> {
           header: Container(
             height: Res.bottomNavBarHeight,
             color: Theme.of(context).cardTheme.color,
-            child: Stack(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ListView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    ...state.newGrades.map(
-                      (grade) => Container(
-                        width: Res.bottomNavBarItemWidth,
-                        height: Res.bottomNavBarHeight,
-                        padding: EdgeInsets.all(0.8.w),
-                        child: GradeWidget(
-                          grades: [grade],
-                          text1: grade.name,
-                          text2: state.teachingUnits
-                              .firstWhere(
-                                  (element) => element.grades.contains(grade))
-                              .name,
-                          depth: 0,
-                          compact: true,
-                          onTap: () => showAllGrades(
-                            context,
-                            state.teachingUnits.firstWhere(
-                                (element) => element.grades.contains(grade)),
+                SizedBox(
+                  width: 20.w * 4,
+                  height: Res.bottomNavBarHeight,
+                  child: ListView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      ...state.newGrades.map(
+                        (grade) => Container(
+                          width: Res.bottomNavBarItemWidth,
+                          height: Res.bottomNavBarHeight,
+                          padding: EdgeInsets.all(0.8.w),
+                          child: GradeWidget(
+                            grades: [grade],
+                            text1: grade.name,
+                            text2: state.teachingUnits
+                                .firstWhere(
+                                    (element) => element.grades.contains(grade))
+                                .name,
+                            depth: 0,
+                            compact: true,
+                            onTap: () => showAllGrades(
+                              context,
+                              state.teachingUnits.firstWhere(
+                                  (element) => element.grades.contains(grade)),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 //button to toggle semester with an icon
                 Padding(

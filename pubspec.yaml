@@ -125,6 +125,7 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
+    - assets/izly_mock_qr-code.png
     - assets/batiment_lyon1.json
     - assets/agenda_ids.json.enc
     - assets/key.txt

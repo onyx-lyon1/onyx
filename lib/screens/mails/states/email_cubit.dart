@@ -56,6 +56,19 @@ class EmailCubit extends Cubit<EmailState> {
       required bool blockTrackers,
       MailBox? mailbox}) async {
     emit(state.copyWith(status: MailStatus.loading));
+    if (Res.mock) {
+      emailsBoxesComplete = MailLogic.mailboxesMock;
+      currentMailBoxIndex = 0;
+      Future.delayed(
+          const Duration(milliseconds: 500),
+          () => emit(state.copyWith(
+                mailBoxes: emailsBoxesComplete,
+                status: MailStatus.loaded,
+                currentMailBox: emailsBoxesComplete[currentMailBoxIndex],
+              )));
+
+      return;
+    }
     if (cache && !Res.mock) {
       List<MailBox> emailCache = await compute(
           MailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
@@ -147,7 +160,9 @@ class EmailCubit extends Cubit<EmailState> {
         }
       }
     } else {
-      email = state.currentMailBox!.emails;
+      email = emailsBoxesComplete
+          .firstWhere((element) => state.currentMailBox!.name == element.name)
+          .emails;
     }
     emit(state.copyWith(
       status: (state.status == MailStatus.cacheLoaded)
@@ -158,8 +173,10 @@ class EmailCubit extends Cubit<EmailState> {
   }
 
   void delete({required Mail email, required MailBox from}) async {
-    mailClient!.addAction(
-        Action(type: ActionType.delete, mail: email, fromMailBox: from));
+    if (!Res.mock) {
+      mailClient!.addAction(
+          Action(type: ActionType.delete, mail: email, fromMailBox: from));
+    }
     emailsBoxesComplete[currentMailBoxIndex].emails.remove(email);
     emit(state.copyWith(
         status: MailStatus.updated,
@@ -171,8 +188,10 @@ class EmailCubit extends Cubit<EmailState> {
 
   void markAsRead({required Mail email, required MailBox from}) async {
     if (!email.isRead) {
-      mailClient!.addAction(
-          Action(type: ActionType.markAsRead, mail: email, fromMailBox: from));
+      if (!Res.mock) {
+        mailClient!.addAction(Action(
+            type: ActionType.markAsRead, mail: email, fromMailBox: from));
+      }
       int index =
           emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email);
       if (index == -1) return;
@@ -190,8 +209,10 @@ class EmailCubit extends Cubit<EmailState> {
   }
 
   Future<void> archive({required Mail email, required MailBox from}) async {
-    mailClient!.addAction(
-        Action(type: ActionType.archive, mail: email, fromMailBox: from));
+    if (!Res.mock) {
+      mailClient!.addAction(
+          Action(type: ActionType.archive, mail: email, fromMailBox: from));
+    }
 
     emailsBoxesComplete[currentMailBoxIndex].emails.remove(email);
     int index = emailsBoxesComplete.indexWhere(
@@ -216,11 +237,13 @@ class EmailCubit extends Cubit<EmailState> {
       {required Mail email,
       required MailBox folder,
       required MailBox from}) async {
-    mailClient!.addAction(Action(
-        type: ActionType.move,
-        mail: email,
-        fromMailBox: from,
-        destinationMailBox: folder));
+    if (!Res.mock) {
+      mailClient!.addAction(Action(
+          type: ActionType.move,
+          mail: email,
+          fromMailBox: from,
+          destinationMailBox: folder));
+    }
 
     emailsBoxesComplete[currentMailBoxIndex].emails.remove(email);
     emailsBoxesComplete[emailsBoxesComplete.indexOf(folder)].emails.add(email);
@@ -234,8 +257,10 @@ class EmailCubit extends Cubit<EmailState> {
 
   void markAsUnread({required Mail email, required MailBox from}) async {
     if (email.isRead) {
-      mailClient!.addAction(Action(
-          type: ActionType.markAsUnread, mail: email, fromMailBox: from));
+      if (!Res.mock) {
+        mailClient!.addAction(Action(
+            type: ActionType.markAsUnread, mail: email, fromMailBox: from));
+      }
       int index =
           emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email);
       if (index == -1) return;
@@ -261,8 +286,10 @@ class EmailCubit extends Cubit<EmailState> {
   }
 
   void flag({required Mail email, required MailBox from}) async {
-    mailClient!.addAction(
-        Action(type: ActionType.flag, mail: email, fromMailBox: from));
+    if (!Res.mock) {
+      mailClient!.addAction(
+          Action(type: ActionType.flag, mail: email, fromMailBox: from));
+    }
     int index = emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email);
     if (index == -1) return;
     emailsBoxesComplete[currentMailBoxIndex].emails[index] =
@@ -280,8 +307,10 @@ class EmailCubit extends Cubit<EmailState> {
     required Mail email,
     required MailBox from,
   }) async {
-    mailClient!.addAction(
-        Action(type: ActionType.unflag, mail: email, fromMailBox: from));
+    if (!Res.mock) {
+      mailClient!.addAction(
+          Action(type: ActionType.unflag, mail: email, fromMailBox: from));
+    }
     int index = emailsBoxesComplete[currentMailBoxIndex].emails.indexOf(email);
     if (index == -1) return;
     emailsBoxesComplete[currentMailBoxIndex].emails[index] =
@@ -314,10 +343,11 @@ class EmailCubit extends Cubit<EmailState> {
             ? ActionType.reply
             : ((forward) ? ActionType.forward : ActionType.send),
         mail: email,
-        fromMailBox: from,
         originalMessageId: replyOriginalMessageId,
         replyAll: replyAll);
-    mailClient!.addAction(action);
+    if (!Res.mock) {
+      mailClient!.addAction(action);
+    }
   }
 
   void selectMail({required Mail email}) {
