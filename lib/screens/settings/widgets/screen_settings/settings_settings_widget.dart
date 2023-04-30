@@ -63,28 +63,40 @@ class SettingsSettingsWidget extends StatelessWidget {
               }
               Credential? creds;
               IzlyCredential? izlyCreds;
+              List<int>? unSecureKey =
+                  await CacheService.getEncryptionKey(!value, autoRetry: true);
               try {
-                creds = await CacheService.get<Credential>(
-                    secureKey: await CacheService.getEncryptionKey(!value));
+                creds =
+                    await CacheService.get<Credential>(secureKey: unSecureKey);
               } catch (e) {
                 creds = null;
               }
               try {
                 izlyCreds = await CacheService.get<IzlyCredential>(
-                    secureKey: await CacheService.getEncryptionKey(!value));
+                    secureKey: unSecureKey);
               } catch (e) {
                 izlyCreds = null;
               }
               await CacheService.reset<Credential>();
               await CacheService.reset<IzlyCredential>();
               CacheService.secureKey = null;
+              try {
+                CacheService.secureKey = await CacheService.getEncryptionKey(
+                    value,
+                    autoRetry: false);
+              } on AuthException catch (e) {
+                if (e.code == AuthExceptionCode.userCanceled) {
+                  value = false;
+                  return;
+                }
+              }
               if (creds != null) {
                 await CacheService.set<Credential>(creds,
-                    secureKey: await CacheService.getEncryptionKey(value));
+                    secureKey: CacheService.secureKey);
               }
               if (izlyCreds != null) {
                 await CacheService.set<IzlyCredential>(izlyCreds,
-                    secureKey: await CacheService.getEncryptionKey(value));
+                    secureKey: CacheService.secureKey);
               }
               context.read<SettingsCubit>().modify(
                   settings: context

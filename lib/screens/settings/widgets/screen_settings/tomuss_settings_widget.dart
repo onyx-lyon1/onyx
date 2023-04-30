@@ -11,7 +11,8 @@ class TomussSettingsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (Platform.isAndroid || Platform.isIOS)
+        if ((Platform.isAndroid || Platform.isIOS) &&
+            !context.read<SettingsCubit>().state.settings.biometricAuth)
           TextSwitchWidget(
             text: 'Notification en cas de nouvelle note',
             value: context

@@ -48,26 +48,8 @@ class CacheService {
     await Hive.deleteBoxFromDisk("cached_$E");
   }
 
-  static Future<bool> existEncryptionKey(bool biometricAuth) async {
-    if (biometricAuth) {
-      final canAuthentificate = await BiometricStorage().canAuthenticate();
-      if (canAuthentificate != CanAuthenticateResponse.success) {
-        throw "unable to store secret securly : $canAuthentificate";
-      }
-    }
-    BiometricStorageFile storageFile = await BiometricStorage().getStorage(
-        "encryptionKey_${(biometricAuth) ? "biometric" : "password"})}",
-        options: StorageFileInitOptions(
-          androidBiometricOnly: true,
-          authenticationValidityDurationSeconds: 30,
-          authenticationRequired: biometricAuth,
-        ));
-
-    String? data = await storageFile.read();
-    return data != null;
-  }
-
-  static Future<List<int>> getEncryptionKey(bool biometricAuth) async {
+  static Future<List<int>> getEncryptionKey(bool biometricAuth,
+      {bool autoRetry = true}) async {
     if (secureKey != null) {
       return secureKey!;
     }
@@ -84,13 +66,22 @@ class CacheService {
           authenticationValidityDurationSeconds: 30,
           authenticationRequired: biometricAuth,
         ));
-
-    String? data = await storageFile.read();
-    if (data == null) {
-      data = base64Url.encode((Hive.generateSecureKey()));
-      await storageFile.write(data);
+    try {
+      String? data = await storageFile.read();
+      if (data == null) {
+        data = base64Url.encode((Hive.generateSecureKey()));
+        await storageFile.write(data);
+      }
+      secureKey = base64Url.decode(data);
+      return base64Url.decode(data);
+    } on AuthException catch (exception) {
+      if (kDebugMode) {
+        print("error while getting encryption key : $exception");
+      }
+      if (autoRetry && exception.code == AuthExceptionCode.userCanceled) {
+        return getEncryptionKey(biometricAuth, autoRetry: autoRetry);
+      }
+      rethrow;
     }
-    secureKey = base64Url.decode(data);
-    return base64Url.decode(data);
   }
 }
