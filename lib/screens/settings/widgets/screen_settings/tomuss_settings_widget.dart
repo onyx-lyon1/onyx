@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:sizer/sizer.dart';
 
 class TomussSettingsWidget extends StatelessWidget {
   const TomussSettingsWidget({Key? key}) : super(key: key);
@@ -54,16 +53,13 @@ class TomussSettingsWidget extends StatelessWidget {
                         .settings
                         .copyWith(forceGreen: b));
               },
-              child: SizedBox(
-                width: 60.w,
-                child: Text(
-                  "Durée d'une note récente",
-                  softWrap: true,
-                  overflow: TextOverflow.visible,
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
-                    fontSize: 12,
-                  ),
+              child: Text(
+                "Durée d'une note récente",
+                softWrap: true,
+                overflow: TextOverflow.visible,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
+                  fontSize: 12,
                 ),
               ),
             ),

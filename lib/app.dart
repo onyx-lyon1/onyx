@@ -58,12 +58,6 @@ class OnyxAppState extends State<OnyxApp> {
           child: BlocBuilder<AuthentificationCubit, AuthentificationState>(
             builder: (context, authState) {
               if (authState.status == AuthentificationStatus.authentificated) {
-                context.read<SettingsCubit>().modify(
-                    settings: context
-                        .read<SettingsCubit>()
-                        .state
-                        .settings
-                        .copyWith(firstLogin: false));
                 CacheService.getEncryptionKey(context
                         .read<SettingsCubit>()
                         .state
@@ -102,7 +96,8 @@ class OnyxAppState extends State<OnyxApp> {
                                               .state
                                               .settings)));
                     } else if (authState.status ==
-                        AuthentificationStatus.authentificated) {
+                            AuthentificationStatus.authentificated &&
+                        settingsState.settings.firstLogin) {
                       context.read<SettingsCubit>().modify(
                           settings: context
                               .read<SettingsCubit>()
