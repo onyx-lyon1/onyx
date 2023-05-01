@@ -26,8 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     switch (context.read<AuthentificationCubit>().state.status) {
       case AuthentificationStatus.initial:
-        //Already handled in the app.dart
-        break;
+        return const StateDisplayingPage(message: "Initialisation");
+
       case AuthentificationStatus.needCredential:
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
