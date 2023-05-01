@@ -27,8 +27,13 @@ class MiniCalendarWidget extends StatelessWidget {
         DateTime currentDate = DateTime.now().add(Duration(days: index));
         if (currentDate
                 .isBefore(context.read<AgendaCubit>().state.days.first.date) ||
-            currentDate
-                .isAfter(context.read<AgendaCubit>().state.days.last.date)) {
+            currentDate.isAfter(context
+                .read<AgendaCubit>()
+                .state
+                .days
+                .last
+                .date
+                .add(const Duration(days: 1)))) {
           return null;
         }
         return oneDay(context, currentDate);
