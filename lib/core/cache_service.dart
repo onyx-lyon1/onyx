@@ -63,7 +63,8 @@ class CacheService {
         "encryptionKey_${(biometricAuth) ? "biometric" : "password"})}",
         options: StorageFileInitOptions(
           androidBiometricOnly: true,
-          authenticationValidityDurationSeconds: 30,
+          authenticationValidityDurationSeconds: 0,
+          //because we store the key in cache ourself
           authenticationRequired: biometricAuth,
         ));
     try {
