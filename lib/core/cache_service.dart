@@ -6,6 +6,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class CacheService {
   static List<int>? secureKey;
+  static BiometricStorageFile? _storageFile;
+  static bool? _isBiometricEnabled;
 
   static Future<E?> get<E>({int index = 0, List<int>? secureKey}) async {
     // print("getting cache for $E, with key : $secureKey");
@@ -53,25 +55,31 @@ class CacheService {
     if (secureKey != null) {
       return secureKey!;
     }
-    if (biometricAuth) {
-      final canAuthentificate = await BiometricStorage().canAuthenticate();
-      if (canAuthentificate != CanAuthenticateResponse.success) {
-        throw "unable to store secret securly : $canAuthentificate";
+    if (_storageFile == null ||
+        (_isBiometricEnabled != null && _isBiometricEnabled != biometricAuth)) {
+      _isBiometricEnabled = biometricAuth;
+      if (biometricAuth) {
+        final canAuthentificate = await BiometricStorage().canAuthenticate();
+        if (canAuthentificate != CanAuthenticateResponse.success) {
+          throw "unable to store secret securly : $canAuthentificate";
+        }
       }
+      if (_storageFile != null) await _storageFile!.delete();
+      _storageFile = await BiometricStorage().getStorage(
+          "encryptionKey_${(biometricAuth) ? "biometric" : "password"}",
+          options: StorageFileInitOptions(
+            androidBiometricOnly: false,
+            authenticationValidityDurationSeconds: 0,
+            //because we store the key in cache ourself
+            authenticationRequired: biometricAuth,
+          ));
     }
-    BiometricStorageFile storageFile = await BiometricStorage().getStorage(
-        "encryptionKey_${(biometricAuth) ? "biometric" : "password"})}",
-        options: StorageFileInitOptions(
-          androidBiometricOnly: true,
-          authenticationValidityDurationSeconds: 0,
-          //because we store the key in cache ourself
-          authenticationRequired: biometricAuth,
-        ));
+
     try {
-      String? data = await storageFile.read();
+      String? data = await _storageFile!.read();
       if (data == null) {
         data = base64Url.encode((Hive.generateSecureKey()));
-        await storageFile.write(data);
+        await _storageFile!.write(data);
       }
       secureKey = base64Url.decode(data);
       return base64Url.decode(data);
