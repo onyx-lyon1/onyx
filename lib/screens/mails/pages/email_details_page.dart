@@ -106,25 +106,30 @@ class MailDetailsPage extends StatelessWidget {
                               itemCount: mail.attachments.length,
                               itemBuilder: (context, index) {
                                 return MailAttachmentWidget(
-                                  fileName: mail.attachments[index],
+                                  fileName: mail.attachments[index][0],
                                   onTap: () async {
                                     //save data in a file and open it
-                                    String attachmentPath =
-                                        await AttachmentLogic
-                                            .getAttachmentLocalPath(
-                                                email: mail,
-                                                mailClient: context
-                                                    .read<EmailCubit>()
-                                                    .mailClient!,
-                                                emailNumber: state.emailNumber,
-                                                fileName:
-                                                    mail.attachments[index],
-                                                folder: state.currentMailBox!);
+                                    if (mail.attachments[index][1] == "") {
+                                      mail.attachments[index][1] =
+                                          await AttachmentLogic
+                                              .getAttachmentLocalPath(
+                                                  email: mail,
+                                                  mailClient: context
+                                                      .read<EmailCubit>()
+                                                      .mailClient!,
+                                                  emailNumber:
+                                                      state.emailNumber,
+                                                  fileName: mail
+                                                      .attachments[index][0],
+                                                  folder:
+                                                      state.currentMailBox!);
+                                    }
                                     // ignore: use_build_context_synchronously
                                     showDialog(
                                         context: context,
                                         builder: (_) => SaveOrOpenDialogWidget(
-                                              filePath: attachmentPath,
+                                              filePath: mail.attachments[index]
+                                                  [1],
                                             ));
                                   },
                                 );

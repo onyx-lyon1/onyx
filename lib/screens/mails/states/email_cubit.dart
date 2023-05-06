@@ -8,8 +8,6 @@ import 'package:path_provider/path_provider.dart';
 
 part 'email_state.dart';
 
-//TODO add the parameter for tracking image due to new Mail lia
-
 class EmailCubit extends Cubit<EmailState> {
   Lyon1Mail? mailClient;
   List<MailBox> emailsBoxesComplete = [];
@@ -344,7 +342,8 @@ class EmailCubit extends Cubit<EmailState> {
             : ((forward) ? ActionType.forward : ActionType.send),
         mail: email,
         originalMessageId: replyOriginalMessageId,
-        replyAll: replyAll);
+        replyAll: replyAll,
+        fromMailBox: (reply || forward) ? from : null);
     if (!Res.mock) {
       mailClient!.addAction(action);
     }

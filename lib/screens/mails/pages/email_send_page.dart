@@ -61,8 +61,11 @@ class MailSendPage extends StatelessWidget {
                 id: 0,
                 receiver: destinationEditor.text,
                 isFlagged: false,
-                attachments: attachments.map((e) => e.path).toList(),
+                attachments: attachments
+                    .map((e) => [e.path.split("/").last, e.path])
+                    .toList(),
               );
+
               context.read<EmailCubit>().send(
                     email: email,
                     replyAll: replyAll,

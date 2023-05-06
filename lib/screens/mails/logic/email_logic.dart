@@ -32,9 +32,12 @@ class MailLogic {
         throw Exception("Login failed");
       }
     }
-    final List<Mail>? emailOpt = await mailClient.fetchMessages(emailNumber,
-        mailboxName: mailBox?.name,
-        mailboxFlags: mailBox?.specialMailBox?.toMailBoxTag());
+    final List<Mail>? emailOpt = await mailClient.fetchMessages(
+      emailNumber,
+      mailboxName: mailBox?.name,
+      mailboxFlags: mailBox?.specialMailBox?.toMailBoxTag(),
+      removeTrackingImages: blockTrackers,
+    );
     mailBox ??= MailBox(
         name: "Boite de réception",
         specialMailBox: SpecialMailBox.inbox,
@@ -89,7 +92,10 @@ class MailLogic {
         blackBody: "blackBodyMock1",
         id: 1,
         receiver: "receiverMock1",
-        attachments: const ["attachmentMock1", "attachmentMock2"],
+        attachments: const [
+          ["attachmentMock1"],
+          ["attachmentMock2"]
+        ],
         isFlagged: false),
     Mail(
         subject: "subjectMock2",
@@ -101,7 +107,10 @@ class MailLogic {
         blackBody: "blackBodyMock2",
         id: 2,
         receiver: "receiverMock2",
-        attachments: const ["attachmentMock1", "attachmentMock2"],
+        attachments: const [
+          ["attachmentMock1"],
+          ["attachmentMock2"]
+        ],
         isFlagged: true),
     Mail(
         subject: "subjectMock3",
@@ -113,7 +122,10 @@ class MailLogic {
         blackBody: "blackBodyMock3",
         id: 3,
         receiver: "receiverMock3",
-        attachments: const ["attachmentMock1", "attachmentMock2"],
+        attachments: const [
+          ["attachmentMock1"],
+          ["attachmentMock2"]
+        ],
         isFlagged: false),
     Mail(
         subject: "subjectMock4",
@@ -125,7 +137,10 @@ class MailLogic {
         blackBody: "blackBodyMock4",
         id: 4,
         receiver: "receiverMock4",
-        attachments: const ["attachmentMock1", "attachmentMock2"],
+        attachments: const [
+          ["attachmentMock1"],
+          ["attachmentMock2"]
+        ],
         isFlagged: true),
     Mail(
         subject: "subjectMock5",
@@ -137,7 +152,10 @@ class MailLogic {
         blackBody: "blackBodyMock5",
         id: 5,
         receiver: "receiverMock5",
-        attachments: const ["attachmentMock1", "attachmentMock2"],
+        attachments: const [
+          ["attachmentMock1"],
+          ["attachmentMock2"]
+        ],
         isFlagged: false),
   ];
 }
