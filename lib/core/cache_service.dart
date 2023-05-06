@@ -10,7 +10,7 @@ class CacheService {
   static bool? _isBiometricEnabled;
 
   static Future<E?> get<E>({int index = 0, List<int>? secureKey}) async {
-    print("getting cache for $E, with key : $secureKey");
+    // print("getting cache for $E, with key : $secureKey");
     try {
       Box<E> box = await Hive.openBox<E>(
         "cached_$E",
