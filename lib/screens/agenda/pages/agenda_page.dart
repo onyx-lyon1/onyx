@@ -99,10 +99,12 @@ class AgendaPage extends StatelessWidget {
                   animating = false;
                 });
                 scrollController.animateTo(
-                    indexToOffset(state.wantedDate
-                        .shrink(3)
-                        .difference(DateTime.now().shrink(3))
-                        .inDays),
+                    indexToOffset((state.wantedDate
+                                .shrink(3)
+                                .difference(DateTime.now().shrink(3))
+                                .inHours /
+                            24)
+                        .round()),
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut);
               }
