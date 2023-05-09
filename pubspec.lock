@@ -250,38 +250,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.4"
-  convenient_test:
-    dependency: "direct main"
-    description:
-      name: convenient_test
-      sha256: fa2a4e569c90ab3701d434542a6c2bfd1aadd2e8b62b620bbea26803a149b7d5
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.1"
-  convenient_test_common:
-    dependency: transitive
-    description:
-      name: convenient_test_common
-      sha256: "74f01b9553ea128d311e059aed75b4c691af1f84ccb5b1bb50bf46616985525f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.1"
-  convenient_test_common_dart:
-    dependency: transitive
-    description:
-      name: convenient_test_common_dart
-      sha256: ca4d6d13300e788c639236145f8caa2a9ad293709fe81ad8e48f8f1e895046a6
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.1"
-  convenient_test_dev:
-    dependency: "direct dev"
-    description:
-      name: convenient_test_dev
-      sha256: a17b5c0a8dd6bd487add3ed6a4dcca6e6d144f74a968326e92cc6b9acf894f16
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.1"
   convert:
     dependency: transitive
     description:
@@ -782,14 +750,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  freezed_annotation:
-    dependency: transitive
-    description:
-      name: freezed_annotation
-      sha256: aeac15850ef1b38ee368d4c53ba9a847e900bb2c53a4db3f6881cbb3cb684338
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -851,14 +811,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.1"
-  get_it:
-    dependency: transitive
-    description:
-      name: get_it
-      sha256: f9982979e3d2f286a957c04d2c3a98f55b0f0a06ffd6c5c4abbb96f06937f463
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.3.0"
   glob:
     dependency: transitive
     description:
@@ -867,14 +819,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  googleapis_auth:
-    dependency: transitive
-    description:
-      name: googleapis_auth
-      sha256: f59be210ede1e22718962e4ef48a08ae783eb67fe19b0f4c16b204e20df0869c
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.0"
   graphs:
     dependency: transitive
     description:
@@ -883,14 +827,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  grpc:
-    dependency: transitive
-    description:
-      name: grpc
-      sha256: a73c16e4f6a4a819be892bb2c73cc1d0b00e36095f69b0738cc91a733e3d27ba
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.0"
   hex:
     dependency: transitive
     description:
@@ -947,14 +883,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.6"
-  http2:
-    dependency: transitive
-    description:
-      name: http2
-      sha256: "58805ebc6513eed3b98ee0a455a8357e61d187bf2e0fdc1e53120770f78de258"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   http_multi_server:
     dependency: transitive
     description:
@@ -1047,14 +975,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.8.1"
-  lint:
-    dependency: transitive
-    description:
-      name: lint
-      sha256: "4a539aa34ec5721a2c7574ae2ca0336738ea4adc2a34887d54b7596310b33c85"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.10.0"
   lints:
     dependency: transitive
     description:
@@ -1141,14 +1061,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
-  mobx:
-    dependency: transitive
-    description:
-      name: mobx
-      sha256: "6738620307a424d2c9ad8b873f4dce391c44e9135eb4e75668ac8202fec7a9b8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.4"
   modal_bottom_sheet:
     dependency: "direct main"
     description:
@@ -1373,14 +1285,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
-  protobuf:
-    dependency: transitive
-    description:
-      name: protobuf
-      sha256: "01dd9bd0fa02548bf2ceee13545d4a0ec6046459d847b6b061d8a27237108a08"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   provider:
     dependency: transitive
     description:
@@ -1413,14 +1317,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
-  recase:
-    dependency: transitive
-    description:
-      name: recase
-      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.1.0"
   requests:
     dependency: "direct main"
     description:

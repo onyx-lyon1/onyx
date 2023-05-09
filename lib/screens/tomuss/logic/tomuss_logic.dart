@@ -90,98 +90,98 @@ class TomussLogic {
 
   static final List<TeachingUnit> teachingUnitsModelListMock = [
     TeachingUnit(
-      "Algèbre 1 Cursus Prépa",
-      [Teacher("Frank WAGNER", "wagner@math.univ-lyon1.fr")],
-      [
-        Grade("Colle1", "frank-olaf.wagner", 12.0, 20.0, 88, 13.386, 13.0, true,
-            136, DateTime.now(), const []),
-        Grade("Colle2", "frank-olaf.wagner", 14.0, 20.0, 37, 12.511, 12.0, true,
-            135, DateTime.now(), const []),
-        Grade("Colle3", "frank-olaf.wagner", 10.0, 20.0, 94, 12.596, 13.0, true,
-            130, DateTime.now(), const []),
-        Grade("Colle4", "frank-olaf.wagner", 11.0, 20.0, 76, 12.305, 12.0, true,
-            128, DateTime.now(), const []),
-        Grade("Colle5", "frank-olaf.wagner", 4.0, 20.0, 124, 12.352, 13.0, true,
-            128, DateTime.now(), const []),
-        Grade("DS1", "frank-olaf.wagner", 10.63, 16.5, 30, 8.335, 8.0, true,
-            135, DateTime.now(), const []),
-        Grade("DS2", "frank-olaf.wagner", 8.5, 16.0, 41, 7.228, 7.19, true, 131,
-            DateTime.now(), const []),
-        Grade("DS3", "frank-olaf.wagner", 7.5, 30.0, 53, 7.143, 7.0, true, 129,
-            DateTime.now(), const [])
-      ],
-      const [],
-      const [],
-      const [],
-      const [],
-      const [],
-      const [],
-      "ticket",
-    ),
+        "Algèbre 1 Cursus Prépa",
+        [Teacher("Frank WAGNER", "wagner@math.univ-lyon1.fr")],
+        [
+          Grade("Colle1", "frank-olaf.wagner", 12.0, 20.0, 88, 13.386, 13.0,
+              true, 136, DateTime.now(), const []),
+          Grade("Colle2", "frank-olaf.wagner", 14.0, 20.0, 37, 12.511, 12.0,
+              true, 135, DateTime.now(), const []),
+          Grade("Colle3", "frank-olaf.wagner", 10.0, 20.0, 94, 12.596, 13.0,
+              true, 130, DateTime.now(), const []),
+          Grade("Colle4", "frank-olaf.wagner", 11.0, 20.0, 76, 12.305, 12.0,
+              true, 128, DateTime.now(), const []),
+          Grade("Colle5", "frank-olaf.wagner", 4.0, 20.0, 124, 12.352, 13.0,
+              true, 128, DateTime.now(), const []),
+          Grade("DS1", "frank-olaf.wagner", 10.63, 16.5, 30, 8.335, 8.0, true,
+              135, DateTime.now(), const []),
+          Grade("DS2", "frank-olaf.wagner", 8.5, 16.0, 41, 7.228, 7.19, true,
+              131, DateTime.now(), const []),
+          Grade("DS3", "frank-olaf.wagner", 7.5, 30.0, 53, 7.143, 7.0, true,
+              129, DateTime.now(), const [])
+        ],
+        const [],
+        const [],
+        const [],
+        const [],
+        const [],
+        const [],
+        "ticket",
+        "ue"),
     TeachingUnit(
-      "Compétences Numériques et Préparation PIX - Module 1",
-      [Teacher("Christian TRILLAUD", "christian.trillaud@univ-lyon1.fr")],
-      [
-        Grade("TD/comp1.2_5.2/noteQUEST", "christian.trillaud", 8.59, 10.0, 354,
-            6.495, 7.93, true, 1485, DateTime.now(), const []),
-        Grade("TD/comp1.3/note", "christian.trillaud", 8.97, 10.0, 433, 6.676,
-            8.26, true, 1480, DateTime.now(), [
-          Grade("TD/comp1.3/noteQUEST", "christian.trillaud", 8.97, 10.0, 376,
-              6.552, 8.03, true, 1480, DateTime.now(), const [])
-        ]),
-        Grade("TD/comp3.1/note", "christian.trillaud", 9.83, 10.0, 101, 6.725,
-            8.28, true, 1483, DateTime.now(), const []),
-        Grade("compétences/ECUE-PIX/Moyenne_ECUE", "christian.trillaud", 14.317,
-            20.0, 771, 12.205, 14.457, true, 1480, DateTime.now(), [
-          Grade("compétences/comp1.3/note", "christian.trillaud", 13.57, 20.0,
-              830, 12.171, 14.16, true, 1484, DateTime.now(), [
-            Grade("TD/PIX_TEST/notePIX1.3", "christian.trillaud", 4.6, 10.0,
-                1023, 5.175, 6.2, true, 1484, DateTime.now(), const []),
-            Grade("TD/comp1.3/noteFinale", "christian.trillaud", 8.97, 10.0,
-                433, 6.979, 8.26, true, 1479, DateTime.now(), const [])
+        "Compétences Numériques et Préparation PIX - Module 1",
+        [Teacher("Christian TRILLAUD", "christian.trillaud@univ-lyon1.fr")],
+        [
+          Grade("TD/comp1.2_5.2/noteQUEST", "christian.trillaud", 8.59, 10.0,
+              354, 6.495, 7.93, true, 1485, DateTime.now(), const []),
+          Grade("TD/comp1.3/note", "christian.trillaud", 8.97, 10.0, 433, 6.676,
+              8.26, true, 1480, DateTime.now(), [
+            Grade("TD/comp1.3/noteQUEST", "christian.trillaud", 8.97, 10.0, 376,
+                6.552, 8.03, true, 1480, DateTime.now(), const [])
           ]),
-          Grade("compétences/comp3.1/note", "christian.trillaud", 13.13, 20.0,
-              907, 12.176, 14.27, true, 1485, DateTime.now(), [
-            Grade("TD/PIX_TEST/notePIX3.1", "christian.trillaud", 3.3, 10.0,
-                1140, 5.234, 6.1, true, 1484, DateTime.now(), const []),
-            Grade("TD/comp3.1/noteFinale", "christian.trillaud", 9.83, 10.0,
-                101, 6.927, 8.28, true, 1482, DateTime.now(), const [])
-          ]),
-          Grade("compétences/comp1.2-5.2/note", "christian.trillaud", 16.79,
-              20.0, 407, 12.882, 15.68, true, 1481, DateTime.now(), [
-            Grade("TD/PIX_TEST/notePIX1.2-5.2", "christian.trillaud", 8.2, 10.0,
-                457, 6.215, 7.7, true, 1484, DateTime.now(), const []),
-            Grade("TD/comp1.2_5.2/noteFinale", "christian.trillaud", 8.59, 10.0,
-                423, 6.634, 8.04, true, 1478, DateTime.now(), const [])
-          ]),
-          Grade("compétences/comp4.1/note", "christian.trillaud", 13.78, 20.0,
-              787, 11.472, 13.95, true, 1485, DateTime.now(), [
-            Grade("TD/PIX_TEST/notePIX4.1", "christian.trillaud", 6.0, 10.0,
-                752, 5.135, 6.2, true, 1484, DateTime.now(), const []),
-            Grade("TD/comp4.1/noteQUEST", "christian.trillaud", 7.78, 10.0, 736,
-                6.329, 7.78, true, 1483, DateTime.now(), const [])
+          Grade("TD/comp3.1/note", "christian.trillaud", 9.83, 10.0, 101, 6.725,
+              8.28, true, 1483, DateTime.now(), const []),
+          Grade("compétences/ECUE-PIX/Moyenne_ECUE", "christian.trillaud",
+              14.317, 20.0, 771, 12.205, 14.457, true, 1480, DateTime.now(), [
+            Grade("compétences/comp1.3/note", "christian.trillaud", 13.57, 20.0,
+                830, 12.171, 14.16, true, 1484, DateTime.now(), [
+              Grade("TD/PIX_TEST/notePIX1.3", "christian.trillaud", 4.6, 10.0,
+                  1023, 5.175, 6.2, true, 1484, DateTime.now(), const []),
+              Grade("TD/comp1.3/noteFinale", "christian.trillaud", 8.97, 10.0,
+                  433, 6.979, 8.26, true, 1479, DateTime.now(), const [])
+            ]),
+            Grade("compétences/comp3.1/note", "christian.trillaud", 13.13, 20.0,
+                907, 12.176, 14.27, true, 1485, DateTime.now(), [
+              Grade("TD/PIX_TEST/notePIX3.1", "christian.trillaud", 3.3, 10.0,
+                  1140, 5.234, 6.1, true, 1484, DateTime.now(), const []),
+              Grade("TD/comp3.1/noteFinale", "christian.trillaud", 9.83, 10.0,
+                  101, 6.927, 8.28, true, 1482, DateTime.now(), const [])
+            ]),
+            Grade("compétences/comp1.2-5.2/note", "christian.trillaud", 16.79,
+                20.0, 407, 12.882, 15.68, true, 1481, DateTime.now(), [
+              Grade("TD/PIX_TEST/notePIX1.2-5.2", "christian.trillaud", 8.2,
+                  10.0, 457, 6.215, 7.7, true, 1484, DateTime.now(), const []),
+              Grade("TD/comp1.2_5.2/noteFinale", "christian.trillaud", 8.59,
+                  10.0, 423, 6.634, 8.04, true, 1478, DateTime.now(), const [])
+            ]),
+            Grade("compétences/comp4.1/note", "christian.trillaud", 13.78, 20.0,
+                787, 11.472, 13.95, true, 1485, DateTime.now(), [
+              Grade("TD/PIX_TEST/notePIX4.1", "christian.trillaud", 6.0, 10.0,
+                  752, 5.135, 6.2, true, 1484, DateTime.now(), const []),
+              Grade("TD/comp4.1/noteQUEST", "christian.trillaud", 7.78, 10.0,
+                  736, 6.329, 7.78, true, 1483, DateTime.now(), const [])
+            ])
           ])
-        ])
-      ],
-      const [],
-      const [],
-      const [],
-      const [],
-      const [],
-      const [],
-      "ticket",
-    ),
+        ],
+        const [],
+        const [],
+        const [],
+        const [],
+        const [],
+        const [],
+        "ticket",
+        "ue"),
     TeachingUnit(
-      "Transversale Préparation Aux Métiers De L'Ingénieur 1",
-      const [],
-      const [],
-      const [],
-      const [],
-      const [],
-      const [],
-      const [],
-      const [],
-      "ticket",
-    )
+        "Transversale Préparation Aux Métiers De L'Ingénieur 1",
+        const [],
+        const [],
+        const [],
+        const [],
+        const [],
+        const [],
+        const [],
+        const [],
+        "ticket",
+        "ue")
   ];
 }

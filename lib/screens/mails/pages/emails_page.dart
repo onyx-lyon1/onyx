@@ -124,7 +124,7 @@ class MailsPage extends StatelessWidget {
               body: Stack(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: Res.bottomNavBarHeight),
+                    padding: EdgeInsets.only(top: 0.7 * Res.bottomNavBarHeight),
                     child: ListView.custom(
                       controller: scrollController,
                       childrenDelegate:
