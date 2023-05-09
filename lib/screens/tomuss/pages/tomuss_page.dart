@@ -11,6 +11,7 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
+import '../widgets/teaching_unit_children_widget.dart';
 
 class TomussPage extends StatefulWidget {
   const TomussPage({
@@ -41,10 +42,8 @@ class _TomussPageState extends State<TomussPage> {
                 GradeListHeaderWidget(name: schoolSubject.name),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  child: GradeListWidget(
-                    grades: schoolSubject.grades,
-                    depth: 1,
-                    lastElement: true,
+                  child: TeachingUnitChildrenWidget(
+                    teachingUnit: schoolSubject,
                   ),
                 ),
               ],
@@ -135,7 +134,7 @@ class _TomussPageState extends State<TomussPage> {
                           padding: EdgeInsets.all(0.8.w),
                           child: GradeWidget(
                             grades: [grade],
-                            text1: grade.name,
+                            text1: grade.name.replaceAll("_", " "),
                             text2: state.teachingUnits
                                 .firstWhere(
                                     (element) => element.grades.contains(grade))
@@ -187,7 +186,7 @@ class _TomussPageState extends State<TomussPage> {
                       grades: schoolSubject.grades,
                       text2:
                           schoolSubject.masters.map((e) => e.name).join(", "),
-                      text1: schoolSubject.name,
+                      text1: schoolSubject.name.replaceAll("_", " "),
                       onTap: () => showAllGrades(context, schoolSubject),
                       depth: 0,
                     ),
