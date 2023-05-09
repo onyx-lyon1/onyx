@@ -28,7 +28,7 @@ void main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-    Workmanager().initialize(backgroundLogic, isInDebugMode: kDebugMode);
+    Workmanager().initialize(workmanagerHandler, isInDebugMode: kDebugMode);
     Workmanager().registerPeriodicTask("updateChecking", "check update",
         frequency: const Duration(hours: 1),
         constraints: Constraints(networkType: NetworkType.connected));

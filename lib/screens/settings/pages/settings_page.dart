@@ -13,6 +13,7 @@ import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
+import 'package:onyx/screens/notifications/domain/logic/background_logic.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/widgets/draggable_zone_widget.dart';
 import 'package:onyx/screens/settings/widgets/drop_down_widget.dart';
@@ -197,6 +198,17 @@ class _SettingsPageState extends State<SettingsPage> {
                                   context.read<SettingsCubit>().state.settings);
                         },
                       )
+                    ]),
+                    SettingsCardWidget(name: "Notification", widgets: [
+                      MaterialButton(
+                        minWidth: MediaQuery.of(context).size.width,
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: const Text('Tester les notifications'),
+                        onPressed: () {
+                          backgroundLogic(init: false);
+                        },
+                      ),
                     ]),
                     const SettingsLinkWidget(),
                   ],

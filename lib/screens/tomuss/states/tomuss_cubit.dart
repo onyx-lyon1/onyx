@@ -105,6 +105,26 @@ class TomussCubit extends Cubit<TomussState> {
         status: TomussStatus.updated, teachingUnits: teachingUnits));
   }
 
+  Future<void> updateEnumerationValue(
+      Enumeration enumeration, String value) async {
+    List<TeachingUnit> teachingUnits = state.teachingUnits;
+    int index = teachingUnits
+        .indexWhere((element) => element.enumerations.contains(enumeration));
+    if (index == -1) {
+      return;
+    }
+    int enumerationIndex =
+        teachingUnits[index].enumerations.indexOf(enumeration);
+    await enumeration.updateValue(value, teachingUnits[index].ticket);
+    enumeration = enumeration.copyWith.value(value);
+
+    teachingUnits[index].enumerations[enumerationIndex] = enumeration;
+    await CacheService.set<TeachingUnitList>(
+        TeachingUnitList(teachingUnits, state.currentSemesterIndex));
+    emit(state.copyWith(
+        status: TomussStatus.updated, teachingUnits: teachingUnits));
+  }
+
   void resetCubit() async {
     emit(TomussState(status: TomussStatus.initial));
   }

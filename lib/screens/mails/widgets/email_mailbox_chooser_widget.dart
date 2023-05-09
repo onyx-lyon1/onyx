@@ -44,8 +44,7 @@ class _MailMailboxChooserWidgetState extends State<MailMailboxChooserWidget> {
               state.currentMailBox!.name,
               textAlign: TextAlign.center,
             ),
-            tilePadding: EdgeInsets.symmetric(vertical: 2.h),
-            childrenPadding: EdgeInsets.all(1.5.w),
+            childrenPadding: EdgeInsets.symmetric(horizontal: 1.5.w),
             backgroundColor: Theme.of(context).colorScheme.background,
             children: state.mailBoxes
                 .map((e) => Material(
