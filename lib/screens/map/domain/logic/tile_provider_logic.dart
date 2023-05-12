@@ -13,22 +13,22 @@ class HybridTileProvider extends TileProvider {
   }
 
   @override
-  getImage(Coords<num> coords, TileLayer options) {
-    if (coords.toDeg().inside(MapRes.minBound, MapRes.maxBound) &&
-        coords.z > MapRes.minZoom &&
-        coords.z < MapRes.maxZoom) {
+  getImage(TileCoordinates coordinates, TileLayer options) {
+    if (coordinates.toDeg().inside(MapRes.minBound, MapRes.maxBound) &&
+        coordinates.z > MapRes.minZoom &&
+        coordinates.z < MapRes.maxZoom) {
       options = TileLayer(
         urlTemplate: "assets/map/{z}/{x}/{y}.png",
         userAgentPackageName: 'dev.fleaflet.flutter_map.example',
         tileProvider: _offlineTileProvider,
       );
-      return _offlineTileProvider!.getImage(coords, options);
+      return _offlineTileProvider!.getImage(coordinates, options);
     } else {
       options = TileLayer(
         urlTemplate: "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
         tileProvider: _onlineTileProvider,
       );
-      return _onlineTileProvider!.getImage(coords, options);
+      return _onlineTileProvider!.getImage(coordinates, options);
     }
   }
 }

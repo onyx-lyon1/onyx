@@ -6,7 +6,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 2.0.1+41
 
 environment:
-  sdk: ">=2.19.0 <4.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -46,38 +46,39 @@ dependencies:
   open_filex: ^4.3.1
   flutter_file_dialog: ^3.0.0
   enough_html_editor: ^0.0.5
-  flutter_quill: ^7.0.1
+  flutter_quill: ^7.1.18
   vsc_quill_delta_to_html: ^1.0.2
   enough_mail: ^2.1.1
 
   #tomuss
   dartus:
     git: https://github.com/onyx-lyon1/dartus-tomuss-client.git
-  screenshot: ^1.3.0
-  share_plus: ^6.3.0
+  screenshot:
+    git: https://github.com/SachinGanesh/screenshot.git #^1.3.0
+  share_plus: ^7.0.0
 
   #map
-  flutter_map: ^3.0.0
+  flutter_map: ^4.0.0
   latlong2: ^0.8.1
   requests:
     git: https://github.com/onyx-lyon1/requests.git #^4.7.0
   geolocator: ^9.0.2
-  flutter_map_location_marker: ^5.0.0+1
+  flutter_map_location_marker: ^6.0.0
   flutter_map_marker_popup: ^4.0.0
 
   #authentication
-  connectivity_plus: ^3.0.2
+  connectivity_plus: ^4.0.0
 
   #notifications
   workmanager: ^0.5.0
-  flutter_local_notifications: ^13.0.0
+  flutter_local_notifications: ^14.0.0+2
 
   #settings
   drag_and_drop_lists: #^0.3.3
     git: https://github.com/onyx-lyon1/DragAndDropLists.git
   equatable: ^2.0.5
   biometric_storage: #^4.1.3
-    git: https://github.com/authpass/biometric_storage.git #https://github.com/YazeedAlKhalaf/biometric_storage.git
+    git: https://github.com/hatch01/biometric_storage.git #https://github.com/authpass/biometric_storage.git #https://github.com/YazeedAlKhalaf/biometric_storage.git
 
 dependency_overrides:
   # unindent for devlopment to use local version of the libraries
