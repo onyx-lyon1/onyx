@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
-extension CoordsToNum on Coords<num> {
+extension CoordsToNum on TileCoordinates {
   LatLng toDeg() {
     final n = math.pow(2.0, z);
     final lonDeg = x / n * 360.0 - 180.0;
