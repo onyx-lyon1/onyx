@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
@@ -55,111 +54,95 @@ class _MapWidgetState extends State<MapWidget> {
       GeolocationLogic.getCurrentLocation(askPermission: false)
           .then((value) async {
         if (value != null) {
-          print("lets move to the user positions");
           mapController.move(value, 16.5);
         }
       });
     }
-    return BlocListener<MapCubit, MapState>(
-      listener: (context, state) {
-        print("state changed");
-        print(state.status);
-        print("path length: ${state.path.length}");
-        if (state.status == MapStatus.batimentsUpdated &&
-            state.path.isNotEmpty) {
-          print("lets move to the first point");
-          mapController.move(state.path.first, 18.0);
-        }
-      },
-      child: Stack(
-        children: [
-          FlutterMap(
-            options: MapOptions(
-              center: widget.center ?? MapRes.center,
-              zoom: 16.5,
-              maxZoom: MapRes.maxZoom,
-              minZoom: 0,
-            ),
-            mapController: mapController,
-            children: [
-              TileLayer(
-                  tileProvider: HybridTileProvider() //AssetTileProvider(),
-                  ),
-              if (widget.polylines.isNotEmpty)
-                PolylineLayer(polylines: widget.polylines),
-              if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
-                const CustomCurrentLocationLayerWidget(),
-              if (widget.batiments.isNotEmpty)
-                PopupMarkerLayerWidget(
-                  options: PopupMarkerLayerOptions(
-                    markers: markers,
-                    popupController: popupLayerController,
-                    popupBuilder: (BuildContext context, Marker marker) {
-                      return MapPopupWidget(
-                        batiment: widget.batiments.firstWhere(
-                            (element) => element.position == marker.point),
-                        onTap: widget.onTapNavigate,
-                        popupController: popupLayerController,
-                      );
-                    },
-                  ),
-                ),
-            ],
+    return Stack(
+      children: [
+        FlutterMap(
+          options: MapOptions(
+            center: widget.center ?? MapRes.center,
+            zoom: 16.5,
+            maxZoom: MapRes.maxZoom,
+            minZoom: 0,
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (!Platform.isLinux &&
-                    !Platform.isMacOS &&
-                    !Platform.isWindows)
-                  Padding(
-                    padding: EdgeInsets.all(2.h),
-                    child: IconButton(
-                        onPressed: () {
-                          GeolocationLogic.getCurrentLocation(
-                                  askPermission: true)
-                              .then((value) {
-                            setState(() {
-                              if ((value != null)) {
-                                print("move due to button to location");
-                                mapController.move(value, 15);
-                              }
-                            });
-                          });
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              Theme.of(context).primaryColor),
-                        ),
-                        icon: Icon(
-                          Icons.location_searching_rounded,
-                          size: 25.sp,
-                        )),
-                  ),
+          mapController: mapController,
+          children: [
+            TileLayer(tileProvider: HybridTileProvider() //AssetTileProvider(),
+                ),
+            if (widget.polylines.isNotEmpty)
+              PolylineLayer(
+                polylines: widget.polylines,
+                polylineCulling: true,
+              ),
+            if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
+              const CustomCurrentLocationLayerWidget(),
+            if (widget.batiments.isNotEmpty)
+              PopupMarkerLayerWidget(
+                options: PopupMarkerLayerOptions(
+                  markers: markers,
+                  popupController: popupLayerController,
+                  popupBuilder: (BuildContext context, Marker marker) {
+                    return MapPopupWidget(
+                      batiment: widget.batiments.firstWhere(
+                          (element) => element.position == marker.point),
+                      onTap: widget.onTapNavigate,
+                      popupController: popupLayerController,
+                    );
+                  },
+                ),
+              ),
+          ],
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
                 Padding(
                   padding: EdgeInsets.all(2.h),
                   child: IconButton(
                       onPressed: () {
-                        print("move to campus");
-                        mapController.move(MapRes.center, 16.5);
+                        GeolocationLogic.getCurrentLocation(askPermission: true)
+                            .then((value) {
+                          setState(() {
+                            if ((value != null)) {
+                              mapController.move(value, 15);
+                            }
+                          });
+                        });
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                             Theme.of(context).primaryColor),
                       ),
                       icon: Icon(
-                        Icons.location_city_rounded,
+                        Icons.location_searching_rounded,
                         size: 25.sp,
                       )),
                 ),
-              ],
-            ),
+              Padding(
+                padding: EdgeInsets.all(2.h),
+                child: IconButton(
+                    onPressed: () {
+                      mapController.move(MapRes.center, 16.5);
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor),
+                    ),
+                    icon: Icon(
+                      Icons.location_city_rounded,
+                      size: 25.sp,
+                    )),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
