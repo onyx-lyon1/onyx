@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:sizer/sizer.dart';
 
 class MapSearchAutocompleteWidget extends StatelessWidget {
-  const MapSearchAutocompleteWidget(
-      {Key? key, required this.controller, this.mapController})
+  const MapSearchAutocompleteWidget({Key? key, required this.controller})
       : super(key: key);
   final TextEditingController controller;
-  final MapController? mapController;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +20,7 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
               .read<MapCubit>()
               .state
               .batiments
-              .firstWhere((element) => element.name == option),
-          mapController);
+              .firstWhere((element) => element.name == option));
     }
 
     return RawAutocomplete<String>(
