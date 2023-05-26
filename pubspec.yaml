@@ -79,6 +79,7 @@ dependencies:
   equatable: ^2.0.5
   biometric_storage: #^4.1.3
     git: https://github.com/hatch01/biometric_storage.git #https://github.com/authpass/biometric_storage.git #https://github.com/YazeedAlKhalaf/biometric_storage.git
+  archive: ^3.3.7
 
 dependency_overrides:
   # unindent for devlopment to use local version of the libraries
@@ -124,6 +125,7 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
+    - assets/map/graph.json.gz
     - assets/izly_mock_qr-code.png
     - assets/batiment_lyon1.json
     - assets/agenda_ids.json.enc
