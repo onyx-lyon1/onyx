@@ -67,7 +67,7 @@ Future<bool> backgroundLogic({bool init = true}) async {
             await NotificationLogic.showNotification(
                 title: "Nouvelles notes",
                 body:
-                    "Vous avez eu ${x.numerator}/${x.denominator} en : ${i.name}",
+                    "Vous avez eu ${x.numerator}/${x.denominator} (${x.name}) en : ${i.name}",
                 payload: "newGrades");
           }
         }
