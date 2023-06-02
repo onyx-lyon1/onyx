@@ -45,11 +45,22 @@ class IzlyCubit extends Cubit<IzlyState> {
           emit(state.copyWith(status: IzlyStatus.noCredentials));
           return;
         }
-        await CacheService.set<IzlyCredential>(credential,
-            secureKey:
-                await CacheService.getEncryptionKey(settings.biometricAuth));
         _izlyClient = IzlyClient(credential.username, credential.password);
-        await _izlyClient!.login();
+        bool loginResult = await _izlyClient!.login();
+        if (!loginResult) {
+          if (await CacheService.exist<IzlyCredential>(
+              secureKey: await CacheService.getEncryptionKey(
+                  settings.biometricAuth))) {
+            emit(state.copyWith(status: IzlyStatus.error));
+          } else {
+            emit(state.copyWith(status: IzlyStatus.noCredentials));
+          }
+          return;
+        } else {
+          await CacheService.set<IzlyCredential>(credential,
+              secureKey:
+                  await CacheService.getEncryptionKey(settings.biometricAuth));
+        }
       }
       emit(state.copyWith(status: IzlyStatus.loading, izlyClient: _izlyClient));
       await IzlyLogic.completeQrCodeCache(_izlyClient!);
