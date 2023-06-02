@@ -71,7 +71,8 @@ class _MapWidgetState extends State<MapWidget> {
           children: [
             TileLayer(tileProvider: HybridTileProvider() //AssetTileProvider(),
                 ),
-            if (widget.polylines.isNotEmpty)
+            if (widget.polylines.isNotEmpty &&
+                !widget.polylines.any((element) => element.points.isEmpty))
               PolylineLayer(
                 polylines: widget.polylines,
                 polylineCulling: true,
