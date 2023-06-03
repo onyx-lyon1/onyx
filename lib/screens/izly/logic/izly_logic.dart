@@ -15,11 +15,9 @@ class IzlyLogic {
     } else {
       List<IzlyQrCode> qrCodeModels =
           (await CacheService.get<IzlyQrCodeList>())!.qrCodes;
-      for (IzlyQrCode qrCodeModel in qrCodeModels) {
-        if (qrCodeModel.expirationDate.isBefore(DateTime.now())) {
-          qrCodeModels.remove(qrCodeModel);
-        }
-      }
+      qrCodeModels.removeWhere(
+          (element) => element.expirationDate.isBefore(DateTime.now()));
+
       if (qrCodeModels.isEmpty) {
         return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
       } else {
