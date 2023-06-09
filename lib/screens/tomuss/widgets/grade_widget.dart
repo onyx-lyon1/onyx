@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +6,7 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/core/theme/theme_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 
 class GradeWidget extends StatefulWidget {
@@ -131,241 +127,141 @@ class _GradeWidgetState extends State<GradeWidget> {
     String gradeNumerator =
         ((widget.grades.isNotEmpty) ? numerator.toStringAsPrecision(3) : '-');
     if (widget.compact) {
-      return SizedBox(
-        height: 11.h,
-        width: 20.w,
-        child: Material(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          color: _mainGradeColor(context),
-          child: InkWell(
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            onTap: widget.onTap,
-            child: Column(
+      return TomussCompactElementWidget(
+        onTap: widget.onTap,
+        color: _mainGradeColor(context),
+        child: Column(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          gradeNumerator,
-                          style: TextStyle(
-                            color: OnyxTheme.darkTheme().colorScheme.background,
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          '/${denominator.toStringAsFixed(0)}',
-                          style: TextStyle(
-                            color: OnyxTheme.darkTheme().colorScheme.background,
-                            fontSize: 6.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      gradeNumerator,
+                      style: TextStyle(
+                        color: OnyxTheme.darkTheme().colorScheme.background,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    // Stack(
-                    //   fit: StackFit.loose,
-                    //   children: [
-                    //     Padding(
-                    //       padding: EdgeInsets.only(left: 0.5.w),
-                    //       child: Text(
-                    //         gradeNumerator,
-                    //         style: TextStyle(
-                    //           color: OnyxTheme.darkTheme().colorScheme.background,
-                    //           fontSize: 8.sp,
-                    //           fontWeight: FontWeight.bold,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     Padding(
-                    //       padding: EdgeInsets.only(left: 3.w, top: 0.5.h),
-                    //       child: Transform.rotate(
-                    //         angle: -pi / 4,
-                    //         child: Container(
-                    //           height: 0.2.h,
-                    //           color: OnyxTheme.darkTheme().colorScheme.background,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     Positioned(
-                    //       top: 1.h,
-                    //       right: 1.5.w,
-                    //       child: Text(
-                    //         denominator.toString(),
-                    //         style: TextStyle(
-                    //           color: OnyxTheme.darkTheme().colorScheme.background,
-                    //           fontSize: 6.sp,
-                    //           fontWeight: FontWeight.bold,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
+                    Text(
+                      '/${denominator.toStringAsFixed(0)}',
+                      style: TextStyle(
+                        color: OnyxTheme.darkTheme().colorScheme.background,
+                        fontSize: 6.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
-                ),
-                SizedBox(
-                  width: Res.bottomNavBarItemWidth,
-                  height: Res.bottomNavBarHeight / 4,
-                  child: AutoSizeText(
-                    widget.text1,
-                    maxLines: 1,
-                    minFontSize: 7,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      overflow: TextOverflow.clip,
-                      color: OnyxTheme.darkTheme().colorScheme.background,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: Res.bottomNavBarItemWidth,
-                  height: Res.bottomNavBarHeight / 4,
-                  child: AutoSizeText(
-                    widget.text2,
-                    maxLines: 1,
-                    minFontSize: 8,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      overflow: TextOverflow.clip,
-                      color: OnyxTheme.darkTheme().colorScheme.background,
-                    ),
-                  ),
                 ),
               ],
             ),
-          ),
+            SizedBox(
+              width: Res.bottomNavBarItemWidth,
+              height: Res.bottomNavBarHeight / 4,
+              child: AutoSizeText(
+                widget.text1,
+                maxLines: 1,
+                minFontSize: 7,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.clip,
+                  color: OnyxTheme.darkTheme().colorScheme.background,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: Res.bottomNavBarItemWidth,
+              height: Res.bottomNavBarHeight / 4,
+              child: AutoSizeText(
+                widget.text2,
+                maxLines: 1,
+                minFontSize: 8,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  overflow: TextOverflow.clip,
+                  color: OnyxTheme.darkTheme().colorScheme.background,
+                ),
+              ),
+            ),
+          ],
         ),
       );
     } else {
       return GestureDetector(
-        onTap: (widget.onTap != null) ? () => widget.onTap!() : null,
-        child: Screenshot(
-          controller: screenshotController,
-          child: Container(
-            height: 11.h,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardTheme.color,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+          onTap: (widget.onTap != null) ? () => widget.onTap!() : null,
+          child: TomussElementWidget(
+            color: _mainGradeColor(context),
+            left: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    gradeNumerator,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: OnyxTheme.darkTheme().colorScheme.background,
+                      fontSize: 18.sp,
+                    ),
+                  ),
+                ),
                 Container(
-                  height: 11.h,
-                  width: 20.w,
-                  decoration: BoxDecoration(
-                    color: _mainGradeColor(context),
-                    borderRadius: const BorderRadius.horizontal(
-                      left: Radius.circular(10),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: Text(
-                          gradeNumerator,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: OnyxTheme.darkTheme().colorScheme.background,
-                            fontSize: 18.sp,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 15.w,
-                        height: 0.2.h,
-                        color: OnyxTheme.darkTheme().colorScheme.background,
-                      ),
-                      Text(
-                        ((widget.grades.isNotEmpty) ? denominator : '-')
-                            .toString(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: OnyxTheme.darkTheme().colorScheme.background,
-                            fontSize: 15),
-                      ),
-                    ],
-                  ),
+                  width: 15.w,
+                  height: 0.2.h,
+                  color: OnyxTheme.darkTheme().colorScheme.background,
                 ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 10),
-                    padding: EdgeInsets.symmetric(vertical: 0.5.h),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 3.h,
-                          width: 70.w,
-                          child: Text(
-                            widget.text1,
-                            maxLines: 1,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
-                              overflow: TextOverflow.ellipsis,
-                              fontSize: 11.sp,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 7.h,
-                          width: 70.w,
-                          child: Text(
-                            widget.text2,
-                            textAlign: TextAlign.start,
-                            maxLines: 3,
-                            style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
-                              overflow: TextOverflow.ellipsis,
-                              fontSize: 7.sp,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                Text(
+                  ((widget.grades.isNotEmpty) ? denominator : '-').toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: OnyxTheme.darkTheme().colorScheme.background,
+                      fontSize: 15),
                 ),
-                if (widget.depth == 1)
-                  GradeCoefWidget(grade: widget.grades.first),
-                IconButton(
-                    onPressed: () async {
-                      Directory tmpDir = await getTemporaryDirectory();
-                      await screenshotController.captureAndSave(
-                        tmpDir.path,
-                        pixelRatio: 3.0,
-                        fileName: 'screenshot.png',
-                      );
-                      Share.shareXFiles(
-                          [XFile("${tmpDir.path}/screenshot.png")],
-                          text:
-                              "Voici ma note en ${widget.grades.first.name} !");
-                    },
-                    icon: Icon(
-                      Icons.share_rounded,
-                      size: 20.sp,
-                    )),
               ],
             ),
-          ),
-        ),
-      );
+            right: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 3.h,
+                  width: 70.w,
+                  child: Text(
+                    widget.text1,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).textTheme.bodyLarge!.color,
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 11.sp,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 7.h,
+                  width: 70.w,
+                  child: Text(
+                    widget.text2,
+                    textAlign: TextAlign.start,
+                    maxLines: 3,
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyLarge!.color,
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 7.sp,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onTap: widget.onTap,
+          ));
     }
   }
 }
