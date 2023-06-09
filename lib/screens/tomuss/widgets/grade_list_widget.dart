@@ -5,62 +5,58 @@ import 'package:sizer/sizer.dart';
 
 class GradeListWidget extends StatelessWidget {
   const GradeListWidget(
-      {Key? key,
-      required this.grades,
-      required this.depth,
-      required this.lastElement})
+      {Key? key, required this.grades, this.depth = 1, this.lastElement = true})
       : super(key: key);
-  final List<Grade> grades;
+  final Grade grades;
   final int depth;
   final bool lastElement;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children:
-          List.generate(grades.length, (index) => index).map((gradeIndex) {
-        return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        if (depth == 1)
+          Container(
+            height: 2.h,
+          ),
+        Row(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            if (depth == 1)
-              Container(
-                height: 2.h,
-              ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                treeBuilder(context, depth, gradeIndex == grades.length - 1,
-                    lastElement),
-                Expanded(
-                  child: SizedBox(
-                    height: 11.h,
-                    child: GradeWidget(
-                      grades: [grades[gradeIndex]],
-                      isSeen: true,
-                      text1: grades[gradeIndex].name.replaceAll("_", " "),
-                      text2:
-                          "Moyenne : ${grades[gradeIndex].average.toStringAsFixed(2)} · Mediane : ${grades[gradeIndex].mediane.toStringAsFixed(2)}\nClassement : ${grades[gradeIndex].rank + 1}/${grades[gradeIndex].groupeSize}\nProfesseur : ${grades[gradeIndex].author}",
-                      depth: depth,
-                    ),
-                  ),
+            treeBuilder(context, depth, lastElement),
+            Expanded(
+              child: SizedBox(
+                height: 11.h,
+                child: GradeWidget(
+                  grades: [grades],
+                  isSeen: true,
+                  text1: grades.name.replaceAll("_", " "),
+                  text2:
+                      "Moyenne : ${grades.average.toStringAsFixed(2)} · Mediane : ${grades.mediane.toStringAsFixed(2)}\nClassement : ${grades.rank + 1}/${grades.groupeSize}\nProfesseur : ${grades.author}",
+                  depth: depth,
                 ),
-              ],
-            ),
-            if (grades[gradeIndex].children.isNotEmpty)
-              GradeListWidget(
-                grades: grades[gradeIndex].children,
-                depth: depth + 1,
-                lastElement: gradeIndex == grades.length - 1,
               ),
+            ),
           ],
-        );
-      }).toList(),
+        ),
+        if (grades.children.isNotEmpty)
+          Column(
+            children: [
+              for (var grade in grades.children)
+                GradeListWidget(
+                  grades: grade,
+                  depth: depth + 1,
+                  lastElement: grades.children.indexOf(grade) ==
+                      grades.children.length - 1,
+                ),
+            ],
+          ),
+      ],
     );
   }
 
-  Widget treeBuilder(BuildContext context, int depth, bool lastElement,
-      bool parentLastElement) {
+  Widget treeBuilder(BuildContext context, int depth, bool lastElement) {
     if (depth == 1) {
       return Container();
     }
@@ -86,10 +82,10 @@ class GradeListWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        for (var i = 0; i < ((parentLastElement) ? 1 : depth - 1); i++)
+        for (var i = 0; i < ((lastElement) ? 1 : depth - 1); i++)
           Padding(
             padding: EdgeInsets.only(
-              left: (parentLastElement)
+              left: (lastElement)
                   ? (depth == 2)
                       ? 10.w
                       : ((10.w + 3.w) * (depth - 1)) - 3.w
@@ -102,18 +98,16 @@ class GradeListWidget extends StatelessWidget {
               children: [
                 Container(
                   width: 1.w,
-                  height:
-                      ((lastElement && (i >= depth - 2 || parentLastElement))
-                          ? (13.h / 2) + (0.5.h / 2)
-                          : 13.h),
+                  height: ((lastElement) // && (i >= depth - 2 || lastElement))
+                      ? (13.h / 2) + (0.5.h / 2)
+                      : 13.h),
                   color: Theme.of(context).primaryColor,
                 ),
                 Container(
                   width: 1.w,
-                  height:
-                      ((lastElement && (i >= depth - 2 || parentLastElement))
-                          ? (13.h / 2) - (0.5.h / 2)
-                          : 0),
+                  height: ((lastElement) // && (i >= depth - 2 || lastElement))
+                      ? (13.h / 2) - (0.5.h / 2)
+                      : 0),
                   color: Theme.of(context).colorScheme.background,
                 ),
               ],
