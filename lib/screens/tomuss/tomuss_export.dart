@@ -7,3 +7,5 @@ export 'widgets/grade_list_widget.dart';
 export 'widgets/grade_widget.dart';
 export 'widgets/semestre_chooser_widget.dart';
 export 'widgets/tomuss_bottom_nav_bar_icon.dart';
+export 'widgets/tomuss_element_widget.dart';
+export 'widgets/tomuss_compact_element_widget.dart';
