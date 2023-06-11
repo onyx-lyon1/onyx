@@ -1,10 +1,10 @@
 # Onyx
 
-Onyx is an application to access all lyon1's services from your phone.\
+Onyx is an application to access all Université Claude Bernard Lyon 1 's services from your phone.\
 
 |||
 |:-:|:-:|
-|Toutes tes notes en un clin d'oeil⚡|Ton emploi du temps sans rien avoir à configurer 🥳|
+|Toutes tes notes en un clin d'oeil⚡|Ton emploi du temps sans rien n'avoir à configurer 🥳|
 |![](assets/screen_shot/Screenshot_20230221-155049_Onyx.png)|![](assets/screen_shot/Screenshot_20230221-155102_Onyx.png)|
 |Tes mails toujours disponibles 🤩|Plein de paramètres pour une application comme tu la veux ❤️‍🔥|
 |![](assets/screen_shot/Screenshot_20230221-155151_Onyx.png)|![](assets/screen_shot/Screenshot_20230221-155154_Onyx.png)|
