@@ -4,12 +4,12 @@ Onyx is an application to access all lyon1's services from your phone.\
 
 |||
 |:-:|:-:|
-|Toutes tes notes en un clin d'oeil⚡|Ton emploi du temps sans rien à configurer 🥳|
-|![](assets/screen_shot/Screenshot_20230221-155049_Onyx.png){width="50%"}|![](assets/screen_shot/Screenshot_20230221-155102_Onyx.png){width="50%"}|
-|Tes mails toujours disponible 🤩|Plein de paramètres une application comme tu la veut ❤️‍🔥|
-|![](assets/screen_shot/Screenshot_20230221-155151_Onyx.png){width="50%"}|![](assets/screen_shot/Screenshot_20230221-155154_Onyx.png){width="50%"}|
-|Izly tu peut supprimer l'app Izly🧹|Un plan des bâtimens pour cet amphi que personne connait😢|
-|![](assets/screen_shot/Screenshot_20230221-155123_Onyx.png){width="50%"}|![](assets/screen_shot/Screenshot_20230221-155158_Onyx.png){width="50%"}|
+|Toutes tes notes en un clin d'oeil⚡|Ton emploi du temps sans rien avoir à configurer 🥳|
+|![](assets/screen_shot/Screenshot_20230221-155049_Onyx.png)|![](assets/screen_shot/Screenshot_20230221-155102_Onyx.png)|
+|Tes mails toujours disponibles 🤩|Plein de paramètres pour une application comme tu la veux ❤️‍🔥|
+|![](assets/screen_shot/Screenshot_20230221-155151_Onyx.png)|![](assets/screen_shot/Screenshot_20230221-155154_Onyx.png)|
+|Izly, Tu peut supprimer l'app Izly🧹|Un plan des bâtiments pour cet amphi que personne ne connait😢|
+|![](assets/screen_shot/Screenshot_20230221-155123_Onyx.png)|![](assets/screen_shot/Screenshot_20230221-155158_Onyx.png)|
 
 ## contribute
 
