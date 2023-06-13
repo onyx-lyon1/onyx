@@ -115,8 +115,9 @@ class TomussCubit extends Cubit<TomussState> {
     }
     int enumerationIndex =
         teachingUnits[index].enumerations.indexOf(enumeration);
-    await enumeration.updateValue(value, teachingUnits[index].ticket);
+    // await enumeration.updateValue(value, teachingUnits[index].ticket);
     enumeration = enumeration.copyWith.value(value);
+
     teachingUnits[index].enumerations[enumerationIndex] = enumeration;
     await CacheService.set<TeachingUnitList>(
         TeachingUnitList(teachingUnits, state.currentSemesterIndex));
