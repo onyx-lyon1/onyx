@@ -62,7 +62,7 @@ class MailSendPage extends StatelessWidget {
                 receiver: destinationEditor.text,
                 isFlagged: false,
                 attachments: attachments
-                    .map((e) => [e.path.split("/").last, e.path])
+                    .map((e) => e.path)
                     .toList(),
               );
 
