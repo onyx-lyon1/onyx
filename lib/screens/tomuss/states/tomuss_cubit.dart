@@ -107,7 +107,7 @@ class TomussCubit extends Cubit<TomussState> {
 
   Future<void> updateEnumerationValue(
       Enumeration enumeration, String value) async {
-    List<TeachingUnit> teachingUnits = state.teachingUnits;
+    List<TeachingUnit> teachingUnits = List.from(state.teachingUnits);
     int index = teachingUnits
         .indexWhere((element) => element.enumerations.contains(enumeration));
     if (index == -1) {
@@ -117,7 +117,6 @@ class TomussCubit extends Cubit<TomussState> {
         teachingUnits[index].enumerations.indexOf(enumeration);
     await enumeration.updateValue(value, teachingUnits[index].ticket);
     enumeration = enumeration.copyWith.value(value);
-
     teachingUnits[index].enumerations[enumerationIndex] = enumeration;
     await CacheService.set<TeachingUnitList>(
         TeachingUnitList(teachingUnits, state.currentSemesterIndex));
