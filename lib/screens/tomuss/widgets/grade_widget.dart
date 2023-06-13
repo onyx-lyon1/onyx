@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,9 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/core/theme/theme_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 
 class GradeWidget extends StatefulWidget {
@@ -226,38 +230,63 @@ class _GradeWidgetState extends State<GradeWidget> {
                 ),
               ],
             ),
-            right: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            right: Row(
               children: [
-                SizedBox(
-                  height: 3.h,
-                  width: 70.w,
-                  child: Text(
-                    widget.text1,
-                    maxLines: 1,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
-                      overflow: TextOverflow.ellipsis,
-                      fontSize: 11.sp,
-                    ),
+                Flexible(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 3.h,
+                        width: 70.w,
+                        child: Text(
+                          widget.text1,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 11.sp,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 7.h,
+                        width: 70.w,
+                        child: Text(
+                          widget.text2,
+                          textAlign: TextAlign.start,
+                          maxLines: 3,
+                          style: TextStyle(
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 7.sp,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 7.h,
-                  width: 70.w,
-                  child: Text(
-                    widget.text2,
-                    textAlign: TextAlign.start,
-                    maxLines: 3,
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
-                      overflow: TextOverflow.ellipsis,
-                      fontSize: 7.sp,
-                    ),
-                  ),
-                ),
+                if (widget.depth == 1)
+                  GradeCoefWidget(grade: widget.grades.first),
+                IconButton(
+                    onPressed: () async {
+                      Directory tmpDir = await getTemporaryDirectory();
+                      await screenshotController.captureAndSave(
+                        tmpDir.path,
+                        pixelRatio: 3.0,
+                        fileName: 'screenshot.png',
+                      );
+                      Share.shareXFiles(
+                          [XFile("${tmpDir.path}/screenshot.png")],
+                          text:
+                              "Voici ma note en ${widget.grades.first.name} !");
+                    },
+                    icon: Icon(
+                      Icons.share_rounded,
+                      size: 20.sp,
+                    )),
               ],
             ),
             onTap: widget.onTap,

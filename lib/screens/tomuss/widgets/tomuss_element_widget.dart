@@ -30,20 +30,21 @@ class TomussElementWidget extends StatelessWidget {
         builder: (context, constraints) {
           return Row(
             children: [
-              SizedBox(
-                width: constraints.maxWidth * 0.25,
-                height: constraints.maxHeight,
+              Flexible(
+                flex: 1,
                 child: Container(
                   color: color ?? Colors.transparent,
                   child: left,
                 ),
               ),
-              Container(
-                width: constraints.maxWidth * (0.75 - 0.02),
-                margin: EdgeInsets.only(left: constraints.maxWidth * 0.02),
-                padding: EdgeInsets.symmetric(
-                    vertical: constraints.maxHeight * 0.02),
-                child: right,
+              Flexible(
+                flex: 3,
+                child: Container(
+                  margin: EdgeInsets.only(left: constraints.maxWidth * 0.02),
+                  padding: EdgeInsets.symmetric(
+                      vertical: constraints.maxHeight * 0.02),
+                  child: right,
+                ),
               ),
             ],
           );
