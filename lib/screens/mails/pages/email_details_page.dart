@@ -110,7 +110,7 @@ class MailDetailsPage extends StatelessWidget {
                                   onTap: () async {
                                     //save data in a file and open it
                                     if (mail.attachments[index][1] == "") {
-                                      mail.attachments[index][1] =
+                                      mail.attachments[index] =
                                           await AttachmentLogic
                                               .getAttachmentLocalPath(
                                                   email: mail,

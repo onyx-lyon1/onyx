@@ -93,8 +93,8 @@ class MailLogic {
         id: 1,
         receiver: "receiverMock1",
         attachments: const [
-          ["attachmentMock1"],
-          ["attachmentMock2"]
+          "attachmentMock1",
+          "attachmentMock2"
         ],
         isFlagged: false),
     Mail(
@@ -108,8 +108,8 @@ class MailLogic {
         id: 2,
         receiver: "receiverMock2",
         attachments: const [
-          ["attachmentMock1"],
-          ["attachmentMock2"]
+          "attachmentMock1",
+          "attachmentMock2"
         ],
         isFlagged: true),
     Mail(
@@ -123,8 +123,8 @@ class MailLogic {
         id: 3,
         receiver: "receiverMock3",
         attachments: const [
-          ["attachmentMock1"],
-          ["attachmentMock2"]
+          "attachmentMock1",
+          "attachmentMock2"
         ],
         isFlagged: false),
     Mail(
@@ -138,8 +138,8 @@ class MailLogic {
         id: 4,
         receiver: "receiverMock4",
         attachments: const [
-          ["attachmentMock1"],
-          ["attachmentMock2"]
+          "attachmentMock1",
+          "attachmentMock2"
         ],
         isFlagged: true),
     Mail(
@@ -153,8 +153,8 @@ class MailLogic {
         id: 5,
         receiver: "receiverMock5",
         attachments: const [
-          ["attachmentMock1"],
-          ["attachmentMock2"]
+          "attachmentMock1",
+          "attachmentMock2"
         ],
         isFlagged: false),
   ];
