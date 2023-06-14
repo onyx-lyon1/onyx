@@ -281,7 +281,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                       Share.shareXFiles(
                           [XFile("${tmpDir.path}/screenshot.png")],
                           text:
-                              "Voici ma note en ${widget.grades.first.name} !");
+                              "Voici ma note en ${widget.grades.first.title} !");
                     },
                     icon: Icon(
                       Icons.share_rounded,

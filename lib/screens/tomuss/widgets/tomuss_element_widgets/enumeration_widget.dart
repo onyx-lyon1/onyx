@@ -64,7 +64,7 @@ class EnumerationWidget extends StatelessWidget {
               ))
           : Center(
               child: Text(
-                enumeration.values.last,
+                enumeration.value ?? "",
                 maxLines: 4,
                 textAlign: TextAlign.center,
                 style: TextStyle(

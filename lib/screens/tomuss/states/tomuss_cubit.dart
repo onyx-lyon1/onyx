@@ -1,4 +1,5 @@
 import 'package:dartus/tomuss.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/cache_service.dart';
@@ -10,7 +11,7 @@ import '../../settings/settings_export.dart';
 part 'tomuss_state.dart';
 
 class TomussCubit extends Cubit<TomussState> {
-  TomussCubit() : super(TomussState(status: TomussStatus.initial));
+  TomussCubit() : super(const TomussState(status: TomussStatus.initial));
 
   Future<void> load(
       {required Dartus? dartus,
@@ -42,14 +43,17 @@ class TomussCubit extends Cubit<TomussState> {
     }
     if (dartus != null) {
       try {
-        GetSemesterAndNoteResultWaitingRecords result =
-            await TomussLogic.getSemestersAndNote(
-                dartus: dartus,
-                semesterIndex: semestreIndex,
-                autoRefresh: false,
-                semester: (semesters.length > (semestreIndex ?? 0))
-                    ? semesters[semestreIndex ?? 0]
-                    : null);
+        ({
+          List<Semester>? semesters,
+          List<TeachingUnit>? schoolSubjectModel,
+          Duration? timeout,
+        }) result = await TomussLogic.getSemestersAndNote(
+            dartus: dartus,
+            semesterIndex: semestreIndex,
+            autoRefresh: false,
+            semester: (semesters.length > (semestreIndex ?? 0))
+                ? semesters[semestreIndex ?? 0]
+                : null);
         if (result.timeout != null) {
           emit(state.copyWith(
             currentSemesterIndex: semestreIndex ?? 0,
@@ -67,11 +71,11 @@ class TomussCubit extends Cubit<TomussState> {
         if (kDebugMode) {
           print("Error while loading grades: $e");
         }
-        emit(TomussState(status: TomussStatus.error));
+        emit(const TomussState(status: TomussStatus.error));
         return;
       }
 
-      teachingUnits.sort((a, b) => a.name.compareTo(b.name));
+      teachingUnits.sort((a, b) => a.title.compareTo(b.title));
       CacheService.set<TeachingUnitList>(
           TeachingUnitList(teachingUnits, semestreIndex),
           index: semestreIndex);
@@ -115,7 +119,7 @@ class TomussCubit extends Cubit<TomussState> {
     }
     int enumerationIndex =
         teachingUnits[index].enumerations.indexOf(enumeration);
-    // await enumeration.updateValue(value, teachingUnits[index].ticket);
+    await enumeration.updateValue(value, teachingUnits[index].ticket);
     enumeration = enumeration.copyWith.value(value);
 
     teachingUnits[index].enumerations[enumerationIndex] = enumeration;
@@ -126,6 +130,6 @@ class TomussCubit extends Cubit<TomussState> {
   }
 
   void resetCubit() async {
-    emit(TomussState(status: TomussStatus.initial));
+    emit(const TomussState(status: TomussStatus.initial));
   }
 }
