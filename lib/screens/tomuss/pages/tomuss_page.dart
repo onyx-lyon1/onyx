@@ -39,7 +39,7 @@ class _TomussPageState extends State<TomussPage> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                GradeListHeaderWidget(name: schoolSubject.name),
+                TeachingUnitChildrenTitleWidget(name: schoolSubject.title),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
                   child: TeachingUnitChildrenWidget(
@@ -134,11 +134,11 @@ class _TomussPageState extends State<TomussPage> {
                           padding: EdgeInsets.all(0.8.w),
                           child: GradeWidget(
                             grades: [grade],
-                            text1: grade.name.replaceAll("_", " "),
+                            text1: grade.title.replaceAll("_", " "),
                             text2: state.teachingUnits
                                 .firstWhere(
                                     (element) => element.grades.contains(grade))
-                                .name,
+                                .title,
                             depth: 0,
                             compact: true,
                             onTap: () => showAllGrades(
@@ -186,7 +186,7 @@ class _TomussPageState extends State<TomussPage> {
                       grades: schoolSubject.grades,
                       text2:
                           schoolSubject.masters.map((e) => e.name).join(", "),
-                      text1: schoolSubject.name.replaceAll("_", " "),
+                      text1: schoolSubject.title.replaceAll("_", " "),
                       onTap: () => showAllGrades(context, schoolSubject),
                       depth: 0,
                     ),

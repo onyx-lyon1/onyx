@@ -1,19 +1,13 @@
 import 'dart:core';
+import 'dart:io';
 
 import 'package:dartus/tomuss.dart';
+import 'package:flutter/material.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-
-class GetSemesterAndNoteResultWaitingRecords {
-  List<Semester>? semesters;
-  List<TeachingUnit>? schoolSubjectModel;
-  Duration? timeout;
-
-  GetSemesterAndNoteResultWaitingRecords(
-      this.semesters, this.schoolSubjectModel, this.timeout);
-}
+import 'package:path_provider/path_provider.dart';
 
 class GetCacheDataPass {
   final String path;
@@ -23,11 +17,17 @@ class GetCacheDataPass {
 }
 
 class TomussLogic {
-  static Future<GetSemesterAndNoteResultWaitingRecords> getSemestersAndNote(
-      {required Dartus dartus,
-      Semester? semester,
-      int? semesterIndex,
-      bool autoRefresh = true}) async {
+  static Future<
+          ({
+            List<Semester>? semesters,
+            List<TeachingUnit>? schoolSubjectModel,
+            Duration? timeout,
+          })>
+      getSemestersAndNote(
+          {required Dartus dartus,
+          Semester? semester,
+          int? semesterIndex,
+          bool autoRefresh = true}) async {
     if (!Res.mock) {
       ParsedPage? parsedPage = await getParsedPage(
           dartus: dartus, semestre: semester, autoRefresh: autoRefresh);
@@ -35,16 +35,23 @@ class TomussLogic {
         throw "Impossible de récuperer la page de tomuss";
       }
       if (parsedPage.isTimedOut) {
-        return GetSemesterAndNoteResultWaitingRecords(
-            null, null, parsedPage.timeout);
+        return (
+          semesters: null,
+          schoolSubjectModel: null,
+          timeout: parsedPage.timeout
+        );
       }
-      return GetSemesterAndNoteResultWaitingRecords(
-          parsedPage.semesters, parsedPage.teachingunits, null);
+      return (
+        semesters: parsedPage.semesters,
+        schoolSubjectModel: parsedPage.teachingunits,
+        timeout: null
+      );
     } else {
-      return GetSemesterAndNoteResultWaitingRecords(
-          [Semester("2022/Automne", Dartus.currentSemester())],
-          teachingUnitsModelListMock,
-          null);
+      return (
+        semesters: [Semester("2022/Automne", Dartus.currentSemester())],
+        schoolSubjectModel: teachingUnitsModelListMock,
+        timeout: null
+      );
     }
   }
 
@@ -86,6 +93,22 @@ class TomussLogic {
     }
     newGrades.sort((a, b) => b.date!.compareTo(a.date!));
     return newGrades;
+  }
+
+  static Future<String> getDownloadLocalPath(
+      {required Upload upload,
+      required String ticket,
+      required BuildContext context}) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/${upload.fileUrl.split("/").last}');
+    if (await file.exists()) {
+      return file.path;
+    } else {
+      List<int> uploadFile =
+          await upload.getContent(ticket); //email.getAttachment(fileName);
+      await file.writeAsBytes(uploadFile);
+      return file.path;
+    }
   }
 
   static final List<TeachingUnit> teachingUnitsModelListMock = [
