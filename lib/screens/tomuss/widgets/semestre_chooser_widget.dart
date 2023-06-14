@@ -68,7 +68,7 @@ class SemesterChooserWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            semester.name.split("/")[0],
+                            semester.title.split("/")[0],
                             style: TextStyle(
                               color:
                                   Theme.of(context).textTheme.bodyLarge!.color,
@@ -76,7 +76,7 @@ class SemesterChooserWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            semester.name.split("/")[1],
+                            semester.title.split("/")[1],
                             style: TextStyle(
                               color:
                                   Theme.of(context).textTheme.bodyLarge!.color,

@@ -33,7 +33,8 @@ class TomussElementWidget extends StatelessWidget {
               Flexible(
                 flex: 1,
                 child: Container(
-                  color: color ?? Colors.transparent,
+                  color: color ?? Theme.of(context).primaryColor,
+                  height: constraints.maxHeight,
                   child: left,
                 ),
               ),

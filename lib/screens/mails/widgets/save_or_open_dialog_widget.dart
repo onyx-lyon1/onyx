@@ -8,7 +8,8 @@ import 'package:open_filex/open_filex.dart';
 import 'package:sizer/sizer.dart';
 
 class SaveOrOpenDialogWidget extends StatelessWidget {
-  const SaveOrOpenDialogWidget({Key? key, required this.filePath}) : super(key: key);
+  const SaveOrOpenDialogWidget({Key? key, required this.filePath})
+      : super(key: key);
   final String filePath;
 
   @override

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class GradeListHeaderWidget extends StatelessWidget {
+class TeachingUnitChildrenTitleWidget extends StatelessWidget {
   final String name;
 
-  const GradeListHeaderWidget({
+  const TeachingUnitChildrenTitleWidget({
     Key? key,
     required this.name,
   }) : super(key: key);
