@@ -34,7 +34,10 @@ class UploadWidget extends StatelessWidget {
                 );
                 OpenFilex.open(path);
               },
-              icon: const Icon(Icons.open_in_new_rounded)),
+              icon: const Icon(
+                Icons.open_in_new_rounded,
+                color: Colors.white,
+              )),
           IconButton(
               onPressed: () async {
                 final String path = await TomussLogic.getDownloadLocalPath(
@@ -69,7 +72,10 @@ class UploadWidget extends StatelessWidget {
                   });
                 }
               },
-              icon: const Icon(Icons.save_rounded)),
+              icon: const Icon(
+                Icons.save_rounded,
+                color: Colors.white,
+              )),
         ],
       ),
       right: Column(

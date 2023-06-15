@@ -18,7 +18,7 @@ class StageCodeWidget extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).textTheme.bodyLarge!.color,
+            color: Colors.white,
             overflow: TextOverflow.ellipsis,
             fontSize: 11.sp,
           ),
