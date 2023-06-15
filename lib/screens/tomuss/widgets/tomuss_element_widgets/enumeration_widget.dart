@@ -26,7 +26,7 @@ class EnumerationWidget extends StatelessWidget {
                       maxLines: 3,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                        color: Colors.white,
                         overflow: TextOverflow.ellipsis,
                         fontSize: 11.sp,
                       ),
@@ -50,7 +50,7 @@ class EnumerationWidget extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                        color: Colors.white,
                         overflow: TextOverflow.ellipsis,
                         fontSize: 11.sp,
                       ),
@@ -69,7 +69,7 @@ class EnumerationWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).textTheme.bodyLarge!.color,
+                  color: Colors.white,
                   overflow: TextOverflow.ellipsis,
                   fontSize: 11.sp,
                 ),
