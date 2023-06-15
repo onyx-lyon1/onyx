@@ -17,52 +17,36 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
       buildWhen: (previous, current) =>
           listEquals(previous.teachingUnits, current.teachingUnits),
       builder: (context, state) {
-        List<dynamic> children = [];
-        children.addAll(teachingUnit.grades);
-        children.addAll(teachingUnit.enumerations);
-        children.addAll(teachingUnit.presences);
-        children.addAll(teachingUnit.textValues);
-        children.addAll(teachingUnit.uploads);
-        children.addAll(teachingUnit.stageCodes);
+        List<TeachingUnitElement> children =
+            teachingUnit.visibleChildren.sortByPosition();
         children.sort((a, b) => a.position.compareTo(b.position));
         List<Widget> widgets = [];
         widgets.add(SizedBox(height: 2.h));
+
         for (var child in children) {
           if (child.isVisible) {
-            switch (child.runtimeType) {
-              case Grade:
-                widgets.add(
-                  GradeListWidget(
-                    grades: child,
-                  ),
-                );
-                break;
-              case Enumeration:
-                if (child.isVisible) {
-                  widgets.add(EnumerationWidget(enumeration: child));
-                }
-                break;
-              case Presence:
-                if (child.isVisible) {
-                  widgets.add(PresenceWidget(presence: child));
-                }
-                break;
-
-              case TomussText:
-                if (child.isVisible) {
-                  widgets.add(TomussTextWidget(text: child));
-                }
-                break;
-              case Upload:
-                widgets.add(UploadWidget(upload: child));
-                widgets.add(SizedBox(height: 2.h));
-                break;
-              case StageCode:
-                widgets.add(StageCodeWidget(stageCode: child));
-                break;
-              case URL:
-                widgets.add(URLWidget(url: child));
-                break;
+            if (child is Grade) {
+              widgets.add(
+                GradeListWidget(
+                  grades: child,
+                ),
+              );
+            } else if (child is Enumeration) {
+              widgets.add(EnumerationWidget(enumeration: child));
+            } else if (child is Presence) {
+              widgets.add(PresenceWidget(presence: child));
+            } else if (child is TomussText) {
+              widgets.add(TomussTextWidget(text: child));
+            } else if (child is Upload) {
+              widgets.add(UploadWidget(upload: child));
+            } else if (child is StageCode) {
+              widgets.add(StageCodeWidget(stageCode: child));
+            } else if (child is URL) {
+              widgets.add(URLWidget(url: child));
+            } else {
+              if (kDebugMode) {
+                print("Unknown type: ${child.runtimeType}");
+              }
             }
             widgets.add(SizedBox(height: 2.h));
           }

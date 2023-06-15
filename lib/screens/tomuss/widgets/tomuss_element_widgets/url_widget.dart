@@ -32,7 +32,7 @@ class URLWidget extends StatelessWidget {
                       ));
             }
           },
-          icon: const Icon(Icons.open_in_new_rounded)),
+          icon: const Icon(Icons.open_in_new_rounded, color: Colors.white)),
       right: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

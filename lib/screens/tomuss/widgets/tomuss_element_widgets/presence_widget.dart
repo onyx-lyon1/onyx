@@ -20,7 +20,9 @@ class PresenceWidget extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).textTheme.bodyLarge!.color,
+            color: (presence.color == PresenceColor.red)
+                ? Theme.of(context).textTheme.bodyLarge!.color
+                : Colors.white,
             overflow: TextOverflow.ellipsis,
             fontSize: 11.sp,
           ),
