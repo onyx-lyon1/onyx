@@ -1,5 +1,6 @@
 import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
+import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 class PresenceCompactWidget extends StatelessWidget {
@@ -19,6 +20,7 @@ class PresenceCompactWidget extends StatelessWidget {
       text1: presence.value,
       text2: presence.title,
       text3: teachingUnitTitle,
+      color: presence.color.toColor(),
       onTap: onTap,
     );
   }

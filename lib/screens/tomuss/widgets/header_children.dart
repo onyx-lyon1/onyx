@@ -14,7 +14,6 @@ class HeaderChildren extends StatelessWidget {
     return BlocBuilder<TomussCubit, TomussState>(
       builder: (context, state) {
         final teachingUnitElements = state.newElements;
-        // final teachingUnitElements = context.read<TomussCubit>().state.newElements;
         List<Widget> widgets = [];
         widgets.add(SizedBox(height: 2.h));
 
