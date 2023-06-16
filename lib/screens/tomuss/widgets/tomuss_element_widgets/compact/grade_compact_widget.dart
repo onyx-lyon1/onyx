@@ -1,0 +1,92 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dartus/tomuss.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/core/theme/theme_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/screens/tomuss/tomuss_export.dart';
+import 'package:sizer/sizer.dart';
+
+class GradeCompactWidget extends StatelessWidget {
+  final Grade grade;
+  final Function()? onTap;
+  final String teachingUnitTitle;
+
+  const GradeCompactWidget(
+      {super.key,
+      required this.grade,
+      required this.onTap,
+      required this.teachingUnitTitle});
+
+  @override
+  Widget build(BuildContext context) {
+    return TomussCompactElementWidget(
+      onTap: onTap,
+      color: TomussLogic.getMainGradeColor(
+          forceGreen: context.read<SettingsCubit>().state.settings.forceGreen,
+          isSeen: false,
+          grades: [grade]),
+      child: Column(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    grade.numerator.toString(),
+                    style: TextStyle(
+                      color: OnyxTheme.darkTheme().colorScheme.background,
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '/${grade.denominator.toStringAsFixed(0)}',
+                    style: TextStyle(
+                      color: OnyxTheme.darkTheme().colorScheme.background,
+                      fontSize: 6.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(
+            width: Res.bottomNavBarItemWidth,
+            height: Res.bottomNavBarHeight / 4,
+            child: AutoSizeText(
+              grade.title.replaceAll("_", " "),
+              maxLines: 1,
+              minFontSize: 7,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.clip,
+                color: OnyxTheme.darkTheme().colorScheme.background,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: Res.bottomNavBarItemWidth,
+            height: Res.bottomNavBarHeight / 4,
+            child: AutoSizeText(
+              teachingUnitTitle,
+              maxLines: 1,
+              minFontSize: 8,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                overflow: TextOverflow.clip,
+                color: OnyxTheme.darkTheme().colorScheme.background,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

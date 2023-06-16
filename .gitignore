@@ -46,5 +46,5 @@ app.*.map.json
 
 # to avoid mistake
 .env
-upload-keystore.jks
-key.properties
+android/upload-keystore.jks
+android/key.properties
