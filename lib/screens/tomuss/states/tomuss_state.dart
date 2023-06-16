@@ -16,7 +16,9 @@ class TomussState extends Equatable {
   final List<Semester> semesters;
   final int currentSemesterIndex;
   final Duration? timeout;
-  final List<Grade> newGrades;
+  final List<
+          ({TeachingUnitElement teachingUnitElement, TeachingUnit teachingUnit})>
+      newElements;
 
   @override
   List<Object?> get props => [
@@ -25,7 +27,7 @@ class TomussState extends Equatable {
         semesters,
         currentSemesterIndex,
         timeout,
-        newGrades,
+        newElements,
       ];
 
   @override
@@ -37,7 +39,7 @@ class TomussState extends Equatable {
       this.semesters = const [],
       this.currentSemesterIndex = 0,
       this.timeout,
-      this.newGrades = const []});
+      this.newElements = const []});
 
   TomussState copyWith(
       {TomussStatus? status,
@@ -45,13 +47,15 @@ class TomussState extends Equatable {
       List<Semester>? semesters,
       int? currentSemesterIndex,
       Duration? timeout,
-      List<Grade>? newGrades}) {
+        List<
+            ({TeachingUnitElement teachingUnitElement, TeachingUnit teachingUnit})>?
+          newElements}) {
     return TomussState(
         status: status ?? this.status,
         teachingUnits: teachingUnits ?? this.teachingUnits,
         semesters: semesters ?? this.semesters,
         currentSemesterIndex: currentSemesterIndex ?? this.currentSemesterIndex,
         timeout: timeout ?? this.timeout,
-        newGrades: newGrades ?? this.newGrades);
+        newElements: newElements ?? this.newElements);
   }
 }
