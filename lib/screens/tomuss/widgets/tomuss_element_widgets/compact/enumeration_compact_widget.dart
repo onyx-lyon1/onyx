@@ -20,70 +20,38 @@ class EnumerationCompactWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TomussCompactElementWidget(
       onTap: onTap,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            fit: FlexFit.tight,
-            flex: 5,
-            child: Text(enumeration.title,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 8.sp,
-                )),
-          ),
-          Flexible(
-            fit: FlexFit.tight,
-            flex: 7,
-            child: (enumeration.modifiable)
-                ? PopupMenuButton(
-                    color: Theme.of(context).colorScheme.background,
-                    initialValue: enumeration.value,
-                    itemBuilder: (BuildContext context) {
-                      return enumeration.values.map((String value) {
-                        return PopupMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            maxLines: 3,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              overflow: TextOverflow.ellipsis,
-                              fontSize: 11.sp,
-                            ),
-                          ),
-                        );
-                      }).toList();
-                    },
-                    onSelected: (String value) {
-                      context
-                          .read<TomussCubit>()
-                          .updateEnumerationValue(enumeration, value);
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            enumeration.value ?? "",
-                            maxLines: 4,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              overflow: TextOverflow.ellipsis,
-                              fontSize: 11.sp,
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_drop_down,
-                          size: 11.sp,
-                        ),
-                      ],
-                    ))
-                : Center(
+      text1: enumeration.title,
+      text3: teachingUnitTitle,
+      child2: (enumeration.modifiable)
+          ? PopupMenuButton(
+              color: Theme.of(context).colorScheme.background,
+              initialValue: enumeration.value,
+              itemBuilder: (BuildContext context) {
+                return enumeration.values.map((String value) {
+                  return PopupMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      maxLines: 3,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: 11.sp,
+                      ),
+                    ),
+                  );
+                }).toList();
+              },
+              onSelected: (String value) {
+                context
+                    .read<TomussCubit>()
+                    .updateEnumerationValue(enumeration, value);
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
                     child: Text(
                       enumeration.value ?? "",
                       maxLines: 4,
@@ -95,23 +63,24 @@ class EnumerationCompactWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-          ),
-          Flexible(
-            fit: FlexFit.tight,
-            flex: 5,
-            child: Align(
-              alignment: Alignment.bottomCenter,
+                  Icon(
+                    Icons.arrow_drop_down,
+                    size: 11.sp,
+                  ),
+                ],
+              ))
+          : Center(
               child: Text(
-                teachingUnitTitle,
-                overflow: TextOverflow.ellipsis,
+                enumeration.value ?? "",
+                maxLines: 4,
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 8.sp,
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.ellipsis,
+                  fontSize: 11.sp,
                 ),
               ),
             ),
-          ),
-        ],
-      ),
     );
   }
 }

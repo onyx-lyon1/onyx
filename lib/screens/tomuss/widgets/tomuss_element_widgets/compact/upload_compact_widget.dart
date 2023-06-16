@@ -1,6 +1,13 @@
+import 'dart:io';
+
 import 'package:dartus/tomuss.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
+import 'package:open_filex/open_filex.dart';
 
 class UploadCompactWidget extends StatelessWidget {
   final Upload upload;
@@ -16,10 +23,75 @@ class UploadCompactWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TomussCompactElementWidget(
-      // text1: upload.value,
-      text1: "",
-      text2: upload.title,
-      text3: teachingUnitTitle, onTap: onTap,
+      text1: upload.title,
+      text3: teachingUnitTitle,
+      onTap: onTap,
+      child2: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Flexible(
+            child: IconButton(
+                onPressed: () async {
+                  final String path = await TomussLogic.getDownloadLocalPath(
+                    upload: upload,
+                    ticket: context
+                        .read<TomussCubit>()
+                        .state
+                        .teachingUnits
+                        .firstWhere(
+                            (element) => element.uploads.contains(upload))
+                        .ticket,
+                    context: context,
+                  );
+                  OpenFilex.open(path);
+                },
+                icon: const Icon(
+                  Icons.open_in_new_rounded,
+                )),
+          ),
+          Flexible(
+            child: IconButton(
+                onPressed: () async {
+                  final String path = await TomussLogic.getDownloadLocalPath(
+                    upload: upload,
+                    ticket: context
+                        .read<TomussCubit>()
+                        .state
+                        .teachingUnits
+                        .firstWhere(
+                            (element) => element.uploads.contains(upload))
+                        .ticket,
+                    context: context,
+                  );
+                  if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+                    FlutterFileDialog.saveFile(
+                            params: SaveFileDialogParams(sourceFilePath: path))
+                        .then((value) => Navigator.pop(context));
+                  } else if (Platform.isWindows ||
+                      Platform.isLinux ||
+                      Platform.isMacOS) {
+                    FilePicker.platform
+                        .saveFile(
+                      dialogTitle: 'Please select an output file:',
+                      fileName: path.split('/').last,
+                    )
+                        .then((outputFilePath) {
+                      if (outputFilePath != null) {
+                        File outputFile = File(outputFilePath);
+                        File inputFile = File(path);
+                        outputFile
+                            .writeAsBytesSync(inputFile.readAsBytesSync());
+                      }
+                      // Navigator.pop(context);
+                    });
+                  }
+                },
+                icon: const Icon(
+                  Icons.save_rounded,
+                )),
+          ),
+        ],
+      ),
     );
   }
 }
