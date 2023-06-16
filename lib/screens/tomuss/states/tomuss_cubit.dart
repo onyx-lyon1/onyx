@@ -38,7 +38,7 @@ class TomussCubit extends Cubit<TomussState> {
         teachingUnits: teachingUnits,
         semesters: semesterModelWrapper?.semestres ?? [],
         currentSemesterIndex: semestreIndex ?? 0,
-        newGrades: TomussLogic.parseRecentGrades(teachingUnits, settings),
+        newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
       ));
     }
     if (dartus != null) {
@@ -59,7 +59,8 @@ class TomussCubit extends Cubit<TomussState> {
             currentSemesterIndex: semestreIndex ?? 0,
             status: TomussStatus.timeout,
             timeout: result.timeout,
-            newGrades: TomussLogic.parseRecentGrades(teachingUnits, settings),
+            newElements:
+                TomussLogic.parseRecentElements(teachingUnits, settings),
           ));
           return;
         }
@@ -86,7 +87,7 @@ class TomussCubit extends Cubit<TomussState> {
         teachingUnits: teachingUnits,
         semesters: semesters,
         currentSemesterIndex: semestreIndex,
-        newGrades: TomussLogic.parseRecentGrades(teachingUnits, settings),
+        newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
       ));
     }
   }
@@ -112,8 +113,15 @@ class TomussCubit extends Cubit<TomussState> {
   Future<void> updateEnumerationValue(
       Enumeration enumeration, String value) async {
     List<TeachingUnit> teachingUnits = List.from(state.teachingUnits);
+    final List<
+        ({
+          TeachingUnit teachingUnit,
+          TeachingUnitElement teachingUnitElement
+        })> newElements = List.from(state.newElements);
     int index = teachingUnits
         .indexWhere((element) => element.enumerations.contains(enumeration));
+    int recentElementIndex = newElements
+        .indexWhere((element) => element.teachingUnitElement == enumeration);
     if (index == -1) {
       return;
     }
@@ -125,8 +133,21 @@ class TomussCubit extends Cubit<TomussState> {
     teachingUnits[index].enumerations[enumerationIndex] = enumeration;
     await CacheService.set<TeachingUnitList>(
         TeachingUnitList(teachingUnits, state.currentSemesterIndex));
+
+    if (recentElementIndex != -1) {
+      print("updating recent element");
+      newElements[recentElementIndex] = (
+        teachingUnit: state.newElements[recentElementIndex].teachingUnit,
+        teachingUnitElement: (state.newElements[recentElementIndex]
+                .teachingUnitElement as Enumeration)
+            .copyWith
+            .value(value)
+      );
+    }
     emit(state.copyWith(
-        status: TomussStatus.updated, teachingUnits: teachingUnits));
+        status: TomussStatus.updated,
+        teachingUnits: teachingUnits,
+        newElements: newElements));
   }
 
   void resetCubit() async {

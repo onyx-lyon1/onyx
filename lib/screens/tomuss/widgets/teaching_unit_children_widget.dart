@@ -19,7 +19,6 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
       builder: (context, state) {
         List<TeachingUnitElement> children =
             teachingUnit.visibleChildren.sortByPosition();
-        children.sort((a, b) => a.position.compareTo(b.position));
         List<Widget> widgets = [];
         widgets.add(SizedBox(height: 2.h));
 

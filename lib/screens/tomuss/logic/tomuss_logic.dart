@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/core/theme/grade_color.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -79,20 +80,28 @@ class TomussLogic {
     }
   }
 
-  static List<Grade> parseRecentGrades(
-      List<TeachingUnit> teachingUnits, SettingsModel settings) {
-    List<Grade> newGrades = [];
+  static List<
+          ({
+            TeachingUnitElement teachingUnitElement,
+            TeachingUnit teachingUnit
+          })>
+      parseRecentElements(
+          List<TeachingUnit> teachingUnits, SettingsModel settings) {
+    List<({TeachingUnitElement teachingUnitElement, TeachingUnit teachingUnit})>
+        newElements = [];
     for (var teachingUnit in teachingUnits) {
-      for (var grade in teachingUnit.grades) {
-        if ((grade.date != null) &&
-            grade.date!.isAfter(DateTime.now()
+      for (var element in teachingUnit.visibleChildren) {
+        if ((element.date != null) &&
+            element.date!.isAfter(DateTime.now()
                 .subtract(Duration(days: settings.recentGradeDuration)))) {
-          newGrades.add(grade);
+          newElements
+              .add((teachingUnitElement: element, teachingUnit: teachingUnit));
         }
       }
     }
-    newGrades.sort((a, b) => b.date!.compareTo(a.date!));
-    return newGrades;
+    newElements.sort((a, b) =>
+        b.teachingUnitElement.date!.compareTo(a.teachingUnitElement.date!));
+    return newElements;
   }
 
   static Future<String> getDownloadLocalPath(
@@ -108,6 +117,78 @@ class TomussLogic {
           await upload.getContent(ticket); //email.getAttachment(fileName);
       await file.writeAsBytes(uploadFile);
       return file.path;
+    }
+  }
+
+  /* original tomuss code
+  function rank_to_color(rank, nr) {
+    var x = Math.floor(511 * rank / nr);
+    var b, c = '';
+    if (rank > nr / 2) {
+        b = '255,' + (511 - x) + ',' + (511 - x);
+        if (rank > 3 * nr / 4)
+            c = ';color:#FFF';
+    }
+    else
+        b = x + ',255,' + x;
+
+    return 'background: rgb(' + b + ')' + c
+  }
+   */
+
+  static Color getMainGradeColor(
+      {required bool forceGreen,
+      required bool isSeen,
+      required List<Grade> grades}) {
+    if (forceGreen) {
+      return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
+    } else {
+      if (grades.isEmpty) {
+        return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
+      } else {
+        if (grades.length == 1) {
+          return _getGradeColor(
+              grade: grades.first, forceGreen: forceGreen, isSeen: isSeen);
+        }
+        double a = 0;
+        double r = 0;
+        double g = 0;
+        double b = 0;
+        double coefSum = 0;
+        for (var i in grades) {
+          Color tmpColor =
+              _getGradeColor(grade: i, forceGreen: forceGreen, isSeen: isSeen);
+          a += tmpColor.alpha * (i.coef);
+          r += tmpColor.red * (i.coef);
+          g += tmpColor.green * (i.coef);
+          b += tmpColor.blue * (i.coef);
+          coefSum += i.coef;
+        }
+        if (coefSum == 0) {
+          coefSum = 1;
+        }
+        a = (a / coefSum);
+        r = (r / coefSum);
+        g = (g / coefSum);
+        b = (b / coefSum);
+        return Color.fromARGB(a.round(), r.round(), g.round(), b.round());
+      }
+    }
+  }
+
+  static Color _getGradeColor(
+      {required Grade grade, required bool forceGreen, required bool isSeen}) {
+    if (forceGreen || !grade.isValid) {
+      return isSeen ? GradeColor.seenGreen : GradeColor.unseenGreen;
+    } else {
+      var x = (511 * grade.rank / grade.groupeSize).floor();
+      Color b = Colors.red;
+      if (grade.rank > grade.groupeSize / 2) {
+        b = Color.fromARGB(255, 255, 511 - x, 511 - x);
+      } else {
+        b = Color.fromARGB(255, x, 255, x);
+      }
+      return b;
     }
   }
 

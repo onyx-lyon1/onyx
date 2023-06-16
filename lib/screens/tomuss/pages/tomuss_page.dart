@@ -121,36 +121,11 @@ class _TomussPageState extends State<TomussPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  width: 20.w * 4,
+                  width: 80.w,
                   height: Res.bottomNavBarHeight,
-                  child: ListView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      ...state.newGrades.map(
-                        (grade) => Container(
-                          width: Res.bottomNavBarItemWidth,
-                          height: Res.bottomNavBarHeight,
-                          padding: EdgeInsets.all(0.8.w),
-                          child: GradeWidget(
-                            grades: [grade],
-                            text1: grade.title.replaceAll("_", " "),
-                            text2: state.teachingUnits
-                                .firstWhere(
-                                    (element) => element.grades.contains(grade))
-                                .title,
-                            depth: 0,
-                            compact: true,
-                            onTap: () => showAllGrades(
-                              context,
-                              state.teachingUnits.firstWhere(
-                                  (element) => element.grades.contains(grade)),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  child: HeaderChildren(
+                      onTap: (TeachingUnit teachingUnit) =>
+                          showAllGrades(context, teachingUnit)),
                 ),
                 //button to toggle semester with an icon
                 Padding(
