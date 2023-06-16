@@ -117,34 +117,30 @@ class _TomussPageState extends State<TomussPage> {
           header: Container(
             height: Res.bottomNavBarHeight,
             color: Theme.of(context).cardTheme.color,
+            padding: const EdgeInsets.all(5.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 80.w,
-                  height: Res.bottomNavBarHeight,
+                Flexible(
                   child: HeaderChildren(
                       onTap: (TeachingUnit teachingUnit) =>
                           showAllGrades(context, teachingUnit)),
                 ),
                 //button to toggle semester with an icon
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.list,
-                        color: Theme.of(context).textTheme.bodyLarge!.color,
-                      ),
-                      onPressed: () {
-                        //show a dialog to select the semester
-                        showDialog(
-                          context: context,
-                          builder: (context) => const SemesterChooserWidget(),
-                        );
-                      },
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.list,
+                      color: Theme.of(context).textTheme.bodyLarge!.color,
                     ),
+                    onPressed: () {
+                      //show a dialog to select the semester
+                      showDialog(
+                        context: context,
+                        builder: (context) => const SemesterChooserWidget(),
+                      );
+                    },
                   ),
                 ),
               ],
