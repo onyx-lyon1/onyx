@@ -9,6 +9,7 @@ import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:requests/requests.dart';
 import 'package:sizer/sizer.dart';
 
 class HomePage extends StatefulWidget {
@@ -97,12 +98,29 @@ class HomePageState extends State<HomePage> {
                   current.settings.fetchAgendaAuto,
           listener: (context, state) {
             context.read<AgendaCubit>().load(
-                dartus: context.read<AuthentificationCubit>().state.dartus!,
+                lyon1Cas: context.read<AuthentificationCubit>().state.lyon1Cas,
                 settings: context.read<SettingsCubit>().state.settings,
                 cache: false);
           },
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
+            floatingActionButton: IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () async {
+                var response = await Requests.get(
+                  "https://cas.univ-lyon1.fr/cas/login",
+                  headers: {
+                    'User-Agent':
+                        "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0",
+                    'DNT': '1', // Do Not Track, because, why not
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                  },
+                );
+                print(response.statusCode);
+                print(response.body.contains("Connexion réussie"));
+                print(response.headers);
+              },
+            ),
             body: SafeArea(
               child: Column(
                 children: [

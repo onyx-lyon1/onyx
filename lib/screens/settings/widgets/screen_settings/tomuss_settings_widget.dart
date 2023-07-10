@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
@@ -11,7 +12,7 @@ class TomussSettingsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if ((Platform.isAndroid || Platform.isIOS) &&
+        if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
             !context.read<SettingsCubit>().state.settings.biometricAuth)
           TextSwitchWidget(
             text: 'Notification en cas de nouvelle note',

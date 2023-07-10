@@ -8,6 +8,7 @@ class Res {
   static final double bottomNavBarItemWidth = 100.w / 5;
   static final double bottomNavBarHeight = 10.h;
   static bool mock = false;
+  static const String corsProxy = "https://192.168.220.102:3000/";
 }
 
 @HiveType(typeId: 18)

@@ -2,6 +2,7 @@ import 'package:dartus/tomuss.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lyon1casclient/lyon1_cas.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:path_provider/path_provider.dart';
@@ -11,15 +12,18 @@ import '../../settings/settings_export.dart';
 part 'tomuss_state.dart';
 
 class TomussCubit extends Cubit<TomussState> {
+  Dartus? _dartus;
+
   TomussCubit() : super(const TomussState(status: TomussStatus.initial));
 
   Future<void> load(
-      {required Dartus? dartus,
+      {required Lyon1Cas lyon1Cas,
       bool cache = true,
       int? semestreIndex,
       required SettingsModel settings}) async {
     emit(state.copyWith(
         status: TomussStatus.loading, currentSemesterIndex: semestreIndex));
+    _dartus = Dartus(lyon1Cas);
     List<TeachingUnit> teachingUnits = [];
     List<Semester> semesters = [];
 
@@ -28,11 +32,11 @@ class TomussCubit extends Cubit<TomussState> {
       semestreIndex ??= semesterModelWrapper.currentSemesterIndex;
       semesters = semesterModelWrapper.semestres;
     }
-    if (cache) {
-      teachingUnits = await compute(
-          TomussLogic.getTeachingUnitsCache,
-          GetCacheDataPass((await getApplicationDocumentsDirectory()).path,
-              semestreIndex ?? 0));
+    if (cache && !kIsWeb) {
+      teachingUnits = await compute(TomussLogic.getTeachingUnitsCache, (
+        path: (await getApplicationDocumentsDirectory()).path,
+        currentSemesterIndex: semestreIndex ?? 0
+      ));
       emit(state.copyWith(
         status: TomussStatus.cacheReady,
         teachingUnits: teachingUnits,
@@ -41,55 +45,52 @@ class TomussCubit extends Cubit<TomussState> {
         newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
       ));
     }
-    if (dartus != null) {
-      try {
-        ({
-          List<Semester>? semesters,
-          List<TeachingUnit>? schoolSubjectModel,
-          Duration? timeout,
-        }) result = await TomussLogic.getSemestersAndNote(
-            dartus: dartus,
-            semesterIndex: semestreIndex,
-            autoRefresh: false,
-            semester: (semesters.length > (semestreIndex ?? 0))
-                ? semesters[semestreIndex ?? 0]
-                : null);
-        if (result.timeout != null) {
-          emit(state.copyWith(
-            currentSemesterIndex: semestreIndex ?? 0,
-            status: TomussStatus.timeout,
-            timeout: result.timeout,
-            newElements:
-                TomussLogic.parseRecentElements(teachingUnits, settings),
-          ));
-          return;
-        }
-        semestreIndex ??= result.semesters!
-            .indexWhere((element) => element.url == Dartus.currentSemester());
-        semesters = result.semesters!;
-        teachingUnits = result.schoolSubjectModel!;
-      } catch (e) {
-        if (kDebugMode) {
-          print("Error while loading grades: $e");
-        }
-        emit(const TomussState(status: TomussStatus.error));
+    try {
+      ({
+        List<Semester>? semesters,
+        List<TeachingUnit>? schoolSubjectModel,
+        Duration? timeout,
+      }) result = await TomussLogic.getSemestersAndNote(
+          dartus: _dartus!,
+          semesterIndex: semestreIndex,
+          autoRefresh: false,
+          semester: (semesters.length > (semestreIndex ?? 0))
+              ? semesters[semestreIndex ?? 0]
+              : null);
+      if (result.timeout != null) {
+        emit(state.copyWith(
+          currentSemesterIndex: semestreIndex ?? 0,
+          status: TomussStatus.timeout,
+          timeout: result.timeout,
+          newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
+        ));
         return;
       }
-
-      teachingUnits.sort((a, b) => a.title.compareTo(b.title));
-      CacheService.set<TeachingUnitList>(
-          TeachingUnitList(teachingUnits, semestreIndex),
-          index: semestreIndex);
-      CacheService.set<SemesterList>(
-          SemesterList(semesters, currentSemesterIndex: semestreIndex));
-      emit(state.copyWith(
-        status: TomussStatus.ready,
-        teachingUnits: teachingUnits,
-        semesters: semesters,
-        currentSemesterIndex: semestreIndex,
-        newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
-      ));
+      semestreIndex ??= result.semesters!
+          .indexWhere((element) => element.url == Dartus.currentSemester());
+      semesters = result.semesters!;
+      teachingUnits = result.schoolSubjectModel!;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error while loading grades: $e");
+      }
+      emit(state.copyWith(status: TomussStatus.error));
+      return;
     }
+
+    teachingUnits.sort((a, b) => a.title.compareTo(b.title));
+    CacheService.set<TeachingUnitList>(
+        TeachingUnitList(teachingUnits, semestreIndex),
+        index: semestreIndex);
+    CacheService.set<SemesterList>(
+        SemesterList(semesters, currentSemesterIndex: semestreIndex));
+    emit(state.copyWith(
+      status: TomussStatus.ready,
+      teachingUnits: teachingUnits,
+      semesters: semesters,
+      currentSemesterIndex: semestreIndex,
+      newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
+    ));
   }
 
   Future<void> updateCoef(Grade grade, double? coef) async {
@@ -135,7 +136,6 @@ class TomussCubit extends Cubit<TomussState> {
         TeachingUnitList(teachingUnits, state.currentSemesterIndex));
 
     if (recentElementIndex != -1) {
-      print("updating recent element");
       newElements[recentElementIndex] = (
         teachingUnit: state.newElements[recentElementIndex].teachingUnit,
         teachingUnitElement: (state.newElements[recentElementIndex]

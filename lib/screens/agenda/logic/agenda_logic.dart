@@ -25,7 +25,7 @@ class AgendaLogic {
     return agendaOpt.days;
   }
 
-  static Future<List<Day>> getCache(String path) async {
+  static Future<List<Day>> getCache(String? path) async {
     if (Res.mock) {
       return dayListMock;
     }

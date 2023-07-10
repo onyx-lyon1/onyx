@@ -1,7 +1,7 @@
-import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
+import 'package:lyon1casclient/lyon1_cas.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/logic/agenda_logic.dart';
@@ -20,11 +20,11 @@ class AgendaCubit extends Cubit<AgendaState> {
             days: []));
 
   Future<void> load(
-      {required Dartus? dartus,
+      {required Lyon1Cas? lyon1Cas,
       required SettingsModel settings,
       bool cache = true}) async {
     emit(state.copyWith(status: AgendaStatus.loading));
-    if (cache && !Res.mock) {
+    if (cache && !Res.mock && !kIsWeb) {
       state.days = await compute(
         AgendaLogic.getCache,
         (await getApplicationDocumentsDirectory()).path,
@@ -35,8 +35,8 @@ class AgendaCubit extends Cubit<AgendaState> {
       emit(state.copyWith(status: AgendaStatus.haveToChooseManualy));
       return;
     }
-    if (dartus != null) {
-      _agendaClient = Lyon1Agenda.useAuthentication(dartus.authentication);
+    if (lyon1Cas != null && lyon1Cas.isAuthenticated) {
+      _agendaClient = Lyon1Agenda.useLyon1Cas(lyon1Cas);
       try {
         state.days = await AgendaLogic.load(
             agendaClient: _agendaClient!, settings: settings);

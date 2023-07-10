@@ -25,7 +25,7 @@ class _MailContentWidgetState extends State<MailContentWidget> {
   Widget build(BuildContext context) {
     if (((widget.mail.body.contains("<html") ||
             widget.mail.body.contains("text/html")) &&
-        (Platform.isAndroid || Platform.isIOS))) {
+        (!kIsWeb && (Platform.isAndroid || Platform.isIOS)))) {
       webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
       webViewController.setNavigationDelegate(
         NavigationDelegate(
@@ -55,7 +55,7 @@ class _MailContentWidgetState extends State<MailContentWidget> {
     }
     return ((widget.mail.body.contains("<html") ||
                 widget.mail.body.contains("text/html")) &&
-            (Platform.isAndroid || Platform.isIOS))
+            (!kIsWeb && (Platform.isAndroid || Platform.isIOS)))
         ? WebViewWidget(
             controller: webViewController,
             gestureRecognizers: {Factory(() => EagerGestureRecognizer())},
