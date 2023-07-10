@@ -21,8 +21,12 @@ class EmailCubit extends Cubit<EmailState> {
 
   void connect({required String? username, required String? password}) async {
     emit(state.copyWith(status: MailStatus.connecting, connected: false));
-    emailsBoxesComplete = await compute(
-        MailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
+
+    if (!kIsWeb) {
+      emailsBoxesComplete = await compute(
+          MailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
+    }
+
     if (emailsBoxesComplete.isNotEmpty) {
       currentMailBoxIndex = emailsBoxesComplete.indexWhere(
         (element) => element.specialMailBox == SpecialMailBox.inbox,
@@ -67,7 +71,7 @@ class EmailCubit extends Cubit<EmailState> {
 
       return;
     }
-    if (cache && !Res.mock) {
+    if (cache && !Res.mock && !kIsWeb) {
       List<MailBox> emailCache = await compute(
           MailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
       if (emailCache.isNotEmpty &&

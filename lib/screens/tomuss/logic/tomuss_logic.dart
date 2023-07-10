@@ -65,7 +65,7 @@ class TomussLogic {
   }
 
   static Future<List<TeachingUnit>> getTeachingUnitsCache(
-      GetCacheDataPass inputData) async {
+      ({String? path, int currentSemesterIndex}) inputData) async {
     if (Res.mock) {
       return teachingUnitsModelListMock;
     }

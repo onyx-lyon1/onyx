@@ -24,7 +24,7 @@ class AgendaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (context.read<AgendaCubit>().state.status == AgendaStatus.initial) {
       context.read<AgendaCubit>().load(
-          dartus: context.read<AuthentificationCubit>().state.dartus,
+          lyon1Cas: context.read<AuthentificationCubit>().state.lyon1Cas,
           settings: context.read<SettingsCubit>().state.settings);
     }
     return BlocBuilder<AgendaCubit, AgendaState>(
@@ -200,7 +200,8 @@ class AgendaPage extends StatelessWidget {
               ),
               onRefresh: () async {
                 context.read<AgendaCubit>().load(
-                    dartus: context.read<AuthentificationCubit>().state.dartus!,
+                    lyon1Cas:
+                        context.read<AuthentificationCubit>().state.lyon1Cas,
                     settings: context.read<SettingsCubit>().state.settings);
                 while (context.read<AgendaCubit>().state.status !=
                         AgendaStatus.ready &&

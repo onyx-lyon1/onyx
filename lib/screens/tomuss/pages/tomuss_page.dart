@@ -68,7 +68,8 @@ class _TomussPageState extends State<TomussPage> {
         switch (state.status) {
           case TomussStatus.initial:
             context.read<TomussCubit>().load(
-                  dartus: context.read<AuthentificationCubit>().state.dartus,
+                  lyon1Cas:
+                      context.read<AuthentificationCubit>().state.lyon1Cas,
                   settings: context.read<SettingsCubit>().state.settings,
                 );
             loadingHeader = const LoadingHeaderWidget(
@@ -89,7 +90,8 @@ class _TomussPageState extends State<TomussPage> {
           case TomussStatus.error:
             Future.delayed(const Duration(seconds: 3), () {
               context.read<TomussCubit>().load(
-                    dartus: context.read<AuthentificationCubit>().state.dartus!,
+                    lyon1Cas:
+                        context.read<AuthentificationCubit>().state.lyon1Cas,
                     settings: context.read<SettingsCubit>().state.settings,
                   );
             });
@@ -104,7 +106,8 @@ class _TomussPageState extends State<TomussPage> {
               message: "Chargement des notes",
               timeout: state.timeout,
               timeoutCallBack: () => context.read<TomussCubit>().load(
-                    dartus: context.read<AuthentificationCubit>().state.dartus,
+                    lyon1Cas:
+                        context.read<AuthentificationCubit>().state.lyon1Cas,
                     semestreIndex: state.currentSemesterIndex,
                     cache: false,
                     settings: context.read<SettingsCubit>().state.settings,
@@ -167,7 +170,8 @@ class _TomussPageState extends State<TomussPage> {
           ),
           onRefresh: () async {
             context.read<TomussCubit>().load(
-                  dartus: context.read<AuthentificationCubit>().state.dartus!,
+                  lyon1Cas:
+                      context.read<AuthentificationCubit>().state.lyon1Cas,
                   settings: context.read<SettingsCubit>().state.settings,
                 );
             while (context.read<TomussCubit>().state.status !=

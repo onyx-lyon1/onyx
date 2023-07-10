@@ -33,8 +33,8 @@ class SettingsCubit extends Cubit<SettingsState> {
     if (!(state.settings.calendarUpdateNotification &&
         state.settings.newMailNotification &&
         state.settings.newGradeNotification)) {
-      if (!Platform.environment.containsKey('FLUTTER_TEST') &&
-          (!kIsWeb && (Platform.isAndroid || Platform.isIOS))) {
+      if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
+          !Platform.environment.containsKey('FLUTTER_TEST')) {
         Workmanager().cancelByUniqueName("updateChecking");
       }
     }

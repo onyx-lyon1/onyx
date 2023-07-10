@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
+import 'package:lyon1casclient/lyon1_cas.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
@@ -117,7 +118,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             CacheService.reset<MailBoxList>();
                             CacheService.reset<Agenda>();
                             CacheService.reset<TeachingUnitList>();
-                            CacheService.reset<Authentication>();
+                            CacheService.reset<Lyon1Cas>();
                             CacheService.reset<SettingsModel>();
                             context.read<AgendaCubit>().resetCubit();
                             context.read<IzlyCubit>().resetCubit();
@@ -140,10 +141,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         onPressed: () {
                           CacheService.reset<TeachingUnitList>();
                           context.read<TomussCubit>().load(
-                              dartus: context
+                              lyon1Cas: context
                                   .read<AuthentificationCubit>()
                                   .state
-                                  .dartus!,
+                                  .lyon1Cas,
                               cache: false,
                               settings:
                                   context.read<SettingsCubit>().state.settings);
@@ -157,10 +158,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         onPressed: () {
                           CacheService.reset<Agenda>();
                           context.read<AgendaCubit>().load(
-                              dartus: context
+                              lyon1Cas: context
                                   .read<AuthentificationCubit>()
                                   .state
-                                  .dartus!,
+                                  .lyon1Cas,
                               settings:
                                   context.read<SettingsCubit>().state.settings,
                               cache: false);
