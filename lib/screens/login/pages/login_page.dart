@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
-import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lyon1casclient/lyon1_cas.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/privacy_policie_page.dart';
 import 'package:onyx/screens/login/login_export.dart';

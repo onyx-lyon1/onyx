@@ -3,10 +3,11 @@
 import 'dart:io';
 
 import 'package:biometric_storage/biometric_storage.dart';
-import 'package:dartus/tomuss.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:izlyclient/izlyclient.dart';
+import 'package:lyon1casclient/lyon1_cas.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
@@ -17,7 +18,7 @@ class SettingsSettingsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (Platform.isIOS || Platform.isAndroid)
+        if (!kIsWeb && (Platform.isIOS || Platform.isAndroid))
           TextSwitchWidget(
               text: "Activer l'authentification par empreinte digital",
               value: context.read<SettingsCubit>().state.settings.biometricAuth,

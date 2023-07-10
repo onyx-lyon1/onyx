@@ -1,7 +1,9 @@
 import 'package:dartus/tomuss.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
+import 'package:lyon1casclient/lyon1_cas.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
@@ -13,11 +15,11 @@ Future<void> hiveInit({String? path}) async {
 
   IzlyClient.registerAdapters();
   Dartus.registerAdapters();
-  Authentication.registerAdapters(initHive: false);
+  Lyon1Cas.registerAdapters(initHive: false);
   Lyon1Agenda.registerAdapters();
   Lyon1Mail.registerAdapters(initHive: false);
 
-  if (path != null) {
+  if (path != null || kIsWeb) {
     Hive.init(path);
   } else {
     await Hive.initFlutter();

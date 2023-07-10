@@ -54,9 +54,10 @@ class UploadWidget extends StatelessWidget {
                   FlutterFileDialog.saveFile(
                           params: SaveFileDialogParams(sourceFilePath: path))
                       .then((value) => Navigator.pop(context));
-                } else if (Platform.isWindows ||
-                    Platform.isLinux ||
-                    Platform.isMacOS) {
+                } else if (!kIsWeb &&
+                    (Platform.isWindows ||
+                        Platform.isLinux ||
+                        Platform.isMacOS)) {
                   FilePicker.platform
                       .saveFile(
                     dialogTitle: 'Please select an output file:',

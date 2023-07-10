@@ -45,10 +45,10 @@ class SemesterChooserWidget extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       context.read<TomussCubit>().load(
-                            dartus: context
+                            lyon1Cas: context
                                 .read<AuthentificationCubit>()
                                 .state
-                                .dartus!,
+                                .lyon1Cas,
                             semestreIndex: context
                                 .read<TomussCubit>()
                                 .state

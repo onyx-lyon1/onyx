@@ -17,6 +17,7 @@ class IzlyCubit extends Cubit<IzlyState> {
 
   void connect(
       {IzlyCredential? credential, required SettingsModel settings}) async {
+    print("connect");
     if (Res.mock) {
       _izlyClient = IzlyClient("mockUsername", "mockPassword");
       emit(
@@ -33,9 +34,13 @@ class IzlyCubit extends Cubit<IzlyState> {
     }
     Box box = await Hive.openBox<double>("cached_izly_amount");
     double amount = box.get("amount") ?? 0.0;
+    print("lets get qr code");
     Uint8List qrCode = await IzlyLogic.getQrCode();
+    print("end get qr code");
     emit(state.copyWith(
         status: IzlyStatus.connecting, qrCode: qrCode, balance: amount));
+    print("connecting");
+    print("_izlyClient : $_izlyClient");
     try {
       if (_izlyClient == null || !(await _izlyClient!.isLogged())) {
         credential ??= await CacheService.get<IzlyCredential>(
@@ -45,7 +50,8 @@ class IzlyCubit extends Cubit<IzlyState> {
           emit(state.copyWith(status: IzlyStatus.noCredentials));
           return;
         }
-        _izlyClient = IzlyClient(credential.username, credential.password);
+        _izlyClient = IzlyClient(credential.username, credential.password,
+            corsProxyUrl: (kIsWeb) ? Res.corsProxy : "null");
         bool loginResult = await _izlyClient!.login();
         if (!loginResult) {
           if (await CacheService.exist<IzlyCredential>(

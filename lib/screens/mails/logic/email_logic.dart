@@ -52,7 +52,7 @@ class MailLogic {
     return mailBox;
   }
 
-  static Future<List<MailBox>> cacheLoad(String path) async {
+  static Future<List<MailBox>> cacheLoad(String? path) async {
     if (Res.mock) {
       return mailboxesMock;
     }
@@ -92,10 +92,7 @@ class MailLogic {
         blackBody: "blackBodyMock1",
         id: 1,
         receiver: "receiverMock1",
-        attachments: const [
-          "attachmentMock1",
-          "attachmentMock2"
-        ],
+        attachments: const ["attachmentMock1", "attachmentMock2"],
         isFlagged: false),
     Mail(
         subject: "subjectMock2",
@@ -107,10 +104,7 @@ class MailLogic {
         blackBody: "blackBodyMock2",
         id: 2,
         receiver: "receiverMock2",
-        attachments: const [
-          "attachmentMock1",
-          "attachmentMock2"
-        ],
+        attachments: const ["attachmentMock1", "attachmentMock2"],
         isFlagged: true),
     Mail(
         subject: "subjectMock3",
@@ -122,10 +116,7 @@ class MailLogic {
         blackBody: "blackBodyMock3",
         id: 3,
         receiver: "receiverMock3",
-        attachments: const [
-          "attachmentMock1",
-          "attachmentMock2"
-        ],
+        attachments: const ["attachmentMock1", "attachmentMock2"],
         isFlagged: false),
     Mail(
         subject: "subjectMock4",
@@ -137,10 +128,7 @@ class MailLogic {
         blackBody: "blackBodyMock4",
         id: 4,
         receiver: "receiverMock4",
-        attachments: const [
-          "attachmentMock1",
-          "attachmentMock2"
-        ],
+        attachments: const ["attachmentMock1", "attachmentMock2"],
         isFlagged: true),
     Mail(
         subject: "subjectMock5",
@@ -152,10 +140,7 @@ class MailLogic {
         blackBody: "blackBodyMock5",
         id: 5,
         receiver: "receiverMock5",
-        attachments: const [
-          "attachmentMock1",
-          "attachmentMock2"
-        ],
+        attachments: const ["attachmentMock1", "attachmentMock2"],
         isFlagged: false),
   ];
 }

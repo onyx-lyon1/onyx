@@ -10,18 +10,18 @@ enum AuthentificationStatus {
 
 class AuthentificationState extends Equatable {
   final AuthentificationStatus status;
-  final Dartus? dartus;
+  final Lyon1Cas lyon1Cas;
 
-  const AuthentificationState({required this.status, this.dartus});
+  const AuthentificationState({required this.status, required this.lyon1Cas});
 
   AuthentificationState copyWith(
-      {AuthentificationStatus? status, Dartus? dartus}) {
+      {AuthentificationStatus? status, Lyon1Cas? lyon1Cas}) {
     return AuthentificationState(
-        status: status ?? this.status, dartus: dartus ?? this.dartus);
+        status: status ?? this.status, lyon1Cas: lyon1Cas ?? this.lyon1Cas);
   }
 
   @override
-  List<Object?> get props => [status, dartus];
+  List<Object?> get props => [status, lyon1Cas];
 
   @override
   bool? get stringify => true;

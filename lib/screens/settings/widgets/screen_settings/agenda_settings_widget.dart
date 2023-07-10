@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
@@ -25,7 +26,7 @@ class AgendaSettingsWidget extends StatelessWidget {
                     .copyWith(showMiniCalendar: b));
           },
         ),
-        if ((Platform.isAndroid || Platform.isIOS) &&
+        if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
             !context.read<SettingsCubit>().state.settings.biometricAuth)
           TextSwitchWidget(
             text: 'Notification en cas de modification de l\'agenda',

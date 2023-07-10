@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
@@ -77,7 +78,8 @@ class _MapWidgetState extends State<MapWidget> {
                 polylines: widget.polylines,
                 polylineCulling: true,
               ),
-            if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
+            if (!kIsWeb &&
+                !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
               const CustomCurrentLocationLayerWidget(),
             if (widget.batiments.isNotEmpty)
               PopupMarkerLayerWidget(
@@ -102,7 +104,10 @@ class _MapWidgetState extends State<MapWidget> {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              if (!Platform.isLinux && !Platform.isMacOS && !Platform.isWindows)
+              if (!kIsWeb &&
+                  !Platform.isLinux &&
+                  !Platform.isMacOS &&
+                  !Platform.isWindows)
                 Padding(
                   padding: EdgeInsets.all(2.h),
                   child: IconButton(

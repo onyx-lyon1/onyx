@@ -3,7 +3,7 @@ description: ade, tomuss Mail pour lyon1
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.0.1+41
+version: 2.0.1+42
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -50,6 +50,10 @@ dependencies:
   vsc_quill_delta_to_html: ^1.0.2
   enough_mail: ^2.1.1
 
+  #cas
+  lyon1casclient:
+    git: https://github.com/onyx-lyon1/lyon1-casclient.git
+
   #tomuss
   dartus:
     git: https://github.com/onyx-lyon1/dartus-tomuss-client.git
@@ -82,6 +86,8 @@ dependencies:
 
 dependency_overrides:
   # unindent for devlopment to use local version of the libraries
+  lyon1casclient:
+    path: ../lyon1-casclient
   dartus:
     path: ../dartus-tomuss-client
   lyon1mail:
@@ -90,6 +96,8 @@ dependency_overrides:
     path: ../lyon1-agendaclient
   izlyclient:
     path: ../izlyclient
+  requests:
+    path: /home/eymeric/tmp/requests
 
 dev_dependencies:
   flutter_test:
@@ -124,124 +132,125 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
-    - assets/map/graph.json.gz
-    - assets/izly_mock_qr-code.png
-    - assets/batiment_lyon1.json
-    - assets/agenda_ids.json.enc
-    - assets/key.txt
-    - assets/icon.png
-    - assets/izly.png
-    - assets/discord_Logo.png
-    - assets/map/19/269236/
-    - assets/map/19/269240/
-    - assets/map/19/269214/
-    - assets/map/19/269226/
-    - assets/map/19/269251/
-    - assets/map/19/269221/
-    - assets/map/19/269256/
-    - assets/map/19/269216/
-    - assets/map/19/269234/
-    - assets/map/19/269254/
-    - assets/map/19/269253/
-    - assets/map/19/269264/
-    - assets/map/19/269241/
-    - assets/map/19/269231/
-    - assets/map/19/269229/
-    - assets/map/19/269262/
-    - assets/map/19/269223/
-    - assets/map/19/269233/
-    - assets/map/19/269247/
-    - assets/map/19/269222/
-    - assets/map/19/269250/
-    - assets/map/19/269257/
-    - assets/map/19/269225/
-    - assets/map/19/269261/
-    - assets/map/19/269219/
-    - assets/map/19/269260/
-    - assets/map/19/269238/
-    - assets/map/19/269228/
-    - assets/map/19/269218/
-    - assets/map/19/269213/
-    - assets/map/19/269246/
-    - assets/map/19/269255/
-    - assets/map/19/269217/
-    - assets/map/19/269259/
-    - assets/map/19/269230/
-    - assets/map/19/269220/
-    - assets/map/19/269242/
-    - assets/map/19/269237/
-    - assets/map/19/269243/
-    - assets/map/19/269265/
-    - assets/map/19/269245/
-    - assets/map/19/269249/
-    - assets/map/19/269239/
-    - assets/map/19/269227/
-    - assets/map/19/269235/
-    - assets/map/19/269248/
-    - assets/map/19/269232/
-    - assets/map/19/269244/
-    - assets/map/19/269258/
-    - assets/map/19/269263/
-    - assets/map/19/269215/
-    - assets/map/19/269224/
-    - assets/map/19/269252/
-    - assets/map/18/134629/
-    - assets/map/18/134621/
-    - assets/map/18/134615/
-    - assets/map/18/134607/
-    - assets/map/18/134613/
-    - assets/map/18/134622/
-    - assets/map/18/134630/
-    - assets/map/18/134628/
-    - assets/map/18/134611/
-    - assets/map/18/134614/
-    - assets/map/18/134623/
-    - assets/map/18/134609/
-    - assets/map/18/134610/
-    - assets/map/18/134616/
-    - assets/map/18/134608/
-    - assets/map/18/134612/
-    - assets/map/18/134617/
-    - assets/map/18/134620/
-    - assets/map/18/134618/
-    - assets/map/18/134606/
-    - assets/map/18/134626/
-    - assets/map/18/134631/
-    - assets/map/18/134625/
-    - assets/map/18/134624/
-    - assets/map/18/134619/
-    - assets/map/18/134632/
-    - assets/map/18/134627/
-    - assets/map/17/67307/
-    - assets/map/17/67310/
-    - assets/map/17/67305/
-    - assets/map/17/67309/
-    - assets/map/17/67314/
-    - assets/map/17/67306/
-    - assets/map/17/67311/
-    - assets/map/17/67316/
-    - assets/map/17/67308/
-    - assets/map/17/67315/
-    - assets/map/17/67303/
-    - assets/map/17/67313/
-    - assets/map/17/67312/
-    - assets/map/17/67304/
-    - assets/map/16/33657/
-    - assets/map/16/33654/
-    - assets/map/16/33658/
-    - assets/map/16/33655/
-    - assets/map/16/33651/
-    - assets/map/16/33656/
-    - assets/map/16/33652/
-    - assets/map/16/33653/
+    - assets/
+    - assets/map/
+    - assets/map/14/
+    - assets/map/14/8412/
+    - assets/map/14/8413/
+    - assets/map/14/8414/
+    - assets/map/15/
+    - assets/map/15/16825/
+    - assets/map/15/16826/
     - assets/map/15/16827/
     - assets/map/15/16828/
     - assets/map/15/16829/
-    - assets/map/15/16825/
-    - assets/map/15/16826/
-    - assets/map/14/8414/
-    - assets/map/14/8412/
-    - assets/map/14/8413/
+    - assets/map/16/
+    - assets/map/16/33651/
+    - assets/map/16/33652/
+    - assets/map/16/33653/
+    - assets/map/16/33654/
+    - assets/map/16/33655/
+    - assets/map/16/33656/
+    - assets/map/16/33657/
+    - assets/map/16/33658/
+    - assets/map/17/
+    - assets/map/17/67303/
+    - assets/map/17/67304/
+    - assets/map/17/67305/
+    - assets/map/17/67306/
+    - assets/map/17/67307/
+    - assets/map/17/67308/
+    - assets/map/17/67309/
+    - assets/map/17/67310/
+    - assets/map/17/67311/
+    - assets/map/17/67312/
+    - assets/map/17/67313/
+    - assets/map/17/67314/
+    - assets/map/17/67315/
+    - assets/map/17/67316/
+    - assets/map/18/
+    - assets/map/18/134606/
+    - assets/map/18/134607/
+    - assets/map/18/134608/
+    - assets/map/18/134609/
+    - assets/map/18/134610/
+    - assets/map/18/134611/
+    - assets/map/18/134612/
+    - assets/map/18/134613/
+    - assets/map/18/134614/
+    - assets/map/18/134615/
+    - assets/map/18/134616/
+    - assets/map/18/134617/
+    - assets/map/18/134618/
+    - assets/map/18/134619/
+    - assets/map/18/134620/
+    - assets/map/18/134621/
+    - assets/map/18/134622/
+    - assets/map/18/134623/
+    - assets/map/18/134624/
+    - assets/map/18/134625/
+    - assets/map/18/134626/
+    - assets/map/18/134627/
+    - assets/map/18/134628/
+    - assets/map/18/134629/
+    - assets/map/18/134630/
+    - assets/map/18/134631/
+    - assets/map/18/134632/
+    - assets/map/19/
+    - assets/map/19/269213/
+    - assets/map/19/269214/
+    - assets/map/19/269215/
+    - assets/map/19/269216/
+    - assets/map/19/269217/
+    - assets/map/19/269218/
+    - assets/map/19/269219/
+    - assets/map/19/269220/
+    - assets/map/19/269221/
+    - assets/map/19/269222/
+    - assets/map/19/269223/
+    - assets/map/19/269224/
+    - assets/map/19/269225/
+    - assets/map/19/269226/
+    - assets/map/19/269227/
+    - assets/map/19/269228/
+    - assets/map/19/269229/
+    - assets/map/19/269230/
+    - assets/map/19/269231/
+    - assets/map/19/269232/
+    - assets/map/19/269233/
+    - assets/map/19/269234/
+    - assets/map/19/269235/
+    - assets/map/19/269236/
+    - assets/map/19/269237/
+    - assets/map/19/269238/
+    - assets/map/19/269239/
+    - assets/map/19/269240/
+    - assets/map/19/269241/
+    - assets/map/19/269242/
+    - assets/map/19/269243/
+    - assets/map/19/269244/
+    - assets/map/19/269245/
+    - assets/map/19/269246/
+    - assets/map/19/269247/
+    - assets/map/19/269248/
+    - assets/map/19/269249/
+    - assets/map/19/269250/
+    - assets/map/19/269251/
+    - assets/map/19/269252/
+    - assets/map/19/269253/
+    - assets/map/19/269254/
+    - assets/map/19/269255/
+    - assets/map/19/269256/
+    - assets/map/19/269257/
+    - assets/map/19/269258/
+    - assets/map/19/269259/
+    - assets/map/19/269260/
+    - assets/map/19/269261/
+    - assets/map/19/269262/
+    - assets/map/19/269263/
+    - assets/map/19/269264/
+    - assets/map/19/269265/
+    - assets/screen_shot/
 
 
   #   - images/a_dot_burr.jpeg

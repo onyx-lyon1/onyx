@@ -1,5 +1,6 @@
 import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
+import 'package:lyon1casclient/lyon1_cas.dart';
 import 'package:lyon1agenda/lyon1agenda.dart';
 import 'package:lyon1mail/lyon1mail.dart';
 import 'package:onyx/core/cache_service.dart';
@@ -31,10 +32,13 @@ Future<bool> backgroundLogic({bool init = true}) async {
     await NotificationLogic.init();
   }
   SettingsModel settings = await SettingsLogic.load();
-  Dartus dartus = Dartus();
+
   if (!settings.firstLogin && !settings.biometricAuth) {
-    var result = await dartus.authenticate((await CacheService.get<Credential>(
-        secureKey: await CacheService.getEncryptionKey(false)))!);
+    Lyon1Cas lyon1Cas = Lyon1Cas();
+    var result = await lyon1Cas.authenticate(
+        (await CacheService.get<Credential>(
+            secureKey: await CacheService.getEncryptionKey(false)))!);
+    Dartus dartus = Dartus(lyon1Cas);
     if (!result.authResult) return false;
     if (settings.newGradeNotification) {
       List<TeachingUnit> teachingUnits = [];
@@ -117,7 +121,7 @@ Future<bool> backgroundLogic({bool init = true}) async {
         days = (await CacheService.get<Agenda>())!.days;
       }
       List<Day> newDays = await AgendaLogic.load(
-          agendaClient: Lyon1Agenda.useAuthentication(dartus.authentication),
+          agendaClient: Lyon1Agenda.useLyon1Cas(dartus.lyon1Cas),
           settings: settings);
       List<Day> notifyDays = [];
       for (var i in newDays) {
