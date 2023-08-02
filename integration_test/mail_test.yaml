@@ -1,4 +1,4 @@
-appId: com.onyx.lyon1
+appId: fr.onyx.lyon1
 ---
 - assertVisible: "INBOX"
 - tapOn: "Recherche dans les 20 derniers mails"

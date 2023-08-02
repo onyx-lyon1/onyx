@@ -1,11 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dartus/tomuss.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyon1agenda/lyon1agenda.dart';
-import 'package:lyon1casclient/lyon1_cas.dart';
-import 'package:lyon1mail/lyon1mail.dart';
+import 'package:lyon1agendaclient/lyon1agendaclient.dart';
+import 'package:lyon1casclient/lyon1casclient.dart';
+import 'package:lyon1mailclient/lyon1mailclient.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
@@ -13,11 +13,13 @@ import 'package:onyx/screens/settings/settings_export.dart';
 part 'authentification_state.dart';
 
 class AuthentificationCubit extends Cubit<AuthentificationState> {
-  Lyon1Cas _lyon1Cas = Lyon1Cas(corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
+  Lyon1CasClient _lyon1Cas =
+      Lyon1CasClient(corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
 
   AuthentificationCubit()
       : super(AuthentificationState(
-            status: AuthentificationStatus.initial, lyon1Cas: Lyon1Cas()));
+            status: AuthentificationStatus.initial,
+            lyon1Cas: Lyon1CasClient()));
 
   Future<void> checkIfLoggedIn() async {
     bool ok = (await _lyon1Cas.checkAuthentificated());
@@ -107,7 +109,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
   }
 
   void resetCubit() {
-    _lyon1Cas = Lyon1Cas(corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
+    _lyon1Cas = Lyon1CasClient(corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
     emit(state.copyWith(
       status: AuthentificationStatus.initial,
       lyon1Cas: _lyon1Cas,

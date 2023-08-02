@@ -1,8 +1,8 @@
-import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
-import 'package:lyon1casclient/lyon1_cas.dart';
-import 'package:lyon1agenda/lyon1agenda.dart';
-import 'package:lyon1mail/lyon1mail.dart';
+import 'package:lyon1agendaclient/lyon1agendaclient.dart';
+import 'package:lyon1casclient/lyon1casclient.dart';
+import 'package:lyon1mailclient/lyon1mailclient.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
@@ -34,11 +34,11 @@ Future<bool> backgroundLogic({bool init = true}) async {
   SettingsModel settings = await SettingsLogic.load();
 
   if (!settings.firstLogin && !settings.biometricAuth) {
-    Lyon1Cas lyon1Cas = Lyon1Cas();
+    Lyon1CasClient lyon1Cas = Lyon1CasClient();
     var result = await lyon1Cas.authenticate(
         (await CacheService.get<Credential>(
             secureKey: await CacheService.getEncryptionKey(false)))!);
-    Dartus dartus = Dartus(lyon1Cas);
+    Lyon1TomussClient tomussClient = Lyon1TomussClient(lyon1Cas);
     if (!result.authResult) return false;
     if (settings.newGradeNotification) {
       List<TeachingUnit> teachingUnits = [];
@@ -58,10 +58,11 @@ Future<bool> backgroundLogic({bool init = true}) async {
       }
       List<TeachingUnit> newTeachingUnits =
           (await TomussLogic.getSemestersAndNote(
-                  dartus: dartus,
+                  dartus: tomussClient,
                   autoRefresh: true,
                   semester: semestreModel ??
-                      Semester("default semester", Dartus.currentSemester())))
+                      Semester("default semester",
+                          Lyon1TomussClient.currentSemester())))
               .schoolSubjectModel!;
       for (var i in newTeachingUnits) {
         TeachingUnit teachingUnitModel =
@@ -92,7 +93,7 @@ Future<bool> backgroundLogic({bool init = true}) async {
       }
       Credential creds = (await CacheService.get<Credential>(
           secureKey: await CacheService.getEncryptionKey(false)))!;
-      Lyon1Mail mail = await MailLogic.connect(
+      Lyon1MailClient mail = await MailLogic.connect(
           username: creds.username, password: creds.password);
       List<Mail> newMails = (await MailLogic.load(
               mailClient: mail, emailNumber: 20, blockTrackers: true))
@@ -121,7 +122,7 @@ Future<bool> backgroundLogic({bool init = true}) async {
         days = (await CacheService.get<Agenda>())!.days;
       }
       List<Day> newDays = await AgendaLogic.load(
-          agendaClient: Lyon1Agenda.useLyon1Cas(dartus.lyon1Cas),
+          agendaClient: Lyon1AgendaClient.useLyon1Cas(tomussClient.lyon1Cas),
           settings: settings);
       List<Day> notifyDays = [];
       for (var i in newDays) {

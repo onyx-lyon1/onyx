@@ -1,4 +1,4 @@
-appId: com.onyx.lyon1
+appId: fr.onyx.lyon1
 ---
 - assertVisible: "08:00\n09:00\nmockname1\n01:00 • Déambu"
 - tapOn:

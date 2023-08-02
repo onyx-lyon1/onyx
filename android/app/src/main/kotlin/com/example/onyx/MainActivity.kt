@@ -1,4 +1,4 @@
-package com.onyx.lyon1
+package fr.onyx.lyon1
 
 import android.os.Bundle
 import io.flutter.embedding.android.FlutterFragmentActivity

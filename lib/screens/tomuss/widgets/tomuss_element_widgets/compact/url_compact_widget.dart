@@ -1,4 +1,4 @@
-import 'package:dartus/tomuss.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:flutter/material.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:url_launcher/url_launcher.dart';

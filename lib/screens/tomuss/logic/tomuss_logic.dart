@@ -1,8 +1,8 @@
 import 'dart:core';
 import 'dart:io';
 
-import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
@@ -25,7 +25,7 @@ class TomussLogic {
             Duration? timeout,
           })>
       getSemestersAndNote(
-          {required Dartus dartus,
+          {required Lyon1TomussClient dartus,
           Semester? semester,
           int? semesterIndex,
           bool autoRefresh = true}) async {
@@ -49,7 +49,9 @@ class TomussLogic {
       );
     } else {
       return (
-        semesters: [Semester("2022/Automne", Dartus.currentSemester())],
+        semesters: [
+          Semester("2022/Automne", Lyon1TomussClient.currentSemester())
+        ],
         schoolSubjectModel: teachingUnitsModelListMock,
         timeout: null
       );
@@ -57,10 +59,11 @@ class TomussLogic {
   }
 
   static Future<ParsedPage?> getParsedPage(
-      {required Dartus dartus,
+      {required Lyon1TomussClient dartus,
       Semester? semestre,
       bool autoRefresh = true}) async {
-    return await dartus.getParsedPage(semestre?.url ?? Dartus.currentSemester(),
+    return await dartus.getParsedPage(
+        semestre?.url ?? Lyon1TomussClient.currentSemester(),
         autoRefresh: autoRefresh);
   }
 

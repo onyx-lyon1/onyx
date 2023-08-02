@@ -1,14 +1,15 @@
 import 'package:flutter/foundation.dart';
-import 'package:lyon1mail/lyon1mail.dart';
+import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/extensions/mail_box_extension.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
 
 class MailLogic {
-  static Future<Lyon1Mail> connect(
+  static Future<Lyon1MailClient> connect(
       {required String username, required String password}) async {
-    Lyon1Mail mailClient = Lyon1Mail(username, password);
+    Lyon1MailClient mailClient = Lyon1MailClient(username, password,
+        corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
     if (Res.mock) {
       return mailClient;
     }
@@ -18,11 +19,10 @@ class MailLogic {
     return mailClient;
   }
 
-  static Future<MailBox> load(
-      {required Lyon1Mail mailClient,
-      required int emailNumber,
-      required bool blockTrackers,
-      MailBox? mailBox}) async {
+  static Future<MailBox> load({required Lyon1MailClient mailClient,
+    required int emailNumber,
+    required bool blockTrackers,
+    MailBox? mailBox}) async {
     if (Res.mock) {
       return mailboxesMock.first;
     }

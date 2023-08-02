@@ -1,5 +1,5 @@
-import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 

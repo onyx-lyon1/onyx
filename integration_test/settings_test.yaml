@@ -1,4 +1,4 @@
-appId: com.onyx.lyon1
+appId: fr.onyx.lyon1
 ---
 - tapOn: "Agenda"
 - tapOn: "Récupérer automatiquement les ressources de l'agenda"

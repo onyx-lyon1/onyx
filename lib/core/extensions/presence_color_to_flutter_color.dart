@@ -1,5 +1,5 @@
-import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/theme/theme_export.dart';
 
 extension PresenceColorConverter on PresenceColor {
