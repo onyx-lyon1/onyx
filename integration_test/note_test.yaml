@@ -1,4 +1,4 @@
-appId: com.onyx.lyon1
+appId: fr.onyx.lyon1
 ---
 - assertVisible: "17.3\n20.0\nCompétences Numériques et Préparation PIX - Module 1\n\
     Christian TRILLAUD"

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyon1agenda/lyon1agenda.dart';
-import 'package:lyon1casclient/lyon1_cas.dart';
+import 'package:lyon1agendaclient/lyon1agendaclient.dart';
+import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/logic/agenda_logic.dart';
@@ -11,7 +11,7 @@ import 'package:path_provider/path_provider.dart';
 part 'agenda_state.dart';
 
 class AgendaCubit extends Cubit<AgendaState> {
-  Lyon1Agenda? _agendaClient;
+  Lyon1AgendaClient? _agendaClient;
 
   AgendaCubit()
       : super(AgendaState(
@@ -20,7 +20,7 @@ class AgendaCubit extends Cubit<AgendaState> {
             days: []));
 
   Future<void> load(
-      {required Lyon1Cas? lyon1Cas,
+      {required Lyon1CasClient? lyon1Cas,
       required SettingsModel settings,
       bool cache = true}) async {
     emit(state.copyWith(status: AgendaStatus.loading));
@@ -36,7 +36,7 @@ class AgendaCubit extends Cubit<AgendaState> {
       return;
     }
     if (lyon1Cas != null && lyon1Cas.isAuthenticated) {
-      _agendaClient = Lyon1Agenda.useLyon1Cas(lyon1Cas);
+      _agendaClient = Lyon1AgendaClient.useLyon1Cas(lyon1Cas);
       try {
         state.days = await AgendaLogic.load(
             agendaClient: _agendaClient!, settings: settings);

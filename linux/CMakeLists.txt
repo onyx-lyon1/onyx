@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "Onyx")
-set(APPLICATION_ID "com.onyx.lyon1")
+set(APPLICATION_ID "fr.onyx.lyon1")
 
 cmake_policy(SET CMP0063 NEW)
 

@@ -1,8 +1,8 @@
-import 'package:dartus/tomuss.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyon1casclient/lyon1_cas.dart';
+import 'package:lyon1casclient/lyon1casclient.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,18 +12,18 @@ import '../../settings/settings_export.dart';
 part 'tomuss_state.dart';
 
 class TomussCubit extends Cubit<TomussState> {
-  Dartus? _dartus;
+  Lyon1TomussClient? _dartus;
 
   TomussCubit() : super(const TomussState(status: TomussStatus.initial));
 
   Future<void> load(
-      {required Lyon1Cas lyon1Cas,
+      {required Lyon1CasClient lyon1Cas,
       bool cache = true,
       int? semestreIndex,
       required SettingsModel settings}) async {
     emit(state.copyWith(
         status: TomussStatus.loading, currentSemesterIndex: semestreIndex));
-    _dartus = Dartus(lyon1Cas);
+    _dartus = Lyon1TomussClient(lyon1Cas);
     List<TeachingUnit> teachingUnits = [];
     List<Semester> semesters = [];
 
@@ -66,8 +66,8 @@ class TomussCubit extends Cubit<TomussState> {
         ));
         return;
       }
-      semestreIndex ??= result.semesters!
-          .indexWhere((element) => element.url == Dartus.currentSemester());
+      semestreIndex ??= result.semesters!.indexWhere(
+          (element) => element.url == Lyon1TomussClient.currentSemester());
       semesters = result.semesters!;
       teachingUnits = result.schoolSubjectModel!;
     } catch (e) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lyon1agenda/lyon1agenda.dart';
+import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';

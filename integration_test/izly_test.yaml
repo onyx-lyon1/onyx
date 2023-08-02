@@ -1,4 +1,4 @@
-appId: com.onyx.lyon1
+appId: fr.onyx.lyon1
 ---
 - assertVisible: "100.00€"
 - assertVisible: "QR Code"

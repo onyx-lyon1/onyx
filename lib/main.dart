@@ -2,14 +2,12 @@ import 'dart:io';
 
 import 'package:desktop_window/desktop_window.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
-import 'package:lyon1casclient/lyon1_cas.dart';
+import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/app.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
@@ -36,16 +34,6 @@ void main() async {
   }
   await hiveInit();
 
-  if (!kIsWeb && (Platform.isAndroid || Platform.isIOS || Platform.isMacOS)) {
-    await Firebase.initializeApp();
-    // Pass all uncaught "fatal" errors from the framework to Crashlytics
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-    // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-    PlatformDispatcher.instance.onError = (error, stack) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      return true;
-    };
-  }
   if (!kIsWeb && (Platform.isLinux || Platform.isWindows || Platform.isMacOS)) {
     //an iphone se size
     await DesktopWindow.setWindowSize(const Size(375, 667));

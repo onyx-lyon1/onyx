@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:izlyclient/izlyclient.dart';
-import 'package:lyon1casclient/lyon1_cas.dart';
+import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 

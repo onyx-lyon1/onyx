@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
-import 'package:lyon1mail/lyon1mail.dart';
+import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
@@ -61,9 +61,7 @@ class MailSendPage extends StatelessWidget {
                 id: 0,
                 receiver: destinationEditor.text,
                 isFlagged: false,
-                attachments: attachments
-                    .map((e) => e.path)
-                    .toList(),
+                attachments: attachments.map((e) => e.path).toList(),
               );
 
               context.read<EmailCubit>().send(

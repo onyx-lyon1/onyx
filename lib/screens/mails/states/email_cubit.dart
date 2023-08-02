@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyon1mail/lyon1mail.dart';
+import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 part 'email_state.dart';
 
 class EmailCubit extends Cubit<EmailState> {
-  Lyon1Mail? mailClient;
+  Lyon1MailClient? mailClient;
   List<MailBox> emailsBoxesComplete = [];
   int currentMailBoxIndex = 0;
   late String username;

@@ -1,6 +1,6 @@
-import 'package:dartus/tomuss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/theme/theme_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';

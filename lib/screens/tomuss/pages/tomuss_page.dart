@@ -1,7 +1,7 @@
-import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/common_screen_widget.dart';

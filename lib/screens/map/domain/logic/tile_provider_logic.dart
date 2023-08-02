@@ -5,11 +5,11 @@ import 'package:onyx/screens/map/map_export.dart';
 
 class HybridTileProvider extends TileProvider {
   AssetTileProvider? _offlineTileProvider;
-  NetworkNoRetryTileProvider? _onlineTileProvider;
+  NetworkTileProvider? _onlineTileProvider; //NetworkNoRetryTileProvider
 
   HybridTileProvider() {
     _offlineTileProvider = AssetTileProvider();
-    _onlineTileProvider = NetworkNoRetryTileProvider();
+    _onlineTileProvider = NetworkTileProvider();
   }
 
   @override

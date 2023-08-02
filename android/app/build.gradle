@@ -53,7 +53,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.onyx.lyon1"
+        applicationId "fr.onyx.lyon1"
         minSdkVersion 23
         multiDexEnabled true
         targetSdkVersion flutter.targetSdkVersion
@@ -62,12 +62,12 @@ android {
     }
 
     signingConfigs {
-       release {
-           keyAlias keystoreProperties['keyAlias']
-           keyPassword keystoreProperties['keyPassword']
-           storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-           storePassword keystoreProperties['storePassword']
-       }
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
     }
 
     buildTypes {
@@ -75,7 +75,7 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    namespace 'com.onyx.lyon1'
+    namespace 'fr.onyx.lyon1'
 }
 
 flutter {
