@@ -1,14 +1,13 @@
-import 'package:lyon1agenda/lyon1agenda.dart';
+import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 class AgendaLogic {
-  static Future<List<Day>> load(
-      {required Lyon1Agenda agendaClient,
-      required SettingsModel settings,
-      DateTime? maxDate}) async {
+  static Future<List<Day>> load({required Lyon1AgendaClient agendaClient,
+    required SettingsModel settings,
+    DateTime? maxDate}) async {
     if (Res.mock) {
       return dayListMock;
     }
@@ -118,8 +117,12 @@ class AgendaLogic {
     ]),
     for (int i = 4; i < 300; i++)
       Day(
-          DateTime(DateTime.now().year + ((DateTime.now().month < 6) ? -1 : 0),
-                  9)
+          DateTime(DateTime
+              .now()
+              .year + ((DateTime
+              .now()
+              .month < 6) ? -1 : 0),
+              9)
               .add(
             Duration(days: i),
           ),

@@ -1,10 +1,10 @@
-import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
-import 'package:lyon1agenda/lyon1agenda.dart';
-import 'package:lyon1casclient/lyon1_cas.dart';
-import 'package:lyon1mail/lyon1mail.dart';
+import 'package:lyon1agendaclient/lyon1agendaclient.dart';
+import 'package:lyon1casclient/lyon1casclient.dart';
+import 'package:lyon1mailclient/lyon1mailclient.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
@@ -14,10 +14,10 @@ Future<void> hiveInit({String? path}) async {
   Hive.registerAdapter(SettingsModelAdapter());
 
   IzlyClient.registerAdapters();
-  Dartus.registerAdapters();
-  Lyon1Cas.registerAdapters(initHive: false);
-  Lyon1Agenda.registerAdapters();
-  Lyon1Mail.registerAdapters(initHive: false);
+  Lyon1TomussClient.registerAdapters();
+  Lyon1CasClient.registerAdapters(initHive: false);
+  Lyon1AgendaClient.registerAdapters();
+  Lyon1MailClient.registerAdapters(initHive: false);
 
   if (path != null || kIsWeb) {
     Hive.init(path);

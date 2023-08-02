@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:lyon1mail/lyon1mail.dart';
+import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AttachmentLogic {
   static Future<String> getAttachmentLocalPath(
       {required Mail email,
-      required Lyon1Mail mailClient,
+      required Lyon1MailClient mailClient,
       required int emailNumber,
       required String fileName,
       required MailBox folder}) async {

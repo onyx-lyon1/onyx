@@ -82,20 +82,19 @@ class _MapWidgetState extends State<MapWidget> {
                 !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
               const CustomCurrentLocationLayerWidget(),
             if (widget.batiments.isNotEmpty)
-              PopupMarkerLayerWidget(
-                options: PopupMarkerLayerOptions(
-                  markers: markers,
-                  popupController: popupLayerController,
-                  popupBuilder: (BuildContext context, Marker marker) {
-                    return MapPopupWidget(
-                      batiment: widget.batiments.firstWhere(
-                          (element) => element.position == marker.point),
-                      onTap: widget.onTapNavigate,
-                      popupController: popupLayerController,
-                    );
-                  },
-                ),
-              ),
+              PopupMarkerLayer(
+                  options: PopupMarkerLayerOptions(
+                markers: markers,
+                popupController: popupLayerController,
+                selectedMarkerBuilder: (BuildContext context, Marker marker) {
+                  return MapPopupWidget(
+                    batiment: widget.batiments.firstWhere(
+                        (element) => element.position == marker.point),
+                    onTap: widget.onTapNavigate,
+                    popupController: popupLayerController,
+                  );
+                },
+              )),
           ],
         ),
         Align(

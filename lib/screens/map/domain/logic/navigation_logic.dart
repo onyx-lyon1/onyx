@@ -8,7 +8,7 @@ import 'package:onyx/core/extensions/lat_lng_inside.dart';
 import 'package:onyx/screens/map/domain/model/graph_model.dart';
 import 'package:onyx/screens/map/domain/model/priority_queue.dart';
 import 'package:onyx/screens/map/map_export.dart';
-import 'package:requests/requests.dart';
+import 'package:requests_plus/requests_plus.dart';
 
 class NavigationLogic {
   static Graph? graph;
@@ -16,7 +16,7 @@ class NavigationLogic {
   static Future<List<List<LatLng>>> navigateToBatimentFromLocation(
       BuildContext context, List<BatimentModel> batiments) async {
     List<List<LatLng>> paths = [];
-    LatLng position = LatLng(
+    LatLng position = const LatLng(
         45.781318, 4.869132); //(await GeolocationLogic.getCurrentLocation())!;
     for (var batiment in batiments) {
       if (position.inside(MapRes.minBound, MapRes.maxBound) &&
@@ -137,7 +137,7 @@ class NavigationLogic {
       LatLng departure, LatLng arrival) async {
     var url =
         'https://routing.openstreetmap.de/routed-foot/route/v1/driving/${departure.longitude},${departure.latitude};${arrival.longitude},${arrival.latitude}?overview=false&alternatives=false&steps=true';
-    var r = await Requests.get(url);
+    var r = await RequestsPlus.get(url);
     var json = jsonDecode(r.content());
     List steps = json['routes'][0]['legs'][0]['steps'];
     List<LatLng> points = [];

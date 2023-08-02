@@ -10,12 +10,12 @@ enum AuthentificationStatus {
 
 class AuthentificationState extends Equatable {
   final AuthentificationStatus status;
-  final Lyon1Cas lyon1Cas;
+  final Lyon1CasClient lyon1Cas;
 
   const AuthentificationState({required this.status, required this.lyon1Cas});
 
   AuthentificationState copyWith(
-      {AuthentificationStatus? status, Lyon1Cas? lyon1Cas}) {
+      {AuthentificationStatus? status, Lyon1CasClient? lyon1Cas}) {
     return AuthentificationState(
         status: status ?? this.status, lyon1Cas: lyon1Cas ?? this.lyon1Cas);
   }

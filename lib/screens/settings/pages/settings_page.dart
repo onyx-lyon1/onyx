@@ -1,12 +1,12 @@
-import 'package:dartus/tomuss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
-import 'package:lyon1agenda/lyon1agenda.dart';
-import 'package:lyon1casclient/lyon1_cas.dart';
-import 'package:lyon1mail/lyon1mail.dart';
+import 'package:lyon1agendaclient/lyon1agendaclient.dart';
+import 'package:lyon1casclient/lyon1casclient.dart';
+import 'package:lyon1mailclient/lyon1mailclient.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
@@ -118,7 +118,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             CacheService.reset<MailBoxList>();
                             CacheService.reset<Agenda>();
                             CacheService.reset<TeachingUnitList>();
-                            CacheService.reset<Lyon1Cas>();
+                            CacheService.reset<Lyon1CasClient>();
                             CacheService.reset<SettingsModel>();
                             context.read<AgendaCubit>().resetCubit();
                             context.read<IzlyCubit>().resetCubit();

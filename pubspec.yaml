@@ -11,71 +11,64 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.5
   modal_bottom_sheet: ^3.0.0-pre
-  flutter_bloc: ^8.0.0
+  flutter_bloc: ^8.1.3
   hive_flutter: ^1.1.0
   sizer: ^2.0.15
-  url_launcher: ^6.1.6
-  path_provider: ^2.0.11
+  url_launcher: ^6.1.12
+  path_provider: ^2.0.15
   animations: ^2.0.7
-  firebase_crashlytics: ^3.0.9
-  firebase_core: ^2.4.1
   auto_size_text: ^3.0.0
   desktop_window: ^0.4.0
-  copy_with_extension: ^5.0.2
+  copy_with_extension: ^5.0.3
 
   #agenda
-  lyon1agenda:
-    git: https://github.com/onyx-lyon1/lyon1-agendaclient.git
+  lyon1agendaclient: ^1.0.0
 
   #agenda_config
-  mobile_scanner: ^3.0.0
-  permission_handler: ^10.0.0
+  mobile_scanner: ^3.3.0
+  permission_handler: ^10.4.3
   encrypt: ^5.0.1
 
   #izly
-  izlyclient:
-    git: https://github.com/onyx-lyon1/izlyclient.git
+  izlyclient: ^1.0.0
 
   #mail
-  lyon1mail:
-    git: https://github.com/onyx-lyon1/lyon1-mailclient.git
-  webview_flutter: ^4.0.2
-  file_picker: ^5.2.2
-  open_filex: ^4.3.1
-  flutter_file_dialog: ^3.0.0
-  enough_html_editor: ^0.0.5
-  flutter_quill: ^7.1.18
-  vsc_quill_delta_to_html: ^1.0.2
-  enough_mail: ^2.1.1
+  lyon1mailclient: ^1.0.0
+  webview_flutter: ^4.2.2
+  file_picker: ^5.3.3
+  open_filex: ^4.3.2
+  flutter_file_dialog: ^3.0.1
+  flutter_quill: ^7.2.18
+  vsc_quill_delta_to_html: ^1.0.3
+  enough_mail:
+    git: https://github.com/hatch01/enough_mail.git
 
   #cas
-  lyon1casclient:
-    git: https://github.com/onyx-lyon1/lyon1-casclient.git
+  lyon1casclient: ^1.0.0
 
   #tomuss
-  dartus:
-    git: https://github.com/onyx-lyon1/dartus-tomuss-client.git
+  lyon1tomussclient: ^1.0.3
   screenshot:
     git: https://github.com/SachinGanesh/screenshot.git #^1.3.0
-  share_plus: ^7.0.0
+  share_plus: ^7.0.2
 
   #map
-  flutter_map: ^4.0.0
-  latlong2: ^0.8.1
-  requests:
-    git: https://github.com/onyx-lyon1/requests.git #^4.7.0
+  flutter_map: ^5.0.0
+  latlong2: ^0.9.0
   geolocator: ^9.0.2
-  flutter_map_location_marker: ^6.0.0
-  flutter_map_marker_popup: ^4.0.0
+  flutter_map_location_marker: ^7.0.2
+  flutter_map_marker_popup: ^5.2.0
+  requests_plus: ^4.8.2
+
 
   #authentication
-  connectivity_plus: ^4.0.0
+  connectivity_plus: ^4.0.1
 
   #notifications
-  workmanager: ^0.5.0
-  flutter_local_notifications: ^14.0.0+2
+  workmanager: ^0.5.1
+  flutter_local_notifications: ^15.1.0+1
 
   #settings
   drag_and_drop_lists: #^0.3.3
@@ -87,17 +80,15 @@ dependencies:
 dependency_overrides:
   # unindent for devlopment to use local version of the libraries
   lyon1casclient:
-    path: ../lyon1-casclient
-  dartus:
-    path: ../dartus-tomuss-client
-  lyon1mail:
-    path: ../lyon1-mailclient
-  lyon1agenda:
-    path: ../lyon1-agendaclient
+    path: ../lyon1casclient
+  lyon1tomussclient:
+    path: ../lyon1tomussclient
+  lyon1mailclient:
+    path: ../lyon1mailclient
+  lyon1agendaclient:
+    path: ../lyon1agendaclient
   izlyclient:
     path: ../izlyclient
-  requests:
-    path: /home/eymeric/tmp/requests
 
 dev_dependencies:
   flutter_test:
@@ -107,7 +98,7 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   build_runner: ^2.2.0
   hive_generator: ^2.0.0
-  flutter_launcher_icons: ^0.11.0
+  flutter_launcher_icons: ^0.13.1
   copy_with_extension_gen: ^5.0.2
 
 flutter_icons:
