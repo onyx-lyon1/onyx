@@ -1,0 +1,19 @@
+appId: fr.onyx.lyon1
+---
+- assertVisible: "08:00\n09:00\nmockname1\n01:00 • Déambu"
+- tapOn:
+    point: "50%,30%"
+- assertVisible: "Jeudi 1 Septembre"
+- assertVisible: "Itinéraire"
+- assertVisible: "Thémis"
+- tapOn:
+    point: "4%,5%"
+- tapOn:
+    point: "50%,39%"
+- swipe:
+    direction: "DOWN"
+- tapOn: "Sept.\n3\nSam."
+- assertVisible: "15:00\n16:00\nmockname8\n01:00 • Thémis"
+- assertNotVisible: "Sept.\n1\nJeu."
+- assertVisible: "3 événement(s)"
+- assertVisible: "Samedi 3 Septembre"
