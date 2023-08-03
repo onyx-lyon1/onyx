@@ -1,0 +1,5843 @@
+[
+  [
+    "Advertising",
+    false
+  ],
+  [
+    "Abjs",
+    [
+      [
+        "15/3/2023M",
+        "15/3/2023M",
+        ""
+      ]
+    ]
+  ],
+  [
+    "Logo",
+    "https://tomuss.univ-lyon1.fr/logo_ucbl.png"
+  ],
+  [
+    "Message",
+    ""
+  ],
+  [
+    "GoHome",
+    0
+  ],
+  [
+    "RdV",
+    ""
+  ],
+  [
+    "Explanation",
+    "7.3.1@1686545433"
+  ],
+  [
+    "DA",
+    []
+  ],
+  [
+    "MoreOnSuivi",
+    ""
+  ],
+  [
+    "Charte",
+    ""
+  ],
+  [
+    "BilanAPOGEE",
+    "https://tomuss.univ-lyon1.fr/S/affichage_bilan/"
+  ],
+  [
+    "Login",
+    "p2202851"
+  ],
+  [
+    "GetStudent",
+    ""
+  ],
+  [
+    "SetReferent",
+    ""
+  ],
+  [
+    "Signature",
+    ""
+  ],
+  [
+    "Bilan",
+    ""
+  ],
+  [
+    "PictureUpload",
+    false
+  ],
+  [
+    "Preferences",
+    {
+      "hide_civilite": 1,
+      "private_suivi": 1,
+      "show_empty": 0,
+      "color_value": 0,
+      "highlight_grade": 0,
+      "hide_right_column": 0,
+      "big_text": 0,
+      "hide_picture": 0,
+      "no_teacher_color": 0,
+      "big_box": 0,
+      "recursive_formula": 0,
+      "green_prst": 0,
+      "black_and_white": 0,
+      "can_bring_a_pc": 0,
+      "compact_suivi": 0,
+      "uniform_width": 0
+    }
+  ],
+  [
+    "GrpMessages",
+    []
+  ],
+  [
+    "Semesters",
+    {
+      "2022/Automne": "https://tomuss.univ-lyon1.fr/S/2022/Automne",
+      "2023/Printemps": "https://tomuss.univ-lyon1.fr/S/2023/Printemps"
+    }
+  ],
+  [
+    "FFSU",
+    ""
+  ],
+  [
+    "DateDeNaissance",
+    ""
+  ],
+  [
+    "Compte",
+    ""
+  ],
+  [
+    "FST",
+    []
+  ],
+  [
+    "ACLS",
+    null
+  ],
+  [
+    "RSS",
+    "111d24488f317c95"
+  ],
+  [
+    "Students",
+    ""
+  ],
+  [
+    "DerniereIA",
+    ""
+  ],
+  [
+    "RSSStream",
+    [
+      [
+        10.0,
+        "SOIE : Service d'Orientation et d'Insertion professionnelle des \u00c9tudiants",
+        [
+          [
+            "MonMaster : Que faire si je n'ai re\u00e7u aucune r\u00e9ponse positive ?",
+            "Vous n'avez pas re\u00e7u de r\u00e9ponse positive \u00e0 vos candidatures ? Pas de panique, des solutions existent !",
+            "https://soie.univ-lyon1.fr/actualites/monmaster-que-faire-si-je-nai-recu-aucune-reponse-positive"
+          ],
+          [
+            "Trouver un emploi avec une licence du domaine STS : replay disponible",
+            "Le replay de la conf\u00e9rence est disponible sur la cha\u00eene Youtube du SOIE !",
+            "https://soie.univ-lyon1.fr/actualites/replay-conference-sciences-technologie-sante"
+          ],
+          [
+            "Focus sur les licences pro \u00e0 Lyon 1",
+            "Tout savoir sur les licences pro \u00e0 Lyon 1 en 2 minutes !",
+            "https://soie.univ-lyon1.fr/actualites/coup-de-projecteur-sur-les-licences-pro-a-lyon-1"
+          ]
+        ]
+      ]
+    ]
+  ],
+  [
+    "Tables",
+    ""
+  ],
+  [
+    "TT",
+    ""
+  ],
+  [
+    "Notes",
+    ""
+  ],
+  [
+    "UETree",
+    {
+      "TVL1220L": "1LMI05BB",
+      "MAT1061L": "1LMI05BA",
+      "INF1010L": "1LMI05BA",
+      "MAT1060L": "1LMI05BA",
+      "MAT1059L": "1LMI05BC",
+      "CHM1013L": "1LMI05BA",
+      "TVL1221L": "1LMI05BB",
+      "TVL1215L": "TVL1221L",
+      "MGC1001L": "1LMI05BA",
+      "INF1012L": "1LMI05BA",
+      "MAT1062L": "1LMI05BA",
+      "INF1014L": "1LMI05BA",
+      "MAT1063L": "1LMI05BA",
+      "1LMI05BB": "1LMI05L1",
+      "1LMI05BA": "1LMI05L1",
+      "1LMI05BC": "1LMI05L1",
+      "PEIPA1BC": "PEIPA1S1",
+      "PEIPA1BB": "PEIPA1S1",
+      "PEIPA1BA": "PEIPA1S1",
+      "PEIPA1BD": "PEIPA1S2",
+      "PEIPA1BE": "PEIPA1S2",
+      "PEIPA1BF": "PEIPA1S2",
+      "PL1008PP": "PEIPA1BC",
+      "PL1007PP": "PEIPA1BC",
+      "PL1009PP": "PEIPA1BC",
+      "PL2005PP": "PEIPA1BF",
+      "PL2007PP": "PEIPA1BF",
+      "PL2006PP": "PEIPA1BF",
+      "TVL1208L": "TVL1220L",
+      "TVL1210L": "TVL1220L",
+      "TVL1222L": "TVL1220L",
+      "TVL1224L": "TVL1220L",
+      "TVL1223L": "TVL1221L",
+      "TVL1226L": "TVL1221L",
+      "TVL1214L": "TVL1221L",
+      "TVL1216L": "TVL1221L"
+    }
+  ],
+  [
+    "IPAnnuelle",
+    ""
+  ],
+  [
+    "P_template",
+    []
+  ],
+  [
+    "ReferentNP",
+    ""
+  ],
+  [
+    "Questionnaire",
+    ""
+  ],
+  [
+    "choix_TVL",
+    ""
+  ],
+  [
+    "Referent",
+    [
+      "FABIENNE",
+      "OUDIN DARDUN",
+      "fabienne.oudin-dardun@univ-lyon1.fr",
+      "fabienne.oudin",
+      0
+    ]
+  ],
+  [
+    "Mails",
+    ""
+  ],
+  [
+    "Grades",
+    [
+      [
+        {
+          "masters": [
+            [
+              "HAMID",
+              "LADJAL",
+              "hamid.ladjal@univ-lyon1.fr"
+            ],
+            [
+              "OLIVIER",
+              "GLUCK",
+              "olivier.gluck@univ-lyon1.fr",
+              "olivier.gluck"
+            ]
+          ],
+          "rounding": 1,
+          "contains_users": 1,
+          "modifiable": 1,
+          "default_sort_column": [
+            2,
+            1,
+            0
+          ],
+          "table_title": "Introduction Aux R\u00e9seaux Et Au Web",
+          "popup_on_red_line": 1,
+          "managers": [
+            "alessandra.frabetti",
+            "hamid.ladjal",
+            "guillaume.aubrun"
+          ],
+          "code": 16361,
+          "bookmark": 1,
+          "dates": [
+            1672527600.0,
+            1690754400.0
+          ],
+          "official_ue": 1,
+          "ue": "UE-INF1014L",
+          "year": 2023,
+          "semester": "Printemps",
+          "columns": [
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Identificateur de l'\u00e9tudiant",
+              "freezed": "F",
+              "position": 0,
+              "repetition": 1,
+              "title": "ID",
+              "the_id": "0_0"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 1,
+              "title": "Pr\u00e9nom",
+              "width": 8,
+              "the_id": "0_1"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 2,
+              "title": "Nom",
+              "width": 8,
+              "the_id": "0_2"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Groupe de TD",
+              "position": 3,
+              "title": "Grp",
+              "width": 2,
+              "the_id": "0_3"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "S\u00e9quence de l'enseignement",
+              "position": 4,
+              "title": "Seq",
+              "width": 1,
+              "the_id": "0_4"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "IP valid ?",
+              "freezed": "C",
+              "hidden": 1,
+              "position": 5,
+              "title": "Inscrit",
+              "the_id": "0_5"
+            },
+            {
+              "type": "URL",
+              "author": "olivier.gluck",
+              "position": 12,
+              "title": "Lien-page-UE",
+              "the_id": "12_4"
+            },
+            {
+              "type": "Text",
+              "author": "olivier.gluck",
+              "comment": "contact pour toute question sur les TP ou le travail depuis chez vous",
+              "position": 13,
+              "title": "Enseignant-TP",
+              "width": 6,
+              "the_id": "29_0"
+            },
+            {
+              "type": "Text",
+              "author": "olivier.gluck",
+              "comment": "La salle o\u00f9 vous devez vous rendre pour les TP",
+              "position": 14,
+              "title": "Salle-TP",
+              "width": 6,
+              "the_id": "39_0"
+            },
+            {
+              "type": "Prst",
+              "author": "olivier.gluck",
+              "empty_is": "ABINJ",
+              "greentext": "PRST",
+              "position": 16,
+              "redtext": "= ou ABINJ",
+              "title": "TP5-presence",
+              "visibility_date": "[Grp]<M ou [Grp]\x3EM [Grp]<T ou !=",
+              "the_id": "143_0"
+            },
+            {
+              "type": "Prst",
+              "author": "olivier.gluck",
+              "empty_is": "ABINJ",
+              "greentext": "PRST",
+              "position": 17,
+              "redtext": "= ou ABINJ",
+              "title": "TP6-presence",
+              "visibility_date": "[Grp]<L ou [Grp]\x3E=N [Grp]<Z ou !=",
+              "the_id": "143_1"
+            },
+            {
+              "type": "Enumeration",
+              "author": "olivier.gluck",
+              "comment": "TP not\u00e9 le 2 mai \u00e0 l'heure indiqu\u00e9e - dur\u00e9e 1h",
+              "enumeration": "14h 15h15 16h30",
+              "position": 18,
+              "title": "Heure_TP_not\u00e9",
+              "visibility_date": "20230421",
+              "the_id": "219_0"
+            },
+            {
+              "type": "Enumeration",
+              "author": "olivier.gluck",
+              "comment": "TP not\u00e9 au b\u00e2timent Ariane dans la salle indiqu\u00e9e",
+              "enumeration": "Ariane05 Ariane06 Ariane03 Ariane04 Ariane01 Ariane02 Ariane22 Ariane21 Ariane15 Ariane16 Ariane14",
+              "position": 19,
+              "title": "Salle_TP_not\u00e9",
+              "visibility_date": "20230421",
+              "the_id": "219_1"
+            },
+            {
+              "type": "Enumeration",
+              "author": "olivier.gluck",
+              "comment": "Pr\u00e9sence au TP not\u00e9",
+              "course_dates": "20230502A",
+              "enumeration": "PRST ABJUS ABINJ FIN",
+              "position": 20,
+              "title": "Pr\u00e9sence_TP_not\u00e9",
+              "visibility_date": "20230417",
+              "the_id": "219_2"
+            },
+            {
+              "type": "Note",
+              "author": "olivier.gluck",
+              "course_dates": "20230502A",
+              "green": "\x3E19",
+              "minmax": "[0;30]",
+              "position": 23,
+              "red": "<11 ou ABINJ",
+              "title": "Note_TP_not\u00e9",
+              "visibility_date": "20230524",
+              "the_id": "219_5"
+            },
+            {
+              "type": "MCQ",
+              "author": "olivier.gluck",
+              "cell_writable": "#[] = | #[] @ | #[] =NON | !#[] =",
+              "comment": "Aucun document autoris\u00e9, sans calculatrice, sans t\u00e9l\u00e9phone, 19 questions, 20 \u00e0 25 minutes. ATTENTION : pour la plupart des questions, il y a plusieurs bonnes r\u00e9ponses. Les mauvaises r\u00e9ponses donnent des points n\u00e9gatifs : il vaut mieux ne pas cocher une case plut\u00f4t que de la cocher \u00e0 tort.  Enregistrez r\u00e9guli\u00e8rement vos r\u00e9ponses. Vous devez cl\u00f4turer le QCM avant le 07/05/2022-20:00 pour b\u00e9n\u00e9ficier de la correction.",
+              "mcq": [
+                {
+                  "01intro-l1f.Web": [
+                    "<div style=\"position:fixed; top: 0; background: #FFF; border: 2px solid #F00\"\x3E\n <b\x3E ATTENTION : pour la plupart des questions, il y a plusieurs bonnes r\u00e9ponses. Dans ce cas, les cases coch\u00e9es ou non \u00e0 bon escient rapportent des points, celles coch\u00e9es ou non \u00e0 tort en font perdre.<br\x3E </b\x3E </div\x3E\n \t\tLe Web",
+                    {
+                      "c456": [
+                        "est une application d'Internet",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c230": [
+                        "est un r\u00e9seau qui interconnecte des \u00e9quipements",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c645": [
+                        "a \u00e9t\u00e9 con\u00e7u pour ex\u00e9cuter des commandes \u00e0 distance",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c251": [
+                        "fonctionne en mode Client/Serveur",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "radio": 0,
+                      "group": "intro-l1f",
+                      "good_answer": 1,
+                      "html_question": 1,
+                      "grade": [
+                        [
+                          [
+                            "c456",
+                            "c251"
+                          ],
+                          [
+                            "c230",
+                            "c645"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 0
+                    }
+                  ],
+                  "02intro-l1d.Commutateur": [
+                    "Un commutateur Ethernet",
+                    {
+                      "c421": [
+                        "assure la fiabilit\u00e9 dans Internet",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c344": [
+                        "interconnecte des ordinateurs dans un r\u00e9seau local",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c786": [
+                        "achemine les paquets en fonction de l'adresse IP destination",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c567": [
+                        "utilise les adresses MAC pour acheminer les trames Ethernet",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "radio": 0,
+                      "group": "intro-l1d",
+                      "good_answer": 1,
+                      "grade": [
+                        [
+                          [
+                            "c344",
+                            "c567"
+                          ],
+                          [
+                            "c421",
+                            "c786"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 1
+                    }
+                  ],
+                  "03html-l1f.estHTML": [
+                    "Est du code HTML",
+                    {
+                      "c186": [
+                        "H1, H2, H3 {color: red;}",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c232": [
+                        "<div class=\"bleu\"\x3EBonjour</div\x3E",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c577": [
+                        "if ($nb\x3E=0 && $nb<=255) return true;",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c991": [
+                        "<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\" /\x3E",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "radio": 0,
+                      "group": "html-l1f",
+                      "good_answer": 2,
+                      "grade": [
+                        [
+                          [
+                            "c232",
+                            "c991"
+                          ],
+                          [
+                            "c186",
+                            "c577"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 2
+                    }
+                  ],
+                  "04css-l1f.CLASS": [
+                    "L'attribut CLASS",
+                    {
+                      "c198": [
+                        "permet d'inclure une image dans un bloc DIV",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c752": [
+                        "permet d'appliquer un style \u00e0 un bloc DIV",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c131": [
+                        "permet d'effacer un style d\u00e9fini dans la page",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c665": [
+                        "permet d'ajouter une cellule \u00e0 un tableau HTML",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "group": "css-l1f",
+                      "bad_answer": -0.5,
+                      "good_answer": 1,
+                      "radio": 1,
+                      "grade": [
+                        [
+                          [
+                            "c752"
+                          ],
+                          [
+                            "c198",
+                            "c131",
+                            "c665"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 3
+                    }
+                  ],
+                  "05form-l1f.reset": [
+                    "Dans un formulaire, un bouton de type RESET",
+                    {
+                      "c111": [
+                        "permet d'afficher une page vierge dans le navigateur",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c460": [
+                        "permet de remettre les valeurs par d\u00e9faut dans les zones de saisie",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c413": [
+                        "permet d'ex\u00e9cuter l'action d\u00e9finie dans la balise <form\x3E",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c262": [
+                        "permet d'envoyer les informations saisies au serveur Web",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "group": "form-l1f",
+                      "bad_answer": -0.5,
+                      "good_answer": 1,
+                      "radio": 1,
+                      "grade": [
+                        [
+                          [
+                            "c460"
+                          ],
+                          [
+                            "c111",
+                            "c413",
+                            "c262"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 4
+                    }
+                  ],
+                  "06php-l1d.pagePHP": [
+                    "Quand le navigateur Web demande une page PHP \u00e0 un serveur Web,",
+                    {
+                      "c170": [
+                        "il ex\u00e9cute le code PHP qui se trouve dans la page",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c453": [
+                        "il affiche un message d'erreur car il ne peut pas afficher du PHP",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c216": [
+                        "il re\u00e7oit une page HTML dont une partie peut \u00eatre le r\u00e9sultat d'une ex\u00e9cution PHP",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c607": [
+                        "la page re\u00e7ue ne contient plus de code PHP",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "radio": 0,
+                      "group": "php-l1d",
+                      "good_answer": 2,
+                      "grade": [
+                        [
+                          [
+                            "c216",
+                            "c607"
+                          ],
+                          [
+                            "c170",
+                            "c453"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 5
+                    }
+                  ],
+                  "07urlhttp-l1d.objetsHTTP": [
+                    "Si une page Web contient 3 objets incorpor\u00e9s (1 feuille CSS et 2 images),",
+                    {
+                      "c970": [
+                        "il faut 1 requ\u00eate HTTP pour r\u00e9cup\u00e9rer la page et les 3 objets",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c260": [
+                        "il faut 4 requ\u00eates HTTP pour r\u00e9cup\u00e9rer la page et les 3 objets",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c199": [
+                        "il faut 3 requ\u00eates HTTP pour r\u00e9cup\u00e9rer la page et les 3 objets",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c865": [
+                        "il faut faire une archive pour r\u00e9cup\u00e9rer la page et les objets",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "group": "urlhttp-l1d",
+                      "bad_answer": -0.5,
+                      "good_answer": 1,
+                      "radio": 1,
+                      "grade": [
+                        [
+                          [
+                            "c260"
+                          ],
+                          [
+                            "c970",
+                            "c199",
+                            "c865"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 6
+                    }
+                  ],
+                  "08applis-l1f.SMTP": [
+                    "SMTP",
+                    {
+                      "c678": [
+                        "est un protocole qui permet de lire son courrier \u00e9lectronique",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c860": [
+                        "est un protocole qui permet d'envoyer du courrier \u00e9lectronique",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c713": [
+                        "est un protocole qui permet d'envoyer des fichiers",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c319": [
+                        "est un logiciel qui permet de g\u00e9rer son courrier \u00e9lectronique",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "group": "applis-l1f",
+                      "bad_answer": -0.5,
+                      "good_answer": 1,
+                      "radio": 1,
+                      "grade": [
+                        [
+                          [
+                            "c860"
+                          ],
+                          [
+                            "c678",
+                            "c713",
+                            "c319"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 7
+                    }
+                  ],
+                  "09transport-l1f.modeleCS": [
+                    "A propos du mod\u00e8le Client/Serveur :",
+                    {
+                      "c945": [
+                        "le client est en attente de r\u00e9ception des requ\u00eates",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c819": [
+                        "le protocole applicatif d\u00e9finit les \u00e9changes entre le client et le serveur",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c940": [
+                        "il r\u00e9git le fonctionnement de la plupart des applications d'Internet",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c326": [
+                        "le client r\u00e9pond aux requ\u00eates des serveurs",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "radio": 0,
+                      "group": "transport-l1f",
+                      "good_answer": 1,
+                      "grade": [
+                        [
+                          [
+                            "c819",
+                            "c940"
+                          ],
+                          [
+                            "c945",
+                            "c326"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 8
+                    }
+                  ],
+                  "10transport-l1d.TCPUDP": [
+                    "A propos de TCP et UDP :",
+                    {
+                      "c593": [
+                        "TCP est rapide, UDP est fiable",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c195": [
+                        "G\u00e9n\u00e9ralement, SMTP utilise TCP alors que DNS utilise UDP",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c164": [
+                        "TCP est fiable, UDP est rapide",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c678": [
+                        "TCP n'est pas en mode connect\u00e9, UDP l'est",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "radio": 0,
+                      "group": "transport-l1d",
+                      "good_answer": 1,
+                      "grade": [
+                        [
+                          [
+                            "c195",
+                            "c164"
+                          ],
+                          [
+                            "c593",
+                            "c678"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 9
+                    }
+                  ],
+                  "11architcpip-l1d.archiTCPIP": [
+                    "A propos de l'architecture TCP/IP :",
+                    {
+                      "c707": [
+                        "IP et ARP sont encapsul\u00e9s dans Ethernet",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c902": [
+                        "TCP et UDP s'ex\u00e9cutent dans la carte r\u00e9seau",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c356": [
+                        "TCP, UDP et ICMP sont encapsul\u00e9s dans IP",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c345": [
+                        "ICMP est encapsul\u00e9 dans TCP/IP",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "radio": 0,
+                      "group": "architcpip-l1d",
+                      "good_answer": 1,
+                      "grade": [
+                        [
+                          [
+                            "c707",
+                            "c356"
+                          ],
+                          [
+                            "c902",
+                            "c345"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 10
+                    }
+                  ],
+                  "12encaps-l1d.reqSSH": [
+                    "Un utilisateur se connecte via ssh a une machine distante. Quels sont les protocoles pr\u00e9sents dans la trame envoy\u00e9e pour \u00e9tablir cette connexion ?",
+                    {
+                      "c982": [
+                        "UDP",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c316": [
+                        "SMTP",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c672": [
+                        "SSH",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c178": [
+                        "IP",
+                        {
+                          "priority": 3
+                        }
+                      ],
+                      "c517": [
+                        "HTTP",
+                        {
+                          "priority": 4
+                        }
+                      ],
+                      "c659": [
+                        "TCP",
+                        {
+                          "priority": 5
+                        }
+                      ],
+                      "c141": [
+                        "ARP",
+                        {
+                          "priority": 6
+                        }
+                      ],
+                      "c419": [
+                        "ICMP",
+                        {
+                          "priority": 7
+                        }
+                      ]
+                    },
+                    {
+                      "radio": 0,
+                      "group": "encaps-l1d",
+                      "good_answer": 1,
+                      "grade": [
+                        [
+                          [
+                            "c672",
+                            "c178",
+                            "c659"
+                          ],
+                          [
+                            "c982",
+                            "c316",
+                            "c517",
+                            "c141",
+                            "c419"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 11
+                    }
+                  ],
+                  "13ip-l1d.config": [
+                    "Quand on configure une carte r\u00e9seau, il faut imp\u00e9rativement fournir",
+                    {
+                      "c224": [
+                        "l'adresse IP de la carte",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c447": [
+                        "le masque de sous-r\u00e9seau",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c173": [
+                        "le nom du serveur DNS",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c210": [
+                        "le nom du routeur",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "radio": 0,
+                      "group": "ip-l1d",
+                      "good_answer": 1,
+                      "grade": [
+                        [
+                          [
+                            "c224",
+                            "c447"
+                          ],
+                          [
+                            "c173",
+                            "c210"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 12
+                    }
+                  ],
+                  "14ip-l1d.entete2": [
+                    "L'en-t\u00eate IP contient",
+                    {
+                      "c401": [
+                        "l'adresse du prochain routeur",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c892": [
+                        "les adresses IP",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c286": [
+                        "le num\u00e9ro du prochain octet attendu",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c291": [
+                        "l'identifiant du protocole encapsul\u00e9 dans le paquet",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "radio": 0,
+                      "group": "ip-l1d",
+                      "good_answer": 1,
+                      "grade": [
+                        [
+                          [
+                            "c892",
+                            "c291"
+                          ],
+                          [
+                            "c401",
+                            "c286"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 13
+                    }
+                  ],
+                  "15calculipv4-decTOcidr.2": [
+                    "Est l'\u00e9quivalent de 255.255.240.0",
+                    {
+                      "c911": [
+                        "/21",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c614": [
+                        "/19",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c196": [
+                        "/12",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c189": [
+                        "/13",
+                        {
+                          "priority": 3
+                        }
+                      ],
+                      "c755": [
+                        "/22",
+                        {
+                          "priority": 4
+                        }
+                      ],
+                      "c284": [
+                        "/20",
+                        {
+                          "priority": 5
+                        }
+                      ]
+                    },
+                    {
+                      "group": "calculipv4-decTOcidr",
+                      "bad_answer": -0.5,
+                      "good_answer": 2,
+                      "radio": 1,
+                      "grade": [
+                        [
+                          [
+                            "c284"
+                          ],
+                          [
+                            "c911",
+                            "c614",
+                            "c196",
+                            "c189",
+                            "c755"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 14
+                    }
+                  ],
+                  "16calculipv4-last.2": [
+                    "Est la derni\u00e8re machine dans 192.168.3.0/27",
+                    {
+                      "c676": [
+                        "192.168.3.6",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c390": [
+                        "192.168.3.30",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c339": [
+                        "192.168.3.31",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c581": [
+                        "192.168.3.14",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "group": "calculipv4-last",
+                      "bad_answer": -0.5,
+                      "good_answer": 2,
+                      "radio": 1,
+                      "grade": [
+                        [
+                          [
+                            "c390"
+                          ],
+                          [
+                            "c676",
+                            "c339",
+                            "c581"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 15
+                    }
+                  ],
+                  "17calculipv4-adresseSR.2": [
+                    "Est l'adresse du sous-r\u00e9seau de la machine 192.168.3.30/29",
+                    {
+                      "c708": [
+                        "192.168.3.16/29",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c459": [
+                        "192.168.3.8/29",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c430": [
+                        "192.168.3.24/29",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c398": [
+                        "192.168.3.30/29",
+                        {
+                          "priority": 3
+                        }
+                      ],
+                      "c869": [
+                        "192.168.3.32/29",
+                        {
+                          "priority": 4
+                        }
+                      ],
+                      "c201": [
+                        "192.168.3.28/29",
+                        {
+                          "priority": 5
+                        }
+                      ]
+                    },
+                    {
+                      "group": "calculipv4-adresseSR",
+                      "bad_answer": -0.5,
+                      "good_answer": 2,
+                      "radio": 1,
+                      "grade": [
+                        [
+                          [
+                            "c430"
+                          ],
+                          [
+                            "c708",
+                            "c459",
+                            "c398",
+                            "c869",
+                            "c201"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 16
+                    }
+                  ],
+                  "L1-CALC-adr.1": [
+                    "L'adresse 192.168.3.17/29 est",
+                    {
+                      "c648": [
+                        "l'adresse de la premi\u00e8re machine d'un sous-r\u00e9seau",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c811": [
+                        "l'adresse de la derni\u00e8re machine d'un sous-r\u00e9seau",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c338": [
+                        "l'adresse d'une machine (ni la premi\u00e8re ni la derni\u00e8re) d'un sous-r\u00e9seau",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c941": [
+                        "l'adresse d'un sous-r\u00e9seau",
+                        {
+                          "priority": 3
+                        }
+                      ],
+                      "c244": [
+                        "l'adresse de diffusion dans un sous-r\u00e9seau",
+                        {
+                          "priority": 4
+                        }
+                      ]
+                    },
+                    {
+                      "group": "L1-CALC-adr",
+                      "bad_answer": -0.5,
+                      "good_answer": 2,
+                      "radio": 1,
+                      "grade": [
+                        [
+                          [
+                            "c648"
+                          ],
+                          [
+                            "c811",
+                            "c338",
+                            "c941",
+                            "c244"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 17
+                    }
+                  ],
+                  "L1-CM7-ip.passdefault": [
+                    "La passerelle par d\u00e9faut",
+                    {
+                      "c948": [
+                        "est une adresse IP",
+                        {
+                          "priority": 0
+                        }
+                      ],
+                      "c523": [
+                        "permet de relayer les paquets IP vers l'ext\u00e9rieur du r\u00e9seau",
+                        {
+                          "priority": 1
+                        }
+                      ],
+                      "c634": [
+                        "est un nom de machine",
+                        {
+                          "priority": 2
+                        }
+                      ],
+                      "c741": [
+                        "permet de relayer les paquets IP entre deux machines du m\u00eame r\u00e9seau",
+                        {
+                          "priority": 3
+                        }
+                      ]
+                    },
+                    {
+                      "radio": 0,
+                      "group": "L1-CM7-ip",
+                      "good_answer": 1,
+                      "grade": [
+                        [
+                          [
+                            "c948",
+                            "c523"
+                          ],
+                          [
+                            "c634",
+                            "c741"
+                          ],
+                          null
+                        ]
+                      ],
+                      "priority": 18
+                    }
+                  ]
+                },
+                {
+                  "same_questions": 1,
+                  "radio": 1,
+                  "gui": "beginner",
+                  "shuffle_questions": 0,
+                  "shuffle_choices": 1,
+                  "good_answer": 1,
+                  "no_answer": 0,
+                  "bad_answer": "-1/(#-1)",
+                  "progressive": "AMC",
+                  "group": "",
+                  "obfuscate": 1,
+                  "choice_CSS": "",
+                  "question_CSS": "",
+                  "scoring_scale": 1,
+                  "stats": 1,
+                  "nr_question_in_group": {},
+                  "multiple_choice": true,
+                  "show_answers": 1
+                }
+              ],
+              "minmax": "[0;25]",
+              "position": 23.5,
+              "title": "Examen-blanc_\u00e0_faire_avant_le_7_mai",
+              "visibility_date": "20230425",
+              "the_id": "248_0"
+            },
+            {
+              "type": "Upload",
+              "author": "olivier.gluck",
+              "position": 26,
+              "title": "Copie-Exam-s1",
+              "the_id": "1000_0"
+            },
+            {
+              "type": "Note",
+              "author": "olivier.gluck",
+              "course_dates": "20230511M",
+              "green": "\x3E12",
+              "position": 27,
+              "red": "<8 ou =ABINJ",
+              "title": "Exam-session1",
+              "visibility_date": "20230512",
+              "weight": "2",
+              "the_id": "1000_1"
+            },
+            {
+              "type": "Moy",
+              "author": "olivier.gluck",
+              "columns": "Note_TP_not\u00e9 Exam-session1",
+              "green": "\x3E=12",
+              "position": 28,
+              "red": "<8 ou ABINJ",
+              "title": "NOTE-UE-session1",
+              "visibility_date": "20230524",
+              "rounding": "0.01",
+              "the_id": "1000_2"
+            },
+            {
+              "type": "Je_Viens",
+              "author": "olivier.gluck",
+              "columns": "ID",
+              "position": 29,
+              "title": "Je_viens",
+              "the_id": "1068_0"
+            }
+          ],
+          "line_id": "0_43",
+          "line": [
+            [
+              "12202851",
+              "*",
+              "20230107072436"
+            ],
+            [
+              "EYMERIC",
+              "*",
+              "20230107072436"
+            ],
+            [
+              "DECHELETTE",
+              "*",
+              "20230107072436"
+            ],
+            [
+              "N",
+              "olivier.gluck",
+              "20230113183049",
+              ""
+            ],
+            [
+              "1",
+              "*",
+              "20230107072436"
+            ],
+            [
+              "ok",
+              "*",
+              "20230107072436"
+            ],
+            [
+              "https://perso.univ-lyon1.fr/olivier.gluck/supports_enseig.html#LIFASR2",
+              "olivier.gluck",
+              "20230113175238"
+            ],
+            [
+              "olivier.gluck@univ-lyon1.fr",
+              "olivier.gluck",
+              "20230113200259"
+            ],
+            [
+              "Nautibus TP1",
+              "olivier.gluck",
+              "20230327095935",
+              ""
+            ],
+            [
+              "PRST",
+              "olivier.gluck",
+              "20230328173816"
+            ],
+            [
+              "ABJUS",
+              "olivier.gluck",
+              "20230417103529"
+            ],
+            [
+              "16h30",
+              "olivier.gluck",
+              "20230420235355"
+            ],
+            [
+              "Ariane14",
+              "olivier.gluck",
+              "20230421002755",
+              ""
+            ],
+            [
+              "FIN",
+              "jacques.bonneville",
+              "20230502173210",
+              ""
+            ],
+            [
+              23.5,
+              "olivier.gluck",
+              "20230520181451"
+            ],
+            [
+              16.9,
+              "olivier.gluck",
+              "20230508183320",
+              "01intro-l1f.Web=c251&01intro-l1f.Web=c456&02intro-l1d.Commutateur=c344&02intro-l1d.Commutateur=c567&03html-l1f.estHTML=c232&03html-l1f.estHTML=c991&04css-l1f.CLASS=c752&05form-l1f.reset=c460&06php-l1d.pagePHP=c216&06php-l1d.pagePHP=c607&07urlhttp-l1d.objetsHTTP=c260&08applis-l1f.SMTP=c860&09transport-l1f.modeleCS=c819&09transport-l1f.modeleCS=c940&10transport-l1d.TCPUDP=c164&10transport-l1d.TCPUDP=c195&11architcpip-l1d.archiTCPIP=c345&11architcpip-l1d.archiTCPIP=c707&11architcpip-l1d.archiTCPIP=c902&12encaps-l1d.reqSSH=c178&12encaps-l1d.reqSSH=c659&12encaps-l1d.reqSSH=c672&13ip-l1d.config=c210&13ip-l1d.config=c447&14ip-l1d.entete2=c401&14ip-l1d.entete2=c892&15calculipv4-decTOcidr.2=c284&16calculipv4-last.2=c339&17calculipv4-adresseSR.2=c430&L1-CALC-adr.1=c338&L1-CM7-ip.passdefault=c741&L1-CM7-ip.passdefault=c948"
+            ],
+            [
+              1100.73,
+              "olivier.gluck",
+              "20230512101925",
+              "application/pdf; charset=binary DECHELETTE-Eymeric.pdf"
+            ],
+            [
+              16.0,
+              "olivier.gluck",
+              "20230512085214"
+            ],
+            [
+              15.88,
+              "*",
+              "",
+              ""
+            ],
+            [
+              "",
+              "*",
+              "20230604161349"
+            ]
+          ],
+          "stats": {
+            "143_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "143_1": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "219_0": {
+              "enumeration": [
+                "",
+                "14h",
+                "15h15",
+                "16h30"
+              ]
+            },
+            "219_1": {
+              "enumeration": [
+                "",
+                "Ariane05",
+                "Ariane06",
+                "Ariane03",
+                "Ariane04",
+                "Ariane01",
+                "Ariane02",
+                "Ariane22",
+                "Ariane21",
+                "Ariane15",
+                "Ariane16",
+                "Ariane14"
+              ]
+            },
+            "219_2": {
+              "enumeration": [
+                "",
+                "PRST",
+                "ABJUS",
+                "ABINJ",
+                "FIN"
+              ]
+            },
+            "219_5": {
+              "nr": 274,
+              "nr_in_grp": 19,
+              "rank": 30,
+              "rank_grp": 7,
+              "average": 14.969890510948906,
+              "mediane": 16.0
+            },
+            "248_0": {
+              "nr": 428,
+              "nr_in_grp": 21,
+              "rank": 44,
+              "rank_grp": 8,
+              "average": 6.171028037383188,
+              "mediane": 0.0
+            },
+            "1000_1": {
+              "nr": 332,
+              "nr_in_grp": 19,
+              "rank": 35,
+              "rank_grp": 4,
+              "average": 9.801204819277109,
+              "mediane": 10.0
+            },
+            "1000_2": {
+              "nr": 336,
+              "nr_in_grp": 19,
+              "rank": 33,
+              "rank_grp": 6,
+              "average": 9.315684523809512,
+              "mediane": 10.11
+            }
+          }
+        },
+        {
+          "masters": [
+            [
+              "CLAUDE",
+              "INSERRA",
+              "claude.inserra@univ-lyon1.fr"
+            ]
+          ],
+          "rounding": 1,
+          "contains_users": 1,
+          "modifiable": 1,
+          "default_sort_column": [
+            2,
+            1,
+            0
+          ],
+          "table_title": "Introduction \u00c0 La M\u00e9canique Newtonienne",
+          "popup_on_red_line": 1,
+          "managers": [
+            "fabienne.oudin",
+            "frank-olaf.wagner"
+          ],
+          "code": 4404,
+          "bookmark": 1,
+          "dates": [
+            1672527600.0,
+            1690754400.0
+          ],
+          "official_ue": 1,
+          "ue": "UE-MGC1001L",
+          "year": 2023,
+          "semester": "Printemps",
+          "columns": [
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Identificateur de l'\u00e9tudiant",
+              "freezed": "F",
+              "position": 0,
+              "repetition": 1,
+              "title": "ID",
+              "the_id": "0_0"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 1,
+              "title": "Pr\u00e9nom",
+              "width": 8,
+              "the_id": "0_1"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 2,
+              "title": "Nom",
+              "width": 8,
+              "the_id": "0_2"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Groupe de TD",
+              "position": 3,
+              "title": "Grp",
+              "width": 2,
+              "the_id": "0_3"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "S\u00e9quence de l'enseignement",
+              "position": 4,
+              "title": "Seq",
+              "width": 1,
+              "the_id": "0_4"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "IP valid ?",
+              "freezed": "C",
+              "hidden": 1,
+              "position": 5,
+              "title": "Inscrit",
+              "the_id": "0_5"
+            },
+            {
+              "type": "Code_Etape",
+              "author": "fabienne.oudin",
+              "columns": "ID",
+              "position": 6,
+              "title": "Code_Etape",
+              "the_id": "3_0"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "minmax": "[0;10]",
+              "position": 8,
+              "title": "CC1",
+              "the_id": "39_0"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "minmax": "[0;10]",
+              "position": 9,
+              "title": "CC2",
+              "the_id": "39_1"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "minmax": "[0;10]",
+              "position": 10,
+              "title": "CC3",
+              "the_id": "39_2"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "minmax": "[0;10]",
+              "position": 11,
+              "title": "CC4",
+              "the_id": "39_3"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "minmax": "[0;10]",
+              "position": 12,
+              "title": "CC5",
+              "the_id": "39_4"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "position": 13,
+              "title": "Moy_CC",
+              "the_id": "39_5"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "position": 14,
+              "title": "C_Partiel",
+              "visibility_date": "20230409",
+              "the_id": "39_6"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "position": 15,
+              "title": "C_prepa",
+              "the_id": "39_7"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "position": 16,
+              "title": "C_Terminal",
+              "visibility_date": "20230531",
+              "the_id": "39_8"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "position": 17,
+              "title": "Colle_1",
+              "the_id": "39_9"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "position": 18,
+              "title": "Colle_2",
+              "the_id": "39_10"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "position": 19,
+              "title": "Moy_Colle",
+              "the_id": "39_11"
+            },
+            {
+              "type": "Note",
+              "author": "claude.inserra",
+              "position": 21,
+              "title": "Note_UE",
+              "the_id": "39_13"
+            },
+            {
+              "type": "Text",
+              "author": "claude.inserra",
+              "position": 22,
+              "title": "S\u00e9ance17",
+              "the_id": "244_0"
+            }
+          ],
+          "line_id": "0_27",
+          "line": [
+            [
+              "12202851",
+              "*",
+              "20230107074723"
+            ],
+            [
+              "EYMERIC",
+              "*",
+              "20230107074723"
+            ],
+            [
+              "DECHELETTE",
+              "*",
+              "20230107074723"
+            ],
+            [
+              "F",
+              "fabienne.oudin",
+              "20230110155829"
+            ],
+            [
+              "2",
+              "*",
+              "20230107074723"
+            ],
+            [
+              "ok",
+              "*",
+              "20230107074723"
+            ],
+            [
+              "PEIPA1 1LMI05",
+              "*",
+              "20230111173706",
+              ""
+            ],
+            [
+              4.5,
+              "hugo.bellezza",
+              "20230202125819"
+            ],
+            [
+              7.75,
+              "hugo.bellezza",
+              "20230227133655"
+            ],
+            [
+              8.5,
+              "hugo.bellezza",
+              "20230313201320"
+            ],
+            [
+              9.5,
+              "hugo.bellezza",
+              "20230403005514"
+            ],
+            [
+              3.0,
+              "hugo.bellezza",
+              "20230509113114"
+            ],
+            [
+              15.1,
+              "claude.inserra",
+              "20230512115144"
+            ],
+            [
+              19.5,
+              "claude.inserra",
+              "20230408150311"
+            ],
+            [],
+            [
+              4.0,
+              "claude.inserra",
+              "20230528170734"
+            ],
+            [],
+            [],
+            [],
+            [
+              12.5,
+              "claude.inserra",
+              "20230531165917"
+            ],
+            []
+          ],
+          "stats": {
+            "39_0": {
+              "nr": 162,
+              "nr_in_grp": 33,
+              "rank": 113,
+              "rank_grp": 22,
+              "average": 5.942901234567901,
+              "mediane": 6.0
+            },
+            "39_1": {
+              "nr": 155,
+              "nr_in_grp": 32,
+              "rank": 43,
+              "rank_grp": 5,
+              "average": 5.848387096774194,
+              "mediane": 6.0
+            },
+            "39_2": {
+              "nr": 149,
+              "nr_in_grp": 27,
+              "rank": 41,
+              "rank_grp": 3,
+              "average": 6.600671140939597,
+              "mediane": 7.25
+            },
+            "39_3": {
+              "nr": 150,
+              "nr_in_grp": 31,
+              "rank": 32,
+              "rank_grp": 5,
+              "average": 7.843333333333334,
+              "mediane": 8.75
+            },
+            "39_4": {
+              "nr": 142,
+              "nr_in_grp": 28,
+              "rank": 64,
+              "rank_grp": 9,
+              "average": 3.2693661971830985,
+              "mediane": 3.0
+            },
+            "39_5": {
+              "nr": 162,
+              "nr_in_grp": 33,
+              "rank": 51,
+              "rank_grp": 3,
+              "average": 12.726543209876539,
+              "mediane": 13.25
+            },
+            "39_6": {
+              "nr": 157,
+              "nr_in_grp": 32,
+              "rank": 7,
+              "rank_grp": 1,
+              "average": 11.773885350318471,
+              "mediane": 12.5
+            },
+            "39_7": {
+              "nr": 24,
+              "nr_in_grp": 0,
+              "average": 4.916666666666667,
+              "mediane": 3.0
+            },
+            "39_8": {
+              "nr": 157,
+              "nr_in_grp": 33,
+              "rank": 115,
+              "rank_grp": 20,
+              "average": 8.111464968152866,
+              "mediane": 7.5
+            },
+            "39_9": {
+              "nr": 23,
+              "nr_in_grp": 0,
+              "average": 13.304347826086957,
+              "mediane": 14.0
+            },
+            "39_10": {
+              "nr": 22,
+              "nr_in_grp": 0,
+              "average": 12.909090909090908,
+              "mediane": 14.0
+            },
+            "39_11": {
+              "nr": 23,
+              "nr_in_grp": 0,
+              "average": 13.195652173913043,
+              "mediane": 14.0
+            },
+            "39_13": {
+              "nr": 157,
+              "nr_in_grp": 33,
+              "rank": 44,
+              "rank_grp": 7,
+              "average": 10.258917197452233,
+              "mediane": 10.4
+            }
+          }
+        },
+        {
+          "masters": [
+            [
+              "FRANCOIS",
+              "LE",
+              "francois.lE@univ-lyon1.fr"
+            ]
+          ],
+          "rounding": 1,
+          "contains_users": 1,
+          "modifiable": 1,
+          "default_sort_column": [
+            2,
+            1,
+            0
+          ],
+          "table_title": "Alg\u00e8bre 2 Cursus Pr\u00e9pa",
+          "popup_on_red_line": 1,
+          "managers": [
+            "frank-olaf.wagner",
+            "fabienne.oudin",
+            "fabienne.oudin",
+            "frank-olaf.wagner"
+          ],
+          "code": 25501,
+          "bookmark": 1,
+          "dates": [
+            1672527600.0,
+            1690754400.0
+          ],
+          "official_ue": 1,
+          "ue": "UE-MAT1062L",
+          "year": 2023,
+          "semester": "Printemps",
+          "columns": [
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Identificateur de l'\u00e9tudiant",
+              "freezed": "F",
+              "position": 0,
+              "repetition": 1,
+              "title": "ID",
+              "the_id": "0_0"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 1,
+              "title": "Pr\u00e9nom",
+              "width": 8,
+              "the_id": "0_1"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 2,
+              "title": "Nom",
+              "width": 8,
+              "the_id": "0_2"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Groupe de TD",
+              "position": 3,
+              "title": "Grp",
+              "width": 2,
+              "the_id": "0_3"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "S\u00e9quence de l'enseignement",
+              "position": 4,
+              "title": "Seq",
+              "width": 1,
+              "the_id": "0_4"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "IP valid ?",
+              "freezed": "C",
+              "hidden": 1,
+              "position": 5,
+              "title": "Inscrit",
+              "the_id": "0_5"
+            },
+            {
+              "type": "Code_Etape",
+              "author": "fabienne.oudin",
+              "columns": "ID",
+              "position": 7,
+              "title": "Code_Etape",
+              "the_id": "4_2"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 8,
+              "title": "CF_algebre2",
+              "the_id": "68_0"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 9,
+              "title": "Note_Algebre2",
+              "the_id": "68_1"
+            }
+          ],
+          "line_id": "0_18",
+          "line": [
+            [
+              "12202851",
+              "*",
+              "20230107073616"
+            ],
+            [
+              "EYMERIC",
+              "*",
+              "20230107073616"
+            ],
+            [
+              "DECHELETTE",
+              "*",
+              "20230107073616"
+            ],
+            [
+              "P5",
+              "fabienne.oudin",
+              "20230110154024"
+            ],
+            [
+              "4",
+              "*",
+              "20230107073616"
+            ],
+            [
+              "ok",
+              "*",
+              "20230107073616"
+            ],
+            [
+              "PEIPA1 1LMI05",
+              "*",
+              "20230111162623",
+              ""
+            ],
+            [
+              9.75,
+              "francois.le",
+              "20230520165237"
+            ],
+            [
+              11.4,
+              "francois.le",
+              "20230520171021"
+            ]
+          ],
+          "stats": {
+            "68_0": {
+              "nr": 124,
+              "nr_in_grp": 33,
+              "rank": 83,
+              "rank_grp": 18,
+              "average": 11.504032258064516,
+              "mediane": 12.0
+            },
+            "68_1": {
+              "nr": 127,
+              "nr_in_grp": 33,
+              "rank": 87,
+              "rank_grp": 18,
+              "average": 12.152125984251972,
+              "mediane": 12.5
+            }
+          }
+        },
+        {
+          "masters": [
+            [
+              "CHRISTIAN",
+              "TRILLAUD",
+              "christian.trillaud@univ-lyon1.fr",
+              "christian.trillaud"
+            ]
+          ],
+          "comment": "Module de formation : https://go.univ-lyon1.fr/pix2",
+          "rounding": 1,
+          "contains_users": 1,
+          "modifiable": 1,
+          "default_sort_column": [
+            2,
+            1,
+            0
+          ],
+          "table_title": "Comp\u00e9tence Num\u00e9rique Et Pr\u00e9paration Au Pix - Module 2",
+          "popup_on_red_line": 1,
+          "code": 24695,
+          "bookmark": 1,
+          "merge_students": "etape-1LLE01 etape-1LMI05 etape-1LMI06",
+          "dates": [
+            1672527600.0,
+            1690754400.0
+          ],
+          "official_ue": 1,
+          "ue": "UE-TVL1216L",
+          "year": 2023,
+          "semester": "Printemps",
+          "columns": [
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Identificateur de l'\u00e9tudiant",
+              "freezed": "F",
+              "position": 0,
+              "repetition": 1,
+              "title": "ID",
+              "the_id": "0_0"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 1,
+              "title": "Pr\u00e9nom",
+              "width": 8,
+              "the_id": "0_1"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 2,
+              "title": "Nom",
+              "width": 8,
+              "the_id": "0_2"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Groupe de TD",
+              "position": 3,
+              "title": "Grp",
+              "width": 3,
+              "the_id": "0_3"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "S\u00e9quence de l'enseignement",
+              "hidden": 1,
+              "position": 4,
+              "title": "Seq",
+              "width": 2,
+              "the_id": "0_4"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "IP valid ?",
+              "freezed": "C",
+              "hidden": 1,
+              "position": 5,
+              "title": "Inscrit",
+              "the_id": "0_5"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "position": 6,
+              "title": "Quoi",
+              "width": 6,
+              "the_id": "0_6"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "position": 7,
+              "title": "Quand",
+              "width": 6,
+              "the_id": "0_7"
+            },
+            {
+              "type": "Text",
+              "author": "christian.trillaud",
+              "cell_writable": "@[]=christian.trillaud",
+              "freezed": "F",
+              "position": 9,
+              "title": "infos",
+              "the_id": "12_1"
+            },
+            {
+              "type": "Replace",
+              "author": "christian.trillaud",
+              "incomplete": 1,
+              "freezed": "F",
+              "position": 12,
+              "replace": "~1lmi05 | ~1lmi06 \ud83e\udc46 POLY \u25cf 1LLE0 \ud83e\udc46 SPS \u25cf 2|3 \ud83e\udc46 \u25cf \ud83e\udc46 STS",
+              "title": "Formation",
+              "the_id": "12_4"
+            },
+            {
+              "type": "Note",
+              "author": "christian.trillaud",
+              "cell_writable": "@[]=christian.trillaud",
+              "comment": "Note du questionnaire Moodle comp 1.1 (import 21/02 \u00e0 8h43)",
+              "empty_is": "en attente d'importation par le responsable",
+              "greentext": "!= =10",
+              "minmax": "[0;10]",
+              "position": 13,
+              "redtext": "!= =0",
+              "title": "TD/comp1.1/noteQuest",
+              "visibility_date": "[infos]Di |[infos]=",
+              "the_id": "12_5"
+            },
+            {
+              "type": "Note",
+              "author": "christian.trillaud",
+              "cell_writable": "@[]=christian.trillaud",
+              "comment": "Note du questionnaire Moodle comp 2.2 (import 21/02 \u00e0 8h47)",
+              "empty_is": "import\u00e9 en fin de semestre",
+              "greentext": "!= =10",
+              "minmax": "[0;10]",
+              "position": 14,
+              "redtext": "!= =0",
+              "title": "TD/comp2.2/noteQuest",
+              "visibility_date": "[infos]Di |[infos]=",
+              "the_id": "12_6"
+            },
+            {
+              "type": "Note",
+              "author": "christian.trillaud",
+              "cell_writable": "@[]=christian.trillaud",
+              "comment": "Note du questionnaire Moodle comp 2.3 (import 21/02 \u00e0 8h50)",
+              "empty_is": "import\u00e9 en fin de semestre",
+              "greentext": "!= =10",
+              "minmax": "[0;10]",
+              "position": 15,
+              "redtext": "!= =0",
+              "title": "TD/comp2.3/noteQuest",
+              "visibility_date": "[infos]Di |[infos]=",
+              "the_id": "12_7"
+            },
+            {
+              "type": "Note",
+              "author": "christian.trillaud",
+              "cell_writable": "@[]=christian.trillaud",
+              "comment": "Note du questionnaire Moodle comp 2.4 (import 21/02 \u00e0 8h52)",
+              "empty_is": "import\u00e9 en fin de semestre",
+              "greentext": "!= =10",
+              "minmax": "[0;10]",
+              "position": 16,
+              "redtext": "!= =0",
+              "title": "TD/comp2.4/noteQuest",
+              "visibility_date": "[infos]Di |[infos]=",
+              "the_id": "12_8"
+            },
+            {
+              "type": "Note",
+              "author": "christian.trillaud",
+              "cell_writable": "@[]=christian.trillaud",
+              "comment": "Note du questionnaire Moodle comp 4.2 (import 21/02 \u00e0 8h54)",
+              "empty_is": "import\u00e9 en fin de semestre",
+              "greentext": "!= =10",
+              "minmax": "[0;10]",
+              "position": 17,
+              "redtext": "!= =0",
+              "title": "TD/comp4.2/noteQuest",
+              "visibility_date": "[infos]Di |[infos]=",
+              "the_id": "12_9"
+            },
+            {
+              "type": "Note",
+              "author": "christian.trillaud",
+              "cell_writable": "@[]=christian.trillaud",
+              "comment": "Note import\u00e9e du test PIX comp 1.1 (import 21/02 \u00e0 8h57)",
+              "empty_is": "import\u00e9 en fin de semestre",
+              "greentext": "!= =10",
+              "minmax": "[0;10]",
+              "position": 18,
+              "redtext": "!= =0",
+              "title": "TD/comp1.1/notePIX",
+              "visibility_date": "[infos]Di |[infos]=",
+              "the_id": "12_10"
+            },
+            {
+              "type": "Note",
+              "author": "christian.trillaud",
+              "cell_writable": "@[]=christian.trillaud",
+              "comment": "Note import\u00e9e du test PIX comp 2.2 (import 21/02 \u00e0 8h57)",
+              "empty_is": "import\u00e9 en fin de semestre",
+              "greentext": "!= =10",
+              "minmax": "[0;10]",
+              "position": 19,
+              "redtext": "!= =0",
+              "title": "TD/comp2.2/notePIX",
+              "visibility_date": "[infos]Di |[infos]=",
+              "the_id": "12_11"
+            },
+            {
+              "type": "Note",
+              "author": "christian.trillaud",
+              "cell_writable": "@[]=christian.trillaud",
+              "comment": "Note import\u00e9e du test PIX comp 2.3 (import 21/02 \u00e0 8h57)",
+              "empty_is": "import\u00e9 en fin de semestre",
+              "greentext": "!= =10",
+              "minmax": "[0;10]",
+              "position": 20,
+              "redtext": "!= =0",
+              "title": "TD/comp2.3/notePIX",
+              "visibility_date": "[infos]Di |[infos]=",
+              "the_id": "12_12"
+            },
+            {
+              "type": "Note",
+              "author": "christian.trillaud",
+              "cell_writable": "@[]=christian.trillaud",
+              "comment": "Note import\u00e9e du test PIX comp 2.4 (import 21/02 \u00e0 9h28)",
+              "empty_is": "import\u00e9 en fin de semestre",
+              "greentext": "!= =10",
+              "minmax": "[0;10]",
+              "position": 21,
+              "redtext": "!= =0",
+              "title": "TD/comp2.4/notePIX",
+              "visibility_date": "[infos]Di |[infos]=",
+              "the_id": "12_13"
+            },
+            {
+              "type": "Note",
+              "author": "christian.trillaud",
+              "cell_writable": "@[]=christian.trillaud",
+              "comment": "Note import\u00e9e du test PIX comp 4.2 (import 21/02 \u00e0 9h28)",
+              "empty_is": "import\u00e9 en fin de semestre",
+              "greentext": "!= =10",
+              "minmax": "[0;10]",
+              "position": 22,
+              "redtext": "!= =0",
+              "title": "TD/comp4.2/notePIX",
+              "visibility_date": "[infos]Di |[infos]=",
+              "the_id": "12_14"
+            },
+            {
+              "type": "Moy",
+              "author": "christian.trillaud",
+              "columns": "TD/comp1.1/noteQuest TD/comp1.1/notePIX",
+              "comment": "Moyenne du TD et du test PIX sur la comp\u00e9tence 1.1",
+              "green": "\x3E=10",
+              "locked": 1,
+              "position": 23,
+              "red": "!= <10",
+              "title": "TD/comp1.1/moyenne",
+              "visibility_date": "![TD/comp1.1/notePIX]=",
+              "rounding": "0.001",
+              "the_id": "12_15"
+            },
+            {
+              "type": "Moy",
+              "author": "christian.trillaud",
+              "columns": "TD/comp2.2/noteQuest TD/comp2.2/notePIX",
+              "comment": "Moyenne du TD et du test PIX sur la comp\u00e9tence 2.2",
+              "green": "\x3E=10",
+              "locked": 1,
+              "position": 24,
+              "red": "!= <10",
+              "title": "TD/comp2.2/moyenne",
+              "visibility_date": "![TD/comp2.2/notePIX]=",
+              "rounding": "0.001",
+              "the_id": "12_16"
+            },
+            {
+              "type": "Moy",
+              "author": "christian.trillaud",
+              "columns": "TD/comp2.3/noteQuest TD/comp2.3/notePIX",
+              "comment": "Moyenne du TD et du test PIX sur les comp\u00e9tences2.3",
+              "green": "\x3E=10",
+              "locked": 1,
+              "position": 25,
+              "red": "!= <10",
+              "title": "TD/comp2.3/moyenne",
+              "visibility_date": "![TD/comp2.3/notePIX]=",
+              "rounding": "0.001",
+              "the_id": "12_17"
+            },
+            {
+              "type": "Moy",
+              "author": "christian.trillaud",
+              "columns": "TD/comp2.4/noteQuest TD/comp2.4/notePIX",
+              "comment": "Moyenne du TD et du test PIX sur la comp\u00e9tence 2.4",
+              "green": "\x3E=10",
+              "locked": 1,
+              "position": 26,
+              "red": "!= <10",
+              "title": "TD/comp2.4/moyenne",
+              "visibility_date": "![TD/comp2.4/notePIX]=",
+              "rounding": "0.001",
+              "the_id": "12_18"
+            },
+            {
+              "type": "Moy",
+              "author": "christian.trillaud",
+              "columns": "TD/comp4.2/noteQuest TD/comp4.2/notePIX",
+              "comment": "Moyenne du TD et du test PIX sur les comp\u00e9tences 4.2",
+              "green": "\x3E=10",
+              "locked": 1,
+              "position": 27,
+              "red": "!= <10",
+              "title": "TD/comp4.2/moyenne",
+              "visibility_date": "![TD/comp4.2/notePIX]=",
+              "rounding": "0.001",
+              "the_id": "12_19"
+            },
+            {
+              "type": "Replace",
+              "author": "christian.trillaud",
+              "columns": "TD/comp1.1/moyenne",
+              "comment": "Validation de la comp\u00e9tence 1.1",
+              "green": "VALID\u00c9E",
+              "locked": 1,
+              "position": 28,
+              "red": "NON VALID\u00c9E",
+              "replace": "NaN \ud83e\udc46 \u25cf <10 \ud83e\udc46 NON VALID\u00c9E \u25cf \x3E=10 \ud83e\udc46 VALID\u00c9E",
+              "title": "TD/comp1.1/statut",
+              "visibility_date": "20230501",
+              "the_id": "12_20"
+            },
+            {
+              "type": "Replace",
+              "author": "christian.trillaud",
+              "columns": "TD/comp2.2/moyenne",
+              "comment": "Validation de la comp\u00e9tence 2.2",
+              "green": "VALID\u00c9E",
+              "locked": 1,
+              "position": 29,
+              "red": "NON VALID\u00c9E",
+              "replace": "NaN \ud83e\udc46 \u25cf <10 \ud83e\udc46 NON VALID\u00c9E \u25cf \x3E=10 \ud83e\udc46 VALID\u00c9E",
+              "title": "TD/comp2.2/statut",
+              "visibility_date": "20230501",
+              "the_id": "12_21"
+            },
+            {
+              "type": "Replace",
+              "author": "christian.trillaud",
+              "columns": "TD/comp2.3/moyenne",
+              "comment": "Validation de la comp\u00e9tence 2.3",
+              "green": "VALID\u00c9E",
+              "locked": 1,
+              "position": 30,
+              "red": "NON VALID\u00c9E",
+              "replace": "NaN \ud83e\udc46 \u25cf <10 \ud83e\udc46 NON VALID\u00c9E \u25cf \x3E=10 \ud83e\udc46 VALID\u00c9E",
+              "title": "TD/comp2.3/statut",
+              "visibility_date": "20230501",
+              "the_id": "12_22"
+            },
+            {
+              "type": "Replace",
+              "author": "christian.trillaud",
+              "columns": "TD/comp2.4/moyenne",
+              "comment": "Validation de la comp\u00e9tence 2.4",
+              "green": "VALID\u00c9E",
+              "locked": 1,
+              "position": 31,
+              "red": "NON VALID\u00c9E",
+              "replace": "NaN \ud83e\udc46 \u25cf <10 \ud83e\udc46 NON VALID\u00c9E \u25cf \x3E=10 \ud83e\udc46 VALID\u00c9E",
+              "title": "TD/comp2.4/statut",
+              "visibility_date": "20230501",
+              "the_id": "12_23"
+            },
+            {
+              "type": "Replace",
+              "author": "christian.trillaud",
+              "columns": "TD/comp4.2/moyenne",
+              "comment": "Validation de la comp\u00e9tence 4.2",
+              "green": "VALID\u00c9E",
+              "locked": 1,
+              "position": 32,
+              "red": "NON VALID\u00c9E",
+              "replace": "NaN \ud83e\udc46 \u25cf <10 \ud83e\udc46 NON VALID\u00c9E \u25cf \x3E=10 \ud83e\udc46 VALID\u00c9E",
+              "title": "TD/comp4.2/statut",
+              "visibility_date": "20230501",
+              "the_id": "12_24"
+            },
+            {
+              "type": "Text",
+              "author": "christian.trillaud",
+              "comment": "Statut de l'ECUE PIX propos\u00e9 au jury",
+              "green": "ACQUIS",
+              "position": 7.5,
+              "red": "NON ACQUIS",
+              "title": "TD/ECUE-PIX/Statut-proposition",
+              "visibility_date": "20230505",
+              "width": 7,
+              "the_id": "12_26"
+            }
+          ],
+          "line_id": "0_1305",
+          "line": [
+            [
+              "12202851",
+              "?",
+              "20230227041345",
+              ""
+            ],
+            [
+              "EYMERIC",
+              "*",
+              "20230227123337",
+              ""
+            ],
+            [
+              "DECHELETTE",
+              "*",
+              "20230227123337",
+              ""
+            ],
+            [
+              "3B",
+              "fabienne.oudin",
+              "20230117100330"
+            ],
+            [],
+            [
+              "ok",
+              "*",
+              "20230227123337",
+              ""
+            ],
+            [
+              "TVL1221L",
+              "fabienne.oudin",
+              "20230117100437"
+            ],
+            [
+              "Jeudi 14h00",
+              "fabienne.oudin",
+              "20230117100503"
+            ],
+            [],
+            [
+              "POLY",
+              "?",
+              "",
+              ""
+            ],
+            [
+              6.67,
+              "christian.trillaud",
+              "20230221084634"
+            ],
+            [
+              7.71,
+              "christian.trillaud",
+              "20230221084907"
+            ],
+            [
+              8.8,
+              "christian.trillaud",
+              "20230221085127"
+            ],
+            [
+              6.07,
+              "christian.trillaud",
+              "20230221085327"
+            ],
+            [
+              7.64,
+              "christian.trillaud",
+              "20230221085532"
+            ],
+            [
+              6.5,
+              "christian.trillaud",
+              "20230221092017"
+            ],
+            [
+              7.9,
+              "christian.trillaud",
+              "20230221092556"
+            ],
+            [
+              7.6,
+              "christian.trillaud",
+              "20230221092632"
+            ],
+            [
+              8.3,
+              "christian.trillaud",
+              "20230501220951"
+            ],
+            [
+              8.3,
+              "christian.trillaud",
+              "20230501221220"
+            ],
+            [
+              13.17,
+              "*",
+              "",
+              ""
+            ],
+            [
+              15.61,
+              "*",
+              "",
+              ""
+            ],
+            [
+              16.4,
+              "*",
+              "",
+              ""
+            ],
+            [
+              14.37,
+              "*",
+              "",
+              ""
+            ],
+            [
+              15.94,
+              "*",
+              "",
+              ""
+            ],
+            [
+              "VALID\u00c9E",
+              "?",
+              "",
+              ""
+            ],
+            [
+              "VALID\u00c9E",
+              "?",
+              "",
+              ""
+            ],
+            [
+              "VALID\u00c9E",
+              "?",
+              "",
+              ""
+            ],
+            [
+              "VALID\u00c9E",
+              "?",
+              "",
+              ""
+            ],
+            [
+              "VALID\u00c9E",
+              "?",
+              "",
+              ""
+            ],
+            [
+              "ACQUIS",
+              "christian.trillaud",
+              "20230504214344"
+            ]
+          ],
+          "stats": {
+            "12_4": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "12_5": {
+              "nr": 1479,
+              "nr_in_grp": 135,
+              "rank": 942,
+              "rank_grp": 111,
+              "average": 5.916504394861377,
+              "mediane": 7.36
+            },
+            "12_6": {
+              "nr": 1479,
+              "nr_in_grp": 135,
+              "rank": 572,
+              "rank_grp": 68,
+              "average": 5.886585530764022,
+              "mediane": 7.43
+            },
+            "12_7": {
+              "nr": 1479,
+              "nr_in_grp": 135,
+              "rank": 179,
+              "rank_grp": 21,
+              "average": 6.003245436105514,
+              "mediane": 7.6
+            },
+            "12_8": {
+              "nr": 1478,
+              "nr_in_grp": 135,
+              "rank": 1038,
+              "rank_grp": 118,
+              "average": 5.913288227334265,
+              "mediane": 7.62
+            },
+            "12_9": {
+              "nr": 1478,
+              "nr_in_grp": 135,
+              "rank": 696,
+              "rank_grp": 86,
+              "average": 5.844167794316637,
+              "mediane": 7.55
+            },
+            "12_10": {
+              "nr": 1480,
+              "nr_in_grp": 136,
+              "rank": 826,
+              "rank_grp": 106,
+              "average": 5.422229729729746,
+              "mediane": 6.9
+            },
+            "12_11": {
+              "nr": 1480,
+              "nr_in_grp": 136,
+              "rank": 855,
+              "rank_grp": 102,
+              "average": 6.398851351351314,
+              "mediane": 8.5
+            },
+            "12_12": {
+              "nr": 1480,
+              "nr_in_grp": 136,
+              "rank": 539,
+              "rank_grp": 84,
+              "average": 5.624459459459458,
+              "mediane": 7.1
+            },
+            "12_13": {
+              "nr": 1479,
+              "nr_in_grp": 136,
+              "rank": 210,
+              "rank_grp": 33,
+              "average": 5.5139283299526465,
+              "mediane": 7.1
+            },
+            "12_14": {
+              "nr": 1479,
+              "nr_in_grp": 136,
+              "rank": 67,
+              "rank_grp": 16,
+              "average": 4.8207572684246385,
+              "mediane": 6.1
+            },
+            "12_15": {
+              "nr": 1480,
+              "nr_in_grp": 136,
+              "rank": 917,
+              "rank_grp": 115,
+              "average": 11.341358108108105,
+              "mediane": 14.23
+            },
+            "12_16": {
+              "nr": 1480,
+              "nr_in_grp": 136,
+              "rank": 821,
+              "rank_grp": 101,
+              "average": 12.287878378378378,
+              "mediane": 15.85
+            },
+            "12_17": {
+              "nr": 1480,
+              "nr_in_grp": 136,
+              "rank": 393,
+              "rank_grp": 70,
+              "average": 11.630405405405403,
+              "mediane": 14.7
+            },
+            "12_18": {
+              "nr": 1479,
+              "nr_in_grp": 136,
+              "rank": 841,
+              "rank_grp": 104,
+              "average": 11.429979716024318,
+              "mediane": 14.87
+            },
+            "12_19": {
+              "nr": 1479,
+              "nr_in_grp": 136,
+              "rank": 192,
+              "rank_grp": 37,
+              "average": 10.667734956051387,
+              "mediane": 13.66
+            },
+            "12_20": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "12_21": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "12_22": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "12_23": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "12_24": {
+              "nr": 0,
+              "nr_in_grp": 0
+            }
+          }
+        },
+        {
+          "rounding": 1,
+          "contains_users": 1,
+          "modifiable": 1,
+          "default_sort_column": [
+            2,
+            1,
+            0
+          ],
+          "table_title": "Tir A L'Arc",
+          "code": -1,
+          "bookmark": 1,
+          "dates": [
+            1672527600.0,
+            1690754400.0
+          ],
+          "official_ue": 1,
+          "masters": [],
+          "ue": "SP-TVL067L",
+          "year": 2023,
+          "semester": "Printemps",
+          "columns": [
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Identificateur de l'\u00e9tudiant",
+              "freezed": "F",
+              "position": 0,
+              "repetition": 1,
+              "title": "ID",
+              "the_id": "0_0"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 1,
+              "title": "Pr\u00e9nom",
+              "width": 8,
+              "the_id": "0_1"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 2,
+              "title": "Nom",
+              "width": 8,
+              "the_id": "0_2"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Groupe de TD",
+              "position": 3,
+              "title": "Grp",
+              "width": 2,
+              "the_id": "0_3"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "S\u00e9quence de l'enseignement",
+              "hidden": 1,
+              "position": 4,
+              "title": "Seq",
+              "width": 1,
+              "the_id": "0_4"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "IP valid ?",
+              "freezed": "C",
+              "hidden": 1,
+              "position": 5,
+              "title": "Inscrit",
+              "the_id": "0_5"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "UE d'origine de l'\u00e9tudiant",
+              "position": 6,
+              "title": "UE",
+              "the_id": "0_6"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Horaire de l'enseignement",
+              "position": 7,
+              "title": "Horaire",
+              "width": 5,
+              "the_id": "0_7"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Informations compl\u00e9mentaires",
+              "position": 8,
+              "title": "Information",
+              "width": 6,
+              "the_id": "0_8"
+            },
+            {
+              "type": "Enumeration",
+              "author": "*",
+              "comment": "VAL : Valid\u00e9, NVAL : Non valid\u00e9, ABI : Absence Injustifi\u00e9e, ABJ : Absence justifi\u00e9e.",
+              "enumeration": "VAL NVAL ABI ABJ",
+              "position": 9,
+              "title": "R\u00e9sultat_Avant_Jury",
+              "width": 3,
+              "the_id": "0_9"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Commentaire de l'enseignant",
+              "position": 10,
+              "title": "Remarques",
+              "width": 8,
+              "the_id": "0_a"
+            },
+            {
+              "type": "Note",
+              "author": "*",
+              "cell_writable": "= [\u00c9tape]~PL | = [\u00c9tape]~1LMI05 | = [\u00c9tape]~1LMI06 | = [\u00c9tape]~2LMA02 | = [\u00c9tape]~2LMA03 | = [\u00c9tape]~2LMA05 | @",
+              "comment": "Note UE pour Polytech seulement",
+              "green": "[\u00c9tape]~PL | [\u00c9tape]~1LMI05 | [\u00c9tape]~1LMI06 | [\u00c9tape]~2LMA02 | [\u00c9tape]~2LMA03 | [\u00c9tape]~2LMA05",
+              "position": 9.5,
+              "title": "Note_Semestre_Avant_Jury",
+              "the_id": "0_c"
+            },
+            {
+              "type": "Prst",
+              "author": "dominique.roland",
+              "green": "PRST",
+              "position": 11,
+              "red": "ABINJ",
+              "title": "S\u00e9ance1",
+              "the_id": "21_0"
+            },
+            {
+              "type": "Prst",
+              "author": "dominique.roland",
+              "green": "PRST",
+              "position": 12,
+              "red": "ABINJ",
+              "title": "S\u00e9ance2",
+              "the_id": "28_0"
+            },
+            {
+              "type": "Prst",
+              "author": "dominique.roland",
+              "green": "PRST",
+              "position": 13,
+              "red": "ABINJ",
+              "title": "S\u00e9ance3",
+              "the_id": "36_0"
+            },
+            {
+              "type": "Prst",
+              "author": "dominique.roland",
+              "green": "PRST",
+              "position": 14,
+              "red": "ABINJ",
+              "title": "S\u00e9ance4",
+              "the_id": "42_0"
+            },
+            {
+              "type": "Prst",
+              "author": "dominique.roland",
+              "green": "PRST",
+              "position": 15,
+              "red": "ABINJ",
+              "title": "S\u00e9ance5",
+              "the_id": "46_0"
+            },
+            {
+              "type": "Prst",
+              "author": "dominique.roland",
+              "green": "PRST",
+              "position": 16,
+              "red": "ABINJ",
+              "title": "S\u00e9ance6",
+              "the_id": "52_0"
+            },
+            {
+              "type": "Text",
+              "author": "dominique.roland",
+              "green": "VAL",
+              "position": 8.5,
+              "red": "NVAL",
+              "title": "Test_10M",
+              "the_id": "56_3"
+            },
+            {
+              "type": "Prst",
+              "author": "dominique.roland",
+              "green": "PRST",
+              "position": 17,
+              "red": "ABINJ",
+              "title": "S\u00e9ance7",
+              "the_id": "58_0"
+            },
+            {
+              "type": "Prst",
+              "author": "dominique.roland",
+              "green": "PRST",
+              "position": 18,
+              "red": "ABINJ",
+              "title": "S\u00e9ance8",
+              "the_id": "66_0"
+            },
+            {
+              "type": "Prst",
+              "author": "dominique.roland",
+              "green": "prst",
+              "position": 19,
+              "red": "ABINJ",
+              "title": "S\u00e9ance9",
+              "the_id": "71_0"
+            },
+            {
+              "type": "Prst",
+              "author": "dominique.roland",
+              "green": "PRST",
+              "position": 20,
+              "red": "ABINJ",
+              "title": "S\u00e9ance10",
+              "the_id": "76_0"
+            },
+            {
+              "type": "Text",
+              "author": "dominique.roland",
+              "green": "VAL",
+              "position": 8.75,
+              "red": "NVAL",
+              "title": "Test_15M",
+              "the_id": "81_3"
+            },
+            {
+              "type": "Prst",
+              "author": "dominique.roland",
+              "green": "PRST",
+              "position": 21,
+              "red": "ABINJ",
+              "title": "S\u00e9ance11",
+              "the_id": "82_0"
+            },
+            {
+              "type": "Prst",
+              "author": "dominique.roland",
+              "green": "PRST",
+              "position": 22,
+              "red": "ABINJ",
+              "title": "S\u00e9ance12",
+              "the_id": "86_0"
+            }
+          ],
+          "line_id": "0_98",
+          "line": [
+            [
+              "12202851",
+              "*",
+              "20230113211832"
+            ],
+            [
+              "EYMERIC",
+              "*",
+              "20230113211832"
+            ],
+            [
+              "DECHELETTE",
+              "*",
+              "20230113211832"
+            ],
+            [
+              "A1",
+              "?",
+              "20230113211832"
+            ],
+            [
+              "1",
+              "*",
+              "20230113211832"
+            ],
+            [
+              "ok",
+              "*",
+              "20230113211832"
+            ],
+            [
+              "",
+              "*",
+              "20230113211832"
+            ],
+            [
+              "Mardi 09h45",
+              "*",
+              "20230113211832"
+            ],
+            [],
+            [],
+            [],
+            [
+              15.0,
+              "dominique.roland",
+              "20230503084159"
+            ],
+            [
+              "PRST",
+              "dominique.roland",
+              "20230118131451"
+            ],
+            [
+              "PRST",
+              "dominique.roland",
+              "20230124111001"
+            ],
+            [
+              "PRST",
+              "dominique.roland",
+              "20230131095150"
+            ],
+            [
+              "PRST",
+              "dominique.roland",
+              "20230207111753",
+              ""
+            ],
+            [
+              "PRST",
+              "dominique.roland",
+              "20230221100510"
+            ],
+            [
+              "PRST",
+              "dominique.roland",
+              "20230228100024"
+            ],
+            [
+              "4/4",
+              "dominique.roland",
+              "20230303112608"
+            ],
+            [
+              "PRST",
+              "dominique.roland",
+              "20230314100438"
+            ],
+            [
+              "PRST",
+              "dominique.roland",
+              "20230321104349"
+            ],
+            [
+              "PRST",
+              "dominique.roland",
+              "20230328100403"
+            ],
+            [
+              "PRST",
+              "dominique.roland",
+              "20230404100413"
+            ],
+            [
+              "4/4",
+              "dominique.roland",
+              "20230416165240"
+            ],
+            [
+              "PRST",
+              "dominique.roland",
+              "20230418100340"
+            ],
+            []
+          ],
+          "stats": {
+            "0_9": {
+              "enumeration": [
+                "",
+                "VAL",
+                "NVAL",
+                "ABI",
+                "ABJ"
+              ]
+            },
+            "0_c": {
+              "nr": 20,
+              "nr_in_grp": 16,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 13.8,
+              "mediane": 14.0
+            },
+            "21_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "28_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "36_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "42_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "46_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "52_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "58_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "66_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "71_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "76_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "82_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "86_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            }
+          }
+        },
+        {
+          "masters": [
+            [
+              "FRANCOIS",
+              "LE",
+              "francois.lE@univ-lyon1.fr"
+            ],
+            [
+              "ARNAUD",
+              "DURAN",
+              "arnaud.duran@univ-lyon1.fr"
+            ],
+            [
+              "THOMAS",
+              "BLOSSIER",
+              "thomas.blossier@univ-lyon1.fr"
+            ],
+            [
+              "LOUIS",
+              "DUPAIGNE",
+              "louis.dupaigne@univ-lyon1.fr"
+            ],
+            [
+              "ERIC",
+              "DELAYGUE",
+              "eric.delaygue@univ-lyon1.fr"
+            ],
+            [
+              "RAPHAEL",
+              "DUCATEZ",
+              "raphael.ducatez@univ-lyon1.fr"
+            ],
+            [
+              "SIMON",
+              "ROBERT",
+              "simon.robert@univ-lyon1.fr"
+            ]
+          ],
+          "rounding": 1,
+          "contains_users": 1,
+          "modifiable": 1,
+          "default_sort_column": [
+            2,
+            1,
+            0
+          ],
+          "popup_on_red_line": 1,
+          "bookmark": 1,
+          "dates": [
+            1672527600.0,
+            1690754400.0
+          ],
+          "official_ue": 1,
+          "ue": "UE-DEVMPMI1",
+          "year": 2023,
+          "semester": "Printemps",
+          "columns": [
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Identificateur de l'\u00e9tudiant",
+              "freezed": "F",
+              "position": 0,
+              "repetition": 1,
+              "title": "ID",
+              "the_id": "0_0"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 1,
+              "title": "Pr\u00e9nom",
+              "width": 8,
+              "the_id": "0_1"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 2,
+              "title": "Nom",
+              "width": 8,
+              "the_id": "0_2"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Groupe de TD",
+              "position": 3,
+              "title": "Grp",
+              "width": 2,
+              "the_id": "0_3"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "S\u00e9quence de l'enseignement",
+              "hidden": 1,
+              "position": 4,
+              "title": "Seq",
+              "width": 1,
+              "the_id": "0_4"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "IP valid ?",
+              "freezed": "C",
+              "hidden": 1,
+              "position": 5,
+              "title": "Inscrit",
+              "the_id": "0_5"
+            },
+            {
+              "type": "Note",
+              "author": "arnaud.duran",
+              "position": 6,
+              "title": "DS1",
+              "the_id": "2_0"
+            },
+            {
+              "type": "Note",
+              "author": "thomas.blossier",
+              "position": 7,
+              "title": "DS2",
+              "the_id": "2_1"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 8,
+              "title": "DS3",
+              "the_id": "2_2"
+            },
+            {
+              "type": "Note",
+              "author": "louis.dupaigne",
+              "position": 9,
+              "title": "DS4",
+              "the_id": "2_3"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 10,
+              "title": "DSCUPGE1",
+              "the_id": "2_4"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 11,
+              "title": "DSCUPGE2",
+              "the_id": "2_5"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 12,
+              "title": "DSCUPGE3",
+              "the_id": "2_6"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 13,
+              "title": "DSCUPGE4",
+              "the_id": "2_7"
+            },
+            {
+              "type": "Text",
+              "author": "frank-olaf.wagner",
+              "position": 15,
+              "title": "Entretien",
+              "the_id": "74_1"
+            }
+          ],
+          "line_id": "2_47",
+          "line": [
+            [
+              "12202851",
+              "francois.le",
+              "20230119141833"
+            ],
+            [
+              "EYMERIC",
+              "*",
+              "20230119141835"
+            ],
+            [
+              "DECHELETTE",
+              "*",
+              "20230119141835"
+            ],
+            [
+              "P5",
+              "francois.le",
+              "20230119141903",
+              ""
+            ],
+            [
+              "",
+              "*",
+              "20230119141835"
+            ],
+            [],
+            [
+              9.5,
+              "arnaud.duran",
+              "20230228122030",
+              ""
+            ],
+            [
+              15.75,
+              "thomas.blossier",
+              "20230325094410"
+            ],
+            [
+              5.0,
+              "eric.delaygue",
+              "20230424174554"
+            ],
+            [
+              8.0,
+              "louis.dupaigne",
+              "20230505154537"
+            ],
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "stats": {
+            "2_0": {
+              "nr": 125,
+              "nr_in_grp": 33,
+              "rank": 66,
+              "rank_grp": 13,
+              "average": 10.134,
+              "mediane": 10.0
+            },
+            "2_1": {
+              "nr": 124,
+              "nr_in_grp": 32,
+              "rank": 24,
+              "rank_grp": 4,
+              "average": 12.308467741935484,
+              "mediane": 12.5
+            },
+            "2_2": {
+              "nr": 122,
+              "nr_in_grp": 31,
+              "rank": 99,
+              "rank_grp": 20,
+              "average": 9.09016393442623,
+              "mediane": 8.0
+            },
+            "2_3": {
+              "nr": 121,
+              "nr_in_grp": 31,
+              "rank": 91,
+              "rank_grp": 19,
+              "average": 10.037190082644628,
+              "mediane": 10.5
+            },
+            "2_4": {
+              "nr": 23,
+              "nr_in_grp": 0,
+              "average": 10.391304347826088,
+              "mediane": 10.0
+            },
+            "2_5": {
+              "nr": 22,
+              "nr_in_grp": 0,
+              "average": 9.136363636363637,
+              "mediane": 9.25
+            },
+            "2_6": {
+              "nr": 23,
+              "nr_in_grp": 0,
+              "average": 10.652173913043478,
+              "mediane": 10.75
+            },
+            "2_7": {
+              "nr": 22,
+              "nr_in_grp": 0,
+              "average": 10.511363636363637,
+              "mediane": 9.25
+            }
+          }
+        },
+        {
+          "masters": [
+            [
+              "ROMAIN",
+              "ROMBI",
+              "romain.rombi@univ-lyon1.fr",
+              "romain.rombi"
+            ]
+          ],
+          "comment": "Pour toute question, \u00e9crire \u00e0 votre intervenant de TD. Mails sur ce fichier https://clarolineconnect.univ-lyon1.fr/resource/open/file/7364039",
+          "rounding": 1,
+          "contains_users": 1,
+          "modifiable": 1,
+          "default_sort_column": [
+            2,
+            1,
+            0
+          ],
+          "table_title": "Parcours Personnel Et Professionnel 2",
+          "popup_on_red_line": 1,
+          "code": 24694,
+          "bookmark": 1,
+          "dates": [
+            1672527600.0,
+            1690754400.0
+          ],
+          "official_ue": 1,
+          "ue": "UE-TVL1215L",
+          "year": 2023,
+          "semester": "Printemps",
+          "columns": [
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Identificateur de l'\u00e9tudiant",
+              "freezed": "F",
+              "position": 0,
+              "repetition": 1,
+              "title": "ID",
+              "the_id": "0_0"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 1,
+              "title": "Pr\u00e9nom",
+              "width": 8,
+              "the_id": "0_1"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 2,
+              "title": "Nom",
+              "width": 8,
+              "the_id": "0_2"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Groupe de TD",
+              "position": 3,
+              "title": "Grp",
+              "width": 3,
+              "the_id": "0_3"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "S\u00e9quence de l'enseignement",
+              "hidden": 1,
+              "position": 4,
+              "title": "Seq",
+              "width": 2,
+              "the_id": "0_4"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "IP valid ?",
+              "freezed": "C",
+              "hidden": 1,
+              "position": 5,
+              "title": "Inscrit",
+              "the_id": "0_5"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "position": 6,
+              "title": "Quoi",
+              "width": 6,
+              "the_id": "0_6"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "position": 7,
+              "title": "Quand",
+              "width": 6,
+              "the_id": "0_7"
+            },
+            {
+              "type": "Enumeration",
+              "author": "romain.rombi",
+              "enumeration": "OUI",
+              "modifiable": 2,
+              "position": 8,
+              "title": "J'ai_saisi_mon_th\u00e8me_PPP2_dans_Claroline_(le_responsable_peut_v\u00e9rifier)",
+              "the_id": "10_1"
+            },
+            {
+              "type": "Enumeration",
+              "author": "romain.rombi",
+              "enumeration": "OUI",
+              "modifiable": 2,
+              "position": 9,
+              "title": "J'ai_regard\u00e9_la_vid\u00e9o_introductive_sur_claroline_(le_responsable_peut_v\u00e9rifier)",
+              "the_id": "10_0"
+            },
+            {
+              "type": "Prst",
+              "author": "romain.rombi",
+              "course_dates": "20230130 20230131 20230201 20230202 20230203",
+              "modifiable": 1,
+              "position": 10,
+              "title": "TD1",
+              "the_id": "10_2"
+            },
+            {
+              "type": "Prst",
+              "author": "romain.rombi",
+              "course_dates": "20230220 20230221 20230222 20230223 20230224",
+              "position": 11,
+              "title": "TD2",
+              "the_id": "10_3"
+            },
+            {
+              "type": "Prst",
+              "author": "romain.rombi",
+              "course_dates": "20230320 20230321 20230322 20230323 20230324",
+              "position": 12,
+              "title": "TD3",
+              "the_id": "10_4"
+            },
+            {
+              "type": "Replace",
+              "author": "romain.rombi",
+              "incomplete": 1,
+              "green": "VAL",
+              "greentext": "ABJ",
+              "position": 14,
+              "red": "NVAL",
+              "redtext": "ABI",
+              "replace": "NaN \ud83e\udc46 DEF \u25cf <10 \ud83e\udc46NVAL \u25cf \x3E=10 \ud83e\udc46 VAL \u25cf TNR \ud83e\udc46 ABI \u25cf ABJUS \ud83e\udc46 ABJ",
+              "title": "VALIDATION_PPP2",
+              "the_id": "10_6"
+            },
+            {
+              "type": "Enumeration",
+              "author": "romain.rombi",
+              "enumeration": "OUI NON",
+              "modifiable": 2,
+              "position": 16.0,
+              "title": "Session_2_:_SI_NVAL_/_ABI_/_ABJ_\u00e0_la_session_1,_souhaitez-vous_participer_\u00e0_la_session_2?",
+              "the_id": "2162_0"
+            },
+            {
+              "type": "Note",
+              "author": "romain.rombi",
+              "position": 18.0,
+              "red": "NVAL",
+              "title": "S\u00e9ance13",
+              "the_id": "2352_2"
+            }
+          ],
+          "line_id": "0_1354",
+          "line": [
+            [
+              "12202851",
+              "*",
+              "20230123100300"
+            ],
+            [
+              "EYMERIC",
+              "*",
+              "20230123100300"
+            ],
+            [
+              "DECHELETTE",
+              "*",
+              "20230123100300"
+            ],
+            [
+              "4F4",
+              "?",
+              "20230123100300"
+            ],
+            [
+              "4",
+              "*",
+              "20230123100300"
+            ],
+            [
+              "ok",
+              "*",
+              "20230123100301"
+            ],
+            [
+              "TVL1221L",
+              "*",
+              "20230123100300"
+            ],
+            [
+              "Mercredi 15h45",
+              "*",
+              "20230123100300"
+            ],
+            [
+              "OUI",
+              "p2202851",
+              "20230602225609",
+              ""
+            ],
+            [
+              "OUI",
+              "p2202851",
+              "20230526204340",
+              ""
+            ],
+            [
+              "PRST",
+              "nicolas.filhol",
+              "20230204142522"
+            ],
+            [
+              "PRST",
+              "nicolas.filhol",
+              "20230224131305"
+            ],
+            [
+              "PRST",
+              "nicolas.filhol",
+              "20230325070807"
+            ],
+            [
+              "VAL",
+              "?",
+              "",
+              ""
+            ],
+            [],
+            []
+          ],
+          "stats": {
+            "10_1": {
+              "enumeration": [
+                "",
+                "OUI"
+              ]
+            },
+            "10_0": {
+              "enumeration": [
+                "",
+                "OUI"
+              ]
+            },
+            "10_2": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "10_3": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "10_4": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "10_6": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "2162_0": {
+              "enumeration": [
+                "",
+                "OUI",
+                "NON"
+              ]
+            },
+            "2352_2": {
+              "nr": 0,
+              "nr_in_grp": 0
+            }
+          }
+        },
+        {
+          "masters": [
+            [
+              "FABIENNE",
+              "OUDIN DARDUN",
+              "fabienne.oudin-dardun@univ-lyon1.fr"
+            ]
+          ],
+          "rounding": 1,
+          "contains_users": 1,
+          "modifiable": 1,
+          "default_sort_column": [
+            2,
+            1,
+            0
+          ],
+          "table_title": "Comp\u00e9tences Linguistiques Pmi Tr2",
+          "popup_on_red_line": 1,
+          "code": 25495,
+          "bookmark": 1,
+          "dates": [
+            1672527600.0,
+            1690754400.0
+          ],
+          "official_ue": 1,
+          "ue": "UE-TVL1226L",
+          "year": 2023,
+          "semester": "Printemps",
+          "columns": [
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Identificateur de l'\u00e9tudiant",
+              "freezed": "F",
+              "position": 0,
+              "repetition": 1,
+              "title": "ID",
+              "the_id": "0_0"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 1,
+              "title": "Pr\u00e9nom",
+              "width": 8,
+              "the_id": "0_1"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 2,
+              "title": "Nom",
+              "width": 8,
+              "the_id": "0_2"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Groupe de TD",
+              "position": 3,
+              "title": "Grp",
+              "width": 3,
+              "the_id": "0_3"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "S\u00e9quence de l'enseignement",
+              "hidden": 1,
+              "position": 4,
+              "title": "Seq",
+              "width": 2,
+              "the_id": "0_4"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "IP valid ?",
+              "freezed": "C",
+              "hidden": 1,
+              "position": 5,
+              "title": "Inscrit",
+              "the_id": "0_5"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "position": 6,
+              "title": "Quoi",
+              "width": 6,
+              "the_id": "0_6"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "position": 7,
+              "title": "Quand",
+              "width": 6,
+              "the_id": "0_7"
+            },
+            {
+              "type": "Note",
+              "author": "fabienne.oudin",
+              "green": "\x3E10",
+              "position": 8,
+              "red": "<10",
+              "title": "Fran\u00e7ais",
+              "the_id": "3_0"
+            },
+            {
+              "type": "Note",
+              "author": "fabienne.oudin",
+              "green": "\x3E10",
+              "position": 9,
+              "red": "<10",
+              "title": "Anglais",
+              "the_id": "3_1"
+            },
+            {
+              "type": "Moy",
+              "author": "fabienne.oudin",
+              "columns": "Fran\u00e7ais Anglais",
+              "green": "\x3E10",
+              "position": 10,
+              "red": "<10",
+              "title": "Note_Finale",
+              "rounding": "0.001",
+              "the_id": "7_0"
+            },
+            {
+              "type": "Text",
+              "author": "fabienne.oudin",
+              "position": 11,
+              "title": "Validation_Comp\u00e9tences",
+              "the_id": "7_1"
+            }
+          ],
+          "line_id": "2_46",
+          "line": [
+            [
+              "12202851",
+              "fabienne.oudin",
+              "20230328182133"
+            ],
+            [
+              "EYMERIC",
+              "*",
+              "20230328182134"
+            ],
+            [
+              "DECHELETTE",
+              "*",
+              "20230328182134"
+            ],
+            [
+              "P5",
+              "fabienne.oudin",
+              "20230328182243",
+              ""
+            ],
+            [
+              "",
+              "*",
+              "20230328182134"
+            ],
+            [],
+            [],
+            [],
+            [
+              18.0,
+              "jean-pierre.sautot",
+              "20230516134613"
+            ],
+            [
+              12.24,
+              "fabienne.oudin",
+              "20230522125853"
+            ],
+            [
+              15.12,
+              "*"
+            ],
+            [
+              "VAL",
+              "fabienne.oudin",
+              "20230523094856"
+            ]
+          ],
+          "stats": {
+            "3_0": {
+              "nr": 123,
+              "nr_in_grp": 31,
+              "rank": 52,
+              "rank_grp": 11,
+              "average": 17.24691056910569,
+              "mediane": 17.82
+            },
+            "3_1": {
+              "nr": 126,
+              "nr_in_grp": 32,
+              "rank": 78,
+              "rank_grp": 23,
+              "average": 12.834206349206355,
+              "mediane": 13.25
+            },
+            "7_0": {
+              "nr": 126,
+              "nr_in_grp": 32,
+              "rank": 68,
+              "rank_grp": 20,
+              "average": 14.8352380952381,
+              "mediane": 15.25
+            }
+          }
+        },
+        {
+          "masters": [
+            [
+              "FRANCOIS",
+              "LE",
+              "francois.lE@univ-lyon1.fr"
+            ]
+          ],
+          "rounding": 1,
+          "contains_users": 1,
+          "modifiable": 1,
+          "default_sort_column": [
+            2,
+            1,
+            0
+          ],
+          "table_title": "Analyse 2 Cursus Pr\u00e9pa",
+          "popup_on_red_line": 1,
+          "managers": [
+            "frank-olaf.wagner",
+            "fabienne.oudin",
+            "fabienne.oudin",
+            "frank-olaf.wagner"
+          ],
+          "code": 25502,
+          "bookmark": 1,
+          "dates": [
+            1672527600.0,
+            1690754400.0
+          ],
+          "official_ue": 1,
+          "ue": "UE-MAT1063L",
+          "year": 2023,
+          "semester": "Printemps",
+          "columns": [
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Identificateur de l'\u00e9tudiant",
+              "freezed": "F",
+              "position": 0,
+              "repetition": 1,
+              "title": "ID",
+              "the_id": "0_0"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 1,
+              "title": "Pr\u00e9nom",
+              "width": 8,
+              "the_id": "0_1"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 2,
+              "title": "Nom",
+              "width": 8,
+              "the_id": "0_2"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Groupe de TD",
+              "position": 3,
+              "title": "Grp",
+              "width": 2,
+              "the_id": "0_3"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "S\u00e9quence de l'enseignement",
+              "position": 4,
+              "title": "Seq",
+              "width": 1,
+              "the_id": "0_4"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "IP valid ?",
+              "freezed": "C",
+              "hidden": 1,
+              "position": 5,
+              "title": "Inscrit",
+              "the_id": "0_5"
+            },
+            {
+              "type": "Code_Etape",
+              "author": "fabienne.oudin",
+              "columns": "ID",
+              "position": 7,
+              "title": "Code_Etape",
+              "the_id": "4_1"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 8,
+              "title": "CF_analyse2",
+              "the_id": "60_0"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 9,
+              "title": "Note_analyse2",
+              "the_id": "60_1"
+            }
+          ],
+          "line_id": "0_18",
+          "line": [
+            [
+              "12202851",
+              "*",
+              "20230107074155"
+            ],
+            [
+              "EYMERIC",
+              "*",
+              "20230107074155"
+            ],
+            [
+              "DECHELETTE",
+              "*",
+              "20230107074155"
+            ],
+            [
+              "P5",
+              "fabienne.oudin",
+              "20230110154538"
+            ],
+            [
+              "5",
+              "*",
+              "20230107074155"
+            ],
+            [
+              "ok",
+              "*",
+              "20230107074155"
+            ],
+            [
+              "PEIPA1 1LMI05",
+              "*",
+              "20230110154609"
+            ],
+            [
+              4.75,
+              "francois.le",
+              "20230520165518"
+            ],
+            [
+              9.9,
+              "francois.le",
+              "20230520170511"
+            ]
+          ],
+          "stats": {
+            "60_0": {
+              "nr": 124,
+              "nr_in_grp": 33,
+              "rank": 111,
+              "rank_grp": 25,
+              "average": 11.574596774193548,
+              "mediane": 12.0
+            },
+            "60_1": {
+              "nr": 127,
+              "nr_in_grp": 33,
+              "rank": 107,
+              "rank_grp": 23,
+              "average": 12.172834645669294,
+              "mediane": 12.53
+            }
+          }
+        },
+        {
+          "masters": [
+            [
+              "FRANCOIS",
+              "LE",
+              "francois.lE@univ-lyon1.fr"
+            ]
+          ],
+          "rounding": 1,
+          "contains_users": 1,
+          "modifiable": 1,
+          "default_sort_column": [
+            2,
+            1,
+            0
+          ],
+          "popup_on_red_line": 1,
+          "bookmark": 1,
+          "dates": [
+            1672527600.0,
+            1690754400.0
+          ],
+          "official_ue": 1,
+          "ue": "UE-KHOL-PMI",
+          "year": 2023,
+          "semester": "Printemps",
+          "columns": [
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Identificateur de l'\u00e9tudiant",
+              "freezed": "F",
+              "position": 0,
+              "repetition": 1,
+              "title": "ID",
+              "the_id": "0_0"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 1,
+              "title": "Pr\u00e9nom",
+              "width": 8,
+              "the_id": "0_1"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 2,
+              "title": "Nom",
+              "width": 8,
+              "the_id": "0_2"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Groupe de TD",
+              "position": 3,
+              "title": "Grp",
+              "width": 2,
+              "the_id": "0_3"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "S\u00e9quence de l'enseignement",
+              "hidden": 1,
+              "position": 4,
+              "title": "Seq",
+              "width": 1,
+              "the_id": "0_4"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "IP valid ?",
+              "freezed": "C",
+              "hidden": 1,
+              "position": 5,
+              "title": "Inscrit",
+              "the_id": "0_5"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 6,
+              "title": "Maths1",
+              "the_id": "1_0"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 7,
+              "title": "Maths2",
+              "the_id": "1_1"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 8,
+              "title": "Maths3",
+              "the_id": "1_2"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 9,
+              "title": "Maths4",
+              "the_id": "1_3"
+            },
+            {
+              "type": "Note",
+              "author": "francois.le",
+              "position": 10,
+              "title": "Maths5",
+              "the_id": "1_4"
+            }
+          ],
+          "line_id": "1_46",
+          "line": [
+            [
+              "12202851",
+              "francois.le",
+              "20230119141310"
+            ],
+            [
+              "EYMERIC",
+              "*",
+              "20230119141311"
+            ],
+            [
+              "DECHELETTE",
+              "*",
+              "20230119141311"
+            ],
+            [
+              "P5",
+              "francois.le",
+              "20230119141536",
+              ""
+            ],
+            [
+              "",
+              "*",
+              "20230119141311"
+            ],
+            [],
+            [
+              10.0,
+              "ould.houcine",
+              "20230202163638"
+            ],
+            [
+              11.0,
+              "tanguy.massacrier",
+              "20230226182712"
+            ],
+            [
+              12.0,
+              "alexis.tchoudjem",
+              "20230306215256"
+            ],
+            [
+              14.0,
+              "arsene.marzorati",
+              "20230321104003"
+            ],
+            [
+              14.5,
+              "charlotte.dugourd",
+              "20230404085428"
+            ]
+          ],
+          "stats": {
+            "1_0": {
+              "nr": 124,
+              "nr_in_grp": 31,
+              "rank": 115,
+              "rank_grp": 28,
+              "average": 13.883064516129032,
+              "mediane": 14.0
+            },
+            "1_1": {
+              "nr": 126,
+              "nr_in_grp": 33,
+              "rank": 98,
+              "rank_grp": 23,
+              "average": 13.277777777777779,
+              "mediane": 13.0
+            },
+            "1_2": {
+              "nr": 124,
+              "nr_in_grp": 31,
+              "rank": 84,
+              "rank_grp": 18,
+              "average": 13.689516129032258,
+              "mediane": 14.0
+            },
+            "1_3": {
+              "nr": 119,
+              "nr_in_grp": 32,
+              "rank": 42,
+              "rank_grp": 16,
+              "average": 13.420168067226891,
+              "mediane": 14.0
+            },
+            "1_4": {
+              "nr": 111,
+              "nr_in_grp": 29,
+              "rank": 44,
+              "rank_grp": 11,
+              "average": 13.63063063063063,
+              "mediane": 14.0
+            }
+          }
+        },
+        {
+          "masters": [
+            [
+              "MARIE",
+              "LEFEVRE",
+              "marie.lefevre@univ-lyon1.fr"
+            ],
+            [
+              "NATHALIE",
+              "GUIN",
+              "nathalie.guin@univ-lyon1.fr",
+              "nathalie.guin"
+            ]
+          ],
+          "comment": "Page web de l'UE : https://perso.liris.cnrs.fr/nathalie.guin/LIFAPR/",
+          "rounding": 1,
+          "contains_users": 1,
+          "modifiable": 1,
+          "default_sort_column": [
+            2,
+            1,
+            0
+          ],
+          "table_title": "Algorithmique Et Programmation R\u00e9cursive",
+          "popup_on_red_line": 1,
+          "managers": [
+            "alessandra.frabetti",
+            "hamid.ladjal",
+            "guillaume.aubrun"
+          ],
+          "code": 16359,
+          "bookmark": 1,
+          "dates": [
+            1672527600.0,
+            1690754400.0
+          ],
+          "official_ue": 1,
+          "ue": "UE-INF1012L",
+          "year": 2023,
+          "semester": "Printemps",
+          "columns": [
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Identificateur de l'\u00e9tudiant",
+              "freezed": "F",
+              "position": 0,
+              "repetition": 1,
+              "title": "ID",
+              "the_id": "0_0"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 1,
+              "title": "Pr\u00e9nom",
+              "width": 8,
+              "the_id": "0_1"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 2,
+              "title": "Nom",
+              "width": 8,
+              "the_id": "0_2"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Groupe de TD",
+              "position": 3,
+              "title": "Grp",
+              "width": 2,
+              "the_id": "0_3"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "S\u00e9quence de l'enseignement",
+              "position": 4,
+              "title": "Seq",
+              "width": 1,
+              "the_id": "0_4"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "IP valid ?",
+              "freezed": "C",
+              "hidden": 1,
+              "position": 5,
+              "title": "Inscrit",
+              "the_id": "0_5"
+            },
+            {
+              "type": "Prst",
+              "author": "nathalie.guin",
+              "position": 13,
+              "title": "TDTP1",
+              "the_id": "432_0"
+            },
+            {
+              "type": "Prst",
+              "author": "nathalie.guin",
+              "position": 14,
+              "title": "TDTP2",
+              "the_id": "432_1"
+            },
+            {
+              "type": "Text",
+              "author": "nathalie.guin",
+              "position": 12.5,
+              "title": "Charg\u00e9_de_TDTP",
+              "the_id": "432_2"
+            },
+            {
+              "type": "Text",
+              "author": "nathalie.guin",
+              "position": 12.75,
+              "title": "Salle_de_TDTP",
+              "the_id": "432_3"
+            },
+            {
+              "type": "Moy",
+              "author": "m.lefevre",
+              "incomplete": 1,
+              "position": 25,
+              "title": "ASKER_CM1-2",
+              "weight": "2",
+              "rounding": "0.001",
+              "the_id": "498_1"
+            },
+            {
+              "type": "Prst",
+              "author": "nathalie.guin",
+              "position": 15.125,
+              "title": "TDTP3",
+              "the_id": "549_1"
+            },
+            {
+              "type": "Prst",
+              "author": "nathalie.guin",
+              "position": 15.25,
+              "title": "TDTP4",
+              "the_id": "549_2"
+            },
+            {
+              "type": "Prst",
+              "author": "nathalie.guin",
+              "position": 15.5,
+              "title": "TDTP5",
+              "the_id": "549_3"
+            },
+            {
+              "type": "Prst",
+              "author": "nathalie.guin",
+              "position": 15.75,
+              "title": "TDTP6",
+              "the_id": "725_0"
+            },
+            {
+              "type": "Prst",
+              "author": "nathalie.guin",
+              "position": 15.875,
+              "title": "TDTP7",
+              "the_id": "725_1"
+            },
+            {
+              "type": "Prst",
+              "author": "nathalie.guin",
+              "position": 15.9375,
+              "title": "TDTP8",
+              "the_id": "725_2"
+            },
+            {
+              "type": "Prst",
+              "author": "nathalie.guin",
+              "position": 15.96875,
+              "title": "TDTPrev",
+              "the_id": "725_3"
+            },
+            {
+              "type": "Enumeration",
+              "author": "nathalie.guin",
+              "enumeration": "JeViendraiSurLeCampusMardi7mars JeSouhaiteUnEnseignementAdistanceMardi7mars",
+              "position": 15.4375,
+              "title": "ChoixPourMardi7mars",
+              "the_id": "725_4"
+            },
+            {
+              "type": "Note",
+              "author": "nathalie.guin",
+              "grade_type": 1,
+              "green": "\x3E=10",
+              "position": 12.875,
+              "red": "<10",
+              "title": "CC_mi-parcours",
+              "weight": "23",
+              "the_id": "950_0"
+            },
+            {
+              "type": "Moy",
+              "author": "m.lefevre",
+              "incomplete": 1,
+              "position": 45,
+              "title": "ASKER_CM5",
+              "rounding": "0.001",
+              "the_id": "1021_2"
+            },
+            {
+              "type": "COW",
+              "author": "m.lefevre",
+              "incomplete": 1,
+              "position": 42.5,
+              "title": "ASKER_CM4",
+              "weight": "2",
+              "the_id": "1035_0"
+            },
+            {
+              "type": "COW",
+              "author": "m.lefevre",
+              "incomplete": 1,
+              "position": 29.5,
+              "title": "ASKER_CM3",
+              "weight": "2",
+              "the_id": "1035_1"
+            },
+            {
+              "type": "COW",
+              "author": "nathalie.guin",
+              "incomplete": 1,
+              "grade_type": 1,
+              "green": "\x3E=10",
+              "position": 12.96875,
+              "red": "<10",
+              "title": "CC_ASKER",
+              "weight": "7",
+              "the_id": "1038_1"
+            },
+            {
+              "type": "Enumeration",
+              "author": "m.lefevre",
+              "enumeration": "JeSeraiPr\u00e9sent-eAuTPnot\u00e9 JeNeSeraiPasPr\u00e9sent-eEtJ'auraiLaNoteDuCCF",
+              "position": 15.984375,
+              "title": "Pr\u00e9senceTPnot\u00e9_?",
+              "the_id": "1049_0"
+            },
+            {
+              "type": "Note",
+              "author": "nathalie.guin",
+              "grade_type": 1,
+              "green": "\x3E=10",
+              "position": 12.984375,
+              "red": "<10",
+              "title": "CC_TP-not\u00e9",
+              "weight": "30",
+              "the_id": "1433_0"
+            },
+            {
+              "type": "Note",
+              "author": "nathalie.guin",
+              "grade_type": 3,
+              "green": "\x3E=10",
+              "position": 12.9921875,
+              "red": "<10",
+              "title": "Examen_final",
+              "weight": "40",
+              "the_id": "1434_0"
+            },
+            {
+              "type": "Ue_Grade",
+              "abi_is": 1,
+              "author": "nathalie.guin",
+              "green": "\x3E=10",
+              "position": 12.99609375,
+              "red": "<10",
+              "title": "Note_UE",
+              "rounding": "0.001",
+              "the_id": "1434_1"
+            },
+            {
+              "type": "Upload",
+              "author": "nathalie.guin",
+              "position": 12.998046875,
+              "title": "Copie_examen",
+              "the_id": "1484_0"
+            },
+            {
+              "type": "Text",
+              "author": "nathalie.guin",
+              "position": 47.5,
+              "title": "commentaires",
+              "the_id": "1522_0"
+            },
+            {
+              "type": "Bool",
+              "author": "m.lefevre",
+              "green": "oui",
+              "modifiable": 2,
+              "position": 12.99853515625,
+              "red": "non",
+              "title": "Inscription_session2",
+              "width": 10,
+              "the_id": "1529_0"
+            },
+            {
+              "type": "Upload",
+              "author": "nathalie.guin",
+              "position": 49.5,
+              "title": "S\u00e9ance75",
+              "the_id": "1569_2"
+            },
+            {
+              "type": "Moy",
+              "author": "nathalie.guin",
+              "position": 50.5,
+              "title": "S\u00e9ance74",
+              "rounding": "0.001",
+              "the_id": "1573_0"
+            }
+          ],
+          "line_id": "0_39",
+          "line": [
+            [
+              "12202851",
+              "*",
+              "20230107074338"
+            ],
+            [
+              "EYMERIC",
+              "*",
+              "20230107074338"
+            ],
+            [
+              "DECHELETTE",
+              "*",
+              "20230107074338"
+            ],
+            [
+              "F",
+              "nathalie.guin",
+              "20230113145856",
+              ""
+            ],
+            [
+              "1",
+              "*",
+              "20230107074338"
+            ],
+            [
+              "ok",
+              "*",
+              "20230107074338"
+            ],
+            [],
+            [],
+            [
+              "G. Damiand",
+              "nathalie.guin",
+              "20230120184832"
+            ],
+            [
+              "Nautibus TD10",
+              "nathalie.guin",
+              "20230120184845"
+            ],
+            [
+              20.0,
+              "*",
+              "",
+              ""
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [
+              16.0,
+              "guillaume.damiand",
+              "20230317115505"
+            ],
+            [
+              20.0,
+              "*",
+              "",
+              ""
+            ],
+            [
+              20.0,
+              "?"
+            ],
+            [
+              20.0,
+              "?"
+            ],
+            [
+              20.0,
+              "?"
+            ],
+            [
+              "",
+              "p2202851",
+              "20230428194453",
+              ""
+            ],
+            [
+              17.0,
+              "m.lefevre",
+              "20230502071123"
+            ],
+            [
+              16.7,
+              "nathalie.guin",
+              "20230512174218"
+            ],
+            [
+              17.020999999999997,
+              "*",
+              "",
+              ""
+            ],
+            [
+              857.385,
+              "nathalie.guin",
+              "20230512215536",
+              "application/pdf; charset=binary EYMERIC.pdf"
+            ],
+            [],
+            [
+              "NON",
+              "m.lefevre",
+              "20230606120051"
+            ],
+            [],
+            [
+              "",
+              "?",
+              "",
+              ""
+            ]
+          ],
+          "stats": {
+            "432_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "432_1": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "498_1": {
+              "nr": 416,
+              "nr_in_grp": 23,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 15.270432692307692,
+              "mediane": 20.0
+            },
+            "549_1": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "549_2": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "549_3": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "725_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "725_1": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "725_2": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "725_3": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "725_4": {
+              "enumeration": [
+                "",
+                "JeViendraiSurLeCampusMardi7mars",
+                "JeSouhaiteUnEnseignementAdistanceMardi7mars"
+              ]
+            },
+            "950_0": {
+              "nr": 234,
+              "nr_in_grp": 20,
+              "rank": 71,
+              "rank_grp": 15,
+              "average": 12.85897435897436,
+              "mediane": 13.5
+            },
+            "1021_2": {
+              "nr": 416,
+              "nr_in_grp": 23,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 11.442307692307692,
+              "mediane": 20.0
+            },
+            "1035_0": {
+              "nr": 415,
+              "nr_in_grp": 23,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 12.420544578313235,
+              "mediane": 20.0
+            },
+            "1035_1": {
+              "nr": 415,
+              "nr_in_grp": 23,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 13.662650602409638,
+              "mediane": 20.0
+            },
+            "1038_1": {
+              "nr": 340,
+              "nr_in_grp": 23,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 16.456879411764653,
+              "mediane": 19.48
+            },
+            "1049_0": {
+              "enumeration": [
+                "",
+                "JeSeraiPr\u00e9sent-eAuTPnot\u00e9",
+                "JeNeSeraiPasPr\u00e9sent-eEtJ'auraiLaNoteDuCCF"
+              ]
+            },
+            "1433_0": {
+              "nr": 146,
+              "nr_in_grp": 17,
+              "rank": 46,
+              "rank_grp": 12,
+              "average": 12.933219178082192,
+              "mediane": 14.0
+            },
+            "1434_0": {
+              "nr": 317,
+              "nr_in_grp": 23,
+              "rank": 69,
+              "rank_grp": 14,
+              "average": 8.720189274447963,
+              "mediane": 7.9
+            },
+            "1434_1": {
+              "nr": 317,
+              "nr_in_grp": 23,
+              "rank": 74,
+              "rank_grp": 16,
+              "average": 9.862245678233448,
+              "mediane": 9.534999999999998
+            },
+            "1573_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            }
+          }
+        },
+        {
+          "masters": [
+            [
+              "MARIE",
+              "LEFEVRE",
+              "marie.lefevre@univ-lyon1.fr"
+            ],
+            [
+              "ELODIE",
+              "DESSEREE",
+              "elodie.desseree@univ-lyon1.fr",
+              "elodie.desseree"
+            ]
+          ],
+          "rounding": 1,
+          "contains_users": 1,
+          "modifiable": 1,
+          "default_sort_column": [
+            2,
+            1,
+            0
+          ],
+          "table_title": "Algorithmique Programmation Imp\u00e9rative, Initiation",
+          "popup_on_red_line": 1,
+          "managers": [
+            "alessandra.frabetti",
+            "hamid.ladjal",
+            "guillaume.aubrun"
+          ],
+          "code": 16357,
+          "bookmark": 1,
+          "dates": [
+            1659304800.0,
+            1675119600.0
+          ],
+          "official_ue": 1,
+          "ue": "UE-INF1010L",
+          "year": 2022,
+          "semester": "Automne",
+          "columns": [
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Identificateur de l'\u00e9tudiant",
+              "freezed": "F",
+              "position": 0,
+              "repetition": 1,
+              "title": "ID",
+              "the_id": "0_0"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 1,
+              "title": "Pr\u00e9nom",
+              "width": 8,
+              "the_id": "0_1"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "freezed": "F",
+              "position": 2,
+              "title": "Nom",
+              "width": 8,
+              "the_id": "0_2"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "Groupe de TD",
+              "position": 3,
+              "title": "Grp",
+              "width": 2,
+              "the_id": "0_3"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "S\u00e9quence de l'enseignement",
+              "position": 4,
+              "title": "Seq",
+              "width": 1,
+              "the_id": "0_4"
+            },
+            {
+              "type": "Text",
+              "author": "*",
+              "comment": "IP valid ?",
+              "freezed": "C",
+              "hidden": 1,
+              "position": 5,
+              "title": "Inscrit",
+              "the_id": "0_5"
+            },
+            {
+              "type": "Moy",
+              "author": "m.lefevre",
+              "columns": "Eval1-Note Eval2-Note Eval3-Note Eval4-Note Eval5-Note Eval6-Note",
+              "comment": "Moyenne des \u00e9val QCM =\x3E 6%",
+              "position": 8,
+              "title": "Eval-ASKER-Moyenne",
+              "weight": "6",
+              "rounding": "0.001",
+              "the_id": "19_2"
+            },
+            {
+              "type": "Note",
+              "author": "m.lefevre",
+              "position": 9,
+              "title": "CC_mi_parcours",
+              "weight": "20",
+              "the_id": "19_3"
+            },
+            {
+              "type": "Note",
+              "author": "elodie.desseree",
+              "position": 10,
+              "title": "TP_Note_1",
+              "weight": "14",
+              "the_id": "19_4"
+            },
+            {
+              "type": "Note",
+              "author": "elodie.desseree",
+              "position": 11,
+              "title": "TP_Note_2",
+              "weight": "20",
+              "the_id": "19_5"
+            },
+            {
+              "type": "Note",
+              "author": "elodie.desseree",
+              "position": 12,
+              "title": "ALGO",
+              "the_id": "19_6"
+            },
+            {
+              "type": "Note",
+              "author": "elodie.desseree",
+              "position": 13,
+              "title": "CPP",
+              "the_id": "19_7"
+            },
+            {
+              "type": "Note",
+              "abi_is": 1,
+              "author": "elodie.desseree",
+              "empty_is": "???",
+              "position": 20,
+              "title": "NOTE_UE_SESSION1",
+              "rounding": "0.001",
+              "the_id": "19_14"
+            },
+            {
+              "type": "Bool",
+              "author": "elodie.desseree",
+              "empty_is": "NON",
+              "modifiable": 2,
+              "position": 22,
+              "title": "INSCRIPTION_SECONDE_SESSION",
+              "the_id": "19_16"
+            },
+            {
+              "type": "Prst",
+              "author": "elodie.desseree",
+              "position": 13.5,
+              "title": "CCF_Presence",
+              "the_id": "19_19"
+            },
+            {
+              "type": "Enumeration",
+              "author": "elodie.desseree",
+              "empty_is": "NON",
+              "enumeration": "OUI NON",
+              "position": 33.5,
+              "title": "Soutien_2",
+              "the_id": "19_39"
+            },
+            {
+              "type": "Bool",
+              "author": "elodie.desseree",
+              "empty_is": "NON",
+              "position": 51,
+              "title": "Soutien_3",
+              "the_id": "19_45"
+            },
+            {
+              "type": "Enumeration",
+              "author": "elodie.desseree",
+              "empty_is": "AUCUNE",
+              "enumeration": "AUCUNE JUSTE_ALGO_8H_9H30 JUSTE_PROG_9H45_11H15 ALGO_ET_PROG_8H_11H15",
+              "modifiable": 2,
+              "position": 20.5,
+              "title": "INSCRIPTION_SEANCE_REVISIONS",
+              "the_id": "19_52"
+            },
+            {
+              "type": "Bool",
+              "author": "elodie.desseree",
+              "empty_is": "NON",
+              "modifiable": 2,
+              "position": 5.25,
+              "title": "Peut_amener_un_PC",
+              "the_id": "19_57"
+            },
+            {
+              "type": "COW",
+              "author": "m.lefevre",
+              "incomplete": 1,
+              "comment": "Notes QCM ASKER CM4",
+              "minmax": "[0;20]",
+              "position": 90.5,
+              "title": "Eval3-Note",
+              "the_id": "19_89"
+            },
+            {
+              "type": "COW",
+              "author": "elodie.desseree",
+              "incomplete": 1,
+              "comment": "Notes QCM ASKER CM5",
+              "minmax": "[0;20]",
+              "position": 100,
+              "title": "Eval4-Note",
+              "the_id": "19_94"
+            },
+            {
+              "type": "COW",
+              "abi_is": 1,
+              "author": "m.lefevre",
+              "incomplete": 1,
+              "comment": "Notes QCM ASKER CM7",
+              "minmax": "[0;20]",
+              "position": 104.875,
+              "title": "Eval5-Note",
+              "rounding": "0.001",
+              "the_id": "19_107"
+            },
+            {
+              "type": "COW",
+              "author": "m.lefevre",
+              "incomplete": 1,
+              "minmax": "[0;20]",
+              "position": 115,
+              "title": "Eval6-Note",
+              "the_id": "19_109"
+            },
+            {
+              "type": "Enumeration",
+              "author": "elodie.desseree",
+              "enumeration": "Jeudi_15_12_11h30 Vendredi_16_12_14h Non_concerne",
+              "position": 121,
+              "title": "Sondage_Date_TP_Note",
+              "the_id": "19_115"
+            },
+            {
+              "type": "Text",
+              "author": "elodie.desseree",
+              "position": 10.5,
+              "title": "Salle_TPNote",
+              "the_id": "19_121"
+            },
+            {
+              "type": "Upload",
+              "author": "elodie.desseree",
+              "cell_writable": "[Seq]=1 ?[]\x3E14/12/2021-14:00 ?[]<14/12/2021-16:00 ou [Seq]=3 ?[]\x3E16/12/2021-14:00 ?[]<16/12/2021-16:00 ou [Seq]=5 ?[]\x3E16/12/2021-11:00 ?[]<16/12/2021-13:10 ou oui",
+              "modifiable": 2,
+              "position": 10.25,
+              "title": "Depot_TP_NOTE",
+              "upload_max": "10",
+              "the_id": "19_122"
+            },
+            {
+              "type": "Prst",
+              "author": "elodie.desseree",
+              "position": 10.75,
+              "title": "TP_Note_PRST",
+              "the_id": "19_123"
+            },
+            {
+              "type": "COW",
+              "author": "m.lefevre",
+              "incomplete": 1,
+              "comment": "Notes QCM ASKER CM1&CM2",
+              "position": 74.5,
+              "title": "Eval1-Note",
+              "the_id": "758_0"
+            },
+            {
+              "type": "COW",
+              "author": "m.lefevre",
+              "incomplete": 1,
+              "comment": "Notes QCM ASKER CM3",
+              "position": 82.5,
+              "title": "Eval2-Note",
+              "the_id": "758_1"
+            },
+            {
+              "type": "Upload",
+              "author": "elodie.desseree",
+              "position": 31.5,
+              "title": "Depot_TP_NOTE1_Seq1",
+              "the_id": "828_0"
+            },
+            {
+              "type": "Note",
+              "author": "elodie.desseree",
+              "position": 31.25,
+              "title": "Depot_TP_NOTE1",
+              "the_id": "927_0"
+            },
+            {
+              "type": "Text",
+              "author": "elodie.desseree",
+              "position": 139.5,
+              "title": "Place_CC_mi-parcours",
+              "the_id": "1092_0"
+            },
+            {
+              "type": "Prst",
+              "author": "elodie.desseree",
+              "position": 138,
+              "title": "S\u00e9ance142",
+              "the_id": "1146_0"
+            }
+          ],
+          "line_id": "0_52",
+          "line": [
+            [
+              "12202851",
+              "*",
+              "20220902172103"
+            ],
+            [
+              "EYMERIC",
+              "*",
+              "20220902172103"
+            ],
+            [
+              "DECHELETTE",
+              "*",
+              "20220902172103"
+            ],
+            [
+              "P5",
+              "fabienne.oudin",
+              "20220907164353"
+            ],
+            [
+              "5",
+              "*",
+              "20220902172103"
+            ],
+            [
+              "ok",
+              "*",
+              "20220902172103"
+            ],
+            [
+              20.0,
+              "*",
+              "",
+              ""
+            ],
+            [
+              19.5,
+              "elodie.desseree",
+              "20221109170721"
+            ],
+            [
+              20.0,
+              "elodie.desseree",
+              "20221019102626"
+            ],
+            [
+              18.5,
+              "elodie.desseree",
+              "20230109114309"
+            ],
+            [
+              8.5,
+              "elodie.desseree",
+              "20230117202627"
+            ],
+            [
+              16.0,
+              "m.lefevre",
+              "20230129220230"
+            ],
+            [
+              16.5,
+              "elodie.desseree",
+              "20230130095526",
+              ""
+            ],
+            [
+              "NON",
+              "elodie.desseree",
+              "20230530115230"
+            ],
+            [
+              "PRST",
+              "elodie.desseree",
+              "20230109200739"
+            ],
+            [],
+            [],
+            [
+              "AUCUNE",
+              "elodie.desseree",
+              "20230612091349",
+              ""
+            ],
+            [
+              "NON",
+              "p2202851",
+              "20230612201758",
+              ""
+            ],
+            [
+              20.0,
+              "?"
+            ],
+            [
+              20.0,
+              "?"
+            ],
+            [
+              20.0,
+              "?"
+            ],
+            [
+              20.0,
+              "?"
+            ],
+            [
+              "Vendredi_16_12_14h",
+              "p2202851",
+              "20221201100336"
+            ],
+            [
+              "Nautibus TD10",
+              "elodie.desseree",
+              "20221209055019"
+            ],
+            [],
+            [
+              "PRST",
+              "elodie.desseree",
+              "20221216180414"
+            ],
+            [
+              20.0,
+              "?"
+            ],
+            [
+              20.0,
+              "?"
+            ],
+            [],
+            [],
+            [
+              "Doua Amphi Astr\u00e9e 13, place0161",
+              "elodie.desseree",
+              "20221017084027"
+            ],
+            []
+          ],
+          "stats": {
+            "19_2": {
+              "nr": 544,
+              "nr_in_grp": 25,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 16.866351102941227,
+              "mediane": 19.444
+            },
+            "19_3": {
+              "nr": 491,
+              "nr_in_grp": 25,
+              "rank": 8,
+              "rank_grp": 0,
+              "average": 9.505600814663952,
+              "mediane": 9.0
+            },
+            "19_4": {
+              "nr": 509,
+              "nr_in_grp": 24,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 9.583005893909627,
+              "mediane": 8.5
+            },
+            "19_5": {
+              "nr": 386,
+              "nr_in_grp": 21,
+              "rank": 69,
+              "rank_grp": 10,
+              "average": 10.971502590673575,
+              "mediane": 11.0
+            },
+            "19_6": {
+              "nr": 496,
+              "nr_in_grp": 23,
+              "rank": 165,
+              "rank_grp": 12,
+              "average": 6.884072580645161,
+              "mediane": 6.0
+            },
+            "19_7": {
+              "nr": 496,
+              "nr_in_grp": 23,
+              "rank": 54,
+              "rank_grp": 7,
+              "average": 8.025201612903226,
+              "mediane": 7.5
+            },
+            "19_14": {
+              "nr": 496,
+              "nr_in_grp": 23,
+              "rank": 55,
+              "rank_grp": 9,
+              "average": 9.343899193548376,
+              "mediane": 8.955
+            },
+            "19_19": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "19_39": {
+              "enumeration": [
+                "",
+                "OUI",
+                "NON"
+              ]
+            },
+            "19_52": {
+              "enumeration": [
+                "",
+                "AUCUNE",
+                "JUSTE_ALGO_8H_9H30",
+                "JUSTE_PROG_9H45_11H15",
+                "ALGO_ET_PROG_8H_11H15"
+              ]
+            },
+            "19_89": {
+              "nr": 439,
+              "nr_in_grp": 25,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 19.954441913439634,
+              "mediane": 20.0
+            },
+            "19_94": {
+              "nr": 470,
+              "nr_in_grp": 24,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 19.548936170212766,
+              "mediane": 20.0
+            },
+            "19_107": {
+              "nr": 452,
+              "nr_in_grp": 20,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 19.83775,
+              "mediane": 20.0
+            },
+            "19_109": {
+              "nr": 429,
+              "nr_in_grp": 19,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 19.323981351981363,
+              "mediane": 20.0
+            },
+            "19_115": {
+              "enumeration": [
+                "",
+                "Jeudi_15_12_11h30",
+                "Vendredi_16_12_14h",
+                "Non_concerne"
+              ]
+            },
+            "19_123": {
+              "nr": 0,
+              "nr_in_grp": 0
+            },
+            "758_0": {
+              "nr": 499,
+              "nr_in_grp": 25,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 18.586382765531056,
+              "mediane": 20.0
+            },
+            "758_1": {
+              "nr": 397,
+              "nr_in_grp": 24,
+              "rank": 0,
+              "rank_grp": 0,
+              "average": 18.732075566750627,
+              "mediane": 20.0
+            },
+            "927_0": {
+              "nr": 5,
+              "nr_in_grp": 0,
+              "average": 20.0,
+              "mediane": 20.0
+            },
+            "1146_0": {
+              "nr": 0,
+              "nr_in_grp": 0
+            }
+          }
+        }
+      ],
+      []
+    ]
+  ]
+]

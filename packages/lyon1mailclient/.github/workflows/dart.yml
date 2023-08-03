@@ -1,0 +1,35 @@
+name: Dart
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      - name: Install dependencies
+        run: dart pub get
+
+      # - name: Verify formatting
+      #   run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyze project source
+        run: dart analyze --fatal-infos
+      
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_USERNAME: ${{ secrets.EYMERIC_ID }}
+          envkey_PASSWORD: ${{ secrets.EYMERIC_PASSWORD }}
+          envkey_EMAIL: ${{ secrets.EYMERIC_EMAIL }}
+          envkey_OTHER_EMAIL: ${{ secrets.EYMERIC_OTHER_EMAIL }}
+          file: ".env"
+      
+      - name: Run tests
+        run: dart test
