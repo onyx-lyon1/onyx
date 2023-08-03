@@ -1,0 +1,30 @@
+appId: fr.onyx.lyon1
+---
+- tapOn: "Agenda"
+- tapOn: "Récupérer automatiquement les ressources de l'agenda"
+- tapOn: "Sélectionner l'agenda"
+- tapOn:
+    point: "89%,90%"
+- assertNotVisible: "Recherche dans les agendas"
+- tapOn:
+    point: "5%,5%"
+- tapOn: "Recherche dans les agendas"
+- inputText: "peip"
+- pressKey: "Enter"
+- tapOn: "L1 Cursus prépa PeiP 1A"
+- swipe:
+    direction: "DOWN"
+- tapOn: "L1 Cursus prépa PeiP 1A"
+- tapOn: "P5"
+- tapOn: "P5-A"
+- tapOn: "P5-A"
+- assertVisible: "Montrer le mini calendrier en haut de page"
+- tapOn: "Agenda"
+- swipe:
+    start: "91%, 40%"
+    end: "91%, 55%"
+- tapOn:
+    point: "30%,91%"
+- assertVisible: "Samedi 3 Septembre"
+- tapOn:
+    point: "70%,91%"

@@ -1,0 +1,25 @@
+appId: fr.onyx.lyon1
+---
+- assertVisible: "INBOX"
+- tapOn: "Recherche dans les 20 derniers mails"
+- inputText: "5"
+- assertNotVisible: "S\nsenderMock1\n241j\nsubjectMock1"
+- assertVisible: "S\nsenderMock5\n241j\nsubjectMock5"
+- pressKey: "backspace"
+- "hideKeyboard"
+- assertVisible: "S\nsenderMock1\n241j\nsubjectMock1"
+- tapOn: "UnFlaged email : subjectMock1"
+- tapOn: "Flagged email : subjectMock1"
+- tapOn:
+    point: "90%,81%"
+- tapOn: "Objets"
+- inputText: "un belle objet"
+- tapOn: "Destinataire : PXXXXXXX, prenom.nom@status.univ-lyon1.fr"
+- tapOn: "mockaddress1@univ-lyon1.fr"
+- tapOn:
+    point: "50%,42%"
+- inputText: "le corps du mail"
+- "hideKeyboard"
+- tapOn:
+    point: "90%,90%"
+- "hideKeyboard"
