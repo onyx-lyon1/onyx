@@ -13,14 +13,21 @@ part 'tomuss_state.dart';
 
 class TomussCubit extends Cubit<TomussState> {
   Lyon1TomussClient? _dartus;
+  bool _loading = false;
 
   TomussCubit() : super(const TomussState(status: TomussStatus.initial));
 
-  Future<void> load(
-      {required Lyon1CasClient lyon1Cas,
-      bool cache = true,
-      int? semestreIndex,
-      required SettingsModel settings}) async {
+  Future<void> load({
+    required Lyon1CasClient lyon1Cas,
+    bool cache = true,
+    int? semestreIndex,
+    required SettingsModel settings,
+    bool force = false,
+  }) async {
+    if (_loading && !force) {
+      return;
+    }
+    _loading = true;
     emit(state.copyWith(
         status: TomussStatus.loading, currentSemesterIndex: semestreIndex));
     _dartus = Lyon1TomussClient(lyon1Cas);
@@ -64,6 +71,7 @@ class TomussCubit extends Cubit<TomussState> {
           timeout: result.timeout,
           newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
         ));
+        _loading = false;
         return;
       }
       semestreIndex ??= result.semesters!.indexWhere(
@@ -75,6 +83,7 @@ class TomussCubit extends Cubit<TomussState> {
         print("Error while loading grades: $e");
       }
       emit(state.copyWith(status: TomussStatus.error));
+      _loading = false;
       return;
     }
 
