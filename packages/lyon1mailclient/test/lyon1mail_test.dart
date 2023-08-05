@@ -8,16 +8,17 @@ void main() {
   late MailBox inbox;
 
   Future<void> sendDummyMail(final String recipientEmail) async {
-    return await mailClient.addAction(
-      Action(
-        type: ActionType.send,
-        mail: Mail.forSending(
-          receiver: recipientEmail,
-          subject: 'test',
-          body: 'bodytest',
+    await mailClient.addAction(
+        Action(
+          type: ActionType.send,
+          mail: Mail.forSending(
+            receiver: recipientEmail,
+            subject: 'test',
+            body: 'bodytest',
+          ),
         ),
-      ),
-    );
+        autoDoAction: false);
+    await mailClient.doActions();
   }
 
   late String username;
@@ -104,13 +105,19 @@ void main() {
     expect(await mailClient.getActions(), []);
 
     if (mails.first.isRead) {
-      await mailClient.addAction(Action(
-          type: ActionType.markAsRead, mail: mails.first, fromMailBox: inbox));
+      await mailClient.addAction(
+          Action(
+              type: ActionType.markAsRead,
+              mail: mails.first,
+              fromMailBox: inbox),
+          autoDoAction: false);
     } else {
-      await mailClient.addAction(Action(
-          type: ActionType.markAsUnread,
-          mail: mails.first,
-          fromMailBox: inbox));
+      await mailClient.addAction(
+          Action(
+              type: ActionType.markAsUnread,
+              mail: mails.first,
+              fromMailBox: inbox),
+          autoDoAction: false);
     }
     await mailClient.doActions();
     expect(await mailClient.getActions(), []);
@@ -124,12 +131,16 @@ void main() {
     final bool isFirstMailFlaged = mails.first.isFlagged;
 
     if (isFirstMailFlaged) {
-      await mailClient.addAction(Action(
-          type: ActionType.unflag, mail: mails.first, fromMailBox: inbox));
+      await mailClient.addAction(
+          Action(
+              type: ActionType.unflag, mail: mails.first, fromMailBox: inbox),
+          autoDoAction: false);
     } else {
       await mailClient.addAction(
-          Action(type: ActionType.flag, mail: mails.first, fromMailBox: inbox));
+          Action(type: ActionType.flag, mail: mails.first, fromMailBox: inbox),
+          autoDoAction: false);
     }
+    await mailClient.doActions();
 
     expect(((await mailClient.fetchMessages(10)) ?? []).first.isFlagged,
         !isFirstMailFlaged);
@@ -137,11 +148,15 @@ void main() {
 
     if (isFirstMailFlaged) {
       await mailClient.addAction(
-          Action(type: ActionType.flag, mail: mails.first, fromMailBox: inbox));
+          Action(type: ActionType.flag, mail: mails.first, fromMailBox: inbox),
+          autoDoAction: false);
     } else {
-      await mailClient.addAction(Action(
-          type: ActionType.unflag, mail: mails.first, fromMailBox: inbox));
+      await mailClient.addAction(
+          Action(
+              type: ActionType.unflag, mail: mails.first, fromMailBox: inbox),
+          autoDoAction: false);
     }
+    await mailClient.doActions();
     expect(await mailClient.getActions(), []);
     await mailClient.logout();
   });
@@ -157,10 +172,13 @@ void main() {
     expect(mailsBeforeDeletion.isNotEmpty, true);
 
     final int latestMessageId = mailsBeforeDeletion.first.id!;
-    await mailClient.addAction(Action(
-        type: ActionType.delete,
-        mail: mailsBeforeDeletion.first,
-        fromMailBox: inbox));
+    await mailClient.addAction(
+        Action(
+            type: ActionType.delete,
+            mail: mailsBeforeDeletion.first,
+            fromMailBox: inbox),
+        autoDoAction: false);
+    await mailClient.doActions();
     expect(await mailClient.getActions(), []);
 
     final List<Mail> mailsAfterDeletion =
@@ -184,22 +202,28 @@ void main() {
     await mailClient.login();
     final List<Mail> mailsBeforeDeletion =
         (await mailClient.fetchMessages(1)) ?? [];
-    expect(mailsBeforeDeletion.isNotEmpty, false);
+    expect(mailsBeforeDeletion.isNotEmpty, true);
 
-    await mailClient.addAction(Action(
-        type: ActionType.reply,
-        originalMessageId: mailsBeforeDeletion.first.id!,
-        mail: Mail.forReplying(
-            body: "response body", mail: mailsBeforeDeletion.first),
-        replyAll: false,
-        fromMailBox: inbox));
+    await mailClient.addAction(
+        Action(
+            type: ActionType.reply,
+            originalMessageId: mailsBeforeDeletion.first.id!,
+            mail: Mail.forReplying(
+                body: "response body", mail: mailsBeforeDeletion.first),
+            replyAll: false,
+            fromMailBox: inbox),
+        autoDoAction: false);
+    await mailClient.doActions();
     expect(await mailClient.getActions(), []);
 
     final int latestMessageId = mailsBeforeDeletion.first.id!;
-    await mailClient.addAction(Action(
-        type: ActionType.delete,
-        mail: mailsBeforeDeletion.first,
-        fromMailBox: inbox));
+    await mailClient.addAction(
+        Action(
+            type: ActionType.delete,
+            mail: mailsBeforeDeletion.first,
+            fromMailBox: inbox),
+        autoDoAction: false);
+    await mailClient.doActions();
     expect(await mailClient.getActions(), []);
 
     final List<Mail> mailsAfterDeletion =
@@ -207,9 +231,8 @@ void main() {
     expect(mailsAfterDeletion.isNotEmpty, true);
     expect(mailsAfterDeletion.first.id == latestMessageId, true);
     expect(
-        mailsAfterDeletion.first.body.contains(mailsBeforeDeletion.first.body
-            .substring(
-                0, mailsBeforeDeletion.first.body.length - 1)), //remove \r
+        mailsAfterDeletion.first.body.contains("bodytest"),
+        //bodytest is what was writter in the first sent mail
         true);
     await mailClient.logout();
   });
@@ -224,20 +247,28 @@ void main() {
         (await mailClient.fetchMessages(1)) ?? [];
     expect(mailsBeforeDeletion.isNotEmpty, true);
 
-    await mailClient.addAction(Action(
-        type: ActionType.forward,
-        mail: Mail.forForwarding(
-            body: "transfer body",
-            receiver: emailAddress,
-            mail: mailsBeforeDeletion.first),
-        fromMailBox: inbox));
+    await mailClient.addAction(
+        Action(
+            type: ActionType.forward,
+            mail: Mail.forForwarding(
+              body: "transfer body",
+              receiver: emailAddress,
+              mail: mailsBeforeDeletion.first,
+            ),
+            originalMessageId: mailsBeforeDeletion.first.id!,
+            fromMailBox: inbox),
+        autoDoAction: false);
+    await mailClient.doActions();
     expect(await mailClient.getActions(), []);
 
     final int latestMessageId = mailsBeforeDeletion.first.id!;
-    await mailClient.addAction(Action(
-        type: ActionType.delete,
-        mail: mailsBeforeDeletion.first,
-        fromMailBox: inbox));
+    await mailClient.addAction(
+        Action(
+            type: ActionType.delete,
+            mail: mailsBeforeDeletion.first,
+            fromMailBox: inbox),
+        autoDoAction: false);
+    await mailClient.doActions();
     expect(await mailClient.getActions(), []);
 
     final List<Mail> mailsAfterDeletion =
@@ -269,10 +300,13 @@ void main() {
     expect(mailsBeforeDeletion.isNotEmpty, true);
 
     final int latestMessageId = mailsBeforeDeletion.first.id!;
-    await mailClient.addAction(Action(
-        type: ActionType.delete,
-        mail: mailsBeforeDeletion.first,
-        fromMailBox: inbox));
+    await mailClient.addAction(
+        Action(
+            type: ActionType.delete,
+            mail: mailsBeforeDeletion.first,
+            fromMailBox: inbox),
+        autoDoAction: false);
+    await mailClient.doActions();
     expect(await mailClient.getActions(), []);
 
     final List<Mail> mailsAfterDeletion =
