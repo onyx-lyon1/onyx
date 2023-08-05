@@ -3,8 +3,8 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:enough_mail_html/enough_mail_html.dart';
 import 'package:enough_mail/enough_mail.dart';
+import 'package:enough_mail_html/enough_mail_html.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
@@ -130,8 +130,8 @@ class Mail extends Equatable {
     required Mail mail,
     this.attachmentsFiles,
   }) {
-    receiver = "";
     receiver = mail.sender;
+    sender = mail.receiver;
     subject = "";
     excerpt = HtmlToPlainTextConverter.convert(body)
         .replaceAll("\n", "")
@@ -158,7 +158,7 @@ class Mail extends Equatable {
     required Mail mail,
     this.attachmentsFiles,
   }) {
-    sender = "";
+    sender = mail.receiver;
     subject = "";
     excerpt = HtmlToPlainTextConverter.convert(body)
         .replaceAll("\n", "")
