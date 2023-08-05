@@ -483,7 +483,7 @@ class Lyon1MailClient {
 
   Future<List<Action>> getActions() async {
     Box<ActionList> box = await Hive.openBox<ActionList>("cached_0");
-    return (box.get("cache0")?.action ?? []);
+    return List.from(box.get("cache0")?.action ?? []);
   }
 
   Future<void> doActions() async {
