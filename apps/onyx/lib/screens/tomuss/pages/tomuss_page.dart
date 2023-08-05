@@ -173,6 +173,7 @@ class _TomussPageState extends State<TomussPage> {
                   lyon1Cas:
                       context.read<AuthentificationCubit>().state.lyon1Cas,
                   settings: context.read<SettingsCubit>().state.settings,
+                  force: true,
                 );
             while (context.read<TomussCubit>().state.status !=
                     TomussStatus.ready &&
