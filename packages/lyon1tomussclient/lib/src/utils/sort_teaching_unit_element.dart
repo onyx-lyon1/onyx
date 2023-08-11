@@ -1,4 +1,4 @@
-import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
+import 'package:lyon1tomussclient/src/model/model_export.dart';
 
 extension SortTeachingUnitElement on List<TeachingUnitElement> {
   List<TeachingUnitElement> sortByPosition() {
