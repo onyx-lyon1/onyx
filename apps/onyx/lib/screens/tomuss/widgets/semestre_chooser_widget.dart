@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SemesterChooserWidget extends StatelessWidget {
   const SemesterChooserWidget({Key? key}) : super(key: key);
@@ -16,18 +16,18 @@ class SemesterChooserWidget extends StatelessWidget {
         "Sélectionner un semestre",
         style: TextStyle(
           color: Theme.of(context).textTheme.bodyLarge!.color,
-          fontSize: 15.sp,
+          fontSize: 20.sp,
         ),
       ),
       content: SizedBox(
         width: 20.h,
-        child: GridView(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisExtent: 20.w,
-              crossAxisSpacing: 3.w,
-              mainAxisSpacing: 3.w,
-            ),
+        child: GridView.extent(
+            maxCrossAxisExtent: 20.h,
+            mainAxisSpacing:
+                (Device.orientation == Orientation.portrait) ? 3.w : 3.h,
+            crossAxisSpacing:
+                (Device.orientation == Orientation.portrait) ? 3.w : 3.h,
+            childAspectRatio: 3 / 2,
             shrinkWrap: true,
             children: [
               for (var semester in context.read<TomussCubit>().state.semesters)
@@ -69,7 +69,7 @@ class SemesterChooserWidget extends StatelessWidget {
                             style: TextStyle(
                               color:
                                   Theme.of(context).textTheme.bodyLarge!.color,
-                              fontSize: 15.sp,
+                              fontSize: 20.sp,
                             ),
                           ),
                           Text(
@@ -77,7 +77,7 @@ class SemesterChooserWidget extends StatelessWidget {
                             style: TextStyle(
                               color:
                                   Theme.of(context).textTheme.bodyLarge!.color,
-                              fontSize: 15.sp,
+                              fontSize: 17.sp,
                             ),
                           ),
                         ],

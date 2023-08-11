@@ -6,7 +6,7 @@ import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class IzlyRechargeCBPage extends StatefulWidget {

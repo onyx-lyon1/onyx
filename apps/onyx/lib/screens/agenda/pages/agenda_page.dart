@@ -7,7 +7,7 @@ import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
 

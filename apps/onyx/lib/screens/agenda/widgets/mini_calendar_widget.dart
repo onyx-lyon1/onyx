@@ -4,7 +4,7 @@ import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MiniCalendarWidget extends StatelessWidget {
   final ScrollController scrollController;

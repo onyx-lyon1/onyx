@@ -4,7 +4,7 @@ import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/theme/theme_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class GradeCompactWidget extends StatelessWidget {
   final Grade grade;

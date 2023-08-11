@@ -4,14 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onyx/core/res.dart';
-import 'package:onyx/core/widgets/common_screen_widget.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:sizer/sizer.dart';
-
-import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
-import '../widgets/teaching_unit_children_widget.dart';
+import 'package:onyx/screens/tomuss/widgets/teaching_unit_children_widget.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class TomussPage extends StatefulWidget {
   const TomussPage({
@@ -34,20 +32,16 @@ class _TomussPageState extends State<TomussPage> {
           controller: ModalScrollController.of(context),
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Container(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                TeachingUnitChildrenTitleWidget(name: schoolSubject.title),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  child: TeachingUnitChildrenWidget(
-                    teachingUnit: schoolSubject,
-                  ),
+          child: Column(
+            children: [
+              TeachingUnitChildrenTitleWidget(name: schoolSubject.title),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                child: TeachingUnitChildrenWidget(
+                  teachingUnit: schoolSubject,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -118,9 +112,9 @@ class _TomussPageState extends State<TomussPage> {
         return CommonScreenWidget(
           state: loadingHeader,
           header: Container(
-            height: Res.bottomNavBarHeight,
             color: Theme.of(context).cardTheme.color,
-            padding: const EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(
+                (Device.orientation == Orientation.portrait) ? 1.w : 1.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -139,9 +133,29 @@ class _TomussPageState extends State<TomussPage> {
                     ),
                     onPressed: () {
                       //show a dialog to select the semester
-                      showDialog(
+                      showGeneralDialog(
                         context: context,
-                        builder: (context) => const SemesterChooserWidget(),
+                        barrierDismissible: true,
+                        barrierLabel: MaterialLocalizations.of(context)
+                            .modalBarrierDismissLabel,
+                        pageBuilder: (ctx, a1, a2) {
+                          return Container();
+                        },
+                        transitionBuilder: (ctx, a1, a2, child) {
+                          var curve = Curves.easeInOut.transform(a1.value);
+                          return Transform.translate(
+                            offset: Offset(
+                                50.w - 50.w * curve, -(45.h - 45.h * curve)),
+                            child: Transform.scale(
+                              scale: curve,
+                              child: const SemesterChooserWidget(),
+                            ),
+                          );
+                        },
+                        transitionDuration: Duration(
+                            milliseconds:
+                                (Res.animationDuration.inMilliseconds / 2)
+                                    .round()),
                       );
                     },
                   ),
@@ -149,24 +163,24 @@ class _TomussPageState extends State<TomussPage> {
               ],
             ),
           ),
-          body: ListView(
+          body: ResponsiveGridView(
             physics: const AlwaysScrollableScrollPhysics(),
-            children: state.teachingUnits
-                .map(
-                  (schoolSubject) => Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
-                    child: GradeWidget(
-                      grades: schoolSubject.grades,
-                      text2:
-                          schoolSubject.masters.map((e) => e.name).join(", "),
-                      text1: schoolSubject.title.replaceAll("_", " "),
-                      onTap: () => showAllGrades(context, schoolSubject),
-                      depth: 0,
-                    ),
-                  ),
-                )
-                .toList(),
+            padding: const EdgeInsets.all(10.0),
+            childAspectRatio: 3 / 1,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            maxCrossAxisExtent:
+                (Device.orientation == Orientation.portrait) ? 90.w : 30.w,
+            children: [
+              for (var teachingUnit in state.teachingUnits)
+                GradeWidget(
+                  grades: teachingUnit.grades,
+                  text2: teachingUnit.masters.map((e) => e.name).join(", "),
+                  text1: teachingUnit.title.replaceAll("_", " "),
+                  onTap: () => showAllGrades(context, teachingUnit),
+                  depth: 0,
+                ),
+            ],
           ),
           onRefresh: () async {
             context.read<TomussCubit>().load(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlyRechargePage extends StatelessWidget {
   const IzlyRechargePage({Key? key, required this.pageController})

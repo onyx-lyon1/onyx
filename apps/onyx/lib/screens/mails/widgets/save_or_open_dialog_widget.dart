@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:open_filex/open_filex.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SaveOrOpenDialogWidget extends StatelessWidget {
   const SaveOrOpenDialogWidget({Key? key, required this.filePath})
