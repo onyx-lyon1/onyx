@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
@@ -7,9 +8,9 @@ import 'package:onyx/core/theme/theme_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:sizer/sizer.dart';
 
 class GradeWidget extends StatelessWidget {
   final List<Grade> grades;
@@ -64,72 +65,92 @@ class GradeWidget extends StatelessWidget {
               isSeen: isSeen,
               grades: grades),
           left: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: double.infinity,
-                child: Text(
-                  gradeNumerator,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: OnyxTheme.darkTheme().colorScheme.background,
-                    fontSize: 18.sp,
+              const Spacer(
+                flex: 4,
+              ),
+              Flexible(
+                fit: FlexFit.tight,
+                flex: 10,
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    gradeNumerator,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: OnyxTheme.darkTheme().colorScheme.background,
+                      fontSize: 20.sp,
+                    ),
                   ),
                 ),
               ),
-              Container(
-                width: 15.w,
-                height: 0.2.h,
-                color: OnyxTheme.darkTheme().colorScheme.background,
+              Row(
+                children: [
+                  Spacer(),
+                  Flexible(
+                    flex: 5,
+                    child: Container(
+                      height: 0.2.h,
+                      color: OnyxTheme.darkTheme().colorScheme.background,
+                    ),
+                  ),
+                  Spacer(),
+                ],
               ),
-              Text(
-                ((grades.isNotEmpty) ? denominator : '-').toString(),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: OnyxTheme.darkTheme().colorScheme.background,
-                    fontSize: 15),
+              Flexible(
+                fit: FlexFit.tight,
+                flex: 10,
+                child: Text(
+                  ((grades.isNotEmpty) ? denominator : '-').toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: OnyxTheme.darkTheme().colorScheme.background,
+                      fontSize: 16.sp),
+                ),
               ),
             ],
           ),
           right: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(
+                flex: 12,
+                fit: FlexFit.tight,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 3.h,
-                      width: 70.w,
-                      child: Text(
+                    Flexible(
+                      flex: 2,
+                      child: AutoSizeText(
                         text1,
-                        maxLines: 1,
+                        maxLines: 3,
+                        minFontSize: 12.sp.roundToDouble(),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).textTheme.bodyLarge!.color,
                           overflow: TextOverflow.ellipsis,
-                          fontSize: 11.sp,
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 7.h,
-                      width: 70.w,
-                      child: Text(
+                    Flexible(
+                      child: AutoSizeText(
                         text2,
                         textAlign: TextAlign.start,
                         maxLines: 3,
+                        minFontSize: 7.sp.roundToDouble(),
                         style: TextStyle(
                           color: Theme.of(context).textTheme.bodyLarge!.color,
                           overflow: TextOverflow.ellipsis,
-                          fontSize: 7.sp,
                         ),
                       ),
                     ),
                   ],
                 ),
+              ),
+              const Spacer(
+                flex: 1,
               ),
               if (depth == 1) GradeCoefWidget(grade: grades.first),
               IconButton(

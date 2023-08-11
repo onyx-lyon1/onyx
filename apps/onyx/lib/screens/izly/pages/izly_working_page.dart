@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onyx/core/widgets/common_screen_widget.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlyWorkingPage extends StatelessWidget {
   const IzlyWorkingPage({Key? key, required this.callback}) : super(key: key);

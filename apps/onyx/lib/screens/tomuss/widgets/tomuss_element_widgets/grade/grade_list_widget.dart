@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class GradeListWidget extends StatelessWidget {
   const GradeListWidget(
@@ -15,6 +15,7 @@ class GradeListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
       children: [
         // if (depth == 1)
         //   Container(

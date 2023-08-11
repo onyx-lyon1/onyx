@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class DirWidget extends StatelessWidget {
   const DirWidget({Key? key, required this.dir, required this.scrollController})

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class StageCodeWidget extends StatelessWidget {
   final StageCode stageCode;
@@ -20,7 +20,7 @@ class StageCodeWidget extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.white,
             overflow: TextOverflow.ellipsis,
-            fontSize: 11.sp,
+            fontSize: 14.sp,
           ),
         ),
       ),
@@ -34,7 +34,7 @@ class StageCodeWidget extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).textTheme.bodyLarge!.color,
                 overflow: TextOverflow.ellipsis,
-                fontSize: 11.sp,
+                fontSize: 15.sp,
               ),
             ),
           ),
@@ -46,7 +46,7 @@ class StageCodeWidget extends StatelessWidget {
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyLarge!.color,
                 overflow: TextOverflow.ellipsis,
-                fontSize: 8.sp,
+                fontSize: 13.sp,
               ),
             ),
           ),

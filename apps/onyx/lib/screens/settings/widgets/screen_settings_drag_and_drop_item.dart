@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/functionalities_to_human_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 @override
 DragAndDropItem screenSettingsDragAndDropItem(Functionalities functionality) {

@@ -1,12 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 part 'generated/res.g.dart';
 
 class Res {
-  static const Duration animationDuration = Duration(milliseconds: 300);
-  static final double bottomNavBarItemWidth = 100.w / 5;
-  static final double bottomNavBarHeight = 10.h;
+  static Duration get animationDuration => const Duration(milliseconds: 300);
+
+  static double get bottomNavBarItemWidth => 20.w;
+
+  static double get bottomNavBarHeight =>
+      (Device.orientation == Orientation.portrait) ? 10.h : 5.w;
   static bool mock = false;
   static const String corsProxy = "https://192.168.220.102:3000/";
 }

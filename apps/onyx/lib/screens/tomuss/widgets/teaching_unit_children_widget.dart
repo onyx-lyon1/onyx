@@ -2,9 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:onyx/screens/tomuss/widgets/tomuss_element_widgets/enumeration_widget.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class TeachingUnitChildrenWidget extends StatelessWidget {
   const TeachingUnitChildrenWidget({Key? key, required this.teachingUnit})
@@ -20,16 +21,19 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
         List<TeachingUnitElement> children =
             teachingUnit.visibleChildren.sortByPosition();
         List<Widget> widgets = [];
-        widgets.add(SizedBox(height: 2.h));
 
         for (var child in children) {
           if (child.isVisible) {
             if (child is Grade) {
-              widgets.add(
-                GradeListWidget(
-                  grades: child,
-                ),
-              );
+              if (Device.orientation == Orientation.portrait) {
+                widgets.add(
+                  GradeListWidget(
+                    grades: child,
+                  ),
+                );
+              } else {
+                widgets.addAll(constructGradeChildrenFullList(child));
+              }
             } else if (child is Enumeration) {
               widgets.add(EnumerationWidget(enumeration: child));
             } else if (child is Presence) {
@@ -47,14 +51,43 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
                 print("Unknown type: ${child.runtimeType}");
               }
             }
-            widgets.add(SizedBox(height: 2.h));
           }
         }
-        widgets.removeLast();
-        return Column(
+        return ResponsiveGridView(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          maxCrossAxisExtent:
+              (Device.orientation == Orientation.portrait) ? 70.w : 30.w,
+          padding: const EdgeInsets.all(10.0),
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 3 / 1,
+          //3=width 1=height
           children: widgets,
         );
       },
     );
+  }
+
+  List<Widget> constructGradeChildrenFullList(Grade grade,
+      {int depth = 1, List<Widget>? widgets}) {
+    widgets ??= [];
+    widgets.add(
+      GradeWidget(
+        grades: [grade],
+        isSeen: true,
+        text1: grade.title.replaceAll("_", " "),
+        text2:
+            "Moyenne : ${grade.average.toStringAsFixed(2)} · Mediane : ${grade.mediane.toStringAsFixed(2)}\nClassement : ${grade.rank + 1}/${grade.groupeSize}\nProfesseur : ${grade.author}",
+        depth: 1,
+      ),
+    );
+    if (grade.children.isNotEmpty) {
+      for (var child in grade.children) {
+        constructGradeChildrenFullList(child,
+            depth: depth + 1, widgets: widgets);
+      }
+    }
+    return widgets;
   }
 }

@@ -2,7 +2,7 @@ import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class DraggableZoneWidget extends StatelessWidget {
   const DraggableZoneWidget({Key? key}) : super(key: key);

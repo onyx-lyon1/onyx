@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class TeachingUnitChildrenTitleWidget extends StatelessWidget {
   final String name;

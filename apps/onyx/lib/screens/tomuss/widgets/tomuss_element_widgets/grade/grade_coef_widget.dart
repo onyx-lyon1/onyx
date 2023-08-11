@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class GradeCoefWidget extends StatefulWidget {
   const GradeCoefWidget({
@@ -29,36 +29,32 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      key: Key('GradeCoefWidget${widget.grade.title}'),
-      padding: EdgeInsets.only(right: 2.w),
-      child: SizedBox(
-        width: 14.5.w,
-        height: 13.w,
-        child: TextField(
-          controller: _controller,
-          keyboardType: TextInputType.number,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 10.sp,
-              color: Theme.of(context).textTheme.bodyLarge!.color!),
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Theme.of(context).textTheme.bodyLarge!.color!,
-              ),
-            ),
-            hintText: "1.0",
+    return Flexible(
+      flex: 4,
+      child: TextField(
+        key: Key('GradeCoefWidget${widget.grade.title}'),
+        controller: _controller,
+        keyboardType: TextInputType.number,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: 10.sp,
+            color: Theme.of(context).textTheme.bodyLarge!.color!),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-          onChanged: (value) {
-            context.read<TomussCubit>().updateCoef(
-                widget.grade, (value.isNotEmpty) ? double.parse(value) : null);
-          },
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              color: Theme.of(context).textTheme.bodyLarge!.color!,
+            ),
+          ),
+          hintText: "1.0",
         ),
+        onChanged: (value) {
+          context.read<TomussCubit>().updateCoef(
+              widget.grade, (value.isNotEmpty) ? double.parse(value) : null);
+        },
       ),
     );
   }

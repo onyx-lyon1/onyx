@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class URLWidget extends StatelessWidget {
@@ -34,7 +34,8 @@ class URLWidget extends StatelessWidget {
           },
           icon: const Icon(Icons.open_in_new_rounded, color: Colors.white)),
       right: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             url.title,
@@ -43,18 +44,18 @@ class URLWidget extends StatelessWidget {
               fontWeight: FontWeight.bold,
               color: Theme.of(context).textTheme.bodyLarge!.color,
               overflow: TextOverflow.ellipsis,
-              fontSize: 11.sp,
+              fontSize: 15.sp,
             ),
           ),
           Align(
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.bottomCenter,
             child: Text(
               url.author,
               maxLines: 3,
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyLarge!.color,
                 overflow: TextOverflow.ellipsis,
-                fontSize: 8.sp,
+                fontSize: 13.sp,
               ),
             ),
           ),
