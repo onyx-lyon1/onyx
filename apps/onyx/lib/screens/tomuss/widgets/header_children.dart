@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class HeaderChildren extends StatelessWidget {
   const HeaderChildren({Key? key, required this.onTap}) : super(key: key);
@@ -68,7 +68,7 @@ class HeaderChildren extends StatelessWidget {
                 print("Unknown type: ${child.runtimeType}");
               }
             }
-            widgets.add(SizedBox(width: 2.w));
+            widgets.add(SizedBox(width: 1.w));
           }
         }
         widgets.removeLast();

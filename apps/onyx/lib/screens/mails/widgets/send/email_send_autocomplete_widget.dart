@@ -5,7 +5,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MailSendAutocompleteWidget extends StatelessWidget {
   const MailSendAutocompleteWidget({Key? key, required this.destinationEditor})

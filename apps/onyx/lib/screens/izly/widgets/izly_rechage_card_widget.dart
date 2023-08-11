@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:onyx/core/res.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlayRechargeCardWidget extends StatelessWidget {
   const IzlayRechargeCardWidget(

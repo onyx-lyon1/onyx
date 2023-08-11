@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/agenda_config/page/agenda_config_page.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaUrlParameterWidget extends StatelessWidget {
   const AgendaUrlParameterWidget({Key? key, required this.sizeUpdate})

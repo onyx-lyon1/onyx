@@ -7,7 +7,7 @@ import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/screens/map/domain/logic/tile_provider_logic.dart';
 import 'package:onyx/screens/map/map_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MapWidget extends StatefulWidget {
   const MapWidget(

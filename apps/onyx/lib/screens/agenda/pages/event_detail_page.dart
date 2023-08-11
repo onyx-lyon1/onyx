@@ -5,7 +5,7 @@ import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class EventDetailPage extends StatefulWidget {
   final Event event;

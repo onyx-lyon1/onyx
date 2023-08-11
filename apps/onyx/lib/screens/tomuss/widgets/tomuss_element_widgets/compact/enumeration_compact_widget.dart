@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class EnumerationCompactWidget extends StatelessWidget {
   const EnumerationCompactWidget(
@@ -36,7 +36,7 @@ class EnumerationCompactWidget extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         overflow: TextOverflow.ellipsis,
-                        fontSize: 11.sp,
+                        fontSize: 15.sp,
                       ),
                     ),
                   );
@@ -59,13 +59,13 @@ class EnumerationCompactWidget extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         overflow: TextOverflow.ellipsis,
-                        fontSize: 11.sp,
+                        fontSize: 15.sp,
                       ),
                     ),
                   ),
                   Icon(
                     Icons.arrow_drop_down,
-                    size: 11.sp,
+                    size: 15.sp,
                   ),
                 ],
               ))
@@ -77,7 +77,7 @@ class EnumerationCompactWidget extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   overflow: TextOverflow.ellipsis,
-                  fontSize: 11.sp,
+                  fontSize: 15.sp,
                 ),
               ),
             ),

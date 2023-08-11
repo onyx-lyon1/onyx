@@ -9,7 +9,7 @@ import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -103,27 +103,24 @@ class HomePageState extends State<HomePage> {
           },
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
-            // floatingActionButton: IconButton(
-            //   icon: const Icon(Icons.settings),
-            //   onPressed: () async {
-            //     var response = await RequestsPlus.get(
-            //       "https://cas.univ-lyon1.fr/cas/login",
-            //       headers: {
-            //         'User-Agent':
-            //             "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0",
-            //         'DNT': '1', // Do Not Track, because, why not
-            //         'Content-Type': 'application/x-www-form-urlencoded',
-            //       },
-            //     );
-            //   },
+            // floatingActionButton: Row(
+            //   children: [
+            //     IconButton(
+            //         onPressed: () {
+            //           DesktopWindow.setWindowSize(const Size(375, 667));
+            //         },
+            //         icon: const Icon(Icons.phone_android_rounded)),
+            //     IconButton(
+            //         onPressed: () {
+            //           DesktopWindow.setWindowSize(const Size(1280, 720));
+            //         },
+            //         icon: const Icon(Icons.tablet_rounded)),
+            //   ],
             // ),
             body: SafeArea(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 100.h -
-                        Res.bottomNavBarHeight -
-                        MediaQuery.of(context).padding.top,
+                  Expanded(
                     child: CommonScreenWidget(
                       onRefresh: () async {},
                       state: (state.status ==
@@ -163,8 +160,9 @@ class HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  Container(
                     height: Res.bottomNavBarHeight,
+                    padding: EdgeInsets.symmetric(vertical: 1.5.h),
                     child: BottomNavBarWidget(
                       scrollController: bottomBarController,
                       currentIndex: bottomBarController.hasClients

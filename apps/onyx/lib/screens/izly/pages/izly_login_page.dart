@@ -6,7 +6,7 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/privacy_policie_page.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlyLoginPage extends StatefulWidget {
   const IzlyLoginPage({Key? key}) : super(key: key);

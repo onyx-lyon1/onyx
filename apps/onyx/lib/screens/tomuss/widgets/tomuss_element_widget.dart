@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class TomussElementWidget extends StatelessWidget {
   const TomussElementWidget({
@@ -19,6 +19,10 @@ class TomussElementWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 11.h,
+      // (Device.screenType == ScreenType.mobile &&
+      //         Device.orientation == Orientation.portrait)
+      //     ? 11.h
+      //     : null,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Theme.of(context).cardTheme.color,
@@ -28,26 +32,31 @@ class TomussElementWidget extends StatelessWidget {
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          return Row(
-            children: [
-              Flexible(
-                flex: 1,
-                child: Container(
-                  color: color ?? Theme.of(context).primaryColor,
-                  height: constraints.maxHeight,
-                  child: left,
+          return SizedBox(
+            height: constraints.maxHeight,
+            child: Row(
+              children: [
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Container(
+                    color: color ?? Theme.of(context).primaryColor,
+                    height: constraints.maxHeight,
+                    child: left,
+                  ),
                 ),
-              ),
-              Flexible(
-                flex: 3,
-                child: Container(
-                  margin: EdgeInsets.only(left: constraints.maxWidth * 0.02),
-                  padding: EdgeInsets.symmetric(
-                      vertical: constraints.maxHeight * 0.02),
-                  child: right,
+                Flexible(
+                  flex: 3,
+                  fit: FlexFit.tight,
+                  child: Container(
+                    margin: EdgeInsets.only(left: constraints.maxWidth * 0.02),
+                    padding: EdgeInsets.symmetric(
+                        vertical: constraints.maxHeight * 0.02),
+                    child: right,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),

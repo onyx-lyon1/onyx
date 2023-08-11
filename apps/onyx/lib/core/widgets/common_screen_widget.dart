@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onyx/core/res.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CommonScreenWidget extends StatelessWidget {
   final Widget? header;
@@ -35,7 +35,7 @@ class CommonScreenWidget extends StatelessWidget {
                       if (header != null)
                         Container(
                           width: 100.w,
-                          height: Res.bottomNavBarHeight,
+                          height: Res.bottomNavBarHeight * 1.3,
                           color: Theme.of(context).cardColor,
                           child: header,
                         ),
@@ -50,7 +50,7 @@ class CommonScreenWidget extends StatelessWidget {
                     if (header != null)
                       Container(
                         width: 100.w,
-                        height: Res.bottomNavBarHeight,
+                        height: Res.bottomNavBarHeight * 1.3,
                         color: Theme.of(context).cardColor,
                         child: header,
                       ),
