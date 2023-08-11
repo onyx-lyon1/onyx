@@ -6,8 +6,6 @@ import 'package:enough_mail/enough_mail.dart' hide Response;
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' show Response;
 import 'package:lyon1mailclient/lyon1mailclient.dart';
-import 'package:lyon1mailclient/src/model/header_model.dart';
-import 'package:lyon1mailclient/src/model/query_model.dart';
 import 'package:requests_plus/requests_plus.dart';
 
 import 'config/config.dart';

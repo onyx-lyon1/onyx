@@ -4,7 +4,6 @@ import 'package:enough_mail/highlevel.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
-import 'package:lyon1mailclient/src/model/flag_converter.dart';
 
 part 'generated/mail_box.g.dart';
 
