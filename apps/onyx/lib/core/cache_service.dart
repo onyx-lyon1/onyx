@@ -20,7 +20,7 @@ class CacheService {
       return box.get("cache$index");
     } catch (e) {
       if (kDebugMode) {
-        print("error while getting cache : $e");
+        print("error while getting cache for $E: $e");
       }
       return null;
     }
