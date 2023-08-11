@@ -15,19 +15,18 @@ dependencies:
   modal_bottom_sheet: ^3.0.0-pre
   flutter_bloc: ^8.1.3
   hive_flutter: ^1.1.0
-  sizer: ^2.0.15
   url_launcher: ^6.1.12
-  path_provider: ^2.0.15
+  path_provider: ^2.1.0
   animations: ^2.0.7
   auto_size_text: ^3.0.0
   desktop_window: ^0.4.0
   copy_with_extension: ^5.0.3
-
+  responsive_sizer: 3.2.0
   #agenda
   lyon1agendaclient: ^1.0.0
 
   #agenda_config
-  mobile_scanner: ^3.3.0
+  mobile_scanner: ^3.4.1
   permission_handler: ^10.4.3
   encrypt: ^5.0.1
 
@@ -40,7 +39,7 @@ dependencies:
   file_picker: ^5.3.3
   open_filex: ^4.3.2
   flutter_file_dialog: ^3.0.1
-  flutter_quill: ^7.2.18
+  flutter_quill: ^7.3.2
   vsc_quill_delta_to_html: ^1.0.3
   enough_mail:
     git: https://github.com/hatch01/enough_mail.git
@@ -52,7 +51,7 @@ dependencies:
   lyon1tomussclient: ^1.0.3
   screenshot:
     git: https://github.com/SachinGanesh/screenshot.git #^1.3.0
-  share_plus: ^7.0.2
+  share_plus: ^7.1.0
 
   #map
   flutter_map: ^5.0.0
@@ -64,7 +63,7 @@ dependencies:
 
 
   #authentication
-  connectivity_plus: ^4.0.1
+  connectivity_plus: ^4.0.2
 
   #notifications
   workmanager: ^0.5.1
@@ -76,17 +75,21 @@ dependencies:
   equatable: ^2.0.5
   biometric_storage: #^4.1.3
     git: https://github.com/hatch01/biometric_storage.git #https://github.com/authpass/biometric_storage.git #https://github.com/YazeedAlKhalaf/biometric_storage.git
+  cryptography_flutter: ^2.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
-  build_runner: ^2.2.0
+  flutter_lints: ^2.0.2
+  build_runner: ^2.4.6
   hive_generator: ^2.0.0
   flutter_launcher_icons: ^0.13.1
-  copy_with_extension_gen: ^5.0.2
+  copy_with_extension_gen: ^5.0.3
+
+
+dependency_overrides:
 
 flutter_icons:
   android: "launcher_icon"
