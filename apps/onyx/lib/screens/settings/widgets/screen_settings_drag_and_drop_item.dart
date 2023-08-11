@@ -36,7 +36,7 @@ class _ScreenSettingsDragAndDropContentState
 
   @override
   void initState() {
-    childHeight = 8.h;
+    childHeight = (Device.orientation == Orientation.portrait) ? 8.h : 9.h;
     _collapse();
     super.initState();
   }
@@ -59,9 +59,10 @@ class _ScreenSettingsDragAndDropContentState
     setState(() {
       if (_isExpanded) {
         // set the height to the height of the child for the animation
-        childHeight = (key.currentContext?.size?.height ?? 0.0) + 13.h;
+        childHeight = (key.currentContext?.size?.height ?? 0.0) +
+            ((Device.orientation == Orientation.portrait) ? 13.h : 15.h);
       } else {
-        childHeight = 8.h;
+        childHeight = (Device.orientation == Orientation.portrait) ? 8.h : 9.h;
       }
     });
   }
@@ -85,39 +86,38 @@ class _ScreenSettingsDragAndDropContentState
         child: AnimatedContainer(
           duration: Res.animationDuration,
           height: childHeight,
+          alignment: Alignment.topCenter,
           child: Theme(
             data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-            child: Center(
-              child: ExpansionTile(
-                key: Key(_key.toString()),
-                onExpansionChanged: (value) async {
-                  // This is a hack to wait for the widget to be built
-                  _isExpanded = value;
-                  await updateChildHeight();
-                  setState(() {});
-                },
-                initiallyExpanded: false,
-                maintainState: true,
-                trailing: const SizedBox.shrink(),
-                leading: AnimatedRotation(
-                    turns: _isExpanded ? .5 : 0,
-                    duration: Res.animationDuration,
-                    child: const Icon(Icons
-                        .keyboard_arrow_down_outlined) // your svgImage here
-                    ),
-                title: Row(
-                  children: [
-                    Icon(widget.functionality.toIcon()),
-                    Text(widget.functionality.toCleanString())
-                  ],
-                ),
-                childrenPadding: const EdgeInsets.all(15),
-                expandedCrossAxisAlignment: CrossAxisAlignment.center,
+            child: ExpansionTile(
+              key: Key(_key.toString()),
+              onExpansionChanged: (value) async {
+                // This is a hack to wait for the widget to be built
+                _isExpanded = value;
+                await updateChildHeight();
+                setState(() {});
+              },
+              initiallyExpanded: false,
+              maintainState: true,
+              trailing: const SizedBox.shrink(),
+              leading: AnimatedRotation(
+                  turns: _isExpanded ? .5 : 0,
+                  duration: Res.animationDuration,
+                  child: const Icon(
+                      Icons.keyboard_arrow_down_outlined) // your svgImage here
+                  ),
+              title: Row(
                 children: [
-                  widget.functionality
-                      .toSettings(key: key, sizeUpdate: updateChildHeight)
+                  Icon(widget.functionality.toIcon()),
+                  Text(widget.functionality.toCleanString())
                 ],
               ),
+              childrenPadding: const EdgeInsets.all(15),
+              expandedCrossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                widget.functionality
+                    .toSettings(key: key, sizeUpdate: updateChildHeight)
+              ],
             ),
           ),
         ),
