@@ -4,7 +4,7 @@ version: 1.0.0
 repository: https://github.com/onyx-lyon1/lyon1mailclient
 
 environment:
-  sdk: '>=2.15.1 <4.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 
 dev_dependencies:
@@ -25,3 +25,6 @@ dependencies:
   copy_with_extension: ^5.0.3
   equatable: ^2.0.5
   http: ^1.1.0
+
+#dependency_overrides:
+#  http: ^1.1.0 # needed for enough_mail
