@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:onyx/core/res.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SettingsCardWidget extends StatelessWidget {
   final String name;
@@ -27,8 +30,6 @@ class SettingsCardWidget extends StatelessWidget {
             bottom: 5,
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 name,
@@ -42,7 +43,19 @@ class SettingsCardWidget extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              ...widgets,
+              ResponsiveGridView(
+                // Column(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                maxCrossAxisExtent: (!Res.isWide) ? 90.w : 30.w,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(10.0),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 8 / 1,
+                children: widgets,
+              ),
             ],
           ),
         ),

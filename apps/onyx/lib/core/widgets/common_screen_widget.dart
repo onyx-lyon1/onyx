@@ -35,7 +35,7 @@ class CommonScreenWidget extends StatelessWidget {
                       if (header != null)
                         Container(
                           width: 100.w,
-                          height: Res.bottomNavBarHeight * 1.3,
+                          height: Res.topBarHeight,
                           color: Theme.of(context).cardColor,
                           child: header,
                         ),
