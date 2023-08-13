@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
@@ -20,13 +21,11 @@ class SemesterChooserWidget extends StatelessWidget {
         ),
       ),
       content: SizedBox(
-        width: 20.h,
+        width: (!Res.isWide) ? 20.h : 25.h,
         child: GridView.extent(
-            maxCrossAxisExtent: 20.h,
-            mainAxisSpacing:
-                (Device.orientation == Orientation.portrait) ? 3.w : 3.h,
-            crossAxisSpacing:
-                (Device.orientation == Orientation.portrait) ? 3.w : 3.h,
+            maxCrossAxisExtent: 25.h,
+            mainAxisSpacing: (!Res.isWide) ? 3.w : 3.h,
+            crossAxisSpacing: (!Res.isWide) ? 3.w : 3.h,
             childAspectRatio: 3 / 2,
             shrinkWrap: true,
             children: [
@@ -69,7 +68,7 @@ class SemesterChooserWidget extends StatelessWidget {
                             style: TextStyle(
                               color:
                                   Theme.of(context).textTheme.bodyLarge!.color,
-                              fontSize: 20.sp,
+                              fontSize: 18.sp,
                             ),
                           ),
                           Text(
@@ -77,7 +76,7 @@ class SemesterChooserWidget extends StatelessWidget {
                             style: TextStyle(
                               color:
                                   Theme.of(context).textTheme.bodyLarge!.color,
-                              fontSize: 17.sp,
+                              fontSize: 16.sp,
                             ),
                           ),
                         ],

@@ -29,6 +29,7 @@ class ScreenSettingsDragAndDropContent extends StatefulWidget {
 
 class _ScreenSettingsDragAndDropContentState
     extends State<ScreenSettingsDragAndDropContent> {
+  final double _baseHeight = (!Res.isWide) ? 8.h : 7.h;
   bool _isExpanded = false;
   GlobalKey key = GlobalKey();
   late double childHeight;
@@ -36,7 +37,7 @@ class _ScreenSettingsDragAndDropContentState
 
   @override
   void initState() {
-    childHeight = (Device.orientation == Orientation.portrait) ? 8.h : 9.h;
+    childHeight = _baseHeight;
     _collapse();
     super.initState();
   }
@@ -60,9 +61,9 @@ class _ScreenSettingsDragAndDropContentState
       if (_isExpanded) {
         // set the height to the height of the child for the animation
         childHeight = (key.currentContext?.size?.height ?? 0.0) +
-            ((Device.orientation == Orientation.portrait) ? 13.h : 15.h);
+            ((!Res.isWide) ? 13.h : 13.h);
       } else {
-        childHeight = (Device.orientation == Orientation.portrait) ? 8.h : 9.h;
+        childHeight = _baseHeight;
       }
     });
   }

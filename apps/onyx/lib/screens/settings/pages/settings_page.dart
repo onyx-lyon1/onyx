@@ -19,6 +19,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/widgets/draggable_zone_widget.dart';
 import 'package:onyx/screens/settings/widgets/drop_down_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({
@@ -104,40 +105,42 @@ class _SettingsPageState extends State<SettingsPage> {
                       name: 'Connexion',
                       widgets: [
                         const SizedBox(height: 20),
-                        MaterialButton(
-                          minWidth: MediaQuery.of(context).size.width,
-                          color: const Color(0xffbf616a),
-                          textColor: Colors.white70,
-                          child: const Text('Déconnexion'),
-                          onPressed: () {
-                            CacheService.reset<IzlyCredential>();
-                            context.read<IzlyCubit>().disconnect();
-                            Hive.deleteBoxFromDisk("cached_qr_code");
-                            Hive.deleteBoxFromDisk("cached_izly_amount");
-                            CacheService.reset<IzlyQrCodeList>();
-                            CacheService.reset<MailBoxList>();
-                            CacheService.reset<Agenda>();
-                            CacheService.reset<TeachingUnitList>();
-                            CacheService.reset<Lyon1CasClient>();
-                            CacheService.reset<SettingsModel>();
-                            context.read<AgendaCubit>().resetCubit();
-                            context.read<IzlyCubit>().resetCubit();
-                            context.read<EmailCubit>().resetCubit();
-                            context.read<MapCubit>().resetCubit();
-                            context.read<SettingsCubit>().resetCubit();
-                            context.read<SettingsCubit>().load();
-                            context.read<TomussCubit>().resetCubit();
-                            context.read<AuthentificationCubit>().logout();
-                          },
+                        Center(
+                          child: MaterialButton(
+                            color: const Color(0xffbf616a),
+                            textColor: Colors.white70,
+                            child: Text('Déconnexion',
+                                style: TextStyle(fontSize: 17.sp)),
+                            onPressed: () {
+                              CacheService.reset<IzlyCredential>();
+                              context.read<IzlyCubit>().disconnect();
+                              Hive.deleteBoxFromDisk("cached_qr_code");
+                              Hive.deleteBoxFromDisk("cached_izly_amount");
+                              CacheService.reset<IzlyQrCodeList>();
+                              CacheService.reset<MailBoxList>();
+                              CacheService.reset<Agenda>();
+                              CacheService.reset<TeachingUnitList>();
+                              CacheService.reset<Lyon1CasClient>();
+                              CacheService.reset<SettingsModel>();
+                              context.read<AgendaCubit>().resetCubit();
+                              context.read<IzlyCubit>().resetCubit();
+                              context.read<EmailCubit>().resetCubit();
+                              context.read<MapCubit>().resetCubit();
+                              context.read<SettingsCubit>().resetCubit();
+                              context.read<SettingsCubit>().load();
+                              context.read<TomussCubit>().resetCubit();
+                              context.read<AuthentificationCubit>().logout();
+                            },
+                          ),
                         ),
                       ],
                     ),
                     SettingsCardWidget(name: "Cache", widgets: [
                       MaterialButton(
-                        minWidth: MediaQuery.of(context).size.width,
                         color: const Color(0xffbf616a),
                         textColor: Colors.white70,
-                        child: const Text('Vider le cache des notes'),
+                        child: Text('Vider le cache des notes',
+                            style: TextStyle(fontSize: 17.sp)),
                         onPressed: () {
                           CacheService.reset<TeachingUnitList>();
                           context.read<TomussCubit>().load(
@@ -151,10 +154,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         },
                       ),
                       MaterialButton(
-                        minWidth: MediaQuery.of(context).size.width,
                         color: const Color(0xffbf616a),
                         textColor: Colors.white70,
-                        child: const Text('Vider le cache de l\'agenda'),
+                        child: Text('Vider le cache de l\'agenda',
+                            style: TextStyle(fontSize: 17.sp)),
                         onPressed: () {
                           CacheService.reset<Agenda>();
                           context.read<AgendaCubit>().load(
@@ -168,10 +171,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         },
                       ),
                       MaterialButton(
-                        minWidth: MediaQuery.of(context).size.width,
                         color: const Color(0xffbf616a),
                         textColor: Colors.white70,
-                        child: const Text('Vider le cache des mails'),
+                        child: Text('Vider le cache des mails',
+                            style: TextStyle(fontSize: 17.sp)),
                         onPressed: () {
                           CacheService.reset<MailBoxList>();
                           context.read<EmailCubit>().load(
@@ -184,10 +187,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         },
                       ),
                       MaterialButton(
-                        minWidth: MediaQuery.of(context).size.width,
                         color: const Color(0xffbf616a),
                         textColor: Colors.white70,
-                        child: const Text('Vider le cache de Izly'),
+                        child: Text('Vider le cache de Izly',
+                            style: TextStyle(fontSize: 17.sp)),
                         onPressed: () {
                           CacheService.reset<IzlyQrCodeList>();
                           CacheService.reset<IzlyCredential>();
@@ -202,10 +205,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     ]),
                     SettingsCardWidget(name: "Notification", widgets: [
                       MaterialButton(
-                        minWidth: MediaQuery.of(context).size.width,
                         color: const Color(0xffbf616a),
                         textColor: Colors.white70,
-                        child: const Text('Tester les notifications'),
+                        child: Text('Tester les notifications',
+                            style: TextStyle(fontSize: 17.sp)),
                         onPressed: () {
                           backgroundLogic(init: false);
                         },

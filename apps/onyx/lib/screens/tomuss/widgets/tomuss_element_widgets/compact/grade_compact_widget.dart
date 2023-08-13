@@ -32,7 +32,7 @@ class GradeCompactWidget extends StatelessWidget {
             grade.numerator.toString(),
             style: TextStyle(
               color: OnyxTheme.darkTheme().colorScheme.background,
-              fontSize: 10.sp,
+              fontSize: 15.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -40,7 +40,7 @@ class GradeCompactWidget extends StatelessWidget {
             '/${grade.denominator.toStringAsFixed(0)}',
             style: TextStyle(
               color: OnyxTheme.darkTheme().colorScheme.background,
-              fontSize: 6.sp,
+              fontSize: 11.sp,
               fontWeight: FontWeight.bold,
             ),
           ),

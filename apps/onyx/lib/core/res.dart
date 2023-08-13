@@ -11,6 +11,22 @@ class Res {
 
   static double get bottomNavBarHeight =>
       (Device.orientation == Orientation.portrait) ? 10.h : 5.w;
+
+  static double get topBarHeight => (Device.orientation == Orientation.portrait)
+      ? bottomNavBarHeight
+      : bottomNavBarHeight * 1.5;
+
+  static bool get isPhone {
+    return ((isPortrait && Device.width <= 599) ||
+        (isLandscape && Device.height <= 599));
+  }
+
+  static bool get isWide => Device.width >= 600;
+
+  static bool get isPortrait => Device.orientation == Orientation.portrait;
+
+  static bool get isLandscape => Device.orientation == Orientation.landscape;
+
   static bool mock = false;
   static const String corsProxy = "https://192.168.220.102:3000/";
 }
