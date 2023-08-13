@@ -133,8 +133,8 @@ class HomePageState extends State<HomePage> {
                         key: const Key("home"),
                         builder: (context, index) {
                           return SizedBox(
-                            height: 100.h,
                             width: 100.w,
+                            height: 100.h,
                             child: context
                                 .read<SettingsCubit>()
                                 .state

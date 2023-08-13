@@ -160,56 +160,55 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
               ),
             ),
             body: CommonScreenWidget(
-              header: Container(
-                margin: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 3.w),
-                  child: Center(
-                    child: TextField(
-                      onChanged: (String query) {},
-                      onSubmitted: (String query) {
-                        context.read<AgendaConfigCubit>().search(query);
-                        FocusScope.of(context).unfocus();
-                      },
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.labelLarge!.color,
-                      ),
-                      cursorColor: Theme.of(context).textTheme.bodyLarge!.color,
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: InputDecoration(
-                        hintText: "Recherche dans les agendas",
-                        prefixIcon: (state.status ==
-                                AgendaConfigStatus.searchResult)
-                            ? GestureDetector(
-                                onTap: () {
-                                  context.read<AgendaConfigCubit>().unSearch();
+              header: LayoutBuilder(builder: (context, constraints) {
+                return Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: constraints.maxWidth * 0.01,
+                      vertical: constraints.maxWidth * 0.01),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.background,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: TextField(
+                    onChanged: (String query) {},
+                    onSubmitted: (String query) {
+                      context.read<AgendaConfigCubit>().search(query);
+                      FocusScope.of(context).unfocus();
+                    },
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.labelLarge!.color,
+                    ),
+                    cursorColor: Theme.of(context).textTheme.bodyLarge!.color,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 1.5.h),
+                      hintText: "Recherche dans les agendas",
+                      prefixIcon: (state.status ==
+                              AgendaConfigStatus.searchResult)
+                          ? GestureDetector(
+                              onTap: () {
+                                context.read<AgendaConfigCubit>().unSearch();
 
-                                  FocusScope.of(context).unfocus();
-                                },
-                                child: Icon(
-                                  Icons.arrow_back_rounded,
-                                  color: Theme.of(context)
-                                      .bottomNavigationBarTheme
-                                      .unselectedItemColor,
-                                ),
-                              )
-                            : Icon(
-                                Icons.search_rounded,
+                                FocusScope.of(context).unfocus();
+                              },
+                              child: Icon(
+                                Icons.arrow_back_rounded,
                                 color: Theme.of(context)
                                     .bottomNavigationBarTheme
                                     .unselectedItemColor,
                               ),
-                        contentPadding: EdgeInsets.zero,
-                        border: InputBorder.none,
-                      ),
+                            )
+                          : Icon(
+                              Icons.search_rounded,
+                              color: Theme.of(context)
+                                  .bottomNavigationBarTheme
+                                  .unselectedItemColor,
+                            ),
+                      border: InputBorder.none,
+                      // contentPadding: EdgeInsets.zero,
                     ),
                   ),
-                ),
-              ),
+                );
+              }),
               body: body,
             ),
           );

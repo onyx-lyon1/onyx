@@ -12,7 +12,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
-class GradeWidget extends StatelessWidget {
+class GradeWidget extends StatefulWidget {
   final List<Grade> grades;
   final String text1;
   final String text2;
@@ -31,22 +31,28 @@ class GradeWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    ScreenshotController screenshotController = ScreenshotController();
+  State<GradeWidget> createState() => _GradeWidgetState();
+}
 
-    double numerator = 0;
-    double denominator = 0;
-    if (depth != 0) {
-      numerator = grades.first.numerator;
-      denominator = grades.first.denominator;
+class _GradeWidgetState extends State<GradeWidget> {
+  ScreenshotController screenshotController = ScreenshotController();
+  double numerator = 0;
+  double denominator = 0;
+  String gradeNumerator = '';
+
+  @override
+  void initState() {
+    if (widget.depth != 0) {
+      numerator = widget.grades.first.numerator;
+      denominator = widget.grades.first.denominator;
     } else {
-      if (grades.length == 1) {
-        denominator = grades.first.denominator;
+      if (widget.grades.length == 1) {
+        denominator = widget.grades.first.denominator;
       } else {
         denominator = 20;
       }
       double coefSum = 0.0;
-      for (var i in grades) {
+      for (var i in widget.grades) {
         if (!i.numerator.isNaN && !i.denominator.isNaN) {
           numerator += (i.numerator / i.denominator) * (i.coef);
           coefSum += (i.coef);
@@ -54,16 +60,24 @@ class GradeWidget extends StatelessWidget {
       }
       numerator = (numerator / ((coefSum != 0) ? coefSum : 1)) * denominator;
     }
-    String gradeNumerator =
-        ((grades.isNotEmpty) ? numerator.toStringAsPrecision(3) : '-');
+    gradeNumerator =
+        ((widget.grades.isNotEmpty) ? numerator.toStringAsPrecision(3) : '-');
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: (onTap != null) ? () => onTap!() : null,
+      onTap: (widget.onTap != null) ? () => widget.onTap!() : null,
+      child: Screenshot(
+        controller: screenshotController,
         child: TomussElementWidget(
           color: TomussLogic.getMainGradeColor(
               forceGreen:
                   context.read<SettingsCubit>().state.settings.forceGreen,
-              isSeen: isSeen,
-              grades: grades),
+              isSeen: widget.isSeen,
+              grades: widget.grades),
           left: Column(
             children: [
               const Spacer(
@@ -87,7 +101,7 @@ class GradeWidget extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   Flexible(
                     flex: 5,
                     child: Container(
@@ -95,14 +109,14 @@ class GradeWidget extends StatelessWidget {
                       color: OnyxTheme.darkTheme().colorScheme.background,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                 ],
               ),
               Flexible(
                 fit: FlexFit.tight,
                 flex: 10,
                 child: Text(
-                  ((grades.isNotEmpty) ? denominator : '-').toString(),
+                  ((widget.grades.isNotEmpty) ? denominator : '-').toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: OnyxTheme.darkTheme().colorScheme.background,
@@ -115,16 +129,16 @@ class GradeWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(
-                flex: 12,
+                flex: 11,
                 fit: FlexFit.tight,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
-                      flex: 2,
+                      flex: 1,
                       child: AutoSizeText(
-                        text1,
+                        widget.text1,
                         maxLines: 3,
                         minFontSize: 12.sp.roundToDouble(),
                         style: TextStyle(
@@ -135,11 +149,12 @@ class GradeWidget extends StatelessWidget {
                       ),
                     ),
                     Flexible(
+                      flex: 2,
                       child: AutoSizeText(
-                        text2,
+                        widget.text2,
                         textAlign: TextAlign.start,
                         maxLines: 3,
-                        minFontSize: 7.sp.roundToDouble(),
+                        // minFontSize: 8.sp.roundToDouble(),
                         style: TextStyle(
                           color: Theme.of(context).textTheme.bodyLarge!.color,
                           overflow: TextOverflow.ellipsis,
@@ -152,7 +167,8 @@ class GradeWidget extends StatelessWidget {
               const Spacer(
                 flex: 1,
               ),
-              if (depth == 1) GradeCoefWidget(grade: grades.first),
+              if (widget.depth == 1)
+                GradeCoefWidget(grade: widget.grades.first),
               IconButton(
                   onPressed: () async {
                     Directory tmpDir = await getTemporaryDirectory();
@@ -162,7 +178,8 @@ class GradeWidget extends StatelessWidget {
                       fileName: 'screenshot.png',
                     );
                     Share.shareXFiles([XFile("${tmpDir.path}/screenshot.png")],
-                        text: "Voici ma note en ${grades.first.title} !");
+                        text:
+                            "Voici ma note en ${widget.grades.first.title} !");
                   },
                   icon: Icon(
                     Icons.share_rounded,
@@ -170,7 +187,9 @@ class GradeWidget extends StatelessWidget {
                   )),
             ],
           ),
-          onTap: onTap,
-        ));
+          onTap: widget.onTap,
+        ),
+      ),
+    );
   }
 }

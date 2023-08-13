@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onyx/core/res.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -10,7 +11,7 @@ class SettingsLinkWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -21,8 +22,8 @@ class SettingsLinkWidget extends StatelessWidget {
             },
             child: Image.asset(
               'assets/discord_Logo.png',
-              width: 40.w,
-              height: 40.w,
+              width: (!Res.isWide) ? 40.w : 20.h,
+              height: (!Res.isWide) ? 40.w : 20.h,
             ),
           ),
           const SizedBox(width: 8),
@@ -33,7 +34,7 @@ class SettingsLinkWidget extends StatelessWidget {
               },
               child: Icon(
                 Icons.info_outline,
-                size: 40.w,
+                size: (!Res.isWide) ? 40.w : 20.h,
               )),
         ]);
   }

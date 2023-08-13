@@ -35,7 +35,7 @@ class TomussCompactElementWidget extends StatelessWidget {
     assert(
         (text3 != null && child3 == null) || (text3 == null && child3 != null));
     return SizedBox(
-      width: (Device.orientation == Orientation.portrait)
+      width: (!Res.isWide)
           ? Res.bottomNavBarHeight * 1.3
           : Res.bottomNavBarHeight * 3,
       child: Material(

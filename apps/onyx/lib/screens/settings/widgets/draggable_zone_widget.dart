@@ -1,6 +1,7 @@
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -81,8 +82,8 @@ class DraggableZoneWidget extends StatelessWidget {
           itemDragHandle: DragHandle(
             verticalAlignment: DragHandleVerticalAlignment.top,
             child: Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 5.w, vertical: 8.h - 5.h),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 5.w, vertical: ((!Res.isWide) ? 8.h : 7.h) - 5.h),
               child: Icon(
                 Icons.drag_indicator_rounded,
                 color: Theme.of(context).primaryColor,

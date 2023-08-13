@@ -169,8 +169,7 @@ class _TomussPageState extends State<TomussPage> {
             childAspectRatio: 3 / 1,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            maxCrossAxisExtent:
-                (Device.orientation == Orientation.portrait) ? 90.w : 30.w,
+            maxCrossAxisExtent: (!Res.isWide) ? 70.w : 70.h,
             children: [
               for (var teachingUnit in state.teachingUnits)
                 GradeWidget(

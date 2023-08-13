@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:onyx/screens/tomuss/widgets/tomuss_element_widgets/enumeration_widget.dart';
@@ -56,8 +57,7 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
         return ResponsiveGridView(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          maxCrossAxisExtent:
-              (Device.orientation == Orientation.portrait) ? 70.w : 30.w,
+          maxCrossAxisExtent: (!Res.isWide) ? 70.w : 70.h,
           padding: const EdgeInsets.all(10.0),
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,

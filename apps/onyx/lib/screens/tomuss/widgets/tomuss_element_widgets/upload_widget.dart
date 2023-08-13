@@ -41,7 +41,7 @@ class UploadWidget extends StatelessWidget {
                 child: Icon(
                   Icons.open_in_new_rounded,
                   color: Colors.white,
-                  size: 23.sp,
+                  size: 20.sp,
                 )),
           ),
           Material(
@@ -86,7 +86,7 @@ class UploadWidget extends StatelessWidget {
                 child: Icon(
                   Icons.save_rounded,
                   color: Colors.white,
-                  size: 23.sp,
+                  size: 20.sp,
                 )),
           ),
         ],

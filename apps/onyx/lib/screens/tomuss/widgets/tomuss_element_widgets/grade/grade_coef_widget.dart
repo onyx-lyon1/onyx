@@ -37,7 +37,7 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontSize: 10.sp,
+            fontSize: 15.sp,
             color: Theme.of(context).textTheme.bodyLarge!.color!),
         decoration: InputDecoration(
           border: OutlineInputBorder(
