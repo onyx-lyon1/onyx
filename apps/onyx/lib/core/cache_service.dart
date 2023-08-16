@@ -50,8 +50,10 @@ class CacheService {
     await Hive.deleteBoxFromDisk("cached_$E");
   }
 
+  static Future<bool> toggleBiometricAuth() {}
+
   static Future<List<int>> getEncryptionKey(bool biometricAuth,
-      {bool autoRetry = true}) async {
+      {bool autoRetry = false}) async {
     if (secureKey != null) {
       return secureKey!;
     }
@@ -66,19 +68,21 @@ class CacheService {
       }
       if (_storageFile != null) await _storageFile!.delete();
       _storageFile = await BiometricStorage().getStorage(
-          "encryptionKey_${(biometricAuth) ? "biometric" : "password"}",
-          options: StorageFileInitOptions(
-            androidBiometricOnly: false,
-            authenticationValidityDurationSeconds: 0,
-            //because we store the key in cache ourself
-            authenticationRequired: biometricAuth,
-          ));
+        "encryptionKey",
+        options: StorageFileInitOptions(
+          androidBiometricOnly: true,
+          authenticationValidityDurationSeconds: -1,
+          //because we store the key in cache ourself
+          authenticationRequired: biometricAuth,
+        ),
+      );
     }
 
     try {
       String? data = await _storageFile!.read();
+
       if (data == null) {
-        data = base64Url.encode((Hive.generateSecureKey()));
+        data = base64Encode(Hive.generateSecureKey());
         await _storageFile!.write(data);
       }
       secureKey = base64Url.decode(data);

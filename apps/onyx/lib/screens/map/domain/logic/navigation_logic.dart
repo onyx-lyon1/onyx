@@ -16,11 +16,11 @@ class NavigationLogic {
   static Future<List<List<LatLng>>> navigateToBatimentFromLocation(
       BuildContext context, List<BatimentModel> batiments) async {
     List<List<LatLng>> paths = [];
-    LatLng position = const LatLng(
-        45.781318, 4.869132); //(await GeolocationLogic.getCurrentLocation())!;
+    LatLng position = (await GeolocationLogic.getCurrentLocation())!;
     for (var batiment in batiments) {
       if (position.inside(MapRes.minBound, MapRes.maxBound) &&
           batiment.position.inside(MapRes.minBound, MapRes.maxBound)) {
+        // ignore: use_build_context_synchronously
         await _loadGraph(context);
         List<Node> path =
             _findPathFromLocalGraph(graph!, position, batiment.position);

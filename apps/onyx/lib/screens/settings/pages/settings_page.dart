@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
-import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
@@ -13,7 +12,6 @@ import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
-import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/notifications/domain/logic/background_logic.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/widgets/draggable_zone_widget.dart';
@@ -104,33 +102,13 @@ class _SettingsPageState extends State<SettingsPage> {
                     SettingsCardWidget(
                       name: 'Connexion',
                       widgets: [
-                        const SizedBox(height: 20),
                         Center(
                           child: MaterialButton(
                             color: const Color(0xffbf616a),
                             textColor: Colors.white70,
                             child: Text('Déconnexion',
                                 style: TextStyle(fontSize: 17.sp)),
-                            onPressed: () {
-                              CacheService.reset<IzlyCredential>();
-                              context.read<IzlyCubit>().disconnect();
-                              Hive.deleteBoxFromDisk("cached_qr_code");
-                              Hive.deleteBoxFromDisk("cached_izly_amount");
-                              CacheService.reset<IzlyQrCodeList>();
-                              CacheService.reset<MailBoxList>();
-                              CacheService.reset<Agenda>();
-                              CacheService.reset<TeachingUnitList>();
-                              CacheService.reset<Lyon1CasClient>();
-                              CacheService.reset<SettingsModel>();
-                              context.read<AgendaCubit>().resetCubit();
-                              context.read<IzlyCubit>().resetCubit();
-                              context.read<EmailCubit>().resetCubit();
-                              context.read<MapCubit>().resetCubit();
-                              context.read<SettingsCubit>().resetCubit();
-                              context.read<SettingsCubit>().load();
-                              context.read<TomussCubit>().resetCubit();
-                              context.read<AuthentificationCubit>().logout();
-                            },
+                            onPressed: () => SettingsLogic.logout(context),
                           ),
                         ),
                       ],

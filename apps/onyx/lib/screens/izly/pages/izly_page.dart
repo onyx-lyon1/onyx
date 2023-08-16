@@ -120,17 +120,13 @@ class IzlyPage extends StatelessWidget {
             }
             return;
           },
-          header: Container(
-            height: Res.bottomNavBarHeight,
-            color: Theme.of(context).cardTheme.color,
-            child: Center(
-              child: Text(
-                'Izly',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyLarge!.color,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
+          header: Center(
+            child: Text(
+              'Izly',
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyLarge!.color,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
