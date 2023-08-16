@@ -76,5 +76,7 @@
     <string>This app needs access to location when in the background.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs camera access to scan QR codes</string>
 </dict>
 </plist>

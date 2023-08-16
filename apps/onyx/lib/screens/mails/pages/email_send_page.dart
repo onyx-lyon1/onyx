@@ -205,9 +205,10 @@ class MailSendPage extends StatelessWidget {
                     children: [
                       QuillToolbar.basic(
                           controller: controller, multiRowsDisplay: false),
-                      SizedBox(
+                      Container(
                         height: (originalMessage != null) ? 40.h : 52.h,
                         width: 100.w,
+                        padding: const EdgeInsets.all(10),
                         child: QuillEditor.basic(
                           controller: controller,
                           readOnly: false, // true for view only mode

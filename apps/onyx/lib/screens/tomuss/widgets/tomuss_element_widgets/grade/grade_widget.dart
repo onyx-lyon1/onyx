@@ -140,7 +140,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                       child: AutoSizeText(
                         widget.text1,
                         maxLines: 3,
-                        minFontSize: 12.sp.roundToDouble(),
+                        minFontSize: 15.sp.roundToDouble(),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).textTheme.bodyLarge!.color,
@@ -149,7 +149,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                       ),
                     ),
                     Flexible(
-                      flex: 2,
+                      flex: 1,
                       child: AutoSizeText(
                         widget.text2,
                         textAlign: TextAlign.start,

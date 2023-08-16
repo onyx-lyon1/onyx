@@ -31,7 +31,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
   }
 
   Future<void> login(
-      {required Credential? creds, required SettingsModel settings}) async {
+      {Credential? creds, required SettingsModel settings}) async {
     if (Res.mock) {
       await CacheService.set<Credential>(
         Credential("mockUsername", "mockPassword"),
@@ -41,6 +41,12 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
           status: AuthentificationStatus.authentificated, lyon1Cas: _lyon1Cas));
       return;
     }
+
+    if (settings.biometricAuth) {
+      emit(state.copyWith(status: AuthentificationStatus.waitingBiometric));
+    }
+    List<int> key = await CacheService.getEncryptionKey(settings.biometricAuth);
+    creds ??= await CacheService.get<Credential>(secureKey: key);
     if (creds == null) {
       emit(state.copyWith(status: AuthentificationStatus.needCredential));
       return;
@@ -61,8 +67,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
             lyon1Cas: _lyon1Cas));
         await CacheService.set<Credential>(
           auth.credential,
-          secureKey:
-              await CacheService.getEncryptionKey(settings.biometricAuth),
+          secureKey: key,
         );
       } catch (e) {
         if (kDebugMode) {

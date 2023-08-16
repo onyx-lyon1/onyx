@@ -5,7 +5,8 @@ enum AuthentificationStatus {
   needCredential,
   authentificating,
   authentificated,
-  error
+  error,
+  waitingBiometric
 }
 
 class AuthentificationState extends Equatable {

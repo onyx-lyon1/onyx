@@ -25,38 +25,34 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(
-            height: 40.h,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "assets/izly.png",
-                  width: 25.w,
-                ),
-                SizedBox(
-                  width: 5.w,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("ONYX",
-                        style:
-                            Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  fontSize: 20.sp,
-                                )),
-                    Text("Pour Lyon 1",
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(fontSize: 8.sp)),
-                  ],
-                ),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/izly.png",
+                width: 25.w,
+              ),
+              SizedBox(
+                width: 5.w,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("ONYX",
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                            fontSize: 20.sp,
+                          )),
+                  Text("Pour Lyon 1",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(fontSize: 8.sp)),
+                ],
+              ),
+            ],
           ),
           Form(
             key: _formKey,
@@ -76,7 +72,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
-                              .copyWith(fontSize: 12.sp),
+                              .copyWith(fontSize: 18.sp),
                         ),
                         Material(
                           borderRadius: BorderRadius.circular(5),
@@ -94,7 +90,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
-                                      .copyWith(fontSize: 10.sp),
+                                      .copyWith(fontSize: 17.sp),
                                 ),
                               ),
                             ),
@@ -206,7 +202,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                           'Connexion',
                           style:
                               Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    fontSize: 12.sp,
+                                    fontSize: 18.sp,
                                   ),
                         ),
                       ),
