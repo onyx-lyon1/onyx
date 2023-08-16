@@ -153,7 +153,7 @@ class MailWidget extends StatelessWidget {
                           ? readText1Color(context)
                           : unreadText1Color(context),
                       fontWeight: FontWeight.bold,
-                      fontSize: 12.sp,
+                      fontSize: 16.sp,
                       overflow: TextOverflow.ellipsis,
                     ),
                     maxLines: 1,
@@ -168,7 +168,7 @@ class MailWidget extends StatelessWidget {
                         color: email.isRead
                             ? readText1Color(context)
                             : unreadText1Color(context),
-                        fontSize: 10.sp),
+                        fontSize: 16.sp),
                   ),
                 ),
               ],
