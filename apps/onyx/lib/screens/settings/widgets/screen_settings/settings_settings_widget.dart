@@ -6,8 +6,6 @@ import 'package:biometric_storage/biometric_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:izlyclient/izlyclient.dart';
-import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
@@ -71,43 +69,7 @@ class SettingsSettingsWidget extends StatelessWidget {
                 }
               }
 
-              Credential? creds;
-              IzlyCredential? izlyCreds;
-              List<int>? unSecureKey =
-                  await CacheService.getEncryptionKey(!value, autoRetry: true);
-              try {
-                creds =
-                    await CacheService.get<Credential>(secureKey: unSecureKey);
-              } catch (e) {
-                creds = null;
-              }
-              try {
-                izlyCreds = await CacheService.get<IzlyCredential>(
-                    secureKey: unSecureKey);
-              } catch (e) {
-                izlyCreds = null;
-              }
-              await CacheService.reset<Credential>();
-              await CacheService.reset<IzlyCredential>();
-              CacheService.secureKey = null;
-              try {
-                CacheService.secureKey = await CacheService.getEncryptionKey(
-                    value,
-                    autoRetry: false);
-              } on AuthException catch (e) {
-                if (e.code == AuthExceptionCode.userCanceled) {
-                  value = false;
-                  return;
-                }
-              }
-              if (creds != null) {
-                await CacheService.set<Credential>(creds,
-                    secureKey: CacheService.secureKey);
-              }
-              if (izlyCreds != null) {
-                await CacheService.set<IzlyCredential>(izlyCreds,
-                    secureKey: CacheService.secureKey);
-              }
+              await CacheService.toggleBiometricAuth(value);
               context.read<SettingsCubit>().modify(
                   settings: context
                       .read<SettingsCubit>()

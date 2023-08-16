@@ -83,9 +83,10 @@ class WaitingBiometric extends StatelessWidget {
                 context.read<AuthentificationCubit>().login(
                     settings: context.read<SettingsCubit>().state.settings);
               },
+              borderRadius: BorderRadius.circular(500),
               child: Container(
                 width: 40.w,
-                height: 20.w,
+                height: 30.w,
                 padding: EdgeInsets.symmetric(vertical: 2.h),
                 child: Center(
                     child: Icon(
