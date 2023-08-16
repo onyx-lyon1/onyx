@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
@@ -131,38 +130,36 @@ class _GradeWidgetState extends State<GradeWidget> {
               Flexible(
                 flex: 11,
                 fit: FlexFit.tight,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: AutoSizeText(
-                        widget.text1,
-                        maxLines: 3,
-                        minFontSize: 15.sp.roundToDouble(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).textTheme.bodyLarge!.color,
-                          overflow: TextOverflow.ellipsis,
+                child: LayoutBuilder(builder: (context, contraints) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: Text(
+                          widget.text1,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                            fontSize: 16.sp,
+                          ),
                         ),
                       ),
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: AutoSizeText(
-                        widget.text2,
-                        textAlign: TextAlign.start,
-                        maxLines: 3,
-                        // minFontSize: 8.sp.roundToDouble(),
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyLarge!.color,
-                          overflow: TextOverflow.ellipsis,
+                      Flexible(
+                        flex: 1,
+                        child: Text(
+                          widget.text2,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                            fontSize: 15.sp,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  );
+                }),
               ),
               const Spacer(
                 flex: 1,
