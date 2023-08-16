@@ -1,0 +1,30 @@
+name: lyon1mailclient
+description: A Dart library for interacting with Lyon 1 University's email system, providing functionality to fetch and manage email messages.
+version: 1.0.0
+repository: https://github.com/onyx-lyon1/lyon1mailclient
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+
+dev_dependencies:
+  dotenv: ^4.0.1
+  lints: ^2.0.0
+  test: ^1.16.0
+  build_runner: ^2.2.0
+  hive_generator: ^2.0.0
+  copy_with_extension_gen: ^5.0.2
+
+dependencies:
+  enough_mail:
+    git: https://github.com/hatch01/enough_mail.git
+  enough_mail_html:
+    git: https://github.com/hatch01/enough_mail_html.git
+  hive: ^2.2.3
+  requests_plus: ^4.8.2
+  copy_with_extension: ^5.0.3
+  equatable: ^2.0.5
+  http: ^1.1.0
+
+#dependency_overrides:
+#  http: ^1.1.0 # needed for enough_mail
