@@ -40,8 +40,8 @@ dependencies:
   flutter_file_dialog: ^3.0.2
   flutter_quill: ^7.3.3
   vsc_quill_delta_to_html: ^1.0.3
-  enough_mail:
-    git: https://github.com/hatch01/enough_mail.git
+  enough_mail: ^2.1.1
+    #git: https://github.com/hatch01/enough_mail.git
 
   #cas
   lyon1casclient: ^1.0.0
@@ -87,6 +87,11 @@ dev_dependencies:
   hive_generator: ^2.0.1
   flutter_launcher_icons: ^0.13.1
   copy_with_extension_gen: ^5.0.4
+
+dependency_overrides:
+  image: ^4.0.15
+  intl: ^0.18.0
+  http: ^1.1.0
 
 flutter_icons:
   android: "launcher_icon"
