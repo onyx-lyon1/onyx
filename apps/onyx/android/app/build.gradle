@@ -22,10 +22,6 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
-// START: FlutterFire Configuration
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
-// END: FlutterFire Configuration
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -36,6 +32,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+    namespace 'fr.onyx.lyon1'
     compileSdkVersion 33
 
     compileOptions {
@@ -75,7 +72,6 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    namespace 'fr.onyx.lyon1'
 }
 
 flutter {
@@ -83,6 +79,6 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 }

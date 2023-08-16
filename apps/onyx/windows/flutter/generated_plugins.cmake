@@ -4,7 +4,6 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
-  desktop_window
   geolocator_windows
   pasteboard
   permission_handler_windows

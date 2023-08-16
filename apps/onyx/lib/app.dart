@@ -84,6 +84,7 @@ class OnyxAppState extends State<OnyxApp> {
               context.read<TomussCubit>().load(
                     lyon1Cas: authState.lyon1Cas,
                     settings: context.read<SettingsCubit>().state.settings,
+                    force: true,
                   );
             }
             return BlocBuilder<SettingsCubit, SettingsState>(
@@ -91,21 +92,9 @@ class OnyxAppState extends State<OnyxApp> {
                 if (settingsState.status == SettingsStatus.ready ||
                     settingsState.status == SettingsStatus.error) {
                   if (authState.status == AuthentificationStatus.initial) {
-                    CacheService.getEncryptionKey(context
-                            .read<SettingsCubit>()
-                            .state
-                            .settings
-                            .biometricAuth)
-                        .then((key) =>
-                            CacheService.get<Credential>(secureKey: key).then(
-                                (value) => context
-                                    .read<AuthentificationCubit>()
-                                    .login(
-                                        creds: value,
-                                        settings: context
-                                            .read<SettingsCubit>()
-                                            .state
-                                            .settings)));
+                    context
+                        .read<AuthentificationCubit>()
+                        .login(settings: settingsState.settings);
                   } else if (authState.status ==
                           AuthentificationStatus.authentificated &&
                       settingsState.settings.firstLogin) {
@@ -124,18 +113,14 @@ class OnyxAppState extends State<OnyxApp> {
                       themeMode: settingsState.settings.themeMode.themeMode,
                       theme: OnyxTheme.lighTheme(),
                       darkTheme: OnyxTheme.darkTheme(),
-                      // showPerformanceOverlay: true,
-                      home:
-                          (context.read<AuthentificationCubit>().state.status ==
-                                      AuthentificationStatus.authentificated ||
-                                  context
-                                          .read<AuthentificationCubit>()
-                                          .state
-                                          .status ==
-                                      AuthentificationStatus.authentificating ||
-                                  !settingsState.settings.firstLogin)
-                              ? const HomePage()
-                              : LoginPage(key: UniqueKey()));
+                      home: (authState.status ==
+                                  AuthentificationStatus.authentificated ||
+                              authState.status ==
+                                  AuthentificationStatus.authentificating ||
+                              (!settingsState.settings.firstLogin &&
+                                  !settingsState.settings.biometricAuth))
+                          ? const HomePage()
+                          : LoginPage(key: UniqueKey()));
                 } else {
                   return MaterialApp(
                     debugShowCheckedModeBanner: false,

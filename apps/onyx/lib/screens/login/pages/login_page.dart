@@ -5,6 +5,7 @@ import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/privacy_policie_page.dart';
 import 'package:onyx/screens/login/login_export.dart';
+import 'package:onyx/screens/login/pages/waiting_biometric.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -63,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium!
-                                    .copyWith(fontSize: 8.sp)),
+                                    .copyWith(fontSize: 12.sp)),
                           ],
                         ),
                       ),
@@ -74,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                   flex: 1,
                 ),
                 Flexible(
-                  flex: 3,
+                  flex: 4,
                   child: SizedBox(
                     width: (Device.orientation == Orientation.portrait)
                         ? 70.w
@@ -95,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
-                                      .copyWith(fontSize: 12.sp),
+                                      .copyWith(fontSize: 17.sp),
                                 ),
                                 Material(
                                   borderRadius: BorderRadius.circular(5),
@@ -115,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge!
-                                              .copyWith(fontSize: 10.sp),
+                                              .copyWith(fontSize: 16.sp),
                                         ),
                                       ),
                                     ),
@@ -225,7 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                                         .textTheme
                                         .bodyLarge!
                                         .copyWith(
-                                          fontSize: 12.sp,
+                                          fontSize: 17.sp,
                                         ),
                                   ),
                                 ),
@@ -244,7 +245,6 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       Res.mock = true;
                       context.read<AuthentificationCubit>().login(
-                          creds: Credential(username, password),
                           settings:
                               context.read<SettingsCubit>().state.settings);
                     },
@@ -267,6 +267,8 @@ class _LoginPageState extends State<LoginPage> {
           return const StateDisplayingPage(message: "Login error");
         }
         break;
+      case AuthentificationStatus.waitingBiometric:
+        return const WaitingBiometric();
     }
     return const StateDisplayingPage(message: "FATAL ERROR");
   }

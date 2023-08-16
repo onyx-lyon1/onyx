@@ -29,7 +29,7 @@ class ScreenSettingsDragAndDropContent extends StatefulWidget {
 
 class _ScreenSettingsDragAndDropContentState
     extends State<ScreenSettingsDragAndDropContent> {
-  final double _baseHeight = (!Res.isWide) ? 8.h : 7.h;
+  final double _baseHeight = (!Res.isWide) ? 7.2.h : 7.h;
   bool _isExpanded = false;
   GlobalKey key = GlobalKey();
   late double childHeight;

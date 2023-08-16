@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/map/domain/logic/tile_provider_logic.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -21,19 +23,24 @@ class MapWidget extends StatefulWidget {
   final List<BatimentModel> batiments;
   final List<Polyline> polylines;
   final LatLng? center;
-  final MapController? mapController;
+  final AnimatedMapController? mapController;
   final void Function(BatimentModel) onTapNavigate;
 
   @override
   State<MapWidget> createState() => _MapWidgetState();
 }
 
-class _MapWidgetState extends State<MapWidget> {
-  late MapController mapController;
+class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
+  late AnimatedMapController mapController;
 
   @override
   void initState() {
-    mapController = widget.mapController ?? MapController();
+    mapController = widget.mapController ??
+        AnimatedMapController(
+          vsync: this,
+          curve: Curves.easeInOut,
+          duration: Res.animationDuration,
+        );
     super.initState();
   }
 
@@ -45,7 +52,7 @@ class _MapWidgetState extends State<MapWidget> {
         point: element.position,
         builder: (context) => Icon(
           Icons.location_on_rounded,
-          size: 15.sp,
+          size: 20.sp,
           color: Colors.red,
           semanticLabel: element.name,
         ),
@@ -55,7 +62,7 @@ class _MapWidgetState extends State<MapWidget> {
       GeolocationLogic.getCurrentLocation(askPermission: false)
           .then((value) async {
         if (value != null) {
-          mapController.move(value, 16.5);
+          mapController.centerOnPoint(value, zoom: 16.5);
         }
       });
     }
@@ -68,7 +75,7 @@ class _MapWidgetState extends State<MapWidget> {
             maxZoom: MapRes.maxZoom,
             minZoom: 0,
           ),
-          mapController: mapController,
+          mapController: mapController.mapController,
           children: [
             TileLayer(tileProvider: HybridTileProvider() //AssetTileProvider(),
                 ),
@@ -86,14 +93,16 @@ class _MapWidgetState extends State<MapWidget> {
                   options: PopupMarkerLayerOptions(
                 markers: markers,
                 popupController: popupLayerController,
-                selectedMarkerBuilder: (BuildContext context, Marker marker) {
-                  return MapPopupWidget(
-                    batiment: widget.batiments.firstWhere(
-                        (element) => element.position == marker.point),
-                    onTap: widget.onTapNavigate,
-                    popupController: popupLayerController,
-                  );
-                },
+                popupDisplayOptions: PopupDisplayOptions(
+                  builder: (BuildContext context, Marker marker) {
+                    return MapPopupWidget(
+                      batiment: widget.batiments.firstWhere(
+                          (element) => element.position == marker.point),
+                      onTap: widget.onTapNavigate,
+                      popupController: popupLayerController,
+                    );
+                  },
+                ),
               )),
           ],
         ),
@@ -115,7 +124,7 @@ class _MapWidgetState extends State<MapWidget> {
                             .then((value) {
                           setState(() {
                             if ((value != null)) {
-                              mapController.move(value, 15);
+                              mapController.centerOnPoint(value, zoom: 15);
                             }
                           });
                         });
@@ -133,7 +142,7 @@ class _MapWidgetState extends State<MapWidget> {
                 padding: EdgeInsets.all(2.h),
                 child: IconButton(
                     onPressed: () {
-                      mapController.move(MapRes.center, 16.5);
+                      mapController.centerOnPoint(MapRes.center, zoom: 16.5);
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
