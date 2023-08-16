@@ -53,10 +53,10 @@ packages:
     dependency: transitive
     description:
       name: basic_utils
-      sha256: "1fb8c5493fc1b9500512b2e153c0b9bcc9e281621cde7f810420f4761be9e38d"
+      sha256: c4f6b890f961ee3d6f70e2d65be99839055a4b4d1bb12c778d26b53e96eb33aa
       url: "https://pub.dev"
     source: hosted
-    version: "5.6.1"
+    version: "4.5.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -244,21 +244,27 @@ packages:
   enough_mail:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "7acfdd1a57c40f51254c1c3a71d6f11d707504fb"
-      url: "https://github.com/hatch01/enough_mail.git"
-    source: git
+      name: enough_mail
+      sha256: da5acfe639663485f9e869b0b7f90c3d9d5d99f4aa4fdd3bee3ac0f8597d631c
+      url: "https://pub.dev"
+    source: hosted
     version: "2.1.1"
   enough_mail_html:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "905aa14c1531f89ec01b975d40b3640082a95360"
-      url: "https://github.com/hatch01/enough_mail_html.git"
-    source: git
+      name: enough_mail_html
+      sha256: d09a833f4f865f8b35f26aee2e8a4432dbaafe02469ed2a0f1cabdc31f63968f
+      url: "https://pub.dev"
+    source: hosted
     version: "2.0.0"
+  enough_serialization:
+    dependency: transitive
+    description:
+      name: enough_serialization
+      sha256: c073934db3dff512c5f63917dab1140f0cb8d79bb48d40a3e00d1b0f35d44fac
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   equatable:
     dependency: "direct main"
     description:
@@ -375,18 +381,18 @@ packages:
     dependency: transitive
     description:
       name: image
-      sha256: a72242c9a0ffb65d03de1b7113bc4e189686fc07c7147b8b41811d0dd0e0d9bf
+      sha256: "8e9d133755c3e84c73288363e6343157c383a0c6c56fc51afcc5d4d7180306d6"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.17"
+    version: "3.3.0"
   intl:
     dependency: transitive
     description:
       name: intl
-      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.1"
+    version: "0.17.0"
   io:
     dependency: transitive
     description:
