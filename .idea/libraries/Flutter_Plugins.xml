@@ -1,6 +1,45 @@
 <component name="libraryTable">
   <library name="Flutter Plugins" type="FlutterPluginsLibraryType">
-    <CLASSES />
+    <CLASSES>
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_linux-3.0.5" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_keyboard_visibility_linux-1.0.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.7.3" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter-4.2.2" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/workmanager-0.5.1" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/open_filex-4.3.2" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.1.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/geolocator_android-4.2.2" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher-6.1.12" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/file_picker-5.3.3" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus-7.1.0" />
+      <root url="file://$USER_HOME$/.pub-cache/git/biometric_storage-655e1acce8cef5bc0938fda1d607666db8c33771" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/geolocator_apple-2.2.7" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_file_dialog-3.0.2" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_ios-6.1.4" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_web-2.0.18" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/device_info_plus-9.0.3" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_keyboard_visibility-5.4.1" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/connectivity_plus-4.0.2" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_keyboard_visibility_web-2.0.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_compass-0.7.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_keyboard_visibility_macos-1.0.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_macos-3.0.6" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_keyboard_visibility_windows-1.0.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider-2.1.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/permission_handler-10.4.3" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter_android-3.9.3" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/geolocator-9.0.2" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.38" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/geolocator_web-2.1.6" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_local_notifications-15.1.0+1" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/pasteboard-0.2.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_windows-3.0.7" />
+      <root url="file:///var/home/eymeric/bin/flutter-sdk/packages/integration_test" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/mobile_scanner-3.4.1" />
+    </CLASSES>
     <JAVADOC />
     <SOURCES />
   </library>
