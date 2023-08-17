@@ -34,16 +34,23 @@ class QrCodeScannerPageState extends State<QrCodeScannerPage> {
       body: Container(
         color: Theme.of(context).colorScheme.background,
         child: cameraGranted
-            ? MobileScanner(
-                controller: MobileScannerController(
-                  detectionSpeed: DetectionSpeed.noDuplicates,
-                ),
-                onDetect: (barcode) {
-                  final String code = barcode.barcodes.first.rawValue ?? '';
-                  if (code.isNotEmpty && code.startsWith('http')) {
-                    Navigator.pop(context, code);
-                  }
-                })
+            ? MobileScanner(onDetect: (barcode, args) {
+                final String code = barcode.rawValue ?? '';
+                if (code.isNotEmpty && code.startsWith('http')) {
+                  Navigator.pop(context, code);
+                }
+              })
+
+            // MobileScanner(
+            //         controller: MobileScannerController(
+            //           detectionSpeed: DetectionSpeed.noDuplicates,
+            //         ),
+            //         onDetect: (barcode) {
+            //           final String code = barcode.barcodes.first.rawValue ?? '';
+            //           if (code.isNotEmpty && code.startsWith('http')) {
+            //             Navigator.pop(context, code);
+            //           }
+            //         })
             : const Center(
                 child: Text(
                   /* TODO: beautify this screen !*/
