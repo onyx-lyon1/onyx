@@ -356,9 +356,10 @@ packages:
   lyon1casclient:
     dependency: "direct main"
     description:
-      path: "../lyon1casclient"
-      relative: true
-    source: path
+      name: lyon1casclient
+      sha256: "345369fed185487a3b11d0dea1249ee936aece0f1c7c7c048aa713d8c43b9a4d"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.1"
   matcher:
     dependency: transitive
@@ -444,10 +445,10 @@ packages:
     dependency: "direct main"
     description:
       name: requests_plus
-      sha256: ff235241afbca27d5f4fde6e9c9635679f91aa746a4237a4b166f9ec49af37cc
+      sha256: f49c251bf868450148a3634424be19b818d3b3695d2c2e7d0e1e30e56b7c30b5
       url: "https://pub.dev"
     source: hosted
-    version: "4.8.2"
+    version: "4.8.3"
   shelf:
     dependency: transitive
     description:
@@ -641,4 +642,4 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.0.0 <3.1.0"
+  dart: ">=3.0.6 <4.0.0"
