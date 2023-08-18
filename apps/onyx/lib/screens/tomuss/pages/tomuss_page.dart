@@ -188,8 +188,10 @@ class _TomussPageState extends State<TomussPage> {
                   settings: context.read<SettingsCubit>().state.settings,
                   force: true,
                 );
+            // ignore: use_build_context_synchronously
             while (context.read<TomussCubit>().state.status !=
                     TomussStatus.ready &&
+                // ignore: use_build_context_synchronously
                 context.read<TomussCubit>().state.status !=
                     TomussStatus.error) {
               await Future.delayed(const Duration(milliseconds: 100));
