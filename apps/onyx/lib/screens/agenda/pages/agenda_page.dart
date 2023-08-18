@@ -203,8 +203,10 @@ class AgendaPage extends StatelessWidget {
                     lyon1Cas:
                         context.read<AuthentificationCubit>().state.lyon1Cas,
                     settings: context.read<SettingsCubit>().state.settings);
+                // ignore: use_build_context_synchronously
                 while (context.read<AgendaCubit>().state.status !=
                         AgendaStatus.ready &&
+                    // ignore: use_build_context_synchronously
                     context.read<AgendaCubit>().state.status !=
                         AgendaStatus.error) {
                   await Future.delayed(const Duration(milliseconds: 100));
