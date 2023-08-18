@@ -36,7 +36,7 @@ dependencies:
   lyon1mailclient: ^1.0.1
   webview_flutter: ^4.2.2
   file_picker: ^5.3.3
-  open_filex: ^4.3.2variables
+  open_filex: ^4.3.2
   flutter_file_dialog: ^3.0.2
   flutter_quill: #^7.4.0
     git: https://github.com/singerdmx/flutter-quill.git
