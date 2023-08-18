@@ -18,13 +18,11 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 class SettingsLogic {
   static Future<SettingsModel> load() async {
-    if (Res.mock) {
-      return const SettingsModel();
-    }
     if (await Hive.boxExists('settings')) {
       Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');
       SettingsModel? tmpSettings = box.get('settings');
       if (tmpSettings != null) {
+        Res.mock = tmpSettings.mock;
         return tmpSettings;
       } else {
         throw Exception("Settings not found");
@@ -45,10 +43,12 @@ class SettingsLogic {
   }
 
   static void logout(BuildContext context) {
+    Res.mock = false;
     CacheService.reset<IzlyCredential>();
     context.read<IzlyCubit>().disconnect();
     Hive.deleteBoxFromDisk("cached_qr_code");
     Hive.deleteBoxFromDisk("cached_izly_amount");
+    Hive.deleteBoxFromDisk("settings");
     CacheService.reset<IzlyQrCodeList>();
     CacheService.reset<MailBoxList>();
     CacheService.reset<Agenda>();

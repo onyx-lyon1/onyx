@@ -24,7 +24,7 @@ class PresenceWidget extends StatelessWidget {
                   ? Colors.white
                   : Theme.of(context).textTheme.bodyLarge!.color,
               overflow: TextOverflow.ellipsis,
-              fontSize: 11.sp,
+              fontSize: 17.sp,
             ),
           ),
         ),
@@ -50,7 +50,7 @@ class PresenceWidget extends StatelessWidget {
                 style: TextStyle(
                   color: Theme.of(context).textTheme.bodyLarge!.color,
                   overflow: TextOverflow.ellipsis,
-                  fontSize: 13.sp,
+                  fontSize: 20.sp,
                 ),
               ),
             ),

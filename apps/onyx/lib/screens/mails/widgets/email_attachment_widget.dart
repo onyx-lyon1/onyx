@@ -40,7 +40,7 @@ class MailAttachmentWidget extends StatelessWidget {
                 maxLines: 2,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 10.sp),
+                style: TextStyle(fontSize: 15.sp),
               ),
             ],
           ),
