@@ -35,7 +35,7 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
               'Ouvrir',
               style: TextStyle(
                   color: Theme.of(context).textTheme.bodyLarge!.color,
-                  fontSize: 13.sp),
+                  fontSize: 17.sp),
             ),
           ),
           ElevatedButton(
@@ -70,7 +70,7 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
               'Enregistrer',
               style: TextStyle(
                   color: Theme.of(context).textTheme.bodyLarge!.color,
-                  fontSize: 13.sp),
+                  fontSize: 17.sp),
             ),
           ),
         ],

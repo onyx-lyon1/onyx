@@ -92,25 +92,21 @@ class GradeListWidget extends StatelessWidget {
                       : ((10.w + 3.w) * (depth - 1)) - 3.w
                   : (i == 0)
                       ? 10.w
-                      : 10.w + 3.w,
+                      : 10.w + 2.w,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                if (i >= depth - 2 || lastElement)
+                  Container(
+                    width: 1.w,
+                    height: ((lastElement) ? 6.5.h + 0.25.h : 13.h),
+                    color: Theme.of(context).primaryColor,
+                  ),
                 Container(
-                  width: 1.w,
-                  height: ((lastElement) // && (i >= depth - 2 || lastElement))
-                      ? (13.h / 2) + (0.5.h / 2)
-                      : 13.h),
-                  color: Theme.of(context).primaryColor,
-                ),
-                Container(
-                  width: 1.w,
-                  height: ((lastElement) // && (i >= depth - 2 || lastElement))
-                      ? (13.h / 2) - (0.5.h / 2)
-                      : 0),
-                  color: Theme.of(context).colorScheme.background,
-                ),
+                    width: 1.w,
+                    height: (lastElement) ? 6.5.h - 0.25.h : 0,
+                    color: Colors.transparent),
               ],
             ),
           ),

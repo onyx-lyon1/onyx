@@ -37,6 +37,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
         Credential("mockUsername", "mockPassword"),
         secureKey: await CacheService.getEncryptionKey(settings.biometricAuth),
       );
+      _lyon1Cas.isAuthenticated = true;
       emit(state.copyWith(
           status: AuthentificationStatus.authentificated, lyon1Cas: _lyon1Cas));
       return;

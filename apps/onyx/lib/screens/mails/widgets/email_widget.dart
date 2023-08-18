@@ -187,7 +187,7 @@ class MailWidget extends StatelessWidget {
                       color: email.isRead
                           ? readText2Color(context)
                           : unreadText2Color(context),
-                      fontSize: 12.sp,
+                      fontSize: 15.sp,
                     ),
                   ),
                 ),

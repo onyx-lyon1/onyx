@@ -41,6 +41,8 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel firstLogin(bool firstLogin);
 
+  SettingsModel mock(bool mock);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -64,6 +66,7 @@ abstract class _$SettingsModelCWProxy {
     List<Functionalities>? disabledFunctionalities,
     int? recentGradeDuration,
     bool? firstLogin,
+    bool? mock,
   });
 }
 
@@ -136,6 +139,9 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
   SettingsModel firstLogin(bool firstLogin) => this(firstLogin: firstLogin);
 
   @override
+  SettingsModel mock(bool mock) => this(mock: mock);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -160,6 +166,7 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
     Object? disabledFunctionalities = const $CopyWithPlaceholder(),
     Object? recentGradeDuration = const $CopyWithPlaceholder(),
     Object? firstLogin = const $CopyWithPlaceholder(),
+    Object? mock = const $CopyWithPlaceholder(),
   }) {
     return SettingsModel(
       biometricAuth:
@@ -246,6 +253,10 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
               ? _value.firstLogin
               // ignore: cast_nullable_to_non_nullable
               : firstLogin as bool,
+      mock: mock == const $CopyWithPlaceholder() || mock == null
+          ? _value.mock
+          // ignore: cast_nullable_to_non_nullable
+          : mock as bool,
     );
   }
 }
@@ -298,13 +309,14 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
           : (fields[13] as List).cast<Functionalities>(),
       recentGradeDuration: fields[14] == null ? 7 : fields[14] as int,
       firstLogin: fields[15] == null ? true : fields[15] as bool,
+      mock: fields[17] == null ? false : fields[17] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(16)
+      ..writeByte(17)
       ..writeByte(15)
       ..write(obj.firstLogin)
       ..writeByte(16)
@@ -336,7 +348,9 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(12)
       ..write(obj.enabledFunctionalities)
       ..writeByte(13)
-      ..write(obj.disabledFunctionalities);
+      ..write(obj.disabledFunctionalities)
+      ..writeByte(17)
+      ..write(obj.mock);
   }
 
   @override
