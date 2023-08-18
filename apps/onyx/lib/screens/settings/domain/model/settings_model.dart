@@ -56,6 +56,9 @@ class SettingsModel extends Equatable {
   @HiveField(13, defaultValue: [])
   final List<Functionalities> disabledFunctionalities;
 
+  @HiveField(17, defaultValue: false)
+  final bool mock;
+
   const SettingsModel({
     this.biometricAuth = false,
     this.forceGreen = false,
@@ -80,6 +83,7 @@ class SettingsModel extends Equatable {
     this.disabledFunctionalities = const [],
     this.recentGradeDuration = 7,
     this.firstLogin = true,
+    this.mock = false,
   });
 
   @override
@@ -100,6 +104,7 @@ class SettingsModel extends Equatable {
         recentGradeDuration,
         firstLogin,
         biometricAuth,
+        mock,
       ];
 
   @override

@@ -78,21 +78,21 @@ class MiniCalendarWidget extends StatelessWidget {
                         height: 2.9.h,
                         child: Text(
                           currentDate.toMonthName(short: true),
-                          style: TextStyle(fontSize: 10.sp),
+                          style: TextStyle(fontSize: 15.sp),
                         ),
                       ),
                       SizedBox(
                         height: 3.h,
                         child: Text(
                           currentDate.day.toString(),
-                          style: TextStyle(fontSize: 12.sp),
+                          style: TextStyle(fontSize: 17.sp),
                         ),
                       ),
                       SizedBox(
                         height: 3.h,
                         child: Text(
                           currentDate.toWeekDayName(short: true),
-                          style: TextStyle(fontSize: 10.sp),
+                          style: TextStyle(fontSize: 15.sp),
                         ),
                       ),
                     ],

@@ -244,6 +244,10 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextButton(
                     onPressed: () {
                       Res.mock = true;
+                      context.read<SettingsCubit>().modify(
+                          settings: context.read<SettingsCubit>().state.settings.copyWith(
+                                mock: true,
+                              ));
                       context.read<AuthentificationCubit>().login(
                           settings:
                               context.read<SettingsCubit>().state.settings);

@@ -47,7 +47,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                 Text(
                   "Détail de l'événement",
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: 13.sp,
+                        fontSize: 20.sp,
                       ),
                 ),
               ],
@@ -64,7 +64,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
-                      .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w500),
+                      .copyWith(fontSize: 18.sp, fontWeight: FontWeight.w500),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 1.h),

@@ -49,7 +49,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium!
-                          .copyWith(fontSize: 8.sp)),
+                          .copyWith(fontSize: 12.sp)),
                 ],
               ),
             ],
