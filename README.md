@@ -14,9 +14,13 @@
     <img src="https://img.shields.io/github/release/onyx-lyon1/onyx?include_prereleases=&sort=semver&color=blue"
          alt="Releases">
   </a>
-
+  <a href="https://github.com/onyx-lyon1/onyx/releases">
+    <img src="https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dfr.onyx.lyon1%26l%3DAndroid%26m%3D%24version"
+         alt="Playstore">
+  </a>
   <a href="https://creativecommons.org/licenses/by-nc/4.0/">
-      <img src="https://img.shields.io/badge/License-CC BY--NC-blue">
+      <img src="https://img.shields.io/badge/License-CC BY--NC-blue"
+        alt="License">
   </a>
 </p>
 
