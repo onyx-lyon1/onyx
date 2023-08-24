@@ -14,7 +14,7 @@
     <img src="https://img.shields.io/github/release/onyx-lyon1/onyx?include_prereleases=&sort=semver&color=blue"
          alt="Releases">
   </a>
-  <a href="https://github.com/onyx-lyon1/onyx/releases">
+  <a href="https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share">
     <img src="https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dfr.onyx.lyon1%26l%3DAndroid%26m%3D%24version"
          alt="Playstore">
   </a>
@@ -22,6 +22,13 @@
       <img src="https://img.shields.io/badge/License-CC BY--NC-blue"
         alt="License">
   </a>
+
+  </a>
+  <a href="https://discord.gg/AtCc3pcaNm">
+      <img src="https://img.shields.io/discord/308323056592486420.svg?logo=discord&label=Discord&colorA=2C2F33&colorB=7289DA"
+        alt="Discord">
+  </a>
+
 </p>
 
 <p align="center">
@@ -45,7 +52,12 @@ Onyx is an unofficial, open-source application that lets you access all Universi
 
 ## Download
 
-Coming soon.
+<p align="center">
+<a href='https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="80px"/></a>
+<a href='https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on F-Droid' src='https://fdroid.gitlab.io/artwork/badge/get-it-on.png' height="80px"/></a>
+<a href='https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it Apple Store' src='https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg' height="80px"/></a>
+<a href='https://github.com/onyx-lyon1/onyx/releases'><img alt='Get it GitHub' src='https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png' height="80px"/></a>
+</p>
 
 ## Contribute
 
