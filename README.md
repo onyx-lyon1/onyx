@@ -32,10 +32,10 @@
 </p>
 
 <p align="center">
-  <a href="#features">Features</a>
-  <a href="#download">Download</a>
-  <a href="#contribute">Contribute</a>
-  <a href="#build">Build</a>
+  <a href="#features">Features</a> | 
+  <a href="#download">Download</a> | 
+  <a href="#contribute">Contribute</a> | 
+  <a href="#build">Build</a> | 
   <a href="#license">License</a>
 </p>
 
