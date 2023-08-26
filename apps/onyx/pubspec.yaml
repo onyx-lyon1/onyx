@@ -22,7 +22,7 @@ dependencies:
   copy_with_extension: ^5.0.4
   responsive_sizer: 3.2.0
   #agenda
-  lyon1agendaclient: ^1.0.1
+  lyon1agendaclient: ^1.0.2
 
   #agenda_config
   mobile_scanner: <3.4.0
@@ -100,7 +100,7 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/icon.png"
-  remove_alpha_ios: true  
+  remove_alpha_ios: true
   min_sdk_android: 21 # android min sdk min:16, default 21
   web:
     generate: true
