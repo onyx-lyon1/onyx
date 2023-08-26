@@ -42,6 +42,25 @@ class TomussLogic {
           timeout: parsedPage.timeout
         );
       }
+      if (await CacheService.exist<TeachingUnitList>()) {
+        TeachingUnitList? teachingUnitList =
+            await CacheService.get<TeachingUnitList>();
+        //take all coef and apply them to the new teaching units
+        for (var i = 0; i < parsedPage.teachingunits!.length; i++) {
+          int index = teachingUnitList!.teachingUnitModels.indexWhere(
+              (element) => element.title == parsedPage.teachingunits![i].title);
+          for (var j = 0; j < parsedPage.teachingunits![i].grades.length; j++) {
+            int index2 = teachingUnitList.teachingUnitModels[index].grades
+                .indexWhere((element) =>
+                    element.title ==
+                    parsedPage.teachingunits![i].grades[j].title);
+            parsedPage.teachingunits![i].grades[j] =
+                parsedPage.teachingunits![i].grades[j].copyWith(
+                    coef: teachingUnitList
+                        .teachingUnitModels[index].grades[index2].coef);
+          }
+        }
+      }
       return (
         semesters: parsedPage.semesters,
         schoolSubjectModel: parsedPage.teachingunits,
