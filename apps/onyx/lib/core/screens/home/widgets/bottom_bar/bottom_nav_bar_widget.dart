@@ -4,6 +4,7 @@ import 'package:onyx/core/extensions/functionalities_to_human_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BottomNavBarWidget extends StatelessWidget {
   final Function(int index) onTap;
@@ -25,8 +26,9 @@ class BottomNavBarWidget extends StatelessWidget {
       builder: (context, index) {
         return GestureDetector(
           onTap: () => onTap(index),
-          child: SizedBox(
+          child: Container(
               width: Res.bottomNavBarItemWidth,
+              padding: EdgeInsets.all(2.w),
               child: context
                   .read<SettingsCubit>()
                   .state
