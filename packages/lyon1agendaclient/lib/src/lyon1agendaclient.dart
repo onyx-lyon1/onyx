@@ -31,7 +31,7 @@ class Lyon1AgendaClient {
       url = (await _agendaURL.getURL()); //it's everytime 2 for the project id
     } else {
       url = (await _agendaURL.getURL(
-          projectid: "2",
+          projectid: "3",
           resources: id.toString())); //it's everytime 2 for the project id
     }
     url = url.replaceFirst("http:", "https:"); // force https
@@ -48,7 +48,7 @@ class Lyon1AgendaClient {
         'Pragma': 'no-cache',
         'Cache-Control': 'no-cache'
       },
-      corsProxyUrl:_corsProxyUrl,
+      corsProxyUrl: _corsProxyUrl,
     );
     return ((response.statusCode) >= 400)
         ? null
