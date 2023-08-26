@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
-import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
@@ -16,9 +18,17 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'core/widgets/states_displaying/state_displaying_widget_export.dart';
+
+// class OnyxApp extends StatelessWidget {
+//   const OnyxApp({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp();
+//   }
+// }
 
 class OnyxApp extends StatefulWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
@@ -43,6 +53,7 @@ class OnyxAppState extends State<OnyxApp> {
 
   @override
   Widget build(BuildContext context) {
+    // return MaterialApp();
     return ResponsiveSizer(
       builder: (context, orientation, deviceType) => MultiBlocProvider(
         providers: [
@@ -89,15 +100,20 @@ class OnyxAppState extends State<OnyxApp> {
             }
             return BlocBuilder<SettingsCubit, SettingsState>(
               builder: (context, settingsState) {
+                print("${authState.status} | ${settingsState.status}");
+                print("first login : ${settingsState.settings.firstLogin}");
                 if (settingsState.status == SettingsStatus.ready ||
                     settingsState.status == SettingsStatus.error) {
+                  print("settings ready");
                   if (authState.status == AuthentificationStatus.initial) {
+                    print("authentification initial");
                     context
                         .read<AuthentificationCubit>()
                         .login(settings: settingsState.settings);
                   } else if (authState.status ==
                           AuthentificationStatus.authentificated &&
                       settingsState.settings.firstLogin) {
+                    print("first login");
                     context.read<SettingsCubit>().modify(
                         settings: context
                             .read<SettingsCubit>()
@@ -122,6 +138,7 @@ class OnyxAppState extends State<OnyxApp> {
                           ? const HomePage()
                           : LoginPage(key: UniqueKey()));
                 } else {
+                  context.read<SettingsCubit>().load();
                   return MaterialApp(
                     debugShowCheckedModeBanner: false,
                     themeMode: settingsState.settings.themeMode.themeMode,
