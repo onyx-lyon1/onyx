@@ -28,7 +28,7 @@ class NotificationLogic {
       },
     ),
     linux: LinuxInitializationSettings(
-      defaultIcon: AssetsLinuxIcon('assets/icon.png'),
+      defaultIcon: AssetsLinuxIcon('assets/icon_transparent.png'),
       defaultActionName: 'Notification',
     ),
   );

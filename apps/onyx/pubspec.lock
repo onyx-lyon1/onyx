@@ -439,10 +439,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "21145c9c268d54b1f771d8380c195d2d6f655e0567dc1ca2f9c134c02c819e0a"
+      sha256: bdfa035a974a0c080576c4c8ed01cdf9d1b406a04c7daa05443ef0383a97bedc
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.3"
+    version: "5.3.4"
   fixnum:
     dependency: transitive
     description:
@@ -561,10 +561,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_local_notifications
-      sha256: "3cc40fe8c50ab8383f3e053a499f00f975636622ecdc8e20a77418ece3b1e975"
+      sha256: "3002092e5b8ce2f86c3361422e52e6db6776c23ee21e0b2f71b892bf4259ef04"
       url: "https://pub.dev"
     source: hosted
-    version: "15.1.0+1"
+    version: "15.1.1"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
@@ -626,10 +626,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "5dca6008cde707beb46291b6fbf71af6dbbf7bfb"
+      resolved-ref: "787c7a845facf13ea886f74c608cdbfd4bfd2b95"
       url: "https://github.com/singerdmx/flutter-quill.git"
     source: git
-    version: "7.4.1"
+    version: "7.4.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -837,10 +837,9 @@ packages:
   izlyclient:
     dependency: "direct main"
     description:
-      name: izlyclient
-      sha256: e709b6df32d42ebd665c19096a2cad27f3c5c547596b86a0b82d52a7f71b6091
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/izlyclient"
+      relative: true
+    source: path
     version: "1.0.1"
   js:
     dependency: transitive
@@ -893,34 +892,30 @@ packages:
   lyon1agendaclient:
     dependency: "direct main"
     description:
-      name: lyon1agendaclient
-      sha256: "6e5dead16d14f2da30ff9b8f37fdc50cd977e7a669178daf92548e71f0fbc7ae"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1agendaclient"
+      relative: true
+    source: path
     version: "1.0.1"
   lyon1casclient:
     dependency: "direct main"
     description:
-      name: lyon1casclient
-      sha256: "345369fed185487a3b11d0dea1249ee936aece0f1c7c7c048aa713d8c43b9a4d"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1casclient"
+      relative: true
+    source: path
     version: "1.0.1"
   lyon1mailclient:
     dependency: "direct main"
     description:
-      name: lyon1mailclient
-      sha256: "6dcce8faaeae480499c81edc344dc6ebcbc79caf0c7c05c9ce6b920bb44f5338"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1mailclient"
+      relative: true
+    source: path
     version: "1.0.1"
   lyon1tomussclient:
     dependency: "direct main"
     description:
-      name: lyon1tomussclient
-      sha256: "4db4b6b4fe6e399c1736110928f6274a386130212323a9b8fc04d36126474fd8"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1tomussclient"
+      relative: true
+    source: path
     version: "1.0.4"
   matcher:
     dependency: transitive
@@ -966,10 +961,10 @@ packages:
     dependency: "direct main"
     description:
       name: mobile_scanner
-      sha256: "531725451c7506f4c57b4720da1fe33a1394cdf9d4a5075a3a2dd51e21113928"
+      sha256: "54dd914e1bb5758b3db7aa02e56d65d80285ba0705e0e5fa5cfbb11e27344c4b"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "3.3.0"
   modal_bottom_sheet:
     dependency: "direct main"
     description:
@@ -1532,10 +1527,10 @@ packages:
     dependency: "direct main"
     description:
       name: webview_flutter
-      sha256: "789d52bd789373cc1e100fb634af2127e86c99cf9abde09499743270c5de8d00"
+      sha256: "04a0782fb058b7c71f2048935583488f4d32e9147ca403abc4e58f1de9964629"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.2"
+    version: "4.2.3"
   webview_flutter_android:
     dependency: transitive
     description:
@@ -1564,10 +1559,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: f2add6fa510d3ae152903412227bda57d0d5a8da61d2c39c1fb022c9429a41c0
+      sha256: "9e82a402b7f3d518fb9c02d0e9ae45952df31b9bf34d77baf19da2de03fc2aaa"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.6"
+    version: "5.0.7"
   win32_registry:
     dependency: transitive
     description:

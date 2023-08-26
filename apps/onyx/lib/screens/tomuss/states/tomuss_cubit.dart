@@ -52,7 +52,6 @@ class TomussCubit extends Cubit<TomussState> {
         newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
       ));
     }
-    print(_dartus!.lyon1Cas.isAuthenticated);
     if (_dartus != null && _dartus!.lyon1Cas.isAuthenticated) {
       try {
         ({
