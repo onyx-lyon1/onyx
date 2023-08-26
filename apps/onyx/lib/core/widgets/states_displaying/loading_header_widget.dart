@@ -49,7 +49,7 @@ class LoadingHeaderWidget extends StatelessWidget {
                       height: 5.w,
                       child: CircularProgressIndicator(
                         color: Theme.of(context).primaryColor,
-                        strokeWidth: 2.sp,
+                        strokeWidth: 7.sp,
                       ),
                     ),
                   if (timeout == null)
