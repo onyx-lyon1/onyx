@@ -117,6 +117,7 @@ class TomussCubit extends Cubit<TomussState> {
     int gradeIndex = teachingUnits[index].grades.indexOf(grade);
     grade = grade.copyWith.coef(coef ?? 1.0);
     teachingUnits[index].grades[gradeIndex] = grade;
+
     //save in cache
     await CacheService.set<TeachingUnitList>(
         TeachingUnitList(teachingUnits, state.currentSemesterIndex));
