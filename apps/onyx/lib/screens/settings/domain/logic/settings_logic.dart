@@ -42,26 +42,23 @@ class SettingsLogic {
     await box.put('settings', settings);
   }
 
-  static void logout(BuildContext context) {
+  static void logout(BuildContext context) async {
     Res.mock = false;
+    await context.read<AuthentificationCubit>().logout();
     CacheService.reset<IzlyCredential>();
     context.read<IzlyCubit>().disconnect();
     Hive.deleteBoxFromDisk("cached_qr_code");
     Hive.deleteBoxFromDisk("cached_izly_amount");
-    Hive.deleteBoxFromDisk("settings");
     CacheService.reset<IzlyQrCodeList>();
-    CacheService.reset<MailBoxList>();
-    CacheService.reset<Agenda>();
-    CacheService.reset<TeachingUnitList>();
     CacheService.reset<Lyon1CasClient>();
     CacheService.reset<SettingsModel>();
     context.read<AgendaCubit>().resetCubit();
     context.read<IzlyCubit>().resetCubit();
     context.read<EmailCubit>().resetCubit();
     context.read<MapCubit>().resetCubit();
+    reset();
     context.read<SettingsCubit>().resetCubit();
     context.read<SettingsCubit>().load();
     context.read<TomussCubit>().resetCubit();
-    context.read<AuthentificationCubit>().logout();
   }
 }

@@ -108,6 +108,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     CacheService.reset<Credential>();
     SettingsLogic.reset();
     await _lyon1Cas.logout();
+    print("logout done");
     emit(state.copyWith(
       status: AuthentificationStatus.needCredential,
       lyon1Cas: _lyon1Cas,

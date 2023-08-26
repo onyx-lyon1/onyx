@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Flexible(flex: 10, child: Image.asset("assets/icon.png")),
+                      Flexible(flex: 10, child: Image.asset("assets/icon_transparent.png")),
                       const Spacer(
                         flex: 1,
                       ),
