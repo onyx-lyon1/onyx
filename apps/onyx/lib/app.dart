@@ -100,20 +100,15 @@ class OnyxAppState extends State<OnyxApp> {
             }
             return BlocBuilder<SettingsCubit, SettingsState>(
               builder: (context, settingsState) {
-                print("${authState.status} | ${settingsState.status}");
-                print("first login : ${settingsState.settings.firstLogin}");
                 if (settingsState.status == SettingsStatus.ready ||
                     settingsState.status == SettingsStatus.error) {
-                  print("settings ready");
                   if (authState.status == AuthentificationStatus.initial) {
-                    print("authentification initial");
                     context
                         .read<AuthentificationCubit>()
                         .login(settings: settingsState.settings);
                   } else if (authState.status ==
                           AuthentificationStatus.authentificated &&
                       settingsState.settings.firstLogin) {
-                    print("first login");
                     context.read<SettingsCubit>().modify(
                         settings: context
                             .read<SettingsCubit>()

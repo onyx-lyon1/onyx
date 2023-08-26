@@ -18,79 +18,84 @@ class UploadWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TomussElementWidget(
-      left: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-                onTap: () async {
-                  final String path = await TomussLogic.getDownloadLocalPath(
-                    upload: upload,
-                    ticket: context
-                        .read<TomussCubit>()
-                        .state
-                        .teachingUnits
-                        .firstWhere(
-                            (element) => element.uploads.contains(upload))
-                        .ticket,
-                    context: context,
-                  );
-                  OpenFilex.open(path);
-                },
-                child: Icon(
-                  Icons.open_in_new_rounded,
-                  color: Colors.white,
-                  size: 20.sp,
-                )),
-          ),
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-                onTap: () async {
-                  final String path = await TomussLogic.getDownloadLocalPath(
-                    upload: upload,
-                    ticket: context
-                        .read<TomussCubit>()
-                        .state
-                        .teachingUnits
-                        .firstWhere(
-                            (element) => element.uploads.contains(upload))
-                        .ticket,
-                    context: context,
-                  );
-                  if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-                    FlutterFileDialog.saveFile(
-                            params: SaveFileDialogParams(sourceFilePath: path))
-                        .then((value) => Navigator.pop(context));
-                  } else if (!kIsWeb &&
-                      (Platform.isWindows ||
-                          Platform.isLinux ||
-                          Platform.isMacOS)) {
-                    FilePicker.platform
-                        .saveFile(
-                      dialogTitle: 'Please select an output file:',
-                      fileName: path.split('/').last,
-                    )
-                        .then((outputFilePath) {
-                      if (outputFilePath != null) {
-                        File outputFile = File(outputFilePath);
-                        File inputFile = File(path);
-                        outputFile
-                            .writeAsBytesSync(inputFile.readAsBytesSync());
-                      }
-                      // Navigator.pop(context);
-                    });
-                  }
-                },
-                child: Icon(
-                  Icons.save_rounded,
-                  color: Colors.white,
-                  size: 20.sp,
-                )),
-          ),
-        ],
-      ),
+      left: (upload.fileUrl.isNotEmpty)
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                      onTap: () async {
+                        final String path =
+                            await TomussLogic.getDownloadLocalPath(
+                          upload: upload,
+                          ticket: context
+                              .read<TomussCubit>()
+                              .state
+                              .teachingUnits
+                              .firstWhere(
+                                  (element) => element.uploads.contains(upload))
+                              .ticket,
+                          context: context,
+                        );
+                        OpenFilex.open(path);
+                      },
+                      child: Icon(
+                        Icons.open_in_new_rounded,
+                        color: Colors.white,
+                        size: 20.sp,
+                      )),
+                ),
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                      onTap: () async {
+                        final String path =
+                            await TomussLogic.getDownloadLocalPath(
+                          upload: upload,
+                          ticket: context
+                              .read<TomussCubit>()
+                              .state
+                              .teachingUnits
+                              .firstWhere(
+                                  (element) => element.uploads.contains(upload))
+                              .ticket,
+                          context: context,
+                        );
+                        if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+                          FlutterFileDialog.saveFile(
+                                  params: SaveFileDialogParams(
+                                      sourceFilePath: path))
+                              .then((value) => Navigator.pop(context));
+                        } else if (!kIsWeb &&
+                            (Platform.isWindows ||
+                                Platform.isLinux ||
+                                Platform.isMacOS)) {
+                          FilePicker.platform
+                              .saveFile(
+                            dialogTitle: 'Please select an output file:',
+                            fileName: path.split('/').last,
+                          )
+                              .then((outputFilePath) {
+                            if (outputFilePath != null) {
+                              File outputFile = File(outputFilePath);
+                              File inputFile = File(path);
+                              outputFile.writeAsBytesSync(
+                                  inputFile.readAsBytesSync());
+                            }
+                            // Navigator.pop(context);
+                          });
+                        }
+                      },
+                      child: Icon(
+                        Icons.save_rounded,
+                        color: Colors.white,
+                        size: 20.sp,
+                      )),
+                ),
+              ],
+            )
+          : Container(),
       right: Stack(
         children: [
           Center(
