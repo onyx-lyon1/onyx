@@ -169,42 +169,44 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.circular(100),
                   ),
-                  child: TextField(
-                    onChanged: (String query) {},
-                    onSubmitted: (String query) {
-                      context.read<AgendaConfigCubit>().search(query);
-                      FocusScope.of(context).unfocus();
-                    },
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.labelLarge!.color,
-                    ),
-                    cursorColor: Theme.of(context).textTheme.bodyLarge!.color,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 1.5.h),
-                      hintText: "Recherche dans les agendas",
-                      prefixIcon: (state.status ==
-                              AgendaConfigStatus.searchResult)
-                          ? GestureDetector(
-                              onTap: () {
-                                context.read<AgendaConfigCubit>().unSearch();
+                  child: Center(
+                    child: TextField(
+                      onChanged: (String query) {},
+                      onSubmitted: (String query) {
+                        context.read<AgendaConfigCubit>().search(query);
+                        FocusScope.of(context).unfocus();
+                      },
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.labelLarge!.color,
+                      ),
+                      cursorColor: Theme.of(context).textTheme.bodyLarge!.color,
+                      decoration: InputDecoration(
+                        // contentPadding: EdgeInsets.symmetric(vertical: 1.5.h),
+                        hintText: "Recherche dans les agendas",
+                        prefixIcon: (state.status ==
+                                AgendaConfigStatus.searchResult)
+                            ? GestureDetector(
+                                onTap: () {
+                                  context.read<AgendaConfigCubit>().unSearch();
 
-                                FocusScope.of(context).unfocus();
-                              },
-                              child: Icon(
-                                Icons.arrow_back_rounded,
+                                  FocusScope.of(context).unfocus();
+                                },
+                                child: Icon(
+                                  Icons.arrow_back_rounded,
+                                  color: Theme.of(context)
+                                      .bottomNavigationBarTheme
+                                      .unselectedItemColor,
+                                ),
+                              )
+                            : Icon(
+                                Icons.search_rounded,
                                 color: Theme.of(context)
                                     .bottomNavigationBarTheme
                                     .unselectedItemColor,
                               ),
-                            )
-                          : Icon(
-                              Icons.search_rounded,
-                              color: Theme.of(context)
-                                  .bottomNavigationBarTheme
-                                  .unselectedItemColor,
-                            ),
-                      border: InputBorder.none,
-                      // contentPadding: EdgeInsets.zero,
+                        border: InputBorder.none,
+                        // contentPadding: EdgeInsets.zero,
+                      ),
                     ),
                   ),
                 );
