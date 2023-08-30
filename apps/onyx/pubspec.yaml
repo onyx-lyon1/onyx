@@ -3,7 +3,7 @@ description: ade, tomuss Mail pour lyon1
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.0.2+42
+version: 2.0.3+43
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -39,8 +39,7 @@ dependencies:
   file_picker: ^5.3.4
   open_filex: ^4.3.2
   flutter_file_dialog: ^3.0.2
-  flutter_quill: #^7.4.0
-    git: https://github.com/singerdmx/flutter-quill.git
+  flutter_quill: ^7.4.3
   vsc_quill_delta_to_html: ^1.0.3
   enough_mail: ^2.1.1
   #git: https://github.com/hatch01/enough_mail.git
