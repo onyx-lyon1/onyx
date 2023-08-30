@@ -1,4 +1,3 @@
-
 import 'package:lyon1casclient/lyon1casclient.dart';
 
 class AgendaURL {
@@ -31,44 +30,54 @@ class AgendaURL {
   }
 
   Future<({String resources, String projectid})> _getUserAgendaIds() async {
-    if (!_authentication.isAuthenticated){
+    if (!_authentication.isAuthenticated) {
       throw Exception("unAuthenticated");
     }
-    await _authentication.serviceRequest(
-        "https://sciences-licence.univ-lyon1.fr/outils/emploi-du-temps/",
-        wrapUrl: false,
-        followRedirects: false);
+    try {
+      await _authentication.serviceRequest(
+          "https://sciences-licence.univ-lyon1.fr/outils/emploi-du-temps/",
+          wrapUrl: false,
+          followRedirects: false);
 
-    final response2 = await _authentication.serviceRequest(
-        "https://sciences-licence.univ-lyon1.fr/servlet/com.jsbsoft.jtf.core.SG?PROC=IDENTIFICATION_FRONT",
-        wrapUrl: true,
-        unsafe: false,
-        followRedirects: false);
+      final response2 = await _authentication.serviceRequest(
+          "https://sciences-licence.univ-lyon1.fr/servlet/com.jsbsoft.jtf.core.SG?PROC=IDENTIFICATION_FRONT",
+          wrapUrl: true,
+          unsafe: false,
+          followRedirects: false);
 
-    final response3 = await _authentication.serviceRequest(
-        response2.headers["location"]!,
-        wrapUrl: false,
-        followRedirects: false);
+      final response3 = await _authentication.serviceRequest(
+          response2.headers["location"]!,
+          wrapUrl: false,
+          followRedirects: false);
 
-    final Uri uri = Uri.parse(response3.headers["location"]!)
-        .replace(path: "/outils/emploi-du-temps");
-    final response4 = await _authentication.serviceRequest(uri.toString(),
-        wrapUrl: false, followRedirects: false);
-    final finalResponseString = response4.body;
+      final Uri uri = Uri.parse(response3.headers["location"]!)
+          .replace(path: "/outils/emploi-du-temps");
+      final response4 = await _authentication.serviceRequest(uri.toString(),
+          wrapUrl: false, followRedirects: false);
+      final finalResponseString = response4.body;
 
-    // with regex select the first ressource like this resources=88773,31561,92543,94029,49637
-    final RegExpMatch? match =
-        RegExp(r"resources=(\d+,?)+").firstMatch(finalResponseString);
-    final String resources = match!.group(0)!.split("=")[1];
-    // with regex select the first projectid like this projectid=2
-    final RegExpMatch? match2 =
-        RegExp(r"projectId=\d+").firstMatch(finalResponseString);
-    final String projectid = match2!.group(0)!.split("=")[1];
+      // with regex select the first ressource like this resources=88773,31561,92543,94029,49637
+      final RegExpMatch? match =
+          RegExp(r"resources=(\d+,?)+").firstMatch(finalResponseString);
+      final String resources = match!.group(0)!.split("=")[1];
+      // with regex select the first projectid like this projectid=2
+      final RegExpMatch? match2 =
+          RegExp(r"projectId=\d+").firstMatch(finalResponseString);
+      final String projectid = match2!.group(0)!.split("=")[1];
 
-    return (resources: resources, projectid: projectid);
+      return (resources: resources, projectid: projectid);
+    } catch (e) {
+      throw AutoIdException("unable to get ids");
+    }
   }
 
   String _convertDate(final DateTime dt) {
     return dt.toIso8601String().split("T")[0];
   }
+}
+
+class AutoIdException implements Exception {
+  final String message;
+
+  AutoIdException(this.message);
 }
