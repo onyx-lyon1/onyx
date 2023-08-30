@@ -103,6 +103,7 @@ class HomePageState extends State<HomePage> {
           },
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
+            resizeToAvoidBottomInset: false,
             // floatingActionButton: Row(
             //   children: [
             //     IconButton(
