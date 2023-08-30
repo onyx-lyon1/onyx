@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/widgets/common_screen_widget.dart';
@@ -42,10 +43,6 @@ class AgendaPage extends StatelessWidget {
               headerState =
                   const LoadingHeaderWidget(message: "Chargement de l'agenda");
               break;
-            case AgendaStatus.ready:
-              break;
-            case AgendaStatus.dateUpdated:
-              break;
             case AgendaStatus.error:
               headerState = const LoadingHeaderWidget(
                   message: "Erreur lors du chargement de l'agenda");
@@ -65,6 +62,56 @@ class AgendaPage extends StatelessWidget {
                       );
                 },
               );
+            case AgendaStatus.ready:
+              if (!context
+                  .read<SettingsCubit>()
+                  .state
+                  .settings
+                  .shownAgendaPopup) {
+                context.read<SettingsCubit>().modify(
+                    settings: context
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .copyWith(shownAgendaPopup: true));
+                SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("Attention"),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text("""
+Agenda sélectionné automatiquement peut être inéxact,
+surtout pour les étudiants de Polytech.
+N'hésitez pas à le sélectionner manuellement dans les paramètres."""),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          AgendaSelectionWidget(
+                            afterSelect: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Ok"),
+                        ),
+                      ],
+                    ),
+                  );
+                });
+
+                break;
+              }
+            case AgendaStatus.dateUpdated:
+              break;
           }
           bool animating = false;
           PageController pageController = PageController();
@@ -200,9 +247,10 @@ class AgendaPage extends StatelessWidget {
               ),
               onRefresh: () async {
                 context.read<AgendaCubit>().load(
-                    lyon1Cas:
-                        context.read<AuthentificationCubit>().state.lyon1Cas,
-                    settings: context.read<SettingsCubit>().state.settings);
+                      lyon1Cas:
+                          context.read<AuthentificationCubit>().state.lyon1Cas,
+                      settings: context.read<SettingsCubit>().state.settings,
+                    );
                 // ignore: use_build_context_synchronously
                 while (context.read<AgendaCubit>().state.status !=
                         AgendaStatus.ready &&
