@@ -28,25 +28,26 @@ class _LoginPageState extends State<LoginPage> {
     switch (context.read<AuthentificationCubit>().state.status) {
       case AuthentificationStatus.initial:
         return const StateDisplayingPage(message: "Initialisation");
-
       case AuthentificationStatus.needCredential:
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
+          resizeToAvoidBottomInset: false,
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Spacer(flex: 1),
+                const Spacer(),
                 Flexible(
+                  fit: FlexFit.tight,
                   flex: 2,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Flexible(flex: 10, child: Image.asset("assets/icon_transparent.png")),
-                      const Spacer(
-                        flex: 1,
-                      ),
+                      Flexible(
+                          flex: 10,
+                          child: Image.asset("assets/icon_transparent.png")),
+                      const Spacer(),
                       Flexible(
                         flex: 10,
                         child: Column(
@@ -71,11 +72,9 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                const Spacer(
-                  flex: 1,
-                ),
                 Flexible(
-                  flex: 4,
+                  fit: FlexFit.tight,
+                  flex: 9,
                   child: SizedBox(
                     width: (Device.orientation == Orientation.portrait)
                         ? 70.w
@@ -239,13 +238,18 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const Spacer(),
-                Padding(
-                  padding: EdgeInsets.all(5.h),
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 2,
                   child: TextButton(
                     onPressed: () {
                       Res.mock = true;
                       context.read<SettingsCubit>().modify(
-                          settings: context.read<SettingsCubit>().state.settings.copyWith(
+                          settings: context
+                              .read<SettingsCubit>()
+                              .state
+                              .settings
+                              .copyWith(
                                 mock: true,
                               ));
                       context.read<AuthentificationCubit>().login(
