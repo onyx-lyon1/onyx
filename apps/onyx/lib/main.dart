@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:desktop_window/desktop_window.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,9 @@ void main() async {
 
   if (!kIsWeb && (Platform.isLinux || Platform.isWindows || Platform.isMacOS)) {
     //an iphone se size
-    // await DesktopWindow.setWindowSize(const Size(375, 667));
-    //a ipad size
-    // await DesktopWindow.setWindowSize(const Size(1080, 810));
+    await DesktopWindow.setWindowSize(const Size(375, 667));
+    // a ipad size
+    // await DesktopWindow.setWindowSize(const Size(2048 / 2, 2732 / 2));
   }
 
   EquatableConfig.stringify = true;
