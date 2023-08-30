@@ -21,6 +21,7 @@ dependencies:
   auto_size_text: ^3.0.0
   copy_with_extension: ^5.0.4
   responsive_sizer: 3.2.0
+  desktop_window: ^0.4.0
   #agenda
   lyon1agendaclient: ^1.0.1
 
