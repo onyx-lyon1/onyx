@@ -97,16 +97,20 @@ class _TomussPageState extends State<TomussPage> {
             break;
           case TomussStatus.timeout:
             loadingHeader = LoadingHeaderWidget(
-              message: "Chargement des notes",
-              timeout: state.timeout,
-              timeoutCallBack: () => context.read<TomussCubit>().load(
-                    lyon1Cas:
-                        context.read<AuthentificationCubit>().state.lyon1Cas,
-                    semestreIndex: state.currentSemesterIndex,
-                    cache: false,
-                    settings: context.read<SettingsCubit>().state.settings,
-                  ),
-            );
+                message: "Chargement des notes",
+                timeout: state.timeout,
+                timeoutCallBack: () {
+                  context.read<TomussCubit>().load(
+                        lyon1Cas: context
+                            .read<AuthentificationCubit>()
+                            .state
+                            .lyon1Cas,
+                        semestreIndex: state.currentSemesterIndex,
+                        cache: false,
+                        settings: context.read<SettingsCubit>().state.settings,
+                        force: false,
+                      );
+                });
             break;
         }
         return CommonScreenWidget(
