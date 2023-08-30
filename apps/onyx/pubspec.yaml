@@ -17,13 +17,13 @@ dependencies:
   hive_flutter: ^1.1.0
   url_launcher: ^6.1.12
   path_provider: ^2.1.0
-  animations: ^2.0.7
+  animations: ^2.0.8
   auto_size_text: ^3.0.0
   copy_with_extension: ^5.0.4
   responsive_sizer: 3.2.0
   desktop_window: ^0.4.0
   #agenda
-  lyon1agendaclient: ^1.0.1
+  lyon1agendaclient: ^1.0.2
 
   #agenda_config
   mobile_scanner: <3.4.0
@@ -35,8 +35,8 @@ dependencies:
 
   #mail
   lyon1mailclient: ^1.0.1
-  webview_flutter: ^4.2.2
-  file_picker: ^5.3.3
+  webview_flutter: ^4.2.3
+  file_picker: ^5.3.4
   open_filex: ^4.3.2
   flutter_file_dialog: ^3.0.2
   flutter_quill: #^7.4.0
@@ -62,7 +62,7 @@ dependencies:
   flutter_map_location_marker: ^7.0.4
   flutter_map_marker_popup: ^5.2.0
   flutter_map_animations: ^0.4.1
-  requests_plus: ^4.8.2
+  requests_plus: ^4.8.3
 
 
   #authentication
@@ -70,7 +70,7 @@ dependencies:
 
   #notifications
   workmanager: ^0.5.1
-  flutter_local_notifications: ^15.1.0+1
+  flutter_local_notifications: ^15.1.1
 
   #settings
   drag_and_drop_lists: #^0.3.3
