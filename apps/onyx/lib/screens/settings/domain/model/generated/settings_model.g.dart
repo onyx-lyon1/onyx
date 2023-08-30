@@ -31,6 +31,8 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel darkerMail(bool darkerMail);
 
+  SettingsModel shownAgendaPopup(bool shownAgendaPopup);
+
   SettingsModel enabledFunctionalities(
       List<Functionalities> enabledFunctionalities);
 
@@ -62,6 +64,7 @@ abstract class _$SettingsModelCWProxy {
     bool? newMailNotification,
     bool? blockTrackers,
     bool? darkerMail,
+    bool? shownAgendaPopup,
     List<Functionalities>? enabledFunctionalities,
     List<Functionalities>? disabledFunctionalities,
     int? recentGradeDuration,
@@ -122,6 +125,10 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
   SettingsModel darkerMail(bool darkerMail) => this(darkerMail: darkerMail);
 
   @override
+  SettingsModel shownAgendaPopup(bool shownAgendaPopup) =>
+      this(shownAgendaPopup: shownAgendaPopup);
+
+  @override
   SettingsModel enabledFunctionalities(
           List<Functionalities> enabledFunctionalities) =>
       this(enabledFunctionalities: enabledFunctionalities);
@@ -162,6 +169,7 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
     Object? newMailNotification = const $CopyWithPlaceholder(),
     Object? blockTrackers = const $CopyWithPlaceholder(),
     Object? darkerMail = const $CopyWithPlaceholder(),
+    Object? shownAgendaPopup = const $CopyWithPlaceholder(),
     Object? enabledFunctionalities = const $CopyWithPlaceholder(),
     Object? disabledFunctionalities = const $CopyWithPlaceholder(),
     Object? recentGradeDuration = const $CopyWithPlaceholder(),
@@ -230,6 +238,11 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
               ? _value.darkerMail
               // ignore: cast_nullable_to_non_nullable
               : darkerMail as bool,
+      shownAgendaPopup: shownAgendaPopup == const $CopyWithPlaceholder() ||
+              shownAgendaPopup == null
+          ? _value.shownAgendaPopup
+          // ignore: cast_nullable_to_non_nullable
+          : shownAgendaPopup as bool,
       enabledFunctionalities:
           enabledFunctionalities == const $CopyWithPlaceholder() ||
                   enabledFunctionalities == null
@@ -294,6 +307,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       newMailNotification: fields[9] as bool,
       blockTrackers: fields[10] as bool,
       darkerMail: fields[11] as bool,
+      shownAgendaPopup: fields[18] == null ? false : fields[18] as bool,
       enabledFunctionalities: fields[12] == null
           ? [
               Functionalities.tomuss,
@@ -316,7 +330,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(17)
+      ..writeByte(18)
       ..writeByte(15)
       ..write(obj.firstLogin)
       ..writeByte(16)
@@ -350,7 +364,9 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(13)
       ..write(obj.disabledFunctionalities)
       ..writeByte(17)
-      ..write(obj.mock);
+      ..write(obj.mock)
+      ..writeByte(18)
+      ..write(obj.shownAgendaPopup);
   }
 
   @override
