@@ -59,19 +59,19 @@ class IzlyLogic {
     }
   }
 
-  static Future<RequestData> getTransferUrl(
+  static Future<({Map<String, dynamic> body, String url})> getTransferUrl(
       IzlyClient izlyClient, double amount) async {
     if (Res.mock) {
-      return RequestData("google.com", const {});
+      return (url: "google.com", body: const <String, dynamic>{});
     }
     await reloginIfNeeded(izlyClient);
     return await izlyClient.getTransferPaymentUrl(amount);
   }
 
-  static Future<RequestData> rechargeWithCB(
+  static Future<({Map<String, dynamic> body, String url})> rechargeWithCB(
       IzlyClient izlyClient, double amount, CbModel cb) async {
     if (Res.mock) {
-      return RequestData("google.com", const {});
+      return (url: "google.com", body: const <String, dynamic>{});
     }
     await reloginIfNeeded(izlyClient);
     return await izlyClient.rechargeWithCB(amount, cb);
