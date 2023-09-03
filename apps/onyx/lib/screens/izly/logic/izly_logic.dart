@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
@@ -91,5 +92,22 @@ class IzlyLogic {
     }
     await reloginIfNeeded(izlyClient);
     return await izlyClient.rechargeViaSomeoneElse(amount, email, message);
+  }
+
+  static Future<void> addRestaurantToFavourite(
+      RestaurantModel restaurant) async {
+    final box = await Hive.openBox("favourite_restaurant");
+    box.put(restaurant.id, true);
+  }
+
+  static Future<void> removeRestaurantToFavourite(
+      RestaurantModel restaurant) async {
+    final box = await Hive.openBox("favourite_restaurant");
+    box.put(restaurant.id, false);
+  }
+
+  static Future<bool> isRestaurantFavourite(RestaurantModel restaurant) async {
+    final box = await Hive.openBox("favourite_restaurant");
+    return box.get(restaurant.id, defaultValue: false);
   }
 }

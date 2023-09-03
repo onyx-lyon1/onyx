@@ -148,7 +148,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
                               onTapNavigate: (position) async {
                                 batimentsPaths.addAll(await NavigationLogic
                                     .navigateToBatimentFromLocation(
-                                        context, batiments));
+                                        context,
+                                        batiments
+                                            .map((e) => e.position)
+                                            .toList()));
                                 setState(() {});
                               },
                             );
@@ -166,8 +169,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       child: InkWell(
                         onTap: () async {
                           batimentsPaths.addAll(await NavigationLogic
-                              .navigateToBatimentFromLocation(
-                                  context, batiments));
+                              .navigateToBatimentFromLocation(context,
+                                  batiments.map((e) => e.position).toList()));
                           setState(() {});
                         },
                         borderRadius: BorderRadius.circular(10),

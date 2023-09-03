@@ -74,4 +74,9 @@ void main() {
     await izlyClient.logout();
     expect(await izlyClient.isLogged(), false);
   });
+
+  test("get menu crous", () async {
+    var menuCrous = await IzlyClient.getRestaurantCrous();
+    expect(menuCrous, isNotNull);
+  });
 }
