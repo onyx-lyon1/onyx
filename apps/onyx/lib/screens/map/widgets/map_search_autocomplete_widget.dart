@@ -20,7 +20,8 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
               .read<MapCubit>()
               .state
               .batiments
-              .firstWhere((element) => element.name == option));
+              .firstWhere((element) => element.name == option)
+              .position);
     }
 
     return RawAutocomplete<String>(

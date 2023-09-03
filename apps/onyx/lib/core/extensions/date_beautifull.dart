@@ -1,15 +1,7 @@
-extension DateBeautifull on Duration {
+import 'package:onyx/core/extensions/extensions_export.dart';
+
+extension DateBeautiful on DateTime {
   String dateBeautifull() {
-    int hour = inHours;
-    int minute = inMinutes - hour * 60;
-    String hourString = hour.toString();
-    String minuteString = minute.toString();
-    if (hour < 10) {
-      hourString = "0$hourString";
-    }
-    if (minute < 10) {
-      minuteString = "0$minuteString";
-    }
-    return "$hourString:$minuteString";
+    return "${toWeekDayName(short: false)} ${day.toFixedLengthString(2)}/${month.toFixedLengthString(2)}/${year.toFixedLengthString(4)}";
   }
 }
