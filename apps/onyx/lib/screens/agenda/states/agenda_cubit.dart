@@ -48,7 +48,7 @@ class AgendaCubit extends Cubit<AgendaState> {
         }
         return;
       }
-      CacheService.set<Agenda>(Agenda(state.days)); //await à definir
+      CacheService.set<Agenda>(Agenda(state.days));
       emit(state.copyWith(status: AgendaStatus.ready, days: state.days));
     }
   }
