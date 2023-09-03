@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   biometric_storage
+  desktop_window
   pasteboard
   url_launcher_linux
 )
