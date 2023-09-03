@@ -5,4 +5,5 @@ export 'src/model/cb_model.dart';
 export 'src/model/izly_qrcode.dart';
 export 'src/model/izly_qrcode_list.dart';
 export 'src/model/izly_credential.dart';
-export 'src/request_data.dart';
+export 'src/model/menu_crous.dart';
+export 'src/model/restaurant.dart';

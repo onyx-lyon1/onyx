@@ -14,23 +14,22 @@ class NavigationLogic {
   static Graph? graph;
 
   static Future<List<List<LatLng>>> navigateToBatimentFromLocation(
-      BuildContext context, List<BatimentModel> batiments) async {
+      BuildContext context, List<LatLng> latLngs) async {
     List<List<LatLng>> paths = [];
     LatLng position = (await GeolocationLogic.getCurrentLocation())!;
-    for (var batiment in batiments) {
+    for (var latLng in latLngs) {
       if (position.inside(MapRes.minBound, MapRes.maxBound) &&
-          batiment.position.inside(MapRes.minBound, MapRes.maxBound)) {
+          latLng.inside(MapRes.minBound, MapRes.maxBound)) {
         // ignore: use_build_context_synchronously
         await _loadGraph(context);
-        List<Node> path =
-            _findPathFromLocalGraph(graph!, position, batiment.position);
+        List<Node> path = _findPathFromLocalGraph(graph!, position, latLng);
         if (path.isNotEmpty) {
           paths.add(path.map((e) => e.position).toList());
         } else {
-          paths.add(await _getOsrmRouteFromApi(position, batiment.position));
+          paths.add(await _getOsrmRouteFromApi(position, latLng));
         }
       } else {
-        paths.add(await _getOsrmRouteFromApi(position, batiment.position));
+        paths.add(await _getOsrmRouteFromApi(position, latLng));
       }
     }
     return paths;

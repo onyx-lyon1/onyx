@@ -4,7 +4,7 @@ version: 1.0.1
 repository: https://github.com/onyx-lyon1/izlyclient
 
 environment:
-  sdk: '>=2.18.1 <4.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 # dependencies:
 #   path: ^1.8.0

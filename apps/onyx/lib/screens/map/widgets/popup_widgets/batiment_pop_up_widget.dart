@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:onyx/screens/map/map_export.dart';
 
-class MapPopupWidget extends StatelessWidget {
-  const MapPopupWidget(
+class BatimentPopupWidget extends StatelessWidget {
+  const BatimentPopupWidget(
       {Key? key,
-      required this.batiment,
+      required this.element,
       required this.onTap,
       required this.popupController})
       : super(key: key);
-  final BatimentModel batiment;
-  final void Function(BatimentModel) onTap;
+  final BatimentModel element;
+  final void Function(LatLng) onTap;
   final PopupController popupController;
 
   @override
@@ -24,10 +25,10 @@ class MapPopupWidget extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(batiment.name, style: Theme.of(context).textTheme.bodyLarge),
+          Text(element.name, style: Theme.of(context).textTheme.bodyLarge),
           IconButton(
             onPressed: () {
-              onTap(batiment);
+              onTap(element.position);
               popupController.hideAllPopups();
             },
             icon: const Icon(Icons.navigation_rounded),

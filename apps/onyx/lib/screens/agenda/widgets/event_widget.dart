@@ -101,7 +101,7 @@ class EventWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${event.end.difference(event.start).dateBeautifull()} • ${event.location}',
+                    '${event.end.difference(event.start).durationBeautifull()} • ${event.location}',
                     textAlign: TextAlign.left,
                     maxLines: 2,
                     softWrap: true,
