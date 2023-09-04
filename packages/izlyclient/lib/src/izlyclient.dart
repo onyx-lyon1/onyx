@@ -23,6 +23,7 @@ class IzlyClient {
     Hive.registerAdapter(MenuCrousAdapter());
     Hive.registerAdapter(CrousTypeAdapter());
     Hive.registerAdapter(RestaurantModelAdapter());
+    Hive.registerAdapter(RestaurantListModelAdapter());
   }
 
   final String _username;
