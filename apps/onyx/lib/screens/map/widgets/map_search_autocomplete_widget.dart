@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:izlyclient/izlyclient.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -14,20 +17,42 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
     onTap(String option) {
       //needed because the context is not passed in the onSelected basic callback
       focusNode.unfocus();
-      context.read<MapCubit>().navigate(
-          context,
-          context
-              .read<MapCubit>()
-              .state
-              .batiments
-              .firstWhere((element) => element.name == option)
-              .position);
+      int index = context
+          .read<MapCubit>()
+          .state
+          .batiments
+          .indexWhere((element) => element.name == option);
+      if (index != -1) {
+        context.read<MapCubit>().navigate(
+            context, context.read<MapCubit>().state.batiments[index].position);
+      } else {
+        index = context
+            .read<MapCubit>()
+            .state
+            .restaurant
+            .indexWhere((element) => element.name == option);
+        if (index != -1) {
+          context.read<MapCubit>().navigate(
+                context,
+                LatLng(context.read<MapCubit>().state.restaurant[index].lat,
+                    context.read<MapCubit>().state.restaurant[index].lon),
+              );
+        }
+      }
     }
 
     return RawAutocomplete<String>(
       optionsBuilder: (TextEditingValue textEditingValue) async {
-        return (await BatimentsLogic.findBatiment(textEditingValue.text))
-            .map((e) => e.name);
+        return [
+          for (BatimentModel batiment
+              in context.read<MapCubit>().state.batiments)
+            if (SearchService.isMatch(textEditingValue.text, batiment.name))
+              batiment.name,
+          for (RestaurantModel restau
+              in context.read<MapCubit>().state.restaurant)
+            if (SearchService.isMatch(textEditingValue.text, restau.name))
+              restau.name,
+        ];
       },
       textEditingController: controller,
       focusNode: focusNode,

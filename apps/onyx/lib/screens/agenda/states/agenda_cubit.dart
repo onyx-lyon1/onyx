@@ -50,7 +50,13 @@ class AgendaCubit extends Cubit<AgendaState> {
       }
       CacheService.set<Agenda>(Agenda(state.days));
       emit(state.copyWith(status: AgendaStatus.ready, days: state.days));
+      await addRestaurant();
     }
+  }
+
+  Future<void> addRestaurant() async {
+    await AgendaLogic.addRestaurant(state.days);
+    emit(state.copyWith(status: AgendaStatus.ready, days: state.days));
   }
 
   void updateDisplayedDate(

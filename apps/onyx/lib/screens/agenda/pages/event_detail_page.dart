@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
+import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
+import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -18,22 +21,45 @@ class EventDetailPage extends StatefulWidget {
 
 class _EventDetailPageState extends State<EventDetailPage> {
   List<BatimentModel> batiments = [];
-  List<List<LatLng>> batimentsPaths = [];
+  List<RestaurantModel> restaurants = [];
+  List<List<LatLng>> routingPaths = [];
 
   @override
   void initState() {
     super.initState();
   }
 
-  Future<bool> loadBatiment() async {
-    batiments = await BatimentsLogic.findBatiment(widget.event.location);
+  Future<bool> loadBatimentAndRestaurants() async {
+    if (widget.event.menuCrous == null) {
+      List<BatimentModel> tmpBatiments = await BatimentsLogic.loadBatiments();
+      for (var i in tmpBatiments) {
+        if (SearchService.isMatch(widget.event.location, i.name)) {
+          batiments.add(i);
+          break;
+        }
+      }
+    } else {
+      List<RestaurantModel> tmpRestaurants = [];
+      if (await CacheService.exist<RestaurantListModel>()) {
+        tmpRestaurants =
+            (await CacheService.get<RestaurantListModel>())!.restaurantList;
+      } else {
+        tmpRestaurants = await IzlyClient.getRestaurantCrous();
+      }
+      for (var i in tmpRestaurants) {
+        if (SearchService.isMatch(widget.event.location, i.name)) {
+          restaurants.add(i);
+          break;
+        }
+      }
+    }
     return true;
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
+      child: ListView(
         children: [
           Container(
             color: Theme.of(context).cardColor,
@@ -66,57 +92,40 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       .bodyLarge!
                       .copyWith(fontSize: 18.sp, fontWeight: FontWeight.w500),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 1.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.access_time_rounded,
-                        color: Theme.of(context).textTheme.bodyLarge!.color,
-                      ),
-                      SelectableText(
-                        "${widget.event.start.hour.toFixedLengthString(2)}h${widget.event.start.minute.toFixedLengthString(2)} ${widget.event.end.hour.toFixedLengthString(2)}h${widget.event.end.minute.toFixedLengthString(2)}",
-                        style: Theme.of(context).textTheme.bodyLarge!,
-                      ),
-                    ],
-                  ),
+                EventDetailText(
+                    icon: Icons.access_time_rounded,
+                    text:
+                        "${widget.event.start.hour.toFixedLengthString(2)}h${widget.event.start.minute.toFixedLengthString(2)} ${widget.event.end.hour.toFixedLengthString(2)}h${widget.event.end.minute.toFixedLengthString(2)}"),
+                EventDetailText(
+                  icon: Icons.calendar_month_rounded,
+                  text:
+                      '${widget.event.start.toWeekDayName()} ${widget.event.start.day} ${widget.event.start.toMonthName()}',
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 1.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.calendar_month_rounded,
-                        color: Theme.of(context).textTheme.bodyLarge!.color,
-                      ),
-                      SelectableText(
-                        '${widget.event.start.toWeekDayName()} ${widget.event.start.day} ${widget.event.start.toMonthName()}',
-                        style: Theme.of(context).textTheme.bodyLarge!,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 1.h),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                if (widget.event.teacher.isNotEmpty)
+                  EventDetailText(
+                      icon: Icons.person_rounded, text: widget.event.teacher),
+                if (widget.event.description.isNotEmpty)
+                  Text(widget.event.description),
+                if (widget.event.menuCrous != null &&
+                    widget.event.menuCrous is MenuCrous)
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 1.h),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.location_on_rounded,
+                          Icons.restaurant_menu_rounded,
                           color: Theme.of(context).textTheme.bodyLarge!.color,
                         ),
-                        SelectableText(
-                          widget.event.location,
-                          style: Theme.of(context).textTheme.bodyLarge!,
+                        MenuWidget(
+                          menuCrous: widget.event.menuCrous,
                         ),
                       ],
                     ),
                   ),
-                ),
+                EventDetailText(
+                    icon: Icons.location_on_rounded,
+                    text: widget.event.location),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 1.h),
                   child: ClipRRect(
@@ -125,7 +134,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       height: 40.h,
                       width: 90.w,
                       child: FutureBuilder(
-                          future: loadBatiment(),
+                          future: loadBatimentAndRestaurants(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
                               return const Center(
@@ -134,8 +143,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             }
                             return MapWidget(
                               batiments: batiments,
+                              restaurant: restaurants,
                               polylines: [
-                                for (var i in batimentsPaths)
+                                for (var i in routingPaths)
                                   Polyline(
                                     points: i,
                                     strokeWidth: 4.0,
@@ -144,9 +154,12 @@ class _EventDetailPageState extends State<EventDetailPage> {
                               ],
                               center: (batiments.isNotEmpty)
                                   ? batiments.first.position
-                                  : null,
+                                  : (restaurants.isNotEmpty)
+                                      ? LatLng(restaurants.first.lat,
+                                          restaurants.first.lon)
+                                      : null,
                               onTapNavigate: (position) async {
-                                batimentsPaths.addAll(await NavigationLogic
+                                routingPaths.addAll(await NavigationLogic
                                     .navigateToBatimentFromLocation(
                                         context,
                                         batiments
@@ -168,9 +181,19 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       borderRadius: BorderRadius.circular(10),
                       child: InkWell(
                         onTap: () async {
-                          batimentsPaths.addAll(await NavigationLogic
-                              .navigateToBatimentFromLocation(context,
-                                  batiments.map((e) => e.position).toList()));
+                          if (batiments.isNotEmpty) {
+                            routingPaths.addAll(await NavigationLogic
+                                .navigateToBatimentFromLocation(context,
+                                    batiments.map((e) => e.position).toList()));
+                          } else {
+                            routingPaths.addAll(await NavigationLogic
+                                .navigateToBatimentFromLocation(
+                                    context,
+                                    restaurants
+                                        .map((e) => LatLng(e.lat, e.lon))
+                                        .toList()));
+                          }
+
                           setState(() {});
                         },
                         borderRadius: BorderRadius.circular(10),
@@ -191,6 +214,37 @@ class _EventDetailPageState extends State<EventDetailPage> {
                 ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class EventDetailText extends StatelessWidget {
+  const EventDetailText({
+    super.key,
+    required this.icon,
+    required this.text,
+  });
+
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 1.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Icon(
+            icon,
+            color: Theme.of(context).textTheme.bodyLarge!.color,
+          ),
+          SelectableText(
+            text,
+            style: Theme.of(context).textTheme.bodyLarge!,
           ),
         ],
       ),

@@ -5,6 +5,7 @@ import 'package:flutter_map_marker_popup/extension_api.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
+import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class RestaurantPopUpWidget extends StatelessWidget {
@@ -189,47 +190,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
                       child: Column(
                         children: [
                           for (MenuCrous menuCrous in menus!)
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  menuCrous.type.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                          fontSize: 23.sp,
-                                          fontWeight: FontWeight.bold),
-                                ),
-                                Container(
-                                  height: 0.2.h,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground,
-                                ),
-                                for (PlatCrous platCrous in menuCrous.plats)
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        platCrous.name,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18.sp),
-                                      ),
-                                      Text(
-                                        platCrous.variants.join("\n"),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
-                                      ),
-                                    ],
-                                  ),
-                              ],
-                            ),
+                            MenuWidget(menuCrous: menuCrous),
                         ],
                       ),
                     ),
