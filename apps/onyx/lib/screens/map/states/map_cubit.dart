@@ -27,20 +27,23 @@ class MapCubit extends Cubit<MapState> {
 
   void loadBatiment() async {
     emit(state.copyWith(status: MapStatus.loading));
-    if (BatimentsLogic.batiments.isEmpty) {
-      await BatimentsLogic.loadBatiments();
+    List<BatimentModel> batiments = [];
+    if (state.batiments.isEmpty) {
+      batiments = await BatimentsLogic.loadBatiments();
     }
-    emit(state.copyWith(batiments: BatimentsLogic.batiments));
+    emit(state.copyWith(batiments: batiments));
     List<RestaurantModel> restaurant;
-    if (await CacheService.exist<List<RestaurantModel>>()) {
-      restaurant = (await CacheService.get<List<RestaurantModel>>())!;
+    if (await CacheService.exist<RestaurantListModel>()) {
+      restaurant =
+          (await CacheService.get<RestaurantListModel>())!.restaurantList;
       emit(state.copyWith(
           restaurant: restaurant, status: MapStatus.batimentsUpdated));
     }
     restaurant = await IzlyClient.getRestaurantCrous();
     emit(state.copyWith(
         restaurant: restaurant, status: MapStatus.batimentsUpdated));
-    await CacheService.set<List<RestaurantModel>>(restaurant);
+    await CacheService.set<RestaurantListModel>(
+        RestaurantListModel(restaurantList: restaurant));
   }
 
   void resetCubit() {
