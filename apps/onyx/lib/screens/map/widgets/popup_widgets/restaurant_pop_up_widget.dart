@@ -1,9 +1,11 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map_marker_popup/extension_api.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -123,7 +125,9 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
                 } else {
                   await IzlyLogic.addRestaurantToFavourite(widget.element);
                 }
-                setState(() {});
+                setState(() {
+                  context.read<AgendaCubit>().addRestaurant();
+                });
               },
               child: FutureBuilder(
                   future: IzlyLogic.isRestaurantFavourite(widget.element),
