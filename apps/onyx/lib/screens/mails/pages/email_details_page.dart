@@ -105,11 +105,15 @@ class MailDetailsPage extends StatelessWidget {
                             itemCount: mail.attachments.length,
                             itemBuilder: (context, index) {
                               return MailAttachmentWidget(
-                                fileName: mail.attachments[index][0],
+                                fileName: mail.attachments[index],
                                 onTap: () async {
                                   //save data in a file and open it
-                                  if (mail.attachments[index][1] == "") {
-                                    mail.attachments[index] =
+                                  if (mail.attachmentsFiles
+                                      .where((element) => element.path
+                                          .contains(mail.attachments[1]))
+                                      .isEmpty) {
+                                    mail.attachmentsFiles.insert(
+                                        index,
                                         await AttachmentLogic
                                             .getAttachmentLocalPath(
                                                 email: mail,
@@ -118,15 +122,15 @@ class MailDetailsPage extends StatelessWidget {
                                                     .mailClient!,
                                                 emailNumber: state.emailNumber,
                                                 fileName:
-                                                    mail.attachments[index][0],
-                                                folder: state.currentMailBox!);
+                                                    mail.attachments[index],
+                                                folder: state.currentMailBox!));
                                   }
                                   // ignore: use_build_context_synchronously
                                   showDialog(
                                       context: context,
                                       builder: (_) => SaveOrOpenDialogWidget(
-                                            filePath: mail.attachments[index]
-                                                [1],
+                                            filePath: mail
+                                                .attachmentsFiles[index].path,
                                           ));
                                 },
                               );

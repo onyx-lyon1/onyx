@@ -19,15 +19,23 @@ class MailContentWidget extends StatefulWidget {
 }
 
 class _MailContentWidgetState extends State<MailContentWidget> {
-  final WebViewController webViewController = WebViewController();
+  late final WebViewController? webViewController;
+
+  @override
+  void initState() {
+    if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS))) {
+      webViewController = WebViewController();
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     if (((widget.mail.body.contains("<html") ||
             widget.mail.body.contains("text/html")) &&
         (!kIsWeb && (Platform.isAndroid || Platform.isIOS)))) {
-      webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
-      webViewController.setNavigationDelegate(
+      webViewController!.setJavaScriptMode(JavaScriptMode.unrestricted);
+      webViewController!.setNavigationDelegate(
         NavigationDelegate(
           onNavigationRequest: (NavigationRequest request) async {
             if (await canLaunchUrl(Uri.parse(request.url))) {
@@ -41,7 +49,7 @@ class _MailContentWidgetState extends State<MailContentWidget> {
         ),
       );
 
-      webViewController
+      webViewController!
           .setBackgroundColor(Theme.of(context).colorScheme.background);
       String html = widget.mail.body;
       if (context.read<SettingsCubit>().state.settings.darkerMail) {
@@ -49,7 +57,7 @@ class _MailContentWidgetState extends State<MailContentWidget> {
           html = widget.mail.blackBody;
         }
       }
-      webViewController.loadHtmlString(
+      webViewController!.loadHtmlString(
         html,
       );
     }
@@ -57,7 +65,7 @@ class _MailContentWidgetState extends State<MailContentWidget> {
                 widget.mail.body.contains("text/html")) &&
             (!kIsWeb && (Platform.isAndroid || Platform.isIOS)))
         ? WebViewWidget(
-            controller: webViewController,
+            controller: webViewController!,
             gestureRecognizers: {Factory(() => EagerGestureRecognizer())},
             //maybe causing bug on ios
           )
