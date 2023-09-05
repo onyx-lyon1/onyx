@@ -91,6 +91,14 @@ N'hésitez pas à le sélectionner manuellement dans les paramètres."""),
                           ),
                           AgendaSelectionWidget(
                             afterSelect: () {
+                              context.read<SettingsCubit>().modify(
+                                  settings: context
+                                      .read<SettingsCubit>()
+                                      .state
+                                      .settings
+                                      .copyWith(
+                                          fetchAgendaAuto:
+                                              false)); //this automaticallty reload agenda from bloclistener in home page
                               Navigator.of(context).pop();
                             },
                           ),
