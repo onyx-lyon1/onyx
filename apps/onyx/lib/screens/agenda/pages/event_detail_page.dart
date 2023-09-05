@@ -181,13 +181,12 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       borderRadius: BorderRadius.circular(10),
                       child: InkWell(
                         onTap: () async {
-                          routingPaths = [];
                           if (batiments.isNotEmpty) {
-                            routingPaths.addAll(await NavigationLogic
+                            routingPaths = (await NavigationLogic
                                 .navigateToBatimentFromLocation(context,
                                     batiments.map((e) => e.position).toList()));
                           } else {
-                            routingPaths.addAll(await NavigationLogic
+                            routingPaths = (await NavigationLogic
                                 .navigateToBatimentFromLocation(
                                     context,
                                     restaurants
