@@ -144,8 +144,7 @@ class MailWidget extends StatelessWidget {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 60.w,
+                Flexible(
                   child: Text(
                     email.sender,
                     style: TextStyle(
@@ -160,15 +159,16 @@ class MailWidget extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: 3.w),
+                  padding: EdgeInsets.only(right: 3.w, left: 2.w),
                   child: Text(
                     _toHumanDate(email.date),
                     maxLines: 1,
                     style: TextStyle(
-                        color: email.isRead
-                            ? readText1Color(context)
-                            : unreadText1Color(context),
-                        fontSize: 16.sp),
+                      color: email.isRead
+                          ? readText1Color(context)
+                          : unreadText1Color(context),
+                      fontSize: 16.sp,
+                    ),
                   ),
                 ),
               ],
