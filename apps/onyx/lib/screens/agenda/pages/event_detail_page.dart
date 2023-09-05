@@ -181,6 +181,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       borderRadius: BorderRadius.circular(10),
                       child: InkWell(
                         onTap: () async {
+                          routingPaths = [];
                           if (batiments.isNotEmpty) {
                             routingPaths.addAll(await NavigationLogic
                                 .navigateToBatimentFromLocation(context,
