@@ -10,28 +10,22 @@
 
 <h4 align="center">The student application for Claude Bernard Lyon 1 University </h4>
 
-<p style="text-align: center;">
-  <a href="https://github.com/onyx-lyon1/onyx/releases">
-    <img src="https://img.shields.io/github/release/onyx-lyon1/onyx?include_prereleases=&sort=semver&color=blue"
-         alt="Releases">
-  </a>
-  <a href="https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share">
-    <img src="https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dfr.onyx.lyon1%26l%3DAndroid%26m%3D%24version"
-         alt="Playstore">
-  </a>
-  <a href="https://creativecommons.org/licenses/by-nc/4.0/">
-      <img src="https://img.shields.io/badge/License-CC BY--NC-blue"
-        alt="License">
-  </a>
+<p align=center>
+    <a href="https://github.com/onyx-lyon1/onyx/releases">
+      <img src="https://img.shields.io/github/release/onyx-lyon1/onyx?include_prereleases=&sort=semver&color=blue" alt="Releases">
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share">
+      <img src="https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dfr.onyx.lyon1%26l%3DAndroid%26m%3D%24version" alt="Playstore">
+    </a>
+    <a href="https://creativecommons.org/licenses/by-nc/4.0/">
+      <img src="https://img.shields.io/badge/License-CC BY--NC-blue" alt="License">
+    </a>
+    <a href="https://discord.gg/AtCc3pcaNm">
+      <img src="https://img.shields.io/discord/308323056592486420.svg?logo=discord&label=Discord&colorA=2C2F33&colorB=7289DA" alt="Discord">
+    </a>
+  </p>
 
-  <a href="https://discord.gg/AtCc3pcaNm">
-      <img src="https://img.shields.io/discord/308323056592486420.svg?logo=discord&label=Discord&colorA=2C2F33&colorB=7289DA"
-        alt="Discord">
-  </a>
-
-</p>
-
-<p style="text-align: center;">
+<p align=center>
   <a href="#features">Features</a> | 
   <a href="#download">Download</a> | 
   <a href="#contribute">Contribute</a> | 
@@ -46,17 +40,17 @@ your phone.
 
 ## Features
 
-<div style="text-align: center;">
+<p align=center>
   <img src="apps/onyx/assets/screenshots/onyx_screenshot_calendar_en.png" width="18%" alt="Calendar Screenshot">
   <img src="apps/onyx/assets/screenshots/onyx_screenshot_email_en.png" width="18%" alt="Email Screenshot">
   <img src="apps/onyx/assets/screenshots/onyx_screenshot_grades_en.png" width="18%" alt="Grades Screenshot">
   <img src="apps/onyx/assets/screenshots/onyx_screenshot_map_en.png" width="18%" alt="Map Screenshot">
   <img src="apps/onyx/assets/screenshots/onyx_screenshot_izly_en.png" width="18%" alt="Izly Screenshot">
-</div>
+</p>
 
 ## Download
 
-<p style="text-align: center;">
+<p align=center>
 <a href='https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt="google-play" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/google-play_vector.svg"></a>
 <!--<a href='https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on F-Droid' src='https://fdroid.gitlab.io/artwork/badge/get-it-on.png' height="80px"/></a>-->
 <a href='https://github.com/onyx-lyon1/onyx/releases'><img alt="github" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/github_vector.svg"></a>
@@ -73,13 +67,13 @@ We really appreciate any help. You can also chat with us on [Discord](https://di
 
 To build the app, follow these steps:
 
-### Prerequisites
+### Prerequisites 🛠️
 
 - Install Flutter from [flutter.dev](https://flutter.dev).
 - Note: If you intend to build for Linux, ensure you have the libsecret library installed in your development
   environment.
 
-### Building the App
+### Building the App 🏗️
 
 Please make sure you are on the main branch before proceeding with the build process.
 Navigate to the `apps/onyx` directory and execute the following command based on your
@@ -95,7 +89,7 @@ target platform:
     - The app bundle is located at `apps/onyx/build/app/outputs/bundle/release/app-release.aab`.
 - For other platforms, please refer to the Flutter documentation for their respective build locations.
 
-### Development Environment Setup
+### Development Environment Setup ⚙️
 
 To set up your development environment:
 
@@ -112,7 +106,7 @@ To set up your development environment:
 8. Run `melos analyze` to perform static analysis on the libraries and the Onyx app.
 9. To unlink everything, use `melos clean`.
 
-### End-to-End Testing
+### End-to-End Testing 🧪
 
 To run end-to-end tests:
 
@@ -123,7 +117,7 @@ To run end-to-end tests:
     4. After installing the app on an Android device (physical or virtual), run the following command to execute the
        tests: `maestro test general_test.yaml` Maestro will automatically run the tests.
 
-Now, you're all set to build and test your Flutter app.
+Now, you're all set to build and test your Flutter app. 🎉
 
 ## License
 
@@ -131,6 +125,6 @@ This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 I
 this license, visit http://creativecommons.org/licenses/by-nc/4.0/ or send a letter to Creative Commons, PO Box 1866,
 Mountain View, CA 94042, USA.\
 
-<p style="text-align: center;">
+<p align=center>
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
 </p>
