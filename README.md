@@ -40,17 +40,17 @@ your phone.
 
 ## Features
 
-<div style="text-align: center;">
+<p align=center>
   <img src="apps/onyx/assets/screenshots/onyx_screenshot_calendar_en.png" width="18%" alt="Calendar Screenshot">
   <img src="apps/onyx/assets/screenshots/onyx_screenshot_email_en.png" width="18%" alt="Email Screenshot">
   <img src="apps/onyx/assets/screenshots/onyx_screenshot_grades_en.png" width="18%" alt="Grades Screenshot">
   <img src="apps/onyx/assets/screenshots/onyx_screenshot_map_en.png" width="18%" alt="Map Screenshot">
   <img src="apps/onyx/assets/screenshots/onyx_screenshot_izly_en.png" width="18%" alt="Izly Screenshot">
-</div>
+</p>
 
 ## Download
 
-<p style="text-align: center;">
+<p align=center>
 <a href='https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt="google-play" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/google-play_vector.svg"></a>
 <!--<a href='https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on F-Droid' src='https://fdroid.gitlab.io/artwork/badge/get-it-on.png' height="80px"/></a>-->
 <a href='https://github.com/onyx-lyon1/onyx/releases'><img alt="github" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/github_vector.svg"></a>
@@ -125,6 +125,6 @@ This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 I
 this license, visit http://creativecommons.org/licenses/by-nc/4.0/ or send a letter to Creative Commons, PO Box 1866,
 Mountain View, CA 94042, USA.\
 
-<p style="text-align: center;">
+<p align=center>
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
 </p>
