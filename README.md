@@ -85,11 +85,13 @@ Please make sure you are on the main branch before proceeding with the build pro
 Navigate to the `apps/onyx` directory and execute the following command based on your
 target platform:
 
-- To build an APK: `flutter build apk`
+- To build an APK: `flutter build apk --profile` (the `--profile` flag build the app without the signing key but with
+  full optimizations)
     - The APK file is located at `apps/onyx/build/app/outputs/flutter-apk/app-release.apk`.
 - To build for Linux: `flutter build linux`
     - The Linux build is located at `apps/onyx/build/linux/x64/release/bundle/Onyx`.
-- To build an app bundle: `flutter build appbundle`
+- To build an app bundle: `flutter build appbundle --profile` (the `--profile` flag build the app without the signing
+  key but with full optimizations)
     - The app bundle is located at `apps/onyx/build/app/outputs/bundle/release/app-release.aab`.
 - For other platforms, please refer to the Flutter documentation for their respective build locations.
 
