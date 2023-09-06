@@ -10,28 +10,22 @@
 
 <h4 align="center">The student application for Claude Bernard Lyon 1 University </h4>
 
-<p style="text-align: center;">
-  <a href="https://github.com/onyx-lyon1/onyx/releases">
-    <img src="https://img.shields.io/github/release/onyx-lyon1/onyx?include_prereleases=&sort=semver&color=blue"
-         alt="Releases">
-  </a>
-  <a href="https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share">
-    <img src="https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dfr.onyx.lyon1%26l%3DAndroid%26m%3D%24version"
-         alt="Playstore">
-  </a>
-  <a href="https://creativecommons.org/licenses/by-nc/4.0/">
-      <img src="https://img.shields.io/badge/License-CC BY--NC-blue"
-        alt="License">
-  </a>
+<p align=center>
+    <a href="https://github.com/onyx-lyon1/onyx/releases">
+      <img src="https://img.shields.io/github/release/onyx-lyon1/onyx?include_prereleases=&sort=semver&color=blue" alt="Releases">
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share">
+      <img src="https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dfr.onyx.lyon1%26l%3DAndroid%26m%3D%24version" alt="Playstore">
+    </a>
+    <a href="https://creativecommons.org/licenses/by-nc/4.0/">
+      <img src="https://img.shields.io/badge/License-CC BY--NC-blue" alt="License">
+    </a>
+    <a href="https://discord.gg/AtCc3pcaNm">
+      <img src="https://img.shields.io/discord/308323056592486420.svg?logo=discord&label=Discord&colorA=2C2F33&colorB=7289DA" alt="Discord">
+    </a>
+  </p>
 
-  <a href="https://discord.gg/AtCc3pcaNm">
-      <img src="https://img.shields.io/discord/308323056592486420.svg?logo=discord&label=Discord&colorA=2C2F33&colorB=7289DA"
-        alt="Discord">
-  </a>
-
-</p>
-
-<p style="text-align: center;">
+<p align=center>
   <a href="#features">Features</a> | 
   <a href="#download">Download</a> | 
   <a href="#contribute">Contribute</a> | 
