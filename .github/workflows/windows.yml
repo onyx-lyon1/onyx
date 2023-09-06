@@ -1,0 +1,22 @@
+name: Windows
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+ build:
+   runs-on: windows-latest
+   steps:
+     - uses: actions/checkout@v3
+     - uses: subosito/flutter-action@v2
+       with:
+         flutter-version: '3.13.2'
+     
+     - name: Prepare
+       run: flutter config --enable-windows-desktop
+     
+     - name: Build
+       working-directory: apps/onyx
+       run: flutter build windows
