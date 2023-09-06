@@ -159,12 +159,24 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                           restaurants.first.lon)
                                       : null,
                               onTapNavigate: (position) async {
-                                routingPaths.addAll(await NavigationLogic
+                                if (GeolocationLogic.lastLocation != null) {
+                                  setState(() {});
+                                  routingPaths = (await NavigationLogic
+                                      .navigateToBatimentFromLocation(
+                                          context,
+                                          batiments
+                                              .map((e) => e.position)
+                                              .toList(),
+                                          useLastLocation: true));
+                                }
+                                // ignore: use_build_context_synchronously
+                                routingPaths = (await NavigationLogic
                                     .navigateToBatimentFromLocation(
                                         context,
                                         batiments
                                             .map((e) => e.position)
-                                            .toList()));
+                                            .toList(),
+                                        useLastLocation: false));
                                 setState(() {});
                               },
                             );
@@ -181,19 +193,24 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       borderRadius: BorderRadius.circular(10),
                       child: InkWell(
                         onTap: () async {
+                          List<LatLng> dest;
                           if (batiments.isNotEmpty) {
-                            routingPaths = (await NavigationLogic
-                                .navigateToBatimentFromLocation(context,
-                                    batiments.map((e) => e.position).toList()));
+                            dest = batiments.map((e) => e.position).toList();
                           } else {
-                            routingPaths = (await NavigationLogic
-                                .navigateToBatimentFromLocation(
-                                    context,
-                                    restaurants
-                                        .map((e) => LatLng(e.lat, e.lon))
-                                        .toList()));
+                            dest = restaurants
+                                .map((e) => LatLng(e.lat, e.lon))
+                                .toList();
                           }
-
+                          if (GeolocationLogic.lastLocation != null) {
+                            routingPaths = (await NavigationLogic
+                                .navigateToBatimentFromLocation(context, dest,
+                                    useLastLocation: true));
+                            setState(() {});
+                          }
+                          // ignore: use_build_context_synchronously
+                          routingPaths = (await NavigationLogic
+                              .navigateToBatimentFromLocation(context, dest,
+                                  useLastLocation: false));
                           setState(() {});
                         },
                         borderRadius: BorderRadius.circular(10),
