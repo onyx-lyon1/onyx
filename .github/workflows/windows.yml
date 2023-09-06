@@ -15,7 +15,10 @@ jobs:
          flutter-version: '3.13.2'
      
      - name: Prepare
-       run: flutter config --enable-windows-desktop
+       working-directory: apps/onyx
+       run: |
+         flutter config --enable-windows-desktop
+         flutter pub get
      
      - name: Build
        working-directory: apps/onyx
