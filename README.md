@@ -70,25 +70,57 @@ We really appreciate any help. You can also chat with us on [Discord](https://di
 
 ## Build
 
-### Run the integration test
+To build the app, follow these steps:
 
-Start app in test
-mode : `flutter run integration_test/app_test.dart --host-vmservice-port 9753 --disable-service-auth-codes --dart-define CONVENIENT_TEST_MANAGER_HOST="an ip address" --dart-define CONVENIENT_TEST_APP_CODE_DIR=/path/to/onyx`.
+### Prerequisites
 
-Replace `an ip address` with the ip address of your computer (if using an emulator, set to 10.0.2.2).
-Replace `/path/to/onyx` with the path to the onyx directory.
+- Install Flutter from [flutter.dev](https://flutter.dev).
+- Note: If you intend to build for Linux, ensure you have the libsecret library installed in your development
+  environment.
 
-Run the test manager (can be found here : https://github.com/fzyzcjy/flutter_convenient_test/)
-`flutter run packages/convenient_test_manager/lib/main.dart --profile --dart-define CONVENIENT_TEST_WORKER_HOST="an ip address" -d linux`.
+### Building the App
 
-Replace `an ip address` with the ip address of your phone (if using an emulator, set to 127.0.0.1).
+Please make sure you are on the main branch before proceeding with the build process.
+Navigate to the `apps/onyx` directory and execute the following command based on your
+target platform:
 
-Replace `linux` with your operating system.
+- To build an APK: `flutter build apk`
+    - The APK file is located at `apps/onyx/build/app/outputs/flutter-apk/app-release.apk`.
+- To build for Linux: `flutter build linux`
+    - The Linux build is located at `apps/onyx/build/linux/x64/release/bundle/Onyx`.
+- To build an app bundle: `flutter build appbundle`
+    - The app bundle is located at `apps/onyx/build/app/outputs/bundle/release/app-release.aab`.
+- For other platforms, please refer to the Flutter documentation for their respective build locations.
 
-Common issue :
+### Development Environment Setup
 
-- You will maybe need to install vlc-dev on linux to be able to compile the test manager.
-- Enable isolation in the test manager to run all the tests at once.
+To set up your development environment:
+
+1. The required libraries are located in the `packages/` directory.
+2. Install Melos, which handles linking libraries directly in the app for development:
+    - Install Melos by running: `dart pub global activate melos`.
+    - Refer to the [Melos documentation](https://melos.invertase.dev/) for more details.
+3. Run `melos bs` or `melos bootstrap` to link the local libraries in the app and retrieve all dependencies.
+4. Navigate to the `apps/onyx` directory and run `flutter clean` to ensure a clean environment.
+5. Run `flutter run` to start the app.
+6. Optionally, you can use `melos generate` to generate automatically generated files (usually not needed unless you
+   modify them).
+7. Run `melos test` to run unit tests for all the libraries.
+8. Run `melos analyze` to perform static analysis on the libraries and the Onyx app.
+9. To unlink everything, use `melos clean`.
+
+### End-to-End Testing
+
+To run end-to-end tests:
+
+1. Install Maestro by following the [Maestro documentation](https://maestro.mobile.dev/).
+2. Run the following command to install Maestro: `curl -Ls "https://get.maestro.mobile.dev" | bash` (Applicable for Mac
+   OS, Linux, or Windows with WSL)
+3. Navigate to the `apps/onyx/integration_test` directory.
+    4. After installing the app on an Android device (physical or virtual), run the following command to execute the
+       tests: `maestro test general_test.yaml` Maestro will automatically run the tests.
+
+Now, you're all set to build and test your Flutter app.
 
 ## License
 
