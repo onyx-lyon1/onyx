@@ -14,9 +14,12 @@ class NavigationLogic {
   static Graph? graph;
 
   static Future<List<List<LatLng>>> navigateToBatimentFromLocation(
-      BuildContext context, List<LatLng> latLngs) async {
+      BuildContext context, List<LatLng> latLngs,
+      {bool useLastLocation = false}) async {
     List<List<LatLng>> paths = [];
-    LatLng position = (await GeolocationLogic.getCurrentLocation())!;
+    LatLng position = (useLastLocation && GeolocationLogic.lastLocation != null)
+        ? GeolocationLogic.lastLocation!
+        : (await GeolocationLogic.getCurrentLocation())!;
     for (var latLng in latLngs) {
       if (position.inside(MapRes.minBound, MapRes.maxBound) &&
           latLng.inside(MapRes.minBound, MapRes.maxBound)) {
