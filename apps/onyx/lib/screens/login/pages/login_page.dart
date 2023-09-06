@@ -130,8 +130,8 @@ class _LoginPageState extends State<LoginPage> {
                               color: Theme.of(context).secondaryHeaderColor,
                               child: TextFormField(
                                 autofillHints: const [AutofillHints.username],
-                                onSaved: (String? value) =>
-                                    username = value!.replaceFirst("p", "P"),
+                                onSaved: (String? value) => username =
+                                    value!.replaceFirst("p", "P").trim(),
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                   labelText: 'Username',
@@ -170,8 +170,10 @@ class _LoginPageState extends State<LoginPage> {
                                   }
                                   if (value == null || value.isEmpty) {
                                     return 'Veuillez entrer l\'identifiant';
-                                  } else if (!(value.startsWith("P") ||
-                                      value.startsWith("p"))) {
+                                  } else if (!value
+                                      .replaceFirst("p", "P")
+                                      .trim()
+                                      .startsWith("P")) {
                                     return "l'identifiant doit commencer par P";
                                   }
                                   return null;
