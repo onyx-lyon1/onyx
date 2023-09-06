@@ -1,7 +1,8 @@
 <!--suppress HtmlUnknownAnchorTarget, CheckImageSize -->
 <h1 style="text-align: center;">
-  <br>
-  <a href="https://onyx-lyon1.github.io/"><img src="https://onyx-lyon1.github.io/assets/Onyx_v16_onyx.png" alt="Onyx" width="200"></a>
+  <a href="https://onyx-lyon1.github.io" style="display: block; text-align: center;">
+    <img src="https://onyx-lyon1.github.io/assets/Onyx_v16_onyx.png" alt="Onyx" width="200" style="display: block; margin: 0 auto;">
+  </a>
   <br>
   Onyx : Everything for Lyon 1
   <br>
