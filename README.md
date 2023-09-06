@@ -67,13 +67,13 @@ We really appreciate any help. You can also chat with us on [Discord](https://di
 
 To build the app, follow these steps:
 
-### Prerequisites
+### Prerequisites 🛠️
 
 - Install Flutter from [flutter.dev](https://flutter.dev).
 - Note: If you intend to build for Linux, ensure you have the libsecret library installed in your development
   environment.
 
-### Building the App
+### Building the App 🏗️
 
 Please make sure you are on the main branch before proceeding with the build process.
 Navigate to the `apps/onyx` directory and execute the following command based on your
@@ -89,7 +89,7 @@ target platform:
     - The app bundle is located at `apps/onyx/build/app/outputs/bundle/release/app-release.aab`.
 - For other platforms, please refer to the Flutter documentation for their respective build locations.
 
-### Development Environment Setup
+### Development Environment Setup ⚙️
 
 To set up your development environment:
 
@@ -106,7 +106,7 @@ To set up your development environment:
 8. Run `melos analyze` to perform static analysis on the libraries and the Onyx app.
 9. To unlink everything, use `melos clean`.
 
-### End-to-End Testing
+### End-to-End Testing 🧪
 
 To run end-to-end tests:
 
@@ -117,7 +117,7 @@ To run end-to-end tests:
     4. After installing the app on an Android device (physical or virtual), run the following command to execute the
        tests: `maestro test general_test.yaml` Maestro will automatically run the tests.
 
-Now, you're all set to build and test your Flutter app.
+Now, you're all set to build and test your Flutter app. 🎉
 
 ## License
 
