@@ -205,29 +205,12 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
                           decoration: InputDecoration(
                             // contentPadding: EdgeInsets.symmetric(vertical: 1.5.h),
                             hintText: "Recherche dans les agendas",
-                            prefixIcon: (state.status ==
-                                    AgendaConfigStatus.searchResult)
-                                ? GestureDetector(
-                                    onTap: () {
-                                      context
-                                          .read<AgendaConfigCubit>()
-                                          .unSearch();
-
-                                      FocusScope.of(context).unfocus();
-                                    },
-                                    child: Icon(
-                                      Icons.arrow_back_rounded,
-                                      color: Theme.of(context)
-                                          .bottomNavigationBarTheme
-                                          .unselectedItemColor,
-                                    ),
-                                  )
-                                : Icon(
-                                    Icons.search_rounded,
-                                    color: Theme.of(context)
-                                        .bottomNavigationBarTheme
-                                        .unselectedItemColor,
-                                  ),
+                            prefixIcon: Icon(
+                              Icons.search_rounded,
+                              color: Theme.of(context)
+                                  .bottomNavigationBarTheme
+                                  .unselectedItemColor,
+                            ),
                             border: InputBorder.none,
                             // contentPadding: EdgeInsets.zero,
                           ),
