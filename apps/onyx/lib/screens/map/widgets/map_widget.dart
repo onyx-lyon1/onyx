@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
+import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/map/domain/logic/tile_provider_logic.dart';
 import 'package:onyx/screens/map/map_export.dart';
+import 'package:onyx/screens/map/widgets/popup_widgets/restaurant_pop_up_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MapWidget extends StatefulWidget {
@@ -16,15 +18,17 @@ class MapWidget extends StatefulWidget {
       {Key? key,
       this.batiments = const [],
       this.polylines = const [],
+      this.restaurant = const [],
       required this.onTapNavigate,
       this.mapController,
       this.center})
       : super(key: key);
   final List<BatimentModel> batiments;
+  final List<RestaurantModel> restaurant;
   final List<Polyline> polylines;
   final LatLng? center;
   final AnimatedMapController? mapController;
-  final void Function(BatimentModel) onTapNavigate;
+  final void Function(LatLng) onTapNavigate;
 
   @override
   State<MapWidget> createState() => _MapWidgetState();
@@ -47,17 +51,29 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final PopupController popupLayerController = PopupController();
-    List<Marker> markers = widget.batiments.map((element) {
-      return Marker(
-        point: element.position,
-        builder: (context) => Icon(
-          Icons.location_on_rounded,
-          size: 20.sp,
-          color: Colors.red,
-          semanticLabel: element.name,
+    List<Marker> markers = [
+      for (var element in widget.batiments)
+        Marker(
+          point: element.position,
+          builder: (context) => Icon(
+            Icons.location_on_rounded,
+            size: 20.sp,
+            color: Colors.red,
+            semanticLabel: element.name,
+          ),
         ),
-      );
-    }).toList();
+      for (var element in widget.restaurant)
+        Marker(
+          point: LatLng(element.lat, element.lon),
+          builder: (context) => Icon(
+            Icons.restaurant_rounded,
+            size: 20.sp,
+            color: Colors.green,
+            semanticLabel: element.name,
+          ),
+        ),
+    ];
+
     if (widget.center == null) {
       GeolocationLogic.getCurrentLocation(askPermission: false)
           .then((value) async {
@@ -77,8 +93,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
           ),
           mapController: mapController.mapController,
           children: [
-            TileLayer(tileProvider: HybridTileProvider() //AssetTileProvider(),
-                ),
+            TileLayer(tileProvider: HybridTileProvider()),
             if (widget.polylines.isNotEmpty &&
                 !widget.polylines.any((element) => element.points.isEmpty))
               PolylineLayer(
@@ -88,19 +103,31 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
             if (!kIsWeb &&
                 !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
               const CustomCurrentLocationLayerWidget(),
-            if (widget.batiments.isNotEmpty)
+            if (markers.isNotEmpty)
               PopupMarkerLayer(
                   options: PopupMarkerLayerOptions(
                 markers: markers,
                 popupController: popupLayerController,
                 popupDisplayOptions: PopupDisplayOptions(
                   builder: (BuildContext context, Marker marker) {
-                    return MapPopupWidget(
-                      batiment: widget.batiments.firstWhere(
-                          (element) => element.position == marker.point),
-                      onTap: widget.onTapNavigate,
-                      popupController: popupLayerController,
-                    );
+                    int index = widget.batiments.indexWhere(
+                        (element) => element.position == marker.point);
+                    if (index != -1) {
+                      return BatimentPopupWidget(
+                        element: widget.batiments[index],
+                        onTap: widget.onTapNavigate,
+                        popupController: popupLayerController,
+                      );
+                    } else {
+                      index = widget.restaurant.indexWhere((element) =>
+                          element.lat == marker.point.latitude &&
+                          element.lon == marker.point.longitude);
+                      return RestaurantPopUpWidget(
+                        element: widget.restaurant[index],
+                        onTap: widget.onTapNavigate,
+                        popupController: popupLayerController,
+                      );
+                    }
                   },
                 ),
               )),

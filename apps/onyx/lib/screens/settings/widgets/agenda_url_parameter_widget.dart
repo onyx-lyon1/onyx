@@ -38,42 +38,8 @@ class AgendaUrlParameterWidget extends StatelessWidget {
             if (!context.read<SettingsCubit>().state.settings.fetchAgendaAuto)
               SizedBox(
                 width: 50.w,
-                child: Center(
-                  child: Material(
-                    borderRadius: BorderRadius.circular(100),
-                    color: Theme.of(context).primaryColor,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(100),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SafeArea(
-                              child: AgendaConfigPage(
-                                onBack: (index) {
-                                  context.read<SettingsCubit>().modify(
-                                      settings: context
-                                          .read<SettingsCubit>()
-                                          .state
-                                          .settings
-                                          .copyWith(agendaId: index));
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(2.w),
-                        child: Text(
-                          'Sélectionner l\'agenda',
-                          maxLines: 1,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                      ),
-                    ),
-                  ),
+                child: const Center(
+                  child: AgendaSelectionWidget(),
                 ),
               )
             else
@@ -81,6 +47,55 @@ class AgendaUrlParameterWidget extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class AgendaSelectionWidget extends StatelessWidget {
+  final VoidCallback? onTap;
+
+  const AgendaSelectionWidget({
+    this.onTap,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      borderRadius: BorderRadius.circular(100),
+      color: Theme.of(context).primaryColor,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(100),
+        onTap: () {
+          if (onTap != null) onTap!();
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SafeArea(
+                child: AgendaConfigPage(
+                  onBack: (index) {
+                    context.read<SettingsCubit>().modify(
+                        settings: context
+                            .read<SettingsCubit>()
+                            .state
+                            .settings
+                            .copyWith(agendaId: index));
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ),
+          );
+        },
+        child: Container(
+          padding: EdgeInsets.all(2.w),
+          child: Text(
+            'Sélectionner l\'agenda',
+            maxLines: 1,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ),
+      ),
     );
   }
 }

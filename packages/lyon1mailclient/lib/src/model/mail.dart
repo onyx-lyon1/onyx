@@ -38,7 +38,7 @@ class Mail extends Equatable {
   @HiveField(9)
   late final List<String> attachments;
 
-  late final List<File>? attachmentsFiles;
+  late final List<File> attachmentsFiles;
 
   Mail.fromRaw(this.rawMail, {bool removeTrackingImages = false}) {
     subject = rawMail!.decodeSubject() ?? "";
@@ -80,7 +80,7 @@ class Mail extends Equatable {
     } else {
       attachments = [];
     }
-    attachmentsFiles = null;
+    attachmentsFiles = [];
   }
 
   Mail({
@@ -95,7 +95,7 @@ class Mail extends Equatable {
     required this.receiver,
     required this.attachments,
     required this.isFlagged,
-    this.attachmentsFiles,
+    this.attachmentsFiles = const [],
     this.rawMail,
   });
 
@@ -103,7 +103,7 @@ class Mail extends Equatable {
     required this.subject,
     required this.body,
     required this.receiver,
-    this.attachmentsFiles,
+    this.attachmentsFiles = const [],
   }) {
     sender = "";
     excerpt = HtmlToPlainTextConverter.convert(body)
@@ -119,8 +119,7 @@ class Mail extends Equatable {
     date = DateTime.now();
     blackBody = body;
     id = null;
-    attachments =
-        attachmentsFiles?.map((e) => e.path.split("/").last).toList() ?? [];
+    attachments = attachmentsFiles.map((e) => e.path.split("/").last).toList();
     isFlagged = false;
     rawMail = null;
   }
@@ -128,7 +127,7 @@ class Mail extends Equatable {
   Mail.forReplying({
     required this.body,
     required Mail mail,
-    this.attachmentsFiles,
+    this.attachmentsFiles = const [],
   }) {
     receiver = mail.sender;
     sender = mail.receiver;
@@ -146,8 +145,7 @@ class Mail extends Equatable {
     date = DateTime.now();
     blackBody = body;
     id = null;
-    attachments =
-        attachmentsFiles?.map((e) => e.path.split("/").last).toList() ?? [];
+    attachments = attachmentsFiles.map((e) => e.path.split("/").last).toList();
     isFlagged = false;
     rawMail = null;
   }
@@ -156,7 +154,7 @@ class Mail extends Equatable {
     required this.body,
     required this.receiver,
     required Mail mail,
-    this.attachmentsFiles,
+    this.attachmentsFiles = const [],
   }) {
     sender = mail.receiver;
     subject = "";
@@ -173,8 +171,7 @@ class Mail extends Equatable {
     date = DateTime.now();
     blackBody = body;
     id = null;
-    attachments =
-        attachmentsFiles?.map((e) => e.path.split("/").last).toList() ?? [];
+    attachments = attachmentsFiles.map((e) => e.path.split("/").last).toList();
     isFlagged = false;
     rawMail = null;
   }

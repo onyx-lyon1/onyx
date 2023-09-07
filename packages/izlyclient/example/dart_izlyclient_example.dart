@@ -19,14 +19,14 @@ void main() async {
     await File("qrCode$i.png").writeAsBytes(qrCodes[i]);
   }
   //get the url to recharge with a account transfer
-  RequestData transferRequest = await izlyClient.getTransferPaymentUrl(10.0);
+  var transferRequest = await izlyClient.getTransferPaymentUrl(10.0);
   //do a get request to transferRequest.url
 
   //recharge with a credit card
   //first get available cb
   List<CbModel> cbs = await izlyClient.getAvailableCBs();
   //get the request to pay with a cb
-  RequestData cbRequest = await izlyClient.rechargeWithCB(10.0, cbs.first);
+  var cbRequest = await izlyClient.rechargeWithCB(10.0, cbs.first);
   //do a post request to cbRequest.url with the body cbRequest.body
 
   //recharge via someone else

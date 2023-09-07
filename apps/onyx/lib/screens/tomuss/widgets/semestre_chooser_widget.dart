@@ -55,6 +55,7 @@ class SemesterChooserWidget extends StatelessWidget {
                                 .indexOf(semester),
                             settings:
                                 context.read<SettingsCubit>().state.settings,
+                            force: true,
                           );
                       Navigator.pop(context);
                     },

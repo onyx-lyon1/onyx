@@ -65,10 +65,20 @@ Future<bool> backgroundLogic({bool init = true}) async {
                           Lyon1TomussClient.currentSemester())))
               .schoolSubjectModel!;
       for (var i in newTeachingUnits) {
-        TeachingUnit teachingUnitModel =
-            teachingUnits.firstWhere((element) => element == i);
-        for (var x in i.grades) {
-          if (!teachingUnitModel.grades.any((element) => element == x)) {
+        if (teachingUnits.any((element) => element == i)) {
+          TeachingUnit teachingUnitModel =
+              teachingUnits.firstWhere((element) => element == i);
+          for (var x in i.grades) {
+            if (!teachingUnitModel.grades.any((element) => element == x)) {
+              await NotificationLogic.showNotification(
+                  title: "Nouvelles notes",
+                  body:
+                      "Vous avez eu ${x.numerator}/${x.denominator} (${x.title}) en : ${i.title}",
+                  payload: "newGrades");
+            }
+          }
+        } else {
+          for (var x in i.grades) {
             await NotificationLogic.showNotification(
                 title: "Nouvelles notes",
                 body:
@@ -110,10 +120,12 @@ Future<bool> backgroundLogic({bool init = true}) async {
               payload: "newMail");
         }
       }
-      mailBoxes
-          .firstWhere(
-              (element) => element.specialMailBox == SpecialMailBox.inbox)
-          .emails = newMails;
+      int index = mailBoxes.indexWhere(
+          (element) => element.specialMailBox == SpecialMailBox.inbox);
+      if (index != -1) {
+        mailBoxes[index].emails = newMails;
+      }
+
       await CacheService.set<MailBoxList>(MailBoxList(mailBoxes: mailBoxes));
     }
     if (settings.calendarUpdateNotification) {
@@ -126,14 +138,12 @@ Future<bool> backgroundLogic({bool init = true}) async {
           settings: settings);
       List<Day> notifyDays = [];
       for (var i in newDays) {
-        if (i.date.difference(DateTime.now()).inMilliseconds > 0 &&
+        if (i.date.isAfter(DateTime.now()) &&
             i.date
                     .difference(DateTime.now())
                     .compareTo(const Duration(days: 14)) <
                 0 &&
-            (!days.any((element) {
-              return element == i;
-            }))) {
+            (!days.any((element) => element == i))) {
           notifyDays.add(i);
         }
       }

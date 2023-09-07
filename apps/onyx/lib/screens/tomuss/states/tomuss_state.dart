@@ -17,8 +17,10 @@ class TomussState extends Equatable {
   final int currentSemesterIndex;
   final Duration? timeout;
   final List<
-          ({TeachingUnitElement teachingUnitElement, TeachingUnit teachingUnit})>
-      newElements;
+      ({
+        TeachingUnitElement teachingUnitElement,
+        TeachingUnit teachingUnit
+      })> newElements;
 
   @override
   List<Object?> get props => [
@@ -47,8 +49,11 @@ class TomussState extends Equatable {
       List<Semester>? semesters,
       int? currentSemesterIndex,
       Duration? timeout,
-        List<
-            ({TeachingUnitElement teachingUnitElement, TeachingUnit teachingUnit})>?
+      List<
+              ({
+                TeachingUnitElement teachingUnitElement,
+                TeachingUnit teachingUnit
+              })>?
           newElements}) {
     return TomussState(
         status: status ?? this.status,

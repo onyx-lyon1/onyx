@@ -42,10 +42,6 @@ class AgendaPage extends StatelessWidget {
               headerState =
                   const LoadingHeaderWidget(message: "Chargement de l'agenda");
               break;
-            case AgendaStatus.ready:
-              break;
-            case AgendaStatus.dateUpdated:
-              break;
             case AgendaStatus.error:
               headerState = const LoadingHeaderWidget(
                   message: "Erreur lors du chargement de l'agenda");
@@ -65,6 +61,10 @@ class AgendaPage extends StatelessWidget {
                       );
                 },
               );
+            case AgendaStatus.ready:
+              break;
+            case AgendaStatus.dateUpdated:
+              break;
           }
           bool animating = false;
           PageController pageController = PageController();
@@ -200,9 +200,10 @@ class AgendaPage extends StatelessWidget {
               ),
               onRefresh: () async {
                 context.read<AgendaCubit>().load(
-                    lyon1Cas:
-                        context.read<AuthentificationCubit>().state.lyon1Cas,
-                    settings: context.read<SettingsCubit>().state.settings);
+                      lyon1Cas:
+                          context.read<AuthentificationCubit>().state.lyon1Cas,
+                      settings: context.read<SettingsCubit>().state.settings,
+                    );
                 // ignore: use_build_context_synchronously
                 while (context.read<AgendaCubit>().state.status !=
                         AgendaStatus.ready &&

@@ -74,6 +74,7 @@ class IzlyPage extends StatelessWidget {
                         child: Card(
                           color: Colors.white,
                           elevation: 10,
+                          clipBehavior: Clip.hardEdge,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),

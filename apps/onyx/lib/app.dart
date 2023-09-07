@@ -89,9 +89,12 @@ class OnyxAppState extends State<OnyxApp> {
                       .then((value) => context.read<EmailCubit>().connect(
                           username: value!.username,
                           password: value.password)));
-              context.read<AgendaCubit>().load(
-                  lyon1Cas: authState.lyon1Cas,
-                  settings: context.read<SettingsCubit>().state.settings);
+              if (AgendaStatus.ready !=
+                  context.read<AgendaCubit>().state.status) {
+                context.read<AgendaCubit>().load(
+                    lyon1Cas: authState.lyon1Cas,
+                    settings: context.read<SettingsCubit>().state.settings);
+              }
               context.read<TomussCubit>().load(
                     lyon1Cas: authState.lyon1Cas,
                     settings: context.read<SettingsCubit>().state.settings,

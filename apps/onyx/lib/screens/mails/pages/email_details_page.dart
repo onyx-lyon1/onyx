@@ -19,126 +19,132 @@ class MailDetailsPage extends StatelessWidget {
           body: Container(
             color: Theme.of(context).colorScheme.background,
             child: SafeArea(
-              child: SizedBox(
-                width: 100.w,
-                height: 100.h,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      color: Theme.of(context).cardTheme.color,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 2.w, vertical: 2.h),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Icon(
-                                Icons.arrow_back_rounded,
-                                color: Theme.of(context)
-                                    .bottomNavigationBarTheme
-                                    .unselectedItemColor,
-                                size: 20.sp,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    color: Theme.of(context).cardTheme.color,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 2.w,
+                        vertical: 2.h,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.arrow_back_rounded,
+                              color: Theme.of(context)
+                                  .bottomNavigationBarTheme
+                                  .unselectedItemColor,
+                              size: 20.sp,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 3.w,
+                          ),
+                          SizedBox(
+                            width: 80.w,
+                            child: Center(
+                              child: Text(
+                                mail.subject,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            SizedBox(
-                              width: 3.w,
-                            ),
-                            SizedBox(
-                              width: 80.w,
-                              child: Center(
-                                child: Text(
-                                  mail.subject,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Container(
-                      color: Theme.of(context).cardTheme.color,
-                      width: 100.w,
-                      child: Padding(
-                        padding: EdgeInsets.all(1.h),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SelectableText("De : ${mail.sender}"),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            SelectableText("À : ${mail.receiver}"),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Container(
-                      color: Theme.of(context).cardTheme.color,
-                      height: (mail.attachments.isNotEmpty) ? 58.h : 70.h,
-                      width: 100.w,
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Container(
+                    color: Theme.of(context).cardTheme.color,
+                    width: 100.w,
+                    child: Padding(
                       padding: EdgeInsets.all(1.h),
-                      child: MailContentWidget(mail: mail),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SelectableText(
+                            "De : ${mail.sender}",
+                            maxLines: 1,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          SelectableText(
+                            "À : ${mail.receiver}",
+                            maxLines: 1,
+                          ),
+                        ],
+                      ),
                     ),
-                    (mail.attachments.isNotEmpty)
-                        ? Container(
-                            color: Theme.of(context).cardTheme.color,
-                            padding: EdgeInsets.all(0.5.h),
-                            height: 12.h,
-                            width: 100.w,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: mail.attachments.length,
-                              itemBuilder: (context, index) {
-                                return MailAttachmentWidget(
-                                  fileName: mail.attachments[index][0],
-                                  onTap: () async {
-                                    //save data in a file and open it
-                                    if (mail.attachments[index][1] == "") {
-                                      mail.attachments[index] =
-                                          await AttachmentLogic
-                                              .getAttachmentLocalPath(
-                                                  email: mail,
-                                                  mailClient: context
-                                                      .read<EmailCubit>()
-                                                      .mailClient!,
-                                                  emailNumber:
-                                                      state.emailNumber,
-                                                  fileName: mail
-                                                      .attachments[index][0],
-                                                  folder:
-                                                      state.currentMailBox!);
-                                    }
-                                    // ignore: use_build_context_synchronously
-                                    showDialog(
-                                        context: context,
-                                        builder: (_) => SaveOrOpenDialogWidget(
-                                              filePath: mail.attachments[index]
-                                                  [1],
-                                            ));
-                                  },
-                                );
-                              },
-                            ),
-                          )
-                        : Container(),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Container(
+                    color: Theme.of(context).cardTheme.color,
+                    height: (mail.attachments.isNotEmpty) ? 57.h : 70.h,
+                    width: 100.w,
+                    padding: EdgeInsets.all(1.h),
+                    child: MailContentWidget(mail: mail),
+                  ),
+                  (mail.attachments.isNotEmpty)
+                      ? Container(
+                          color: Theme.of(context).cardTheme.color,
+                          padding: EdgeInsets.all(0.5.h),
+                          height: 12.h,
+                          width: 100.w,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: mail.attachments.length,
+                            itemBuilder: (context, index) {
+                              return MailAttachmentWidget(
+                                fileName: mail.attachments[index],
+                                onTap: () async {
+                                  //save data in a file and open it
+                                  if (mail.attachmentsFiles
+                                      .where((element) => element.path
+                                          .contains(mail.attachments[1]))
+                                      .isEmpty) {
+                                    mail.attachmentsFiles.insert(
+                                        index,
+                                        await AttachmentLogic
+                                            .getAttachmentLocalPath(
+                                                email: mail,
+                                                mailClient: context
+                                                    .read<EmailCubit>()
+                                                    .mailClient!,
+                                                emailNumber: state.emailNumber,
+                                                fileName:
+                                                    mail.attachments[index],
+                                                folder: state.currentMailBox!));
+                                  }
+                                  // ignore: use_build_context_synchronously
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) => SaveOrOpenDialogWidget(
+                                            filePath: mail
+                                                .attachmentsFiles[index].path,
+                                          ));
+                                },
+                              );
+                            },
+                          ),
+                        )
+                      : Container(),
+                ],
               ),
             ),
           ),
