@@ -61,9 +61,18 @@ class TomussCompactElementWidget extends StatelessWidget {
                               maxLines: 1,
                               style: TextStyle(
                                 overflow: TextOverflow.clip,
-                                color: OnyxTheme.darkTheme()
-                                    .colorScheme
-                                    .background,
+                                color:
+                                    (Theme.of(context).colorScheme.background ==
+                                            OnyxTheme.darkTheme()
+                                                .colorScheme
+                                                .background)
+                                        ? Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .color
+                                        : OnyxTheme.darkTheme()
+                                            .colorScheme
+                                            .background,
                               ),
                             ),
                     ),
@@ -83,9 +92,20 @@ class TomussCompactElementWidget extends StatelessWidget {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   overflow: TextOverflow.clip,
-                                  color: OnyxTheme.darkTheme()
-                                      .colorScheme
-                                      .background,
+                                  color:
+                                      (Theme.of(context)
+                                                  .colorScheme
+                                                  .background ==
+                                              OnyxTheme.darkTheme()
+                                                  .colorScheme
+                                                  .background)
+                                          ? Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium!
+                                              .color
+                                          : OnyxTheme.darkTheme()
+                                              .colorScheme
+                                              .background,
                                 ),
                               ),
                             ),
@@ -105,9 +125,18 @@ class TomussCompactElementWidget extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 overflow: TextOverflow.clip,
-                                color: OnyxTheme.darkTheme()
-                                    .colorScheme
-                                    .background,
+                                color:
+                                    (Theme.of(context).colorScheme.background ==
+                                            OnyxTheme.darkTheme()
+                                                .colorScheme
+                                                .background)
+                                        ? Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .color
+                                        : OnyxTheme.darkTheme()
+                                            .colorScheme
+                                            .background,
                               ),
                             ),
                     ),

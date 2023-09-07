@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
@@ -58,19 +59,19 @@ class IzlyLogic {
     }
   }
 
-  static Future<RequestData> getTransferUrl(
+  static Future<({Map<String, dynamic> body, String url})> getTransferUrl(
       IzlyClient izlyClient, double amount) async {
     if (Res.mock) {
-      return RequestData("google.com", const {});
+      return (url: "google.com", body: const <String, dynamic>{});
     }
     await reloginIfNeeded(izlyClient);
     return await izlyClient.getTransferPaymentUrl(amount);
   }
 
-  static Future<RequestData> rechargeWithCB(
+  static Future<({Map<String, dynamic> body, String url})> rechargeWithCB(
       IzlyClient izlyClient, double amount, CbModel cb) async {
     if (Res.mock) {
-      return RequestData("google.com", const {});
+      return (url: "google.com", body: const <String, dynamic>{});
     }
     await reloginIfNeeded(izlyClient);
     return await izlyClient.rechargeWithCB(amount, cb);
@@ -91,5 +92,22 @@ class IzlyLogic {
     }
     await reloginIfNeeded(izlyClient);
     return await izlyClient.rechargeViaSomeoneElse(amount, email, message);
+  }
+
+  static Future<void> addRestaurantToFavourite(
+      RestaurantModel restaurant) async {
+    final box = await Hive.openBox("favourite_restaurant");
+    box.put(restaurant.id, true);
+  }
+
+  static Future<void> removeRestaurantToFavourite(
+      RestaurantModel restaurant) async {
+    final box = await Hive.openBox("favourite_restaurant");
+    box.put(restaurant.id, false);
+  }
+
+  static Future<bool> isRestaurantFavourite(RestaurantModel restaurant) async {
+    final box = await Hive.openBox("favourite_restaurant");
+    return box.get(restaurant.id, defaultValue: false);
   }
 }

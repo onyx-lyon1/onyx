@@ -7,13 +7,25 @@ import 'package:izlyclient/izlyclient.dart';
 import 'package:requests_plus/requests_plus.dart';
 
 class IzlyClient {
-  static const String _baseUrl = 'https://mon-espace.izly.fr';
+  static const _baseUrl = 'https://mon-espace.izly.fr';
+  static const _menuUrl =
+      "http://webservices-v2.crous-mobile.fr:8080/feed/lyon/externe/crous-lyon.json";
+  static const _cbConfirmationLink =
+      "https://secure-magenta1.be2bill.com/front/form/process";
   late final String _corsProxyUrl;
 
   static void registerAdapters() {
     Hive.registerAdapter(IzlyCredentialAdapter());
     Hive.registerAdapter(IzlyQrCodeAdapter());
     Hive.registerAdapter(IzlyQrCodeListAdapter());
+    Hive.registerAdapter(MenuTypeAdapter());
+    Hive.registerAdapter(MenuRegimeAdapter());
+    Hive.registerAdapter(MenuCrousTypeAdapter());
+    Hive.registerAdapter(PlatCrousAdapter());
+    Hive.registerAdapter(MenuCrousAdapter());
+    Hive.registerAdapter(CrousTypeAdapter());
+    Hive.registerAdapter(RestaurantModelAdapter());
+    Hive.registerAdapter(RestaurantListModelAdapter());
   }
 
   final String _username;
@@ -100,7 +112,8 @@ class IzlyClient {
     return result;
   }
 
-  Future<RequestData> getTransferPaymentUrl(double amount) async {
+  Future<({Map<String, dynamic> body, String url})> getTransferPaymentUrl(
+      double amount) async {
     assert(_isLogged);
     var r = await RequestsPlus.post(
         "$_baseUrl/Home/PaymentInitiationRequest?amount=${amount.toStringAsFixed(2)}",
@@ -108,7 +121,10 @@ class IzlyClient {
     if (r.statusCode != 200) {
       throw Exception("Payment failed");
     }
-    return RequestData(jsonDecode(r.content())["url"], {});
+    return (
+      url: jsonDecode(r.content())["url"].toString(),
+      body: <String, dynamic>{}
+    );
   }
 
   Future<List<CbModel>> getAvailableCBs() async {
@@ -129,7 +145,8 @@ class IzlyClient {
     return cb;
   }
 
-  Future<RequestData> rechargeWithCB(double amount, CbModel cb) async {
+  Future<({Map<String, dynamic> body, String url})> rechargeWithCB(
+      double amount, CbModel cb) async {
     assert(amount >= 10.0);
 
     if ((cb.id != "newCB")) {
@@ -147,12 +164,15 @@ class IzlyClient {
       final jsonData = jsonDecode(r.body);
       final securityReturn =
           jsonDecode(jsonData["Confirm"]["DalenysData3DSReturn"]);
-      return RequestData(jsonData["Confirm"]["DalenysUrl3DSReturn"], {
-        'transaction_id': securityReturn['transaction_id'],
-        'transaction_public_id': securityReturn['transaction_public_id'],
-        'card_network': securityReturn['card_network'],
-        'log_id': securityReturn['log_id'],
-      });
+      return (
+        url: jsonData["Confirm"]["DalenysUrl3DSReturn"].toString(),
+        body: {
+          'transaction_id': securityReturn['transaction_id'],
+          'transaction_public_id': securityReturn['transaction_public_id'],
+          'card_network': securityReturn['card_network'],
+          'log_id': securityReturn['log_id'],
+        }
+      );
     } else {
       var r = await RequestsPlus.post("$_baseUrl/Home/PaymentCreateRequest",
           body: {
@@ -184,8 +204,7 @@ class IzlyClient {
           body[node.attributes['name'].toString()] = node.attributes['value'];
         }
       }
-      return RequestData(
-          "https://secure-magenta1.be2bill.com/front/form/process", body);
+      return (url: _cbConfirmationLink, body: body);
     }
   }
 
@@ -207,5 +226,19 @@ class IzlyClient {
       throw Exception("Recharge failed");
     }
     return true;
+  }
+
+  static Future<List<RestaurantModel>> getRestaurantCrous() async {
+    final r = await RequestsPlus.get(_menuUrl,
+        bodyEncoding: RequestBodyEncoding.JSON);
+    if (r.statusCode != 200) {
+      throw Exception("Can't get menu crous");
+    }
+    String body =
+        r.body.replaceAll("\n", "").replaceAll("\t", "").replaceAll("\r", "");
+    final decoded = jsonDecode(utf8.decode(body.codeUnits));
+    return (decoded["restaurants"] as List)
+        .map((e) => RestaurantModel.fromJson(e))
+        .toList();
   }
 }

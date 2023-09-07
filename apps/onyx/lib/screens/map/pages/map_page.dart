@@ -29,6 +29,7 @@ class MapPage extends StatelessWidget {
           ),
           body: MapWidget(
             batiments: state.batiments,
+            restaurant: state.restaurant,
             center: center,
             polylines: [
               Polyline(
@@ -37,8 +38,8 @@ class MapPage extends StatelessWidget {
                 color: Colors.red,
               ),
             ],
-            onTapNavigate: (batiment) {
-              context.read<MapCubit>().navigate(context, batiment);
+            onTapNavigate: (LatLng latLng) {
+              context.read<MapCubit>().navigate(context, latLng);
             },
           ),
         );

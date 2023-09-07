@@ -41,7 +41,7 @@ void main() {
   test("rechager with transfer", () async {
     await izlyClient.login();
     expect(await izlyClient.isLogged(), true);
-    RequestData rechargement = await izlyClient.getTransferPaymentUrl(10.0);
+    var rechargement = await izlyClient.getTransferPaymentUrl(10.0);
     expect(rechargement, isNotNull);
     expect(rechargement.url, isNotNull);
     expect(rechargement.body.keys, isEmpty);
@@ -53,12 +53,10 @@ void main() {
     await izlyClient.login();
     expect(await izlyClient.isLogged(), true);
     final List<CbModel> cbs = (await izlyClient.getAvailableCBs());
-    final RequestData rechargement =
-        await izlyClient.rechargeWithCB(10.0, cbs.first);
+    final rechargement = await izlyClient.rechargeWithCB(10.0, cbs.first);
     expect(rechargement.url, isNotNull);
     expect(rechargement.body.keys.length, 4);
-    final RequestData rechargementNewCb =
-        await izlyClient.rechargeWithCB(10.0, cbs.last);
+    final rechargementNewCb = await izlyClient.rechargeWithCB(10.0, cbs.last);
     expect(rechargementNewCb.url, isNotNull);
     expect(rechargementNewCb.body.keys.length, 27);
     await izlyClient.logout();
@@ -73,5 +71,10 @@ void main() {
     expect(rechargement, true);
     await izlyClient.logout();
     expect(await izlyClient.isLogged(), false);
+  });
+
+  test("get menu crous", () async {
+    var menuCrous = await IzlyClient.getRestaurantCrous();
+    expect(menuCrous, isNotNull);
   });
 }

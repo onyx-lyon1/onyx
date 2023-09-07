@@ -24,194 +24,209 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
+      resizeToAvoidBottomInset: false,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "assets/izly.png",
-                width: 25.w,
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("ONYX",
-                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                            fontSize: 20.sp,
-                          )),
-                  Text("Pour Lyon 1",
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium!
-                          .copyWith(fontSize: 12.sp)),
-                ],
-              ),
-            ],
+          Flexible(
+            fit: FlexFit.tight,
+            flex: 3,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/izly.png",
+                  width: 25.w,
+                ),
+                SizedBox(
+                  width: 5.w,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("ONYX",
+                        style:
+                            Theme.of(context).textTheme.displayLarge!.copyWith(
+                                  fontSize: 20.sp,
+                                )),
+                    Text("Pour Lyon 1",
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(fontSize: 12.sp)),
+                  ],
+                ),
+              ],
+            ),
           ),
-          Form(
-            key: _formKey,
-            child: AutofillGroup(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 70.w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Authentification",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(fontSize: 18.sp),
-                        ),
-                        Material(
-                          borderRadius: BorderRadius.circular(5),
-                          child: OpenContainer(
-                            closedColor: Theme.of(context).secondaryHeaderColor,
-                            openBuilder: (context, closewidget) =>
-                                const PrivacyPolicyPage(),
-                            closedBuilder: (context, openwidget) => InkWell(
-                              onTap: openwidget,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 3.w, vertical: 0.5.h),
-                                child: Text(
-                                  "confidentialité",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(fontSize: 17.sp),
+          Flexible(
+            fit: FlexFit.tight,
+            flex: 4,
+            child: Form(
+              key: _formKey,
+              child: AutofillGroup(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 70.w,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Authentification",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(fontSize: 18.sp),
+                          ),
+                          Material(
+                            borderRadius: BorderRadius.circular(5),
+                            child: OpenContainer(
+                              closedColor:
+                                  Theme.of(context).secondaryHeaderColor,
+                              openBuilder: (context, closewidget) =>
+                                  const PrivacyPolicyPage(),
+                              closedBuilder: (context, openwidget) => InkWell(
+                                onTap: openwidget,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 2.w, vertical: 0.5.h),
+                                  child: Text(
+                                    "confidentialité",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(fontSize: 17.sp),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Container(
-                    color: Theme.of(context).secondaryHeaderColor,
-                    width: 70.w,
-                    child: TextFormField(
-                      autofillHints: const [AutofillHints.username],
-                      onSaved: (String? value) => username = value!,
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(
-                        labelText: 'Username',
-                        labelStyle:
-                            Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .color!
-                                      .withOpacity(0.5),
-                                ),
-                        prefixIcon: Icon(
-                          Icons.school_rounded,
-                          size: 18.sp,
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .color!
-                              .withOpacity(0.5),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 2,
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .color!),
-                        ),
-                        disabledBorder: InputBorder.none,
+                          )
+                        ],
                       ),
-                      validator: (value) {
-                        if (Res.mock) {
-                          return null;
-                        }
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez entrer l\'identifiant';
-                        } else if (!(RegExp(
-                                r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-                            .hasMatch(value))) {
-                          return "Veuillez entrer un Mail valide";
-                        }
-                        return null;
-                      },
                     ),
-                  ),
-                  Container(
-                    color: Theme.of(context).secondaryHeaderColor,
-                    width: 70.w,
-                    child: PasswordFormField(
-                      onFieldSubmitted: send,
-                      decoration: InputDecoration(
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 2,
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .color!),
-                        ),
-                        disabledBorder: InputBorder.none,
-                      ),
-                      onSaved: (String? value) => password = value!,
-                      // The validator receives the text that the user has entered.
-                      validator: (value) {
-                        if (Res.mock) {
-                          return null;
-                        }
-                        if (value == null || value.isEmpty) {
-                          return 'Veuillez entrer un mot de passe';
-                        }
-                        if (int.tryParse(value) == null) {
-                          return "Le mot de passe doit être un nombre";
-                        }
-                        return null;
-                      },
+                    SizedBox(
+                      height: 1.h,
                     ),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  InkWell(
-                    onTap: send,
-                    child: Container(
+                    Container(
+                      color: Theme.of(context).secondaryHeaderColor,
                       width: 70.w,
-                      padding: EdgeInsets.symmetric(vertical: 2.h),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Connexion',
-                          style:
+                      child: TextFormField(
+                        autofillHints: const [AutofillHints.username],
+                        onSaved: (String? value) => username = value!,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          labelText: 'Username',
+                          labelStyle:
                               Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    fontSize: 18.sp,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .color!
+                                        .withOpacity(0.5),
                                   ),
+                          prefixIcon: Icon(
+                            Icons.school_rounded,
+                            size: 18.sp,
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .color!
+                                .withOpacity(0.5),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 2,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .color!),
+                          ),
+                          disabledBorder: InputBorder.none,
+                        ),
+                        validator: (value) {
+                          if (Res.mock) {
+                            return null;
+                          }
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez entrer l\'identifiant';
+                          } else if (!(RegExp(
+                                  r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                              .hasMatch(value))) {
+                            return "Veuillez entrer un Mail valide";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      color: Theme.of(context).secondaryHeaderColor,
+                      width: 70.w,
+                      child: PasswordFormField(
+                        onFieldSubmitted: send,
+                        decoration: InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 2,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .color!),
+                          ),
+                          disabledBorder: InputBorder.none,
+                        ),
+                        onSaved: (String? value) => password = value!,
+                        // The validator receives the text that the user has entered.
+                        validator: (value) {
+                          if (Res.mock) {
+                            return null;
+                          }
+                          if (value == null || value.isEmpty) {
+                            return 'Veuillez entrer un mot de passe';
+                          }
+                          if (int.tryParse(value) == null) {
+                            return "Le mot de passe doit être un nombre";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    InkWell(
+                      onTap: send,
+                      child: Container(
+                        width: 70.w,
+                        padding: EdgeInsets.symmetric(vertical: 2.h),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Connexion',
+                            style:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      fontSize: 18.sp,
+                                    ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
+          const Spacer(
+            flex: 2,
+          )
         ],
       ),
     );

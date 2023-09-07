@@ -34,7 +34,9 @@ void main() async {
     //an iphone se size
     // await DesktopWindow.setWindowSize(const Size(375, 667));
     // a ipad size
-    await DesktopWindow.setWindowSize(const Size(2048 / 2, 2732 / 2));
+    // await DesktopWindow.setWindowSize(const Size(2048 / 2, 2732 / 2));
+    //my galaxy note 9 size (divised by four for usability on my computer)
+    await DesktopWindow.setWindowSize(const Size(1440 / 4, 2960 / 4));
   }
 
   EquatableConfig.stringify = true;

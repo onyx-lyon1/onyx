@@ -23,6 +23,8 @@ class Event extends Equatable {
   @HiveField(6)
   late final DateTime eventLastModified;
 
+  final dynamic menuCrous;
+
   Event({
     required this.location,
     required this.description,
@@ -31,9 +33,10 @@ class Event extends Equatable {
     required this.start,
     required this.end,
     required this.eventLastModified,
+    this.menuCrous,
   });
 
-  Event.fromJSON(final dynamic eventJSON) {
+  Event.fromJSON(final dynamic eventJSON) : menuCrous = null {
     location = eventJSON['location'] ?? "";
     description = (eventJSON['description'] ?? "")
         .toString()
@@ -65,6 +68,7 @@ class Event extends Equatable {
         start,
         end,
         eventLastModified,
+        menuCrous,
       ];
 
   @override

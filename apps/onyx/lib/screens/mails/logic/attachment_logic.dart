@@ -5,7 +5,7 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AttachmentLogic {
-  static Future<String> getAttachmentLocalPath(
+  static Future<File> getAttachmentLocalPath(
       {required Mail email,
       required Lyon1MailClient mailClient,
       required int emailNumber,
@@ -23,11 +23,11 @@ class AttachmentLogic {
     final directory = await getApplicationDocumentsDirectory();
     final file = File('${directory.path}/$fileName');
     if (await file.exists()) {
-      return file.path;
+      return file;
     } else {
       List<int> attachment = email.getAttachment(fileName);
       await file.writeAsBytes(attachment);
-      return file.path;
+      return file;
     }
   }
 }

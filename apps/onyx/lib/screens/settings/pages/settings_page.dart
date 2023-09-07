@@ -121,6 +121,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             style: TextStyle(fontSize: 17.sp)),
                         onPressed: () {
                           CacheService.reset<TeachingUnitList>();
+                          CacheService.reset<SemesterList>();
                           context.read<TomussCubit>().load(
                               lyon1Cas: context
                                   .read<AuthentificationCubit>()
