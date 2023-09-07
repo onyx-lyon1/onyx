@@ -75,11 +75,17 @@ class MailDetailsPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SelectableText("De : ${mail.sender}"),
+                          SelectableText(
+                            "De : ${mail.sender}",
+                            maxLines: 1,
+                          ),
                           SizedBox(
                             height: 1.h,
                           ),
-                          SelectableText("À : ${mail.receiver}"),
+                          SelectableText(
+                            "À : ${mail.receiver}",
+                            maxLines: 1,
+                          ),
                         ],
                       ),
                     ),
