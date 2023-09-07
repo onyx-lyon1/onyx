@@ -45,7 +45,6 @@ class AgendaLogic {
     for (var day in days) {
       day.events.removeWhere((element) => element.menuCrous != null);
     }
-
     List<RestaurantModel> restaurant = await IzlyClient.getRestaurantCrous();
     CacheService.set<RestaurantListModel>(
         RestaurantListModel(restaurantList: restaurant));
@@ -138,6 +137,8 @@ class AgendaLogic {
         }
       }
     }
+
+    //add the new menu to the clean agenda
     for (var menu in menuToAdd) {
       days
           .firstWhere((element) =>
