@@ -95,7 +95,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                                 onTap: openwidget,
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 3.w, vertical: 0.5.h),
+                                      horizontal: 2.w, vertical: 0.5.h),
                                   child: Text(
                                     "confidentialité",
                                     style: Theme.of(context)
