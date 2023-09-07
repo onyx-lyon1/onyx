@@ -318,10 +318,10 @@ packages:
     dependency: "direct main"
     description:
       name: cupertino_icons
-      sha256: e35129dc44c9118cee2a5603506d823bab99c68393879edb440e0090d07586be
+      sha256: d57953e10f9f8327ce64a508a355f0b1ec902193f66288e8cb5070e7c47eeb2d
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.5"
+    version: "1.0.6"
   dart_style:
     dependency: transitive
     description:
@@ -471,10 +471,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: bdfa035a974a0c080576c4c8ed01cdf9d1b406a04c7daa05443ef0383a97bedc
+      sha256: be325344c1f3070354a1d84a231a1ba75ea85d413774ec4bdf444c023342e030
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.4"
+    version: "5.5.0"
   fixnum:
     dependency: transitive
     description:
@@ -601,10 +601,10 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_lints
-      sha256: "2118df84ef0c3ca93f96123a616ae8540879991b8b57af2f81b76a7ada49b2a4"
+      sha256: a25a15ebbdfc33ab1cd26c63a6ee519df92338a9c10f122adda92938253bef04
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.3"
   flutter_local_notifications:
     dependency: "direct main"
     description:
@@ -884,10 +884,11 @@ packages:
   izlyclient:
     dependency: "direct main"
     description:
-      path: "../../packages/izlyclient"
-      relative: true
-    source: path
-    version: "1.0.1"
+      name: izlyclient
+      sha256: c6bb93467a40dcf7866067756efec5a35d8fbf83b29998531d640b2116805dc3
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   js:
     dependency: transitive
     description:
@@ -939,31 +940,35 @@ packages:
   lyon1agendaclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1agendaclient"
-      relative: true
-    source: path
-    version: "1.0.2"
+      name: lyon1agendaclient
+      sha256: b17cffb533a8e48e10a6a94b66ec4e9302755221ed64df7266ae6940e3c08e77
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
   lyon1casclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1casclient"
-      relative: true
-    source: path
-    version: "1.0.1"
+      name: lyon1casclient
+      sha256: "73212cf5e35d92bdb7a0b2dadc89d1d6908bc4eeb06beafeda0e345a4c63b852"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   lyon1mailclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1mailclient"
-      relative: true
-    source: path
-    version: "1.0.1"
+      name: lyon1mailclient
+      sha256: "9fb7ffae1fbc7eeca4b5ab1238879d410ce6c94aac6b55ae69d31fa1e322e32e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   lyon1tomussclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1tomussclient"
-      relative: true
-    source: path
-    version: "1.0.4"
+      name: lyon1tomussclient
+      sha256: "3e6c2c72cd4ecba1443cc512fae40275bf15baab775a3950a9ce2a496ebecc20"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   matcher:
     dependency: transitive
     description:
@@ -1080,10 +1085,10 @@ packages:
     dependency: "direct main"
     description:
       name: path_provider
-      sha256: "909b84830485dbcd0308edf6f7368bc8fd76afa26a270420f34cabea2a6467a0"
+      sha256: a1aa8aaa2542a6bc57e381f132af822420216c80d4781f7aa085ca3229208aaa
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   path_provider_android:
     dependency: transitive
     description:
@@ -1136,10 +1141,10 @@ packages:
     dependency: "direct main"
     description:
       name: permission_handler
-      sha256: "63e5216aae014a72fe9579ccd027323395ce7a98271d9defa9d57320d001af81"
+      sha256: bc56bfe9d3f44c3c612d8d393bd9b174eb796d706759f9b495ac254e4294baa5
       url: "https://pub.dev"
     source: hosted
-    version: "10.4.3"
+    version: "10.4.5"
   permission_handler_android:
     dependency: transitive
     description:
@@ -1295,11 +1300,10 @@ packages:
   screenshot:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: ae826081dc7e026b19763f2a53fac9bce956e15c
-      url: "https://github.com/SachinGanesh/screenshot.git"
-    source: git
+      name: screenshot
+      sha256: "455284ff1f5b911d94a43c25e1385485cf6b4f288293eba68f15dad711c7b81c"
+      url: "https://pub.dev"
+    source: hosted
     version: "2.1.0"
   share_plus:
     dependency: "direct main"
@@ -1486,10 +1490,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: "781bd58a1eb16069412365c98597726cd8810ae27435f04b3b4d3a470bacd61e"
+      sha256: "47e208a6711459d813ba18af120d9663c20bdf6985d6ad39fe165d2538378d27"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.12"
+    version: "6.1.14"
   url_launcher_android:
     dependency: transitive
     description:
@@ -1614,10 +1618,10 @@ packages:
     dependency: "direct main"
     description:
       name: webview_flutter
-      sha256: "04a0782fb058b7c71f2048935583488f4d32e9147ca403abc4e58f1de9964629"
+      sha256: "82f6787d5df55907aa01e49bd9644f4ed1cc82af7a8257dd9947815959d2e755"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.3"
+    version: "4.2.4"
   webview_flutter_android:
     dependency: transitive
     description:
