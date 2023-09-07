@@ -120,10 +120,12 @@ Future<bool> backgroundLogic({bool init = true}) async {
               payload: "newMail");
         }
       }
-      mailBoxes
-          .firstWhere(
-              (element) => element.specialMailBox == SpecialMailBox.inbox)
-          .emails = newMails;
+      int index = mailBoxes.indexWhere(
+          (element) => element.specialMailBox == SpecialMailBox.inbox);
+      if (index != -1) {
+        mailBoxes[index].emails = newMails;
+      }
+
       await CacheService.set<MailBoxList>(MailBoxList(mailBoxes: mailBoxes));
     }
     if (settings.calendarUpdateNotification) {
