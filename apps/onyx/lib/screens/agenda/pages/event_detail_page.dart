@@ -104,8 +104,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                 if (widget.event.teacher.isNotEmpty)
                   EventDetailText(
                       icon: Icons.person_rounded, text: widget.event.teacher),
-                if (widget.event.description.isNotEmpty)
-                  Text(widget.event.description),
+                // if (widget.event.description.isNotEmpty)
+                //   Text(widget.event.description),
                 if (widget.event.menuCrous != null &&
                     widget.event.menuCrous is MenuCrous)
                   Padding(
