@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/widgets/common_screen_widget.dart';
@@ -63,61 +62,7 @@ class AgendaPage extends StatelessWidget {
                 },
               );
             case AgendaStatus.ready:
-              if (!context
-                  .read<SettingsCubit>()
-                  .state
-                  .settings
-                  .shownAgendaPopup) {
-                context.read<SettingsCubit>().modify(
-                    settings: context
-                        .read<SettingsCubit>()
-                        .state
-                        .settings
-                        .copyWith(shownAgendaPopup: true));
-                SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text("Attention"),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text("""
-Agenda sélectionné automatiquement peut être inéxact,
-surtout pour les étudiants de Polytech.
-N'hésitez pas à le sélectionner manuellement dans les paramètres."""),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          AgendaSelectionWidget(
-                            afterSelect: () {
-                              Navigator.of(context).pop();
-                              context.read<SettingsCubit>().modify(
-                                  settings: context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .settings
-                                      .copyWith(
-                                          fetchAgendaAuto:
-                                              false)); //this automaticallty reload agenda from bloclistener in home page
-                            },
-                          ),
-                        ],
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text("Ok"),
-                        ),
-                      ],
-                    ),
-                  );
-                });
-
-                break;
-              }
+              break;
             case AgendaStatus.dateUpdated:
               break;
           }
