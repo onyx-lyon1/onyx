@@ -22,7 +22,9 @@ class WaitingBiometric extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Flexible(flex: 10, child: Image.asset("assets/icon_transparent.png")),
+                  Flexible(
+                      flex: 10,
+                      child: Image.asset("assets/icon_transparent.png")),
                   const Spacer(
                     flex: 1,
                   ),
