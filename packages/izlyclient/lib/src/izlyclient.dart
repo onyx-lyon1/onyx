@@ -10,6 +10,8 @@ class IzlyClient {
   static const _baseUrl = 'https://mon-espace.izly.fr';
   static const _menuUrl =
       "http://webservices-v2.crous-mobile.fr:8080/feed/lyon/externe/crous-lyon.json";
+  static const _cbConfirmationLink =
+      "https://secure-magenta1.be2bill.com/front/form/process";
   late final String _corsProxyUrl;
 
   static void registerAdapters() {
@@ -202,10 +204,7 @@ class IzlyClient {
           body[node.attributes['name'].toString()] = node.attributes['value'];
         }
       }
-      return (
-        url: "https://secure-magenta1.be2bill.com/front/form/process",
-        body: body
-      );
+      return (url: _cbConfirmationLink, body: body);
     }
   }
 
