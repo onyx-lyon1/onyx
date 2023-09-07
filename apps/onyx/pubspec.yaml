@@ -3,7 +3,7 @@ description: ade, tomuss Mail pour lyon1
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.0.3+43
+version: 2.0.4+44
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -23,18 +23,18 @@ dependencies:
   responsive_sizer: 3.2.0
   desktop_window: ^0.4.0
   #agenda
-  lyon1agendaclient: ^1.0.2
+  lyon1agendaclient: ^1.0.3
 
   #agenda_config
   mobile_scanner: ^3.3.0
-  permission_handler: ^10.4.3
+  permission_handler: ^10.4.5
   encrypt: ^5.0.1
 
   #izly
-  izlyclient: ^1.0.1
+  izlyclient: ^1.0.2
 
   #mail
-  lyon1mailclient: ^1.0.1
+  lyon1mailclient: ^1.0.2
   webview_flutter: ^4.2.4
   file_picker: ^5.5.0
   open_filex: ^4.3.2
@@ -44,16 +44,16 @@ dependencies:
   enough_mail: ^2.1.1
 
   #cas
-  lyon1casclient: ^1.0.1
+  lyon1casclient: ^1.0.2
 
   #tomuss
-  lyon1tomussclient: ^1.0.4
+  lyon1tomussclient: ^1.0.5
   screenshot: ^2.1.0
   share_plus: ^7.1.0
 
   #map
   latlong2: ^0.9.0
-  geolocator: ^10.0.0
+  geolocator: ^10.0.1
   cached_network_image: ^3.2.3
   flutter_map: ^5.0.0
   flutter_map_location_marker: ^7.0.4
