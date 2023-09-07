@@ -29,7 +29,7 @@ abstract class _$MailCWProxy {
 
   Mail isFlagged(bool isFlagged);
 
-  Mail attachmentsFiles(List<File>? attachmentsFiles);
+  Mail attachmentsFiles(List<File> attachmentsFiles);
 
   Mail rawMail(MimeMessage? rawMail);
 
@@ -96,7 +96,7 @@ class _$MailCWProxyImpl implements _$MailCWProxy {
   Mail isFlagged(bool isFlagged) => this(isFlagged: isFlagged);
 
   @override
-  Mail attachmentsFiles(List<File>? attachmentsFiles) =>
+  Mail attachmentsFiles(List<File> attachmentsFiles) =>
       this(attachmentsFiles: attachmentsFiles);
 
   @override
@@ -171,10 +171,11 @@ class _$MailCWProxyImpl implements _$MailCWProxy {
           ? _value.isFlagged
           // ignore: cast_nullable_to_non_nullable
           : isFlagged as bool,
-      attachmentsFiles: attachmentsFiles == const $CopyWithPlaceholder()
+      attachmentsFiles: attachmentsFiles == const $CopyWithPlaceholder() ||
+              attachmentsFiles == null
           ? _value.attachmentsFiles
           // ignore: cast_nullable_to_non_nullable
-          : attachmentsFiles as List<File>?,
+          : attachmentsFiles as List<File>,
       rawMail: rawMail == const $CopyWithPlaceholder()
           ? _value.rawMail
           // ignore: cast_nullable_to_non_nullable

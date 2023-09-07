@@ -59,6 +59,9 @@ class SettingsModel extends Equatable {
   @HiveField(17, defaultValue: false)
   final bool mock;
 
+  @HiveField(18, defaultValue: false)
+  final bool shownAgendaPopup;
+
   const SettingsModel({
     this.biometricAuth = false,
     this.forceGreen = false,
@@ -72,6 +75,7 @@ class SettingsModel extends Equatable {
     this.newMailNotification = true,
     this.blockTrackers = true,
     this.darkerMail = true,
+    this.shownAgendaPopup = false,
     this.enabledFunctionalities = const [
       Functionalities.tomuss,
       Functionalities.agenda,
@@ -105,6 +109,7 @@ class SettingsModel extends Equatable {
         firstLogin,
         biometricAuth,
         mock,
+        shownAgendaPopup,
       ];
 
   @override
