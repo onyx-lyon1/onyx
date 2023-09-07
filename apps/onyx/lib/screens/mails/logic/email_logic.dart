@@ -19,10 +19,11 @@ class MailLogic {
     return mailClient;
   }
 
-  static Future<MailBox> load({required Lyon1MailClient mailClient,
-    required int emailNumber,
-    required bool blockTrackers,
-    MailBox? mailBox}) async {
+  static Future<MailBox> load(
+      {required Lyon1MailClient mailClient,
+      required int emailNumber,
+      required bool blockTrackers,
+      MailBox? mailBox}) async {
     if (Res.mock) {
       return mailboxesMock.first;
     }

@@ -1,5 +1,5 @@
-extension MonthName on DateTime{
-  String toMonthName({bool short=false}) {
+extension MonthName on DateTime {
+  String toMonthName({bool short = false}) {
     switch (month) {
       case 1:
         return short ? "Janv." : "Janvier";
@@ -28,6 +28,5 @@ extension MonthName on DateTime{
       default:
         return "Erreur";
     }
-
   }
 }

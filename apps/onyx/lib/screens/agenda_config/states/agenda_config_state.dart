@@ -1,6 +1,13 @@
 part of 'agenda_config_cubit.dart';
 
-enum AgendaConfigStatus { initial, loading, loaded, choosed, searchResult,  error }
+enum AgendaConfigStatus {
+  initial,
+  loading,
+  loaded,
+  choosed,
+  searchResult,
+  error
+}
 
 class AgendaConfigState {
   final AgendaConfigStatus status;
