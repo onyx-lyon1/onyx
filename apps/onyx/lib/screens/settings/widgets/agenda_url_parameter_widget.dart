@@ -52,10 +52,10 @@ class AgendaUrlParameterWidget extends StatelessWidget {
 }
 
 class AgendaSelectionWidget extends StatelessWidget {
-  final VoidCallback? afterSelect;
+  final VoidCallback? onTap;
 
   const AgendaSelectionWidget({
-    this.afterSelect,
+    this.onTap,
     super.key,
   });
 
@@ -67,6 +67,7 @@ class AgendaSelectionWidget extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(100),
         onTap: () {
+          if (onTap != null) onTap!();
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -80,7 +81,6 @@ class AgendaSelectionWidget extends StatelessWidget {
                             .settings
                             .copyWith(agendaId: index));
                     Navigator.pop(context);
-                    if (afterSelect != null) afterSelect!();
                   },
                 ),
               ),

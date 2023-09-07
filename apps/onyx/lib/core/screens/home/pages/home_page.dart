@@ -23,11 +23,18 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   final ScrollController mainPageController = ScrollController();
   late ScrollController bottomBarController;
+  int lastIndex = 0;
 
   @override
   void initState() {
     bottomBarController =
         ScrollController(initialScrollOffset: pageIndexToBottomBarOffset(-1));
+    mainPageController.addListener(() {
+      if (lastIndex != pageOffsetToPageIndex(mainPageController.offset)) {
+        lastIndex = pageOffsetToPageIndex(mainPageController.offset);
+        actionOnScreen(context, lastIndex);
+      }
+    });
     super.initState();
   }
 
@@ -41,6 +48,10 @@ class HomePageState extends State<HomePage> {
         2 * Res.bottomNavBarItemWidth;
   }
 
+  int pageOffsetToPageIndex(double offset) {
+    return (offset + ((offset < 0) ? -1 : 1)) ~/ 100.w;
+  }
+
   double bottomBarOffsetToPageOffset(double offset) {
     return (offset / Res.bottomNavBarItemWidth) * 100.w;
   }
@@ -50,8 +61,20 @@ class HomePageState extends State<HomePage> {
       bottomBarController.jumpTo(
         pageOffsetToBottomBarOffset(mainPageController.offset),
       );
-      // bottomBarController.animateTo(pageIndexToBottomBarOffset(currentRealIndex - 1),
-      //     duration: Res.animationDuration, curve: Curves.easeInOut);
+    }
+  }
+
+  void animatePage(int index) {
+    if (mainPageController.hasClients) {
+      if (mainPageController.offset == index * 100.w) {
+        bottomBarController
+            .animateTo(pageOffsetToBottomBarOffset(mainPageController.offset),
+                duration: Res.animationDuration, curve: Curves.easeInOut)
+            .then((value) => setState(
+                () {})); //setState needed to get the right color at animation end
+      }
+      mainPageController.animateTo(index * 100.w,
+          duration: Res.animationDuration, curve: Curves.easeInOut);
     }
   }
 
@@ -68,20 +91,6 @@ class HomePageState extends State<HomePage> {
       });
     } else {
       onClient();
-    }
-  }
-
-  void animatePage(int index) {
-    if (mainPageController.hasClients) {
-      if (mainPageController.offset == index * 100.w) {
-        bottomBarController
-            .animateTo(pageOffsetToBottomBarOffset(mainPageController.offset),
-                duration: Res.animationDuration, curve: Curves.easeInOut)
-            .then((value) => setState(
-                () {})); //setState needed to get the right color at animation end
-      }
-      mainPageController.animateTo(index * 100.w,
-          duration: Res.animationDuration, curve: Curves.easeInOut);
     }
   }
 
@@ -175,34 +184,7 @@ class HomePageState extends State<HomePage> {
                               2)
                           : 0,
                       onTap: (realIndex) {
-                        if (context.read<AgendaCubit>().state.status !=
-                            AgendaStatus.error) {
-                          if (realIndex %
-                                      context
-                                          .read<SettingsCubit>()
-                                          .state
-                                          .settings
-                                          .enabledFunctionalities
-                                          .length ==
-                                  context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .settings
-                                      .enabledFunctionalities
-                                      .indexOf(Functionalities.agenda) &&
-                              (mainPageController.hasClients
-                                      ? ((mainPageController.offset +
-                                              ((mainPageController.offset < 0)
-                                                  ? -1
-                                                  : 1)) ~/
-                                          100.w) //simple +-1 to avoid bug
-                                      : 0) ==
-                                  realIndex) {
-                            context.read<AgendaCubit>().updateDisplayedDate(
-                                date: DateTime.now(),
-                                fromPageController: false);
-                          }
-                        }
+                        actionOnTap(context, realIndex, mainPageController);
                         setState(() {
                           animatePage(realIndex);
                         });
