@@ -1,7 +1,8 @@
-
-<h1 align="center">
-  <br>
-  <a href="https://onyx-lyon1.github.io/"><img src="https://onyx-lyon1.github.io/assets/Onyx_v16_onyx.png" alt="Onyx" width="200"></a>
+<!--suppress HtmlUnknownAnchorTarget, CheckImageSize -->
+<h1 style="text-align: center;">
+  <a href="https://onyx-lyon1.github.io" style="display: block; text-align: center;">
+    <img src="https://onyx-lyon1.github.io/assets/Onyx_v16_onyx.png" alt="Onyx" width="200" style="display: block; margin: 0 auto;">
+  </a>
   <br>
   Onyx : Everything for Lyon 1
   <br>
@@ -9,29 +10,22 @@
 
 <h4 align="center">The student application for Claude Bernard Lyon 1 University </h4>
 
-<p align="center">
-  <a href="https://github.com/onyx-lyon1/onyx/releases">
-    <img src="https://img.shields.io/github/release/onyx-lyon1/onyx?include_prereleases=&sort=semver&color=blue"
-         alt="Releases">
-  </a>
-  <a href="https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share">
-    <img src="https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dfr.onyx.lyon1%26l%3DAndroid%26m%3D%24version"
-         alt="Playstore">
-  </a>
-  <a href="https://creativecommons.org/licenses/by-nc/4.0/">
-      <img src="https://img.shields.io/badge/License-CC BY--NC-blue"
-        alt="License">
-  </a>
+<p align=center>
+    <a href="https://github.com/onyx-lyon1/onyx/releases">
+      <img src="https://img.shields.io/github/release/onyx-lyon1/onyx?include_prereleases=&sort=semver&color=blue" alt="Releases">
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share">
+      <img src="https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dfr.onyx.lyon1%26l%3DAndroid%26m%3D%24version" alt="Playstore">
+    </a>
+    <a href="https://creativecommons.org/licenses/by-nc/4.0/">
+      <img src="https://img.shields.io/badge/License-CC BY--NC-blue" alt="License">
+    </a>
+    <a href="https://discord.gg/AtCc3pcaNm">
+      <img src="https://img.shields.io/discord/308323056592486420.svg?logo=discord&label=Discord&colorA=2C2F33&colorB=7289DA" alt="Discord">
+    </a>
+  </p>
 
-  </a>
-  <a href="https://discord.gg/AtCc3pcaNm">
-      <img src="https://img.shields.io/discord/308323056592486420.svg?logo=discord&label=Discord&colorA=2C2F33&colorB=7289DA"
-        alt="Discord">
-  </a>
-
-</p>
-
-<p align="center">
+<p align=center>
   <a href="#features">Features</a> | 
   <a href="#download">Download</a> | 
   <a href="#contribute">Contribute</a> | 
@@ -41,18 +35,22 @@
 
 ![Banner](apps/onyx/assets/screenshots/banner_en.png)
 
-
-Onyx is an unofficial, open-source application that lets you access all Université Claude Bernard Lyon 1 services from your phone.
+Onyx is an unofficial, open-source application that lets you access all Université Claude Bernard Lyon 1 services from
+your phone.
 
 ## Features
 
-<p align="center">
-<img src="apps/onyx/assets/screenshots/onyx_screenshot_calendar_en.png" width="18%"></img> <img src="apps/onyx/assets/screenshots/onyx_screenshot_email_en.png" width="18%"></img> <img src="apps/onyx/assets/screenshots/onyx_screenshot_grades_en.png" width="18%"></img> <img src="apps/onyx/assets/screenshots/onyx_screenshot_map_en.png" width="18%"></img> <img src="apps/onyx/assets/screenshots/onyx_screenshot_izly_en.png" width="18%"></img>
+<p align=center>
+  <img src="apps/onyx/assets/screenshots/onyx_screenshot_calendar_en.png" width="18%" alt="Calendar Screenshot">
+  <img src="apps/onyx/assets/screenshots/onyx_screenshot_email_en.png" width="18%" alt="Email Screenshot">
+  <img src="apps/onyx/assets/screenshots/onyx_screenshot_grades_en.png" width="18%" alt="Grades Screenshot">
+  <img src="apps/onyx/assets/screenshots/onyx_screenshot_map_en.png" width="18%" alt="Map Screenshot">
+  <img src="apps/onyx/assets/screenshots/onyx_screenshot_izly_en.png" width="18%" alt="Izly Screenshot">
 </p>
 
 ## Download
 
-<p align="center">
+<p align=center>
 <a href='https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt="google-play" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/google-play_vector.svg"></a>
 <!--<a href='https://play.google.com/store/apps/details?id=fr.onyx.lyon1&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on F-Droid' src='https://fdroid.gitlab.io/artwork/badge/get-it-on.png' height="80px"/></a>-->
 <a href='https://github.com/onyx-lyon1/onyx/releases'><img alt="github" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/github_vector.svg"></a>
@@ -67,28 +65,66 @@ We really appreciate any help. You can also chat with us on [Discord](https://di
 
 ## Build
 
-### Run the integration test
+To build the app, follow these steps:
 
-Start app in test mode : `flutter run integration_test/app_test.dart --host-vmservice-port 9753 --disable-service-auth-codes --dart-define CONVENIENT_TEST_MANAGER_HOST="an ip address" --dart-define CONVENIENT_TEST_APP_CODE_DIR=/path/to/onyx`.
+### Prerequisites 🛠️
 
-Replace `an ip address` with the ip address of your computer (if using an emulator, set to 10.0.2.2).
-Replace `/path/to/onyx` with the path to the onyx directory.
+- Install Flutter from [flutter.dev](https://flutter.dev).
+- Note: If you intend to build for Linux, ensure you have the libsecret library installed in your development
+  environment.
 
-Run the test manager (can be found here : https://github.com/fzyzcjy/flutter_convenient_test/)
-`flutter run packages/convenient_test_manager/lib/main.dart --profile --dart-define CONVENIENT_TEST_WORKER_HOST="an ip address" -d linux`.
+### Building the App 🏗️
 
-Replace `an ip address` with the ip address of your phone (if using an emulator, set to 127.0.0.1).
+Please make sure you are on the main branch before proceeding with the build process.
+Navigate to the `apps/onyx` directory and execute the following command based on your
+target platform:
 
-Replace `linux` with your operating system.
+- To build an APK: `flutter build apk --profile` (the `--profile` flag build the app without the signing key but with
+  full optimizations)
+    - The APK file is located at `apps/onyx/build/app/outputs/flutter-apk/app-release.apk`.
+- To build for Linux: `flutter build linux`
+    - The Linux build is located at `apps/onyx/build/linux/x64/release/bundle/Onyx`.
+- To build an app bundle: `flutter build appbundle --profile` (the `--profile` flag build the app without the signing
+  key but with full optimizations)
+    - The app bundle is located at `apps/onyx/build/app/outputs/bundle/release/app-release.aab`.
+- For other platforms, please refer to the Flutter documentation for their respective build locations.
 
-Common issue :
-- You will maybe need to install vlc-dev on linux to be able to compile the test manager.
-- Enable isolation in the test manager to run all the tests at once.
+### Development Environment Setup ⚙️
+
+To set up your development environment:
+
+1. The required libraries are located in the `packages/` directory.
+2. Install Melos, which handles linking libraries directly in the app for development:
+    - Install Melos by running: `dart pub global activate melos`.
+    - Refer to the [Melos documentation](https://melos.invertase.dev/) for more details.
+3. Run `melos bs` or `melos bootstrap` to link the local libraries in the app and retrieve all dependencies.
+4. Navigate to the `apps/onyx` directory and run `flutter clean` to ensure a clean environment.
+5. Run `flutter run` to start the app.
+6. Optionally, you can use `melos generate` to generate automatically generated files (usually not needed unless you
+   modify them).
+7. Run `melos test` to run unit tests for all the libraries.
+8. Run `melos analyze` to perform static analysis on the libraries and the Onyx app.
+9. To unlink everything, use `melos clean`.
+
+### End-to-End Testing 🧪
+
+To run end-to-end tests:
+
+1. Install Maestro by following the [Maestro documentation](https://maestro.mobile.dev/).
+2. Run the following command to install Maestro: `curl -Ls "https://get.maestro.mobile.dev" | bash` (Applicable for Mac
+   OS, Linux, or Windows with WSL)
+3. Navigate to the `apps/onyx/integration_test` directory.
+    4. After installing the app on an Android device (physical or virtual), run the following command to execute the
+       tests: `maestro test general_test.yaml` Maestro will automatically run the tests.
+
+Now, you're all set to build and test your Flutter app. 🎉
 
 ## License
 
-This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.\
+This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. To view a copy of
+this license, visit http://creativecommons.org/licenses/by-nc/4.0/ or send a letter to Creative Commons, PO Box 1866,
+Mountain View, CA 94042, USA.\
 
-<p align="center">
+<p align=center>
 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
 </p>
