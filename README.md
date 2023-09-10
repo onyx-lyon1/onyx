@@ -70,8 +70,22 @@ To build the app, follow these steps:
 ### Prerequisites 🛠️
 
 - Install Flutter from [flutter.dev](https://flutter.dev).
-- Note: If you intend to build for Linux, ensure you have the libsecret library installed in your development
-  environment.
+
+- #### Linux
+  You will need those libraries:
+  - pkg-config
+  - libgtk3
+  - libglib2
+  - libsecret
+  
+  On Debian/Ubuntu like distros, they can be installed with this single command :
+  ```shell 
+  sudo apt install pkg-config libgtk-3-dev libglib2.0-dev libsecret-1-dev
+  ```
+- #### Android
+  You will need a recent version of [Android Sdk](https://developer.android.com/studio).
+
+  You can then run `flutter doctor` to check if it's detected by flutter.
 
 ### Building the App 🏗️
 
