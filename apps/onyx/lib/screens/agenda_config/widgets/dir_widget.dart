@@ -12,7 +12,7 @@ class DirWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (dir.children.isEmpty) {
+    if (dir.children == null) {
       if (dir.name.isEmpty) {
         return const SizedBox.shrink();
       }
@@ -22,13 +22,13 @@ class DirWidget extends StatelessWidget {
                 .replaceAll("%25", "%"))),
         leading: const Icon(Icons.calendar_today_rounded),
         onTap: () {
-          context.read<AgendaConfigCubit>().chooseDir(dir.id);
+          context.read<AgendaConfigCubit>().chooseDir(dir.identifier);
         },
       );
     } else {
       return GestureDetector(
         onLongPress: () {
-          context.read<AgendaConfigCubit>().chooseDir(dir.id);
+          context.read<AgendaConfigCubit>().chooseDir(dir.identifier);
         },
         child: SizedBox(
           height: 100.h - Res.bottomNavBarHeight,
@@ -36,7 +36,7 @@ class DirWidget extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             controller: scrollController,
             children: [
-              for (var i in dir.children)
+              for (var i in dir.children!)
                 if (i.name.isNotEmpty)
                   ListTile(
                     key: key,
