@@ -20,10 +20,11 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
   void loadDirs() async {
     emit(state.copyWith(status: AgendaConfigStatus.loading));
     try {
-      dirs = await compute(
-          AgendaConfigLogic.loadDirs,
-          LoadData(await rootBundle.loadString('assets/agenda_ids.json.enc'),
-              await rootBundle.loadString('assets/key.txt')));
+      dirs = await compute(AgendaConfigLogic.loadDirs, (
+        encryptedData:
+            await rootBundle.loadString('assets/agenda_ids.json.enc'),
+        key: await rootBundle.loadString('assets/key.txt')
+      ));
       emit(state.copyWith(status: AgendaConfigStatus.loaded, dirs: dirs));
     } catch (e) {
       emit(state.copyWith(
@@ -75,15 +76,17 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
   }
 
   void subSearch(DirModel dir, String query, List<DirModel> dirs) {
-    for (int directory = 0; directory < dir.children.length; directory++) {
-      if (SearchService.isMatch(
-          query,
-          Uri.decodeFull(Uri.encodeFull(
-                  dir.children[directory].name.replaceAll("\\x", "%")))
-              .replaceAll(dir.name, ""))) {
-        dirs.add(dir.children[directory]);
+    if (dir.children != null) {
+      for (int directory = 0; directory < dir.children!.length; directory++) {
+        if (SearchService.isMatch(
+            query,
+            Uri.decodeFull(Uri.encodeFull(
+                    dir.children![directory].name.replaceAll("\\x", "%")))
+                .replaceAll(dir.name, ""))) {
+          dirs.add(dir.children![directory]);
+        }
+        subSearch(dir.children![directory], query, dirs);
       }
-      subSearch(dir.children[directory], query, dirs);
     }
   }
 
