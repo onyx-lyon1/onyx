@@ -4,15 +4,9 @@ import 'dart:io';
 import 'package:encrypt/encrypt.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 
-class LoadData {
-  String encryptedData;
-  String key;
-
-  LoadData(this.encryptedData, this.key);
-}
-
 class AgendaConfigLogic {
-  static Future<List<DirModel>> loadDirs(LoadData loadData) async {
+  static Future<List<DirModel>> loadDirs(
+      ({String encryptedData, String key}) loadData) async {
     List<DirModel> dirs = [];
     final key = Key.fromBase64(loadData.key);
     final iv = IV.fromLength(16);

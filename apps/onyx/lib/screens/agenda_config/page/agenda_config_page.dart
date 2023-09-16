@@ -103,7 +103,7 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
                             return DirWidget(
                               dir: DirModel(
                                 name: "Agendas",
-                                id: 0,
+                                identifier: 0,
                                 children: state.dirs,
                               ),
                               scrollController: _listScrollController,

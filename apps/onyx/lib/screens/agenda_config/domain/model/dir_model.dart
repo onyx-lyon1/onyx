@@ -1,20 +1,22 @@
 class DirModel {
   final String name;
-  final int id;
-  List<DirModel> children;
+  final int identifier;
+  List<DirModel>? children;
 
   DirModel({
     required this.name,
-    required this.id,
-    this.children = const [],
+    required this.identifier,
+    this.children,
   });
 
   DirModel.fromJson(Map<String, dynamic> json)
       : name = json['name'],
-        id = json['id'],
-        children = (json['children'] as List<dynamic>)
-            .map((e) => DirModel.fromJson(e))
-            .toList();
+        identifier = int.parse(json['identifier'].toString()),
+        children = (json['children'] == null)
+            ? null
+            : (json['children'] as List<dynamic>)
+                .map((e) => DirModel.fromJson(e))
+                .toList();
 
   @override
   String toString() {
@@ -27,9 +29,9 @@ class DirModel {
       other is DirModel &&
           runtimeType == other.runtimeType &&
           name == other.name &&
-          id == other.id &&
+          identifier == other.identifier &&
           children == other.children;
 
   @override
-  int get hashCode => name.hashCode ^ id.hashCode ^ children.hashCode;
+  int get hashCode => name.hashCode ^ identifier.hashCode ^ children.hashCode;
 }
