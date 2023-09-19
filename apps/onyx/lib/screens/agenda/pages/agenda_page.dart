@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/widgets/common_screen_widget.dart';
+import 'package:onyx/core/widgets/no_border_slider_shape.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
@@ -64,6 +65,8 @@ class AgendaPage extends StatelessWidget {
             case AgendaStatus.ready:
               break;
             case AgendaStatus.dateUpdated:
+              break;
+            case AgendaStatus.updateDayCount:
               break;
           }
           bool animating = false;
@@ -133,70 +136,60 @@ class AgendaPage extends StatelessWidget {
                         ),
                       ),
                     ),
-              body: PageView(
-                controller: pageController,
-                scrollDirection: Axis.vertical,
-                key: UniqueKey(),
-                // pas le plus propre mais force a rebuild et reinit le controller
-                onPageChanged: (index) {
-                  if (context
-                          .read<SettingsCubit>()
-                          .state
-                          .settings
-                          .showMiniCalendar &&
-                      !animating) {
-                    if (context.read<AgendaCubit>().state.days.length > index) {
-                      context.read<AgendaCubit>().updateDisplayedDate(
-                          date: context
-                              .read<AgendaCubit>()
-                              .state
-                              .days[index]
-                              .date,
-                          fromPageController: true);
-                    }
-                  }
-                },
-                children: context
-                    .read<AgendaCubit>()
-                    .state
-                    .days
-                    .map(
-                      (day) => SizedBox(
-                        height: 10,
-                        child: SingleChildScrollView(
-                          child: Column(children: [
-                            Container(
-                              padding: const EdgeInsets.only(
-                                left: 20,
-                                right: 20,
-                                top: 15,
+              body: Column(
+                children: [
+                  Flexible(
+                    flex: 30,
+                    child: (context.read<AgendaCubit>().state.dayCount <= 1)
+                        ? OneDayView(
+                            animating: animating,
+                            pageController: pageController,
+                          )
+                        : MultipleDayView(
+                            animating: animating,
+                            pageController: pageController,
+                          ),
+                  ),
+                  Flexible(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Spacer(),
+                            SliderTheme(
+                              data: SliderThemeData(
+                                // here
+                                trackShape: CustomTrackShape(),
                               ),
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "${day.date.toWeekDayName()} ${day.date.day} ${day.date.toMonthName()}",
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .color),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text('${day.events.length} événement(s)'),
-                                  ]),
-                            ),
-                            ...day.events.map(
-                              (e) => EventWidget(
-                                event: e,
+                              child: Flexible(
+                                flex: 50,
+                                child: Slider(
+                                  min: 1,
+                                  max: 14,
+                                  value: context
+                                      .read<AgendaCubit>()
+                                      .state
+                                      .dayCount
+                                      .toDouble(),
+                                  onChanged: (newValue) => context
+                                      .read<AgendaCubit>()
+                                      .updateDayCount(newValue.toInt()),
+                                ),
                               ),
                             ),
-                          ]),
+                            const Spacer(),
+                            Flexible(
+                                flex: 20,
+                                child: Text(
+                                    "${context.read<AgendaCubit>().state.dayCount} jours")),
+                            const Spacer(),
+                          ],
                         ),
-                      ),
-                    )
-                    .toList(),
+                      )),
+                ],
               ),
               onRefresh: () async {
                 context.read<AgendaCubit>().load(

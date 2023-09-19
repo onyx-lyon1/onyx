@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 
@@ -21,9 +22,9 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
     emit(state.copyWith(status: AgendaConfigStatus.loading));
     try {
       dirs = await compute(AgendaConfigLogic.loadDirs, (
-        encryptedData:
-            await rootBundle.loadString('assets/agenda_ids.json.enc'),
-        key: await rootBundle.loadString('assets/key.txt')
+        encryptedData: await rootBundle.loadString(Res.agendaIdsPath),
+        key: await rootBundle.loadString(Res.agendaIdsKeyPath),
+        iv: await rootBundle.loadString(Res.agendaIdsIvPath)
       ));
       emit(state.copyWith(status: AgendaConfigStatus.loaded, dirs: dirs));
     } catch (e) {
