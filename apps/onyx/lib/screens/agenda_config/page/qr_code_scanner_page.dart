@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:qr_code_dart_scan/qr_code_dart_scan.dart';
 
 class QrCodeScannerPage extends StatefulWidget {
   const QrCodeScannerPage({Key? key}) : super(key: key);
@@ -34,24 +34,16 @@ class QrCodeScannerPageState extends State<QrCodeScannerPage> {
       body: Container(
         color: Theme.of(context).colorScheme.background,
         child: cameraGranted
-            ?
-            // MobileScanner(onDetect: (barcode, args) {
-            //         final String code = barcode.rawValue ?? '';
-            //         if (code.isNotEmpty && code.startsWith('http')) {
-            //           Navigator.pop(context, code);
-            //         }
-            //       })
-
-            MobileScanner(
-                controller: MobileScannerController(
-                  detectionSpeed: DetectionSpeed.noDuplicates,
-                ),
-                onDetect: (barcode) {
-                  final String code = barcode.barcodes.first.rawValue ?? '';
-                  if (code.isNotEmpty && code.startsWith('http')) {
-                    Navigator.pop(context, code);
+            ? QRCodeDartScanView(
+                scanInvertedQRCode: true,
+                typeScan: TypeScan.live,
+                onCapture: (result) {
+                  if (result.text.isNotEmpty &&
+                      result.text.startsWith('http')) {
+                    Navigator.pop(context, result.text);
                   }
-                })
+                },
+              )
             : const Center(
                 child: Text(
                   /* TODO: beautify this screen !*/
