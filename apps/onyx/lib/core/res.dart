@@ -29,6 +29,10 @@ class Res {
 
   static bool mock = false;
   static const String corsProxy = "https://192.168.220.102:3000/";
+
+  static const String agendaIdsIvPath = "assets/iv.txt";
+  static const String agendaIdsKeyPath = "assets/key.txt";
+  static const String agendaIdsPath = "assets/agenda_ids.json.enc";
 }
 
 @HiveType(typeId: 18)
