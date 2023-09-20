@@ -7,6 +7,7 @@ import 'package:enough_mail/enough_mail.dart';
 import 'package:enough_mail_html/enough_mail_html.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
+import 'package:lyon1mailclient/src/config/config.dart';
 
 part 'generated/mail.g.dart';
 
@@ -52,11 +53,15 @@ class Mail extends Equatable {
       emptyMessageText: 'Le message est vide',
       enableDarkMode: false,
     );
-    blackBody = rawMail!.transformToHtml(
-      blockExternalImages: removeTrackingImages,
-      emptyMessageText: 'Le message est vide',
-      enableDarkMode: true,
-    );
+
+    int index = body.indexOf("</head>");
+    if (index != -1) {
+      blackBody =
+          "${body.substring(0, index)}\n${Lyon1MailClientConfig.darkReaderScript}\n${body.substring(index)}";
+    } else {
+      blackBody = "$body\n${Lyon1MailClientConfig.darkReaderScript}";
+    }
+
     excerpt = HtmlToPlainTextConverter.convert(body)
         .replaceAll("\n", "")
         .substring(
