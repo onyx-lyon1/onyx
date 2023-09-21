@@ -1,5 +1,3 @@
-import 'dart:io';
-
 class Lyon1MailClientConfig {
   static const String base = "univ-lyon1.fr";
 
@@ -11,14 +9,5 @@ class Lyon1MailClientConfig {
   static const int smtpPort = 587;
   static const bool smtpSecure = false;
 
-  static String darkReaderScript =
-      """<script>${File('lib/src/config/darkreader.min.js').readAsStringSync()}</script>
-    <script>
-        DarkReader.enable({
-            brightness: 100,
-            contrast: 90,
-            sepia: 10
-        });
-        // DarkReader.disable();
-    </script>""";
+  static const String darkReaderScript = 'lib/src/config/darkreader.min.js';
 }
