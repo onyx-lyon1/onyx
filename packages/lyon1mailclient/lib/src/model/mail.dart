@@ -24,8 +24,6 @@ class Mail extends Equatable {
   late final String excerpt;
   @HiveField(3)
   late final String body;
-  @HiveField(10, defaultValue: "")
-  late final String blackBody;
   @HiveField(4)
   late final int? id;
   @HiveField(5)
@@ -53,14 +51,6 @@ class Mail extends Equatable {
       emptyMessageText: 'Le message est vide',
       enableDarkMode: false,
     );
-
-    int index = body.indexOf("</head>");
-    if (index != -1) {
-      blackBody =
-          "${body.substring(0, index)}\n${Lyon1MailClientConfig.darkReaderScript}\n${body.substring(index)}";
-    } else {
-      blackBody = "$body\n${Lyon1MailClientConfig.darkReaderScript}";
-    }
 
     excerpt = HtmlToPlainTextConverter.convert(body)
         .replaceAll("\n", "")
@@ -95,7 +85,6 @@ class Mail extends Equatable {
     required this.isRead,
     required this.date,
     required this.body,
-    this.blackBody = "",
     required this.id,
     required this.receiver,
     required this.attachments,
@@ -122,7 +111,6 @@ class Mail extends Equatable {
                 100));
     isRead = false;
     date = DateTime.now();
-    blackBody = body;
     id = null;
     attachments = attachmentsFiles.map((e) => e.path.split("/").last).toList();
     isFlagged = false;
@@ -148,7 +136,6 @@ class Mail extends Equatable {
                 100));
     isRead = false;
     date = DateTime.now();
-    blackBody = body;
     id = null;
     attachments = attachmentsFiles.map((e) => e.path.split("/").last).toList();
     isFlagged = false;
@@ -174,7 +161,6 @@ class Mail extends Equatable {
                 100));
     isRead = false;
     date = DateTime.now();
-    blackBody = body;
     id = null;
     attachments = attachmentsFiles.map((e) => e.path.split("/").last).toList();
     isFlagged = false;
@@ -206,13 +192,38 @@ class Mail extends Equatable {
     throw Exception("Unable to get attachment");
   }
 
+  String getThemedBody(
+      {String? bgColor, String? textColor, required bool isDarkMode}) {
+    final String themeScript =
+        """<script>${File(Lyon1MailClientConfig.darkReaderScript).readAsStringSync()}</script>
+    <script>
+        DarkReader.enable({
+        mode: ${(isDarkMode) ? "1" : "0"},
+        brightness: 100,
+        contrast: 90,
+        sepia: 10,
+        ${(isDarkMode && bgColor != null) ? "darkSchemeBackgroundColor: '$bgColor'," : ""}
+        ${(isDarkMode && textColor != null) ? "darkSchemeTextColor: '$textColor'," : ""}
+        ${(!isDarkMode && bgColor != null) ? "lightSchemeBackgroundColor: '$bgColor'," : ""}
+        ${(!isDarkMode && textColor != null) ? "lightSchemeTextColor: '$textColor'," : ""}
+    });
+        // DarkReader.disable();
+    </script>""";
+
+    int index = body.indexOf("</head>");
+    if (index != -1) {
+      return "${body.substring(0, index)}\n$themeScript\n${body.substring(index)}";
+    } else {
+      return "$body\n$themeScript";
+    }
+  }
+
   @override
   List<Object?> get props => [
         subject,
         sender,
         excerpt,
         body,
-        blackBody,
         id,
         isRead,
         isFlagged,
