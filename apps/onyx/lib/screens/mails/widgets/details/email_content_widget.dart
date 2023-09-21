@@ -52,10 +52,9 @@ class _MailContentWidgetState extends State<MailContentWidget> {
       webViewController!
           .setBackgroundColor(Theme.of(context).colorScheme.background);
       String html = widget.mail.body;
-      if (context.read<SettingsCubit>().state.settings.darkerMail) {
-        if (Theme.of(context).brightness == Brightness.dark) {
-          html = widget.mail.blackBody;
-        }
+      if (context.read<SettingsCubit>().state.settings.forcedMailTheme) {
+        html = widget.mail.getThemedBody(
+            isDarkMode: Theme.of(context).brightness == Brightness.dark);
       }
       webViewController!.loadHtmlString(
         html,
