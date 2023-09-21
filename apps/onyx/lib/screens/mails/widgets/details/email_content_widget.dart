@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
+import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -53,8 +54,12 @@ class _MailContentWidgetState extends State<MailContentWidget> {
           .setBackgroundColor(Theme.of(context).colorScheme.background);
       String html = widget.mail.body;
       if (context.read<SettingsCubit>().state.settings.forcedMailTheme) {
+        bool isDark = Theme.of(context).brightness == Brightness.dark;
         html = widget.mail.getThemedBody(
-            isDarkMode: Theme.of(context).brightness == Brightness.dark);
+          isDarkMode: isDark,
+          bgColor: Theme.of(context).colorScheme.background.toHex(),
+          textColor: Theme.of(context).textTheme.bodyMedium!.color!.toHex(),
+        );
       }
       webViewController!.loadHtmlString(
         html,
