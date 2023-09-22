@@ -32,6 +32,16 @@ class _MailContentWidgetState extends State<MailContentWidget> {
 
   @override
   Widget build(BuildContext context) {
+    String html = widget.mail.body;
+    if (context.read<SettingsCubit>().state.settings.forcedMailTheme) {
+      bool isDark = Theme.of(context).brightness == Brightness.dark;
+      html = widget.mail.getThemedBody(
+        isDarkMode: isDark,
+        bgColor: Theme.of(context).colorScheme.background.toHex(),
+        textColor: Theme.of(context).textTheme.bodyMedium!.color!.toHex(),
+      );
+    }
+
     if (((widget.mail.body.contains("<html") ||
             widget.mail.body.contains("text/html")) &&
         (!kIsWeb && (Platform.isAndroid || Platform.isIOS)))) {
@@ -52,15 +62,6 @@ class _MailContentWidgetState extends State<MailContentWidget> {
 
       webViewController!
           .setBackgroundColor(Theme.of(context).colorScheme.background);
-      String html = widget.mail.body;
-      if (context.read<SettingsCubit>().state.settings.forcedMailTheme) {
-        bool isDark = Theme.of(context).brightness == Brightness.dark;
-        html = widget.mail.getThemedBody(
-          isDarkMode: isDark,
-          bgColor: Theme.of(context).colorScheme.background.toHex(),
-          textColor: Theme.of(context).textTheme.bodyMedium!.color!.toHex(),
-        );
-      }
       webViewController!.loadHtmlString(
         html,
       );
@@ -74,7 +75,7 @@ class _MailContentWidgetState extends State<MailContentWidget> {
             //maybe causing bug on ios
           )
         : SelectableText(
-            widget.mail.body,
+            html,
             textAlign: TextAlign.left,
           );
   }

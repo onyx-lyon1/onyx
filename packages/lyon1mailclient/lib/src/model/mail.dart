@@ -195,7 +195,7 @@ class Mail extends Equatable {
   String getThemedBody(
       {String? bgColor, String? textColor, required bool isDarkMode}) {
     final String themeScript =
-        """<script>${File(Lyon1MailClientConfig.darkReaderScript).readAsStringSync()}</script>
+        """<script>${Lyon1MailClientConfig.darkReaderScript}</script>
     <script>
         DarkReader.enable({
         mode: ${(isDarkMode) ? "1" : "0"},
