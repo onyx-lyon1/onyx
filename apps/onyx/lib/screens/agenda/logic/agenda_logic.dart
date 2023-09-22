@@ -42,8 +42,12 @@ class AgendaLogic {
 
   static Future<void> addRestaurant(List<Day> days) async {
     //clean the agenda
-    for (var day in days) {
-      day.events.removeWhere((element) => element.menuCrous != null);
+    for (int i = 0; i < days.length; i++) {
+      days[i] = days[i].copyWith(
+          events: days[i]
+              .events
+              .where((element) => element.menuCrous == null)
+              .toList());
     }
     List<RestaurantModel> restaurant = await IzlyClient.getRestaurantCrous();
     CacheService.set<RestaurantListModel>(
@@ -140,11 +144,11 @@ class AgendaLogic {
 
     //add the new menu to the clean agenda
     for (var menu in menuToAdd) {
-      days
-          .firstWhere((element) =>
-              element.date.shrink(3).isAtSameMomentAs(menu.$1.start.shrink(3)))
-          .events
-          .insert(menu.$2, menu.$1);
+      int index = days.indexWhere((element) =>
+          element.date.shrink(3).isAtSameMomentAs(menu.$1.start.shrink(3)));
+      List<Event> events = List.from(days[index].events);
+      days[index] =
+          days[index].copyWith(events: events..insert(menu.$2, menu.$1));
     }
   }
 
