@@ -3,15 +3,12 @@ import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'multiple_day_view_res.dart';
+
 class LeftHourIndicatorWidget extends StatelessWidget {
   const LeftHourIndicatorWidget({
     super.key,
-    required this.heightFactor,
-    required this.leftHourIndicatorWidth,
   });
-
-  final double heightFactor;
-  final double leftHourIndicatorWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +19,11 @@ class LeftHourIndicatorWidget extends StatelessWidget {
             i += const Duration(hours: 1))
           SizedBox(
             height: ((i + const Duration(hours: 1)) < Res.agendaDayEnd)
-                ? (Res.agendaDayDuration.inHours / heightFactor).h
+                ? (Res.agendaDayDuration.inHours /
+                        MultipleDayViewRes.heightFactor)
+                    .h
                 : 0.0,
-            width: leftHourIndicatorWidth.w,
+            width: MultipleDayViewRes.leftHourIndicatorWidth.w,
             child: Text(
               "${i.inHours.toFixedLengthString(2)}h",
               textAlign: TextAlign.center,
