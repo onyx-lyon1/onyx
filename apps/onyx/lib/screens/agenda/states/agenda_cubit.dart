@@ -61,10 +61,13 @@ class AgendaCubit extends Cubit<AgendaState> {
 
   void updateDisplayedDate(
       {required DateTime date, required bool fromPageController}) {
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         status: AgendaStatus.dateUpdated,
         wantedDate: date,
-        dateUpdateFromPageController: fromPageController));
+        animating: !fromPageController,
+      ),
+    );
   }
 
   void updateDayCount(int dayCount) {
