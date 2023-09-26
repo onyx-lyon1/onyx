@@ -4,73 +4,70 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class GridWidget extends StatelessWidget {
-  final double heightFactor;
-  final double leftHourIndicatorWidth;
-  final double columnWidth;
+import 'multiple_day_view_res.dart';
 
+class GridWidget extends StatelessWidget {
   const GridWidget({
     Key? key,
-    required this.heightFactor,
-    required this.leftHourIndicatorWidth,
-    required this.columnWidth,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: GridPainter(
-        primaryColor: Theme.of(context).primaryColor,
-        heightFactor: heightFactor,
         dayCount: context.read<AgendaCubit>().state.dayCount,
-        leftHourIndicatorWidth: leftHourIndicatorWidth,
-        columnWidth: columnWidth,
       ),
     );
   }
 }
 
 class GridPainter extends CustomPainter {
-  final Color primaryColor;
-  final double heightFactor;
   final int dayCount;
-  final double leftHourIndicatorWidth;
-  final double columnWidth;
 
   GridPainter({
-    required this.primaryColor,
-    required this.heightFactor,
     required this.dayCount,
-    required this.leftHourIndicatorWidth,
-    required this.columnWidth,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
-      ..color = primaryColor.withOpacity(1)
+      ..color = Colors.grey
       ..strokeWidth = 1.0;
     //draw horizontal lines
-    for (var i = 1;
+    for (var i = 0;
         i < (Res.agendaDayEnd - Res.agendaDayStart).inHours - 1;
         i++) {
       // Duration i = const Duration(hours: 1);
       canvas.drawLine(
-        Offset(0, (Res.agendaDayDuration.inHours / heightFactor).h * i),
-        Offset(100.w, (Res.agendaDayDuration.inHours / heightFactor).h * i),
+        Offset(
+            0,
+            (Res.agendaDayDuration.inHours / MultipleDayViewRes.heightFactor)
+                    .h *
+                i),
+        Offset(
+            100.w,
+            (Res.agendaDayDuration.inHours / MultipleDayViewRes.heightFactor)
+                    .h *
+                i),
         paint,
       );
     }
     //draw vertical lines
     canvas.drawLine(
-      Offset(leftHourIndicatorWidth.w, 0),
-      Offset(leftHourIndicatorWidth.w, 100.h),
+      Offset(MultipleDayViewRes.leftHourIndicatorWidth.w, 0),
+      Offset(MultipleDayViewRes.leftHourIndicatorWidth.w, 100.h),
       paint,
     );
     for (var i = 1; i < dayCount; i++) {
       canvas.drawLine(
-        Offset((columnWidth * i) + (leftHourIndicatorWidth.w), 0),
-        Offset((columnWidth * i) + (leftHourIndicatorWidth.w), 100.h),
+        Offset(
+            (MultipleDayViewRes.columnWidth * i) +
+                (MultipleDayViewRes.leftHourIndicatorWidth.w),
+            0),
+        Offset(
+            (MultipleDayViewRes.columnWidth * i) +
+                (MultipleDayViewRes.leftHourIndicatorWidth.w),
+            100.h),
         paint,
       );
     }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/agenda/widgets/multiple_day_view/multiple_day_view_res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -14,14 +15,12 @@ class MultipleDayViewWidget extends StatelessWidget {
     required this.pageController,
   }) : super(key: key);
 
-  static const double heightFactor = 3.0;
-  static const double leftHourIndicatorWidth = 10.0;
-
   @override
   Widget build(BuildContext context) {
     final AgendaState agendaState = context.read<AgendaCubit>().state;
-    final double columnWidth =
-        (100 - leftHourIndicatorWidth).w / agendaState.dayCount;
+    MultipleDayViewRes.columnWidth =
+        (100 - MultipleDayViewRes.leftHourIndicatorWidth).w /
+            agendaState.dayCount;
 
     return PageView(
       controller: pageController,
@@ -42,36 +41,36 @@ class MultipleDayViewWidget extends StatelessWidget {
             i < agendaState.days.length;
             i = i + agendaState.dayCount)
           SingleChildScrollView(
-            child: Stack(
-              // alignment: Alignment.center,
+            child: Column(
               children: [
-                GridWidget(
-                  heightFactor: heightFactor,
-                  leftHourIndicatorWidth: leftHourIndicatorWidth,
-                  columnWidth: columnWidth,
-                ),
-                Row(
+                TopDayIndicator(i: i),
+                Stack(
+                  // alignment: Alignment.center,
                   children: [
-                    //left hour indicator
-                    const LeftHourIndicatorWidget(
-                        heightFactor: heightFactor,
-                        leftHourIndicatorWidth: leftHourIndicatorWidth),
-                    for (int j = 0;
-                        j < agendaState.dayCount &&
-                            i + j < agendaState.days.length;
-                        j++)
-                      SizedBox(
-                        width: columnWidth,
-                        height:
-                            (Res.agendaDayDuration.inHours / heightFactor).h *
+                    GridWidget(),
+                    Row(
+                      children: [
+                        //left hour indicator
+                        const LeftHourIndicatorWidget(),
+                        for (int j = 0;
+                            j < agendaState.dayCount &&
+                                i + j < agendaState.days.length;
+                            j++)
+                          SizedBox(
+                            width: MultipleDayViewRes.columnWidth,
+                            height: (Res.agendaDayDuration.inHours /
+                                        MultipleDayViewRes.heightFactor)
+                                    .h *
                                 (Res.agendaDayDuration.inHours - 1),
-                        child: Column(
-                          children: buildEventWidgetList(
-                            agendaState.days[i + j].events,
-                            columnWidth,
+                            child: Column(
+                              children: buildEventWidgetList(
+                                agendaState.days[i + j].events,
+                                MultipleDayViewRes.columnWidth,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -123,7 +122,10 @@ class MultipleDayViewWidget extends StatelessWidget {
       result.add(
         Padding(
           padding: EdgeInsets.only(
-            top: (diff * (Res.agendaDayDuration.inHours / heightFactor).h -
+            top: (diff *
+                        (Res.agendaDayDuration.inHours /
+                                MultipleDayViewRes.heightFactor)
+                            .h -
                     0.5.h)
                 .clamp(0, double.infinity),
           ),
@@ -136,14 +138,15 @@ class MultipleDayViewWidget extends StatelessWidget {
                           top: (superposition[index]!.first != i)
                               ? (diffMap[i]! *
                                           (Res.agendaDayDuration.inHours /
-                                                  heightFactor)
+                                                  MultipleDayViewRes
+                                                      .heightFactor)
                                               .h -
                                       0.5.h)
                                   .clamp(0, double.infinity)
                               : 0.0,
                         ),
                         child: SizedEventWidget(
-                            heightFactor: heightFactor,
+                            heightFactor: MultipleDayViewRes.heightFactor,
                             numberPerColumn:
                                 (superposition[index]?.length) ?? 1,
                             columnWidth: columnWidth,
@@ -152,7 +155,7 @@ class MultipleDayViewWidget extends StatelessWidget {
                   ],
                 )
               : SizedEventWidget(
-                  heightFactor: heightFactor,
+                  heightFactor: MultipleDayViewRes.heightFactor,
                   numberPerColumn: 1,
                   columnWidth: columnWidth,
                   event: events[index]),
