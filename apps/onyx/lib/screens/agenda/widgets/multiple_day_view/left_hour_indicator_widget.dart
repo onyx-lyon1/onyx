@@ -21,13 +21,13 @@ class LeftHourIndicatorWidget extends StatelessWidget {
             i < Res.agendaDayEnd;
             i += const Duration(hours: 1))
           Container(
-            color: Colors.blue,
             height: ((i + const Duration(hours: 1)) < Res.agendaDayEnd)
                 ? (Res.agendaDayDuration.inHours / heightFactor).h
                 : 0.0,
             width: leftHourIndicatorWidth.w,
             child: Text(
               "${i.inHours.toFixedLengthString(2)}h",
+              textAlign: TextAlign.center,
             ),
           ),
       ],

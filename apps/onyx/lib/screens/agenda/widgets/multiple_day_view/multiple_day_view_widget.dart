@@ -15,7 +15,7 @@ class MultipleDayViewWidget extends StatelessWidget {
   }) : super(key: key);
 
   static const double heightFactor = 3.0;
-  static const double leftHourIndicatorWidth = 8.0;
+  static const double leftHourIndicatorWidth = 10.0;
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,7 @@ class MultipleDayViewWidget extends StatelessWidget {
                 for (int j = 0;
                     j < agendaState.dayCount && i + j < agendaState.days.length;
                     j++)
-                  Container(
-                    color: Colors.red,
+                  SizedBox(
                     width: columnWidth,
                     height: (Res.agendaDayDuration.inHours / heightFactor).h *
                         (Res.agendaDayDuration.inHours - 1),
