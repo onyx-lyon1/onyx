@@ -24,7 +24,8 @@ class MiniCalendarWidget extends StatelessWidget {
       scrollController: scrollController,
       builder: (context, index) {
         if (context.read<AgendaCubit>().state.days.isEmpty) return null;
-        DateTime currentDate = DateTime.now().add(Duration(days: index));
+        DateTime currentDate = DateTime.now().add(Duration(
+            days: (index - 1) * context.read<AgendaCubit>().state.dayCount));
         if (currentDate
                 .isBefore(context.read<AgendaCubit>().state.days.first.date) ||
             currentDate.isAfter(context

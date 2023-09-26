@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -100,33 +101,50 @@ class EventWidget extends StatelessWidget {
             Flexible(
               flex: 150,
               child: Container(
-                padding: EdgeInsets.only(left: 4.w),
+                padding: EdgeInsets.only(left: (!compact) ? 4.w : 2.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      event.name,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.bodyLarge!.color!,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
+                    if (!compact)
+                      Text(
+                        event.name,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyLarge!.color!,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    else
+                      Flexible(
+                        child: AutoSizeText(
+                          event.name,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.bodyLarge!.color!,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          minFontSize: 9,
+                        ),
                       ),
-                    ),
-                    Text(
-                      '${event.end.difference(event.start).durationBeautifull()} • ${event.location}',
-                      textAlign: TextAlign.left,
-                      maxLines: 2,
-                      softWrap: true,
-                      style: TextStyle(
-                        color: Theme.of(context)
-                            .textTheme
-                            .bodyLarge!
-                            .color!
-                            .withOpacity(0.7),
-                        fontSize: 12,
+                    if (!compact)
+                      AutoSizeText(
+                        (!compact)
+                            ? '${event.end.difference(event.start).durationBeautifull()} • ${event.location}'
+                            : event.location,
+                        textAlign: TextAlign.left,
+                        maxLines: 2,
+                        softWrap: true,
+                        style: TextStyle(
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .color!
+                              .withOpacity(0.7),
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),

@@ -8,7 +8,8 @@ enum AgendaStatus {
   dateUpdated,
   error,
   haveToChooseManualy,
-  updateDayCount
+  updateDayCount,
+  updateAnimating,
 }
 
 class AgendaState {
@@ -17,6 +18,7 @@ class AgendaState {
   DateTime wantedDate;
   bool dateUpdateFromPageController;
   int dayCount = 1;
+  bool animating = false;
 
   AgendaState({
     this.status = AgendaStatus.initial,
@@ -24,6 +26,7 @@ class AgendaState {
     this.dateUpdateFromPageController = false,
     required this.wantedDate,
     this.dayCount = 1,
+    this.animating = false,
   });
 
   AgendaState copyWith({
@@ -32,6 +35,7 @@ class AgendaState {
     DateTime? wantedDate,
     bool? dateUpdateFromPageController,
     int? dayCount,
+    bool? animating,
   }) {
     return AgendaState(
       status: status ?? this.status,
@@ -40,6 +44,7 @@ class AgendaState {
       dateUpdateFromPageController:
           dateUpdateFromPageController ?? this.dateUpdateFromPageController,
       dayCount: dayCount ?? this.dayCount,
+      animating: animating ?? this.animating,
     );
   }
 }

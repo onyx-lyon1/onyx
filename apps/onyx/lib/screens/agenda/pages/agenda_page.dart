@@ -17,20 +17,16 @@ class AgendaPage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  static double indexToOffset(int index) {
-    return (15.w) * (index);
+  static double indexToOffset(int index, int daycount) {
+    return (15.w) * ((index / daycount) + 1);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (context.read<AgendaCubit>().state.status == AgendaStatus.initial) {
-      context.read<AgendaCubit>().load(
-          lyon1Cas: context.read<AuthentificationCubit>().state.lyon1Cas,
-          settings: context.read<SettingsCubit>().state.settings);
-    }
     return BlocBuilder<AgendaCubit, AgendaState>(
         buildWhen: (previous, current) =>
-            previous.status != AgendaStatus.dateUpdated,
+            current.status != AgendaStatus.dateUpdated &&
+            current.status != AgendaStatus.updateAnimating,
         builder: (context, state) {
           if (kDebugMode) {
             print("AgendaState: ${state.status}");
@@ -38,6 +34,11 @@ class AgendaPage extends StatelessWidget {
           Widget? headerState;
           switch (state.status) {
             case AgendaStatus.initial:
+              context.read<AgendaCubit>().load(
+                  lyon1Cas:
+                      context.read<AuthentificationCubit>().state.lyon1Cas,
+                  settings: context.read<SettingsCubit>().state.settings);
+              break;
             case AgendaStatus.loading:
             case AgendaStatus.cacheReady:
               headerState =
@@ -68,29 +69,36 @@ class AgendaPage extends StatelessWidget {
               break;
             case AgendaStatus.updateDayCount:
               break;
+            case AgendaStatus.updateAnimating:
+              break;
           }
-          bool animating = false;
           PageController pageController = PageController();
           ScrollController scrollController = ScrollController(
-              initialScrollOffset: indexToOffset(state.wantedDate
-                  .shrink(3)
-                  .difference(DateTime.now().shrink(3))
-                  .inDays));
+              initialScrollOffset: indexToOffset(
+                  state.wantedDate
+                      .shrink(3)
+                      .difference(DateTime.now().shrink(3))
+                      .inDays,
+                  state.dayCount));
 
           pageController = PageController(
               initialPage: state.days.indexWhere((element) =>
-                  element.date.shrink(3) ==
-                  context.read<AgendaCubit>().state.wantedDate.shrink(3)));
+                  element.date.shrink(3) == state.wantedDate.shrink(3)));
           return BlocListener<AgendaCubit, AgendaState>(
             listenWhen: (previous, current) {
-              return current.status == AgendaStatus.dateUpdated;
+              return current.status == AgendaStatus.dateUpdated ||
+                  current.status == AgendaStatus.updateAnimating;
             },
             listener: (context, state) {
+              if (kDebugMode) {
+                print("AgendaState: ${state.status}");
+              }
               if (scrollController.hasClients && pageController.hasClients) {
-                final int pageIndex = state.days.indexWhere((element) =>
+                int pageIndex = state.days.indexWhere((element) =>
                     element.date.shrink(3) == state.wantedDate.shrink(3));
+                pageIndex = (pageIndex / state.dayCount - 0.5).ceil();
                 if (!state.dateUpdateFromPageController) {
-                  animating = true;
+                  context.read<AgendaCubit>().updateAnimating(true);
                 }
                 pageController
                     .animateToPage(
@@ -99,15 +107,17 @@ class AgendaPage extends StatelessWidget {
                   duration: const Duration(milliseconds: 500),
                 )
                     .then((value) {
-                  animating = false;
+                  context.read<AgendaCubit>().updateAnimating(false);
                 });
                 scrollController.animateTo(
-                    indexToOffset((state.wantedDate
-                                .shrink(3)
-                                .difference(DateTime.now().shrink(3))
-                                .inHours /
-                            24)
-                        .round()),
+                    indexToOffset(
+                        (state.wantedDate
+                                    .shrink(3)
+                                    .difference(DateTime.now().shrink(3))
+                                    .inHours /
+                                24)
+                            .round(),
+                        state.dayCount),
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut);
               }
@@ -140,15 +150,9 @@ class AgendaPage extends StatelessWidget {
                 children: [
                   Flexible(
                     flex: 30,
-                    child: (context.read<AgendaCubit>().state.dayCount <= 1)
-                        ? OneDayView(
-                            animating: animating,
-                            pageController: pageController,
-                          )
-                        : MultipleDayView(
-                            animating: animating,
-                            pageController: pageController,
-                          ),
+                    child: (state.dayCount <= 1)
+                        ? OneDayViewWidget(pageController: pageController)
+                        : MultipleDayViewWidget(pageController: pageController),
                   ),
                   Flexible(
                       flex: 2,
@@ -183,8 +187,7 @@ class AgendaPage extends StatelessWidget {
                             const Spacer(),
                             Flexible(
                                 flex: 20,
-                                child: Text(
-                                    "${context.read<AgendaCubit>().state.dayCount} jours")),
+                                child: Text("${state.dayCount} jours")),
                             const Spacer(),
                           ],
                         ),
@@ -198,11 +201,9 @@ class AgendaPage extends StatelessWidget {
                       settings: context.read<SettingsCubit>().state.settings,
                     );
                 // ignore: use_build_context_synchronously
-                while (context.read<AgendaCubit>().state.status !=
-                        AgendaStatus.ready &&
+                while (state.status != AgendaStatus.ready &&
                     // ignore: use_build_context_synchronously
-                    context.read<AgendaCubit>().state.status !=
-                        AgendaStatus.error) {
+                    state.status != AgendaStatus.error) {
                   await Future.delayed(const Duration(milliseconds: 100));
                 }
                 return;
