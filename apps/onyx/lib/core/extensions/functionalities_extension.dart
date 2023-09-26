@@ -8,7 +8,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/widgets/screen_settings/email_settings_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
-extension HumanFunctionalities on Functionalities {
+extension FunctionalitiesExtention on Functionalities {
   String toCleanString() {
     switch (this) {
       case Functionalities.tomuss:
