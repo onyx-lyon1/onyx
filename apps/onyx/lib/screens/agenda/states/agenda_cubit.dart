@@ -72,6 +72,11 @@ class AgendaCubit extends Cubit<AgendaState> {
         status: AgendaStatus.updateDayCount, dayCount: dayCount));
   }
 
+  void updateAnimating(bool animating) {
+    emit(state.copyWith(
+        status: AgendaStatus.updateAnimating, animating: animating));
+  }
+
   void resetCubit() {
     emit(AgendaState(
         status: AgendaStatus.initial, wantedDate: DateTime.now(), days: []));
