@@ -20,7 +20,7 @@ class LeftHourIndicatorWidget extends StatelessWidget {
         for (var i = Res.agendaDayStart;
             i < Res.agendaDayEnd;
             i += const Duration(hours: 1))
-          Container(
+          SizedBox(
             height: ((i + const Duration(hours: 1)) < Res.agendaDayEnd)
                 ? (Res.agendaDayDuration.inHours / heightFactor).h
                 : 0.0,

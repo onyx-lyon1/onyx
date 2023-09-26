@@ -170,7 +170,7 @@ class AgendaPage extends StatelessWidget {
                                 flex: 50,
                                 child: Slider(
                                   min: 1,
-                                  max: 14,
+                                  max: 7,
                                   inactiveColor:
                                       Theme.of(context).cardTheme.color,
                                   value: context
