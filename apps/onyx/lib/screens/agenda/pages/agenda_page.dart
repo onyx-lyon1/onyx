@@ -86,8 +86,9 @@ class AgendaPage extends StatelessWidget {
                   element.date.shrink(3) == state.wantedDate.shrink(3)));
           return BlocListener<AgendaCubit, AgendaState>(
             listenWhen: (previous, current) {
-              return current.status == AgendaStatus.dateUpdated ||
-                  current.status == AgendaStatus.updateAnimating;
+              return current.status == AgendaStatus.dateUpdated;
+              // ||
+              // current.status == AgendaStatus.updateAnimating;
             },
             listener: (context, state) {
               if (kDebugMode) {
@@ -97,9 +98,6 @@ class AgendaPage extends StatelessWidget {
                 int pageIndex = state.days.indexWhere((element) =>
                     element.date.shrink(3) == state.wantedDate.shrink(3));
                 pageIndex = (pageIndex / state.dayCount - 0.5).ceil();
-                if (!state.dateUpdateFromPageController) {
-                  context.read<AgendaCubit>().updateAnimating(true);
-                }
                 pageController
                     .animateToPage(
                   pageIndex,
@@ -173,6 +171,8 @@ class AgendaPage extends StatelessWidget {
                                 child: Slider(
                                   min: 1,
                                   max: 14,
+                                  inactiveColor:
+                                      Theme.of(context).cardTheme.color,
                                   value: context
                                       .read<AgendaCubit>()
                                       .state

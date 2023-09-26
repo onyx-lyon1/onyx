@@ -19,15 +19,16 @@ class MultipleDayViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double columnWidth = (100 - leftHourIndicatorWidth).w /
-        context.read<AgendaCubit>().state.dayCount;
+    final AgendaState agendaState = context.read<AgendaCubit>().state;
+    final double columnWidth =
+        (100 - leftHourIndicatorWidth).w / agendaState.dayCount;
+
     return PageView(
       controller: pageController,
       scrollDirection: Axis.vertical,
       key: UniqueKey(),
       // pas le plus propre mais force a rebuild et reinit le controller
       onPageChanged: (index) {
-        final AgendaState agendaState = context.read<AgendaCubit>().state;
         if (context.read<SettingsCubit>().state.settings.showMiniCalendar &&
             !agendaState.animating) {
           if (agendaState.days.length > index) {
@@ -38,8 +39,8 @@ class MultipleDayViewWidget extends StatelessWidget {
       },
       children: [
         for (int i = 0;
-            i < context.read<AgendaCubit>().state.days.length;
-            i = i + context.read<AgendaCubit>().state.dayCount)
+            i < agendaState.days.length;
+            i = i + agendaState.dayCount)
           SingleChildScrollView(
             child: Row(
               children: [
@@ -48,8 +49,7 @@ class MultipleDayViewWidget extends StatelessWidget {
                     heightFactor: heightFactor,
                     leftHourIndicatorWidth: leftHourIndicatorWidth),
                 for (int j = 0;
-                    j < context.read<AgendaCubit>().state.dayCount &&
-                        i + j < context.read<AgendaCubit>().state.days.length;
+                    j < agendaState.dayCount && i + j < agendaState.days.length;
                     j++)
                   Container(
                     color: Colors.red,
@@ -58,7 +58,7 @@ class MultipleDayViewWidget extends StatelessWidget {
                         (Res.agendaDayDuration.inHours - 1),
                     child: Column(
                       children: buildEventWidgetList(
-                        context.read<AgendaCubit>().state.days[i + j].events,
+                        agendaState.days[i + j].events,
                         columnWidth,
                       ),
                     ),
@@ -94,9 +94,10 @@ class MultipleDayViewWidget extends StatelessWidget {
     for (int index = 0; index < events.length - 1; index++) {
       double diff = 0.0;
       Map<int, double> diffMap = {};
-      if (superposition.keys.contains(index)) {
+      bool superposed = superposition.keys.contains(index);
+      if (superposed) {
         for (int j = 0; j < superposition[index]!.length; j++) {
-          diffMap[j] = getDiff(
+          diffMap[superposition[index]![j]] = getDiff(
               events[superposition[index]![j]],
               //if we have to compare to the previous event in the calendar
               (j == 0)
@@ -105,11 +106,8 @@ class MultipleDayViewWidget extends StatelessWidget {
                   : events[superposition[index]![j - 1]]);
         }
         diff = diffMap[superposition[index]!.first]!;
-
-        //-1 because the for loop will add it
-        index += superposition[index]!.length - 1;
       } else {
-        diff = getDiff(events[index], events.elementAtOrNull(index - 1));
+        diff = getDiff(events[index], (index > 0) ? events[index - 1] : null);
       }
       result.add(
         Padding(
@@ -118,7 +116,7 @@ class MultipleDayViewWidget extends StatelessWidget {
                     0.5.h)
                 .clamp(0, double.infinity),
           ),
-          child: (superposition.keys.contains(index))
+          child: (superposed)
               ? Row(
                   children: [
                     for (var i in superposition[index]!)
@@ -149,6 +147,10 @@ class MultipleDayViewWidget extends StatelessWidget {
                   event: events[index]),
         ),
       );
+      if (superposed) {
+//-1 because the for loop will add it
+        index += superposition[index]!.length - 1;
+      }
     }
 
     return result;
