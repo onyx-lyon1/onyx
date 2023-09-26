@@ -42,26 +42,38 @@ class MultipleDayViewWidget extends StatelessWidget {
             i < agendaState.days.length;
             i = i + agendaState.dayCount)
           SingleChildScrollView(
-            child: Row(
+            child: Stack(
+              // alignment: Alignment.center,
               children: [
-                //left hour indicator
-                const LeftHourIndicatorWidget(
-                    heightFactor: heightFactor,
-                    leftHourIndicatorWidth: leftHourIndicatorWidth),
-                for (int j = 0;
-                    j < agendaState.dayCount && i + j < agendaState.days.length;
-                    j++)
-                  SizedBox(
-                    width: columnWidth,
-                    height: (Res.agendaDayDuration.inHours / heightFactor).h *
-                        (Res.agendaDayDuration.inHours - 1),
-                    child: Column(
-                      children: buildEventWidgetList(
-                        agendaState.days[i + j].events,
-                        columnWidth,
+                GridWidget(
+                  heightFactor: heightFactor,
+                  leftHourIndicatorWidth: leftHourIndicatorWidth,
+                  columnWidth: columnWidth,
+                ),
+                Row(
+                  children: [
+                    //left hour indicator
+                    const LeftHourIndicatorWidget(
+                        heightFactor: heightFactor,
+                        leftHourIndicatorWidth: leftHourIndicatorWidth),
+                    for (int j = 0;
+                        j < agendaState.dayCount &&
+                            i + j < agendaState.days.length;
+                        j++)
+                      SizedBox(
+                        width: columnWidth,
+                        height:
+                            (Res.agendaDayDuration.inHours / heightFactor).h *
+                                (Res.agendaDayDuration.inHours - 1),
+                        child: Column(
+                          children: buildEventWidgetList(
+                            agendaState.days[i + j].events,
+                            columnWidth,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                  ],
+                ),
               ],
             ),
           ),

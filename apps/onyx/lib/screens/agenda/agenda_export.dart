@@ -9,3 +9,4 @@ export 'widgets/mini_calendar_widget.dart';
 export 'widgets/one_day_view_widget.dart';
 export 'widgets/multiple_day_view/multiple_day_view_widget.dart';
 export 'widgets/multiple_day_view/left_hour_indicator_widget.dart';
+export 'widgets/multiple_day_view/grid_widget.dart';
