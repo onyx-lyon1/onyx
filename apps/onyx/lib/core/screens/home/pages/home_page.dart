@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/core/extensions/functionalities_to_human_export.dart';
+import 'package:onyx/core/extensions/functionalities_extension.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';

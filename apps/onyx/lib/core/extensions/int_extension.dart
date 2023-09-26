@@ -1,4 +1,4 @@
-extension FixedLengthString on int {
+extension IntExtension on int {
   String toFixedLengthString(int length) {
     return toString().padLeft(length - toString().length + 1, '0');
   }
