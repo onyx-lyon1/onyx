@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda/widgets/multiple_day_view/multiple_day_view_res.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -20,176 +21,163 @@ class MultipleDayViewPageView extends StatelessWidget {
         initialPage: agendaState.days.indexWhere((element) =>
             element.date.shrink(3) == agendaState.wantedDate.shrink(3)));
     Map<int, ScrollController> horizontalControllers = {};
-    return BlocListener<AgendaCubit, AgendaState>(
-      listenWhen: (previous, current) =>
-          current.status == AgendaStatus.dateUpdated,
-      listener: (context, state) {
-        agendaState = context.read<AgendaCubit>().state;
-        if (pageController.hasClients) {
-          int dayIndex = agendaState.days.indexWhere((element) =>
-              element.date.shrink(3) == agendaState.wantedDate.shrink(3));
-          int pageIndex = (dayIndex / agendaState.dayCount).round();
-          // pageController
-          //     .animateToPage(
-          //   pageIndex,
-          //   curve: Curves.easeInOut,
-          //   duration: const Duration(milliseconds: 500),
-          // )
-          //     .then((value) {
-          //   context.read<AgendaCubit>().animating = false;
-          // });
-        }
-      },
-      child: PageView.builder(
-        controller: pageController,
-        scrollDirection: Axis.vertical,
-        key: UniqueKey(),
-        // pas le plus propre mais force a rebuild et reinit le controller
-        onPageChanged: (index) {
-          print(!context.read<AgendaCubit>().animating);
-          // if (
-          //     // context.read<SettingsCubit>().state.settings.showMiniCalendar &&
-          //     !context.read<AgendaCubit>().animating) {
-          //   if (agendaState.days.length > index) {
-          //     print("update page");
-          //     int dayIndex = agendaState.days.indexWhere((element) =>
-          //         element.date.shrink(3) == agendaState.wantedDate.shrink(3));
-          //     if (dayIndex != -1) {
-          //       int addition = index - dayIndex;
-          //       DateTime date = agendaState.wantedDate
-          //           .add(Duration(days: addition * agendaState.dayCount));
-          //       context.read<AgendaCubit>().animating = false;
-          //       context.read<AgendaCubit>().updateDisplayedDate(date: date);
-          //     }
-          //   }
-          // }
-        },
-        itemBuilder: (context, rawi) {
-          int i = rawi * agendaState.dayCount;
-          if (i >= agendaState.days.length) {
-            return null;
-          }
-
-          horizontalControllers[rawi] = ScrollController(
-              initialScrollOffset: MultipleDayViewRes.columnWidth * i);
-          return BlocListener<AgendaCubit, AgendaState>(
-            listenWhen: (previous, current) =>
-                current.status == AgendaStatus.dateUpdated,
-            listener: (context, state) {
-              if (horizontalControllers[rawi]!.hasClients) {
-                int dayIndex = state.days.indexWhere((element) =>
-                    element.date.shrink(3) == state.wantedDate.shrink(3));
-                if (context.read<AgendaCubit>().animating) {
-                  horizontalControllers[rawi]!
-                      .animateTo(
-                        MultipleDayViewRes.columnWidth * dayIndex,
-                        curve: Curves.easeInOut,
-                        duration: const Duration(milliseconds: 500),
-                      )
-                      .then((value) =>
-                          context.read<AgendaCubit>().animating = false);
-                } else {
-                  horizontalControllers[rawi]!.jumpTo(
-                    MultipleDayViewRes.columnWidth * dayIndex,
-                  );
-                  context.read<AgendaCubit>().animating = false;
-                }
-                if (horizontalControllers[rawi - 1]!.hasClients) {
-                  horizontalControllers[rawi - 1]!.jumpTo(
-                      MultipleDayViewRes.columnWidth *
-                          (dayIndex - state.dayCount));
-                }
-                if (horizontalControllers[rawi + 1]!.hasClients) {
-                  horizontalControllers[rawi + 1]!.jumpTo(
-                      MultipleDayViewRes.columnWidth *
-                          (dayIndex + state.dayCount));
+    ScrollController verticalController = ScrollController();
+    return BlocBuilder<AgendaCubit, AgendaState>(
+      buildWhen: (previous, current) =>
+          current.status == AgendaStatus.updateDayCount,
+      builder: (context, state) {
+        return DoubleScrollableWidget(
+          pageController: pageController,
+          listScrollController: verticalController,
+          child: PageView.builder(
+            controller: pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            key: UniqueKey(),
+            // pas le plus propre mais force a rebuild et reinit le controller
+            onPageChanged: (index) {
+              print(!context.read<AgendaCubit>().animating);
+              if (!context.read<AgendaCubit>().animating) {
+                if (agendaState.days.length > index) {
+                  int dayIndex = agendaState.days.indexWhere((element) =>
+                      element.date.shrink(3) ==
+                      agendaState.wantedDate.shrink(3));
+                  if (dayIndex != -1) {
+                    int addition = index - dayIndex;
+                    DateTime date = agendaState.wantedDate
+                        .add(Duration(days: addition * agendaState.dayCount));
+                    context.read<AgendaCubit>().animating = false;
+                    context.read<AgendaCubit>().updateDisplayedDate(date: date);
+                  }
                 }
               }
             },
-            child: SingleChildScrollView(
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: MultipleDayViewRes.topDayIndicatorHeight.h),
-                    child: const GridWidget(),
-                  ),
-                  Row(
+            itemBuilder: (context, rawi) {
+              int i = rawi * agendaState.dayCount;
+              if (i >= agendaState.days.length) {
+                return null;
+              }
+
+              horizontalControllers[rawi] = ScrollController(
+                  initialScrollOffset: MultipleDayViewRes.columnWidth * i);
+              return BlocListener<AgendaCubit, AgendaState>(
+                listenWhen: (previous, current) =>
+                    current.status == AgendaStatus.dateUpdated,
+                listener: (context, state) {
+                  if (horizontalControllers[rawi]!.hasClients) {
+                    int dayIndex = state.days.indexWhere((element) =>
+                        element.date.shrink(3) == state.wantedDate.shrink(3));
+                    if (context.read<AgendaCubit>().animating) {
+                      horizontalControllers[rawi]!
+                          .animateTo(
+                            MultipleDayViewRes.columnWidth * dayIndex,
+                            curve: Curves.easeInOut,
+                            duration: const Duration(milliseconds: 500),
+                          )
+                          .then((value) =>
+                              context.read<AgendaCubit>().animating = false);
+                    } else {
+                      horizontalControllers[rawi]!.jumpTo(
+                        MultipleDayViewRes.columnWidth * dayIndex,
+                      );
+                      context.read<AgendaCubit>().animating = false;
+                    }
+                    if (horizontalControllers[rawi - 1]!.hasClients) {
+                      horizontalControllers[rawi - 1]!.jumpTo(
+                          MultipleDayViewRes.columnWidth *
+                              (dayIndex - state.dayCount));
+                    }
+
+                    if (horizontalControllers[rawi + 1]!.hasClients) {
+                      horizontalControllers[rawi + 1]!.jumpTo(
+                          MultipleDayViewRes.columnWidth *
+                              (dayIndex + state.dayCount));
+                    }
+                  }
+                },
+                child: SingleChildScrollView(
+                  controller: verticalController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: Stack(
                     children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                            width: MultipleDayViewRes.leftHourIndicatorWidth.w,
-                            height: MultipleDayViewRes.topDayIndicatorHeight.h,
-                            child: Center(
-                              child: Text(
-                                "S: ${agendaState.days[i].date.toWeekNumber()}",
-                              ),
-                            ),
-                          ),
-                          const LeftHourIndicatorWidget(),
-                        ],
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: MultipleDayViewRes.topDayIndicatorHeight.h),
+                        child: const GridWidget(),
                       ),
-                      Column(
+                      Row(
                         children: [
-                          SizedBox(
-                            width: MultipleDayViewRes.columnWidth *
-                                agendaState.dayCount,
-                            height: (Res.agendaDayDuration.inHours /
-                                            MultipleDayViewRes.heightFactor)
-                                        .h *
-                                    (Res.agendaDayDuration.inHours - 1) +
-                                MultipleDayViewRes.topDayIndicatorHeight.h,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              controller: horizontalControllers[rawi]!,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, rawIndex) {
-                                int j = rawIndex - i;
-                                if (j + i < agendaState.days.length) {
-                                  return SizedBox(
-                                    width: MultipleDayViewRes.columnWidth,
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          width: MultipleDayViewRes.columnWidth,
-                                          height: MultipleDayViewRes
-                                              .topDayIndicatorHeight.h,
-                                          child: Text(
-                                            "${agendaState.days[i + j].date.toWeekDayName(short: true)}\n${agendaState.days[i + j].date.day}",
-                                            textAlign: TextAlign.center,
-                                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                width:
+                                    MultipleDayViewRes.leftHourIndicatorWidth.w,
+                                height:
+                                    MultipleDayViewRes.topDayIndicatorHeight.h,
+                                child: Center(
+                                  child: Text(
+                                    "S: ${agendaState.days[i].date.toWeekNumber()}",
+                                  ),
+                                ),
+                              ),
+                              const LeftHourIndicatorWidget(),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                width: MultipleDayViewRes.columnWidth *
+                                    agendaState.dayCount,
+                                height: (Res.agendaDayDuration.inHours /
+                                                MultipleDayViewRes.heightFactor)
+                                            .h *
+                                        (Res.agendaDayDuration.inHours - 1) +
+                                    MultipleDayViewRes.topDayIndicatorHeight.h,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  controller: horizontalControllers[rawi]!,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, rawIndex) {
+                                    int j = rawIndex - i;
+                                    if (j + i < agendaState.days.length) {
+                                      return SizedBox(
+                                        width: MultipleDayViewRes.columnWidth,
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              width: MultipleDayViewRes
+                                                  .columnWidth,
+                                              height: MultipleDayViewRes
+                                                  .topDayIndicatorHeight.h,
+                                              child: Text(
+                                                "${agendaState.days[i + j].date.toWeekDayName(short: true)}\n${agendaState.days[i + j].date.day}",
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                            ...buildEventWidgetList(
+                                              agendaState.days[i + j].events,
+                                              MultipleDayViewRes.columnWidth,
+                                            )
+                                          ],
                                         ),
-                                        ...buildEventWidgetList(
-                                          agendaState.days[i + j].events,
-                                          MultipleDayViewRes.columnWidth,
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                }
-                                return null;
-                              },
-//                               children: [
-//                                 for (int j = -1;
-//                                     j < agendaState.dayCount + 1 &&
-//                                         i + j < agendaState.days.length &&
-//                                         i + j > 0;
-//                                     j++)
-// ,
-//                               ],
-                            ),
+                                      );
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
 
     // }
