@@ -6,16 +6,16 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class OneDayViewWidget extends StatelessWidget {
-  final PageController pageController;
-
   const OneDayViewWidget({
     super.key,
-    required this.pageController,
   });
 
   @override
   Widget build(BuildContext context) {
     final AgendaState state = context.read<AgendaCubit>().state;
+    PageController pageController = PageController(
+        initialPage: state.days.indexWhere(
+            (element) => element.date.shrink(3) == state.wantedDate.shrink(3)));
     return PageView(
       controller: pageController,
       scrollDirection: Axis.vertical,
@@ -23,11 +23,12 @@ class OneDayViewWidget extends StatelessWidget {
       // pas le plus propre mais force a rebuild et reinit le controller
       onPageChanged: (index) {
         if (context.read<SettingsCubit>().state.settings.showMiniCalendar &&
-            !state.animating) {
+            !context.read<AgendaCubit>().animating) {
           if (state.days.length > index) {
+            context.read<AgendaCubit>().animating = false;
             context.read<AgendaCubit>().updateDisplayedDate(
-                date: context.read<AgendaCubit>().state.days[index].date,
-                fromPageController: true);
+                  date: context.read<AgendaCubit>().state.days[index].date,
+                );
           }
         }
       },

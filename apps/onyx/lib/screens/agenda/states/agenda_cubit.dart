@@ -12,12 +12,13 @@ part 'agenda_state.dart';
 
 class AgendaCubit extends Cubit<AgendaState> {
   Lyon1AgendaClient? _agendaClient;
+  bool animating = false;
 
   AgendaCubit()
       : super(AgendaState(
             status: AgendaStatus.initial,
             wantedDate: DateTime.now(),
-            days: []));
+            realDays: []));
 
   Future<void> load(
       {required Lyon1CasClient? lyon1Cas,
@@ -25,11 +26,12 @@ class AgendaCubit extends Cubit<AgendaState> {
       bool cache = true}) async {
     emit(state.copyWith(status: AgendaStatus.loading));
     if (cache && !Res.mock && !kIsWeb) {
-      state.days = await compute(
+      state.realDays = await compute(
         AgendaLogic.getCache,
         (await getApplicationDocumentsDirectory()).path,
       );
-      emit(state.copyWith(status: AgendaStatus.cacheReady, days: state.days));
+      emit(state.copyWith(
+          status: AgendaStatus.cacheReady, realDays: state.realDays));
     }
     if (!settings.fetchAgendaAuto && settings.agendaId == null) {
       emit(state.copyWith(status: AgendaStatus.haveToChooseManualy));
@@ -38,7 +40,7 @@ class AgendaCubit extends Cubit<AgendaState> {
     if (lyon1Cas != null && lyon1Cas.isAuthenticated) {
       _agendaClient = Lyon1AgendaClient.useLyon1Cas(lyon1Cas);
       try {
-        state.days = await AgendaLogic.load(
+        state.realDays = await AgendaLogic.load(
             agendaClient: _agendaClient!, settings: settings);
       } catch (e) {
         if (e.toString().contains("AutoIdException")) {
@@ -48,40 +50,40 @@ class AgendaCubit extends Cubit<AgendaState> {
         }
         return;
       }
-      CacheService.set<Agenda>(Agenda(state.days));
-      emit(state.copyWith(status: AgendaStatus.ready, days: state.days));
+      CacheService.set<Agenda>(Agenda(state.realDays));
+      emit(
+          state.copyWith(status: AgendaStatus.ready, realDays: state.realDays));
       await addRestaurant();
     }
   }
 
   Future<void> addRestaurant() async {
-    await AgendaLogic.addRestaurant(List.from(state.days));
-    emit(state.copyWith(status: AgendaStatus.ready, days: state.days));
+    await AgendaLogic.addRestaurant(List.from(state.realDays));
+    emit(state.copyWith(status: AgendaStatus.ready, realDays: state.realDays));
   }
 
-  void updateDisplayedDate(
-      {required DateTime date, required bool fromPageController}) {
+  void updateDisplayedDate({required DateTime date}) {
     emit(
       state.copyWith(
         status: AgendaStatus.dateUpdated,
         wantedDate: date,
-        animating: !fromPageController,
       ),
     );
   }
 
   void updateDayCount(int dayCount) {
-    emit(state.copyWith(
-        status: AgendaStatus.updateDayCount, dayCount: dayCount));
-  }
-
-  void updateAnimating(bool animating) {
-    emit(state.copyWith(
-        status: AgendaStatus.updateAnimating, animating: animating));
+    emit(
+      state.copyWith(
+        status: AgendaStatus.updateDayCount,
+        dayCount: dayCount,
+      ),
+    );
   }
 
   void resetCubit() {
     emit(AgendaState(
-        status: AgendaStatus.initial, wantedDate: DateTime.now(), days: []));
+        status: AgendaStatus.initial,
+        wantedDate: DateTime.now(),
+        realDays: []));
   }
 }

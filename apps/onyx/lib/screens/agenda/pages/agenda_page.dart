@@ -18,7 +18,7 @@ class AgendaPage extends StatelessWidget {
   }) : super(key: key);
 
   static double indexToOffset(int index, int daycount) {
-    return (15.w) * ((index / daycount) + 1);
+    return 15.w * index;
   }
 
   @override
@@ -72,7 +72,6 @@ class AgendaPage extends StatelessWidget {
             case AgendaStatus.updateAnimating:
               break;
           }
-          PageController pageController = PageController();
           ScrollController scrollController = ScrollController(
               initialScrollOffset: indexToOffset(
                   state.wantedDate
@@ -81,32 +80,14 @@ class AgendaPage extends StatelessWidget {
                       .inDays,
                   state.dayCount));
 
-          pageController = PageController(
-              initialPage: state.days.indexWhere((element) =>
-                  element.date.shrink(3) == state.wantedDate.shrink(3)));
           return BlocListener<AgendaCubit, AgendaState>(
-            listenWhen: (previous, current) {
-              return current.status == AgendaStatus.dateUpdated;
-              // ||
-              // current.status == AgendaStatus.updateAnimating;
-            },
+            listenWhen: (previous, current) =>
+                current.status == AgendaStatus.dateUpdated,
             listener: (context, state) {
               if (kDebugMode) {
                 print("AgendaState: ${state.status}");
               }
-              if (scrollController.hasClients && pageController.hasClients) {
-                int pageIndex = state.days.indexWhere((element) =>
-                    element.date.shrink(3) == state.wantedDate.shrink(3));
-                pageIndex = (pageIndex / state.dayCount - 0.5).ceil();
-                pageController
-                    .animateToPage(
-                  pageIndex,
-                  curve: Curves.easeInOut,
-                  duration: const Duration(milliseconds: 500),
-                )
-                    .then((value) {
-                  context.read<AgendaCubit>().updateAnimating(false);
-                });
+              if (scrollController.hasClients) {
                 scrollController.animateTo(
                     indexToOffset(
                         (state.wantedDate
@@ -130,8 +111,10 @@ class AgendaPage extends StatelessWidget {
                   ? MiniCalendarWidget(
                       scrollController: scrollController,
                       onUpdate: (DateTime newWantedDay) {
-                        context.read<AgendaCubit>().updateDisplayedDate(
-                            date: newWantedDay, fromPageController: false);
+                        context.read<AgendaCubit>().animating = true;
+                        context
+                            .read<AgendaCubit>()
+                            .updateDisplayedDate(date: newWantedDay);
                       },
                     )
                   : Center(
@@ -149,11 +132,11 @@ class AgendaPage extends StatelessWidget {
                   Flexible(
                     flex: 30,
                     child: (state.dayCount <= 1)
-                        ? OneDayViewWidget(pageController: pageController)
-                        : MultipleDayViewWidget(pageController: pageController),
+                        ? const OneDayViewWidget()
+                        : const MultipleDayViewPageView(),
                   ),
                   Flexible(
-                      flex: 2,
+                      flex: 3,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -163,7 +146,7 @@ class AgendaPage extends StatelessWidget {
                             const Spacer(),
                             SliderTheme(
                               data: SliderThemeData(
-                                // here
+                                //remove offset
                                 trackShape: CustomTrackShape(),
                               ),
                               child: Flexible(
