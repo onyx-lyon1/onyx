@@ -84,8 +84,8 @@ dev_dependencies:
   flutter_lints: ^2.0.3
   build_runner: ^2.4.6
   hive_generator: ^2.0.1
-  flutter_launcher_icons: ^0.13.1
   copy_with_extension_gen: ^5.0.4
+  flutter_launcher_icons: ^0.13.1
 
 dependency_overrides:
   image: ^4.0.17
@@ -94,13 +94,12 @@ dependency_overrides:
   geolocator: ^10.0.0
 
 
+
 flutter_launcher_icons:
-  android: "launcher_icon"
+  android: false
   ios: true
   image_path: "assets/icon.png"
-  image_path_android: "assets/icon_transparent.png"
   remove_alpha_ios: true
-  min_sdk_android: 21 # android min sdk min:16, default 21
   web:
     generate: true
     image_path: "assets/icon.png"
