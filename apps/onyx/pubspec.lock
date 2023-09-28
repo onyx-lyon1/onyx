@@ -202,6 +202,46 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  camera:
+    dependency: transitive
+    description:
+      name: camera
+      sha256: f63f2687fb1795c36f7c57b18a03071880eabb0fd8b5291b0fcd3fb979cb0fb1
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.5+4"
+  camera_android:
+    dependency: transitive
+    description:
+      name: camera_android
+      sha256: "796438641b13bc26f6d9fe07e183b708e856db21ddeb9ec99de5591286e1910c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.8+10"
+  camera_avfoundation:
+    dependency: transitive
+    description:
+      name: camera_avfoundation
+      sha256: dde42d19ad4cdf79287f9e410599db72beaec7e505787dc6abfd0ce5b526e9c0
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.13+5"
+  camera_platform_interface:
+    dependency: transitive
+    description:
+      name: camera_platform_interface
+      sha256: "8734d1c682f034bdb12d0d6ff379b0535a9b8e44266b530025bf8266d6a62f28"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.2"
+  camera_web:
+    dependency: transitive
+    description:
+      name: camera_web
+      sha256: d4c2c571c7af04f8b10702ca16bb9ed2a26e64534171e8f75c9349b2c004d8f1
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.2+3"
   characters:
     dependency: transitive
     description:
@@ -210,6 +250,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
+  charset:
+    dependency: transitive
+    description:
+      name: charset
+      sha256: e8346cf597b6cea278d2d3a29b2d01ed8fb325aad718e70f22b0cb653cb31700
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   checked_yaml:
     dependency: transitive
     description:
@@ -391,10 +439,10 @@ packages:
     dependency: "direct main"
     description:
       name: encrypt
-      sha256: "4fd4e4fdc21b9d7d4141823e1e6515cd94e7b8d84749504c232999fba25d9bbb"
+      sha256: "62d9aa4670cc2a8798bab89b39fc71b6dfbacf615de6cf5001fb39f7e4a996a2"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.1"
+    version: "5.0.3"
   enough_convert:
     dependency: transitive
     description:
@@ -884,10 +932,9 @@ packages:
   izlyclient:
     dependency: "direct main"
     description:
-      name: izlyclient
-      sha256: c6bb93467a40dcf7866067756efec5a35d8fbf83b29998531d640b2116805dc3
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/izlyclient"
+      relative: true
+    source: path
     version: "1.0.2"
   js:
     dependency: transitive
@@ -940,34 +987,30 @@ packages:
   lyon1agendaclient:
     dependency: "direct main"
     description:
-      name: lyon1agendaclient
-      sha256: b17cffb533a8e48e10a6a94b66ec4e9302755221ed64df7266ae6940e3c08e77
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1agendaclient"
+      relative: true
+    source: path
     version: "1.0.3"
   lyon1casclient:
     dependency: "direct main"
     description:
-      name: lyon1casclient
-      sha256: "73212cf5e35d92bdb7a0b2dadc89d1d6908bc4eeb06beafeda0e345a4c63b852"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1casclient"
+      relative: true
+    source: path
     version: "1.0.2"
   lyon1mailclient:
     dependency: "direct main"
     description:
-      name: lyon1mailclient
-      sha256: "9fb7ffae1fbc7eeca4b5ab1238879d410ce6c94aac6b55ae69d31fa1e322e32e"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1mailclient"
+      relative: true
+    source: path
     version: "1.0.2"
   lyon1tomussclient:
     dependency: "direct main"
     description:
-      name: lyon1tomussclient
-      sha256: "3e6c2c72cd4ecba1443cc512fae40275bf15baab775a3950a9ce2a496ebecc20"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1tomussclient"
+      relative: true
+    source: path
     version: "1.0.5"
   matcher:
     dependency: transitive
@@ -1009,14 +1052,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  mobile_scanner:
-    dependency: "direct main"
-    description:
-      name: mobile_scanner
-      sha256: "54dd914e1bb5758b3db7aa02e56d65d80285ba0705e0e5fa5cfbb11e27344c4b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.3.0"
   modal_bottom_sheet:
     dependency: "direct main"
     description:
@@ -1141,18 +1176,18 @@ packages:
     dependency: "direct main"
     description:
       name: permission_handler
-      sha256: bc56bfe9d3f44c3c612d8d393bd9b174eb796d706759f9b495ac254e4294baa5
+      sha256: ad65ba9af42a3d067203641de3fd9f547ded1410bad3b84400c2b4899faede70
       url: "https://pub.dev"
     source: hosted
-    version: "10.4.5"
+    version: "11.0.0"
   permission_handler_android:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: "2ffaf52a21f64ac9b35fe7369bb9533edbd4f698e5604db8645b1064ff4cf221"
+      sha256: ace7d15a3d1a4a0b91c041d01e5405df221edb9de9116525efc773c74e6fc790
       url: "https://pub.dev"
     source: hosted
-    version: "10.3.3"
+    version: "11.0.5"
   permission_handler_apple:
     dependency: transitive
     description:
@@ -1165,10 +1200,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_platform_interface
-      sha256: "7c6b1500385dd1d2ca61bb89e2488ca178e274a69144d26bbd65e33eae7c02a9"
+      sha256: f2343e9fa9c22ae4fd92d4732755bfe452214e7189afcc097380950cf567b4b2
       url: "https://pub.dev"
     source: hosted
-    version: "3.11.3"
+    version: "3.11.5"
   permission_handler_windows:
     dependency: transitive
     description:
@@ -1265,6 +1300,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  qr_code_dart_scan:
+    dependency: "direct main"
+    description:
+      name: qr_code_dart_scan
+      sha256: "4b5222c044700f9ecb3d1c39ca9c5cf433b508f81a0649b768628d3b5ee2ffc4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.2"
   quiver:
     dependency: transitive
     description:
@@ -1702,6 +1745,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  zxing_lib:
+    dependency: transitive
+    description:
+      name: zxing_lib
+      sha256: "84f6ec19b04dd54bc0b25c539c7c3567a5f9e872e3feb23763df027a1f855c11"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.0"
 sdks:
-  dart: ">=3.1.0-185.0.dev <4.0.0"
-  flutter: ">=3.10.0"
+  dart: ">=3.1.0 <4.0.0"
+  flutter: ">=3.13.0"
