@@ -23,27 +23,27 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider-2.1.1" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter-4.2.4" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/file_picker-5.5.0" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_linux-3.0.6" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/camera_avfoundation-0.9.13+5" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.7.4" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.1.0" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/geolocator_android-4.2.4" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/camera_web-0.3.2+3" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_compass-0.8.0" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/camera-0.10.5+4" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.2.0" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_ios-6.1.5" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/camera_android-0.10.8+9" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/geolocator-10.0.1" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_macos-3.0.7" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_web-2.0.20" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.1" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter_android-3.10.1" />
-      <root url="file://$USER_HOME$/.pub-cache/git/biometric_storage-f752cc5266f54ed78f3493cc04d39ac10c5f1d2c" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/permission_handler-11.0.0" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.1" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_windows-3.0.8" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/camera_android-0.10.8+10" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_linux-3.0.5" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.7.3" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.1.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/geolocator_android-4.2.2" />
+      <root url="file://$USER_HOME$/.pub-cache/git/biometric_storage-655e1acce8cef5bc0938fda1d607666db8c33771" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_ios-6.1.4" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_web-2.0.18" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_compass-0.7.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/geolocator-10.0.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_macos-3.0.6" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/webview_flutter_android-3.9.3" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.38" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.0" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_windows-3.0.7" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
