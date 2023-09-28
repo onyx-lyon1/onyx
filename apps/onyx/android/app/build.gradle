@@ -74,6 +74,9 @@ android {
         debug {
             applicationIdSuffix ".debug"
         }
+        profile {
+            applicationIdSuffix ".profile"
+        }
     }
 }
 
