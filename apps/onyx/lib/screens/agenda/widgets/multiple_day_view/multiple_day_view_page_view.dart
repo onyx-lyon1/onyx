@@ -13,19 +13,19 @@ class MultipleDayViewPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var agendaState = context.read<AgendaCubit>().state;
-    MultipleDayViewRes.columnWidth =
-        (100 - MultipleDayViewRes.leftHourIndicatorWidth).w /
-            agendaState.dayCount;
+    var state = context.read<AgendaCubit>().state;
     PageController pageController = PageController(
-        initialPage: agendaState.days.indexWhere((element) =>
-            element.date.shrink(3) == agendaState.wantedDate.shrink(3)));
-    Map<int, ScrollController> horizontalControllers = {};
+        initialPage: state.days.indexWhere(
+            (element) => element.date.shrink(3) == state.wantedDate.shrink(3)));
     ScrollController verticalController = ScrollController();
     return BlocBuilder<AgendaCubit, AgendaState>(
       buildWhen: (previous, current) =>
           current.status == AgendaStatus.updateDayCount,
-      builder: (context, state) {
+      builder: (context, agendaState) {
+        MultipleDayViewRes.columnWidth =
+            (100 - MultipleDayViewRes.leftHourIndicatorWidth).w /
+                agendaState.dayCount;
+        Map<int, ScrollController> horizontalControllers = {};
         return DoubleScrollableWidget(
           pageController: pageController,
           listScrollController: verticalController,

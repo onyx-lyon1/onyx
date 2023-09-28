@@ -1,7 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
