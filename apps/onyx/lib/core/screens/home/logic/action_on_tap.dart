@@ -27,9 +27,8 @@ void actionOnTap(
                     100.w) //simple +-1 to avoid bug
                 : 0) ==
             realIndex) {
-      context
-          .read<AgendaCubit>()
-          .updateDisplayedDate(date: DateTime.now(), fromPageController: false);
+      context.read<AgendaCubit>().animating = true;
+      context.read<AgendaCubit>().updateDisplayedDate(date: DateTime.now());
     }
   }
 }
