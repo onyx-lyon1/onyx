@@ -9,7 +9,7 @@ class DoubleScrollableWidget extends StatefulWidget {
       required this.listScrollController,
       required this.child});
 
-  final ScrollController listScrollController;
+  final List<ScrollController> listScrollController;
   final PageController pageController;
   final Widget child;
 
@@ -21,6 +21,8 @@ class _DoubleScrollableWidgetState extends State<DoubleScrollableWidget> {
   late ScrollController _activeScrollController;
   Drag? _drag;
 
+  bool? forward;
+
   @override
   void initState() {
     super.initState();
@@ -29,7 +31,9 @@ class _DoubleScrollableWidgetState extends State<DoubleScrollableWidget> {
   @override
   void dispose() {
     widget.pageController.dispose();
-    widget.listScrollController.dispose();
+    for (var scrollController in widget.listScrollController) {
+      scrollController.dispose();
+    }
     super.dispose();
   }
 
@@ -69,14 +73,15 @@ class _DoubleScrollableWidgetState extends State<DoubleScrollableWidget> {
   }
 
   void _handleDragStart(DragStartDetails details) {
-    if (widget.listScrollController.hasClients) {
+    int i = _getScrollControllerIndex();
+    if (widget.listScrollController[i].hasClients) {
       final RenderBox renderBox = widget
-          .listScrollController.position.context.storageContext
+          .listScrollController[i].position.context.storageContext
           .findRenderObject() as RenderBox;
       if (renderBox.paintBounds
           .shift(renderBox.localToGlobal(Offset.zero))
           .contains(details.globalPosition)) {
-        _activeScrollController = widget.listScrollController;
+        _activeScrollController = widget.listScrollController[i];
         _drag = _activeScrollController.position.drag(details, _disposeDrag);
         return;
       }
@@ -86,11 +91,13 @@ class _DoubleScrollableWidgetState extends State<DoubleScrollableWidget> {
   }
 
   void _handleDragUpdate(DragUpdateDetails details) {
-    if (_activeScrollController == widget.listScrollController &&
+    int i = _getScrollControllerIndex();
+    if (widget.listScrollController[i] == _activeScrollController &&
         ((details.primaryDelta! > 0 &&
                 _activeScrollController.position.extentBefore == 0) ||
             (details.primaryDelta! < 0 &&
                 _activeScrollController.position.extentAfter == 0))) {
+      forward = details.primaryDelta! > 0;
       _activeScrollController = widget.pageController;
       _drag?.cancel();
       _drag = widget.pageController.position.drag(
@@ -99,6 +106,25 @@ class _DoubleScrollableWidgetState extends State<DoubleScrollableWidget> {
               localPosition: details.localPosition),
           _disposeDrag);
     }
+    if (_activeScrollController == widget.pageController &&
+        ((forward != null) && details.primaryDelta! > 0 != forward!)) {
+      if ((_activeScrollController.position.pixels %
+                  _activeScrollController.position.viewportDimension)
+              .abs() <
+          15) {
+        i = _getScrollControllerIndex();
+        if (widget.listScrollController[i].hasClients) {
+          _activeScrollController = widget.listScrollController[i];
+          _drag?.cancel();
+          _drag = widget.listScrollController[i].position.drag(
+              DragStartDetails(
+                  globalPosition: details.globalPosition,
+                  localPosition: details.localPosition),
+              _disposeDrag);
+        }
+      }
+    }
+
     _drag?.update(details);
   }
 
@@ -116,5 +142,10 @@ class _DoubleScrollableWidgetState extends State<DoubleScrollableWidget> {
 
   void _disposeDrag() {
     _drag = null;
+  }
+
+  int _getScrollControllerIndex() {
+    //a fonction got get the current screen in use by the pageview
+    return widget.pageController.page!.toInt();
   }
 }

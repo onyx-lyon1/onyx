@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/logic/agenda_logic.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
@@ -12,13 +14,16 @@ part 'agenda_state.dart';
 
 class AgendaCubit extends Cubit<AgendaState> {
   Lyon1AgendaClient? _agendaClient;
+
+  final PageController miniCalendarScrollController = PageController();
+  final List<PageController> horizontalScrollController =
+      List.generate(3, (index) => PageController());
+  final PageController verticalScrollController = PageController();
   bool animating = false;
 
   AgendaCubit()
       : super(AgendaState(
-            status: AgendaStatus.initial,
-            wantedDate: DateTime.now(),
-            realDays: []));
+            status: AgendaStatus.initial, wantedDate: 0, realDays: []));
 
   Future<void> load(
       {required Lyon1CasClient? lyon1Cas,
@@ -31,7 +36,13 @@ class AgendaCubit extends Cubit<AgendaState> {
         (await getApplicationDocumentsDirectory()).path,
       );
       emit(state.copyWith(
-          status: AgendaStatus.cacheReady, realDays: state.realDays));
+          status: AgendaStatus.cacheReady,
+          realDays: state.realDays,
+          wantedDate: state.realDays
+              .indexWhere((element) => element.date
+                  .shrink(3)
+                  .isAtSameMomentAs(DateTime.now().shrink(3)))
+              .clamp(0, state.realDays.length - 1)));
     }
     if (!settings.fetchAgendaAuto && settings.agendaId == null) {
       emit(state.copyWith(status: AgendaStatus.haveToChooseManualy));
@@ -51,8 +62,14 @@ class AgendaCubit extends Cubit<AgendaState> {
         return;
       }
       CacheService.set<Agenda>(Agenda(state.realDays));
-      emit(
-          state.copyWith(status: AgendaStatus.ready, realDays: state.realDays));
+      emit(state.copyWith(
+          status: AgendaStatus.ready,
+          realDays: state.realDays,
+          wantedDate: state.realDays
+              .indexWhere((element) => element.date
+                  .shrink(3)
+                  .isAtSameMomentAs(DateTime.now().shrink(3)))
+              .clamp(0, state.realDays.length - 1)));
       await addRestaurant();
     }
   }
@@ -62,28 +79,59 @@ class AgendaCubit extends Cubit<AgendaState> {
     emit(state.copyWith(status: AgendaStatus.ready, realDays: state.realDays));
   }
 
-  void updateDisplayedDate({required DateTime date}) {
+  void updateDisplayedDate(
+      {required int wantedDate, required bool fromMiniCalendar}) {
+    if (!animating) {
+      if (fromMiniCalendar) {
+        if (horizontalScrollController[0].hasClients) {
+          print("1.go to ${wantedDate}");
+          animating = true;
+          horizontalScrollController[0]
+              .animateToPage(
+                wantedDate,
+                duration: Res.animationDuration,
+                curve: Curves.easeInOut,
+              )
+              .then((value) => animating = false);
+        }
+        if (horizontalScrollController[1].hasClients) {
+          print("2.go to ${wantedDate}");
+          animating = true;
+          horizontalScrollController[1]
+              .animateToPage(
+                wantedDate ~/ 5,
+                duration: Res.animationDuration,
+                curve: Curves.easeInOut,
+              )
+              .then((value) => animating = false);
+        }
+      } else {
+        if (miniCalendarScrollController.hasClients) {
+          print("3.go to ${wantedDate}");
+          animating = true;
+          miniCalendarScrollController
+              .animateToPage(
+                wantedDate,
+                duration: Res.animationDuration,
+                curve: Curves.easeInOut,
+              )
+              .then((value) => animating = false);
+        }
+      }
+    } else {
+      Future.delayed(Res.animationDuration, () => animating = false);
+    }
+
     emit(
       state.copyWith(
         status: AgendaStatus.dateUpdated,
-        wantedDate: date,
-      ),
-    );
-  }
-
-  void updateDayCount(int dayCount) {
-    emit(
-      state.copyWith(
-        status: AgendaStatus.updateDayCount,
-        dayCount: dayCount,
+        wantedDate: wantedDate,
       ),
     );
   }
 
   void resetCubit() {
-    emit(AgendaState(
-        status: AgendaStatus.initial,
-        wantedDate: DateTime.now(),
-        realDays: []));
+    emit(
+        AgendaState(status: AgendaStatus.initial, wantedDate: 0, realDays: []));
   }
 }
