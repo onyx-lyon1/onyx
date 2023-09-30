@@ -57,7 +57,7 @@ class AgendaConfigPage extends StatelessWidget {
                   },
                   child: DoubleScrollableWidget(
                     pageController: pageController,
-                    listScrollController: listScrollController,
+                    listScrollController: [listScrollController],
                     child: PageView.custom(
                       controller: pageController,
                       physics: const NeverScrollableScrollPhysics(),

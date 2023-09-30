@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
-import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'multiple_day_view_res.dart';
+import 'days_view_widget_res.dart';
 
 class GridWidget extends StatelessWidget {
-  const GridWidget({
-    Key? key,
-  }) : super(key: key);
+  const GridWidget(
+      {Key? key, required this.columnWidth, required this.dayCount})
+      : super(key: key);
+
+  final double columnWidth;
+  final int dayCount;
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: GridPainter(
-        dayCount: context.read<AgendaCubit>().state.dayCount,
+        dayCount: dayCount,
+        columnWidth: columnWidth,
       ),
     );
   }
@@ -23,9 +25,11 @@ class GridWidget extends StatelessWidget {
 
 class GridPainter extends CustomPainter {
   final int dayCount;
+  final double columnWidth;
 
   GridPainter({
     required this.dayCount,
+    required this.columnWidth,
   });
 
   @override
@@ -39,35 +43,24 @@ class GridPainter extends CustomPainter {
         i++) {
       // Duration i = const Duration(hours: 1);
       canvas.drawLine(
-        Offset(
-            0,
-            (Res.agendaDayDuration.inHours / MultipleDayViewRes.heightFactor)
-                    .h *
-                i),
-        Offset(
-            100.w,
-            (Res.agendaDayDuration.inHours / MultipleDayViewRes.heightFactor)
-                    .h *
-                i),
+        Offset(0,
+            (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor).h * i),
+        Offset(100.w,
+            (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor).h * i),
         paint,
       );
     }
     //draw vertical lines
     canvas.drawLine(
-      Offset(MultipleDayViewRes.leftHourIndicatorWidth.w, 0),
-      Offset(MultipleDayViewRes.leftHourIndicatorWidth.w, 100.h),
+      Offset(DaysViewRes.leftHourIndicatorWidth.w, 0),
+      Offset(DaysViewRes.leftHourIndicatorWidth.w, 100.h),
       paint,
     );
     for (var i = 1; i < dayCount; i++) {
       canvas.drawLine(
+        Offset((columnWidth * i) + (DaysViewRes.leftHourIndicatorWidth.w), 0),
         Offset(
-            (MultipleDayViewRes.columnWidth * i) +
-                (MultipleDayViewRes.leftHourIndicatorWidth.w),
-            0),
-        Offset(
-            (MultipleDayViewRes.columnWidth * i) +
-                (MultipleDayViewRes.leftHourIndicatorWidth.w),
-            100.h),
+            (columnWidth * i) + (DaysViewRes.leftHourIndicatorWidth.w), 100.h),
         paint,
       );
     }
