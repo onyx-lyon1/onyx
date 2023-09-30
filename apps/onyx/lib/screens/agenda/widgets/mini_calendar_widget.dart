@@ -2,55 +2,73 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/res.dart';
-import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/agenda/widgets/days_view_widget_res.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MiniCalendarWidget extends StatelessWidget {
-  final ScrollController scrollController;
-  final void Function(DateTime date) onUpdate;
+  final PageController scrollController;
 
   const MiniCalendarWidget({
     Key? key,
     required this.scrollController,
-    required this.onUpdate,
   }) : super(key: key);
+
+  final int dayCount = 5;
 
   @override
   Widget build(BuildContext context) {
-    return InfiniteScrollLoopWidget(
-      key: const Key('MiniCalendarWidget'),
-      axisDirection: AxisDirection.right,
-      scrollController: scrollController,
-      builder: (context, index) {
-        if (context.read<AgendaCubit>().state.days.isEmpty) return null;
-        DateTime currentDate = DateTime.now().add(Duration(days: index));
-        if (currentDate
-                .isBefore(context.read<AgendaCubit>().state.days.first.date) ||
-            currentDate.isAfter(context
-                .read<AgendaCubit>()
-                .state
-                .days
-                .last
-                .date
-                .add(const Duration(days: 1)))) {
-          return null;
+    return PageView.builder(
+      scrollDirection: Axis.horizontal,
+      controller: scrollController,
+      onPageChanged: (index) {
+        context.read<AgendaCubit>().updateDisplayedDate(
+            wantedDate: index * dayCount, fromMiniCalendar: true);
+      },
+      itemBuilder: (context, rawIndex) {
+        int index = rawIndex * dayCount; //TODO adapt to week length
+        if (index + dayCount < context.read<AgendaCubit>().state.days.length) {
+          return Row(
+            children: [
+              GestureDetector(
+                onTap: () => () {
+                  print("taaaaap");
+                },
+                child: SizedBox(
+                  width: DaysViewRes.leftHourIndicatorWidth.w,
+                  child: Center(
+                    child: Text(
+                      "S: ${context.read<AgendaCubit>().state.days[index].date.toWeekNumber()}",
+                    ),
+                  ),
+                ),
+              ),
+              for (int i = index; i < index + dayCount; i++)
+                GestureDetector(
+                    onTap: () => () {
+                          print("taaaaap");
+                        },
+                    child: oneDay(context, i)),
+            ],
+          );
         }
-        return oneDay(context, currentDate);
+        return null;
       },
     );
   }
 
-  Widget oneDay(BuildContext context, DateTime currentDate) {
+  Widget oneDay(BuildContext context, int currentDateIndex) {
     return BlocBuilder<AgendaCubit, AgendaState>(
       buildWhen: (previous, current) =>
-          previous.wantedDate.shrink(3) == currentDate.shrink(3) ||
-          current.wantedDate.shrink(3) == currentDate.shrink(3),
+          previous.days[previous.wantedDate].date.shrink(3) ==
+              current.days[currentDateIndex].date.shrink(3) ||
+          current.days[current.wantedDate].date.shrink(3) ==
+              current.days[currentDateIndex].date.shrink(3),
       builder: (context, state) {
         return SizedBox(
-          key: Key(currentDate.shrink(3).toString()),
+          key: Key(state.days[currentDateIndex].date.shrink(3).toString()),
           height: Res.bottomNavBarHeight,
-          width: 15.w,
+          width: (100 - DaysViewRes.leftHourIndicatorWidth).w / dayCount,
           child: Padding(
             padding: EdgeInsets.all(0.8.w),
             child: Material(
@@ -59,17 +77,22 @@ class MiniCalendarWidget extends StatelessWidget {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
                 decoration: BoxDecoration(
-                  color: (context.read<AgendaCubit>().state.wantedDate.day ==
-                              currentDate.day &&
-                          context.read<AgendaCubit>().state.wantedDate.month ==
-                              currentDate.month)
+                  color: (state.days[state.wantedDate].date.day ==
+                              state.days[currentDateIndex].date.day &&
+                          state.days[state.wantedDate].date.month ==
+                              state.days[currentDateIndex].date.month)
                       ? Theme.of(context).primaryColor
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(10),
-                  onTap: () => onUpdate(currentDate),
+                  onTap: () => () {
+                    print("!!!!!!!!!!!!!");
+                    print("update to $currentDateIndex");
+                    context.read<AgendaCubit>().updateDisplayedDate(
+                        wantedDate: currentDateIndex, fromMiniCalendar: true);
+                  },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
@@ -77,21 +100,23 @@ class MiniCalendarWidget extends StatelessWidget {
                       SizedBox(
                         height: 2.9.h,
                         child: Text(
-                          currentDate.toMonthName(short: true),
+                          state.days[currentDateIndex].date
+                              .toMonthName(short: true),
                           style: TextStyle(fontSize: 15.sp),
                         ),
                       ),
                       SizedBox(
                         height: 3.h,
                         child: Text(
-                          currentDate.day.toString(),
+                          state.days[currentDateIndex].date.day.toString(),
                           style: TextStyle(fontSize: 17.sp),
                         ),
                       ),
                       SizedBox(
                         height: 3.h,
                         child: Text(
-                          currentDate.toWeekDayName(short: true),
+                          state.days[currentDateIndex].date
+                              .toWeekDayName(short: true),
                           style: TextStyle(fontSize: 15.sp),
                         ),
                       ),

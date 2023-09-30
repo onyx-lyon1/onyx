@@ -1,16 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/core/extensions/extensions_export.dart';
-import 'package:onyx/core/widgets/common_screen_widget.dart';
-import 'package:onyx/core/widgets/no_border_slider_shape.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/agenda/widgets/days_view_widget.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
 
 class AgendaPage extends StatelessWidget {
   const AgendaPage({
@@ -72,126 +69,71 @@ class AgendaPage extends StatelessWidget {
             case AgendaStatus.updateAnimating:
               break;
           }
-          ScrollController scrollController = ScrollController(
-              initialScrollOffset: indexToOffset(
-                  state.wantedDate
-                      .shrink(3)
-                      .difference(DateTime.now().shrink(3))
-                      .inDays,
-                  state.dayCount));
 
-          return BlocListener<AgendaCubit, AgendaState>(
-            listenWhen: (previous, current) =>
-                current.status == AgendaStatus.dateUpdated,
-            listener: (context, state) {
-              if (kDebugMode) {
-                print("AgendaState: ${state.status}");
-              }
-              if (scrollController.hasClients) {
-                scrollController.animateTo(
-                    indexToOffset(
-                        (state.wantedDate
-                                    .shrink(3)
-                                    .difference(DateTime.now().shrink(3))
-                                    .inHours /
-                                24)
-                            .round(),
-                        state.dayCount),
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOut);
-              }
-            },
-            child: CommonScreenWidget(
-              state: headerState,
-              header: context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .showMiniCalendar
-                  ? MiniCalendarWidget(
-                      scrollController: scrollController,
-                      onUpdate: (DateTime newWantedDay) {
-                        context.read<AgendaCubit>().animating = true;
-                        context
+          List<ScrollController> verticalController =
+              List.generate(3, (_) => ScrollController());
+
+          return CommonScreenWidget(
+            state: headerState,
+            header:
+                context.read<SettingsCubit>().state.settings.showMiniCalendar
+                    ? MiniCalendarWidget(
+                        scrollController: context
                             .read<AgendaCubit>()
-                            .updateDisplayedDate(date: newWantedDay);
-                      },
-                    )
-                  : Center(
-                      child: Text(
-                        'Agenda',
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyLarge!.color,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                            .miniCalendarScrollController,
+                      )
+                    : Center(
+                        child: Text(
+                          'Agenda',
+                          style: TextStyle(
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-              body: Column(
+            body: DoubleScrollableWidget(
+              listScrollController: verticalController,
+              pageController:
+                  context.read<AgendaCubit>().verticalScrollController,
+              child: PageView(
+                controller:
+                    context.read<AgendaCubit>().verticalScrollController,
+                scrollDirection: Axis.vertical,
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  Flexible(
-                    flex: 30,
-                    child: (state.dayCount <= 1)
-                        ? const OneDayViewWidget()
-                        : const MultipleDayViewPageView(),
-                  ),
-                  Flexible(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Spacer(),
-                            SliderTheme(
-                              data: SliderThemeData(
-                                //remove offset
-                                trackShape: CustomTrackShape(),
-                              ),
-                              child: Flexible(
-                                flex: 50,
-                                child: Slider(
-                                  min: 1,
-                                  max: 7,
-                                  inactiveColor:
-                                      Theme.of(context).cardTheme.color,
-                                  value: context
-                                      .read<AgendaCubit>()
-                                      .state
-                                      .dayCount
-                                      .toDouble(),
-                                  onChanged: (newValue) => context
-                                      .read<AgendaCubit>()
-                                      .updateDayCount(newValue.toInt()),
-                                ),
-                              ),
-                            ),
-                            const Spacer(),
-                            Flexible(
-                                flex: 20,
-                                child: Text("${state.dayCount} jours")),
-                            const Spacer(),
-                          ],
-                        ),
-                      )),
+                  DaysViewWidget(
+                      dayCount: 1,
+                      verticalController: verticalController[0],
+                      horizontalController: context
+                          .read<AgendaCubit>()
+                          .horizontalScrollController[0]),
+                  DaysViewWidget(
+                      dayCount: 5,
+                      verticalController: verticalController[1],
+                      horizontalController: context
+                          .read<AgendaCubit>()
+                          .horizontalScrollController[1]),
+                  const Center(
+                    child: Text("month view soon"),
+                  )
                 ],
               ),
-              onRefresh: () async {
-                context.read<AgendaCubit>().load(
-                      lyon1Cas:
-                          context.read<AuthentificationCubit>().state.lyon1Cas,
-                      settings: context.read<SettingsCubit>().state.settings,
-                    );
-                // ignore: use_build_context_synchronously
-                while (state.status != AgendaStatus.ready &&
-                    // ignore: use_build_context_synchronously
-                    state.status != AgendaStatus.error) {
-                  await Future.delayed(const Duration(milliseconds: 100));
-                }
-                return;
-              },
             ),
+            onRefresh: () async {
+              context.read<AgendaCubit>().load(
+                    lyon1Cas:
+                        context.read<AuthentificationCubit>().state.lyon1Cas,
+                    settings: context.read<SettingsCubit>().state.settings,
+                  );
+              // ignore: use_build_context_synchronously
+              while (state.status != AgendaStatus.ready &&
+                  // ignore: use_build_context_synchronously
+                  state.status != AgendaStatus.error) {
+                await Future.delayed(const Duration(milliseconds: 100));
+              }
+              return;
+            },
           );
         });
   }
