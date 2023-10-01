@@ -19,7 +19,8 @@ class AgendaCubit extends Cubit<AgendaState> {
   final List<PageController> horizontalScrollController =
       List.generate(3, (index) => PageController());
   final PageController verticalScrollController = PageController();
-  bool animating = false;
+  bool blockMiniCalendar = false;
+  bool blockHorizontalScroll = false;
 
   AgendaCubit()
       : super(AgendaState(
@@ -81,45 +82,38 @@ class AgendaCubit extends Cubit<AgendaState> {
 
   void updateDisplayedDate(
       {required int wantedDate, required bool fromMiniCalendar}) {
-    if (!animating) {
-      if (fromMiniCalendar) {
+    if (fromMiniCalendar) {
+      if (!blockMiniCalendar) {
+        blockHorizontalScroll = true;
+        Future.delayed(
+            Res.animationDuration, () => blockHorizontalScroll = false);
         if (horizontalScrollController[0].hasClients) {
-          print("1.go to ${wantedDate}");
-          animating = true;
-          horizontalScrollController[0]
-              .animateToPage(
-                wantedDate,
-                duration: Res.animationDuration,
-                curve: Curves.easeInOut,
-              )
-              .then((value) => animating = false);
+          horizontalScrollController[0].animateToPage(
+            wantedDate,
+            duration: Res.animationDuration,
+            curve: Curves.easeInOut,
+          );
         }
         if (horizontalScrollController[1].hasClients) {
-          print("2.go to ${wantedDate}");
-          animating = true;
-          horizontalScrollController[1]
-              .animateToPage(
-                wantedDate ~/ 5,
-                duration: Res.animationDuration,
-                curve: Curves.easeInOut,
-              )
-              .then((value) => animating = false);
-        }
-      } else {
-        if (miniCalendarScrollController.hasClients) {
-          print("3.go to ${wantedDate}");
-          animating = true;
-          miniCalendarScrollController
-              .animateToPage(
-                wantedDate,
-                duration: Res.animationDuration,
-                curve: Curves.easeInOut,
-              )
-              .then((value) => animating = false);
+          horizontalScrollController[1].animateToPage(
+            wantedDate ~/ 5,
+            duration: Res.animationDuration,
+            curve: Curves.easeInOut,
+          );
         }
       }
     } else {
-      Future.delayed(Res.animationDuration, () => animating = false);
+      if (!blockHorizontalScroll) {
+        blockMiniCalendar = true;
+        Future.delayed(Res.animationDuration, () => blockMiniCalendar = false);
+        if (miniCalendarScrollController.hasClients) {
+          miniCalendarScrollController.animateToPage(
+            wantedDate ~/ 5,
+            duration: Res.animationDuration,
+            curve: Curves.easeInOut,
+          );
+        }
+      }
     }
 
     emit(
