@@ -23,32 +23,24 @@ class MiniCalendarWidget extends StatelessWidget {
       controller: scrollController,
       onPageChanged: (index) {
         context.read<AgendaCubit>().updateDisplayedDate(
-            wantedDate: index * dayCount, fromMiniCalendar: true);
+            wantedDate: index * dayCount +
+                context.read<AgendaCubit>().state.wantedDate % dayCount,
+            fromMiniCalendar: true);
       },
       itemBuilder: (context, rawIndex) {
-        int index = rawIndex * dayCount; //TODO adapt to week length
+        int index = rawIndex * dayCount;
         if (index + dayCount < context.read<AgendaCubit>().state.days.length) {
           return Row(
             children: [
-              GestureDetector(
-                onTap: () => () {
-                  print("taaaaap");
-                },
-                child: SizedBox(
-                  width: DaysViewRes.leftHourIndicatorWidth.w,
-                  child: Center(
-                    child: Text(
-                      "S: ${context.read<AgendaCubit>().state.days[index].date.toWeekNumber()}",
-                    ),
+              SizedBox(
+                width: DaysViewRes.leftHourIndicatorWidth.w,
+                child: Center(
+                  child: Text(
+                    "S: ${context.read<AgendaCubit>().state.days[index].date.toWeekNumber()}",
                   ),
                 ),
               ),
-              for (int i = index; i < index + dayCount; i++)
-                GestureDetector(
-                    onTap: () => () {
-                          print("taaaaap");
-                        },
-                    child: oneDay(context, i)),
+              for (int i = index; i < index + dayCount; i++) oneDay(context, i),
             ],
           );
         }
@@ -87,9 +79,7 @@ class MiniCalendarWidget extends StatelessWidget {
                 ),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(10),
-                  onTap: () => () {
-                    print("!!!!!!!!!!!!!");
-                    print("update to $currentDateIndex");
+                  onTap: () {
                     context.read<AgendaCubit>().updateDisplayedDate(
                         wantedDate: currentDateIndex, fromMiniCalendar: true);
                   },
