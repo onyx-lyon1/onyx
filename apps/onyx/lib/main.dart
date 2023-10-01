@@ -18,9 +18,6 @@ import 'package:workmanager/workmanager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // debugRepaintRainbowEnabled = true;
-  // debugRepaintTextRainbowEnabled = true;
-
   if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
     Workmanager().initialize(workmanagerHandler, isInDebugMode: kDebugMode);
     Workmanager().registerPeriodicTask("updateChecking", "check update",
@@ -40,38 +37,6 @@ void main() async {
   }
 
   EquatableConfig.stringify = true;
-
-  if (!kIsWeb) {
-    //Code to handle the migration to secured credentials storage
-    SettingsModel settings =
-        await CacheService.get<SettingsModel>() ?? const SettingsModel();
-    bool authFileExist = await File(
-            "${(await getApplicationDocumentsDirectory()).path}/authentification.hive")
-        .exists();
-    if (authFileExist) {
-      //migration needed
-      Box<Credential> authBox =
-          await Hive.openBox<Credential>("authentification");
-      if (authBox.containsKey("credential")) {
-        Credential? creds = authBox.get("credential");
-        if (creds != null) {
-          await authBox.deleteFromDisk();
-          await CacheService.set<Credential>(creds,
-              secureKey:
-                  await CacheService.getEncryptionKey(settings.biometricAuth));
-        }
-      }
-      if (await CacheService.exist<IzlyCredential>()) {
-        IzlyCredential? creds = await CacheService.get<IzlyCredential>();
-        if (creds != null) {
-          await CacheService.reset<IzlyCredential>();
-          await CacheService.set<IzlyCredential>(creds,
-              secureKey:
-                  await CacheService.getEncryptionKey(settings.biometricAuth));
-        }
-      }
-    }
-  }
 
   runApp(const OnyxApp());
 }
