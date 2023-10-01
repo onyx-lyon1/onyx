@@ -22,8 +22,7 @@ class DaysViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var agendaState = context.read<AgendaCubit>().state;
 
-    double columnWidth =
-        (100 - DaysViewRes.leftHourIndicatorWidth).w / dayCount;
+    double columnWidth = DaysViewRes.columnWidth(dayCount);
 
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
