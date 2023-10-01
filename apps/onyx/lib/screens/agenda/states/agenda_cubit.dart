@@ -15,8 +15,8 @@ part 'agenda_state.dart';
 class AgendaCubit extends Cubit<AgendaState> {
   Lyon1AgendaClient? _agendaClient;
 
-  final PageController miniCalendarScrollController = PageController();
-  final List<PageController> horizontalScrollController =
+  PageController miniCalendarScrollController = PageController();
+  List<PageController> horizontalScrollController =
       List.generate(3, (index) => PageController());
   final PageController verticalScrollController = PageController();
   bool blockMiniCalendar = false;
@@ -93,6 +93,9 @@ class AgendaCubit extends Cubit<AgendaState> {
             duration: Res.animationDuration,
             curve: Curves.easeInOut,
           );
+        } else {
+          horizontalScrollController[0] =
+              PageController(initialPage: wantedDate);
         }
         if (horizontalScrollController[1].hasClients) {
           horizontalScrollController[1].animateToPage(
@@ -100,6 +103,9 @@ class AgendaCubit extends Cubit<AgendaState> {
             duration: Res.animationDuration,
             curve: Curves.easeInOut,
           );
+        } else {
+          horizontalScrollController[1] =
+              PageController(initialPage: wantedDate ~/ 5);
         }
       }
     } else {
@@ -112,6 +118,9 @@ class AgendaCubit extends Cubit<AgendaState> {
             duration: Res.animationDuration,
             curve: Curves.easeInOut,
           );
+        } else {
+          miniCalendarScrollController =
+              PageController(initialPage: wantedDate ~/ 5);
         }
       }
     }
