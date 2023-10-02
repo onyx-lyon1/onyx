@@ -20,63 +20,64 @@ class AgendaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AgendaCubit, AgendaState>(
-        buildWhen: (previous, current) =>
-            current.status != AgendaStatus.dateUpdated &&
-            current.status != AgendaStatus.updateAnimating,
-        builder: (context, state) {
-          if (kDebugMode) {
-            print("AgendaState: ${state.status}");
-          }
-          Widget? headerState;
-          switch (state.status) {
-            case AgendaStatus.initial:
-              context.read<AgendaCubit>().load(
-                  lyon1Cas:
-                      context.read<AuthentificationCubit>().state.lyon1Cas,
-                  settings: context.read<SettingsCubit>().state.settings);
-              break;
-            case AgendaStatus.loading:
-            case AgendaStatus.cacheReady:
-              headerState =
-                  const LoadingHeaderWidget(message: "Chargement de l'agenda");
-              break;
-            case AgendaStatus.error:
-              headerState = const LoadingHeaderWidget(
-                  message: "Erreur lors du chargement de l'agenda");
-              break;
-            case AgendaStatus.haveToChooseManualy:
-              return AgendaConfigPage(
-                onBack: (int agendaId) {
-                  context.read<SettingsCubit>().modify(
-                        settings: context
-                            .read<SettingsCubit>()
-                            .state
-                            .settings
-                            .copyWith(
+    return BlocBuilder<SettingsCubit, SettingsState>(
+      builder: (context, settingsState) {
+        return BlocBuilder<AgendaCubit, AgendaState>(
+            buildWhen: (previous, current) =>
+                current.status != AgendaStatus.dateUpdated &&
+                current.status != AgendaStatus.updateAnimating,
+            builder: (context, state) {
+              if (kDebugMode) {
+                print("AgendaState: ${state.status}");
+              }
+              Widget? headerState;
+              switch (state.status) {
+                case AgendaStatus.initial:
+                  context.read<AgendaCubit>().load(
+                      lyon1Cas:
+                          context.read<AuthentificationCubit>().state.lyon1Cas,
+                      settings: settingsState.settings);
+                  break;
+                case AgendaStatus.loading:
+                case AgendaStatus.cacheReady:
+                  headerState = const LoadingHeaderWidget(
+                      message: "Chargement de l'agenda");
+                  break;
+                case AgendaStatus.error:
+                  headerState = const LoadingHeaderWidget(
+                      message: "Erreur lors du chargement de l'agenda");
+                  break;
+                case AgendaStatus.haveToChooseManualy:
+                  return AgendaConfigPage(
+                    onBack: (int agendaId) {
+                      context.read<SettingsCubit>().modify(
+                            settings: settingsState.settings.copyWith(
                               agendaId: agendaId,
                               fetchAgendaAuto: false,
                             ),
-                      );
-                },
-              );
-            case AgendaStatus.ready:
-              break;
-            case AgendaStatus.dateUpdated:
-              break;
-            case AgendaStatus.updateDayCount:
-              break;
-            case AgendaStatus.updateAnimating:
-              break;
-          }
+                          );
+                    },
+                  );
+                case AgendaStatus.ready:
+                  break;
+                case AgendaStatus.dateUpdated:
+                  break;
+                case AgendaStatus.updateDayCount:
+                  break;
+                case AgendaStatus.updateAnimating:
+                  break;
+              }
 
-          List<ScrollController> verticalController =
-              List.generate(3, (_) => ScrollController());
+              List<ScrollController> verticalController =
+                  List.generate(3, (_) => ScrollController());
 
-          return CommonScreenWidget(
-            state: headerState,
-            header:
-                context.read<SettingsCubit>().state.settings.showMiniCalendar
+              return CommonScreenWidget(
+                state: headerState,
+                header: context
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .showMiniCalendar
                     ? MiniCalendarWidget(
                         scrollController: context
                             .read<AgendaCubit>()
@@ -92,75 +93,81 @@ class AgendaPage extends StatelessWidget {
                           ),
                         ),
                       ),
-            body: DoubleScrollableWidget(
-              listScrollController: verticalController,
-              pageController:
-                  context.read<AgendaCubit>().verticalScrollController,
-              child: PageView(
-                controller:
-                    context.read<AgendaCubit>().verticalScrollController,
-                scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
-                onPageChanged: (index) {
-                  if (index == 0) {
-                    if (context
-                        .read<AgendaCubit>()
-                        .horizontalScrollController[0]
-                        .hasClients) {
-                      context
-                          .read<AgendaCubit>()
-                          .horizontalScrollController[0]
-                          .jumpToPage(
-                              context.read<AgendaCubit>().state.wantedDate);
-                    }
-                  } else {
-                    if (context
-                        .read<AgendaCubit>()
-                        .horizontalScrollController[1]
-                        .hasClients) {
-                      context
-                          .read<AgendaCubit>()
-                          .horizontalScrollController[1]
-                          .jumpToPage(
-                              context.read<AgendaCubit>().state.wantedDate ~/
+                body: DoubleScrollableWidget(
+                  listScrollController: verticalController,
+                  pageController:
+                      context.read<AgendaCubit>().verticalScrollController,
+                  child: PageView(
+                    controller:
+                        context.read<AgendaCubit>().verticalScrollController,
+                    scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                    onPageChanged: (index) {
+                      if (index == 0) {
+                        if (context
+                            .read<AgendaCubit>()
+                            .horizontalScrollController[0]
+                            .hasClients) {
+                          context
+                              .read<AgendaCubit>()
+                              .horizontalScrollController[0]
+                              .jumpToPage(
+                                  context.read<AgendaCubit>().state.wantedDate);
+                        }
+                      } else {
+                        if (context
+                            .read<AgendaCubit>()
+                            .horizontalScrollController[1]
+                            .hasClients) {
+                          context
+                              .read<AgendaCubit>()
+                              .horizontalScrollController[1]
+                              .jumpToPage(context
+                                      .read<AgendaCubit>()
+                                      .state
+                                      .wantedDate ~/
                                   5);
-                    }
-                  }
-                },
-                children: [
-                  DaysViewWidget(
-                      dayCount: 1,
-                      verticalController: verticalController[0],
-                      horizontalController: context
-                          .read<AgendaCubit>()
-                          .horizontalScrollController[0]),
-                  DaysViewWidget(
-                      dayCount: 5,
-                      verticalController: verticalController[1],
-                      horizontalController: context
-                          .read<AgendaCubit>()
-                          .horizontalScrollController[1]),
-                  const Center(
-                    child: Text("month view soon"),
-                  )
-                ],
-              ),
-            ),
-            onRefresh: () async {
-              context.read<AgendaCubit>().load(
-                    lyon1Cas:
-                        context.read<AuthentificationCubit>().state.lyon1Cas,
-                    settings: context.read<SettingsCubit>().state.settings,
-                  );
-              // ignore: use_build_context_synchronously
-              while (state.status != AgendaStatus.ready &&
+                        }
+                      }
+                    },
+                    children: [
+                      DaysViewWidget(
+                          dayCount: 1,
+                          verticalController: verticalController[0],
+                          horizontalController: context
+                              .read<AgendaCubit>()
+                              .horizontalScrollController[0]),
+                      DaysViewWidget(
+                          dayCount: settingsState.settings.agendaWeekLength,
+                          verticalController: verticalController[1],
+                          horizontalController: context
+                              .read<AgendaCubit>()
+                              .horizontalScrollController[1]),
+                      const Center(
+                        child: Text("month view soon"),
+                      )
+                    ],
+                  ),
+                ),
+                onRefresh: () async {
+                  context.read<AgendaCubit>().load(
+                        lyon1Cas: context
+                            .read<AuthentificationCubit>()
+                            .state
+                            .lyon1Cas,
+                        settings: settingsState.settings,
+                      );
                   // ignore: use_build_context_synchronously
-                  state.status != AgendaStatus.error) {
-                await Future.delayed(const Duration(milliseconds: 100));
-              }
-              return;
-            },
-          );
-        });
+                  while (state.status != AgendaStatus.ready &&
+                      // ignore: use_build_context_synchronously
+                      state.status != AgendaStatus.error) {
+                    await Future.delayed(const Duration(milliseconds: 100));
+                  }
+                  return;
+                },
+              );
+            });
+      },
+    );
   }
 }

@@ -35,17 +35,18 @@ class AgendaState {
     );
   }
 
-  List<Day> get days => [
-        // ...List.generate(
-        //     dayCount - 1,
-        //     (index) => Day(
-        //         realDays.first.date
-        //             .subtract(Duration(days: dayCount - 1 - index)),
-        //         const [])),
-        ...realDays,
-        // ...List.generate(
-        //     dayCount - 1,
-        //     (index) =>
-        //         Day(realDays.last.date.add(Duration(days: index)), const [])),
+  List<Day> days(SettingsModel settingsModel) => [
+        ...List.generate(
+            settingsModel.agendaWeekLength - 1,
+            (index) => Day(
+                realDays.first.date.subtract(
+                    Duration(days: settingsModel.agendaWeekLength - 1 - index)),
+                const [])),
+        ...realDays.where((element) => !settingsModel.agendaDisabledDays
+            .contains(element.date.weekday - 1)),
+        ...List.generate(
+            settingsModel.agendaWeekLength - 1,
+            (index) =>
+                Day(realDays.last.date.add(Duration(days: index)), const [])),
       ];
 }

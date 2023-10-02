@@ -81,7 +81,9 @@ class AgendaCubit extends Cubit<AgendaState> {
   }
 
   void updateDisplayedDate(
-      {required int wantedDate, required bool fromMiniCalendar}) {
+      {required int wantedDate,
+      required bool fromMiniCalendar,
+      required SettingsModel settings}) {
     if (fromMiniCalendar) {
       if (!blockMiniCalendar) {
         blockHorizontalScroll = true;
@@ -96,7 +98,7 @@ class AgendaCubit extends Cubit<AgendaState> {
         }
         if (horizontalScrollController[1].hasClients) {
           horizontalScrollController[1].animateToPage(
-            wantedDate ~/ 5,
+            wantedDate ~/ settings.agendaWeekLength,
             duration: Res.animationDuration,
             curve: Curves.easeInOut,
           );
@@ -108,13 +110,10 @@ class AgendaCubit extends Cubit<AgendaState> {
         Future.delayed(Res.animationDuration, () => blockMiniCalendar = false);
         if (miniCalendarScrollController.hasClients) {
           miniCalendarScrollController.animateToPage(
-            wantedDate ~/ 5,
+            wantedDate ~/ settings.agendaWeekLength,
             duration: Res.animationDuration,
             curve: Curves.easeInOut,
           );
-        } else {
-          miniCalendarScrollController =
-              PageController(initialPage: wantedDate ~/ 5);
         }
       }
     }
