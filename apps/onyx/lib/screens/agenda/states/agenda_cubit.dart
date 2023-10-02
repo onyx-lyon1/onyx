@@ -93,9 +93,6 @@ class AgendaCubit extends Cubit<AgendaState> {
             duration: Res.animationDuration,
             curve: Curves.easeInOut,
           );
-        } else {
-          horizontalScrollController[0] =
-              PageController(initialPage: wantedDate);
         }
         if (horizontalScrollController[1].hasClients) {
           horizontalScrollController[1].animateToPage(
@@ -103,9 +100,6 @@ class AgendaCubit extends Cubit<AgendaState> {
             duration: Res.animationDuration,
             curve: Curves.easeInOut,
           );
-        } else {
-          horizontalScrollController[1] =
-              PageController(initialPage: wantedDate ~/ 5);
         }
       }
     } else {

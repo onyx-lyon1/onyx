@@ -51,7 +51,8 @@ class DaysViewWidget extends StatelessWidget {
                     context.read<AgendaCubit>().updateDisplayedDate(
                         wantedDate: index * dayCount, fromMiniCalendar: false);
                   },
-                  itemBuilder: (context, j) {
+                  itemBuilder: (context, rawJ) {
+                    int j = rawJ * dayCount;
                     if (j + dayCount < agendaState.days.length) {
                       return Row(
                         children: [

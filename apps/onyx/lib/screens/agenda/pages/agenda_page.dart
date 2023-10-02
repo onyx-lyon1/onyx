@@ -101,6 +101,32 @@ class AgendaPage extends StatelessWidget {
                     context.read<AgendaCubit>().verticalScrollController,
                 scrollDirection: Axis.vertical,
                 physics: const NeverScrollableScrollPhysics(),
+                onPageChanged: (index) {
+                  if (index == 0) {
+                    if (context
+                        .read<AgendaCubit>()
+                        .horizontalScrollController[0]
+                        .hasClients) {
+                      context
+                          .read<AgendaCubit>()
+                          .horizontalScrollController[0]
+                          .jumpToPage(
+                              context.read<AgendaCubit>().state.wantedDate);
+                    }
+                  } else {
+                    if (context
+                        .read<AgendaCubit>()
+                        .horizontalScrollController[1]
+                        .hasClients) {
+                      context
+                          .read<AgendaCubit>()
+                          .horizontalScrollController[1]
+                          .jumpToPage(
+                              context.read<AgendaCubit>().state.wantedDate ~/
+                                  5);
+                    }
+                  }
+                },
                 children: [
                   DaysViewWidget(
                       dayCount: 1,
