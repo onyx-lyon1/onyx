@@ -1,5 +1,24 @@
 import 'package:onyx/core/extensions/extensions_export.dart';
 
+List<String> weekDays = [
+  "Lundi",
+  "Mardi",
+  "Mercredi",
+  "Jeudi",
+  "Vendredi",
+  "Samedi",
+  "Dimanche"
+];
+List<String> weekDaysShort = [
+  "Lun.",
+  "Mar.",
+  "Mer.",
+  "Jeu.",
+  "Ven.",
+  "Sam.",
+  "Dim."
+];
+
 extension DateExtension on DateTime {
   DateTime shrink(int precision) {
     switch (precision) {
@@ -29,26 +48,8 @@ extension DateExtension on DateTime {
     return "${toWeekDayName(short: false)} ${day.toFixedLengthString(2)}/${month.toFixedLengthString(2)}/${year.toFixedLengthString(4)}";
   }
 
-  String toWeekDayName({bool short = false}) {
-    switch (weekday) {
-      case 1:
-        return short ? "Lun." : "Lundi";
-      case 2:
-        return short ? "Mar." : "Mardi";
-      case 3:
-        return short ? "Mer." : "Mercredi";
-      case 4:
-        return short ? "Jeu." : "Jeudi";
-      case 5:
-        return short ? "Ven." : "Vendredi";
-      case 6:
-        return short ? "Sam." : "Samedi";
-      case 7:
-        return short ? "Dim." : "Dimanche";
-      default:
-        return "Erreur";
-    }
-  }
+  String toWeekDayName({bool short = false}) =>
+      short ? weekDaysShort[weekday - 1] : weekDays[weekday - 1];
 
   String toMonthName({bool short = false}) {
     switch (month) {
