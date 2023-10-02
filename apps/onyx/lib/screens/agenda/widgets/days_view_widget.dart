@@ -4,6 +4,7 @@ import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda/widgets/days_view_widget_res.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class DaysViewWidget extends StatelessWidget {
@@ -20,6 +21,7 @@ class DaysViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SettingsModel settings = context.read<SettingsCubit>().state.settings;
     var agendaState = context.read<AgendaCubit>().state;
 
     double columnWidth = DaysViewRes.columnWidth(dayCount);
@@ -49,18 +51,22 @@ class DaysViewWidget extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   onPageChanged: (index) {
                     context.read<AgendaCubit>().updateDisplayedDate(
-                        wantedDate: index * dayCount, fromMiniCalendar: false);
+                          wantedDate: index * dayCount,
+                          fromMiniCalendar: false,
+                          settings:
+                              context.read<SettingsCubit>().state.settings,
+                        );
                   },
                   itemBuilder: (context, rawJ) {
                     int j = rawJ * dayCount;
-                    if (j + dayCount < agendaState.days.length) {
+                    if (j + dayCount < agendaState.days(settings).length) {
                       return Row(
                         children: [
                           for (var i = 0; i < dayCount; i++)
                             Column(
                               children: [
                                 ...buildEventWidgetList(
-                                  agendaState.days[j + i].events,
+                                  agendaState.days(settings)[j + i].events,
                                   columnWidth,
                                 )
                               ],

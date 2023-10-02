@@ -30,12 +30,14 @@ void actionOnTap(
             realIndex) {
       final AgendaState state = context.read<AgendaCubit>().state;
       context.read<AgendaCubit>().updateDisplayedDate(
-          wantedDate: state.realDays
-              .indexWhere((element) => element.date
-                  .shrink(3)
-                  .isAtSameMomentAs(DateTime.now().shrink(3)))
-              .clamp(0, state.realDays.length - 1),
-          fromMiniCalendar: false);
+            wantedDate: state.realDays
+                .indexWhere((element) => element.date
+                    .shrink(3)
+                    .isAtSameMomentAs(DateTime.now().shrink(3)))
+                .clamp(0, state.realDays.length - 1),
+            fromMiniCalendar: false,
+            settings: context.read<SettingsCubit>().state.settings,
+          );
     }
   }
 }
