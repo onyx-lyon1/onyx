@@ -4,15 +4,9 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:izlyclient/izlyclient.dart';
-import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/app.dart';
-import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
-import 'package:onyx/screens/settings/domain/model/settings_model.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:workmanager/workmanager.dart';
 
 void main() async {
