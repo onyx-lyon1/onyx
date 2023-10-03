@@ -78,16 +78,20 @@ class AgendaSettingsWidget extends StatelessWidget {
                 height: 1.h,
               ),
               AgendaWeekDaySelector(
-                  colorCondition: (i) =>
-                      settings.agendaDisabledDays.contains(i),
-                  onTap: (int i) => context.read<SettingsCubit>().modify(
+                colorCondition: (i) =>
+                    settings.agendaDisabledDays.contains(i + 1),
+                onTap: (int rawI) {
+                  int i = rawI + 1;
+                  context.read<SettingsCubit>().modify(
                       settings: settings.copyWith(
                           agendaDisabledDays:
                               settings.agendaDisabledDays.contains(i)
                                   ? settings.agendaDisabledDays
                                       .where((element) => element != i)
                                       .toList()
-                                  : [...settings.agendaDisabledDays, i]))),
+                                  : [...settings.agendaDisabledDays, i]));
+                },
+              ),
             ],
           ),
         ),

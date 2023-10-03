@@ -8,35 +8,27 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 void actionOnTap(
     BuildContext context, int realIndex, ScrollController mainPageController) {
-  if (context.read<AgendaCubit>().state.status != AgendaStatus.error) {
-    if (realIndex %
-                context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .enabledFunctionalities
-                    .length ==
-            context
-                .read<SettingsCubit>()
-                .state
-                .settings
-                .enabledFunctionalities
-                .indexOf(Functionalities.agenda) &&
+  final AgendaState agendaState = context.read<AgendaCubit>().state;
+  final SettingsModel settings = context.read<SettingsCubit>().state.settings;
+  if (agendaState.status != AgendaStatus.error) {
+    if (realIndex % settings.enabledFunctionalities.length ==
+            settings.enabledFunctionalities.indexOf(Functionalities.agenda) &&
         (mainPageController.hasClients
                 ? ((mainPageController.offset +
                         ((mainPageController.offset < 0) ? -1 : 1)) ~/
                     100.w) //simple +-1 to avoid bug
                 : 0) ==
             realIndex) {
-      final AgendaState state = context.read<AgendaCubit>().state;
       context.read<AgendaCubit>().updateDisplayedDate(
-            wantedDate: state.realDays
+            wantedDate: agendaState
+                .days(settings)
                 .indexWhere((element) => element.date
                     .shrink(3)
                     .isAtSameMomentAs(DateTime.now().shrink(3)))
-                .clamp(0, state.realDays.length - 1),
+                .clamp(0, agendaState.realDays.length - 1),
             fromMiniCalendar: false,
             settings: context.read<SettingsCubit>().state.settings,
+            fromHorizontalScroll: false,
           );
     }
   }
