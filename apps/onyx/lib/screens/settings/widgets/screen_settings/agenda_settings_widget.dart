@@ -73,7 +73,7 @@ class AgendaSettingsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Column(
             children: [
-              const Text('Jour désactivé en mode semaine'),
+              const Text('Jour caché en mode semaine'),
               SizedBox(
                 height: 1.h,
               ),

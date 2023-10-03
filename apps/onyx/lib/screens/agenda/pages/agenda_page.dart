@@ -144,7 +144,7 @@ class AgendaPage extends StatelessWidget {
                               .read<AgendaCubit>()
                               .horizontalScrollController[1]),
                       const Center(
-                        child: Text("month view soon"),
+                        child: Text("month view coming soon"),
                       )
                     ],
                   ),
