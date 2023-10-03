@@ -55,6 +55,7 @@ class DaysViewWidget extends StatelessWidget {
                           fromMiniCalendar: false,
                           settings:
                               context.read<SettingsCubit>().state.settings,
+                          fromHorizontalScroll: true,
                         );
                   },
                   itemBuilder: (context, rawJ) {
@@ -106,7 +107,7 @@ class DaysViewWidget extends StatelessWidget {
       }
     }
 
-    for (int index = 0; index < events.length - 1; index++) {
+    for (int index = 0; index < events.length; index++) {
       double diff = 0.0;
       Map<int, double> diffMap = {};
       bool superposed = superposition.keys.contains(index);

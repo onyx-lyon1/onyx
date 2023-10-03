@@ -44,6 +44,10 @@ class AgendaCubit extends Cubit<AgendaState> {
                   .shrink(3)
                   .isAtSameMomentAs(DateTime.now().shrink(3)))
               .clamp(0, state.realDays.length - 1)));
+      goToday(
+          fromMiniCalendar: false,
+          fromHorizontalScroll: false,
+          settings: settings);
     }
     if (!settings.fetchAgendaAuto && settings.agendaId == null) {
       emit(state.copyWith(status: AgendaStatus.haveToChooseManualy));
@@ -71,6 +75,12 @@ class AgendaCubit extends Cubit<AgendaState> {
                   .shrink(3)
                   .isAtSameMomentAs(DateTime.now().shrink(3)))
               .clamp(0, state.realDays.length - 1)));
+      if (state.status != AgendaStatus.cacheReady) {
+        goToday(
+            fromMiniCalendar: false,
+            fromHorizontalScroll: false,
+            settings: settings);
+      }
       await addRestaurant();
     }
   }
@@ -83,8 +93,9 @@ class AgendaCubit extends Cubit<AgendaState> {
   void updateDisplayedDate(
       {required int wantedDate,
       required bool fromMiniCalendar,
+      required bool fromHorizontalScroll,
       required SettingsModel settings}) {
-    if (fromMiniCalendar) {
+    if (!fromHorizontalScroll) {
       if (!blockMiniCalendar) {
         blockHorizontalScroll = true;
         Future.delayed(
@@ -104,8 +115,9 @@ class AgendaCubit extends Cubit<AgendaState> {
           );
         }
       }
-    } else {
-      if (!blockHorizontalScroll) {
+    }
+    if (!fromMiniCalendar) {
+      if (!blockMiniCalendar) {
         blockMiniCalendar = true;
         Future.delayed(Res.animationDuration, () => blockMiniCalendar = false);
         if (miniCalendarScrollController.hasClients) {
@@ -124,6 +136,22 @@ class AgendaCubit extends Cubit<AgendaState> {
         wantedDate: wantedDate,
       ),
     );
+  }
+
+  void goToday(
+      {required bool fromMiniCalendar,
+      required bool fromHorizontalScroll,
+      required SettingsModel settings}) {
+    int index = state
+        .days(settings)
+        .indexWhere((element) => element.date.isSameDay(DateTime.now()));
+    if (index != -1) {
+      updateDisplayedDate(
+          wantedDate: index,
+          fromMiniCalendar: fromMiniCalendar,
+          fromHorizontalScroll: fromHorizontalScroll,
+          settings: settings);
+    }
   }
 
   void resetCubit() {
