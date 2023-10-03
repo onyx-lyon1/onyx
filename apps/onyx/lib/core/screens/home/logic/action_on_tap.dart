@@ -22,9 +22,7 @@ void actionOnTap(
       context.read<AgendaCubit>().updateDisplayedDate(
             wantedDate: agendaState
                 .days(settings)
-                .indexWhere((element) => element.date
-                    .shrink(3)
-                    .isAtSameMomentAs(DateTime.now().shrink(3)))
+                .indexWhere((element) => element.date.isSameDay(DateTime.now()))
                 .clamp(0, agendaState.realDays.length - 1),
             fromMiniCalendar: false,
             settings: context.read<SettingsCubit>().state.settings,

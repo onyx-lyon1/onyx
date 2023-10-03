@@ -84,8 +84,8 @@ class AgendaLogic {
             end: menu.date.shrink(3).add(Duration(hours: endLimit + 2)),
             index: 0
           );
-          Day day = days.firstWhere((element) =>
-              element.date.shrink(3).isAtSameMomentAs(menu.date.shrink(3)));
+          Day day =
+              days.firstWhere((element) => element.date.isSameDay(menu.date));
           if (day.events.length == 1) {
             if (day.events.first.start
                     .subtract(const Duration(hours: 1))
@@ -144,8 +144,8 @@ class AgendaLogic {
 
     //add the new menu to the clean agenda
     for (var menu in menuToAdd) {
-      int index = days.indexWhere((element) =>
-          element.date.shrink(3).isAtSameMomentAs(menu.$1.start.shrink(3)));
+      int index =
+          days.indexWhere((element) => element.date.isSameDay(menu.$1.start));
       List<Event> events = List.from(days[index].events);
       days[index] =
           days[index].copyWith(events: events..insert(menu.$2, menu.$1));
