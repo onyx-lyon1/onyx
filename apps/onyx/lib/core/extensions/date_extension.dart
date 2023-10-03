@@ -44,6 +44,10 @@ extension DateExtension on DateTime {
     }
   }
 
+  bool isSameDay(DateTime b) {
+    return shrink(3).isAtSameMomentAs(b.shrink(3));
+  }
+
   String dateBeautifull() {
     return "${toWeekDayName(short: false)} ${day.toFixedLengthString(2)}/${month.toFixedLengthString(2)}/${year.toFixedLengthString(4)}";
   }

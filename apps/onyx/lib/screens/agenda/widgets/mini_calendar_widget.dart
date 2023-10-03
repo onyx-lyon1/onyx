@@ -25,11 +25,11 @@ class MiniCalendarWidget extends StatelessWidget {
       controller: scrollController,
       onPageChanged: (index) {
         context.read<AgendaCubit>().updateDisplayedDate(
-              wantedDate: index * dayCount +
-                  context.read<AgendaCubit>().state.wantedDate % dayCount,
-              fromMiniCalendar: true,
-              settings: context.read<SettingsCubit>().state.settings,
-            );
+            wantedDate: index * dayCount +
+                context.read<AgendaCubit>().state.wantedDate % dayCount,
+            fromMiniCalendar: true,
+            settings: context.read<SettingsCubit>().state.settings,
+            fromHorizontalScroll: false);
       },
       itemBuilder: (context, rawIndex) {
         int index = rawIndex * dayCount;
@@ -89,11 +89,10 @@ class MiniCalendarWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   onTap: () {
                     context.read<AgendaCubit>().updateDisplayedDate(
-                          wantedDate: currentDateIndex,
-                          fromMiniCalendar: true,
-                          settings:
-                              context.read<SettingsCubit>().state.settings,
-                        );
+                        wantedDate: currentDateIndex,
+                        fromMiniCalendar: true,
+                        settings: context.read<SettingsCubit>().state.settings,
+                        fromHorizontalScroll: false);
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
