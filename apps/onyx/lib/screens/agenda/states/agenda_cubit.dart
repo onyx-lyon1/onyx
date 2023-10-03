@@ -40,9 +40,7 @@ class AgendaCubit extends Cubit<AgendaState> {
           status: AgendaStatus.cacheReady,
           realDays: state.realDays,
           wantedDate: state.realDays
-              .indexWhere((element) => element.date
-                  .shrink(3)
-                  .isAtSameMomentAs(DateTime.now().shrink(3)))
+              .indexWhere((element) => element.date.isSameDay(DateTime.now()))
               .clamp(0, state.realDays.length - 1)));
       goToday(
           fromMiniCalendar: false,
@@ -71,9 +69,7 @@ class AgendaCubit extends Cubit<AgendaState> {
           status: AgendaStatus.ready,
           realDays: state.realDays,
           wantedDate: state.realDays
-              .indexWhere((element) => element.date
-                  .shrink(3)
-                  .isAtSameMomentAs(DateTime.now().shrink(3)))
+              .indexWhere((element) => element.date.isSameDay(DateTime.now()))
               .clamp(0, state.realDays.length - 1)));
       if (state.status != AgendaStatus.cacheReady) {
         goToday(
