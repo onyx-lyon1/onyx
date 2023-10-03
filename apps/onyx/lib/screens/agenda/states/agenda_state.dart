@@ -45,8 +45,8 @@ class AgendaState {
     int todayOffset =
         DateTime.now().weekday - (settingsModel.agendaWeekReference + 1);
     todayOffset = todayOffset.positiveModulo(settingsModel.agendaWeekLength);
-    int todayIndex = realDays.indexWhere(
-        (element) => element.date.isAtSameMomentAs(DateTime.now().shrink(3)));
+    int todayIndex = realDays
+        .indexWhere((element) => element.date.isSameDay(DateTime.now()));
 
     if (todayIndex != -1) {
       int paddingBeforeCount = (todayOffset - todayIndex)
