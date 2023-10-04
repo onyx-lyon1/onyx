@@ -119,14 +119,18 @@ class AgendaPage extends StatelessWidget {
                             .read<AgendaCubit>()
                             .horizontalScrollController[1]
                             .hasClients) {
+                          int date =
+                              context.read<AgendaCubit>().state.wantedDate;
                           context
                               .read<AgendaCubit>()
                               .horizontalScrollController[1]
-                              .jumpToPage(context
-                                      .read<AgendaCubit>()
-                                      .state
-                                      .wantedDate ~/
+                              .jumpToPage(date ~/
                                   settingsState.settings.agendaWeekLength);
+                          context.read<AgendaCubit>().updateDisplayedDate(
+                              wantedDate: date,
+                              fromMiniCalendar: false,
+                              fromHorizontalScroll: true,
+                              settings: settingsState.settings);
                         }
                       }
                     },
