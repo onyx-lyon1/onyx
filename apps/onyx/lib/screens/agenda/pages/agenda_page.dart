@@ -101,6 +101,7 @@ class AgendaPage extends StatelessWidget {
                     controller:
                         context.read<AgendaCubit>().verticalScrollController,
                     scrollDirection: Axis.vertical,
+                    reverse: settingsState.settings.agendaPageTopToBottom,
                     physics: const NeverScrollableScrollPhysics(),
                     onPageChanged: (index) {
                       if (index == 0) {

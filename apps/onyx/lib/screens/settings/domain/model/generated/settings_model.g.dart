@@ -51,6 +51,8 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel agendaDisabledDays(List<int> agendaDisabledDays);
 
+  SettingsModel agendaPageTopToBottom(bool agendaPageTopToBottom);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -79,6 +81,7 @@ abstract class _$SettingsModelCWProxy {
     int? agendaWeekLength,
     int? agendaWeekReference,
     List<int>? agendaDisabledDays,
+    bool? agendaPageTopToBottom,
   });
 }
 
@@ -170,6 +173,10 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
       this(agendaDisabledDays: agendaDisabledDays);
 
   @override
+  SettingsModel agendaPageTopToBottom(bool agendaPageTopToBottom) =>
+      this(agendaPageTopToBottom: agendaPageTopToBottom);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -199,6 +206,7 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
     Object? agendaWeekLength = const $CopyWithPlaceholder(),
     Object? agendaWeekReference = const $CopyWithPlaceholder(),
     Object? agendaDisabledDays = const $CopyWithPlaceholder(),
+    Object? agendaPageTopToBottom = const $CopyWithPlaceholder(),
   }) {
     return SettingsModel(
       biometricAuth:
@@ -310,6 +318,12 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
           ? _value.agendaDisabledDays
           // ignore: cast_nullable_to_non_nullable
           : agendaDisabledDays as List<int>,
+      agendaPageTopToBottom:
+          agendaPageTopToBottom == const $CopyWithPlaceholder() ||
+                  agendaPageTopToBottom == null
+              ? _value.agendaPageTopToBottom
+              // ignore: cast_nullable_to_non_nullable
+              : agendaPageTopToBottom as bool,
     );
   }
 }
@@ -368,13 +382,14 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       agendaWeekReference: fields[20] == null ? 1 : fields[20] as int,
       agendaDisabledDays:
           fields[21] == null ? [6, 7] : (fields[21] as List).cast<int>(),
+      agendaPageTopToBottom: fields[22] == null ? false : fields[22] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(21)
+      ..writeByte(22)
       ..writeByte(15)
       ..write(obj.firstLogin)
       ..writeByte(16)
@@ -403,6 +418,8 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..write(obj.agendaWeekReference)
       ..writeByte(21)
       ..write(obj.agendaDisabledDays)
+      ..writeByte(22)
+      ..write(obj.agendaPageTopToBottom)
       ..writeByte(9)
       ..write(obj.newMailNotification)
       ..writeByte(10)

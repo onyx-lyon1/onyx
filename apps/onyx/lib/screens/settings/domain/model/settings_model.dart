@@ -42,6 +42,9 @@ class SettingsModel extends Equatable {
   @HiveField(21, defaultValue: [6, 7])
   final List<int> agendaDisabledDays;
 
+  @HiveField(22, defaultValue: false)
+  final bool agendaPageTopToBottom;
+
   //Mail
   @HiveField(9)
   final bool newMailNotification;
@@ -97,6 +100,7 @@ class SettingsModel extends Equatable {
     this.agendaWeekLength = 5,
     this.agendaWeekReference = 1,
     this.agendaDisabledDays = const [6, 7],
+    this.agendaPageTopToBottom = false,
   });
 
   @override
@@ -122,6 +126,7 @@ class SettingsModel extends Equatable {
         agendaWeekLength,
         agendaWeekReference,
         agendaDisabledDays,
+        agendaPageTopToBottom
       ];
 
   @override
