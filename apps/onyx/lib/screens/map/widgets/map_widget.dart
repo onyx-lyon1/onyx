@@ -90,6 +90,9 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
             zoom: 16.5,
             maxZoom: MapRes.maxZoom,
             minZoom: 0,
+            onTap: (tapPos, latLng) {
+              popupLayerController.hideAllPopups();
+            },
           ),
           mapController: mapController.mapController,
           children: [
