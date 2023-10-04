@@ -40,7 +40,7 @@ class AgendaLogic {
     }
   }
 
-  static Future<void> addRestaurant(List<Day> days) async {
+  static Future<List<Day>> addRestaurant(List<Day> days) async {
     //clean the agenda
     for (int i = 0; i < days.length; i++) {
       days[i] = days[i].copyWith(
@@ -150,6 +150,8 @@ class AgendaLogic {
       days[index] =
           days[index].copyWith(events: events..insert(menu.$2, menu.$1));
     }
+
+    return days;
   }
 
   static final List<Day> dayListMock = [
