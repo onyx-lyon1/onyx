@@ -181,15 +181,15 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(100)),
                             child: InkWell(
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(100)),
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Icon(
-                                  Icons.arrow_back_rounded,
-                                  color: Colors.black,
-                                )),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(100)),
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Icon(
+                                Icons.arrow_back_rounded,
+                              ),
+                            ),
                           ),
                         ),
                       Expanded(
