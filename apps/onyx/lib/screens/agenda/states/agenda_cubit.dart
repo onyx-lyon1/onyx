@@ -92,7 +92,7 @@ class AgendaCubit extends Cubit<AgendaState> {
       required bool fromHorizontalScroll,
       required SettingsModel settings}) {
     if (!fromHorizontalScroll) {
-      if (!blockMiniCalendar) {
+      if (!blockMiniCalendar || !fromMiniCalendar) {
         blockHorizontalScroll = true;
         Future.delayed(
             Res.animationDuration, () => blockHorizontalScroll = false);
@@ -113,7 +113,7 @@ class AgendaCubit extends Cubit<AgendaState> {
       }
     }
     if (!fromMiniCalendar) {
-      if (!blockHorizontalScroll) {
+      if (!blockHorizontalScroll || !fromHorizontalScroll) {
         blockMiniCalendar = true;
         Future.delayed(Res.animationDuration, () => blockMiniCalendar = false);
         if (miniCalendarScrollController.hasClients) {
