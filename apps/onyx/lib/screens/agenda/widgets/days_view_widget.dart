@@ -129,10 +129,8 @@ class DaysViewWidget extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(
             top: (diff *
-                        (Res.agendaDayDuration.inHours /
-                                DaysViewRes.heightFactor)
-                            .h -
-                    0.5.h)
+                    (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor)
+                        .h)
                 .clamp(0, double.infinity),
           ),
           child: (superposed)
@@ -143,10 +141,9 @@ class DaysViewWidget extends StatelessWidget {
                         padding: EdgeInsets.only(
                           top: (superposition[index]!.first != i)
                               ? (diffMap[i]! *
-                                          (Res.agendaDayDuration.inHours /
-                                                  DaysViewRes.heightFactor)
-                                              .h -
-                                      0.5.h)
+                                      (Res.agendaDayDuration.inHours /
+                                              DaysViewRes.heightFactor)
+                                          .h)
                                   .clamp(0, double.infinity)
                               : 0.0,
                         ),

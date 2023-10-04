@@ -21,7 +21,7 @@ class SizedEventWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: ((Res.agendaDayDuration.inHours / heightFactor).h + 0.25.h) *
+      height: ((Res.agendaDayDuration.inHours / heightFactor).h) *
           ((event.end.difference(event.start)).inMinutes / 60),
       width: columnWidth / numberPerColumn,
       child: EventWidget(
