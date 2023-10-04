@@ -29,7 +29,8 @@ class AgendaCubit extends Cubit<AgendaState> {
   Future<void> load(
       {required Lyon1CasClient? lyon1Cas,
       required SettingsModel settings,
-      bool cache = true}) async {
+      bool cache = true,
+      bool fromUser = false}) async {
     emit(state.copyWith(status: AgendaStatus.loading));
     if (cache && !Res.mock && !kIsWeb) {
       state.realDays = await compute(
@@ -42,10 +43,12 @@ class AgendaCubit extends Cubit<AgendaState> {
           wantedDate: state.realDays
               .indexWhere((element) => element.date.isSameDay(DateTime.now()))
               .clamp(0, state.realDays.length - 1)));
-      goToday(
-          fromMiniCalendar: false,
-          fromHorizontalScroll: false,
-          settings: settings);
+      if (!fromUser) {
+        goToday(
+            fromMiniCalendar: false,
+            fromHorizontalScroll: false,
+            settings: settings);
+      }
     }
     if (!settings.fetchAgendaAuto && settings.agendaId == null) {
       emit(state.copyWith(status: AgendaStatus.haveToChooseManualy));
@@ -71,7 +74,7 @@ class AgendaCubit extends Cubit<AgendaState> {
           wantedDate: state.realDays
               .indexWhere((element) => element.date.isSameDay(DateTime.now()))
               .clamp(0, state.realDays.length - 1)));
-      if (state.status != AgendaStatus.cacheReady) {
+      if (state.status != AgendaStatus.cacheReady && !fromUser) {
         goToday(
             fromMiniCalendar: false,
             fromHorizontalScroll: false,
