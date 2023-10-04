@@ -38,7 +38,7 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
           width: (100 - DaysViewRes.leftHourIndicatorWidth).w /
               context.read<SettingsCubit>().state.settings.agendaWeekLength,
           child: Padding(
-            padding: EdgeInsets.all(0.8.w),
+            padding: EdgeInsets.all(0.5.w),
             child: Material(
               borderRadius: BorderRadius.circular(10),
               color: Colors.transparent,
@@ -52,6 +52,13 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
                       ? Theme.of(context).primaryColor
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: (DateTime.now().isSameDay(
+                            state.days(settings)[currentDateIndex].date))
+                        ? Theme.of(context).primaryColor
+                        : Colors.transparent,
+                    width: 0.5.w,
+                  ),
                 ),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(10),
