@@ -88,6 +88,13 @@ class DaysViewWidget extends StatelessWidget {
 
   List<Widget> buildEventWidgetList(List<Event> events, double columnWidth) {
     List<Widget> result = [];
+    if (events.isEmpty) {
+      result.add(SizedBox(
+        width: columnWidth,
+      ));
+      return result;
+    }
+
     Map<int, List<int>> superposition = {};
 
     //construct superposition map
