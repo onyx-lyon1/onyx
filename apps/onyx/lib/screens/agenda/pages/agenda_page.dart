@@ -126,7 +126,7 @@ class AgendaPage extends StatelessWidget {
                                       .read<AgendaCubit>()
                                       .state
                                       .wantedDate ~/
-                                  5);
+                                  settingsState.settings.agendaWeekLength);
                         }
                       }
                     },
