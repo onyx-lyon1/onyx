@@ -85,8 +85,8 @@ class AgendaCubit extends Cubit<AgendaState> {
   }
 
   Future<void> addRestaurant() async {
-    await AgendaLogic.addRestaurant(List.from(state.realDays));
-    emit(state.copyWith(status: AgendaStatus.ready, realDays: state.realDays));
+    List<Day> days = await AgendaLogic.addRestaurant(List.from(state.realDays));
+    emit(state.copyWith(status: AgendaStatus.ready, realDays: days));
   }
 
   void updateDisplayedDate(
