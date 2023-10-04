@@ -35,6 +35,15 @@ class AgendaSettingsWidget extends StatelessWidget {
                   settings: settings.copyWith(calendarUpdateNotification: b));
             },
           ),
+        TextSwitchWidget(
+          text: 'Affichage des agendas de bas en haut',
+          value: settings.agendaPageTopToBottom,
+          onChanged: (bool b) {
+            context
+                .read<SettingsCubit>()
+                .modify(settings: settings.copyWith(agendaPageTopToBottom: b));
+          },
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Column(
