@@ -156,6 +156,8 @@ class AgendaPage extends StatelessWidget {
                             .state
                             .lyon1Cas,
                         settings: settingsState.settings,
+                        fromUser: true,
+                        cache: false,
                       );
                   // ignore: use_build_context_synchronously
                   while (state.status != AgendaStatus.ready &&
