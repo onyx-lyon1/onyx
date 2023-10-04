@@ -35,7 +35,13 @@ class TomussCubit extends Cubit<TomussState> {
     List<Semester> semesters = [];
 
     SemesterList? semesterModelWrapper = await CacheService.get<SemesterList>();
+    if (semestreIndex != null) {
+      semesterModelWrapper =
+          semesterModelWrapper?.copyWith(currentSemesterIndex: semestreIndex) ??
+              SemesterList(const [], currentSemesterIndex: semestreIndex);
+    }
     if (semesterModelWrapper != null) {
+      await CacheService.set<SemesterList>(semesterModelWrapper);
       semestreIndex ??= semesterModelWrapper.currentSemesterIndex;
       semesters = semesterModelWrapper.semestres;
     }
