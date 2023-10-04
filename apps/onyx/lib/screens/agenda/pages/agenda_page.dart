@@ -48,6 +48,7 @@ class AgendaPage extends StatelessWidget {
               break;
             case AgendaStatus.haveToChooseManualy:
               return AgendaConfigPage(
+                noBack: true,
                 onBack: (int agendaId) {
                   context.read<SettingsCubit>().modify(
                         settings: context
