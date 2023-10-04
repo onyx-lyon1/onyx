@@ -21,27 +21,43 @@ class CacheService {
       if (kDebugMode) {
         print("error while getting cache for $E: $e");
       }
+      await reset<E>();
       return null;
     }
   }
 
   static Future<void> set<E>(E data,
       {int index = 0, List<int>? secureKey}) async {
-    Box box = await Hive.openBox<E>(
-      "cached_$E",
-      encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
-      crashRecovery: false,
-    );
-    await box.put("cache$index", data);
+    try {
+      Box box = await Hive.openBox<E>(
+        "cached_$E",
+        encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
+        crashRecovery: false,
+      );
+      await box.put("cache$index", data);
+    } catch (e) {
+      if (kDebugMode) {
+        print("error while getting cache for $E: $e");
+      }
+      await reset<E>();
+    }
   }
 
   static Future<bool> exist<E>({int index = 0, List<int>? secureKey}) async {
-    Box box = await Hive.openBox<E>(
-      "cached_$E",
-      encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
-      crashRecovery: false,
-    );
-    return box.containsKey("cache$index");
+    try {
+      Box box = await Hive.openBox<E>(
+        "cached_$E",
+        encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
+        crashRecovery: false,
+      );
+      return box.containsKey("cache$index");
+    } catch (e) {
+      if (kDebugMode) {
+        print("error while getting cache for $E: $e");
+      }
+      await reset<E>();
+      return false;
+    }
   }
 
   static Future<void> reset<E>() async {
