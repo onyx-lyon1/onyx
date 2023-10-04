@@ -95,6 +95,38 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
             },
           ),
           mapController: mapController.mapController,
+          nonRotatedChildren: [
+            if (markers.isNotEmpty)
+              // MarkerClusterLayerWidget(),
+              PopupMarkerLayer(
+                options: PopupMarkerLayerOptions(
+                  markers: markers,
+                  popupController: popupLayerController,
+                  popupDisplayOptions: PopupDisplayOptions(
+                    builder: (BuildContext context, Marker marker) {
+                      int index = widget.batiments.indexWhere(
+                          (element) => element.position == marker.point);
+                      if (index != -1) {
+                        return BatimentPopupWidget(
+                          element: widget.batiments[index],
+                          onTap: widget.onTapNavigate,
+                          popupController: popupLayerController,
+                        );
+                      } else {
+                        index = widget.restaurant.indexWhere((element) =>
+                            element.lat == marker.point.latitude &&
+                            element.lon == marker.point.longitude);
+                        return RestaurantPopUpWidget(
+                          element: widget.restaurant[index],
+                          onTap: widget.onTapNavigate,
+                          popupController: popupLayerController,
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ),
+          ],
           children: [
             TileLayer(tileProvider: HybridTileProvider()),
             if (widget.polylines.isNotEmpty &&
@@ -106,34 +138,6 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
             if (!kIsWeb &&
                 !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
               const CustomCurrentLocationLayerWidget(),
-            if (markers.isNotEmpty)
-              PopupMarkerLayer(
-                  options: PopupMarkerLayerOptions(
-                markers: markers,
-                popupController: popupLayerController,
-                popupDisplayOptions: PopupDisplayOptions(
-                  builder: (BuildContext context, Marker marker) {
-                    int index = widget.batiments.indexWhere(
-                        (element) => element.position == marker.point);
-                    if (index != -1) {
-                      return BatimentPopupWidget(
-                        element: widget.batiments[index],
-                        onTap: widget.onTapNavigate,
-                        popupController: popupLayerController,
-                      );
-                    } else {
-                      index = widget.restaurant.indexWhere((element) =>
-                          element.lat == marker.point.latitude &&
-                          element.lon == marker.point.longitude);
-                      return RestaurantPopUpWidget(
-                        element: widget.restaurant[index],
-                        onTap: widget.onTapNavigate,
-                        popupController: popupLayerController,
-                      );
-                    }
-                  },
-                ),
-              )),
           ],
         ),
         Align(
