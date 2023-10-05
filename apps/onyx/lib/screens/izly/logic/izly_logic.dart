@@ -50,6 +50,12 @@ class IzlyLogic {
     return true;
   }
 
+  static Future<int> getAvailableQrCodeCount() async {
+    List<IzlyQrCode> qrCodes =
+        ((await CacheService.get<IzlyQrCodeList>())?.qrCodes) ?? [];
+    return qrCodes.length;
+  }
+
   static Future<void> reloginIfNeeded(IzlyClient izlyClient) async {
     if (Res.mock) {
       return;
