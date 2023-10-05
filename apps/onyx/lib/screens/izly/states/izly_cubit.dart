@@ -20,6 +20,7 @@ class IzlyCubit extends Cubit<IzlyState> {
     if (kDebugMode) {
       print("connect");
     }
+    //mock gestion
     if (Res.mock) {
       _izlyClient = IzlyClient("mockUsername", "mockPassword");
       emit(
@@ -34,13 +35,17 @@ class IzlyCubit extends Cubit<IzlyState> {
 
       return;
     }
+    //cache loading
     Box box = await Hive.openBox<double>("cached_izly_amount");
     double amount = box.get("amount") ?? 0.0;
     Uint8List qrCode = await IzlyLogic.getQrCode();
     emit(state.copyWith(
         status: IzlyStatus.connecting, qrCode: qrCode, balance: amount));
+
+    //real load
     try {
       if (_izlyClient == null || !(await _izlyClient!.isLogged())) {
+        //need to login
         credential ??= await CacheService.get<IzlyCredential>(
             secureKey:
                 await CacheService.getEncryptionKey(settings.biometricAuth));
@@ -67,12 +72,15 @@ class IzlyCubit extends Cubit<IzlyState> {
         }
       }
       emit(state.copyWith(status: IzlyStatus.loading, izlyClient: _izlyClient));
+
+      //Load qrcode
       await IzlyLogic.completeQrCodeCache(_izlyClient!);
       if (listEquals(qrCode,
           (await rootBundle.load('assets/izly.png')).buffer.asUint8List())) {
         qrCode = await IzlyLogic.getQrCode();
         await IzlyLogic.completeQrCodeCache(_izlyClient!);
       }
+      //load balance
       double balance = await _izlyClient!.getBalance();
       Box box = await Hive.openBox<double>("cached_izly_amount");
       await box.put("amount", balance);
