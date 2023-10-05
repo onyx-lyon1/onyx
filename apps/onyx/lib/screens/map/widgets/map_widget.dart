@@ -98,12 +98,19 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
               onTap: (_, __) => popupLayerController.hideAllPopups(),
             ),
             mapController: mapController.mapController,
-            nonRotatedChildren: [
+            children: [
+              TileLayer(tileProvider: HybridTileProvider()),
+              if (widget.polylines.isNotEmpty &&
+                  !widget.polylines.any((element) => element.points.isEmpty))
+                PolylineLayer(
+                  polylines: widget.polylines,
+                  polylineCulling: true,
+                ),
               if (markers.isNotEmpty)
                 MarkerClusterLayerWidget(
                   options: MarkerClusterLayerOptions(
                     maxClusterRadius: 120,
-                    rotate: true,
+                    rotate: false,
                     size: const Size(40, 40),
                     spiderfyCluster: false,
                     disableClusteringAtZoom: 15,
@@ -152,15 +159,6 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                       );
                     },
                   ),
-                ),
-            ],
-            children: [
-              TileLayer(tileProvider: HybridTileProvider()),
-              if (widget.polylines.isNotEmpty &&
-                  !widget.polylines.any((element) => element.points.isEmpty))
-                PolylineLayer(
-                  polylines: widget.polylines,
-                  polylineCulling: true,
                 ),
               if (!kIsWeb &&
                   !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
