@@ -57,8 +57,8 @@ dependencies:
   cached_network_image: ^3.2.3
   flutter_map: ^5.0.0
   flutter_map_location_marker: ^7.0.4
-  flutter_map_marker_popup: ^5.2.0
   flutter_map_animations: ^0.4.1
+  flutter_map_marker_cluster: ^1.2.0
   requests_plus: ^4.8.3
 
 
