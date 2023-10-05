@@ -39,8 +39,12 @@ class IzlyCubit extends Cubit<IzlyState> {
     Box box = await Hive.openBox<double>("cached_izly_amount");
     double amount = box.get("amount") ?? 0.0;
     Uint8List qrCode = await IzlyLogic.getQrCode();
+    int qrCodeCount = await IzlyLogic.getAvailableQrCodeCount();
     emit(state.copyWith(
-        status: IzlyStatus.connecting, qrCode: qrCode, balance: amount));
+        status: IzlyStatus.connecting,
+        qrCode: qrCode,
+        balance: amount,
+        qrCodeAvailables: qrCodeCount));
 
     //real load
     try {
@@ -85,8 +89,12 @@ class IzlyCubit extends Cubit<IzlyState> {
       Box box = await Hive.openBox<double>("cached_izly_amount");
       await box.put("amount", balance);
       box.close();
+      int qrCodeCount = await IzlyLogic.getAvailableQrCodeCount();
       emit(state.copyWith(
-          status: IzlyStatus.loaded, balance: balance, qrCode: qrCode));
+          status: IzlyStatus.loaded,
+          balance: balance,
+          qrCode: qrCode,
+          qrCodeAvailables: qrCodeCount));
     } catch (e) {
       emit(state.copyWith(status: IzlyStatus.error));
     }
