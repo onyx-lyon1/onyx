@@ -69,60 +69,55 @@ class AgendaLogic {
               endLimit = menu.date.shrink(3).add(const Duration(hours: 21));
               break;
           }
-          startLimit = startLimit.add(const Duration(minutes: 1));
-          endLimit = endLimit.subtract(const Duration(minutes: 1));
+          startLimit = startLimit.subtract(const Duration(minutes: 1));
+          endLimit = endLimit.add(const Duration(minutes: 1));
           int dayIndex = days.indexWhere((element) =>
               element.date.shrink(3).isAtSameMomentAs(menu.date.shrink(3)));
           if (dayIndex != -1) {
             Day day = days[dayIndex];
             if (day.events.isNotEmpty) {
-              List<({DateTime start, DateTime stop})> pause = [
-                (start: day.date, stop: day.events.first.start)
+              List<({DateTime start, DateTime end})> pause = [
+                (start: day.date, end: day.events.first.start)
               ];
               for (var i = 0; i < day.events.length - 1; i++) {
                 pause.add(
-                    (start: day.events[i].end, stop: day.events[i + 1].start));
+                    (start: day.events[i].end, end: day.events[i + 1].start));
               }
               pause.add((
                 start: day.events.last.end,
-                stop: day.date.add(const Duration(days: 1))
+                end: day.date.add(const Duration(days: 1))
               ));
               pause.removeWhere((element) =>
-                  element.stop.difference(element.start).inHours < 1);
+                  element.end.difference(element.start).inHours < 1);
               for (var i in pause) {
                 bool startOk = i.start.isAfter(startLimit) &&
                     i.start.add(const Duration(hours: 1)).isBefore(endLimit);
-                bool stopOk = i.stop.isBefore(endLimit) &&
-                    i.stop
+                bool stopOk = i.end.isBefore(endLimit) &&
+                    i.end
                         .subtract(const Duration(hours: 1))
                         .isAfter(startLimit);
                 bool inTimeSlot =
-                    startLimit.isAfter(i.start) && endLimit.isBefore(i.stop);
+                    startLimit.isAfter(i.start) && endLimit.isBefore(i.end);
                 if (startOk || stopOk || inTimeSlot) {
-                  DateTime start;
-                  DateTime end;
+                  DateTime start =
+                      startLimit.add(const Duration(minutes: 1, hours: 1));
+                  DateTime end =
+                      endLimit.subtract(const Duration(minutes: 1, hours: 1));
                   if (startOk && stopOk) {
                     if (startLimit.difference(i.start) <
-                        endLimit.difference(i.stop)) {
+                        endLimit.difference(i.end)) {
                       start = i.start;
                       end = start.add(const Duration(hours: 1));
                     } else {
-                      end = i.stop;
+                      end = i.end;
                       start = end.subtract(const Duration(hours: 1));
                     }
                   } else if (startOk) {
                     start = i.start;
                     end = start.add(const Duration(hours: 1));
                   } else if (stopOk) {
-                    end = i.stop;
+                    end = i.end;
                     start = end.subtract(const Duration(hours: 1));
-                  } else if (inTimeSlot) {
-                    start = startLimit
-                        .subtract(const Duration(minutes: 1))
-                        .add(const Duration(hours: 1));
-                    end = endLimit
-                        .add(const Duration(minutes: 1))
-                        .subtract(const Duration(hours: 1));
                   }
                   menuToAdd.add((
                     Event(
@@ -131,8 +126,8 @@ class AgendaLogic {
                         teacher: "",
                         description: "",
                         name: menu.type.toString(),
-                        start: i.start,
-                        end: i.stop,
+                        start: start,
+                        end: end,
                         eventLastModified: DateTime.now()),
                     pause.indexOf(i)
                   ));
