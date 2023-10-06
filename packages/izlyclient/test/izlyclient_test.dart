@@ -77,4 +77,11 @@ void main() {
     var menuCrous = await IzlyClient.getRestaurantCrous();
     expect(menuCrous, isNotNull);
   });
+
+  test("get payment", () async {
+    await izlyClient.login();
+    expect(await izlyClient.isLogged(), true);
+    final List<PaymentModel> userPayments = await izlyClient.getUserPayments();
+    expect(userPayments.isNotEmpty, true);
+  });
 }

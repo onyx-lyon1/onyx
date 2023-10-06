@@ -110,4 +110,19 @@ class IzlyLogic {
     final box = await Hive.openBox("favourite_restaurant");
     return box.get(restaurant.id, defaultValue: false);
   }
+
+  static Future<List<PaymentModel>> getUserPayments(IzlyClient izlyClient) async {
+    if (Res.mock) {
+      return [];
+    }
+
+    await reloginIfNeeded(izlyClient);
+
+    try {
+      final List<PaymentModel> userPayments = await izlyClient.getUserPayments();
+      return userPayments;
+    } catch (e) {
+      return [];
+    }
+  }
 }

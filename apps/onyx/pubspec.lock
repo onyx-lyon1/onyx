@@ -884,10 +884,9 @@ packages:
   izlyclient:
     dependency: "direct main"
     description:
-      name: izlyclient
-      sha256: c6bb93467a40dcf7866067756efec5a35d8fbf83b29998531d640b2116805dc3
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/izlyclient"
+      relative: true
+    source: path
     version: "1.0.2"
   js:
     dependency: transitive
@@ -940,34 +939,30 @@ packages:
   lyon1agendaclient:
     dependency: "direct main"
     description:
-      name: lyon1agendaclient
-      sha256: b17cffb533a8e48e10a6a94b66ec4e9302755221ed64df7266ae6940e3c08e77
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1agendaclient"
+      relative: true
+    source: path
     version: "1.0.3"
   lyon1casclient:
     dependency: "direct main"
     description:
-      name: lyon1casclient
-      sha256: "73212cf5e35d92bdb7a0b2dadc89d1d6908bc4eeb06beafeda0e345a4c63b852"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1casclient"
+      relative: true
+    source: path
     version: "1.0.2"
   lyon1mailclient:
     dependency: "direct main"
     description:
-      name: lyon1mailclient
-      sha256: "9fb7ffae1fbc7eeca4b5ab1238879d410ce6c94aac6b55ae69d31fa1e322e32e"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1mailclient"
+      relative: true
+    source: path
     version: "1.0.2"
   lyon1tomussclient:
     dependency: "direct main"
     description:
-      name: lyon1tomussclient
-      sha256: "3e6c2c72cd4ecba1443cc512fae40275bf15baab775a3950a9ce2a496ebecc20"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1tomussclient"
+      relative: true
+    source: path
     version: "1.0.5"
   matcher:
     dependency: transitive
