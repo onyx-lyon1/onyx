@@ -1,6 +1,6 @@
 name: izlyclient
 description: A Dart library for interacting with the Izly platform, allowing you to perform various operations such as retrieving balances, generating QR codes, recharging accounts, and more.
-version: 1.0.2
+version: 1.0.3
 repository: https://github.com/onyx-lyon1/izlyclient
 
 environment:
@@ -22,5 +22,5 @@ dependencies:
   html: ^0.15.4
   hive: ^2.2.3
   equatable: ^2.0.5
-  copy_with_extension: ^5.0.4  
+  copy_with_extension: ^5.0.4
   beautiful_soup_dart: ^0.3.0
