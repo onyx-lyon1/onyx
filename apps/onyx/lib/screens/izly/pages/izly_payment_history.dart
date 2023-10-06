@@ -28,57 +28,35 @@ class IzlyPaymentHistory extends StatelessWidget {
                 strokeWidth: 7.sp,
               );
             } else {
-              body = SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 1,
-                        childAspectRatio: 5,
+              body = ListView(
+                children: [
+                  for (var i in state.data!)
+                    Container(
+                      decoration: BoxDecoration(
+                        color: i.isSucess ? Colors.green : Colors.red,
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
-                      shrinkWrap: true,
-                      itemCount: state.data!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        Color colorBackground;
-                        state.data![index].isSucess
-                            ? colorBackground = Colors.green
-                            : colorBackground = Colors.red;
-
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: colorBackground,
-                            borderRadius: BorderRadius.circular(12.0),
+                      margin: EdgeInsets.all(1.h),
+                      padding: EdgeInsets.all(4.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            i.paymentTime,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          margin: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  state.data![index].paymentTime,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  state.data![index].amountSpent,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
+                          Text(
+                            i.amountSpent,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
