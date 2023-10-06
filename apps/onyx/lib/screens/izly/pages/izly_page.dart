@@ -55,6 +55,8 @@ class IzlyPage extends StatelessWidget {
             break;
           case IzlyStatus.loaded:
             break;
+          case IzlyStatus.cacheLoaded:
+            break;
         }
         if (state.status != IzlyStatus.initial) {
           PageController pageController = PageController();

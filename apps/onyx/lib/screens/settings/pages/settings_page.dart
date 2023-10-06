@@ -172,6 +172,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             style: TextStyle(fontSize: 17.sp)),
                         onPressed: () {
                           CacheService.reset<IzlyQrCodeList>();
+                          CacheService.reset<IzlyPaymentModelList>();
                           CacheService.reset<IzlyCredential>();
                           Hive.deleteBoxFromDisk("cached_qr_code");
                           Hive.deleteBoxFromDisk("cached_izly_amount");

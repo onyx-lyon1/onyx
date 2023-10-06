@@ -25,36 +25,43 @@ class IzlyRechargePage extends StatelessWidget {
                     .unselectedItemColor),
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IzlayRechargeCardWidget(
-                  icon: Icons.compare_arrows_rounded,
-                  text: "Virement",
-                  pageController: pageController,
-                  child: const IzlyRechargeTranferPage(),
-                ),
-                SizedBox(width: 5.w),
-                IzlayRechargeCardWidget(
-                  icon: Icons.credit_card_rounded,
-                  text: "Carte Bancaire",
-                  pageController: pageController,
-                  child: const IzlyRechargeCBPage(),
-                ),
-              ],
+        Center(
+          child: GridView(
+            shrinkWrap: true,
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 30.w,
+              childAspectRatio: 1,
+              crossAxisSpacing: 3.w,
+              mainAxisSpacing: 3.w,
             ),
-            SizedBox(height: 5.w),
-            IzlayRechargeCardWidget(
-              icon: Icons.person_rounded,
-              text: "Tiers",
-              pageController: pageController,
-              child: const IzlyRechargeTiersPage(),
-            ),
-          ],
+            padding: EdgeInsets.all(20.w),
+            children: [
+              IzlayRechargeCardWidget(
+                icon: Icons.compare_arrows_rounded,
+                text: "Virement",
+                pageController: pageController,
+                child: const IzlyRechargeTranferPage(),
+              ),
+              IzlayRechargeCardWidget(
+                icon: Icons.credit_card_rounded,
+                text: "Carte Bancaire",
+                pageController: pageController,
+                child: const IzlyRechargeCBPage(),
+              ),
+              IzlayRechargeCardWidget(
+                icon: Icons.person_rounded,
+                text: "Tiers",
+                pageController: pageController,
+                child: const IzlyRechargeTiersPage(),
+              ),
+              IzlayRechargeCardWidget(
+                icon: Icons.paid_rounded,
+                text: "Historique des paiements",
+                pageController: pageController,
+                child: const IzlyPaymentHistory(),
+              ),
+            ],
+          ),
         ),
       ],
     );
