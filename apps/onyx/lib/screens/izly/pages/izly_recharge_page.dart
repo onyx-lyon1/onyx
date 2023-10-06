@@ -58,7 +58,7 @@ class IzlyRechargePage extends StatelessWidget {
               SizedBox(width: 5.w),
               IzlayRechargeCardWidget(
                 icon: Icons.paid_rounded,
-                text: "Historique des payments",
+                text: "Historique des paiements",
                 pageController: pageController,
                 child: IzlyPaidPage(),
               ),
