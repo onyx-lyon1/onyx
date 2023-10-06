@@ -5,8 +5,8 @@ import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class IzlyPaidPage extends StatelessWidget {
-  const IzlyPaidPage({super.key});
+class IzlyPaymentHistory extends StatelessWidget {
+  const IzlyPaymentHistory({super.key});
 
   @override
   Widget build(BuildContext context) {
