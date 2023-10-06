@@ -58,7 +58,7 @@ class IzlyRechargePage extends StatelessWidget {
                 icon: Icons.paid_rounded,
                 text: "Historique des paiements",
                 pageController: pageController,
-                child: const IzlyPaidPage(),
+                child: const IzlyPaymentHistory(),
               ),
             ],
           ),
