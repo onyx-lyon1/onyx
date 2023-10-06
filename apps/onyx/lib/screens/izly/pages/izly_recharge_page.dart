@@ -48,12 +48,21 @@ class IzlyRechargePage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 5.w),
-            IzlayRechargeCardWidget(
-              icon: Icons.person_rounded,
-              text: "Tiers",
-              pageController: pageController,
-              child: const IzlyRechargeTiersPage(),
-            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              IzlayRechargeCardWidget(
+                icon: Icons.person_rounded,
+                text: "Tiers",
+                pageController: pageController,
+                child: const IzlyRechargeTiersPage(),
+              ),
+              SizedBox(width: 5.w),
+              IzlayRechargeCardWidget(
+                icon: Icons.paid_rounded,
+                text: "Historique des payments",
+                pageController: pageController,
+                child: IzlyPaidPage(),
+              ),
+            ]),
           ],
         ),
       ],
