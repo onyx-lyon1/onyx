@@ -261,21 +261,10 @@ class IzlyClient {
 
     for (var i = 0; i < paymentTime.length; i++) {
       paymentsList.add(IzlyPaymentModel(
-          paymentTime: paymentTime[i]
-              .toString()
-              .replaceAllMapped(RegExp(r'<[^>]*>'), (match) {
-            return '';
-          }),
-          amountSpent: amountSpent[i]
-              .toString()
-              .replaceAllMapped(RegExp(r'<[^>]*>'), (match) {
-            return '';
-          }),
-          isSucess: isSucess[i].toString().replaceAllMapped(RegExp(r'<[^>]*>'),
-                  (match) {
-                return '';
-              })[1] ==
-              'S'));
+        paymentTime: paymentTime[i].element!.nodes.first.data,
+        amountSpent: amountSpent[i].element!.nodes.first.data,
+        isSucess: isSucess[i].element!.nodes.first.data == " Succès ",
+      ));
     }
 
     return paymentsList;
