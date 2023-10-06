@@ -6,6 +6,8 @@ import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlyPaidPage extends StatelessWidget {
+  const IzlyPaidPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -26,7 +28,7 @@ class IzlyPaidPage extends StatelessWidget {
                       children: [
                         GridView.builder(
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 1,
                             childAspectRatio: 5,
                           ),
@@ -43,26 +45,26 @@ class IzlyPaidPage extends StatelessWidget {
                                 color: colorBackground,
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
-                              margin: EdgeInsets.all(8.0),
+                              margin: const EdgeInsets.all(8.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Padding(
-                                    padding: EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       paymentsList[index].paymentTime,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       paymentsList[index].amountSpent,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
