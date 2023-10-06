@@ -81,7 +81,8 @@ void main() {
   test("get payment", () async {
     await izlyClient.login();
     expect(await izlyClient.isLogged(), true);
-    final List<PaymentModel> userPayments = await izlyClient.getUserPayments();
+    final List<IzlyPaymentModel> userPayments =
+        await izlyClient.getUserPayments();
     expect(userPayments.isNotEmpty, true);
   });
 }
