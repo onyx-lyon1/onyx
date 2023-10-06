@@ -111,7 +111,7 @@ class IzlyLogic {
     return box.get(restaurant.id, defaultValue: false);
   }
 
-  static Future<List<PaymentModel>> getUserPayments(
+  static Future<List<IzlyPaymentModel>> getUserPayments(
       IzlyClient izlyClient) async {
     if (Res.mock) {
       return paymentModelListMock;
@@ -120,51 +120,49 @@ class IzlyLogic {
     await reloginIfNeeded(izlyClient);
 
     try {
-      final List<PaymentModel> userPayments =
-          await izlyClient.getUserPayments();
-      return userPayments;
+      return await izlyClient.getUserPayments();
     } catch (e) {
       return [];
     }
   }
 
-  static final List<PaymentModel> paymentModelListMock = [
-    PaymentModel(
+  static final List<IzlyPaymentModel> paymentModelListMock = [
+    IzlyPaymentModel(
       paymentTime: "12/12/2020",
       amountSpent: "12€",
       isSucess: true,
     ),
-    PaymentModel(
+    IzlyPaymentModel(
       paymentTime: "12/12/2020",
       amountSpent: "12€",
       isSucess: false,
     ),
-    PaymentModel(
+    IzlyPaymentModel(
       paymentTime: "12/12/2020",
       amountSpent: "12€",
       isSucess: true,
     ),
-    PaymentModel(
+    IzlyPaymentModel(
       paymentTime: "12/12/2020",
       amountSpent: "12€",
       isSucess: false,
     ),
-    PaymentModel(
+    IzlyPaymentModel(
       paymentTime: "12/12/2020",
       amountSpent: "12€",
       isSucess: true,
     ),
-    PaymentModel(
+    IzlyPaymentModel(
       paymentTime: "12/12/2020",
       amountSpent: "12€",
       isSucess: true,
     ),
-    PaymentModel(
+    IzlyPaymentModel(
       paymentTime: "12/12/2020",
       amountSpent: "12€",
       isSucess: true,
     ),
-    PaymentModel(
+    IzlyPaymentModel(
       paymentTime: "12/12/2020",
       amountSpent: "12€",
       isSucess: true,
