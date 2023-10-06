@@ -137,7 +137,7 @@ class IzlyLogic {
     PaymentModel(
       paymentTime: "12/12/2020",
       amountSpent: "12€",
-      isSucess: true,
+      isSucess: false,
     ),
     PaymentModel(
       paymentTime: "12/12/2020",
@@ -147,7 +147,7 @@ class IzlyLogic {
     PaymentModel(
       paymentTime: "12/12/2020",
       amountSpent: "12€",
-      isSucess: true,
+      isSucess: false,
     ),
     PaymentModel(
       paymentTime: "12/12/2020",
