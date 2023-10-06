@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
-//part 'generated/izly_payment_model.g.dart';
+part 'generated/izly_payment_model.g.dart';
 
 @HiveType(typeId: 40)
-class PaymentModel extends Equatable {
+class IzlyPaymentModel extends Equatable {
   @HiveField(0)
   final String paymentTime;
   @HiveField(1)
@@ -12,7 +12,7 @@ class PaymentModel extends Equatable {
   @HiveField(2)
   final bool isSucess;
 
-  PaymentModel({
+  IzlyPaymentModel({
     required this.paymentTime,
     required this.amountSpent,
     required this.isSucess,
