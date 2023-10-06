@@ -27,6 +27,8 @@ class IzlyClient {
     Hive.registerAdapter(CrousTypeAdapter());
     Hive.registerAdapter(RestaurantModelAdapter());
     Hive.registerAdapter(RestaurantListModelAdapter());
+    Hive.registerAdapter(IzlyPaymentModelAdapter());
+    Hive.registerAdapter(IzlyPaymentModelListAdapter());
   }
 
   final String _username;
@@ -243,7 +245,7 @@ class IzlyClient {
         .toList();
   }
 
-  Future<List<PaymentModel>> getUserPayments() async {
+  Future<List<IzlyPaymentModel>> getUserPayments() async {
     assert(_isLogged);
     final r = await RequestsPlus.get("$_baseUrl/Home/GetPayments");
     if (r.statusCode != 200) {
@@ -255,10 +257,10 @@ class IzlyClient {
     List<Bs4Element> paymentTime = bs.findAll('p', class_: 'oeration-date');
     List<Bs4Element> amountSpent = bs.findAll('p', class_: 'operation-amount');
     List<Bs4Element> isSucess = bs.findAll('*', class_: 'badge-success');
-    List<PaymentModel> paymentsList = [];
+    List<IzlyPaymentModel> paymentsList = [];
 
     for (var i = 0; i < paymentTime.length; i++) {
-      paymentsList.add(PaymentModel(
+      paymentsList.add(IzlyPaymentModel(
           paymentTime: paymentTime[i]
               .toString()
               .replaceAllMapped(RegExp(r'<[^>]*>'), (match) {
