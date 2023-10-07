@@ -19,6 +19,36 @@ const List<String> weekDaysShort = [
   "Dim."
 ];
 
+const List<String> monthNames = [
+  "Janvier",
+  "Février",
+  "Mars",
+  "Avril",
+  "Mai",
+  "Juin",
+  "Julliet",
+  "Août",
+  "Septembre",
+  "Octobre",
+  "Novembre",
+  "Décembre"
+];
+
+const List<String> monthNamesShort = [
+  "Janv.",
+  "Févr.",
+  "Mars",
+  "Avr.",
+  "Mai",
+  "Juin",
+  "Juil.",
+  "Août",
+  "Sept.",
+  "Oct.",
+  "Nov.",
+  "Déc."
+];
+
 extension DateExtension on DateTime {
   DateTime shrink(int precision) {
     switch (precision) {
