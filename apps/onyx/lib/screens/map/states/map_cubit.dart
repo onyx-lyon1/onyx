@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/cache_service.dart';
@@ -9,7 +10,9 @@ import 'package:onyx/screens/map/map_export.dart';
 part 'map_state.dart';
 
 class MapCubit extends Cubit<MapState> {
-  MapCubit() : super(MapState());
+  MapCubit() : super(MapState()) {
+    updateGeolocationAutorisation();
+  }
 
   Future<void> navigate(BuildContext context, LatLng latLng) async {
     List<List<LatLng>> paths;
@@ -55,6 +58,20 @@ class MapCubit extends Cubit<MapState> {
         restaurant: restaurant, status: MapStatus.batimentsUpdated));
     await CacheService.set<RestaurantListModel>(
         RestaurantListModel(restaurantList: restaurant));
+  }
+
+  Future<bool> updateGeolocationAutorisation() async {
+    var permission = await Geolocator.checkPermission();
+    bool result = [LocationPermission.whileInUse, LocationPermission.always]
+            .contains(permission) &&
+        await Geolocator.isLocationServiceEnabled();
+    emit(state.copyWith(geolocationAutorisation: result));
+    return result;
+  }
+
+  Future<bool> askGeolocationAutorisation() async {
+    await Geolocator.requestPermission();
+    return await updateGeolocationAutorisation();
   }
 
   void resetCubit() {

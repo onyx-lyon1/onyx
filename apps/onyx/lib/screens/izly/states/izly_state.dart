@@ -6,6 +6,7 @@ enum IzlyStatus {
   connected,
   loading,
   loaded,
+  cacheLoaded,
   error,
   noCredentials
 }
@@ -15,12 +16,16 @@ class IzlyState {
   IzlyClient? izlyClient;
   double balance;
   Uint8List? qrCode;
+  int qrCodeAvailables;
+  List<IzlyPaymentModel> paymentList;
 
   IzlyState({
     this.izlyClient,
     this.status = IzlyStatus.initial,
     this.balance = 0.0,
     this.qrCode,
+    this.qrCodeAvailables = 0,
+    this.paymentList = const [],
   });
 
   IzlyState copyWith({
@@ -28,12 +33,16 @@ class IzlyState {
     double? balance,
     Uint8List? qrCode,
     IzlyClient? izlyClient,
+    int? qrCodeAvailables,
+    List<IzlyPaymentModel>? paymentList,
   }) {
     return IzlyState(
       status: status ?? this.status,
       balance: balance ?? this.balance,
       qrCode: qrCode ?? this.qrCode,
       izlyClient: izlyClient ?? this.izlyClient,
+      qrCodeAvailables: qrCodeAvailables ?? this.qrCodeAvailables,
+      paymentList: paymentList ?? this.paymentList,
     );
   }
 }
