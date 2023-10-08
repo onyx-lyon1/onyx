@@ -9,8 +9,10 @@ import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaConfigPage extends StatefulWidget {
-  const AgendaConfigPage({Key? key, required this.onBack}) : super(key: key);
+  const AgendaConfigPage({Key? key, required this.onBack, this.noBack = false})
+      : super(key: key);
   final Function(int backIndex) onBack;
+  final bool noBack;
 
   @override
   State<AgendaConfigPage> createState() => _AgendaConfigPageState();
@@ -172,12 +174,13 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 2.w),
-                        child: Material(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(100)),
-                          child: InkWell(
+                      if (!widget.noBack)
+                        Padding(
+                          padding: EdgeInsets.only(left: 2.w),
+                          child: Material(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(100)),
+                            child: InkWell(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(100)),
                               onTap: () {
@@ -185,10 +188,10 @@ class _AgendaConfigPageState extends State<AgendaConfigPage> {
                               },
                               child: const Icon(
                                 Icons.arrow_back_rounded,
-                                color: Colors.black,
-                              )),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
                       Expanded(
                         child: TextField(
                           onChanged: (String query) {},
