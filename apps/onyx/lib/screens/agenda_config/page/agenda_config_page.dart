@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
@@ -8,8 +9,9 @@ import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaConfigPage extends StatelessWidget {
-  const AgendaConfigPage({Key? key, required this.onBack}) : super(key: key);
+  const AgendaConfigPage({Key? key, required this.onBack, , this.noBack = false}) : super(key: key);
   final Function(int backIndex) onBack;
+  final bool noBack;
 
   @override
   Widget build(BuildContext context) {
@@ -137,12 +139,13 @@ class AgendaConfigPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 2.w),
-                        child: Material(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(100)),
-                          child: InkWell(
+                      if (!widget.noBack)
+                        Padding(
+                          padding: EdgeInsets.only(left: 2.w),
+                          child: Material(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(100)),
+                            child: InkWell(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(100)),
                               onTap: () {
@@ -150,10 +153,10 @@ class AgendaConfigPage extends StatelessWidget {
                               },
                               child: const Icon(
                                 Icons.arrow_back_rounded,
-                                color: Colors.black,
-                              )),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
                       Expanded(
                         child: TextField(
                           onChanged: (String query) {},
@@ -191,5 +194,54 @@ class AgendaConfigPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _handleDragStart(DragStartDetails details) {
+    if (_listScrollController.hasClients) {
+      final RenderBox renderBox = _listScrollController
+          .position.context.storageContext
+          .findRenderObject() as RenderBox;
+      if (renderBox.paintBounds
+          .shift(renderBox.localToGlobal(Offset.zero))
+          .contains(details.globalPosition)) {
+        _activeScrollController = _listScrollController;
+        _drag = _activeScrollController.position.drag(details, _disposeDrag);
+        return;
+      }
+    }
+    _activeScrollController = _pageController;
+    _drag = _pageController.position.drag(details, _disposeDrag);
+  }
+
+  void _handleDragUpdate(DragUpdateDetails details) {
+    if (_activeScrollController == _listScrollController &&
+        details.primaryDelta! > 0 &&
+        _activeScrollController.position.pixels ==
+            _activeScrollController.position.minScrollExtent) {
+      _activeScrollController = _pageController;
+      _drag?.cancel();
+      _drag = _pageController.position.drag(
+          DragStartDetails(
+              globalPosition: details.globalPosition,
+              localPosition: details.localPosition),
+          _disposeDrag);
+    }
+    _drag?.update(details);
+  }
+
+  void _handleDragEnd(DragEndDetails details) {
+    if (_drag != null) {
+      _drag?.end(details);
+    }
+  }
+
+  void _handleDragCancel() {
+    if (_drag != null) {
+      _drag?.cancel();
+    }
+  }
+
+  void _disposeDrag() {
+    _drag = null;
   }
 }

@@ -49,15 +49,21 @@ class TomussLogic {
         for (var i = 0; i < parsedPage.teachingunits!.length; i++) {
           int index = teachingUnitList!.teachingUnitModels.indexWhere(
               (element) => element.title == parsedPage.teachingunits![i].title);
-          for (var j = 0; j < parsedPage.teachingunits![i].grades.length; j++) {
-            int index2 = teachingUnitList.teachingUnitModels[index].grades
-                .indexWhere((element) =>
-                    element.title ==
-                    parsedPage.teachingunits![i].grades[j].title);
-            parsedPage.teachingunits![i].grades[j] =
-                parsedPage.teachingunits![i].grades[j].copyWith(
-                    coef: teachingUnitList
-                        .teachingUnitModels[index].grades[index2].coef);
+          if (index != -1) {
+            for (var j = 0;
+                j < parsedPage.teachingunits![i].grades.length;
+                j++) {
+              int index2 = teachingUnitList.teachingUnitModels[index].grades
+                  .indexWhere((element) =>
+                      element.title ==
+                      parsedPage.teachingunits![i].grades[j].title);
+              if (index2 != -1) {
+                parsedPage.teachingunits![i].grades[j] =
+                    parsedPage.teachingunits![i].grades[j].copyWith(
+                        coef: teachingUnitList
+                            .teachingUnitModels[index].grades[index2].coef);
+              }
+            }
           }
         }
       }

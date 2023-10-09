@@ -19,7 +19,7 @@ class NavigationLogic {
     List<List<LatLng>> paths = [];
     LatLng position = (useLastLocation && GeolocationLogic.lastLocation != null)
         ? GeolocationLogic.lastLocation!
-        : (await GeolocationLogic.getCurrentLocation())!;
+        : (await GeolocationLogic.getCurrentLocation(context: context))!;
     for (var latLng in latLngs) {
       if (position.inside(MapRes.minBound, MapRes.maxBound) &&
           latLng.inside(MapRes.minBound, MapRes.maxBound)) {

@@ -32,14 +32,14 @@ class MailSettingsWidget extends StatelessWidget {
           ),
         TextSwitchWidget(
           text: 'Forcer le thème des mails',
-          value: context.read<SettingsCubit>().state.settings.darkerMail,
+          value: context.read<SettingsCubit>().state.settings.forcedMailTheme,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
                 settings: context
                     .read<SettingsCubit>()
                     .state
                     .settings
-                    .copyWith(darkerMail: b));
+                    .copyWith(forcedMailTheme: b));
           },
         ),
         TextSwitchWidget(

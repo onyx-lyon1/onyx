@@ -5,6 +5,7 @@ import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:requests_plus/requests_plus.dart';
+import 'package:beautiful_soup_dart/beautiful_soup.dart';
 
 class IzlyClient {
   static const _baseUrl = 'https://mon-espace.izly.fr';
@@ -26,6 +27,8 @@ class IzlyClient {
     Hive.registerAdapter(CrousTypeAdapter());
     Hive.registerAdapter(RestaurantModelAdapter());
     Hive.registerAdapter(RestaurantListModelAdapter());
+    Hive.registerAdapter(IzlyPaymentModelAdapter());
+    Hive.registerAdapter(IzlyPaymentModelListAdapter());
   }
 
   final String _username;
@@ -240,5 +243,30 @@ class IzlyClient {
     return (decoded["restaurants"] as List)
         .map((e) => RestaurantModel.fromJson(e))
         .toList();
+  }
+
+  Future<List<IzlyPaymentModel>> getUserPayments() async {
+    assert(_isLogged);
+    final r = await RequestsPlus.get("$_baseUrl/Home/GetPayments");
+    if (r.statusCode != 200) {
+      throw Exception("Can't get user payments !");
+    }
+
+    BeautifulSoup bs = BeautifulSoup(r.body);
+
+    List<Bs4Element> paymentTime = bs.findAll('p', class_: 'oeration-date');
+    List<Bs4Element> amountSpent = bs.findAll('p', class_: 'operation-amount');
+    List<Bs4Element> isSucess = bs.findAll('*', class_: 'badge-success');
+    List<IzlyPaymentModel> paymentsList = [];
+
+    for (var i = 0; i < paymentTime.length; i++) {
+      paymentsList.add(IzlyPaymentModel(
+        paymentTime: paymentTime[i].element!.nodes.first.data,
+        amountSpent: amountSpent[i].element!.nodes.first.data,
+        isSucess: isSucess[i].element!.nodes.first.data == " Succès ",
+      ));
+    }
+
+    return paymentsList;
   }
 }
