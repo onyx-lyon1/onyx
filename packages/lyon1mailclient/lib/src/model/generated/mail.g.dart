@@ -19,8 +19,6 @@ abstract class _$MailCWProxy {
 
   Mail body(String body);
 
-  Mail blackBody(String blackBody);
-
   Mail id(int? id);
 
   Mail receiver(String receiver);
@@ -46,7 +44,6 @@ abstract class _$MailCWProxy {
     bool? isRead,
     DateTime? date,
     String? body,
-    String? blackBody,
     int? id,
     String? receiver,
     List<String>? attachments,
@@ -79,9 +76,6 @@ class _$MailCWProxyImpl implements _$MailCWProxy {
 
   @override
   Mail body(String body) => this(body: body);
-
-  @override
-  Mail blackBody(String blackBody) => this(blackBody: blackBody);
 
   @override
   Mail id(int? id) => this(id: id);
@@ -117,7 +111,6 @@ class _$MailCWProxyImpl implements _$MailCWProxy {
     Object? isRead = const $CopyWithPlaceholder(),
     Object? date = const $CopyWithPlaceholder(),
     Object? body = const $CopyWithPlaceholder(),
-    Object? blackBody = const $CopyWithPlaceholder(),
     Object? id = const $CopyWithPlaceholder(),
     Object? receiver = const $CopyWithPlaceholder(),
     Object? attachments = const $CopyWithPlaceholder(),
@@ -150,10 +143,6 @@ class _$MailCWProxyImpl implements _$MailCWProxy {
           ? _value.body
           // ignore: cast_nullable_to_non_nullable
           : body as String,
-      blackBody: blackBody == const $CopyWithPlaceholder() || blackBody == null
-          ? _value.blackBody
-          // ignore: cast_nullable_to_non_nullable
-          : blackBody as String,
       id: id == const $CopyWithPlaceholder()
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
@@ -211,7 +200,6 @@ class MailAdapter extends TypeAdapter<Mail> {
       isRead: fields[5] as bool,
       date: fields[7] as DateTime,
       body: fields[3] as String,
-      blackBody: fields[10] == null ? '' : fields[10] as String,
       id: fields[4] as int?,
       receiver: fields[8] as String,
       attachments: (fields[9] as List).cast<String>(),
@@ -222,7 +210,7 @@ class MailAdapter extends TypeAdapter<Mail> {
   @override
   void write(BinaryWriter writer, Mail obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.subject)
       ..writeByte(1)
@@ -231,8 +219,6 @@ class MailAdapter extends TypeAdapter<Mail> {
       ..write(obj.excerpt)
       ..writeByte(3)
       ..write(obj.body)
-      ..writeByte(10)
-      ..write(obj.blackBody)
       ..writeByte(4)
       ..write(obj.id)
       ..writeByte(5)

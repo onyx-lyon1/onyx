@@ -4,6 +4,10 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:izlyclient/izlyclient.dart';
+import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/app.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
@@ -20,6 +24,11 @@ void main() async {
     await NotificationLogic.init();
   }
   await hiveInit();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   if (!kIsWeb && (Platform.isLinux || Platform.isWindows || Platform.isMacOS)) {
     //an iphone se size

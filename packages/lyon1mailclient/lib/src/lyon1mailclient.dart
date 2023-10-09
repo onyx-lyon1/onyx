@@ -18,11 +18,6 @@ class Lyon1MailClient {
   late String _corsProxyUrl;
   late Address emailAddress;
 
-  static const String _baseUrl = "https://mail.univ-lyon1.fr/owa/";
-  static const String _loginUrl = "${_baseUrl}auth.owa";
-  static const String _contactUrl = "${_baseUrl}service.svc?action=FindPeople";
-  static const String _logoutUrl = "${_baseUrl}logoff.owa";
-
   Lyon1MailClient(final String username, final String password,
       {String corsProxyUrl = ""}) {
     _client = ImapClient(isLogEnabled: false);
@@ -62,7 +57,7 @@ class Lyon1MailClient {
     await _smtpClient.authenticate(_username, _password, AuthMechanism.login);
 
     await RequestsPlus.post(
-      _loginUrl,
+      Lyon1MailClientConfig.loginUrl,
       corsProxyUrl: _corsProxyUrl,
       headers: makeHeader(
         referer:
@@ -73,8 +68,9 @@ class Lyon1MailClient {
         contentType: 'application/x-www-form-urlencoded',
       ),
       body: {
-        "destination":
-            _baseUrl.substring(0, _baseUrl.length - 1), // remove trailing slash
+        "destination": Lyon1MailClientConfig.baseWebUrl
+            .substring(0, Lyon1MailClientConfig.baseWebUrl.length - 1),
+        // remove trailing slash
         "flags": "4",
         "forcedownlevel": "0",
         "username": _username,
@@ -381,9 +377,10 @@ class Lyon1MailClient {
 
   Future<List<Address>> resolveContact(String query) async {
     Iterable<Cookie> cookies =
-        (await RequestsPlus.getStoredCookies(_baseUrl)).values;
+        (await RequestsPlus.getStoredCookies(Lyon1MailClientConfig.baseWebUrl))
+            .values;
     Response response = await RequestsPlus.post(
-      _contactUrl,
+      Lyon1MailClientConfig.contactUrl,
       corsProxyUrl: _corsProxyUrl,
       headers: makeHeader(
         canary: cookies.firstWhere((element) {
@@ -437,7 +434,7 @@ class Lyon1MailClient {
     await _client.logout();
     await _smtpClient.disconnect();
     await RequestsPlus.get(
-      _logoutUrl,
+      Lyon1MailClientConfig.logoutUrl,
       corsProxyUrl: _corsProxyUrl,
       headers: makeHeader(),
     );
