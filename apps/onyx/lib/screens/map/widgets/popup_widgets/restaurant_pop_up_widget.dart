@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
