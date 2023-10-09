@@ -165,6 +165,7 @@ class AgendaLogic {
           .events
           .insert(menu.$2, menu.$1);
     }
+    return days;
   }
 
   static final List<Day> dayListMock = [
