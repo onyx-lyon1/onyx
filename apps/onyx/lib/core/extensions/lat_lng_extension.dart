@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:latlong2/latlong.dart';
 
-extension LatLngExt on LatLng {
+extension LatLngExtension on LatLng {
   bool inside(LatLng min, LatLng max) {
     return (latitude >= min.latitude &&
         latitude <= max.latitude &&
