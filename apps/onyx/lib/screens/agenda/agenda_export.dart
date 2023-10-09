@@ -5,3 +5,5 @@ export 'states/agenda_cubit.dart';
 export 'widgets/agenda_bottom_nav_bar_icon.dart';
 export 'widgets/event_widget.dart';
 export 'widgets/mini_calendar_widget.dart';
+export 'widgets/one_day_view.dart';
+export 'widgets/multiple_day_view.dart';
