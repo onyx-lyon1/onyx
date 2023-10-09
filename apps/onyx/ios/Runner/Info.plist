@@ -74,6 +74,8 @@
         <key>NSCameraUsageDescription</key>
         <string>This app needs camera access to scan QR codes</string>
         <key>ITSAppUsesNonExemptEncryption</key>
+        <key>NSMicrophoneUsageDescription</key>
+        <string>Need the microphone to get camera working correctly</string>
         <false/>
     </dict>
 </plist>
