@@ -49,6 +49,7 @@ class Lyon1AgendaClient {
         'Cache-Control': 'no-cache'
       },
       corsProxyUrl: _corsProxyUrl,
+      timeoutSeconds: 20,
     );
     return ((response.statusCode) >= 400)
         ? null

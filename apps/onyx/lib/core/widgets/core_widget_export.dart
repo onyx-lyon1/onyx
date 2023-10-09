@@ -5,3 +5,4 @@ export 'common_screen_widget.dart';
 export 'infinite_scroll_loop_widget.dart';
 export 'responsive_grid_view.dart';
 export 'states_displaying/state_displaying_widget_export.dart';
+export 'double_scrollable_widget.dart';

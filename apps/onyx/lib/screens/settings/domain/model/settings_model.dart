@@ -35,6 +35,15 @@ class SettingsModel extends Equatable {
   final bool calendarUpdateNotification;
   @HiveField(8)
   final int? agendaId;
+  @HiveField(19, defaultValue: 5)
+  final int agendaWeekLength;
+  @HiveField(20, defaultValue: 1)
+  final int agendaWeekReference;
+  @HiveField(21, defaultValue: [6, 7])
+  final List<int> agendaDisabledDays;
+
+  @HiveField(22, defaultValue: false)
+  final bool agendaPageTopToBottom;
 
   //Mail
   @HiveField(9)
@@ -88,6 +97,10 @@ class SettingsModel extends Equatable {
     this.recentGradeDuration = 7,
     this.firstLogin = true,
     this.mock = false,
+    this.agendaWeekLength = 5,
+    this.agendaWeekReference = 1,
+    this.agendaDisabledDays = const [6, 7],
+    this.agendaPageTopToBottom = false,
   });
 
   @override
@@ -110,6 +123,10 @@ class SettingsModel extends Equatable {
         biometricAuth,
         mock,
         shownAgendaPopup,
+        agendaWeekLength,
+        agendaWeekReference,
+        agendaDisabledDays,
+        agendaPageTopToBottom
       ];
 
   @override

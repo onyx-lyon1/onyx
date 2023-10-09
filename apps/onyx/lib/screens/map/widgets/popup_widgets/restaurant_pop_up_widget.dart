@@ -95,9 +95,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
       }
     }
     menus = widget.element.menus
-        .where((element) => element.date
-            .shrink(3)
-            .isAtSameMomentAs(dates[currentDateIndex].shrink(3)))
+        .where((element) => element.date.isSameDay(dates[currentDateIndex]))
         .toList();
     super.initState();
   }
@@ -156,9 +154,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
                             currentDateIndex--;
                             menus = widget.element.menus
                                 .where((element) => element.date
-                                    .shrink(3)
-                                    .isAtSameMomentAs(
-                                        dates[currentDateIndex].shrink(3)))
+                                    .isSameDay(dates[currentDateIndex]))
                                 .toList();
                           }
                         });
@@ -177,9 +173,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
                             currentDateIndex++;
                             menus = widget.element.menus
                                 .where((element) => element.date
-                                    .shrink(3)
-                                    .isAtSameMomentAs(
-                                        dates[currentDateIndex].shrink(3)))
+                                    .isSameDay(dates[currentDateIndex]))
                                 .toList();
                           }
                         });
