@@ -131,10 +131,10 @@ class _LoginPageState extends State<LoginPage> {
                               child: TextFormField(
                                 autofillHints: const [AutofillHints.username],
                                 onSaved: (String? value) => username =
-                                    (RegExp(r"^(p|P)\d{7}$")
-                                            .hasMatch(value!.trim()))
-                                        ? value.trim().replaceFirst("p", "P")
-                                        : value.trim(),
+                                (RegExp(r"^([pP])\d{7}$")
+                                    .hasMatch(value!.trim()))
+                                    ? value.trim().replaceFirst("p", "P")
+                                    : value.trim(),
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                   labelText: 'Username',
@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                                   if (value == null || value.isEmpty) {
                                     return 'Veuillez entrer l\'identifiant';
                                   } else if (!RegExp(
-                                          r"(^(p|P)\d{7}$)|(.{2,}\..{2,})")
+                                          r"(^([pP])\d{7}$)|(.{2,}\..{2,})")
                                       .hasMatch(value.trim())) {
                                     return "L'identifiant n'est pas dans le bon format";
                                   }

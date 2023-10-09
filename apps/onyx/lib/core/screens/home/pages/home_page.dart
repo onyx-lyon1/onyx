@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/core/extensions/functionalities_to_human_export.dart';
+import 'package:onyx/core/extensions/functionalities_extension.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
@@ -97,43 +97,29 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthentificationCubit, AuthentificationState>(
-      builder: (context, state) {
+      builder: (context, authState) {
         return BlocListener<SettingsCubit, SettingsState>(
           //fetch agenda whenn settings change
           listenWhen: (previous, current) =>
               previous.settings.agendaId != current.settings.agendaId ||
               previous.settings.fetchAgendaAuto !=
                   current.settings.fetchAgendaAuto,
-          listener: (context, state) {
+          listener: (context, settingsState) {
             context.read<AgendaCubit>().load(
-                lyon1Cas: context.read<AuthentificationCubit>().state.lyon1Cas,
-                settings: context.read<SettingsCubit>().state.settings,
+                lyon1Cas: authState.lyon1Cas,
+                settings: settingsState.settings,
                 cache: false);
           },
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
             resizeToAvoidBottomInset: false,
-            // floatingActionButton: Row(
-            //   children: [
-            //     IconButton(
-            //         onPressed: () {
-            //           DesktopWindow.setWindowSize(const Size(375, 667));
-            //         },
-            //         icon: const Icon(Icons.phone_android_rounded)),
-            //     IconButton(
-            //         onPressed: () {
-            //           DesktopWindow.setWindowSize(const Size(1280, 720));
-            //         },
-            //         icon: const Icon(Icons.tablet_rounded)),
-            //   ],
-            // ),
             body: SafeArea(
               child: Column(
                 children: [
                   Expanded(
                     child: CommonScreenWidget(
                       onRefresh: () async {},
-                      state: (state.status ==
+                      state: (authState.status ==
                               AuthentificationStatus.authentificating)
                           ? const LoadingHeaderWidget(
                               message: "Connection à cas",
