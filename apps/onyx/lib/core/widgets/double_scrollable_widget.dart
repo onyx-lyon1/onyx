@@ -54,21 +54,6 @@ class _DoubleScrollableWidgetState extends State<DoubleScrollableWidget> {
       },
       behavior: HitTestBehavior.opaque,
       child: widget.child,
-      //   PageView(
-      // controller: widget.pageController,
-      // scrollDirection: Axis.vertical,
-      // physics: const NeverScrollableScrollPhysics(),
-      // children: [
-      //   Center(child: Text('Page 1')),
-      //   ListView(
-      //       controller: widget.listScrollController,
-      //       physics: const NeverScrollableScrollPhysics(),
-      //       children: List.generate(20, (int index) {
-      //         return ListTile(title: Text('Item $index'));
-      //       })),
-      //   Center(child: Text('Page 1')),
-      // ],
-      // ),
     );
   }
 
@@ -146,6 +131,9 @@ class _DoubleScrollableWidgetState extends State<DoubleScrollableWidget> {
 
   int _getScrollControllerIndex() {
     //a fonction got get the current screen in use by the pageview
+    if (widget.listScrollController.length == 1) {
+      return 0;
+    }
     return widget.pageController.page!.toInt();
   }
 }
