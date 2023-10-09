@@ -1,6 +1,6 @@
 import 'package:flutter_map/flutter_map.dart';
-import 'package:onyx/core/extensions/coords_to_num.dart';
-import 'package:onyx/core/extensions/lat_lng_inside.dart';
+import 'package:onyx/core/extensions/coords_extension.dart';
+import 'package:onyx/core/extensions/lat_lng_extension.dart';
 import 'package:onyx/screens/map/map_export.dart';
 
 class HybridTileProvider extends TileProvider {

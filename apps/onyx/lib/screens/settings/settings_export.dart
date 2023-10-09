@@ -15,3 +15,4 @@ export 'widgets/settings_bottom_nav_bar_icon.dart';
 export 'widgets/settings_card_widget.dart';
 export 'widgets/settings_links_widget.dart';
 export 'widgets/text_switch_widget.dart';
+export 'widgets/agenda_week_day_selector.dart';
