@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
-import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/res.dart';
@@ -54,6 +54,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
     List<Marker> markers = [
       for (var element in widget.batiments)
         Marker(
+          anchorPos: AnchorPos.align(AnchorAlign.center),
           point: element.position,
           builder: (context) => Icon(
             Icons.location_on_rounded,
@@ -64,6 +65,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
         ),
       for (var element in widget.restaurant)
         Marker(
+          anchorPos: AnchorPos.align(AnchorAlign.center),
           point: LatLng(element.lat, element.lon),
           builder: (context) => Icon(
             Icons.restaurant_rounded,
@@ -75,7 +77,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
     ];
 
     if (widget.center == null) {
-      GeolocationLogic.getCurrentLocation(askPermission: false)
+      GeolocationLogic.getCurrentLocation(
+              askPermission: false, context: context)
           .then((value) async {
         if (value != null) {
           mapController.centerOnPoint(value, zoom: 16.5);
@@ -84,54 +87,84 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
     }
     return Stack(
       children: [
-        FlutterMap(
-          options: MapOptions(
-            center: widget.center ?? MapRes.center,
-            zoom: 16.5,
-            maxZoom: MapRes.maxZoom,
-            minZoom: 0,
-          ),
-          mapController: mapController.mapController,
-          children: [
-            TileLayer(tileProvider: HybridTileProvider()),
-            if (widget.polylines.isNotEmpty &&
-                !widget.polylines.any((element) => element.points.isEmpty))
-              PolylineLayer(
-                polylines: widget.polylines,
-                polylineCulling: true,
-              ),
-            if (!kIsWeb &&
-                !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
-              const CustomCurrentLocationLayerWidget(),
-            if (markers.isNotEmpty)
-              PopupMarkerLayer(
-                  options: PopupMarkerLayerOptions(
-                markers: markers,
-                popupController: popupLayerController,
-                popupDisplayOptions: PopupDisplayOptions(
-                  builder: (BuildContext context, Marker marker) {
-                    int index = widget.batiments.indexWhere(
-                        (element) => element.position == marker.point);
-                    if (index != -1) {
-                      return BatimentPopupWidget(
-                        element: widget.batiments[index],
-                        onTap: widget.onTapNavigate,
-                        popupController: popupLayerController,
-                      );
-                    } else {
-                      index = widget.restaurant.indexWhere((element) =>
-                          element.lat == marker.point.latitude &&
-                          element.lon == marker.point.longitude);
-                      return RestaurantPopUpWidget(
-                        element: widget.restaurant[index],
-                        onTap: widget.onTapNavigate,
-                        popupController: popupLayerController,
-                      );
-                    }
-                  },
+        PopupScope(
+          popupController: popupLayerController,
+          child: FlutterMap(
+            options: MapOptions(
+              center: widget.center ?? MapRes.center,
+              zoom: 16.5,
+              maxZoom: MapRes.maxZoom,
+              minZoom: 0,
+              onTap: (_, __) => popupLayerController.hideAllPopups(),
+            ),
+            mapController: mapController.mapController,
+            children: [
+              TileLayer(tileProvider: HybridTileProvider()),
+              if (widget.polylines.isNotEmpty &&
+                  !widget.polylines.any((element) => element.points.isEmpty))
+                PolylineLayer(
+                  polylines: widget.polylines,
+                  polylineCulling: true,
                 ),
-              )),
-          ],
+              if (markers.isNotEmpty)
+                MarkerClusterLayerWidget(
+                  options: MarkerClusterLayerOptions(
+                    maxClusterRadius: 120,
+                    rotate: false,
+                    size: const Size(40, 40),
+                    spiderfyCluster: false,
+                    disableClusteringAtZoom: 15,
+                    zoomToBoundsOnClick: false,
+                    anchorPos: AnchorPos.align(AnchorAlign.center),
+                    fitBoundsOptions: const FitBoundsOptions(
+                      padding: EdgeInsets.all(50),
+                      maxZoom: 15,
+                    ),
+                    markers: markers,
+                    popupOptions: PopupOptions(
+                      popupSnap: PopupSnap.markerTop,
+                      popupController: popupLayerController,
+                      popupBuilder: (context, marker) {
+                        int index = widget.batiments.indexWhere(
+                            (element) => element.position == marker.point);
+                        if (index != -1) {
+                          return BatimentPopupWidget(
+                            element: widget.batiments[index],
+                            onTap: widget.onTapNavigate,
+                            popupController: popupLayerController,
+                          );
+                        } else {
+                          index = widget.restaurant.indexWhere((element) =>
+                              element.lat == marker.point.latitude &&
+                              element.lon == marker.point.longitude);
+                          return RestaurantPopUpWidget(
+                            element: widget.restaurant[index],
+                            onTap: widget.onTapNavigate,
+                            popupController: popupLayerController,
+                          );
+                        }
+                      },
+                    ),
+                    builder: (context, markers) {
+                      return Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Theme.of(context).primaryColor),
+                        child: Center(
+                          child: Text(
+                            markers.length.toString(),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              if (!kIsWeb &&
+                  !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
+                const CustomCurrentLocationLayerWidget(),
+            ],
+          ),
         ),
         Align(
           alignment: Alignment.bottomRight,
@@ -147,7 +180,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                   padding: EdgeInsets.all(2.h),
                   child: IconButton(
                       onPressed: () {
-                        GeolocationLogic.getCurrentLocation(askPermission: true)
+                        GeolocationLogic.getCurrentLocation(
+                                askPermission: true, context: context)
                             .then((value) {
                           setState(() {
                             if ((value != null)) {
