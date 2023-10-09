@@ -42,7 +42,7 @@ class SettingsModel extends Equatable {
   @HiveField(10)
   final bool blockTrackers;
   @HiveField(11)
-  final bool darkerMail;
+  final bool forcedMailTheme;
 
   @HiveField(12, defaultValue: [
     Functionalities.tomuss,
@@ -74,7 +74,7 @@ class SettingsModel extends Equatable {
     this.agendaId,
     this.newMailNotification = true,
     this.blockTrackers = true,
-    this.darkerMail = true,
+    this.forcedMailTheme = true,
     this.shownAgendaPopup = false,
     this.enabledFunctionalities = const [
       Functionalities.tomuss,
@@ -102,7 +102,7 @@ class SettingsModel extends Equatable {
         agendaId,
         newMailNotification,
         blockTrackers,
-        darkerMail,
+        forcedMailTheme,
         enabledFunctionalities,
         disabledFunctionalities,
         recentGradeDuration,
