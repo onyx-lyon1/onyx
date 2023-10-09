@@ -69,7 +69,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
               children: [
                 IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_upward_rounded)),
+                    icon: const Icon(Icons.arrow_back_rounded)),
                 Text(
                   "Détail de l'événement",
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
