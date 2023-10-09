@@ -73,9 +73,9 @@
         <string>This app needs FaceID access to authenticate you while using the secure auth.</string>
         <key>NSCameraUsageDescription</key>
         <string>This app needs camera access to scan QR codes</string>
-        <key>ITSAppUsesNonExemptEncryption</key>
         <key>NSMicrophoneUsageDescription</key>
         <string>Need the microphone to get camera working correctly</string>
+        <key>ITSAppUsesNonExemptEncryption</key>
         <false/>
     </dict>
 </plist>
