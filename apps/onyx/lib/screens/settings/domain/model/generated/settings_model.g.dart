@@ -29,7 +29,7 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel blockTrackers(bool blockTrackers);
 
-  SettingsModel darkerMail(bool darkerMail);
+  SettingsModel forcedMailTheme(bool forcedMailTheme);
 
   SettingsModel shownAgendaPopup(bool shownAgendaPopup);
 
@@ -63,7 +63,7 @@ abstract class _$SettingsModelCWProxy {
     int? agendaId,
     bool? newMailNotification,
     bool? blockTrackers,
-    bool? darkerMail,
+    bool? forcedMailTheme,
     bool? shownAgendaPopup,
     List<Functionalities>? enabledFunctionalities,
     List<Functionalities>? disabledFunctionalities,
@@ -122,7 +122,8 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
       this(blockTrackers: blockTrackers);
 
   @override
-  SettingsModel darkerMail(bool darkerMail) => this(darkerMail: darkerMail);
+  SettingsModel forcedMailTheme(bool forcedMailTheme) =>
+      this(forcedMailTheme: forcedMailTheme);
 
   @override
   SettingsModel shownAgendaPopup(bool shownAgendaPopup) =>
@@ -168,7 +169,7 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
     Object? agendaId = const $CopyWithPlaceholder(),
     Object? newMailNotification = const $CopyWithPlaceholder(),
     Object? blockTrackers = const $CopyWithPlaceholder(),
-    Object? darkerMail = const $CopyWithPlaceholder(),
+    Object? forcedMailTheme = const $CopyWithPlaceholder(),
     Object? shownAgendaPopup = const $CopyWithPlaceholder(),
     Object? enabledFunctionalities = const $CopyWithPlaceholder(),
     Object? disabledFunctionalities = const $CopyWithPlaceholder(),
@@ -233,11 +234,11 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
               ? _value.blockTrackers
               // ignore: cast_nullable_to_non_nullable
               : blockTrackers as bool,
-      darkerMail:
-          darkerMail == const $CopyWithPlaceholder() || darkerMail == null
-              ? _value.darkerMail
-              // ignore: cast_nullable_to_non_nullable
-              : darkerMail as bool,
+      forcedMailTheme: forcedMailTheme == const $CopyWithPlaceholder() ||
+              forcedMailTheme == null
+          ? _value.forcedMailTheme
+          // ignore: cast_nullable_to_non_nullable
+          : forcedMailTheme as bool,
       shownAgendaPopup: shownAgendaPopup == const $CopyWithPlaceholder() ||
               shownAgendaPopup == null
           ? _value.shownAgendaPopup
@@ -306,7 +307,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       agendaId: fields[8] as int?,
       newMailNotification: fields[9] as bool,
       blockTrackers: fields[10] as bool,
-      darkerMail: fields[11] as bool,
+      forcedMailTheme: fields[11] as bool,
       shownAgendaPopup: fields[18] == null ? false : fields[18] as bool,
       enabledFunctionalities: fields[12] == null
           ? [
@@ -358,7 +359,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(10)
       ..write(obj.blockTrackers)
       ..writeByte(11)
-      ..write(obj.darkerMail)
+      ..write(obj.forcedMailTheme)
       ..writeByte(12)
       ..write(obj.enabledFunctionalities)
       ..writeByte(13)
