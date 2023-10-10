@@ -37,7 +37,7 @@ class SettingsModel extends Equatable {
   final int? agendaId;
   @HiveField(19, defaultValue: 5)
   final int agendaWeekLength;
-  @HiveField(20, defaultValue: 1)
+  @HiveField(20, defaultValue: 0)
   final int agendaWeekReference;
   @HiveField(21, defaultValue: [6, 7])
   final List<int> agendaDisabledDays;
