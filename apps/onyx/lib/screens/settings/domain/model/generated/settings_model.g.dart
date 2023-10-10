@@ -380,7 +380,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       firstLogin: fields[15] == null ? true : fields[15] as bool,
       mock: fields[17] == null ? false : fields[17] as bool,
       agendaWeekLength: fields[19] == null ? 5 : fields[19] as int,
-      agendaWeekReference: fields[20] == null ? 1 : fields[20] as int,
+      agendaWeekReference: fields[20] == null ? 0 : fields[20] as int,
       agendaDisabledDays:
           fields[21] == null ? [6, 7] : (fields[21] as List).cast<int>(),
       agendaPageTopToBottom: fields[22] == null ? false : fields[22] as bool,
