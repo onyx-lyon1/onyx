@@ -135,28 +135,20 @@ class _GradeWidgetState extends State<GradeWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Flexible(
-                          flex: 1,
-                          child: Text(
-                            widget.text1,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
-                              fontSize: 16.sp,
-                            ),
+                        Text(
+                          widget.text1,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                            fontSize: 15.sp,
                           ),
                         ),
-                        Flexible(
-                          flex: 1,
-                          child: Text(
-                            widget.text2,
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
-                              fontSize: 15.sp,
-                            ),
+                        Text(
+                          widget.text2,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                            fontSize: 12.5.sp,
                           ),
                         ),
                       ],

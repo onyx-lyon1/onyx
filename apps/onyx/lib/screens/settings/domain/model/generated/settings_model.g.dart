@@ -29,7 +29,7 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel blockTrackers(bool blockTrackers);
 
-  SettingsModel darkerMail(bool darkerMail);
+  SettingsModel forcedMailTheme(bool forcedMailTheme);
 
   SettingsModel shownAgendaPopup(bool shownAgendaPopup);
 
@@ -44,6 +44,14 @@ abstract class _$SettingsModelCWProxy {
   SettingsModel firstLogin(bool firstLogin);
 
   SettingsModel mock(bool mock);
+
+  SettingsModel agendaWeekLength(int agendaWeekLength);
+
+  SettingsModel agendaWeekReference(int agendaWeekReference);
+
+  SettingsModel agendaDisabledDays(List<int> agendaDisabledDays);
+
+  SettingsModel agendaPageTopToBottom(bool agendaPageTopToBottom);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -63,13 +71,17 @@ abstract class _$SettingsModelCWProxy {
     int? agendaId,
     bool? newMailNotification,
     bool? blockTrackers,
-    bool? darkerMail,
+    bool? forcedMailTheme,
     bool? shownAgendaPopup,
     List<Functionalities>? enabledFunctionalities,
     List<Functionalities>? disabledFunctionalities,
     int? recentGradeDuration,
     bool? firstLogin,
     bool? mock,
+    int? agendaWeekLength,
+    int? agendaWeekReference,
+    List<int>? agendaDisabledDays,
+    bool? agendaPageTopToBottom,
   });
 }
 
@@ -122,7 +134,8 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
       this(blockTrackers: blockTrackers);
 
   @override
-  SettingsModel darkerMail(bool darkerMail) => this(darkerMail: darkerMail);
+  SettingsModel forcedMailTheme(bool forcedMailTheme) =>
+      this(forcedMailTheme: forcedMailTheme);
 
   @override
   SettingsModel shownAgendaPopup(bool shownAgendaPopup) =>
@@ -149,6 +162,22 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
   SettingsModel mock(bool mock) => this(mock: mock);
 
   @override
+  SettingsModel agendaWeekLength(int agendaWeekLength) =>
+      this(agendaWeekLength: agendaWeekLength);
+
+  @override
+  SettingsModel agendaWeekReference(int agendaWeekReference) =>
+      this(agendaWeekReference: agendaWeekReference);
+
+  @override
+  SettingsModel agendaDisabledDays(List<int> agendaDisabledDays) =>
+      this(agendaDisabledDays: agendaDisabledDays);
+
+  @override
+  SettingsModel agendaPageTopToBottom(bool agendaPageTopToBottom) =>
+      this(agendaPageTopToBottom: agendaPageTopToBottom);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -168,13 +197,17 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
     Object? agendaId = const $CopyWithPlaceholder(),
     Object? newMailNotification = const $CopyWithPlaceholder(),
     Object? blockTrackers = const $CopyWithPlaceholder(),
-    Object? darkerMail = const $CopyWithPlaceholder(),
+    Object? forcedMailTheme = const $CopyWithPlaceholder(),
     Object? shownAgendaPopup = const $CopyWithPlaceholder(),
     Object? enabledFunctionalities = const $CopyWithPlaceholder(),
     Object? disabledFunctionalities = const $CopyWithPlaceholder(),
     Object? recentGradeDuration = const $CopyWithPlaceholder(),
     Object? firstLogin = const $CopyWithPlaceholder(),
     Object? mock = const $CopyWithPlaceholder(),
+    Object? agendaWeekLength = const $CopyWithPlaceholder(),
+    Object? agendaWeekReference = const $CopyWithPlaceholder(),
+    Object? agendaDisabledDays = const $CopyWithPlaceholder(),
+    Object? agendaPageTopToBottom = const $CopyWithPlaceholder(),
   }) {
     return SettingsModel(
       biometricAuth:
@@ -233,11 +266,11 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
               ? _value.blockTrackers
               // ignore: cast_nullable_to_non_nullable
               : blockTrackers as bool,
-      darkerMail:
-          darkerMail == const $CopyWithPlaceholder() || darkerMail == null
-              ? _value.darkerMail
-              // ignore: cast_nullable_to_non_nullable
-              : darkerMail as bool,
+      forcedMailTheme: forcedMailTheme == const $CopyWithPlaceholder() ||
+              forcedMailTheme == null
+          ? _value.forcedMailTheme
+          // ignore: cast_nullable_to_non_nullable
+          : forcedMailTheme as bool,
       shownAgendaPopup: shownAgendaPopup == const $CopyWithPlaceholder() ||
               shownAgendaPopup == null
           ? _value.shownAgendaPopup
@@ -270,6 +303,28 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
           ? _value.mock
           // ignore: cast_nullable_to_non_nullable
           : mock as bool,
+      agendaWeekLength: agendaWeekLength == const $CopyWithPlaceholder() ||
+              agendaWeekLength == null
+          ? _value.agendaWeekLength
+          // ignore: cast_nullable_to_non_nullable
+          : agendaWeekLength as int,
+      agendaWeekReference:
+          agendaWeekReference == const $CopyWithPlaceholder() ||
+                  agendaWeekReference == null
+              ? _value.agendaWeekReference
+              // ignore: cast_nullable_to_non_nullable
+              : agendaWeekReference as int,
+      agendaDisabledDays: agendaDisabledDays == const $CopyWithPlaceholder() ||
+              agendaDisabledDays == null
+          ? _value.agendaDisabledDays
+          // ignore: cast_nullable_to_non_nullable
+          : agendaDisabledDays as List<int>,
+      agendaPageTopToBottom:
+          agendaPageTopToBottom == const $CopyWithPlaceholder() ||
+                  agendaPageTopToBottom == null
+              ? _value.agendaPageTopToBottom
+              // ignore: cast_nullable_to_non_nullable
+              : agendaPageTopToBottom as bool,
     );
   }
 }
@@ -306,7 +361,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       agendaId: fields[8] as int?,
       newMailNotification: fields[9] as bool,
       blockTrackers: fields[10] as bool,
-      darkerMail: fields[11] as bool,
+      forcedMailTheme: fields[11] as bool,
       shownAgendaPopup: fields[18] == null ? false : fields[18] as bool,
       enabledFunctionalities: fields[12] == null
           ? [
@@ -324,13 +379,18 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       recentGradeDuration: fields[14] == null ? 7 : fields[14] as int,
       firstLogin: fields[15] == null ? true : fields[15] as bool,
       mock: fields[17] == null ? false : fields[17] as bool,
+      agendaWeekLength: fields[19] == null ? 5 : fields[19] as int,
+      agendaWeekReference: fields[20] == null ? 0 : fields[20] as int,
+      agendaDisabledDays:
+          fields[21] == null ? [6, 7] : (fields[21] as List).cast<int>(),
+      agendaPageTopToBottom: fields[22] == null ? false : fields[22] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(22)
       ..writeByte(15)
       ..write(obj.firstLogin)
       ..writeByte(16)
@@ -353,12 +413,20 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..write(obj.calendarUpdateNotification)
       ..writeByte(8)
       ..write(obj.agendaId)
+      ..writeByte(19)
+      ..write(obj.agendaWeekLength)
+      ..writeByte(20)
+      ..write(obj.agendaWeekReference)
+      ..writeByte(21)
+      ..write(obj.agendaDisabledDays)
+      ..writeByte(22)
+      ..write(obj.agendaPageTopToBottom)
       ..writeByte(9)
       ..write(obj.newMailNotification)
       ..writeByte(10)
       ..write(obj.blockTrackers)
       ..writeByte(11)
-      ..write(obj.darkerMail)
+      ..write(obj.forcedMailTheme)
       ..writeByte(12)
       ..write(obj.enabledFunctionalities)
       ..writeByte(13)

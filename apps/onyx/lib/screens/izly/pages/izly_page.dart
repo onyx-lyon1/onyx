@@ -55,6 +55,8 @@ class IzlyPage extends StatelessWidget {
             break;
           case IzlyStatus.loaded:
             break;
+          case IzlyStatus.cacheLoaded:
+            break;
         }
         if (state.status != IzlyStatus.initial) {
           PageController pageController = PageController();
@@ -68,6 +70,8 @@ class IzlyPage extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Text(
+                          "${state.qrCodeAvailables} disponible${(state.qrCodeAvailables > 1) ? "s" : ""} hors ligne"),
                       SizedBox(
                         height: 60.w,
                         width: 60.w,

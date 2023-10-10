@@ -40,10 +40,14 @@ class AgendaLogic {
     }
   }
 
-  static Future<void> addRestaurant(List<Day> days) async {
+  static Future<List<Day>> addRestaurant(List<Day> days) async {
     //clean the agenda
-    for (var day in days) {
-      day.events.removeWhere((element) => element.menuCrous != null);
+    for (int i = 0; i < days.length; i++) {
+      days[i] = days[i].copyWith(
+          events: days[i]
+              .events
+              .where((element) => element.menuCrous == null)
+              .toList());
     }
     List<RestaurantModel> restaurant = await IzlyClient.getRestaurantCrous();
     CacheService.set<RestaurantListModel>(
@@ -53,87 +57,102 @@ class AgendaLogic {
       if (await IzlyLogic.isRestaurantFavourite(resto)) {
         for (var menu in resto.menus) {
           //find the free lunch time in the user agenda
-          int startLimit;
-          int endLimit;
+          DateTime startLimit;
+          DateTime endLimit;
           switch (menu.type) {
             case MenuType.matin:
-              startLimit = 7;
-              endLimit = 10;
+              startLimit = menu.date.shrink(3).add(const Duration(hours: 7));
+              endLimit = menu.date.shrink(3).add(const Duration(hours: 10));
               break;
             case MenuType.midi:
-              startLimit = 11;
-              endLimit = 14;
+              startLimit = menu.date.shrink(3).add(const Duration(hours: 11));
+              endLimit = menu.date.shrink(3).add(const Duration(hours: 14));
               break;
             case MenuType.soir:
-              startLimit = 18;
-              endLimit = 21;
+              startLimit = menu.date.shrink(3).add(const Duration(hours: 18));
+              endLimit = menu.date.shrink(3).add(const Duration(hours: 21));
               break;
           }
-          ({
-            Duration duration,
-            DateTime start,
-            DateTime end,
-            int index
-          }) lastPause = (
-            duration: Duration.zero,
-            start: menu.date.shrink(3).add(Duration(hours: startLimit + 1)),
-            end: menu.date.shrink(3).add(Duration(hours: endLimit + 2)),
-            index: 0
-          );
-          Day day = days.firstWhere((element) =>
+          startLimit = startLimit.subtract(const Duration(minutes: 1));
+          endLimit = endLimit.add(const Duration(minutes: 1));
+          int dayIndex = days.indexWhere((element) =>
               element.date.shrink(3).isAtSameMomentAs(menu.date.shrink(3)));
-          if (day.events.length == 1) {
-            if (day.events.first.start
-                    .subtract(const Duration(hours: 1))
-                    .hour >=
-                startLimit) {
-              lastPause = (
-                duration: const Duration(hours: 1),
-                start:
-                    day.events.first.start.subtract(const Duration(hours: 1)),
-                end: day.events.first.start,
-                index: 0,
-              );
-            } else {
-              lastPause = (
-                duration: const Duration(hours: 1),
-                start: day.events.first.end,
-                end: day.events.first.end.add(const Duration(hours: 1)),
-                index: 1,
-              );
-            }
-          } else {
-            for (int i = 0; i < day.events.length - 1; i++) {
-              if (day.events[i].end.hour >= startLimit &&
-                  (day.events[i + 1].start.hour <= endLimit ||
-                      day.events[i + 1].start.hour - day.events[i].end.hour >=
-                          1)) {
-                Duration duration =
-                    day.events[i + 1].start.difference(day.events[i].end);
-                if (duration >= const Duration(minutes: 30) &&
-                    duration > lastPause.duration) {
-                  lastPause = (
-                    duration: duration,
-                    start: day.events[i].end,
-                    end: day.events[i + 1].start,
-                    index: i + 1
-                  );
+          if (dayIndex != -1) {
+            Day day = days[dayIndex];
+            if (day.events.isNotEmpty) {
+              List<({DateTime start, DateTime end})> pause = [
+                (start: day.date, end: day.events.first.start)
+              ];
+              for (var i = 0; i < day.events.length - 1; i++) {
+                pause.add(
+                    (start: day.events[i].end, end: day.events[i + 1].start));
+              }
+              pause.add((
+                start: day.events.last.end,
+                end: day.date.add(const Duration(days: 1))
+              ));
+              pause.removeWhere((element) =>
+                  element.end.difference(element.start).inHours < 1);
+              for (var i in pause) {
+                bool startOk = i.start.isAfter(startLimit) &&
+                    i.start.add(const Duration(hours: 1)).isBefore(endLimit);
+                bool stopOk = i.end.isBefore(endLimit) &&
+                    i.end
+                        .subtract(const Duration(hours: 1))
+                        .isAfter(startLimit);
+                bool inTimeSlot =
+                    startLimit.isAfter(i.start) && endLimit.isBefore(i.end);
+                if (startOk || stopOk || inTimeSlot) {
+                  DateTime start =
+                      startLimit.add(const Duration(minutes: 1, hours: 1));
+                  DateTime end =
+                      endLimit.subtract(const Duration(minutes: 1, hours: 1));
+                  if (startOk && stopOk) {
+                    if (startLimit.difference(i.start) <
+                        endLimit.difference(i.end)) {
+                      start = i.start;
+                      end = start.add(const Duration(hours: 1));
+                    } else {
+                      end = i.end;
+                      start = end.subtract(const Duration(hours: 1));
+                    }
+                  } else if (startOk) {
+                    start = i.start;
+                    end = start.add(const Duration(hours: 1));
+                  } else if (stopOk) {
+                    end = i.end;
+                    start = end.subtract(const Duration(hours: 1));
+                  }
+                  menuToAdd.add((
+                    Event(
+                        location: resto.name,
+                        menuCrous: menu,
+                        teacher: "",
+                        description: "",
+                        name: menu.type.toString(),
+                        start: start,
+                        end: end,
+                        eventLastModified: DateTime.now()),
+                    pause.indexOf(i)
+                  ));
+                  break;
                 }
               }
+            } else {
+              menuToAdd.add((
+                Event(
+                    location: resto.name,
+                    menuCrous: menu,
+                    teacher: "",
+                    description: "",
+                    name: menu.type.toString(),
+                    start: startLimit.add(const Duration(minutes: 1)),
+                    end: endLimit.add(const Duration(minutes: 1)),
+                    eventLastModified: DateTime.now()),
+                0
+              ));
             }
           }
-          menuToAdd.add((
-            Event(
-                location: resto.name,
-                menuCrous: menu,
-                teacher: "",
-                description: "",
-                name: menu.type.toString(),
-                start: lastPause.start,
-                end: lastPause.end,
-                eventLastModified: DateTime.now()),
-            lastPause.index
-          ));
         }
       }
     }
@@ -146,6 +165,7 @@ class AgendaLogic {
           .events
           .insert(menu.$2, menu.$1);
     }
+    return days;
   }
 
   static final List<Day> dayListMock = [

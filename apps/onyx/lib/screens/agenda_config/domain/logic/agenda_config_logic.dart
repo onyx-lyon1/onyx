@@ -6,10 +6,11 @@ import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 
 class AgendaConfigLogic {
   static Future<List<DirModel>> loadDirs(
-      ({String encryptedData, String key}) loadData) async {
+      ({String encryptedData, String key, String iv}) loadData) async {
     List<DirModel> dirs = [];
+
     final key = Key.fromBase64(loadData.key);
-    final iv = IV.fromLength(16);
+    final iv = IV.fromBase64(loadData.iv);
     final encrypter = Encrypter(AES(key));
     final decrypted =
         encrypter.decrypt(Encrypted.fromBase64(loadData.encryptedData), iv: iv);

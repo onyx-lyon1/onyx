@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
-import 'package:onyx/core/extensions/presence_color_to_flutter_color.dart';
+import 'package:onyx/core/extensions/presence_color_extension.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -50,7 +50,7 @@ class PresenceWidget extends StatelessWidget {
                 style: TextStyle(
                   color: Theme.of(context).textTheme.bodyLarge!.color,
                   overflow: TextOverflow.ellipsis,
-                  fontSize: 20.sp,
+                  fontSize: 13.sp,
                 ),
               ),
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:onyx/core/cache_service.dart';
-import 'package:onyx/core/extensions/mail_box_extension.dart';
+import 'package:onyx/core/extensions/special_mail_box_extension.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
 
@@ -90,7 +90,6 @@ class MailLogic {
         isRead: false,
         date: DateTime(2022, 9, 1, 8),
         body: "bodyMock1",
-        blackBody: "blackBodyMock1",
         id: 1,
         receiver: "receiverMock1",
         attachments: const ["attachmentMock1", "attachmentMock2"],
@@ -102,7 +101,6 @@ class MailLogic {
         isRead: true,
         date: DateTime(2022, 9, 1, 9),
         body: "bodyMock2",
-        blackBody: "blackBodyMock2",
         id: 2,
         receiver: "receiverMock2",
         attachments: const ["attachmentMock1", "attachmentMock2"],
@@ -114,7 +112,6 @@ class MailLogic {
         isRead: false,
         date: DateTime(2022, 9, 1, 10),
         body: "bodyMock3",
-        blackBody: "blackBodyMock3",
         id: 3,
         receiver: "receiverMock3",
         attachments: const ["attachmentMock1", "attachmentMock2"],
@@ -126,7 +123,6 @@ class MailLogic {
         isRead: true,
         date: DateTime(2022, 9, 1, 11),
         body: "bodyMock4",
-        blackBody: "blackBodyMock4",
         id: 4,
         receiver: "receiverMock4",
         attachments: const ["attachmentMock1", "attachmentMock2"],
@@ -138,7 +134,6 @@ class MailLogic {
         isRead: false,
         date: DateTime(2022, 9, 1, 12),
         body: "bodyMock5",
-        blackBody: "blackBodyMock5",
         id: 5,
         receiver: "receiverMock5",
         attachments: const ["attachmentMock1", "attachmentMock2"],

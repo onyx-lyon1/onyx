@@ -50,6 +50,12 @@ class IzlyLogic {
     return true;
   }
 
+  static Future<int> getAvailableQrCodeCount() async {
+    List<IzlyQrCode> qrCodes =
+        ((await CacheService.get<IzlyQrCodeList>())?.qrCodes) ?? [];
+    return qrCodes.length;
+  }
+
   static Future<void> reloginIfNeeded(IzlyClient izlyClient) async {
     if (Res.mock) {
       return;
@@ -110,4 +116,62 @@ class IzlyLogic {
     final box = await Hive.openBox("favourite_restaurant");
     return box.get(restaurant.id, defaultValue: false);
   }
+
+  static Future<List<IzlyPaymentModel>> getUserPayments(
+      IzlyClient izlyClient) async {
+    if (Res.mock) {
+      return paymentModelListMock;
+    }
+
+    await reloginIfNeeded(izlyClient);
+
+    try {
+      return await izlyClient.getUserPayments();
+    } catch (e) {
+      return [];
+    }
+  }
+
+  static final List<IzlyPaymentModel> paymentModelListMock = [
+    IzlyPaymentModel(
+      paymentTime: "12/12/2020",
+      amountSpent: "12€",
+      isSucess: true,
+    ),
+    IzlyPaymentModel(
+      paymentTime: "12/12/2020",
+      amountSpent: "12€",
+      isSucess: false,
+    ),
+    IzlyPaymentModel(
+      paymentTime: "12/12/2020",
+      amountSpent: "12€",
+      isSucess: true,
+    ),
+    IzlyPaymentModel(
+      paymentTime: "12/12/2020",
+      amountSpent: "12€",
+      isSucess: false,
+    ),
+    IzlyPaymentModel(
+      paymentTime: "12/12/2020",
+      amountSpent: "12€",
+      isSucess: true,
+    ),
+    IzlyPaymentModel(
+      paymentTime: "12/12/2020",
+      amountSpent: "12€",
+      isSucess: true,
+    ),
+    IzlyPaymentModel(
+      paymentTime: "12/12/2020",
+      amountSpent: "12€",
+      isSucess: true,
+    ),
+    IzlyPaymentModel(
+      paymentTime: "12/12/2020",
+      amountSpent: "12€",
+      isSucess: true,
+    ),
+  ];
 }

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:onyx/core/extensions/lat_lng_inside.dart';
+import 'package:onyx/core/extensions/lat_lng_extension.dart';
 import 'package:onyx/screens/map/domain/model/graph_model.dart';
 import 'package:onyx/screens/map/domain/model/priority_queue.dart';
 import 'package:onyx/screens/map/map_export.dart';
@@ -19,7 +19,7 @@ class NavigationLogic {
     List<List<LatLng>> paths = [];
     LatLng position = (useLastLocation && GeolocationLogic.lastLocation != null)
         ? GeolocationLogic.lastLocation!
-        : (await GeolocationLogic.getCurrentLocation())!;
+        : (await GeolocationLogic.getCurrentLocation(context: context))!;
     for (var latLng in latLngs) {
       if (position.inside(MapRes.minBound, MapRes.maxBound) &&
           latLng.inside(MapRes.minBound, MapRes.maxBound)) {

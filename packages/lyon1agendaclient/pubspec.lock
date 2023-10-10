@@ -356,10 +356,11 @@ packages:
   lyon1casclient:
     dependency: "direct main"
     description:
-      path: "../lyon1casclient"
-      relative: true
-    source: path
-    version: "1.0.2"
+      name: lyon1casclient
+      sha256: "686fd85334e08cc51c14485b58efb94ebbaaff46ffa70d458a402d9eb9972276"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   matcher:
     dependency: transitive
     description:

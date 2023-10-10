@@ -21,15 +21,6 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 import 'core/widgets/states_displaying/state_displaying_widget_export.dart';
 
-// class OnyxApp extends StatelessWidget {
-//   const OnyxApp({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return const MaterialApp();
-//   }
-// }
-
 class OnyxApp extends StatefulWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -53,7 +44,6 @@ class OnyxAppState extends State<OnyxApp> {
 
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp();
     return ResponsiveSizer(
       builder: (context, orientation, deviceType) => MultiBlocProvider(
         providers: [
@@ -120,21 +110,22 @@ class OnyxAppState extends State<OnyxApp> {
                             .copyWith(firstLogin: false));
                   }
                   return MaterialApp(
-                      title: 'Onyx',
-                      navigatorKey: OnyxApp.navigatorKey,
-                      scrollBehavior: const CustomScrollBehavior(),
-                      debugShowCheckedModeBanner: false,
-                      themeMode: settingsState.settings.themeMode.themeMode,
-                      theme: OnyxTheme.lighTheme(),
-                      darkTheme: OnyxTheme.darkTheme(),
-                      home: (authState.status ==
-                                  AuthentificationStatus.authentificated ||
-                              authState.status ==
-                                  AuthentificationStatus.authentificating ||
-                              (!settingsState.settings.firstLogin &&
-                                  !settingsState.settings.biometricAuth))
-                          ? const HomePage()
-                          : LoginPage(key: UniqueKey()));
+                    title: 'Onyx',
+                    navigatorKey: OnyxApp.navigatorKey,
+                    scrollBehavior: const CustomScrollBehavior(),
+                    debugShowCheckedModeBanner: false,
+                    themeMode: settingsState.settings.themeMode.themeMode,
+                    theme: OnyxTheme.lighTheme(),
+                    darkTheme: OnyxTheme.darkTheme(),
+                    home: (authState.status ==
+                                AuthentificationStatus.authentificated ||
+                            authState.status ==
+                                AuthentificationStatus.authentificating ||
+                            (!settingsState.settings.firstLogin &&
+                                !settingsState.settings.biometricAuth))
+                        ? const HomePage()
+                        : LoginPage(key: UniqueKey()),
+                  );
                 } else {
                   context.read<SettingsCubit>().load();
                   return MaterialApp(
