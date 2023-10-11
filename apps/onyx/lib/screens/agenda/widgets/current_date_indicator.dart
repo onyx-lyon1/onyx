@@ -19,35 +19,36 @@ class CurrentDateIndicator extends StatelessWidget {
                   5) *
               (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor).h)
           .clamp(0, double.infinity),
-      child: Stack(
-        alignment: Alignment.centerLeft,
-        children: [
+      child:
+          // Stack(
+          //   alignment: Alignment.centerLeft,
+          //   children: [
+          //     Container(
+          //       height: 3.w,
+          //       width: 3.w,
+          //       decoration: BoxDecoration(
+          //         borderRadius: BorderRadius.circular(500),
+          //         color: Theme.of(context).primaryColor,
+          //       ),
+          //     ),
           Container(
-            height: 3.w,
-            width: 3.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(500),
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          Container(
-            height: 0.8.w,
-            width: columnWidth,
-            color: Theme.of(context).primaryColor,
-          ),
-          Positioned(
-            right: 0,
-            child: Container(
-              height: 3.w,
-              width: 3.w,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(500),
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-          ),
-        ],
+        height: 0.8.w,
+        width: columnWidth,
+        color: Theme.of(context).primaryColor,
       ),
+      // Positioned(
+      //   right: 0,
+      //   child: Container(
+      //     height: 3.w,
+      //     width: 3.w,
+      //     decoration: BoxDecoration(
+      //       borderRadius: BorderRadius.circular(500),
+      //       color: Theme.of(context).primaryColor,
+      //     ),
+      //   ),
+      // ),
+      //   ],
+      // ),
     );
   }
 }
