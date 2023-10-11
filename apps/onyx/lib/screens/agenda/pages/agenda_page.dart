@@ -27,9 +27,6 @@ class AgendaPage extends StatelessWidget {
                 current.status != AgendaStatus.dateUpdated &&
                 current.status != AgendaStatus.updateAnimating,
             builder: (context, state) {
-              if (kDebugMode) {
-                print("AgendaState: ${state.status}");
-              }
               Widget? headerState;
               switch (state.status) {
                 case AgendaStatus.initial:

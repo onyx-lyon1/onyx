@@ -74,6 +74,7 @@ dependencies:
     git: https://github.com/onyx-lyon1/DragAndDropLists.git
   equatable: ^2.0.5
   biometric_storage: ^5.0.0+4
+  logger: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:

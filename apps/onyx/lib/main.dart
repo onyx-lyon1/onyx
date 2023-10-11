@@ -5,7 +5,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/app.dart';
+import 'package:onyx/core/bloc_logger.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
 import 'package:workmanager/workmanager.dart';
@@ -37,6 +39,8 @@ void main() async {
   }
 
   EquatableConfig.stringify = true;
+
+  Bloc.observer = BlocLogger();
 
   runApp(const OnyxApp());
 }

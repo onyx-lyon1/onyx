@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:onyx/core/res.dart';
 
 class NotificationLogic {
   static final flutterLocalNotificationsPlugin =
@@ -10,9 +11,7 @@ class NotificationLogic {
   @pragma('vm:entry-point')
   static void notificationTapBackground(
       NotificationResponse notificationResponse) {
-    if (kDebugMode) {
-      print("background tap notification");
-    }
+    Res.logger.t("background tap notification");
   }
 
   static final initializationSettings = InitializationSettings(

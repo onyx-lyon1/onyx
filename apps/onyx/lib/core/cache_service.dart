@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:biometric_storage/biometric_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:onyx/core/res.dart';
 
 class CacheService {
   static List<int>? secureKey;
@@ -18,9 +19,7 @@ class CacheService {
       );
       return box.get("cache$index");
     } catch (e) {
-      if (kDebugMode) {
-        print("error while getting cache for $E: $e");
-      }
+      Res.logger.e("error while getting cache for $E: $e");
       await reset<E>();
       return null;
     }
@@ -37,7 +36,7 @@ class CacheService {
       await box.put("cache$index", data);
     } catch (e) {
       if (kDebugMode) {
-        print("error while getting cache for $E: $e");
+        Res.logger.e("error while setting cache for $E: $e");
       }
       await reset<E>();
     }
@@ -52,9 +51,7 @@ class CacheService {
       );
       return box.containsKey("cache$index");
     } catch (e) {
-      if (kDebugMode) {
-        print("error while getting cache for $E: $e");
-      }
+      Res.logger.e("error while checking existence of cache for $E: $e");
       await reset<E>();
       return false;
     }
@@ -118,9 +115,7 @@ class CacheService {
       secureKey = base64Url.decode(data);
       return secureKey!;
     } on AuthException catch (exception) {
-      if (kDebugMode) {
-        print("error while getting encryption key : $exception");
-      }
+      Res.logger.e("error while getting encryption key : $exception");
       if (autoRetry && exception.code == AuthExceptionCode.userCanceled) {
         return getEncryptionKey(biometricAuth, autoRetry: autoRetry);
       }

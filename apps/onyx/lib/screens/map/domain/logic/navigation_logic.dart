@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/extensions/lat_lng_extension.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/map/domain/model/graph_model.dart';
 import 'package:onyx/screens/map/domain/model/priority_queue.dart';
 import 'package:onyx/screens/map/map_export.dart';
@@ -107,9 +108,7 @@ class NavigationLogic {
     }
 
     if (costs[end] == null) {
-      if (kDebugMode) {
-        print('Could not find a path');
-      }
+      Res.logger.e('Could not find a path');
     }
 
     return predecessors;

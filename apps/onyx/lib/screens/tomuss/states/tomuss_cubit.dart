@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -87,9 +88,7 @@ class TomussCubit extends Cubit<TomussState> {
         semesters = result.semesters!;
         teachingUnits = result.schoolSubjectModel!;
       } catch (e) {
-        if (kDebugMode) {
-          print("Error while loading grades: $e");
-        }
+        Res.logger.e("Error while loading grades: $e");
         emit(state.copyWith(status: TomussStatus.error));
         _loading = false;
         return;

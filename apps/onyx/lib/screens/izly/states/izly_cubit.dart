@@ -17,9 +17,6 @@ class IzlyCubit extends Cubit<IzlyState> {
 
   void connect(
       {IzlyCredential? credential, required SettingsModel settings}) async {
-    if (kDebugMode) {
-      print("connect");
-    }
     //mock gestion
     if (Res.mock) {
       _izlyClient = IzlyClient("mockUsername", "mockPassword");

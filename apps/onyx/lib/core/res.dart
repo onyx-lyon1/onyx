@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:logger/logger.dart';
 
 part 'generated/res.g.dart';
 
@@ -38,6 +40,10 @@ class Res {
   static const Duration agendaDayDuration = Duration(
       hours: 16); // be careful to change this value accordingly to the previous
 // 22 - 6 = 16
+
+  static final logger = Logger(
+    level: (kDebugMode) ? Level.fatal : Level.all,
+  );
 }
 
 @HiveType(typeId: 18)

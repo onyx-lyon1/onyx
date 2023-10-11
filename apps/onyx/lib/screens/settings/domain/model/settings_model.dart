@@ -98,7 +98,7 @@ class SettingsModel extends Equatable {
     this.firstLogin = true,
     this.mock = false,
     this.agendaWeekLength = 5,
-    this.agendaWeekReference = 1,
+    this.agendaWeekReference = 0,
     this.agendaDisabledDays = const [6, 7],
     this.agendaPageTopToBottom = false,
   });

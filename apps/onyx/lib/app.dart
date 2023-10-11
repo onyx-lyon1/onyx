@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,105 +46,106 @@ class OnyxAppState extends State<OnyxApp> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveSizer(
-      builder: (context, orientation, deviceType) => MultiBlocProvider(
-        providers: [
-          BlocProvider<AuthentificationCubit>(
-              create: (context) => AuthentificationCubit()),
-          BlocProvider<SettingsCubit>(create: (context) => SettingsCubit()),
-          BlocProvider<EmailCubit>(create: (context) => EmailCubit()),
-          BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
-          BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
-          BlocProvider<MapCubit>(create: (context) => MapCubit()),
-          BlocProvider<IzlyCubit>(create: (context) => IzlyCubit()),
-        ],
-        child: BlocBuilder<AuthentificationCubit, AuthentificationState>(
-          builder: (context, authState) {
-            if (kDebugMode) {
-              print("Device.orientation : ${Device.orientation}");
-              print("Device.deviceType : ${Device.deviceType}");
-              print("Device.screenType : ${Device.screenType}");
-              print("Device.width : ${Device.width}");
-              print("Device.height : ${Device.height}");
-              print("Device.boxConstraints : ${Device.boxConstraints}");
-              print("Device.aspectRatio : ${Device.aspectRatio}");
-              print("Device.pixelRatio : ${Device.pixelRatio}");
-            }
+      builder: (context, orientation, deviceType) {
+        Res.logger.t("""Device.orientation : ${Device.orientation}
+Device.deviceType : ${Device.deviceType}
+Device.screenType : ${Device.screenType}
+Device.width : ${Device.width}
+Device.height : ${Device.height}
+Device.boxConstraints : ${Device.boxConstraints}
+Device.aspectRatio : ${Device.aspectRatio}
+Device.pixelRatio : ${Device.pixelRatio}                
+        """);
 
-            if (authState.status == AuthentificationStatus.authentificated) {
-              CacheService.getEncryptionKey(context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .biometricAuth)
-                  .then((key) => CacheService.get<Credential>(secureKey: key)
-                      .then((value) => context.read<EmailCubit>().connect(
-                          username: value!.username,
-                          password: value.password)));
-              if (AgendaStatus.ready !=
-                  context.read<AgendaCubit>().state.status) {
-                context.read<AgendaCubit>().load(
-                    lyon1Cas: authState.lyon1Cas,
-                    settings: context.read<SettingsCubit>().state.settings);
-              }
-              context.read<TomussCubit>().load(
-                    lyon1Cas: authState.lyon1Cas,
-                    settings: context.read<SettingsCubit>().state.settings,
-                    force: true,
-                  );
-            }
-            return BlocBuilder<SettingsCubit, SettingsState>(
-              builder: (context, settingsState) {
-                if (settingsState.status == SettingsStatus.ready ||
-                    settingsState.status == SettingsStatus.error) {
-                  if (authState.status == AuthentificationStatus.initial) {
-                    context
-                        .read<AuthentificationCubit>()
-                        .login(settings: settingsState.settings);
-                  } else if (authState.status ==
-                          AuthentificationStatus.authentificated &&
-                      settingsState.settings.firstLogin) {
-                    context.read<SettingsCubit>().modify(
-                        settings: context
-                            .read<SettingsCubit>()
-                            .state
-                            .settings
-                            .copyWith(firstLogin: false));
-                  }
-                  return MaterialApp(
-                    title: 'Onyx',
-                    navigatorKey: OnyxApp.navigatorKey,
-                    scrollBehavior: const CustomScrollBehavior(),
-                    debugShowCheckedModeBanner: false,
-                    themeMode: settingsState.settings.themeMode.themeMode,
-                    theme: OnyxTheme.lighTheme(),
-                    darkTheme: OnyxTheme.darkTheme(),
-                    home: (authState.status ==
-                                AuthentificationStatus.authentificated ||
-                            authState.status ==
-                                AuthentificationStatus.authentificating ||
-                            (!settingsState.settings.firstLogin &&
-                                !settingsState.settings.biometricAuth))
-                        ? const HomePage()
-                        : LoginPage(key: UniqueKey()),
-                  );
-                } else {
-                  context.read<SettingsCubit>().load();
-                  return MaterialApp(
-                    debugShowCheckedModeBanner: false,
-                    themeMode: settingsState.settings.themeMode.themeMode,
-                    theme: OnyxTheme.lighTheme(),
-                    darkTheme: OnyxTheme.darkTheme(),
-                    home: Scaffold(
-                        backgroundColor:
-                            OnyxTheme.darkTheme().colorScheme.background,
-                        body: const CustomCircularProgressIndicatorWidget()),
-                  );
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<AuthentificationCubit>(
+                create: (context) => AuthentificationCubit()),
+            BlocProvider<SettingsCubit>(create: (context) => SettingsCubit()),
+            BlocProvider<EmailCubit>(create: (context) => EmailCubit()),
+            BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
+            BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
+            BlocProvider<MapCubit>(create: (context) => MapCubit()),
+            BlocProvider<IzlyCubit>(create: (context) => IzlyCubit()),
+          ],
+          child: BlocBuilder<AuthentificationCubit, AuthentificationState>(
+            builder: (context, authState) {
+              if (authState.status == AuthentificationStatus.authentificated) {
+                CacheService.getEncryptionKey(context
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .biometricAuth)
+                    .then((key) => CacheService.get<Credential>(secureKey: key)
+                        .then((value) => context.read<EmailCubit>().connect(
+                            username: value!.username,
+                            password: value.password)));
+                if (AgendaStatus.ready !=
+                    context.read<AgendaCubit>().state.status) {
+                  context.read<AgendaCubit>().load(
+                      lyon1Cas: authState.lyon1Cas,
+                      settings: context.read<SettingsCubit>().state.settings);
                 }
-              },
-            );
-          },
-        ),
-      ),
+                context.read<TomussCubit>().load(
+                      lyon1Cas: authState.lyon1Cas,
+                      settings: context.read<SettingsCubit>().state.settings,
+                      force: true,
+                    );
+              }
+              return BlocBuilder<SettingsCubit, SettingsState>(
+                builder: (context, settingsState) {
+                  if (settingsState.status == SettingsStatus.ready ||
+                      settingsState.status == SettingsStatus.error) {
+                    if (authState.status == AuthentificationStatus.initial) {
+                      context
+                          .read<AuthentificationCubit>()
+                          .login(settings: settingsState.settings);
+                    } else if (authState.status ==
+                            AuthentificationStatus.authentificated &&
+                        settingsState.settings.firstLogin) {
+                      context.read<SettingsCubit>().modify(
+                          settings: context
+                              .read<SettingsCubit>()
+                              .state
+                              .settings
+                              .copyWith(firstLogin: false));
+                    }
+                    return MaterialApp(
+                      title: 'Onyx',
+                      navigatorKey: OnyxApp.navigatorKey,
+                      scrollBehavior: const CustomScrollBehavior(),
+                      debugShowCheckedModeBanner: false,
+                      themeMode: settingsState.settings.themeMode.themeMode,
+                      theme: OnyxTheme.lighTheme(),
+                      darkTheme: OnyxTheme.darkTheme(),
+                      home: (authState.status ==
+                                  AuthentificationStatus.authentificated ||
+                              authState.status ==
+                                  AuthentificationStatus.authentificating ||
+                              (!settingsState.settings.firstLogin &&
+                                  !settingsState.settings.biometricAuth))
+                          ? const HomePage()
+                          : LoginPage(key: UniqueKey()),
+                    );
+                  } else {
+                    context.read<SettingsCubit>().load();
+                    return MaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      themeMode: settingsState.settings.themeMode.themeMode,
+                      theme: OnyxTheme.lighTheme(),
+                      darkTheme: OnyxTheme.darkTheme(),
+                      home: Scaffold(
+                          backgroundColor:
+                              OnyxTheme.darkTheme().colorScheme.background,
+                          body: const CustomCircularProgressIndicatorWidget()),
+                    );
+                  }
+                },
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

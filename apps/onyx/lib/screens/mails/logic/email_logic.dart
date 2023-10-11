@@ -44,9 +44,7 @@ class MailLogic {
         specialMailBox: SpecialMailBox.inbox,
         emails: const []);
     if (emailOpt == null || emailOpt.isEmpty) {
-      if (kDebugMode) {
-        print("no Mails");
-      }
+      Res.logger.d("no Mails");
     } else {
       mailBox = mailBox.copyWith(emails: emailOpt);
     }

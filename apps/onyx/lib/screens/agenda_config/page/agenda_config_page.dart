@@ -21,9 +21,6 @@ class AgendaConfigPage extends StatelessWidget {
       create: (context) => AgendaConfigCubit(onBack: onBack),
       child: BlocBuilder<AgendaConfigCubit, AgendaConfigState>(
         builder: (context, state) {
-          if (kDebugMode) {
-            print("AgendaConfigState: ${state.status}");
-          }
           Widget? body;
           switch (state.status) {
             case AgendaConfigStatus.initial:

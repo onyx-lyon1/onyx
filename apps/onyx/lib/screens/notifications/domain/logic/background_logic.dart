@@ -5,6 +5,7 @@ import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
@@ -15,9 +16,7 @@ import 'package:workmanager/workmanager.dart';
 @pragma('vm:entry-point')
 void workmanagerHandler() {
   Workmanager().executeTask((task, inputData) async {
-    if (kDebugMode) {
-      print("task :  $task");
-    }
+    Res.logger.d("background task : $task");
     switch (task) {
       case "check update":
         return await backgroundLogic();
@@ -45,9 +44,9 @@ Future<bool> backgroundLogic({bool init = true}) async {
       int? semestreIndex;
       Semester? semestreModel;
       if (await CacheService.exist<SemesterList>()) {
-        SemesterList? semestreModelWrapper =
-            await CacheService.get<SemesterList>();
-        semestreIndex = semestreModelWrapper!.semestres.length - 1;
+        SemesterList semestreModelWrapper =
+            (await CacheService.get<SemesterList>())!;
+        semestreIndex = semestreModelWrapper.semestres.length - 1;
         semestreModel = semestreModelWrapper.semestres[semestreIndex];
       }
       if (await CacheService.exist<TeachingUnitList>(

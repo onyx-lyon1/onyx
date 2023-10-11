@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -64,9 +65,8 @@ class HeaderChildren extends StatelessWidget {
                 onTap: () => onTap(child.teachingUnit),
               ));
             } else {
-              if (kDebugMode) {
-                print("Unknown type: ${child.runtimeType}");
-              }
+              Res.logger
+                  .e("Unknown type: ${child.teachingUnitElement.runtimeType}");
             }
             widgets.add(SizedBox(width: 1.w));
           }

@@ -47,7 +47,7 @@ class EmailCubit extends Cubit<EmailState> {
             await MailLogic.connect(username: username, password: password);
         emit(state.copyWith(status: MailStatus.connected, connected: true));
       } catch (e) {
-        if (kDebugMode) print("error: $e");
+        Res.logger.e("error while connecting (email): $e");
         emit(state.copyWith(status: MailStatus.error));
       }
     }
@@ -126,9 +126,7 @@ class EmailCubit extends Cubit<EmailState> {
             emailsBoxesComplete[index].copyWith.emails(loadedMail.emails);
       }
     } catch (e) {
-      if (kDebugMode) {
-        print("error: $e");
-      }
+      Res.logger.e(e);
       emit(state.copyWith(status: MailStatus.error));
       return;
     }
@@ -394,9 +392,7 @@ class EmailCubit extends Cubit<EmailState> {
     final List<Action> actions = await mailClient!.getActions();
     if (actions.isEmpty || !state.connected) return;
     for (Action action in actions) {
-      if (kDebugMode) {
-        print("action: $action");
-      }
+      Res.logger.d("action: $action");
       currentMailBoxIndex = emailsBoxesComplete
           .indexWhere((element) => element.name == action.fromMailBox!.name);
       switch (action.type) {

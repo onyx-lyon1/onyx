@@ -20,9 +20,6 @@ class IzlyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<IzlyCubit, IzlyState>(
       builder: (context, state) {
-        if (kDebugMode) {
-          print("IzlyPage: status: ${state.status}");
-        }
         Widget? stateWidget;
         Widget body = Container();
         switch (state.status) {

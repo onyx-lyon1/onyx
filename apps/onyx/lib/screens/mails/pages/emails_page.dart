@@ -29,9 +29,6 @@ class MailsPage extends StatelessWidget {
                 context.read<SettingsCubit>().state.settings.blockTrackers);
       },
       builder: (context, state) {
-        if (kDebugMode) {
-          print("MailsState: ${state.status}");
-        }
         Widget? loadingHeader;
         switch (state.status) {
           case MailStatus.connecting:

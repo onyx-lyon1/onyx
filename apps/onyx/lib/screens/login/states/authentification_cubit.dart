@@ -9,6 +9,7 @@ import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:requests_plus/requests_plus.dart';
 
 part 'authentification_state.dart';
 
@@ -71,9 +72,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
           secureKey: key,
         );
       } catch (e) {
-        if (kDebugMode) {
-          print(e);
-        }
+        Res.logger.e(e);
         emit(
           state.copyWith(status: AuthentificationStatus.error),
         );
@@ -82,9 +81,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     } else {
       Connectivity().onConnectivityChanged.listen((event) {
         if (event != ConnectivityResult.none) {
-          if (kDebugMode) {
-            print("retrieve connection");
-          }
+          Res.logger.d("retrieve connection");
           login(creds: creds, settings: settings);
         }
       });
@@ -92,16 +89,12 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
   }
 
   Future<void> forget() async {
-    if (kDebugMode) {
-      print("forget credential");
-    }
+    Res.logger.t("forget credential");
     CacheService.reset<Credential>();
   }
 
   Future<void> logout() async {
-    if (kDebugMode) {
-      print("logout");
-    }
+    Res.logger.t("logout");
     CacheService.reset<TeachingUnitList>();
     CacheService.reset<Agenda>();
     CacheService.reset<MailBoxList>();

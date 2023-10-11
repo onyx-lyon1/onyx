@@ -55,9 +55,6 @@ class _TomussPageState extends State<TomussPage> {
     return BlocBuilder<TomussCubit, TomussState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        if (kDebugMode) {
-          print("Grades state : ${state.status}");
-        }
         Widget? loadingHeader;
         switch (state.status) {
           case TomussStatus.initial:

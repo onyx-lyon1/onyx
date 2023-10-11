@@ -48,9 +48,7 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
             } else if (child is URL) {
               widgets.add(URLWidget(url: child));
             } else {
-              if (kDebugMode) {
-                print("Unknown type: ${child.runtimeType}");
-              }
+              Res.logger.e("Unknown type: ${child.runtimeType}");
             }
           }
         }
