@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';

@@ -9,7 +9,6 @@ import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:requests_plus/requests_plus.dart';
 
 part 'authentification_state.dart';
 
