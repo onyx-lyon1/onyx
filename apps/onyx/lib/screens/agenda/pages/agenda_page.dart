@@ -19,6 +19,11 @@ class AgendaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AgendaCubit>().updateDisplayedDate(
+        wantedDate: context.read<AgendaCubit>().state.wantedDate,
+        fromMiniCalendar: false,
+        fromHorizontalScroll: false,
+        settings: context.read<SettingsCubit>().state.settings);
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, settingsState) {
         return BlocBuilder<AgendaCubit, AgendaState>(
