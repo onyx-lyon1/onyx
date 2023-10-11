@@ -9,6 +9,7 @@ import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:screenshot/screenshot.dart';
 
 class EventDetailPage extends StatefulWidget {
   final Event event;
@@ -252,18 +253,26 @@ class EventDetailText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 1.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Icon(
-            icon,
-            color: Theme.of(context).textTheme.bodyLarge!.color,
-          ),
-          SelectableText(
-            text,
-            style: Theme.of(context).textTheme.bodyLarge!,
-          ),
-        ],
+      child: SizedBox(
+        width: 90.w,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(
+              icon,
+              color: Theme.of(context).textTheme.bodyLarge!.color,
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  text,
+                  style: Theme.of(context).textTheme.bodyLarge!,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
