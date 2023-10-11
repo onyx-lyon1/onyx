@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
+import 'package:onyx/core/extensions/date_extension.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda/widgets/days_view_widget_res.dart';
@@ -64,12 +65,20 @@ class DaysViewWidget extends StatelessWidget {
                       return Row(
                         children: [
                           for (var i = 0; i < dayCount; i++)
-                            Column(
+                            Stack(
                               children: [
-                                ...buildEventWidgetList(
-                                  agendaState.days(settings)[j + i].events,
-                                  columnWidth,
-                                )
+                                Column(
+                                  children: [
+                                    ...buildEventWidgetList(
+                                      agendaState.days(settings)[j + i].events,
+                                      columnWidth,
+                                    )
+                                  ],
+                                ),
+                                if (DateTime.now().isSameDay(
+                                    agendaState.days(settings)[j + i].date))
+                                  CurrentDateIndicator(
+                                      columnWidth: columnWidth),
                               ],
                             ),
                         ],
