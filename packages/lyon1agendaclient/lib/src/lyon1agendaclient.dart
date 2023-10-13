@@ -12,7 +12,9 @@ class Lyon1AgendaClient {
   late AgendaURL _agendaURL;
   late final String _corsProxyUrl;
 
-  Lyon1AgendaClient(this._agendaURL);
+  Lyon1AgendaClient(this._agendaURL) {
+    _corsProxyUrl = "";
+  }
 
   static void registerAdapters() {
     Hive.registerAdapter(AgendaAdapter());
