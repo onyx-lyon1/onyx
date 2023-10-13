@@ -68,8 +68,7 @@ class Enumeration extends TeachingUnitElement {
     }
     modifiable = json.keys.contains("modifiable") &&
         json["modifiable"] == 2 &&
-        line[id].length > 1 &&
-        line[id][1] == user;
+        ((line[id].length > 1 && line[id][1] == user) || line[id].length <= 1);
     theId = json['the_id'] ?? "";
     lineId = column['line_id'] ?? "";
     ue = column['ue'] ?? "";
@@ -112,7 +111,7 @@ class Enumeration extends TeachingUnitElement {
   }
 
   @override
-  bool get isVisible => (value != null && value != "") || modifiable;
+  bool get isVisible => true;
 
   @override
   List<Object?> get customProps => [values, comment, modifiable, value];
