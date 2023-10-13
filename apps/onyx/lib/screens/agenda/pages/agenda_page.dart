@@ -19,11 +19,15 @@ class AgendaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<AgendaCubit>().updateDisplayedDate(
-        wantedDate: context.read<AgendaCubit>().state.wantedDate,
-        fromMiniCalendar: false,
-        fromHorizontalScroll: false,
-        settings: context.read<SettingsCubit>().state.settings);
+    int wantedDate = context.read<AgendaCubit>().state.wantedDate;
+    int weekLength =
+        context.read<SettingsCubit>().state.settings.agendaWeekLength;
+    context.read<AgendaCubit>().miniCalendarScrollController =
+        PageController(initialPage: wantedDate ~/ weekLength);
+    context.read<AgendaCubit>().horizontalScrollController[0] =
+        PageController(initialPage: wantedDate);
+    context.read<AgendaCubit>().horizontalScrollController[1] =
+        PageController(initialPage: wantedDate ~/ weekLength);
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, settingsState) {
         return BlocBuilder<AgendaCubit, AgendaState>(
