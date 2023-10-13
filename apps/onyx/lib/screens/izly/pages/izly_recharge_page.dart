@@ -27,6 +27,7 @@ class IzlyRechargePage extends StatelessWidget {
         ),
         Center(
           child: GridView(
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 30.w,
