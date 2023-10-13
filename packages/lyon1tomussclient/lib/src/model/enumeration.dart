@@ -37,8 +37,24 @@ class Enumeration extends TeachingUnitElement {
     if (json["type"] == "Bool") {
       values = ['OUI', 'NON'];
     } else {
-      values = (stats[json['the_id']]['enumeration'] ?? []).cast<String>();
+      List<String> tmpValues = [];
+      //if the elements are a list do something else do something else
+      for (var i in stats[json['the_id']]['enumeration'] ?? []) {
+        if (i is List && i.length == 2) {
+          String secondElement = "";
+          if (i[1] is int) {
+            secondElement = "(${i[1]} disponibles)";
+          } else {
+            secondElement = "(${i[1]})";
+          }
+          tmpValues.add("${i[0]} $secondElement");
+        } else {
+          tmpValues.add(i.toString());
+        }
+      }
+      values = List<String>.from(tmpValues);
     }
+
     if (line[id] is List && line[id].isNotEmpty) {
       value = line[id][0];
     } else if (json.keys.contains("empty_is")) {
