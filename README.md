@@ -73,11 +73,11 @@ To build the app, follow these steps:
 
 - #### Linux
   You will need those libraries:
-  - pkg-config
-  - libgtk3
-  - libglib2
-  - libsecret
-  
+    - pkg-config
+    - libgtk3
+    - libglib2
+    - libsecret
+
   On Debian/Ubuntu like distros, they can be installed with this single command :
   ```shell 
   sudo apt install pkg-config libgtk-3-dev libglib2.0-dev libsecret-1-dev
@@ -119,6 +119,10 @@ To set up your development environment:
 7. Run `melos test` to run unit tests for all the libraries.
 8. Run `melos analyze` to perform static analysis on the libraries and the Onyx app.
 9. To unlink everything, use `melos clean`.
+10. You may have to use the agenda ids with your keys, to prevent commiting them, you can
+    use `git update-index --assume-unchanged apps/onyx/assets/key.txt`
+    and `git update-index --assume-unchanged apps/onyx/assets/iv.txt` to ignore
+    changes to this file.
 
 ### End-to-End Testing 🧪
 
