@@ -9,7 +9,6 @@ import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:screenshot/screenshot.dart';
 
 class EventDetailPage extends StatefulWidget {
   final Event event;
