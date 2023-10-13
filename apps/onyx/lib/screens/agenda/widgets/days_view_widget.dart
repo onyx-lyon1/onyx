@@ -52,7 +52,10 @@ class DaysViewWidget extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   onPageChanged: (index) {
                     context.read<AgendaCubit>().updateDisplayedDate(
-                          wantedDate: index * dayCount,
+                          wantedDate: index * dayCount +
+                              ((context.read<AgendaCubit>().state.wantedDate +
+                                      0) %
+                                  dayCount),
                           fromMiniCalendar: false,
                           settings:
                               context.read<SettingsCubit>().state.settings,
