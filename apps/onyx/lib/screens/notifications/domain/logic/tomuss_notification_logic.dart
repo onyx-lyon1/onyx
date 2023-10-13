@@ -32,11 +32,14 @@ Future<void> tomussNotificationLogic(
                           Lyon1TomussClient.currentSemester())))
               .schoolSubjectModel!;
       for (var i in newTeachingUnits) {
-        if (teachingUnits.any((element) => element == i)) {
+        if (teachingUnits.any((element) => element.title == i.title)) {
           TeachingUnit teachingUnitModel =
-              teachingUnits.firstWhere((element) => element == i);
+              teachingUnits.firstWhere((element) => element.title == i.title);
           for (var x in i.grades) {
-            if (!teachingUnitModel.grades.any((element) => element == x)) {
+            if (!teachingUnitModel.grades.any((element) =>
+                element.title == x.title &&
+                element.numerator == x.numerator &&
+                element.denominator == x.denominator)) {
               await NotificationLogic.showNotification(
                   title: "Nouvelles notes",
                   body:
