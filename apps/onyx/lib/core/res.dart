@@ -42,7 +42,7 @@ class Res {
 // 22 - 6 = 16
 
   static final logger = Logger(
-    level: (kDebugMode) ? Level.fatal : Level.all,
+    level: (kDebugMode) ? Level.all : Level.fatal,
   );
 }
 
