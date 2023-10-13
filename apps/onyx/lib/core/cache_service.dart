@@ -35,9 +35,7 @@ class CacheService {
       );
       await box.put("cache$index", data);
     } catch (e) {
-      if (kDebugMode) {
-        Res.logger.e("error while setting cache for $E: $e");
-      }
+      Res.logger.e("error while setting cache for $E: $e");
       await reset<E>();
     }
   }
