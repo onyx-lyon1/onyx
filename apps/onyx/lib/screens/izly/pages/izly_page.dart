@@ -59,6 +59,7 @@ class IzlyPage extends StatelessWidget {
           body = PageView(
             controller: pageController,
             scrollDirection: Axis.vertical,
+            physics: const NeverScrollableScrollPhysics(),
             children: [
               Stack(
                 alignment: Alignment.center,
