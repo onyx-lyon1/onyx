@@ -59,11 +59,19 @@ class AgendaState {
             !settingsModel.agendaDisabledDays.contains(element.date.weekday))
         .toList();
 
-    int todayOffset =
-        DateTime.now().weekday - (settingsModel.agendaWeekReference + 1);
+    int todayWeekday = DateTime.now().weekday;
+    for (var i = 0; i < 7; i++) {
+      //use for to ensure that we don't loop forever
+      if (settingsModel.agendaDisabledDays.contains(todayWeekday)) {
+        todayWeekday += 1;
+      } else {
+        break;
+      }
+    }
+    int todayOffset = todayWeekday - (settingsModel.agendaWeekReference + 1);
     todayOffset = todayOffset.positiveModulo(settingsModel.agendaWeekLength);
-    int todayIndex = realDays
-        .indexWhere((element) => element.date.isSameDay(DateTime.now()));
+    int todayIndex = getDayIndex(
+        date: DateTime.now(), settings: settingsModel, useRealDays: true);
 
     if (todayIndex != -1) {
       int paddingBeforeCount = (todayOffset - todayIndex)
