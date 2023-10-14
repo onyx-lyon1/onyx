@@ -35,6 +35,23 @@ class AgendaState {
     );
   }
 
+  int getDayIndex(
+      {required DateTime date,
+      required SettingsModel settings,
+      bool useRealDays = false}) {
+    List<Day> tmpDays = (useRealDays) ? realDays : days(settings);
+    int distance = tmpDays.length;
+    int index = -1;
+
+    for (int i = 0; i < tmpDays.length; i++) {
+      if ((tmpDays[i].date.difference(date).inDays).abs() < distance) {
+        distance = (tmpDays[i].date.difference(date).inDays).abs();
+        index = i;
+      }
+    }
+    return index;
+  }
+
   List<Day> days(SettingsModel settingsModel) {
     List<Day> realDays = List.from(this.realDays);
     realDays = realDays

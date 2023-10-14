@@ -141,9 +141,7 @@ class AgendaCubit extends Cubit<AgendaState> {
       {required bool fromMiniCalendar,
       required bool fromHorizontalScroll,
       required SettingsModel settings}) {
-    int index = state
-        .days(settings)
-        .indexWhere((element) => element.date.isSameDay(DateTime.now()));
+    int index = state.getDayIndex(date: DateTime.now(), settings: settings);
     if (index != -1) {
       updateDisplayedDate(
           wantedDate: index,
