@@ -29,7 +29,7 @@ class AgendaBottomNavBarIcon extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: ((1 / 3) * constraints.maxHeight) * 0.6,
+            top: ((1 / 3) * constraints.maxHeight) * 0.7,
             child: SizedBox(
               height: ((2 / 3) * constraints.maxHeight) * 1.2,
               child: FittedBox(
