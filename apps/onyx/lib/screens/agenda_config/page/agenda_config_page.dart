@@ -145,7 +145,12 @@ class AgendaConfigPage extends StatelessWidget {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(100)),
                               onTap: () {
-                                Navigator.of(context).pop();
+                                if (state.status ==
+                                    AgendaConfigStatus.searchResult) {
+                                  context.read<AgendaConfigCubit>().unSearch();
+                                } else {
+                                  Navigator.of(context).pop();
+                                }
                               },
                               child: const Icon(
                                 Icons.arrow_back_rounded,

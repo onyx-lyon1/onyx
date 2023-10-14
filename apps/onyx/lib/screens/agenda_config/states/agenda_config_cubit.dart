@@ -59,6 +59,10 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
   }
 
   void search(String query) {
+    if (query.isEmpty) {
+      unSearch();
+      return;
+    }
     List<DirModel> foundedDirs = [];
     for (var dir = 0; dir < dirs.length; dir++) {
       if (SearchService.isMatch(
