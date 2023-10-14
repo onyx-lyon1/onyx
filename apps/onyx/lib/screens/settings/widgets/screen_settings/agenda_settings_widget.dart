@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/extensions/date_extension.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -52,8 +53,16 @@ class AgendaSettingsWidget extends StatelessWidget {
               Slider(
                 value: settings.agendaWeekLength.toDouble(),
                 onChanged: (double d) {
-                  context.read<SettingsCubit>().modify(
-                      settings: settings.copyWith(agendaWeekLength: d.toInt()));
+                  if (settings.agendaWeekRerenceAlignement >= d) {
+                    context.read<SettingsCubit>().modify(
+                        settings: settings.copyWith(
+                            agendaWeekRerenceAlignement: d.toInt() - 1,
+                            agendaWeekLength: d.toInt()));
+                  } else {
+                    context.read<SettingsCubit>().modify(
+                        settings:
+                            settings.copyWith(agendaWeekLength: d.toInt()));
+                  }
                 },
                 min: 2,
                 max: 7,
@@ -72,9 +81,27 @@ class AgendaSettingsWidget extends StatelessWidget {
                 height: 1.h,
               ),
               AgendaWeekDaySelector(
-                  colorCondition: (i) => i == settings.agendaWeekReference,
-                  onTap: (int i) => context.read<SettingsCubit>().modify(
-                      settings: settings.copyWith(agendaWeekReference: i))),
+                elements: weekDaysShort,
+                colorCondition: (i) => i == settings.agendaWeekReference,
+                disabledCondition: (i) =>
+                    settings.agendaDisabledDays.contains(i + 1),
+                onTap: (int i) => context.read<SettingsCubit>().modify(
+                      settings: settings.copyWith(agendaWeekReference: i),
+                    ),
+              ),
+              SizedBox(
+                height: 5.h,
+                child: Material(
+                  color: 8 == settings.agendaWeekReference
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).cardColor,
+                  child: InkWell(
+                    onTap: () => context.read<SettingsCubit>().modify(
+                        settings: settings.copyWith(agendaWeekReference: 8)),
+                    child: const Center(child: Text("Aujourd'hui")),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -82,23 +109,76 @@ class AgendaSettingsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Column(
             children: [
-              const Text('Jour caché en mode semaine'),
+              const Text('Alignement du Jour de référence'),
               SizedBox(
                 height: 1.h,
               ),
               AgendaWeekDaySelector(
+                  elements: List.generate(7, (index) => (index + 1).toString()),
+                  colorCondition: (i) =>
+                      i == settings.agendaWeekRerenceAlignement,
+                  disabledCondition: (i) => settings.agendaWeekLength <= i,
+                  onTap: (int i) => context.read<SettingsCubit>().modify(
+                      settings:
+                          settings.copyWith(agendaWeekRerenceAlignement: i))),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Column(
+            children: [
+              const Text('Jour caché'),
+              SizedBox(
+                height: 1.h,
+              ),
+              AgendaWeekDaySelector(
+                elements: weekDaysShort,
                 colorCondition: (i) =>
                     settings.agendaDisabledDays.contains(i + 1),
                 onTap: (int rawI) {
                   int i = rawI + 1;
-                  context.read<SettingsCubit>().modify(
-                      settings: settings.copyWith(
-                          agendaDisabledDays:
-                              settings.agendaDisabledDays.contains(i)
-                                  ? settings.agendaDisabledDays
-                                      .where((element) => element != i)
-                                      .toList()
-                                  : [...settings.agendaDisabledDays, i]));
+                  if (settings.agendaDisabledDays.contains(i)) {
+                    context.read<SettingsCubit>().modify(
+                        settings: settings.copyWith(
+                            agendaDisabledDays: settings.agendaDisabledDays
+                                .where((element) => element != i)
+                                .toList()));
+                  } else {
+                    if (settings.agendaDisabledDays.length == 6) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: const Text(
+                            'Vous ne pouvez pas cacher tous les jours'),
+                        backgroundColor: Theme.of(context).primaryColor,
+                      ));
+
+                      return;
+                    } else {
+                      if (settings.agendaWeekReference == rawI) {
+                        for (var rawj = 1; rawj < 8; rawj++) {
+                          int j = (settings.agendaWeekReference + rawj) % 7;
+                          if (!settings.agendaDisabledDays.contains(j + 1) &&
+                              j != rawI) {
+                            context.read<SettingsCubit>().modify(
+                                    settings: settings.copyWith(
+                                        agendaWeekReference: j,
+                                        agendaDisabledDays: [
+                                      ...settings.agendaDisabledDays,
+                                      i
+                                    ]));
+                            break;
+                          }
+                        }
+                      } else {
+                        context.read<SettingsCubit>().modify(
+                                settings: settings.copyWith(
+                                    agendaDisabledDays: [
+                                  ...settings.agendaDisabledDays,
+                                  i
+                                ]));
+                      }
+                    }
+                  }
                 },
               ),
             ],

@@ -4,11 +4,19 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaWeekDaySelector extends StatelessWidget {
   const AgendaWeekDaySelector(
-      {Key? key, required this.colorCondition, required this.onTap})
+      {Key? key,
+      required this.colorCondition,
+      required this.onTap,
+      this.disabledCondition,
+      required this.elements})
       : super(key: key);
 
   final bool Function(int) colorCondition;
   final Function(int) onTap;
+
+  final bool Function(int)? disabledCondition;
+
+  final List<String> elements;
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +31,22 @@ class AgendaWeekDaySelector extends StatelessWidget {
               child: Material(
                 color: colorCondition(i)
                     ? Theme.of(context).primaryColor
-                    : Theme.of(context).cardColor,
+                    : (disabledCondition?.call(i) ?? false
+                        ? Theme.of(context).colorScheme.background
+                        : Theme.of(context).cardColor),
                 child: InkWell(
-                  onTap: () => onTap(i),
-                  child: Center(child: Text(weekDaysShort[i])),
+                  onTap: disabledCondition?.call(i) ?? false
+                      ? null
+                      : () => onTap(i),
+                  child: Center(
+                    child: Text(
+                      elements[i],
+                      style: TextStyle(
+                          color: disabledCondition?.call(i) ?? false
+                              ? Theme.of(context).disabledColor
+                              : Theme.of(context).textTheme.bodyLarge?.color),
+                    ),
+                  ),
                 ),
               ),
             ),

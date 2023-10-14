@@ -39,6 +39,10 @@ class SettingsModel extends Equatable {
   final int agendaWeekLength;
   @HiveField(20, defaultValue: 0)
   final int agendaWeekReference;
+
+  @HiveField(23, defaultValue: 0)
+  final int agendaWeekRerenceAlignement;
+
   @HiveField(21, defaultValue: [6, 7])
   final List<int> agendaDisabledDays;
 
@@ -101,6 +105,7 @@ class SettingsModel extends Equatable {
     this.agendaWeekReference = 0,
     this.agendaDisabledDays = const [6, 7],
     this.agendaPageTopToBottom = false,
+    this.agendaWeekRerenceAlignement = 0,
   });
 
   @override
@@ -126,7 +131,8 @@ class SettingsModel extends Equatable {
         agendaWeekLength,
         agendaWeekReference,
         agendaDisabledDays,
-        agendaPageTopToBottom
+        agendaPageTopToBottom,
+        agendaWeekRerenceAlignement
       ];
 
   @override

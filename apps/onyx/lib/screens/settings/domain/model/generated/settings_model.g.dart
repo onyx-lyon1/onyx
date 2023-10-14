@@ -53,6 +53,8 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel agendaPageTopToBottom(bool agendaPageTopToBottom);
 
+  SettingsModel agendaWeekRerenceAlignement(int agendaWeekRerenceAlignement);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -82,6 +84,7 @@ abstract class _$SettingsModelCWProxy {
     int? agendaWeekReference,
     List<int>? agendaDisabledDays,
     bool? agendaPageTopToBottom,
+    int? agendaWeekRerenceAlignement,
   });
 }
 
@@ -178,6 +181,10 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
       this(agendaPageTopToBottom: agendaPageTopToBottom);
 
   @override
+  SettingsModel agendaWeekRerenceAlignement(int agendaWeekRerenceAlignement) =>
+      this(agendaWeekRerenceAlignement: agendaWeekRerenceAlignement);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -208,6 +215,7 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
     Object? agendaWeekReference = const $CopyWithPlaceholder(),
     Object? agendaDisabledDays = const $CopyWithPlaceholder(),
     Object? agendaPageTopToBottom = const $CopyWithPlaceholder(),
+    Object? agendaWeekRerenceAlignement = const $CopyWithPlaceholder(),
   }) {
     return SettingsModel(
       biometricAuth:
@@ -325,6 +333,12 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
               ? _value.agendaPageTopToBottom
               // ignore: cast_nullable_to_non_nullable
               : agendaPageTopToBottom as bool,
+      agendaWeekRerenceAlignement:
+          agendaWeekRerenceAlignement == const $CopyWithPlaceholder() ||
+                  agendaWeekRerenceAlignement == null
+              ? _value.agendaWeekRerenceAlignement
+              // ignore: cast_nullable_to_non_nullable
+              : agendaWeekRerenceAlignement as int,
     );
   }
 }
@@ -384,13 +398,14 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       agendaDisabledDays:
           fields[21] == null ? [6, 7] : (fields[21] as List).cast<int>(),
       agendaPageTopToBottom: fields[22] == null ? false : fields[22] as bool,
+      agendaWeekRerenceAlignement: fields[23] == null ? 0 : fields[23] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(22)
+      ..writeByte(23)
       ..writeByte(15)
       ..write(obj.firstLogin)
       ..writeByte(16)
@@ -417,6 +432,8 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..write(obj.agendaWeekLength)
       ..writeByte(20)
       ..write(obj.agendaWeekReference)
+      ..writeByte(23)
+      ..write(obj.agendaWeekRerenceAlignement)
       ..writeByte(21)
       ..write(obj.agendaDisabledDays)
       ..writeByte(22)

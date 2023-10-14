@@ -68,7 +68,15 @@ class AgendaState {
         break;
       }
     }
-    int todayOffset = todayWeekday - (settingsModel.agendaWeekReference + 1);
+    int todayOffset;
+    if (settingsModel.agendaWeekReference >= 8) {
+      todayOffset = settingsModel.agendaWeekRerenceAlignement - 2;
+    } else {
+      todayOffset = todayWeekday -
+          (settingsModel.agendaWeekReference -
+              settingsModel.agendaWeekRerenceAlignement +
+              1);
+    }
     todayOffset = todayOffset.positiveModulo(settingsModel.agendaWeekLength);
     int todayIndex = getDayIndex(
         date: DateTime.now(), settings: settingsModel, useRealDays: true);
