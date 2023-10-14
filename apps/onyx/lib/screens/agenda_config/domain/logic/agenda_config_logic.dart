@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:encrypt/encrypt.dart';
-import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 
 class AgendaConfigLogic {

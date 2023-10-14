@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/core/extensions/date_extension.dart';
+import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
@@ -19,11 +19,18 @@ void actionOnTap(
                     100.w) //simple +-1 to avoid bug
                 : 0) ==
             realIndex) {
+      List<Day> days = agendaState.days(settings);
+      int distance = days.length;
+      int index = -1;
+
+      for (int i = 0; i < days.length; i++) {
+        if ((days[i].date.difference(DateTime.now()).inDays).abs() < distance) {
+          distance = (days[i].date.difference(DateTime.now()).inDays).abs();
+          index = i;
+        }
+      }
       context.read<AgendaCubit>().updateDisplayedDate(
-            wantedDate: agendaState
-                .days(settings)
-                .indexWhere((element) => element.date.isSameDay(DateTime.now()))
-                .clamp(0, agendaState.realDays.length - 1),
+            wantedDate: index,
             fromMiniCalendar: false,
             settings: context.read<SettingsCubit>().state.settings,
             fromHorizontalScroll: false,
