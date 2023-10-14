@@ -117,6 +117,7 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
           ),
         ),
       ).then((request3ds) {
+        bool poped = false;
         String bodyString = "";
         for (String key in request3ds.body.keys) {
           bodyString = '$bodyString&$key=${request3ds.body[key]}';
@@ -130,8 +131,9 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
         controller.setNavigationDelegate(
           NavigationDelegate(
             onNavigationRequest: (NavigationRequest request) async {
-              if (request.url.contains("izly")) {
+              if (request.url.contains("izly") && !poped) {
                 Navigator.pop(context);
+                poped = true;
               }
               return NavigationDecision.navigate;
             },
