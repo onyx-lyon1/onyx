@@ -26,7 +26,8 @@ class NavigationLogic {
           latLng.inside(MapRes.minBound, MapRes.maxBound)) {
         // ignore: use_build_context_synchronously
         await _loadGraph(context);
-        List<Node> path = _findPathFromLocalGraph(graph!, position, latLng);
+        List<Node> path = await compute(_findPathFromLocalGraph,
+            (graph: graph!, start: position, vertig: latLng));
         if (path.isNotEmpty) {
           paths.add(path.map((e) => e.position).toList());
         } else {
@@ -127,10 +128,10 @@ class NavigationLogic {
   }
 
   static List<Node> _findPathFromLocalGraph(
-      Graph graph, LatLng start, LatLng vertig) {
-    var s = _nearestNode(start, graph);
-    var end = _nearestNode(vertig, graph);
-    var predecessors = _findShortestPaths(graph, s, end);
+      ({Graph graph, LatLng start, LatLng vertig}) input) {
+    var s = _nearestNode(input.start, input.graph);
+    var end = _nearestNode(input.vertig, input.graph);
+    var predecessors = _findShortestPaths(input.graph, s, end);
     return _extractShortestPathFromPredecessorList(predecessors, end);
   }
 
