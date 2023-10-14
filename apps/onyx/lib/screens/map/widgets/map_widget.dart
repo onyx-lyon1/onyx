@@ -106,6 +106,9 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                   polylines: widget.polylines,
                   polylineCulling: true,
                 ),
+              if (!kIsWeb &&
+                  !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
+                const CustomCurrentLocationLayerWidget(),
               if (markers.isNotEmpty)
                 MarkerClusterLayerWidget(
                   options: MarkerClusterLayerOptions(
@@ -160,9 +163,6 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                     },
                   ),
                 ),
-              if (!kIsWeb &&
-                  !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
-                const CustomCurrentLocationLayerWidget(),
             ],
           ),
         ),
