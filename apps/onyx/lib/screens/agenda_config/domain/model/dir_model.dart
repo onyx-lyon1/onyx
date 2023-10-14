@@ -1,9 +1,9 @@
 class DirModel {
   final String name;
   final int identifier;
-  List<DirModel>? children;
+  final List<DirModel>? children;
 
-  DirModel({
+  const DirModel({
     required this.name,
     required this.identifier,
     this.children,
