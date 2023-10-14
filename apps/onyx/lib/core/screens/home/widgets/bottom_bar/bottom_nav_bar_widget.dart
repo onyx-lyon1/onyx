@@ -24,37 +24,19 @@ class BottomNavBarWidget extends StatelessWidget {
       scrollController: scrollController,
       axisDirection: AxisDirection.right,
       builder: (context, index) {
+        SettingsModel settings = context.read<SettingsCubit>().state.settings;
         return GestureDetector(
           onTap: () => onTap(index),
           child: Container(
               width: Res.bottomNavBarItemWidth,
               padding: EdgeInsets.all(2.w),
-              child: context
-                  .read<SettingsCubit>()
-                  .state
-                  .settings
-                  .enabledFunctionalities[index %
-                      context
-                          .read<SettingsCubit>()
-                          .state
-                          .settings
-                          .enabledFunctionalities
-                          .length]
+              child: settings.enabledFunctionalities[index %
+                      settings.enabledFunctionalities.length]
                   .toBottomBarIcon(
-                      selected: ((index) %
-                              context
-                                  .read<SettingsCubit>()
-                                  .state
-                                  .settings
-                                  .enabledFunctionalities
-                                  .length ==
-                          (currentIndex) %
-                              context
-                                  .read<SettingsCubit>()
-                                  .state
-                                  .settings
-                                  .enabledFunctionalities
-                                  .length))),
+                      selected:
+                          ((index) % settings.enabledFunctionalities.length ==
+                              (currentIndex) %
+                                  settings.enabledFunctionalities.length))),
         );
       },
     );
