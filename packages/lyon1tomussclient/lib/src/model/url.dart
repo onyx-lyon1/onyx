@@ -19,7 +19,6 @@ class URL extends TeachingUnitElement {
     } else if (json.containsKey("empty_is")) {
       value = json["empty_is"];
     } else {
-      value = "";
       throw ("Couldn't find url in URL object...");
     }
   }
