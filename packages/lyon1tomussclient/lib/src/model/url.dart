@@ -13,8 +13,8 @@ class URL extends TeachingUnitElement {
   URL.fromJSON(var id, Map json, var stats, var line, var column, String user)
       : super.fromJson(id, json, stats, line, column, user) {
 
-    List props =  line[id];
-    if (props.isNotEmpty) {
+    var props = line[id];
+    if (props is List && props.isNotEmpty) {
       value = props[0].toString();
     } else if (json.containsKey("empty_is")) {
       value = json["empty_is"];
