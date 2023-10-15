@@ -20,7 +20,7 @@ class URL extends TeachingUnitElement {
       value = json["empty_is"];
     } else {
       value = "";
-      print("Couldn't find url in URL object...");
+      throw ("Couldn't find url in URL object...");
     }
   }
 
