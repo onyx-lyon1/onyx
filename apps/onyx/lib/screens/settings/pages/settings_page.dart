@@ -61,35 +61,25 @@ class _SettingsPageState extends State<SettingsPage> {
                           items: const ["système", "sombre", "clair"],
                           value: state.settings.themeMode.index,
                           onChanged: (int b) {
+                            ThemeModeEnum themeMode;
                             switch (b) {
                               case 0:
-                                context.read<SettingsCubit>().modify(
-                                    settings: context
-                                        .read<SettingsCubit>()
-                                        .state
-                                        .settings
-                                        .copyWith(
-                                            themeMode: ThemeModeEnum.system));
+                                themeMode = ThemeModeEnum.system;
                                 break;
                               case 1:
-                                context.read<SettingsCubit>().modify(
-                                    settings: context
-                                        .read<SettingsCubit>()
-                                        .state
-                                        .settings
-                                        .copyWith(
-                                            themeMode: ThemeModeEnum.dark));
+                                themeMode = ThemeModeEnum.dark;
                                 break;
                               case 2:
-                                context.read<SettingsCubit>().modify(
-                                    settings: context
-                                        .read<SettingsCubit>()
-                                        .state
-                                        .settings
-                                        .copyWith(
-                                            themeMode: ThemeModeEnum.light));
+                                themeMode = ThemeModeEnum.light;
+                                break;
+                              default:
+                                themeMode = ThemeModeEnum.system;
                                 break;
                             }
+
+                            context.read<SettingsCubit>().modify(
+                                settings: state.settings
+                                    .copyWith(themeMode: themeMode));
                           }),
                     ],
                   ),

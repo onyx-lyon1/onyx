@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:onyx/core/extensions/date_extension.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaWeekDaySelector extends StatelessWidget {
