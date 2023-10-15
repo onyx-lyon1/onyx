@@ -15,7 +15,7 @@ class MailSettingsWidget extends StatelessWidget {
         if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
             !context.read<SettingsCubit>().state.settings.biometricAuth)
           TextSwitchWidget(
-            text: 'Notification en cas de nouveau Mails',
+            text: 'Notification en cas de nouveaux mails',
             value: context
                 .read<SettingsCubit>()
                 .state

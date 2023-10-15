@@ -18,20 +18,20 @@ class SettingsSettingsWidget extends StatelessWidget {
       children: [
         if (!kIsWeb && (Platform.isIOS || Platform.isAndroid))
           TextSwitchWidget(
-            text: "Activer l'authentification par empreinte digital",
+            text: "Activer l'authentification par empreinte digitale",
             value: context.read<SettingsCubit>().state.settings.biometricAuth,
             onChanged: (value) async {
               if (value) {
-                final canAuthentificate =
+                final canAuthenticate =
                     await BiometricStorage().canAuthenticate();
-                if (canAuthentificate != CanAuthenticateResponse.success) {
+                if (canAuthenticate != CanAuthenticateResponse.success) {
                   //show alert dialog
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
                             title: const Text("Erreur"),
                             content: const Text(
-                                "Impossible d'activer l'authentification par empreinte digital"),
+                                "Impossible d'activer l'authentification par empreinte digitale"),
                             actions: [
                               TextButton(
                                   onPressed: () {
@@ -48,7 +48,7 @@ class SettingsSettingsWidget extends StatelessWidget {
                     builder: (context) => AlertDialog(
                           title: const Text("Attention"),
                           content: const Text(
-                              "L'authentification par empreinte digital désactive les notifications"),
+                              "L'authentification par empreinte digitale désactive les notifications"),
                           actions: [
                             TextButton(
                                 onPressed: () {
