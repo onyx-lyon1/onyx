@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,12 +63,17 @@ class MapCubit extends Cubit<MapState> {
   }
 
   Future<bool> updateGeolocationAutorisation() async {
-    var permission = await Geolocator.checkPermission();
-    bool result = [LocationPermission.whileInUse, LocationPermission.always]
-            .contains(permission) &&
-        await Geolocator.isLocationServiceEnabled();
-    emit(state.copyWith(geolocationAutorisation: result));
-    return result;
+    if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS))) {
+      var permission = await Geolocator.checkPermission();
+      bool result = [LocationPermission.whileInUse, LocationPermission.always]
+              .contains(permission) &&
+          await Geolocator.isLocationServiceEnabled();
+      emit(state.copyWith(geolocationAutorisation: result));
+      return result;
+    } else {
+      emit(state.copyWith(geolocationAutorisation: false));
+      return false;
+    }
   }
 
   Future<bool> askGeolocationAutorisation() async {
