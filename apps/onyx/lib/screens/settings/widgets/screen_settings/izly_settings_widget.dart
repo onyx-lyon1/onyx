@@ -13,7 +13,7 @@ class IzlySettingsWidget extends StatelessWidget {
       minWidth: MediaQuery.of(context).size.width,
       color: const Color(0xffbf616a),
       textColor: Colors.white70,
-      child: const Text('Déconnexion de izly'),
+      child: const Text('Déconnexion de Izly'),
       onPressed: () {
         CacheService.reset<IzlyCredential>();
         context.read<IzlyCubit>().disconnect();

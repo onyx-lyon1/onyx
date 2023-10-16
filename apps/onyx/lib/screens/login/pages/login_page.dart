@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 3.w, vertical: 0.5.h),
                                         child: Text(
-                                          "confidentialité",
+                                          "Confidentialité",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge!
@@ -224,7 +224,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    'Connection',
+                                    'Connexion',
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!

@@ -5,6 +5,6 @@ class MapSettingsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text("pour l'instant, rien à configurer");
+    return const Text("Pour l'instant, rien à configurer");
   }
 }

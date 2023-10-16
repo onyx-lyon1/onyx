@@ -14,7 +14,7 @@ class IzlyWorkingPage extends StatelessWidget {
       child: Scaffold(
         body: CommonScreenWidget(
           header:
-              const IzlyRechargeHeaderWidget(title: "En cour de rechargement"),
+              const IzlyRechargeHeaderWidget(title: "En cours de rechargement"),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
