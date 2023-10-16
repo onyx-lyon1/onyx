@@ -10,9 +10,17 @@ class URL extends TeachingUnitElement {
   @HiveField(2, defaultValue: "")
   late final String value;
 
-  URL.fromJSON(var id, var json, var stats, var line, var column, String user)
+  URL.fromJSON(var id, Map json, var stats, var line, var column, String user)
       : super.fromJson(id, json, stats, line, column, user) {
-    value = line[id][0].toString();
+
+    var props = line[id];
+    if (props is List && props.isNotEmpty) {
+      value = props[0].toString();
+    } else if (json.containsKey("empty_is")) {
+      value = json["empty_is"];
+    } else {
+      throw ("Couldn't find url in URL object...");
+    }
   }
 
   URL({
