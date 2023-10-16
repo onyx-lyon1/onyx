@@ -67,7 +67,7 @@ class IzlyPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                          "${state.qrCodeAvailables} disponible${(state.qrCodeAvailables > 1) ? "s" : ""} hors ligne"),
+                          "${state.qrCodeAvailables} QRCode${(state.qrCodeAvailables > 1) ? "s" : ""} disponible${(state.qrCodeAvailables > 1) ? "s" : ""} hors connexion"),
                       SizedBox(
                         height: 60.w,
                         width: 60.w,

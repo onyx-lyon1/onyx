@@ -58,7 +58,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     widgets: [
                       DropDownWidget(
                           text: 'Choisir le thème',
-                          items: const ["système", "sombre", "clair"],
+                          items: const ["Système", "Sombre", "Clair"],
                           value: state.settings.themeMode.index,
                           onChanged: (int b) {
                             ThemeModeEnum themeMode;
@@ -168,7 +168,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       },
                     )
                   ]),
-                  SettingsCardWidget(name: "Notification", widgets: [
+                  SettingsCardWidget(name: "Notifications", widgets: [
                     MaterialButton(
                       color: const Color(0xffbf616a),
                       textColor: Colors.white70,

@@ -51,7 +51,7 @@ class IzlyRechargePage extends StatelessWidget {
               ),
               IzlayRechargeCardWidget(
                 icon: Icons.person_rounded,
-                text: "Tiers",
+                text: "Rechargement par un tiers",
                 pageController: pageController,
                 child: const IzlyRechargeTiersPage(),
               ),
