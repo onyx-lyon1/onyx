@@ -301,10 +301,10 @@ packages:
     dependency: "direct main"
     description:
       name: connectivity_plus
-      sha256: "94d51c6f1299133a2baa4c5c3d2c11ec7d7fb4768dee5c52a56f7d7522fcf70e"
+      sha256: b502a681ba415272ecc41400bd04fe543ed1a62632137dc84d25a91e7746f55f
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.0"
+    version: "5.0.1"
   connectivity_plus_platform_interface:
     dependency: transitive
     description:
@@ -397,10 +397,10 @@ packages:
     dependency: transitive
     description:
       name: device_info_plus
-      sha256: "86add5ef97215562d2e090535b0a16f197902b10c369c558a100e74ea06e8659"
+      sha256: "7035152271ff67b072a211152846e9f1259cf1be41e34cd3e0b5463d2d6b8419"
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.3"
+    version: "9.1.0"
   device_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -454,10 +454,10 @@ packages:
     dependency: "direct main"
     description:
       name: enough_mail
-      sha256: b61e0c1bb0753dfc5c93969af1e5979ba4e8fbb6eba8ea45f34026aded5544f3
+      sha256: ac0e03cbaca7661ce94bfc41e9ccc537db35917473996fff1e5365d727a0f349
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.3"
   enough_mail_html:
     dependency: transitive
     description:
@@ -510,10 +510,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: be325344c1f3070354a1d84a231a1ba75ea85d413774ec4bdf444c023342e030
+      sha256: "903dd4ba13eae7cef64acc480e91bf54c3ddd23b5b90b639c170f3911e489620"
       url: "https://pub.dev"
     source: hosted
-    version: "5.5.0"
+    version: "6.0.0"
   fixnum:
     dependency: transitive
     description:
@@ -659,42 +659,42 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_map
-      sha256: "5286f72f87deb132daa1489442d6cc46e986fc105cb727d9ae1b602b35b1d1f3"
+      sha256: e625957146c7d2e847da2cdefd893d6f5315ced6ee5228d2c05fec760cab3ad7
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.0"
+    version: "6.0.0"
   flutter_map_animations:
     dependency: "direct main"
     description:
       name: flutter_map_animations
-      sha256: a08b953351e4e7112304b21c08250d3d8c69bf493ed10c8003f3fee8519da544
+      sha256: ecf56536b72d2332425ea1cb95003bdcd33ea1f5d664de43817d538476a02081
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.1"
+    version: "0.5.0"
   flutter_map_location_marker:
     dependency: "direct main"
     description:
       name: flutter_map_location_marker
-      sha256: "84464cf16ddaf089dd35a2b2a5c4be3571799d6307f4a54a7d645ab958ff3132"
+      sha256: "15a7947791e3a48ba47b3d7d06e87049c563e3ae2c5f5ad5fe29a456071086e6"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.5"
+    version: "8.0.0"
   flutter_map_marker_cluster:
     dependency: "direct main"
     description:
       name: flutter_map_marker_cluster
-      sha256: "14bb31b9dd3a759ab4a1ba320d19bbb554d8d7952c8812029c6f6b7bda956906"
+      sha256: "19cca2bf0bbe70e5bbf1213998ba7574683eeb3bb0e410e411f229301def8438"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "1.3.0"
   flutter_map_marker_popup:
     dependency: transitive
     description:
       name: flutter_map_marker_popup
-      sha256: be209c68b19d4c10d9a2f5911e45f7c579624c43a353adb9bf0f2fec0cf30b8c
+      sha256: "3ad18d4128461560ed8b4774d341a39b890bff00fa89a879b2326f4b6e8b01ac"
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.0"
+    version: "6.1.1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -707,10 +707,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: a06604f1fc9b7a023090d8fd86043a63599ab12c4207323869793d2db9ce3df6
+      sha256: "32b0a2898784ea141ebe7c43f79594798bba5adeeb9244af026aa411bcf28a75"
       url: "https://pub.dev"
     source: hosted
-    version: "7.4.9"
+    version: "7.4.12"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -908,10 +908,9 @@ packages:
   izlyclient:
     dependency: "direct main"
     description:
-      name: izlyclient
-      sha256: "4e244302fd418a7dc1632184679ac2338201dbbe94bb4637555818ce6f2ab247"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/izlyclient"
+      relative: true
+    source: path
     version: "1.0.6"
   js:
     dependency: transitive
@@ -972,34 +971,30 @@ packages:
   lyon1agendaclient:
     dependency: "direct main"
     description:
-      name: lyon1agendaclient
-      sha256: b1b6f643c4f12f3b63a6969d13d13e09577b46378eedac333d9589e6c463250b
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1agendaclient"
+      relative: true
+    source: path
     version: "1.0.6"
   lyon1casclient:
     dependency: "direct main"
     description:
-      name: lyon1casclient
-      sha256: "686fd85334e08cc51c14485b58efb94ebbaaff46ffa70d458a402d9eb9972276"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1casclient"
+      relative: true
+    source: path
     version: "1.0.6"
   lyon1mailclient:
     dependency: "direct main"
     description:
-      name: lyon1mailclient
-      sha256: "2391db253c96bf50555dfa6cb19aebec54320a54501ae3b705b6d52e6ee1003a"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1mailclient"
+      relative: true
+    source: path
     version: "1.0.6"
   lyon1tomussclient:
     dependency: "direct main"
     description:
-      name: lyon1tomussclient
-      sha256: "99238aff8ab4cf58f9769e2be1a12642b27a66e136d200ae962ff8d2deac5b91"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1tomussclient"
+      relative: true
+    source: path
     version: "1.0.6"
   matcher:
     dependency: transitive
@@ -1301,10 +1296,10 @@ packages:
     dependency: "direct main"
     description:
       name: requests_plus
-      sha256: f49c251bf868450148a3634424be19b818d3b3695d2c2e7d0e1e30e56b7c30b5
+      sha256: a87e43e5b02e502ac81858d992796a9759798d8f74578e427146ad9a0bcf1f7f
       url: "https://pub.dev"
     source: hosted
-    version: "4.8.3"
+    version: "4.8.4"
   responsive_sizer:
     dependency: "direct main"
     description:
@@ -1333,18 +1328,18 @@ packages:
     dependency: "direct main"
     description:
       name: share_plus
-      sha256: "6cec740fa0943a826951223e76218df002804adb588235a8910dc3d6b0654e11"
+      sha256: f74fc3f1cbd99f39760182e176802f693fa0ec9625c045561cfad54681ea93dd
       url: "https://pub.dev"
     source: hosted
-    version: "7.1.0"
+    version: "7.2.1"
   share_plus_platform_interface:
     dependency: transitive
     description:
       name: share_plus_platform_interface
-      sha256: "357412af4178d8e11d14f41723f80f12caea54cf0d5cd29af9dcdab85d58aea7"
+      sha256: df08bc3a07d01f5ea47b45d03ffcba1fa9cd5370fb44b3f38c70e42cced0f956
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.0"
+    version: "3.3.1"
   shelf:
     dependency: transitive
     description:
