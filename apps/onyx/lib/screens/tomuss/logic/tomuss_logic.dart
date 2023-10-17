@@ -2,8 +2,10 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/core/extensions/list_extention.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/theme/grade_color.dart';
@@ -21,10 +23,9 @@ class TomussLogic {
   static Future<
           ({
             List<Semester>? semesters,
-            List<TeachingUnit>? schoolSubjectModel,
             Duration? timeout,
           })>
-      getSemestersAndNote(
+      getSemesters(
           {required Lyon1TomussClient dartus,
           Semester? semester,
           int? semesterIndex,
@@ -36,48 +37,50 @@ class TomussLogic {
         throw "Impossible de récuperer la page de tomuss";
       }
       if (parsedPage.isTimedOut) {
-        return (
-          semesters: null,
-          schoolSubjectModel: null,
-          timeout: parsedPage.timeout
-        );
+        return (semesters: null, timeout: parsedPage.timeout);
       }
-      if (await CacheService.exist<TeachingUnitList>()) {
-        TeachingUnitList? teachingUnitList =
-            await CacheService.get<TeachingUnitList>();
-        //take all coef and apply them to the new teaching units
-        for (var i = 0; i < parsedPage.teachingunits!.length; i++) {
-          int index = teachingUnitList!.teachingUnitModels.indexWhere(
-              (element) => element.title == parsedPage.teachingunits![i].title);
-          if (index != -1) {
-            for (var j = 0;
-                j < parsedPage.teachingunits![i].grades.length;
-                j++) {
-              int index2 = teachingUnitList.teachingUnitModels[index].grades
-                  .indexWhere((element) =>
-                      element.title ==
-                      parsedPage.teachingunits![i].grades[j].title);
-              if (index2 != -1) {
-                parsedPage.teachingunits![i].grades[j] =
-                    parsedPage.teachingunits![i].grades[j].copyWith(
-                        coef: teachingUnitList
-                            .teachingUnitModels[index].grades[index2].coef);
+      if (await CacheService.exist<List<Semester>>()) {
+        List<Semester> semesters = (await CacheService.get<List<Semester>>())!;
+        if (semesters.isNotEmpty && semesters.length > (semesterIndex ?? 0)) {
+          List<TeachingUnit>? teachingUnitList =
+              semesters[semesterIndex ?? 0].teachingUnits;
+
+          //take all coef and apply them to the new teaching units
+          for (var i = 0; i < parsedPage.teachingunits!.length; i++) {
+            int index = teachingUnitList.indexWhere((element) =>
+                element.title == parsedPage.teachingunits![i].title);
+            if (index != -1) {
+              for (var j = 0;
+                  j < parsedPage.teachingunits![i].grades.length;
+                  j++) {
+                int index2 = teachingUnitList[index].grades.indexWhere(
+                    (element) =>
+                        element.title ==
+                        parsedPage.teachingunits![i].grades[j].title);
+                if (index2 != -1) {
+                  parsedPage.teachingunits![i].grades[j] =
+                      parsedPage.teachingunits![i].grades[j].copyWith(
+                          coef: teachingUnitList[index].grades[index2].coef);
+                }
               }
             }
           }
         }
       }
-      return (
-        semesters: parsedPage.semesters,
-        schoolSubjectModel: parsedPage.teachingunits,
-        timeout: null
-      );
+      if (parsedPage.semesters!.isNotEmpty) {
+        semesterIndex ??= (parsedPage.semesters!.length - 1);
+        parsedPage.semesters![semesterIndex] = parsedPage
+            .semesters![semesterIndex]
+            .copyWith(teachingUnits: parsedPage.teachingunits!);
+      }
+      return (semesters: parsedPage.semesters, timeout: null);
     } else {
       return (
         semesters: [
-          Semester("2022/Automne", Lyon1TomussClient.currentSemester())
+          Semester(Lyon1TomussClient.currentSemester().title,
+              Lyon1TomussClient.currentSemester().url,
+              teachingUnits: teachingUnitsModelListMock)
         ],
-        schoolSubjectModel: teachingUnitsModelListMock,
         timeout: null
       );
     }
@@ -88,7 +91,7 @@ class TomussLogic {
       Semester? semestre,
       bool autoRefresh = true}) async {
     return await dartus.getParsedPage(
-        semestre?.url ?? Lyon1TomussClient.currentSemester(),
+        semestre?.url ?? Lyon1TomussClient.currentSemester().url,
         autoRefresh: autoRefresh);
   }
 
@@ -98,11 +101,12 @@ class TomussLogic {
       return teachingUnitsModelListMock;
     }
     await hiveInit(path: inputData.path);
-    if (await CacheService.exist<TeachingUnitList>(
-        index: inputData.currentSemesterIndex)) {
-      return (await CacheService.get<TeachingUnitList>(
-              index: inputData.currentSemesterIndex))!
-          .teachingUnitModels;
+    if (await CacheService.exist<List<Semester>>()) {
+      List<Semester> semesters = (await CacheService.get<List<Semester>>())!;
+      semesters
+          .get(inputData.currentSemesterIndex, Semester("", ""))
+          .teachingUnits;
+      return semesters[inputData.currentSemesterIndex].teachingUnits;
     } else {
       return [];
     }
@@ -130,6 +134,16 @@ class TomussLogic {
     newElements.sort((a, b) =>
         b.teachingUnitElement.date!.compareTo(a.teachingUnitElement.date!));
     return newElements;
+  }
+
+  static Future<int?> getCurrentSemester() async {
+    Box<int> currentSemesterBox = await Hive.openBox<int>("currentSemesterBox");
+    return currentSemesterBox.get("index");
+  }
+
+  static Future<void> setCurrentSemester(int index) async {
+    Box<int> currentSemesterBox = await Hive.openBox<int>("currentSemesterBox");
+    await currentSemesterBox.put("index", index);
   }
 
   static Future<String> getDownloadLocalPath(

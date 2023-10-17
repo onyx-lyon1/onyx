@@ -10,27 +10,17 @@ Future<void> tomussNotificationLogic(
   if (settings.newGradeNotification) {
     Lyon1TomussClient tomussClient = Lyon1TomussClient(lyon1Cas);
     List<TeachingUnit> teachingUnits = [];
-    int? semestreIndex;
     Semester? semestreModel;
-    if (await CacheService.exist<SemesterList>()) {
-      SemesterList semestreModelWrapper =
-          (await CacheService.get<SemesterList>())!;
-      semestreIndex = semestreModelWrapper.semestres.length - 1;
-      semestreModel = semestreModelWrapper.semestres[semestreIndex];
-    }
-    semestreIndex ??= 0;
-    if (await CacheService.exist<TeachingUnitList>(index: semestreIndex)) {
-      teachingUnits =
-          (await CacheService.get<TeachingUnitList>(index: semestreIndex))!
-              .teachingUnitModels;
-      List<TeachingUnit> newTeachingUnits =
-          (await TomussLogic.getSemestersAndNote(
-                  dartus: tomussClient,
-                  autoRefresh: true,
-                  semester: semestreModel ??
-                      Semester("default semester",
-                          Lyon1TomussClient.currentSemester())))
-              .schoolSubjectModel!;
+    if (await CacheService.exist<List<Semester>>()) {
+      List<Semester> semesters = (await CacheService.get<List<Semester>>())!;
+      semestreModel = semesters.last;
+      teachingUnits = semestreModel.teachingUnits;
+
+      List<TeachingUnit> newTeachingUnits = (await TomussLogic.getSemesters(
+              dartus: tomussClient, autoRefresh: true, semester: semestreModel))
+          .semesters!
+          .last
+          .teachingUnits;
       for (var i in newTeachingUnits) {
         if (teachingUnits.any((element) => element.title == i.title)) {
           TeachingUnit teachingUnitModel =
@@ -58,8 +48,9 @@ Future<void> tomussNotificationLogic(
         }
       }
 
-      await CacheService.set<TeachingUnitList>(
-          TeachingUnitList(teachingUnits, semestreIndex));
+      semesters.last = semesters.last.copyWith(teachingUnits: teachingUnits);
+      await TomussLogic.setCurrentSemester(semesters.length - 1);
+      await CacheService.set<List<Semester>>(semesters);
     }
   }
 }

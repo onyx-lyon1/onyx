@@ -105,8 +105,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Text('Vider le cache des notes',
                           style: TextStyle(fontSize: 17.sp)),
                       onPressed: () {
-                        CacheService.reset<TeachingUnitList>();
-                        CacheService.reset<SemesterList>();
+                        CacheService.reset<List<TeachingUnit>>();
+                        CacheService.reset<List<Semester>>();
                         context.read<TomussCubit>().load(
                             lyon1Cas: context
                                 .read<AuthentificationCubit>()

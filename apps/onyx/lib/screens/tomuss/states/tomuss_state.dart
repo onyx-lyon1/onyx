@@ -12,7 +12,6 @@ enum TomussStatus {
 
 class TomussState extends Equatable {
   final TomussStatus status;
-  final List<TeachingUnit> teachingUnits;
   final List<Semester> semesters;
   final int currentSemesterIndex;
   final Duration? timeout;
@@ -37,7 +36,6 @@ class TomussState extends Equatable {
 
   const TomussState(
       {this.status = TomussStatus.initial,
-      this.teachingUnits = const [],
       this.semesters = const [],
       this.currentSemesterIndex = 0,
       this.timeout,
@@ -45,7 +43,6 @@ class TomussState extends Equatable {
 
   TomussState copyWith(
       {TomussStatus? status,
-      List<TeachingUnit>? teachingUnits,
       List<Semester>? semesters,
       int? currentSemesterIndex,
       Duration? timeout,
@@ -57,10 +54,13 @@ class TomussState extends Equatable {
           newElements}) {
     return TomussState(
         status: status ?? this.status,
-        teachingUnits: teachingUnits ?? this.teachingUnits,
         semesters: semesters ?? this.semesters,
         currentSemesterIndex: currentSemesterIndex ?? this.currentSemesterIndex,
         timeout: timeout ?? this.timeout,
         newElements: newElements ?? this.newElements);
+  }
+
+  List<TeachingUnit> get teachingUnits {
+    return semesters.get(currentSemesterIndex, Semester("", "")).teachingUnits;
   }
 }
