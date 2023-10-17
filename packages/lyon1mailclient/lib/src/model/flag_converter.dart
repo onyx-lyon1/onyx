@@ -34,43 +34,30 @@ extension FlagConverter on MailboxFlag {
       case MailboxFlag.marked:
         return null;
       case MailboxFlag.unMarked:
-        // TODO: Handle this case.
         break;
       case MailboxFlag.hasChildren:
-        // TODO: Handle this case.
         break;
       case MailboxFlag.hasNoChildren:
-        // TODO: Handle this case.
         break;
       case MailboxFlag.noSelect:
-        // TODO: Handle this case.
         break;
       case MailboxFlag.select:
-        // TODO: Handle this case.
         break;
       case MailboxFlag.noInferior:
-        // TODO: Handle this case.
         break;
       case MailboxFlag.subscribed:
-        // TODO: Handle this case.
         break;
       case MailboxFlag.remote:
-        // TODO: Handle this case.
         break;
       case MailboxFlag.nonExistent:
-        // TODO: Handle this case.
         break;
       case MailboxFlag.all:
-        // TODO: Handle this case.
         break;
       case MailboxFlag.drafts:
-        // TODO: Handle this case.
         break;
       case MailboxFlag.junk:
-        // TODO: Handle this case.
         break;
       case MailboxFlag.virtual:
-        // TODO: Handle this case.
         break;
     }
     return null;
