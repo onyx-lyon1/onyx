@@ -10,7 +10,8 @@ void main() async {
     env.load();
     final int icalId = int.parse(env['ICAL_ID']!);
 
-    final Lyon1AgendaClient agendaClient = Lyon1AgendaClient(AgendaURL(Lyon1CasClient()));
+    final Lyon1AgendaClient agendaClient =
+        Lyon1AgendaClient(AgendaURL(Lyon1CasClient()));
     final Agenda? agendaOpt = await agendaClient.getAgenda(id: icalId);
 
     expect(agendaOpt == null, equals(false));
@@ -26,9 +27,7 @@ void main() async {
         expect(event.description.contains("Exported"), equals(false));
         expect(event.name, isNot(isEmpty));
         //expect(event.location, isNot(isEmpty)); sometime no location is provided
-
-        // TODO: investigate
-        // expect(event.teacher, isNot(isEmpty)); // does not pass
+        //expect(event.teacher, isNot(isEmpty)); // sometime no teacher is provided
       }
     }
   });
