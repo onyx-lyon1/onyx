@@ -15,10 +15,10 @@ extension ConditionParser on String {
       String cleanCondition = "";
       for (var i = 0; i < condition.length; i++) {
         if (condition[i] == '[') {
-          if (condition[i+1] == "]") {
+          if (condition[i + 1] == "]") {
             return false;
           }
-          
+
           int j = condition.indexOf(']', i);
           if (j > 0) {
             String query = condition.substring(i + 1, j);

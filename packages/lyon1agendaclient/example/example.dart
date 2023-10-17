@@ -3,7 +3,7 @@ import 'package:lyon1casclient/lyon1casclient.dart';
 
 void main() async {
   final Lyon1AgendaClient agendaClient =
-  Lyon1AgendaClient.useLyon1Cas(Lyon1CasClient());
+      Lyon1AgendaClient.useLyon1Cas(Lyon1CasClient());
   final Agenda? agendaOpt = await agendaClient.getAgenda(id: 10069);
   if (agendaOpt == null) {
     // handle gracefully

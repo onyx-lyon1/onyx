@@ -96,7 +96,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     Res.logger.t("logout");
     CacheService.reset<TeachingUnitList>();
     CacheService.reset<Agenda>();
-    CacheService.reset<MailBoxList>();
+    CacheService.reset<List<MailBox>>();
     CacheService.reset<Credential>();
     SettingsLogic.reset();
     await _lyon1Cas.logout();
