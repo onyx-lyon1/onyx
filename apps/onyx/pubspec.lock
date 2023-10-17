@@ -1280,10 +1280,10 @@ packages:
     dependency: "direct main"
     description:
       name: qr_code_dart_scan
-      sha256: "4b5222c044700f9ecb3d1c39ca9c5cf433b508f81a0649b768628d3b5ee2ffc4"
+      sha256: ab40c5e8cf09e723fdd1c24ee23ae7187e44d958cc4b1554b4cd094845ae6989
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.2"
+    version: "0.7.3"
   quiver:
     dependency: transitive
     description:
