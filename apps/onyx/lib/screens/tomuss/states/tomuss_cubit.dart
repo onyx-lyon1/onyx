@@ -7,7 +7,6 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/extensions/list_extention.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../settings/settings_export.dart';
 
@@ -42,22 +41,17 @@ class TomussCubit extends Cubit<TomussState> {
     semestreIndex ??= await TomussLogic.getCurrentSemester();
 
     if (cache && !kIsWeb) {
-      teachingUnits = await compute(TomussLogic.getTeachingUnitsCache, (
-        path: (await getApplicationDocumentsDirectory()).path,
-        currentSemesterIndex: semestreIndex ?? 0
-      ));
-      if (teachingUnits.isNotEmpty &&
-          semesters.isNotEmpty &&
-          semesters.length > (semestreIndex ?? 0)) {
-        semesters[semestreIndex ?? 0] = semesters[semestreIndex ?? 0]
-            .copyWith(teachingUnits: teachingUnits);
+      if (semesters.isNotEmpty &&
+          semesters.length > (semestreIndex ?? 0) &&
+          semesters[(semestreIndex ?? 0)].teachingUnits.isNotEmpty) {
+        emit(state.copyWith(
+          status: TomussStatus.cacheReady,
+          semesters: semesters,
+          currentSemesterIndex: semestreIndex ?? 0,
+          newElements: TomussLogic.parseRecentElements(
+              semesters[semestreIndex ?? 0].teachingUnits, settings),
+        ));
       }
-      emit(state.copyWith(
-        status: TomussStatus.cacheReady,
-        semesters: semesters,
-        currentSemesterIndex: semestreIndex ?? 0,
-        newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
-      ));
     }
     if (_dartus != null && _dartus!.lyon1Cas.isAuthenticated) {
       try {
@@ -84,8 +78,17 @@ class TomussCubit extends Cubit<TomussState> {
           return;
         }
         semestreIndex ??= result.semesters!.indexWhereOrNull((element) =>
-            element.url == Lyon1TomussClient.currentSemester().url);
-        semesters = result.semesters!;
+                element.url == Lyon1TomussClient.currentSemester().url) ??
+            (result.semesters!.length - 1);
+        if (semesters.isNotEmpty && semesters.length > semestreIndex) {
+          semesters[semestreIndex] = result.semesters![semestreIndex];
+        } else {
+          if (semesters.isEmpty) {
+            semesters = result.semesters!;
+          } else {
+            semesters.add(result.semesters![semestreIndex]);
+          }
+        }
       } catch (e) {
         Res.logger.e("Error while loading grades: $e");
         emit(state.copyWith(status: TomussStatus.error));
@@ -93,7 +96,6 @@ class TomussCubit extends Cubit<TomussState> {
         return;
       }
       if (semesters.isNotEmpty) {
-        semestreIndex ??= semesters.length - 1;
         semesters[semestreIndex]
             .teachingUnits
             .sort((a, b) => a.title.compareTo(b.title));
