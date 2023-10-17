@@ -65,10 +65,7 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
     }
     List<DirModel> foundedDirs = [];
     for (var dir = 0; dir < dirs.length; dir++) {
-      if (SearchService.isMatch(
-          query,
-          Uri.decodeFull(
-              Uri.encodeFull(dirs[dir].name.replaceAll("\\x", "%"))))) {
+      if (SearchService.isMatch(query, dirs[dir].name)) {
         foundedDirs.add(dirs[dir]);
       } else {
         subSearch(dirs[dir], query, foundedDirs);
@@ -84,11 +81,8 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
   void subSearch(DirModel dir, String query, List<DirModel> dirs) {
     if (dir.children != null) {
       for (int directory = 0; directory < dir.children!.length; directory++) {
-        if (SearchService.isMatch(
-            query,
-            Uri.decodeFull(Uri.encodeFull(
-                    dir.children![directory].name.replaceAll("\\x", "%")))
-                .replaceAll(dir.name, ""))) {
+        if (SearchService.isMatch(query,
+            dir.children![directory].name.replaceAll("${dir.name}.", ""))) {
           dirs.add(dir.children![directory]);
         }
         subSearch(dir.children![directory], query, dirs);
