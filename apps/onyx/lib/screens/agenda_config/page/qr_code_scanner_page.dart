@@ -46,7 +46,6 @@ class QrCodeScannerPageState extends State<QrCodeScannerPage> {
               )
             : const Center(
                 child: Text(
-                  /* TODO: beautify this screen !*/
                   'Nous avons besoin de la caméra pour scanner le QR code',
                   textAlign: TextAlign.center,
                   style: TextStyle(
