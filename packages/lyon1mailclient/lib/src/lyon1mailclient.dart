@@ -166,41 +166,14 @@ class Lyon1MailClient {
       mails
           .add(Mail.fromRaw(email, removeTrackingImages: removeTrackingImages));
     }
-
     if (mailbox.name.contains("Boîte d'envoi")) {
       Box<ActionList> actionsBox = await Hive.openBox<ActionList>("cached_0");
       ActionList actionList =
           actionsBox.get("cache0") ?? ActionList(action: []);
-      // for (var action in actions) {
-      //   if (action.type == ActionType.send ||
-      //       action.type == ActionType.reply ||
-      //       action.type == ActionType.forward) {
-      //     emailsBoxesComplete
-      //         .firstWhere((element) => element.name == "Boîte d'envoi")
-      //         .emails
-      //         .add(action.mail);
-      //   }
-      // }
-      //TODO try this simpler version
-      for (Action action in actionList.action.where((element) =>
-          element.type == ActionType.send ||
-          element.type == ActionType.forward ||
-          element.type == ActionType.reply)) {
+      for (Action action in actionList.action) {
         switch (action.type) {
           case ActionType.send:
-            mails.add(Mail.fromRaw(await _buildSendEmail(
-                recipients: [Address(action.mail.receiver, "")],
-                subject: action.mail.subject,
-                body: action.mail.body,
-                attachments: action.mail.attachmentsFiles)));
-            break;
           case ActionType.forward:
-            mails.add(Mail.fromRaw(await _buildSendEmail(
-                recipients: [Address(action.mail.receiver, "")],
-                subject: action.mail.subject,
-                body: action.mail.body,
-                attachments: action.mail.attachmentsFiles)));
-            break;
           case ActionType.reply:
             mails.add(Mail.fromRaw(await _buildSendEmail(
                 recipients: [Address(action.mail.receiver, "")],
