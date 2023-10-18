@@ -15,8 +15,7 @@ class CurrentDateIndicator extends StatelessWidget {
     return Positioned(
       top: (((DateTime.now().difference(DateTime.now().shrink(3)).inMinutes /
                       60) -
-                  (Res.agendaDayStart.inMinutes / 60) -
-                  5) *
+                  (Res.agendaDayStart.inMinutes / 60)) *
               (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor).h)
           .clamp(0, double.infinity),
       child:
