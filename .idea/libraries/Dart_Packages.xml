@@ -362,6 +362,13 @@
             </list>
           </value>
         </entry>
+        <entry key="dart_earcut">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dart_earcut-1.0.1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="dart_style">
           <value>
             <list>
@@ -653,6 +660,13 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_map_tile_caching">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_map_tile_caching-9.0.0-dev.5/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_plugin_android_lifecycle">
           <value>
             <list>
@@ -841,6 +855,20 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/io-1.0.4/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="isar">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/isar-3.1.0+1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="isar_flutter_libs">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/isar_flutter_libs-3.1.0+1/lib" />
             </list>
           </value>
         </entry>
@@ -1195,6 +1223,13 @@
             </list>
           </value>
         </entry>
+        <entry key="queue">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/queue-3.1.0+2/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="quiver">
           <value>
             <list>
@@ -1205,7 +1240,7 @@
         <entry key="requests_plus">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/requests_plus-4.8.4/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/requests_plus-4.8.5/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/requests_plus-4.8.3/lib" />
             </list>
           </value>
@@ -1711,6 +1746,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/cross_file-0.3.3+5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/crypto-3.0.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/csslib-1.0.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dart_earcut-1.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dart_style-2.2.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dart_style-2.3.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dbus-0.7.8/lib" />
@@ -1754,6 +1790,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_map_location_marker-8.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_map_marker_cluster-1.3.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_map_marker_popup-6.1.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_map_tile_caching-9.0.0-dev.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.16/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_quill-7.4.12/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/frontend_server_client-3.2.0/lib" />
@@ -1781,6 +1818,8 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/image-4.1.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/intl-0.18.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/io-1.0.4/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/isar-3.1.0+1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/isar_flutter_libs-3.1.0+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/js-0.6.7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/json_annotation-4.8.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/latlong2-0.9.0/lib" />
@@ -1832,9 +1871,10 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/pubspec-2.3.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/pubspec_parse-1.2.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/qr_code_dart_scan-0.7.3/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/queue-3.1.0+2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/quiver-3.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/requests_plus-4.8.3/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/requests_plus-4.8.4/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/requests_plus-4.8.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/responsive_sizer-3.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/rxdart-0.27.7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/screenshot-2.1.0/lib" />

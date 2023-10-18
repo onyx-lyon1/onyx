@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/res.dart';
-import 'package:onyx/screens/map/domain/logic/tile_provider_logic.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/map/widgets/popup_widgets/restaurant_pop_up_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -97,7 +97,16 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
             ),
             mapController: mapController.mapController,
             children: [
-              TileLayer(tileProvider: HybridTileProvider()),
+              TileLayer(
+                tileProvider: FMTC.instance("mapStore").getTileProvider(
+                      settings: FMTCTileProviderSettings(
+                        cachedValidDuration: const Duration(days: 999999),
+                        behavior: CacheBehavior.cacheFirst,
+                      ),
+                    ),
+                urlTemplate: "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                userAgentPackageName: 'fr.onyx.lyon1',
+              ),
               if (widget.polylines.isNotEmpty &&
                   !widget.polylines.any((element) => element.points.isEmpty))
                 PolylineLayer(
