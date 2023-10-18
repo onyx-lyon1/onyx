@@ -11,7 +11,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.6
   modal_bottom_sheet: ^3.0.0-pre
   flutter_bloc: ^8.1.3
   hive_flutter: ^1.1.0
@@ -107,7 +106,15 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
   assets:
-    - assets/
+    - assets/agenda_ids.json.enc
+    - assets/batiment_lyon1.json
+    - assets/discord_Logo.png
+    - assets/icon_transparent.png
+    - assets/iv.txt
+    - assets/key.txt
+    - assets/izly.png
+    - assets/izly_mock_qr-code.png
+    - assets/key.txt
     - assets/map/
     - assets/map/14/
     - assets/map/14/8412/
@@ -225,7 +232,6 @@ flutter:
     - assets/map/19/269263/
     - assets/map/19/269264/
     - assets/map/19/269265/
-    - assets/screenshots/
 
 
   #   - images/a_dot_burr.jpeg
