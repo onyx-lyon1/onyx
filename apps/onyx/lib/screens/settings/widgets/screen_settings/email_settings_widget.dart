@@ -41,6 +41,7 @@ class MailSettingsWidget extends StatelessWidget {
                     .state
                     .settings
                     .copyWith(forcedMailTheme: b));
+            context.read<EmailCubit>().load(blockTrackers: b, cache: false);
           },
         ),
         TextSwitchWidget(
