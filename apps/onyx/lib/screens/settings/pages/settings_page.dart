@@ -105,8 +105,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Text('Vider le cache des notes',
                           style: TextStyle(fontSize: 17.sp)),
                       onPressed: () {
-                        CacheService.reset<TeachingUnitList>();
-                        CacheService.reset<SemesterList>();
+                        CacheService.reset<List<TeachingUnit>>();
+                        CacheService.reset<List<Semester>>();
                         context.read<TomussCubit>().load(
                             lyon1Cas: context
                                 .read<AuthentificationCubit>()
@@ -140,7 +140,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Text('Vider le cache des mails',
                           style: TextStyle(fontSize: 17.sp)),
                       onPressed: () {
-                        CacheService.reset<MailBoxList>();
+                        CacheService.reset<List<MailBox>>();
                         context.read<EmailCubit>().load(
                             cache: false,
                             blockTrackers: context
@@ -156,8 +156,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Text('Vider le cache de Izly',
                           style: TextStyle(fontSize: 17.sp)),
                       onPressed: () {
-                        CacheService.reset<IzlyQrCodeList>();
-                        CacheService.reset<IzlyPaymentModelList>();
+                        CacheService.reset<List<IzlyQrCode>>();
+                        CacheService.reset<List<IzlyPaymentModel>>();
                         CacheService.reset<IzlyCredential>();
                         Hive.deleteBoxFromDisk("cached_qr_code");
                         Hive.deleteBoxFromDisk("cached_izly_amount");

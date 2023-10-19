@@ -13,7 +13,7 @@ void main() async {
   final Lyon1TomussClient tomuss = Lyon1TomussClient(lyon1Cas);
 
   final ParsedPage? parsedPageOpt =
-      await tomuss.getParsedPage(Lyon1TomussClient.currentSemester());
+      await tomuss.getParsedPage(Lyon1TomussClient.currentSemester().url);
 
   if (parsedPageOpt == null) {
     print("There was an error while fetching Tomuss");

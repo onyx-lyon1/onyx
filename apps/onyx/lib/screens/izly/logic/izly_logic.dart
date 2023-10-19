@@ -11,11 +11,11 @@ class IzlyLogic {
           .buffer
           .asUint8List();
     }
-    if (!(await CacheService.exist<IzlyQrCodeList>())) {
+    if (!(await CacheService.exist<List<IzlyQrCode>>())) {
       return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
     } else {
       List<IzlyQrCode> qrCodeModels =
-          (await CacheService.get<IzlyQrCodeList>())!.qrCodes;
+          (await CacheService.get<List<IzlyQrCode>>())!;
       qrCodeModels.removeWhere(
           (element) => element.expirationDate.isBefore(DateTime.now()));
 
@@ -23,8 +23,7 @@ class IzlyLogic {
         return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
       } else {
         IzlyQrCode qrCodeModel = qrCodeModels.removeAt(0);
-        await CacheService.set<IzlyQrCodeList>(
-            IzlyQrCodeList(qrCodes: qrCodeModels));
+        await CacheService.set<List<IzlyQrCode>>(qrCodeModels);
         return qrCodeModel.qrCode;
       }
     }
@@ -34,8 +33,7 @@ class IzlyLogic {
     if (Res.mock) {
       return true;
     }
-    List<IzlyQrCode> qrCodes =
-        ((await CacheService.get<IzlyQrCodeList>())?.qrCodes) ?? [];
+    List<IzlyQrCode> qrCodes = await CacheService.get<List<IzlyQrCode>>() ?? [];
     try {
       qrCodes.addAll((await izlyClient.getNQRCode((3 - qrCodes.length)))
           .map((e) => IzlyQrCode(
@@ -43,7 +41,7 @@ class IzlyLogic {
               expirationDate: DateTime(DateTime.now().year,
                   DateTime.now().month, DateTime.now().day + 1, 14)))
           .toList());
-      await CacheService.set<IzlyQrCodeList>(IzlyQrCodeList(qrCodes: qrCodes));
+      await CacheService.set<List<IzlyQrCode>>(qrCodes);
     } catch (e) {
       return false;
     }
@@ -51,8 +49,7 @@ class IzlyLogic {
   }
 
   static Future<int> getAvailableQrCodeCount() async {
-    List<IzlyQrCode> qrCodes =
-        ((await CacheService.get<IzlyQrCodeList>())?.qrCodes) ?? [];
+    List<IzlyQrCode> qrCodes = await CacheService.get<List<IzlyQrCode>>() ?? [];
     return qrCodes.length;
   }
 

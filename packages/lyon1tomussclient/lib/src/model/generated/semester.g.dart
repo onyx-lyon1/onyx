@@ -11,6 +11,8 @@ abstract class _$SemesterCWProxy {
 
   Semester url(String url);
 
+  Semester teachingUnits(List<TeachingUnit> teachingUnits);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Semester(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -20,6 +22,7 @@ abstract class _$SemesterCWProxy {
   Semester call({
     String? title,
     String? url,
+    List<TeachingUnit>? teachingUnits,
   });
 }
 
@@ -36,6 +39,10 @@ class _$SemesterCWProxyImpl implements _$SemesterCWProxy {
   Semester url(String url) => this(url: url);
 
   @override
+  Semester teachingUnits(List<TeachingUnit> teachingUnits) =>
+      this(teachingUnits: teachingUnits);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Semester(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -46,6 +53,7 @@ class _$SemesterCWProxyImpl implements _$SemesterCWProxy {
   Semester call({
     Object? title = const $CopyWithPlaceholder(),
     Object? url = const $CopyWithPlaceholder(),
+    Object? teachingUnits = const $CopyWithPlaceholder(),
   }) {
     return Semester(
       title == const $CopyWithPlaceholder() || title == null
@@ -56,6 +64,11 @@ class _$SemesterCWProxyImpl implements _$SemesterCWProxy {
           ? _value.url
           // ignore: cast_nullable_to_non_nullable
           : url as String,
+      teachingUnits:
+          teachingUnits == const $CopyWithPlaceholder() || teachingUnits == null
+              ? _value.teachingUnits
+              // ignore: cast_nullable_to_non_nullable
+              : teachingUnits as List<TeachingUnit>,
     );
   }
 }
@@ -83,17 +96,21 @@ class SemesterAdapter extends TypeAdapter<Semester> {
     return Semester(
       fields[0] == null ? '' : fields[0] as String,
       fields[1] == null ? '' : fields[1] as String,
+      teachingUnits:
+          fields[2] == null ? [] : (fields[2] as List).cast<TeachingUnit>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Semester obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.url);
+      ..write(obj.url)
+      ..writeByte(2)
+      ..write(obj.teachingUnits);
   }
 
   @override
