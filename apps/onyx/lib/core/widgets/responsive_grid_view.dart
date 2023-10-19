@@ -3,7 +3,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ResponsiveGridView extends StatelessWidget {
   const ResponsiveGridView({
-    Key? key,
+    super.key,
     this.physics,
     this.padding,
     required this.maxCrossAxisExtent,
@@ -12,7 +12,7 @@ class ResponsiveGridView extends StatelessWidget {
     this.mainAxisSpacing = 0.0,
     this.shrinkWrap = false,
     required this.children,
-  }) : super(key: key);
+  });
   final ScrollPhysics? physics;
   final EdgeInsetsGeometry? padding;
   final double maxCrossAxisExtent;

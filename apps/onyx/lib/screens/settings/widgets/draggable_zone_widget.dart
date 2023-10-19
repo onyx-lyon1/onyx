@@ -6,7 +6,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class DraggableZoneWidget extends StatelessWidget {
-  const DraggableZoneWidget({Key? key}) : super(key: key);
+  const DraggableZoneWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

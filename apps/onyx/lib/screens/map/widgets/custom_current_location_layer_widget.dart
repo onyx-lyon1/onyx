@@ -5,8 +5,8 @@ import 'package:onyx/screens/map/states/map_cubit.dart';
 
 class CustomCurrentLocationLayerWidget extends StatelessWidget {
   const CustomCurrentLocationLayerWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

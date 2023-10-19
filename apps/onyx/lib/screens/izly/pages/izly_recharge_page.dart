@@ -4,8 +4,7 @@ import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlyRechargePage extends StatelessWidget {
-  const IzlyRechargePage({Key? key, required this.pageController})
-      : super(key: key);
+  const IzlyRechargePage({super.key, required this.pageController});
   final PageController pageController;
 
   @override

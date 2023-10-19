@@ -7,7 +7,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class IzlyRechargeTranferPage extends StatelessWidget {
-  const IzlyRechargeTranferPage({Key? key}) : super(key: key);
+  const IzlyRechargeTranferPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -17,8 +17,7 @@ DragAndDropItem screenSettingsDragAndDropItem(Functionalities functionality) {
 
 class ScreenSettingsDragAndDropContent extends StatefulWidget {
   const ScreenSettingsDragAndDropContent(
-      {Key? key, required this.functionality})
-      : super(key: key);
+      {super.key, required this.functionality});
 
   final Functionalities functionality;
 

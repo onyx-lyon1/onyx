@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MapBottomNavBarIcon extends StatelessWidget {
-  const MapBottomNavBarIcon({Key? key, required this.selected})
-      : super(key: key);
+  const MapBottomNavBarIcon({super.key, required this.selected});
+
   final bool selected;
 
   @override

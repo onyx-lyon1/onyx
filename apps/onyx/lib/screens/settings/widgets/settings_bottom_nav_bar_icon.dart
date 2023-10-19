@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SettingsBottomNavBarIcon extends StatelessWidget {
-  const SettingsBottomNavBarIcon({Key? key, required this.selected})
-      : super(key: key);
+  const SettingsBottomNavBarIcon({super.key, required this.selected});
   final bool selected;
 
   @override

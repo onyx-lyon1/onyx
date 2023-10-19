@@ -5,8 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class StateDisplayingPage extends StatelessWidget {
   final String message;
 
-  const StateDisplayingPage({Key? key, required this.message})
-      : super(key: key);
+  const StateDisplayingPage({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {

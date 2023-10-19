@@ -13,7 +13,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class MailContentWidget extends StatefulWidget {
   final Mail mail;
 
-  const MailContentWidget({Key? key, required this.mail}) : super(key: key);
+  const MailContentWidget({super.key, required this.mail});
 
   @override
   State<MailContentWidget> createState() => _MailContentWidgetState();

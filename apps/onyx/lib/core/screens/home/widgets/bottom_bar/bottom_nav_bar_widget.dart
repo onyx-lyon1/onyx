@@ -12,11 +12,11 @@ class BottomNavBarWidget extends StatelessWidget {
   final ScrollController scrollController;
 
   const BottomNavBarWidget({
-    Key? key,
+    super.key,
     required this.currentIndex,
     required this.onTap,
     required this.scrollController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AgendaBottomNavBarIcon extends StatelessWidget {
-  const AgendaBottomNavBarIcon({Key? key, required this.selected})
-      : super(key: key);
+  const AgendaBottomNavBarIcon({super.key, required this.selected});
   final bool selected;
 
   @override

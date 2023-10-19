@@ -3,12 +3,12 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MailAttachmentWidget extends StatelessWidget {
   const MailAttachmentWidget({
-    Key? key,
+    super.key,
     required this.fileName,
     required this.onTap,
     this.icon = Icons.attach_file_rounded,
     this.onLongPress,
-  }) : super(key: key);
+  });
   final String fileName;
   final VoidCallback onTap;
   final VoidCallback? onLongPress;

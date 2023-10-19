@@ -20,8 +20,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();

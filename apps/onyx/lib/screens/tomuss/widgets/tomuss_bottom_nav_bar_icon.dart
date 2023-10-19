@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TomussBottomNavBarIcon extends StatelessWidget {
-  const TomussBottomNavBarIcon({Key? key, required this.selected})
-      : super(key: key);
+  const TomussBottomNavBarIcon({super.key, required this.selected});
+
   final bool selected;
 
   @override

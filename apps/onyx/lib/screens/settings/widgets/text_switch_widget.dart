@@ -7,11 +7,11 @@ class TextSwitchWidget extends StatelessWidget {
   final bool value;
 
   const TextSwitchWidget({
-    Key? key,
+    super.key,
     required this.text,
     required this.value,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -6,8 +6,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MailHeaderWidget extends StatelessWidget {
   const MailHeaderWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

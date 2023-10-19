@@ -8,10 +8,10 @@ class SettingsCardWidget extends StatelessWidget {
   final List<Widget> widgets;
 
   const SettingsCardWidget({
-    Key? key,
+    super.key,
     required this.name,
     required this.widgets,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

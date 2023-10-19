@@ -3,12 +3,11 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaWeekDaySelector extends StatelessWidget {
   const AgendaWeekDaySelector(
-      {Key? key,
+      {super.key,
       required this.colorCondition,
       required this.onTap,
       this.disabledCondition,
-      required this.elements})
-      : super(key: key);
+      required this.elements});
 
   final bool Function(int) colorCondition;
   final Function(int) onTap;

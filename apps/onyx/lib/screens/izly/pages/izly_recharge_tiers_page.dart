@@ -6,7 +6,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlyRechargeTiersPage extends StatelessWidget {
-  const IzlyRechargeTiersPage({Key? key}) : super(key: key);
+  const IzlyRechargeTiersPage({super.key});
 
   @override
   Widget build(BuildContext context) {

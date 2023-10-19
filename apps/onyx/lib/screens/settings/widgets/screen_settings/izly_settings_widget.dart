@@ -5,7 +5,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 
 class IzlySettingsWidget extends StatelessWidget {
-  const IzlySettingsWidget({Key? key}) : super(key: key);
+  const IzlySettingsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

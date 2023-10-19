@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class IzlyBottomNavBarIconWidget extends StatelessWidget {
-  const IzlyBottomNavBarIconWidget({Key? key, required this.selected})
-      : super(key: key);
+  const IzlyBottomNavBarIconWidget({super.key, required this.selected});
   final bool selected;
 
   @override

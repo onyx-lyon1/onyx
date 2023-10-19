@@ -20,14 +20,14 @@ class GradeWidget extends StatefulWidget {
   final int depth;
 
   const GradeWidget({
-    Key? key,
+    super.key,
     required this.grades,
     required this.text1,
     required this.text2,
     required this.depth,
     this.isSeen = false,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   State<GradeWidget> createState() => _GradeWidgetState();

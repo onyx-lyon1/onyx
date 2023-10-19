@@ -11,10 +11,10 @@ class EventWidget extends StatelessWidget {
   final bool compact;
 
   const EventWidget({
-    Key? key,
+    super.key,
     required this.event,
     this.compact = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

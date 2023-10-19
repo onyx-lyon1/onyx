@@ -5,12 +5,11 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlayRechargeCardWidget extends StatelessWidget {
   const IzlayRechargeCardWidget(
-      {Key? key,
+      {super.key,
       required this.icon,
       required this.text,
       required this.child,
-      required this.pageController})
-      : super(key: key);
+      required this.pageController});
   final IconData icon;
   final String text;
   final Widget child;

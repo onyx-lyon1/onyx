@@ -7,8 +7,8 @@ import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MapSearchAutocompleteWidget extends StatelessWidget {
-  const MapSearchAutocompleteWidget({Key? key, required this.controller})
-      : super(key: key);
+  const MapSearchAutocompleteWidget({super.key, required this.controller});
+
   final TextEditingController controller;
 
   @override

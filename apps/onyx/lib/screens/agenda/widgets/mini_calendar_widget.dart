@@ -10,9 +10,9 @@ class MiniCalendarWidget extends StatelessWidget {
   final PageController scrollController;
 
   const MiniCalendarWidget({
-    Key? key,
+    super.key,
     required this.scrollController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class HeaderChildren extends StatelessWidget {
-  const HeaderChildren({Key? key, required this.onTap}) : super(key: key);
+  const HeaderChildren({super.key, required this.onTap});
   final Function(TeachingUnit teachingUnit) onTap;
 
   @override

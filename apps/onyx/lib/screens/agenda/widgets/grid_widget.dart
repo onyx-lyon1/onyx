@@ -6,8 +6,7 @@ import 'days_view_widget_res.dart';
 
 class GridWidget extends StatelessWidget {
   const GridWidget(
-      {Key? key, required this.columnWidth, required this.dayCount})
-      : super(key: key);
+      {super.key, required this.columnWidth, required this.dayCount});
 
   final double columnWidth;
   final int dayCount;

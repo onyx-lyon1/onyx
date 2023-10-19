@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 class TomussSettingsWidget extends StatelessWidget {
-  const TomussSettingsWidget({Key? key}) : super(key: key);
+  const TomussSettingsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

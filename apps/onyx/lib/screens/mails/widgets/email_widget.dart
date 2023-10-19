@@ -37,7 +37,7 @@ class MailWidget extends StatelessWidget {
     return Theme.of(c).primaryColor.withOpacity(0.7);
   }
 
-  const MailWidget({Key? key, required this.email}) : super(key: key);
+  const MailWidget({super.key, required this.email});
 
   String _firstLetter(String sender) {
     return sender.isNotEmpty ? sender[0] : '-';

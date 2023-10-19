@@ -5,8 +5,7 @@ import 'package:onyx/screens/agenda/widgets/days_view_widget_res.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CurrentDateIndicator extends StatelessWidget {
-  const CurrentDateIndicator({Key? key, required this.columnWidth})
-      : super(key: key);
+  const CurrentDateIndicator({super.key, required this.columnWidth});
 
   final double columnWidth;
 

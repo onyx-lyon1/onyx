@@ -4,7 +4,7 @@ import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlyWorkingPage extends StatelessWidget {
-  const IzlyWorkingPage({Key? key, required this.callback}) : super(key: key);
+  const IzlyWorkingPage({super.key, required this.callback});
   final Future<dynamic> Function() callback;
 
   @override

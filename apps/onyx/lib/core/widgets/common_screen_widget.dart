@@ -9,8 +9,7 @@ class CommonScreenWidget extends StatelessWidget {
   final Future<void> Function()? onRefresh;
 
   const CommonScreenWidget(
-      {Key? key, this.header, required this.body, this.state, this.onRefresh})
-      : super(key: key);
+      {super.key, this.header, required this.body, this.state, this.onRefresh});
 
   @override
   Widget build(BuildContext context) {

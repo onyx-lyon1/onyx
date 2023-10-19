@@ -9,13 +9,13 @@ class InfiniteScrollLoopWidget extends StatelessWidget {
   final void Function(double)? onChange;
 
   const InfiniteScrollLoopWidget({
-    Key? key,
+    super.key,
     required this.scrollController,
     required this.axisDirection,
     required this.builder,
     this.onChange,
     this.physics = const ScrollPhysics(),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

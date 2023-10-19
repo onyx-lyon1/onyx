@@ -4,7 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsLinkWidget extends StatelessWidget {
-  const SettingsLinkWidget({Key? key}) : super(key: key);
+  const SettingsLinkWidget({super.key});
 
   //https://oloid.clementherve.fr/
 

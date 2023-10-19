@@ -15,14 +15,14 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MapWidget extends StatefulWidget {
   const MapWidget(
-      {Key? key,
+      {super.key,
       this.batiments = const [],
       this.polylines = const [],
       this.restaurant = const [],
       required this.onTapNavigate,
       this.mapController,
-      this.center})
-      : super(key: key);
+      this.center});
+
   final List<BatimentModel> batiments;
   final List<RestaurantModel> restaurant;
   final List<Polyline> polylines;

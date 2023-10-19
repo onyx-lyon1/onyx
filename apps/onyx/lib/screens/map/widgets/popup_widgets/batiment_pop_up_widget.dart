@@ -5,11 +5,11 @@ import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 
 class BatimentPopupWidget extends StatelessWidget {
   const BatimentPopupWidget(
-      {Key? key,
+      {super.key,
       required this.element,
       required this.onTap,
-      required this.popupController})
-      : super(key: key);
+      required this.popupController});
+
   final BatimentModel element;
   final void Function(LatLng) onTap;
   final PopupController popupController;

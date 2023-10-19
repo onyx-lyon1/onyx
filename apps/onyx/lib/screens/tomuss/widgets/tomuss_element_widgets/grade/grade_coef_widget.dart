@@ -6,9 +6,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class GradeCoefWidget extends StatefulWidget {
   const GradeCoefWidget({
-    Key? key,
+    super.key,
     required this.grade,
-  }) : super(key: key);
+  });
 
   final Grade grade;
 

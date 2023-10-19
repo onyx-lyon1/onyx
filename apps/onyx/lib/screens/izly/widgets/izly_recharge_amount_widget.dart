@@ -3,11 +3,10 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlyRechargeAmountWidget extends StatelessWidget {
   const IzlyRechargeAmountWidget(
-      {Key? key,
+      {super.key,
       required this.min,
       required this.controller,
-      required this.onSaved})
-      : super(key: key);
+      required this.onSaved});
   final double min;
   final TextEditingController controller;
   final VoidCallback onSaved;
@@ -97,14 +96,13 @@ class IzlyRechargeAmountWidget extends StatelessWidget {
 
 class IzlyRechargeAmountExampleValuesWidget extends StatelessWidget {
   const IzlyRechargeAmountExampleValuesWidget(
-      {Key? key,
+      {super.key,
       this.top,
       this.left,
       this.right,
       this.bottom,
       required this.controller,
-      required this.value})
-      : super(key: key);
+      required this.value});
   final double? top;
   final double? left;
   final double? right;

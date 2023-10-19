@@ -8,8 +8,7 @@ import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MailSendAutocompleteWidget extends StatelessWidget {
-  const MailSendAutocompleteWidget({Key? key, required this.destinationEditor})
-      : super(key: key);
+  const MailSendAutocompleteWidget({super.key, required this.destinationEditor});
   final TextEditingController destinationEditor;
 
   @override

@@ -6,11 +6,10 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class EnumerationCompactWidget extends StatelessWidget {
   const EnumerationCompactWidget(
-      {Key? key,
+      {super.key,
       required this.enumeration,
       required this.onTap,
-      required this.teachingUnitTitle})
-      : super(key: key);
+      required this.teachingUnitTitle});
 
   final Enumeration enumeration;
   final String teachingUnitTitle;

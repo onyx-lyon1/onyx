@@ -7,8 +7,7 @@ class LoadingHeaderWidget extends StatelessWidget {
   final VoidCallback? timeoutCallBack;
 
   const LoadingHeaderWidget(
-      {Key? key, required this.message, this.timeout, this.timeoutCallBack})
-      : super(key: key);
+      {super.key, required this.message, this.timeout, this.timeoutCallBack});
 
   @override
   Widget build(BuildContext context) {

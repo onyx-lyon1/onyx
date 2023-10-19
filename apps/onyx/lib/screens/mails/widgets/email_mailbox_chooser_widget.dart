@@ -8,7 +8,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MailMailboxChooserWidget extends StatefulWidget {
-  const MailMailboxChooserWidget({Key? key}) : super(key: key);
+  const MailMailboxChooserWidget({super.key});
 
   @override
   State<MailMailboxChooserWidget> createState() =>

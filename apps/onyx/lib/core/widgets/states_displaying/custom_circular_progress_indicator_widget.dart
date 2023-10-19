@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomCircularProgressIndicatorWidget extends StatelessWidget {
-  const CustomCircularProgressIndicatorWidget({Key? key}) : super(key: key);
+  const CustomCircularProgressIndicatorWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

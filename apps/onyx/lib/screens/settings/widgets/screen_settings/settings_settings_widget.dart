@@ -10,7 +10,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 class SettingsSettingsWidget extends StatelessWidget {
-  const SettingsSettingsWidget({Key? key}) : super(key: key);
+  const SettingsSettingsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

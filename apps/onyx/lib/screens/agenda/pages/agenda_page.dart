@@ -10,8 +10,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaPage extends StatelessWidget {
   const AgendaPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static double indexToOffset(int index, int daycount) {
     return 15.w * index;

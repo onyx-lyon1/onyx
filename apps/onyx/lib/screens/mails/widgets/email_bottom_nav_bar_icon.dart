@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MailBottomNavBarIcon extends StatelessWidget {
-  const MailBottomNavBarIcon({Key? key, required this.selected})
-      : super(key: key);
+  const MailBottomNavBarIcon({super.key, required this.selected});
   final bool selected;
 
   @override

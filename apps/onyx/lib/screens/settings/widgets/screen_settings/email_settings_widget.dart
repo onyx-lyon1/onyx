@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 class MailSettingsWidget extends StatelessWidget {
-  const MailSettingsWidget({Key? key}) : super(key: key);
+  const MailSettingsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

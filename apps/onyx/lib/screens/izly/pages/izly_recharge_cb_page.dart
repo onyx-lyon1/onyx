@@ -10,7 +10,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class IzlyRechargeCBPage extends StatefulWidget {
-  const IzlyRechargeCBPage({Key? key}) : super(key: key);
+  const IzlyRechargeCBPage({super.key});
 
   @override
   State<IzlyRechargeCBPage> createState() => _IzlyRechargeCBPageState();

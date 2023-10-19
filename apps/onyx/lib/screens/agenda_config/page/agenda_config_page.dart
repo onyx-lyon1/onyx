@@ -7,8 +7,7 @@ import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaConfigPage extends StatelessWidget {
-  const AgendaConfigPage({Key? key, required this.onBack, this.noBack = false})
-      : super(key: key);
+  const AgendaConfigPage({super.key, required this.onBack, this.noBack = false});
   final Function(int backIndex) onBack;
   final bool noBack;
 

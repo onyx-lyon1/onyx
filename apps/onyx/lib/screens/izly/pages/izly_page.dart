@@ -8,8 +8,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlyPage extends StatelessWidget {
   const IzlyPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static double indexToOffset(int index) {
     return (15.w) * (index);

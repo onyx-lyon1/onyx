@@ -9,7 +9,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlyLoginPage extends StatefulWidget {
-  const IzlyLoginPage({Key? key}) : super(key: key);
+  const IzlyLoginPage({super.key});
 
   @override
   State<IzlyLoginPage> createState() => _IzlyLoginPageState();
@@ -249,12 +249,12 @@ class PasswordFormField extends StatefulWidget {
   final void Function() onFieldSubmitted;
 
   const PasswordFormField({
-    Key? key,
+    super.key,
     this.onSaved,
     this.validator,
     this.decoration = const InputDecoration(),
     required this.onFieldSubmitted,
-  }) : super(key: key);
+  });
 
   @override
   State<PasswordFormField> createState() => _PasswordFormFieldState();

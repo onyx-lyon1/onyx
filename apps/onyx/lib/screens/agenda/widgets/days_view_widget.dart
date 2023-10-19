@@ -10,11 +10,10 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class DaysViewWidget extends StatelessWidget {
   const DaysViewWidget(
-      {Key? key,
+      {super.key,
       required this.dayCount,
       required this.verticalController,
-      required this.horizontalController})
-      : super(key: key);
+      required this.horizontalController});
 
   final int dayCount;
   final ScrollController verticalController;

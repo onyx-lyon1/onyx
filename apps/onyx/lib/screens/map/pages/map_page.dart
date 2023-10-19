@@ -6,7 +6,7 @@ import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 
 class MapPage extends StatelessWidget {
-  const MapPage({Key? key}) : super(key: key);
+  const MapPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,7 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SemesterChooserWidget extends StatelessWidget {
-  const SemesterChooserWidget({Key? key}) : super(key: key);
+  const SemesterChooserWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

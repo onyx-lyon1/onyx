@@ -11,8 +11,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MailsPage extends StatelessWidget {
   const MailsPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class MailDetailsPage extends StatelessWidget {
   final Mail mail;
 
-  const MailDetailsPage({Key? key, required this.mail}) : super(key: key);
+  const MailDetailsPage({super.key, required this.mail});
 
   @override
   Widget build(BuildContext context) {

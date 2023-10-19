@@ -7,8 +7,7 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MailSendAttachmentWidget extends StatefulWidget {
-  const MailSendAttachmentWidget({Key? key, required this.attachments})
-      : super(key: key);
+  const MailSendAttachmentWidget({super.key, required this.attachments});
   final List<File> attachments;
 
   @override

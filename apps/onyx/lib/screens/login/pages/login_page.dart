@@ -12,7 +12,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -302,12 +302,12 @@ class PasswordFormField extends StatefulWidget {
   final void Function() onFieldSubmitted;
 
   const PasswordFormField({
-    Key? key,
+    super.key,
     this.onSaved,
     this.validator,
     this.decoration = const InputDecoration(),
     required this.onFieldSubmitted,
-  }) : super(key: key);
+  });
 
   @override
   State<PasswordFormField> createState() => _PasswordFormFieldState();

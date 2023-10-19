@@ -15,12 +15,11 @@ class MailSendPage extends StatelessWidget {
   final bool forward;
 
   const MailSendPage(
-      {Key? key,
+      {super.key,
       this.replyAll,
       this.originalMessage,
       this.forward = false,
-      this.reply = false})
-      : super(key: key);
+      this.reply = false});
 
   String bodyHtml(QuillController controller) {
     return QuillDeltaToHtmlConverter(

@@ -5,8 +5,7 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class EnumerationWidget extends StatelessWidget {
-  const EnumerationWidget({Key? key, required this.enumeration})
-      : super(key: key);
+  const EnumerationWidget({super.key, required this.enumeration});
 
   final Enumeration enumeration;
 

@@ -11,9 +11,7 @@ import 'package:onyx/screens/tomuss/widgets/teaching_unit_children_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class TomussPage extends StatefulWidget {
-  const TomussPage({
-    Key? key,
-  }) : super(key: key);
+  const TomussPage({super.key});
 
   @override
   State<TomussPage> createState() => _TomussPageState();

@@ -9,8 +9,7 @@ import 'package:onyx/screens/tomuss/widgets/tomuss_element_widgets/enumeration_w
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class TeachingUnitChildrenWidget extends StatelessWidget {
-  const TeachingUnitChildrenWidget({Key? key, required this.teachingUnit})
-      : super(key: key);
+  const TeachingUnitChildrenWidget({super.key, required this.teachingUnit});
   final TeachingUnit teachingUnit;
 
   @override
