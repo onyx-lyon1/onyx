@@ -54,8 +54,9 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
     List<Marker> markers = [
       for (var element in widget.batiments)
         Marker(
+          anchorPos: AnchorPos.align(AnchorAlign.center),
           point: element.position,
-          child: Icon(
+          builder: (context) => Icon(
             Icons.location_on_rounded,
             size: 20.sp,
             color: Colors.red,
@@ -64,8 +65,9 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
         ),
       for (var element in widget.restaurant)
         Marker(
+          anchorPos: AnchorPos.align(AnchorAlign.center),
           point: LatLng(element.lat, element.lon),
-          child: Icon(
+          builder: (context) => Icon(
             Icons.restaurant_rounded,
             size: 20.sp,
             color: Colors.green,
@@ -89,8 +91,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
           popupController: popupLayerController,
           child: FlutterMap(
             options: MapOptions(
-              initialCenter: widget.center ?? MapRes.center,
-              initialZoom: 16.5,
+              center: widget.center ?? MapRes.center,
+              zoom: 16.5,
               maxZoom: MapRes.maxZoom,
               minZoom: 0,
               onTap: (_, __) => popupLayerController.hideAllPopups(),
@@ -125,6 +127,11 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                     spiderfyCluster: false,
                     disableClusteringAtZoom: 15,
                     zoomToBoundsOnClick: false,
+                    anchorPos: AnchorPos.align(AnchorAlign.center),
+                    fitBoundsOptions: const FitBoundsOptions(
+                      padding: EdgeInsets.all(50),
+                      maxZoom: 15,
+                    ),
                     markers: markers,
                     popupOptions: PopupOptions(
                       popupSnap: PopupSnap.markerTop,
