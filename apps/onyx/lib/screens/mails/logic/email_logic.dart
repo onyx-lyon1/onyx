@@ -57,7 +57,7 @@ class MailLogic {
     }
     hiveInit(path: path);
     if (await CacheService.exist<List<MailBox>>()) {
-      return (await CacheService.get<List<MailBox>>())!;
+      return (await CacheService.get<List<MailBox>>()) ?? [];
     } else {
       return [];
     }
