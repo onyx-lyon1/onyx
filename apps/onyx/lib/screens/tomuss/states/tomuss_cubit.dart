@@ -32,7 +32,6 @@ class TomussCubit extends Cubit<TomussState> {
     emit(state.copyWith(
         status: TomussStatus.loading, currentSemesterIndex: semestreIndex));
     _dartus = Lyon1TomussClient(lyon1Cas);
-    List<TeachingUnit> teachingUnits = [];
     List<Semester> semesters = await CacheService.get<List<Semester>>() ?? [];
 
     if (semestreIndex != null) {
@@ -105,7 +104,8 @@ class TomussCubit extends Cubit<TomussState> {
           status: TomussStatus.ready,
           semesters: semesters,
           currentSemesterIndex: semestreIndex,
-          newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
+          newElements: TomussLogic.parseRecentElements(
+              semesters[semestreIndex].teachingUnits, settings),
         ));
       }
     }

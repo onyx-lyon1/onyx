@@ -36,7 +36,7 @@ Future<void> emailNotificationLogic(SettingsModel settings) async {
       int index = mailBoxes.indexWhere(
           (element) => element.specialMailBox == SpecialMailBox.inbox);
       if (index != -1) {
-        mailBoxes[index].emails = newMails;
+        mailBoxes[index] = mailBoxes[index].copyWith(emails: newMails);
       }
 
       await CacheService.set<List<MailBox>>(mailBoxes);
