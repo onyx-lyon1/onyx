@@ -11,5 +11,7 @@ export 'package:lyon1tomussclient/src/model/presence.dart';
 export 'package:lyon1tomussclient/src/model/stage_code.dart';
 export 'package:lyon1tomussclient/src/model/upload.dart';
 export 'package:lyon1tomussclient/src/model/url.dart';
+export 'package:lyon1tomussclient/src/model/teaching_unit_list.dart';
+export 'package:lyon1tomussclient/src/model/semester_list.dart';
 export 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 export 'package:lyon1tomussclient/src/utils/sort_teaching_unit_element.dart';

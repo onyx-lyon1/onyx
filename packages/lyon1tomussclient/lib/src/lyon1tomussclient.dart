@@ -19,9 +19,11 @@ class Lyon1TomussClient {
     Hive.registerAdapter(PresenceAdapter());
     Hive.registerAdapter(PresenceColorAdapter());
     Hive.registerAdapter(SemesterAdapter());
+    Hive.registerAdapter(SemesterListAdapter());
     Hive.registerAdapter(StageCodeAdapter());
     Hive.registerAdapter(TeacherAdapter());
     Hive.registerAdapter(TeachingUnitAdapter());
+    Hive.registerAdapter(TeachingUnitListAdapter());
     Hive.registerAdapter(TomussTextAdapter());
     Hive.registerAdapter(UploadAdapter());
     Hive.registerAdapter(URLAdapter());
@@ -64,13 +66,11 @@ class Lyon1TomussClient {
     _authentication.logout();
   }
 
-  static Semester currentSemester() {
-    String name = URLCreator.currentSemesterName(DateTime.now());
-    return Semester(name, URLCreator.semesterFromName(name));
+  static String currentSemester() {
+    return URLCreator.currentSemester(DateTime.now());
   }
 
-  static Semester previousSemester() {
-    String name = URLCreator.previousSemesterName(DateTime.now());
-    return Semester(name, URLCreator.semesterFromName(name));
+  static String previousSemester() {
+    return URLCreator.previousSemester(DateTime.now());
   }
 }

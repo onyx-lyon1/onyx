@@ -86,7 +86,7 @@ class SettingsModel extends Equatable {
     this.calendarUpdateNotification = true,
     this.agendaId,
     this.newMailNotification = true,
-    this.blockTrackers = false,
+    this.blockTrackers = true,
     this.forcedMailTheme = true,
     this.shownAgendaPopup = false,
     this.enabledFunctionalities = const [

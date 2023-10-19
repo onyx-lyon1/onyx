@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
 import 'package:onyx/app.dart';
 import 'package:onyx/core/bloc_logger.dart';
@@ -28,14 +27,6 @@ void main() async {
   await FlutterMapTileCaching.initialise();
   await FMTC.instance('mapStore').manage.createAsync();
   await hiveInit();
-  await Hive.deleteBoxFromDisk("cached_izlypaymentmodellist");
-  await Hive.deleteBoxFromDisk("cached_izlyqrcodelist");
-  await Hive.deleteBoxFromDisk("cached_restaurantlistmodel");
-  await Hive.deleteBoxFromDisk("cached_actionlist");
-  await Hive.deleteBoxFromDisk("cached_mailboxlist");
-  await Hive.deleteBoxFromDisk("cached_semesterlist");
-  await Hive.deleteBoxFromDisk("cached_semester");
-  await Hive.deleteBoxFromDisk("cached_teachingunitlist");
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

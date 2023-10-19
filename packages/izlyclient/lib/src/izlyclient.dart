@@ -18,6 +18,7 @@ class IzlyClient {
   static void registerAdapters() {
     Hive.registerAdapter(IzlyCredentialAdapter());
     Hive.registerAdapter(IzlyQrCodeAdapter());
+    Hive.registerAdapter(IzlyQrCodeListAdapter());
     Hive.registerAdapter(MenuTypeAdapter());
     Hive.registerAdapter(MenuRegimeAdapter());
     Hive.registerAdapter(MenuCrousTypeAdapter());
@@ -25,7 +26,9 @@ class IzlyClient {
     Hive.registerAdapter(MenuCrousAdapter());
     Hive.registerAdapter(CrousTypeAdapter());
     Hive.registerAdapter(RestaurantModelAdapter());
+    Hive.registerAdapter(RestaurantListModelAdapter());
     Hive.registerAdapter(IzlyPaymentModelAdapter());
+    Hive.registerAdapter(IzlyPaymentModelListAdapter());
   }
 
   final String _username;

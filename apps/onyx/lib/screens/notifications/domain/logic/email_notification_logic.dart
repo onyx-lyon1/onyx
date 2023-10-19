@@ -7,8 +7,9 @@ import 'package:onyx/screens/settings/settings_export.dart';
 
 Future<void> emailNotificationLogic(SettingsModel settings) async {
   if (settings.newMailNotification) {
-    if (await CacheService.exist<List<MailBox>>()) {
-      List<MailBox> mailBoxes = (await CacheService.get<List<MailBox>>())!;
+    if (await CacheService.exist<MailBoxList>()) {
+      List<MailBox> mailBoxes =
+          (await CacheService.get<MailBoxList>())!.mailBoxes;
       List<Mail> email = mailBoxes
           .firstWhere(
               (element) => element.specialMailBox == SpecialMailBox.inbox)
@@ -39,7 +40,7 @@ Future<void> emailNotificationLogic(SettingsModel settings) async {
         mailBoxes[index] = mailBoxes[index].copyWith(emails: newMails);
       }
 
-      await CacheService.set<List<MailBox>>(mailBoxes);
+      await CacheService.set<MailBoxList>(MailBoxList(mailBoxes: mailBoxes));
     }
   }
 }

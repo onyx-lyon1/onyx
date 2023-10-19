@@ -32,9 +32,11 @@ class Lyon1MailClient {
 
   static void registerAdapters({bool initHive = true}) {
     Hive.registerAdapter(ActionAdapter());
+    Hive.registerAdapter(ActionListAdapter());
     Hive.registerAdapter(ActionTypeAdapter());
     Hive.registerAdapter(MailAdapter());
     Hive.registerAdapter(MailBoxAdapter());
+    Hive.registerAdapter(MailBoxListAdapter());
     Hive.registerAdapter(SpecialMailBoxAdapter());
     if (initHive) Hive.init(Directory.current.path);
   }
@@ -164,12 +166,11 @@ class Lyon1MailClient {
       mails
           .add(Mail.fromRaw(email, removeTrackingImages: removeTrackingImages));
     }
-
     if (mailbox.name.contains("Boîte d'envoi")) {
-      Box<List<Action>> actionsBox =
-          await Hive.openBox<List<Action>>("cached_0");
-      List<Action> actionList = actionsBox.get("cache0") ?? [];
-      for (Action action in actionList) {
+      Box<ActionList> actionsBox = await Hive.openBox<ActionList>("cached_0");
+      ActionList actionList =
+          actionsBox.get("cache0") ?? ActionList(action: []);
+      for (Action action in actionList.action) {
         switch (action.type) {
           case ActionType.send:
           case ActionType.forward:
@@ -424,11 +425,11 @@ class Lyon1MailClient {
   }
 
   Future<void> addAction(Action action, {bool autoDoAction = true}) async {
-    Box<List<Action>> box = await Hive.openBox<List<Action>>("cached_0");
-    List<Action> actionList = box.get("cache0") ?? [];
-    if (!actionList.contains(action)) {
-      actionList.add(action);
-      await box.put("cache0", actionList);
+    Box<ActionList> box = await Hive.openBox<ActionList>("cached_0");
+    ActionList wrapper = box.get("cache0") ?? ActionList(action: []);
+    if (!wrapper.action.contains(action)) {
+      wrapper.action.add(action);
+      await box.put("cache0", wrapper);
       if (autoDoAction) {
         doActions();
       }
@@ -436,12 +437,12 @@ class Lyon1MailClient {
   }
 
   Future<void> removeAction(Action action) async {
-    Box<List<Action>> box = await Hive.openBox<List<Action>>("cached_0");
-    List<Action> actionList = box.get("cache0") ?? [];
-    while (actionList.contains(action)) {
-      actionList.remove(action);
+    Box<ActionList> box = await Hive.openBox<ActionList>("cached_0");
+    ActionList wrapper = box.get("cache0") ?? ActionList(action: []);
+    while (wrapper.action.contains(action)) {
+      wrapper.action.remove(action);
     }
-    await box.put("cache0", actionList);
+    await box.put("cache0", wrapper);
   }
 
   Future<void> cleanActions() async {
@@ -449,8 +450,8 @@ class Lyon1MailClient {
   }
 
   Future<List<Action>> getActions() async {
-    Box<List<Action>> box = await Hive.openBox<List<Action>>("cached_0");
-    return List.from(box.get("cache0") ?? []);
+    Box<ActionList> box = await Hive.openBox<ActionList>("cached_0");
+    return List.from(box.get("cache0")?.action ?? []);
   }
 
   Future<void> doActions() async {

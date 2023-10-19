@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/screens/mails/states/email_cubit.dart';
+import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 class MailSettingsWidget extends StatelessWidget {
@@ -47,14 +47,13 @@ class MailSettingsWidget extends StatelessWidget {
         TextSwitchWidget(
           text: 'Bloquer les trackers',
           value: context.read<SettingsCubit>().state.settings.blockTrackers,
-          onChanged: (bool b) async {
+          onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
                 settings: context
                     .read<SettingsCubit>()
                     .state
                     .settings
                     .copyWith(blockTrackers: b));
-            context.read<EmailCubit>().load(cache: false, blockTrackers: b);
           },
         ),
       ],

@@ -1,7 +1,6 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
-import 'package:lyon1tomussclient/src/model/model_export.dart';
 
 part 'generated/semester.g.dart';
 
@@ -13,14 +12,10 @@ class Semester extends Equatable {
   @HiveField(1, defaultValue: "")
   final String url;
 
-  @HiveField(2, defaultValue: [])
-  final List<TeachingUnit> teachingUnits;
-
-  Semester(this.title, this.url, {this.teachingUnits = const []});
+  Semester(this.title, this.url);
 
   @override
-  List<Object?> get props => [title, url, teachingUnits];
-
+  List<Object?> get props => [title, url];
   @override
   bool? get stringify => true;
 }

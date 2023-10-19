@@ -94,9 +94,9 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
 
   Future<void> logout() async {
     Res.logger.t("logout");
-    CacheService.reset<List<TeachingUnit>>();
+    CacheService.reset<TeachingUnitList>();
     CacheService.reset<Agenda>();
-    CacheService.reset<List<MailBox>>();
+    CacheService.reset<MailBoxList>();
     CacheService.reset<Credential>();
     SettingsLogic.reset();
     await _lyon1Cas.logout();
