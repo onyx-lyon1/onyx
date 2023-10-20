@@ -3,8 +3,10 @@ import 'package:collection/collection.dart';
 import 'package:html/dom.dart';
 import 'package:requests_plus/requests_plus.dart';
 
-import 'colloscope_datastructs.dart';
 import 'consts.dart';
+import 'models/StudentColloscope.dart';
+import 'models/kholle.dart';
+import 'models/student.dart';
 
 class PolytechColloscopeClient {
   final String _username, _password;
@@ -66,7 +68,8 @@ class PolytechColloscopeClient {
       throw StateError("Invalid student id");
     }
 
-    var trinomeStr = RegExp(r"trinôme (\d+)").firstMatch(header.innerHtml)?.group(1);
+    var trinomeStr =
+        RegExp(r"trinôme (\d+)").firstMatch(header.innerHtml)?.group(1);
 
     var trinome = int.parse(trinomeStr!);
 
