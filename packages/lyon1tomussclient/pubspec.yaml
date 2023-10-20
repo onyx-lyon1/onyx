@@ -1,6 +1,6 @@
 name: lyon1tomussclient
 description: A Dart library for interacting with Tomuss, Lyon 1 University's academic platform, using Lyon1CasClient for authentication.
-version: 1.0.6
+version: 1.0.7
 repository: https://github.com/onyx-lyon1/lyon1tomussclient
 
 environment:
@@ -18,8 +18,8 @@ dependencies:
   copy_with_extension: ^5.0.4
   equatable: ^2.0.5
   hive: ^2.2.3
-  requests_plus: ^4.8.3
-  lyon1casclient: ^1.0.2
+  requests_plus: ^4.8.5
+  lyon1casclient: ^1.0.6
 
 #dependency_overrides:
 #  requests:

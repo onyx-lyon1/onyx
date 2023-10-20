@@ -707,10 +707,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: "30f891bfe22c089b10cd4bcabefd4ef64c07370819b9fdf1a6fcf42077cbcbce"
+      sha256: "5dc74893154921995ff90e0f0c9ee04ce353b30267b4ff47cfeb3390815966a2"
       url: "https://pub.dev"
     source: hosted
-    version: "7.4.14"
+    version: "7.4.15"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -924,9 +924,10 @@ packages:
   izlyclient:
     dependency: "direct main"
     description:
-      path: "../../packages/izlyclient"
-      relative: true
-    source: path
+      name: izlyclient
+      sha256: "4e244302fd418a7dc1632184679ac2338201dbbe94bb4637555818ce6f2ab247"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.6"
   js:
     dependency: transitive
@@ -987,31 +988,35 @@ packages:
   lyon1agendaclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1agendaclient"
-      relative: true
-    source: path
-    version: "1.0.6"
+      name: lyon1agendaclient
+      sha256: "77b7bad372d1e5b7002350b17f4cf3059e452d6db4616b05ded67c4bc31a33e9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.7"
   lyon1casclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1casclient"
-      relative: true
-    source: path
+      name: lyon1casclient
+      sha256: "686fd85334e08cc51c14485b58efb94ebbaaff46ffa70d458a402d9eb9972276"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.6"
   lyon1mailclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1mailclient"
-      relative: true
-    source: path
-    version: "1.0.6"
+      name: lyon1mailclient
+      sha256: a61b6da0a97c96d4ca5cd4f42b2c94ab8e16ab8627d3cbb23f4c9c9380e5816b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.7"
   lyon1tomussclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1tomussclient"
-      relative: true
-    source: path
-    version: "1.0.6"
+      name: lyon1tomussclient
+      sha256: e0d3785eb99196e52ae3b1fbcfaee770688142b4691d35f2ab0812f4e193a021
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.7"
   matcher:
     dependency: transitive
     description:

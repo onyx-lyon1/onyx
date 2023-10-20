@@ -3,7 +3,7 @@ description: ade, tomuss Mail pour lyon1
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.0.5+46
+version: 2.0.6+47
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -22,7 +22,7 @@ dependencies:
   responsive_sizer: 3.2.0
   desktop_window: ^0.4.0
   #agenda
-  lyon1agendaclient: ^1.0.6
+  lyon1agendaclient: ^1.0.7
 
   #agenda_config
   qr_code_dart_scan: ^0.7.3
@@ -33,7 +33,7 @@ dependencies:
   izlyclient: ^1.0.6
 
   #mail
-  lyon1mailclient: ^1.0.6
+  lyon1mailclient: ^1.0.7
   webview_flutter: ^4.4.1
   file_picker: ^6.0.0
   open_filex: ^4.3.4
@@ -46,7 +46,7 @@ dependencies:
   lyon1casclient: ^1.0.6
 
   #tomuss
-  lyon1tomussclient: ^1.0.6
+  lyon1tomussclient: ^1.0.7
   screenshot: ^2.1.0
   share_plus: ^7.2.1
 
