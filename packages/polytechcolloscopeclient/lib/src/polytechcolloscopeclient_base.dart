@@ -7,16 +7,16 @@ import 'colloscope_datastructs.dart';
 import 'consts.dart';
 
 class PolytechColloscopeClient {
-  final String username, password;
+  final String _username, _password;
 
-  PolytechColloscopeClient(this.username, this.password) {
-    assert(username.isNotEmpty);
-    assert(password.isNotEmpty);
+  PolytechColloscopeClient(this._username, this._password) {
+    assert(_username.isNotEmpty);
+    assert(_password.isNotEmpty);
   }
 
   Future<List<Student>> fetchStudents(Year year) async {
     var page = await RequestsPlus.get(Consts.kholleURL[year]!,
-        userName: username, password: password);
+        userName: _username, password: _password);
 
     BeautifulSoup bs = BeautifulSoup(page.body);
 
@@ -55,8 +55,8 @@ class PolytechColloscopeClient {
     var page = await RequestsPlus.get(
         Consts.khollesStudentURL[year]!
             .replaceFirst(":id", student.id.toString()),
-        userName: username,
-        password: password);
+        userName: _username,
+        password: _password);
 
     BeautifulSoup bs = BeautifulSoup(page.body);
 
