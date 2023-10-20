@@ -4,9 +4,7 @@ import 'package:html/dom.dart';
 import 'package:requests_plus/requests_plus.dart';
 
 import 'consts.dart';
-import 'models/StudentColloscope.dart';
-import 'models/kholle.dart';
-import 'models/student.dart';
+import 'models/models.dart';
 
 class PolytechColloscopeClient {
   final String _username, _password;
