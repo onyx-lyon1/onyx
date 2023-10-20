@@ -13,7 +13,8 @@ Future<void> main() async {
     fail("username or password were empty. check your envt variables");
   }
 
-  PolytechColloscopeClient client = PolytechColloscopeClient("", "");
+  PolytechColloscopeClient client =
+      PolytechColloscopeClient(username, password);
 
   var students = await client.fetchStudents(Year.first);
   print(students);

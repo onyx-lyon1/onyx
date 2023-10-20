@@ -8,7 +8,10 @@ import 'consts.dart';
 class PolytechColloscopeClient {
   final String username, password;
 
-  PolytechColloscopeClient(this.username, this.password);
+  PolytechColloscopeClient(this.username, this.password) {
+    assert(username.isNotEmpty);
+    assert(password.isNotEmpty);
+  }
 
   Future<List<Student>> fetchStudents(Year year) async {
     var page = await RequestsPlus.get(Consts.kholleURL[year]!,
