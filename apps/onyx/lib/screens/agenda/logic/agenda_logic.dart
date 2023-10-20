@@ -52,7 +52,7 @@ class AgendaLogic {
     List<RestaurantModel> restaurant = await IzlyClient.getRestaurantCrous();
     CacheService.set<RestaurantListModel>(
         RestaurantListModel(restaurantList: restaurant));
-    List<(Event, int)> menuToAdd = [];
+    List<Event> menuToAdd = [];
     for (var resto in restaurant) {
       if (await IzlyLogic.isRestaurantFavourite(resto)) {
         for (var menu in resto.menus) {
@@ -123,34 +123,28 @@ class AgendaLogic {
                     end = i.end;
                     start = end.subtract(const Duration(hours: 1));
                   }
-                  menuToAdd.add((
-                    Event(
-                        location: resto.name,
-                        menuCrous: menu,
-                        teacher: "",
-                        description: "",
-                        name: menu.type.toString(),
-                        start: start,
-                        end: end,
-                        eventLastModified: DateTime.now()),
-                    pause.indexOf(i)
-                  ));
+                  menuToAdd.add((Event(
+                      location: resto.name,
+                      menuCrous: menu,
+                      teacher: "",
+                      description: "",
+                      name: menu.type.toString(),
+                      start: start,
+                      end: end,
+                      eventLastModified: DateTime.now())));
                   break;
                 }
               }
             } else {
-              menuToAdd.add((
-                Event(
-                    location: resto.name,
-                    menuCrous: menu,
-                    teacher: "",
-                    description: "",
-                    name: menu.type.toString(),
-                    start: startLimit.add(const Duration(minutes: 1)),
-                    end: endLimit.subtract(const Duration(minutes: 1)),
-                    eventLastModified: DateTime.now()),
-                0
-              ));
+              menuToAdd.add((Event(
+                  location: resto.name,
+                  menuCrous: menu,
+                  teacher: "",
+                  description: "",
+                  name: menu.type.toString(),
+                  start: startLimit.add(const Duration(minutes: 1)),
+                  end: endLimit.subtract(const Duration(minutes: 1)),
+                  eventLastModified: DateTime.now())));
             }
           }
         }
@@ -159,11 +153,12 @@ class AgendaLogic {
 
     //add the new menu to the clean agenda
     for (var menu in menuToAdd) {
-      days
-          .firstWhere((element) =>
-              element.date.shrink(3).isAtSameMomentAs(menu.$1.start.shrink(3)))
-          .events
-          .insert(menu.$2, menu.$1);
+      int dayIndex = days.indexWhere((element) =>
+          element.date.shrink(3).isAtSameMomentAs(menu.start.shrink(3)));
+      if (dayIndex != -1) {
+        days[dayIndex].events.add(menu);
+        days[dayIndex].events.sort((a, b) => a.start.compareTo(b.start));
+      }
     }
     return days;
   }
