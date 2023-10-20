@@ -65,6 +65,7 @@ class AgendaState {
       if (settingsModel.agendaDisabledDays.contains(todayWeekday)) {
         todayWeekday += 1;
       } else {
+        todayWeekday = todayWeekday.positiveModulo(7);
         break;
       }
     }
@@ -74,7 +75,7 @@ class AgendaState {
     } else {
       todayOffset = todayWeekday -
           (settingsModel.agendaWeekReference -
-              settingsModel.agendaWeekRerenceAlignement +
+              settingsModel.agendaWeekRerenceAlignement -
               1);
     }
     todayOffset = todayOffset.positiveModulo(settingsModel.agendaWeekLength);
