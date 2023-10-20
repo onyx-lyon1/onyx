@@ -93,9 +93,6 @@ class PolytechColloscopeClient {
     var secondDiv = secondTd?.children.elementAtOrNull(1);
     var kholleur = secondDiv?.find("a")?.text.trim();
 
-    // This holds the subject of the kholle (and maybe the room because this website html is probably the worst I've ever seen)
-    var text = "";
-
     var divText =
         secondDiv?.nodes.where((element) => element.runtimeType == Text);
 
