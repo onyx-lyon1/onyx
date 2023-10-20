@@ -7,6 +7,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaUrlParameterWidget extends StatelessWidget {
   const AgendaUrlParameterWidget({super.key, required this.sizeUpdate});
+
   final VoidCallback sizeUpdate;
 
   @override
@@ -62,9 +63,11 @@ class AgendaUrlParameterWidget extends StatelessWidget {
 
 class AgendaSelectionWidget extends StatelessWidget {
   final VoidCallback? onTap;
+  final bool forceClickable;
 
   const AgendaSelectionWidget({
     this.onTap,
+    this.forceClickable = false,
     super.key,
   });
 
@@ -72,7 +75,9 @@ class AgendaSelectionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(100),
-      color: Colors.transparent,
+      color: (forceClickable)
+          ? Theme.of(context).colorScheme.primary
+          : Colors.transparent,
       child: BlocBuilder<SettingsCubit, SettingsState>(
         buildWhen: (previous, current) => (previous.settings.fetchAgendaAuto !=
             current.settings.fetchAgendaAuto),
@@ -80,10 +85,11 @@ class AgendaSelectionWidget extends StatelessWidget {
           return InkWell(
             borderRadius: BorderRadius.circular(100),
             onTap: (!(context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .fetchAgendaAuto))
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .fetchAgendaAuto) ||
+                    forceClickable)
                 ? () {
                     if (onTap != null) onTap!();
                     Navigator.push(
@@ -112,7 +118,7 @@ class AgendaSelectionWidget extends StatelessWidget {
                 'Sélectionner l\'agenda',
                 maxLines: 1,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: (state.settings.fetchAgendaAuto)
+                    color: (state.settings.fetchAgendaAuto && !forceClickable)
                         ? Theme.of(context).disabledColor
                         : null),
               ),

@@ -43,6 +43,7 @@ N'hésitez pas à le sélectionner manuellement dans les paramètres."""),
                   height: 2.h,
                 ),
                 AgendaSelectionWidget(
+                  forceClickable: true,
                   onTap: () {
                     Navigator.of(context).pop();
                     context.read<SettingsCubit>().modify(
