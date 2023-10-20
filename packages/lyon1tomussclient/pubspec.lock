@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.13.0"
+  ansicolor:
+    dependency: transitive
+    description:
+      name: ansicolor
+      sha256: "8bf17a8ff6ea17499e40a2d2542c2f481cd7615760c6d34065cb22bfd22e6880"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   args:
     dependency: transitive
     description:
@@ -153,14 +161,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.4"
-  copy_with_extension_gen:
-    dependency: "direct dev"
-    description:
-      name: copy_with_extension_gen
-      sha256: c6c34e122ceab6e9560c626c60942dfaab2e39c0bc75d468b0360a8b2068f1b6
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.3"
   coverage:
     dependency: transitive
     description:
@@ -185,6 +185,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  dart_mappable:
+    dependency: "direct main"
+    description:
+      name: dart_mappable
+      sha256: e78aae08dd74bfcd2d3993cb479813f2249651d0aee213353b07413b842e1625
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
+  dart_mappable_builder:
+    dependency: "direct dev"
+    description:
+      name: dart_mappable_builder
+      sha256: "92cb9d38f5698f519f489b9664612136b31c470dd979e0b5aa2305b08d1c01b8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
   dart_style:
     dependency: transitive
     description:
@@ -258,21 +274,13 @@ packages:
     source: hosted
     version: "0.2.0"
   hive:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: hive
       sha256: "8dcf6db979d7933da8217edcec84e9df1bdb4e4edc7fc77dbd5aa74356d6d941"
       url: "https://pub.dev"
     source: hosted
     version: "2.2.3"
-  hive_generator:
-    dependency: "direct dev"
-    description:
-      name: hive_generator
-      sha256: "65998cc4d2cd9680a3d9709d893d2f6bb15e6c1f92626c3f1fa650b4b3281521"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   html:
     dependency: transitive
     description:
@@ -480,14 +488,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-  source_helper:
-    dependency: transitive
-    description:
-      name: source_helper
-      sha256: "6adebc0006c37dd63fe05bca0a929b99f06402fc95aa35bf36d67f5c06de01fd"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.3.4"
   source_map_stack_trace:
     dependency: transitive
     description:
@@ -584,6 +584,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  type_plus:
+    dependency: transitive
+    description:
+      name: type_plus
+      sha256: "2e33cfac2e129297d5874567bdf7587502ec359881e9318551e014d91b02f84a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   typed_data:
     dependency: transitive
     description:

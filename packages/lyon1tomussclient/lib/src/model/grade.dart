@@ -30,7 +30,7 @@ class Grade extends TeachingUnitElement {
   late final List<Grade> children;
 
   Grade.fromJSON(var id, var json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+      : super.fromTomussJson(id, json, stats, line, column, user) {
     rank = stats[json['the_id']]['rank'] ?? -1;
     groupeSize = stats[json['the_id']]['nr'] ?? -1;
     isValid = (rank != -1);

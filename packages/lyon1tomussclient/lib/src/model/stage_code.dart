@@ -12,7 +12,7 @@ class StageCode extends TeachingUnitElement {
 
   StageCode.fromJSON(
       var id, var json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+      : super.fromTomussJson(id, json, stats, line, column, user) {
     value = line[id][0].toString();
   }
 

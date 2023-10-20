@@ -32,7 +32,7 @@ class Presence extends TeachingUnitElement {
 
   Presence.fromJSON(
       var id, var json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+      : super.fromTomussJson(id, json, stats, line, column, user) {
     emptyIs = json['empty_is'];
     if (line[id] == null || (line[id] is List && line[id].isEmpty)) {
       value = "";

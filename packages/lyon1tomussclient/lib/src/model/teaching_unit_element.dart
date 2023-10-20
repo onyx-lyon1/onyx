@@ -1,26 +1,37 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/parser/dateparser.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
 
-abstract class TeachingUnitElement extends Equatable {
-  @HiveField(100, defaultValue: "")
+part 'teaching_unit_element.mapper.dart';
+
+@MappableClass(uniqueId: "TeachingUnitElement")
+/*abstract*/ class TeachingUnitElement with TeachingUnitElementMappable {
+  @MappableField(key: "title")
   late final String title;
-  @HiveField(101, defaultValue: "")
+  @MappableField(key: "author")
   late final String author;
-  @HiveField(102, defaultValue: null)
+  @MappableField(key: "date")
   late final DateTime? date;
-  @HiveField(103, defaultValue: 0)
+  @MappableField(key: "position")
   late final double position;
 
-  TeachingUnitElement(
-      {required this.title,
-      required this.author,
-      required this.date,
-      required this.position});
+  @MappableConstructor()
+  TeachingUnitElement.mappableContruct({
+    this.title = "",
+    required this.author,
+    required this.date,
+    required this.position,
+  });
 
-  TeachingUnitElement.fromJson(
+  TeachingUnitElement({
+    required this.title,
+    required this.author,
+    required this.date,
+    required this.position,
+  });
+
+  TeachingUnitElement.fromTomussJson(
       var id, var json, var stats, var line, var column, String user) {
-    title = json['title'] ?? "";
+    // title = json['title'] ?? "";
     author = json['author'] ?? "";
     if (line[id].length > 2) {
       String dateString = line[id][2].toString();
@@ -31,14 +42,7 @@ abstract class TeachingUnitElement extends Equatable {
     position = json['position'].toDouble() ?? 0;
   }
 
-  bool get isVisible;
-
-  List<Object?> get customProps;
-
-  @override
-  List<Object?> get props => [title, author, date, position, ...customProps];
-  @override
-  bool? get stringify => true;
+// bool get isVisible;
 }
 
 // @HiveType(typeId: 12)

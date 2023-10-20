@@ -18,7 +18,7 @@ class Upload extends TeachingUnitElement {
 
   Upload.fromJSON(
       var id, var json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+      : super.fromTomussJson(id, json, stats, line, column, user) {
     comment = json['comment'] ?? "";
     uploadMax = int.tryParse(json['upload_max'] ?? "") ?? 0;
     //https://tomuss.univ-lyon1.fr/2023/Printemps/codeUE/upload_get/theId/lineId/codeUE_uploadName_filename?unsafe=1&ticket=ST-6037266-YbrFlIZeqewEEE1TjBgy-cas.univ-lyon1.fr

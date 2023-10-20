@@ -20,7 +20,7 @@ class TomussText extends TeachingUnitElement {
 
   TomussText.fromJSON(
       var id, var json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+      : super.fromTomussJson(id, json, stats, line, column, user) {
     comment = json['comment'] ?? "";
 
     value = (line.length > 0 && id < line.length - 1 && line[id].length > 0)
