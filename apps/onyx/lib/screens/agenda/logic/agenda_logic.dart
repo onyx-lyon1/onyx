@@ -147,7 +147,7 @@ class AgendaLogic {
                     description: "",
                     name: menu.type.toString(),
                     start: startLimit.add(const Duration(minutes: 1)),
-                    end: endLimit.add(const Duration(minutes: 1)),
+                    end: endLimit.subtract(const Duration(minutes: 1)),
                     eventLastModified: DateTime.now()),
                 0
               ));
