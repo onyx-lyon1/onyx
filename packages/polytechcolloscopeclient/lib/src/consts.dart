@@ -4,10 +4,7 @@ enum Year {
 }
 
 class Consts {
-  static const String userAgent =
-      "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0";
-
-  // HTTPS parce que le https est pas géré
+  // HTTPS because the website is not available in HTTP
   static const String _base = "http://math.univ-lyon1.fr/colles/";
 
   static const kholleURL = {
