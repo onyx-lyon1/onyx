@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class Student extends Equatable {
   final String name;
-  final String id;
+  final int id;
 
   Student(this.name, this.id);
 
@@ -14,14 +14,14 @@ class Student extends Equatable {
 }
 
 class StudentColloscope extends Equatable {
-  final int studentId;
+  final Student student;
   final int trinomeId;
   final List kholles;
 
-  StudentColloscope(this.studentId, this.trinomeId, this.kholles);
+  StudentColloscope(this.student, this.trinomeId, this.kholles);
 
   @override
-  List<Object?> get props => [studentId, trinomeId, kholles];
+  List<Object?> get props => [student, trinomeId, kholles];
 
   @override
   bool? get stringify => true;

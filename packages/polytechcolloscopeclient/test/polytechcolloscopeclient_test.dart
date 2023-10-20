@@ -4,21 +4,75 @@ import 'package:test/test.dart';
 
 Future<void> main() async {
   DotEnv env = DotEnv(includePlatformEnvironment: true);
+  late PolytechColloscopeClient client;
 
-  env.load();
-  final String username = env['USERNAME'] ?? "";
-  final String password = env['PASSWORD'] ?? "";
+  late final int id;
 
-  if (username.isEmpty || password.isEmpty) {
-    fail("username or password were empty. check your envt variables");
-  }
+  late final String name;
+  late final String surname;
 
-  PolytechColloscopeClient client =
-      PolytechColloscopeClient(username, password);
+  setUpAll(() {
+    env.load();
+    final String username = env['USERNAME'] ?? "";
+    final String password = env['PASSWORD'] ?? "";
 
-  var students = await client.fetchStudents(Year.first);
-  print(students);
+    id = int.parse(env['ID'] ?? "0");
 
-  var colloscope = await client.getColloscope(Year.first, 828);
-  print(colloscope);
+    name = env['NAME'] ?? "";
+    surname = env['SURNAME'] ?? "";
+
+    if (username.isEmpty || password.isEmpty) {
+      fail("username or password were empty. check your envt variables");
+    }
+
+    client = PolytechColloscopeClient(username, password);
+  });
+
+  test('Fetch all Students IDs (first year)',
+      () async => {expect(await client.fetchStudents(Year.first), isNotEmpty)});
+
+  test(
+      'Fetch all Students IDs (second year)',
+      () async =>
+          {expect(await client.fetchStudents(Year.second), isNotEmpty)});
+
+  test(
+      'Get Colloscope wrong ID',
+      () async => {
+            expect(client.getColloscope(Year.second, Student("", 651635)),
+                throwsStateError)
+          });
+
+  test(
+      'Get Colloscope',
+      () async => {
+            expect(await client.getColloscope(Year.second, Student("", id)),
+                isNotNull)
+          });
+
+  test('Get Colloscope', () async {
+    final StudentColloscope colloscope =
+        await client.getColloscope(Year.second, Student("", id));
+    expect(colloscope, isNotNull);
+    expect(colloscope.student, isNotNull);
+    expect(colloscope.trinomeId, isNotNull);
+    expect(colloscope.kholles, isNotEmpty);
+  });
+
+  test(
+      "Fetch a student",
+      () async => {
+            expect(await client.fetchStudent(Year.second, name, surname),
+                isNotNull)
+          });
+
+  test('Fetch a student', () async {
+    final StudentColloscope colloscope =
+        await client.getColloscope(Year.second, Student("", id));
+    expect(colloscope, isNotNull);
+    expect(colloscope.student, isNotNull);
+    expect(colloscope.student.id, isNotNull);
+    expect(colloscope.trinomeId, isNotNull);
+    expect(colloscope.kholles, isNotEmpty);
+  });
 }

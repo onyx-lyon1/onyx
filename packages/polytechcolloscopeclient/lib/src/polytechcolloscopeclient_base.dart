@@ -1,4 +1,5 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:collection/collection.dart';
 import 'package:html/dom.dart';
 import 'package:requests_plus/requests_plus.dart';
 
@@ -30,27 +31,42 @@ class PolytechColloscopeClient {
       var link = e.getAttrValue("href");
       var id = RegExp(r"id_etudiant=(\d+)").firstMatch(link!)?.group(1);
 
-      students.add(Student(name, id!));
+      students.add(Student(name, int.parse(id!)));
     });
 
     return students;
   }
 
-  Future<StudentColloscope> getColloscope(Year year, int studentId) async {
+  Future<Student?> fetchStudent(Year year, String name, String surname) async {
+    if (name.isEmpty || surname.isEmpty) {
+      return null;
+    }
+
+    String match =
+        "${name.substring(0, 1).toUpperCase()}. ${surname.toUpperCase()}";
+
+    var students = await fetchStudents(year);
+    return students.firstWhereOrNull((s) => s.name == match);
+  }
+
+  Future<StudentColloscope> getColloscope(Year year, Student student) async {
     // TODO : Add a check to verify the studentid (look 5 lines below)
 
     var page = await RequestsPlus.get(
         Consts.khollesStudentURL[year]!
-            .replaceFirst(":id", studentId.toString()),
+            .replaceFirst(":id", student.id.toString()),
         userName: username,
         password: password);
 
     BeautifulSoup bs = BeautifulSoup(page.body);
 
     // We can use this to check if the studentid is valid
-    var trinomeStr = RegExp(r"trinôme (\d+)")
-        .firstMatch(bs.find("h3.colles")!.innerHtml)
-        ?.group(1);
+    var header = bs.find("h3.colles");
+    if (header == null) {
+      throw StateError("Invalid student id");
+    }
+
+    var trinomeStr = RegExp(r"trinôme (\d+)").firstMatch(header.innerHtml)?.group(1);
 
     var trinome = int.parse(trinomeStr!);
 
@@ -62,7 +78,7 @@ class PolytechColloscopeClient {
       kholles.add(parseKholle(e));
     });
 
-    return StudentColloscope(studentId, trinome, kholles);
+    return StudentColloscope(student, trinome, kholles);
   }
 
   static Kholle parseKholle(Bs4Element e) {
