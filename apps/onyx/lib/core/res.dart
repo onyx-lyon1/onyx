@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:logger/logger.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 part 'generated/res.g.dart';
 
@@ -68,4 +68,6 @@ enum Functionalities {
   izly,
   @HiveField(5)
   settings,
+  @HiveField(6)
+  colloscope,
 }
