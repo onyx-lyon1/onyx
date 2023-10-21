@@ -22,16 +22,16 @@ class PolytechColloscopeClient {
 
     //This isolates the student list part of the page, it consists in a list of <li> elements like
     // <li><a href="?page=colles_2A&amp;id_etudiant=STUDENT_ID">INITAL. SUNRNAME</a> (groupe GROUPNUMBER)</li>
-    var studentsList = bs.find("table.colles")?.find("td > ul");
+    var studentsList = bs.find("table.colles")!.find("td > ul")!;
 
     List<Student> students = [];
 
-    studentsList?.findAll("li > a").forEach((e) {
+    studentsList.findAll("li > a").forEach((e) {
       var name = e.innerHtml;
-      var link = e.getAttrValue("href");
-      var id = RegExp(r"id_etudiant=(\d+)").firstMatch(link!)?.group(1);
+      var link = e.getAttrValue("href")!;
+      var id = RegExp(r"id_etudiant=(\d+)").firstMatch(link)!.group(1)!;
 
-      students.add(Student(name, int.parse(id!)));
+      students.add(Student(name, int.parse(id)));
     });
 
     return students;
@@ -50,8 +50,6 @@ class PolytechColloscopeClient {
   }
 
   Future<StudentColloscope> getColloscope(Year year, Student student) async {
-    // TODO : Add a check to verify the studentid (look 5 lines below)
-
     var page = await RequestsPlus.get(
         Consts.khollesStudentURL[year]!
             .replaceFirst(":id", student.id.toString()),
@@ -67,9 +65,9 @@ class PolytechColloscopeClient {
     }
 
     var trinomeStr =
-        RegExp(r"trinôme (\d+)").firstMatch(header.innerHtml)?.group(1);
+        RegExp(r"trinôme (\d+)").firstMatch(header.innerHtml)!.group(1)!;
 
-    var trinome = int.parse(trinomeStr!);
+    var trinome = int.parse(trinomeStr);
 
     var tableHtml = bs.find("table.colles");
 
@@ -86,39 +84,38 @@ class PolytechColloscopeClient {
     // Gathering data from html (this parsing is awful but can't really do better)
 
     var date = e.children.first.innerHtml.trim();
-    var secondTd = e.children.elementAtOrNull(1);
+    var secondTd = e.children.elementAtOrNull(1)!;
 
     var hourAndMinute =
-        secondTd?.children.first.innerHtml.replaceFirst("&nbsp;", "").trim();
+        secondTd.children.first.innerHtml.replaceFirst("&nbsp;", "").trim();
 
-    var secondDiv = secondTd?.children.elementAtOrNull(1);
-    var kholleur = secondDiv?.find("a")?.text.trim();
+    var secondDiv = secondTd.children.elementAtOrNull(1)!;
+    var kholleur = secondDiv.find("a")!.text.trim();
 
     var divText =
-        secondDiv?.nodes.where((element) => element.runtimeType == Text);
+        secondDiv.nodes.where((element) => element.runtimeType == Text);
 
-    var subject = divText?.first.text?.replaceAll(RegExp(r'[()]'), "").trim();
+    var subject = divText.first.text!.replaceAll(RegExp(r'[()]'), "").trim();
 
     String message;
-    if (divText?.length == 2) {
-      message =
-          divText?.last.text?.replaceAll(RegExp(r'[()]'), "").trim() ?? "";
+    if (divText.length == 2) {
+      message = divText.last.text?.replaceAll(RegExp(r'[()]'), "").trim() ?? "";
     } else {
       message = "";
     }
 
-    var dateParsed = RegExp(r"(\d{1,2}) (.{3,9})").firstMatch(date);
-    var day = dateParsed?.group(1);
-    var month = Consts.monthsTranslation[dateParsed?.group(2)];
+    var dateParsed = RegExp(r"(\d{1,2}) (.{3,9})").firstMatch(date)!;
+    var day = dateParsed.group(1)!;
+    var month = Consts.monthsTranslation[dateParsed.group(2)];
 
     var hourAndMinutesParsed =
-        RegExp(r"(\d{1,2}) h (\d{2})").firstMatch(hourAndMinute!);
-    var hour = hourAndMinutesParsed?.group(1);
-    var minutes = hourAndMinutesParsed?.group(2);
+        RegExp(r"(\d{1,2}) h (\d{2})").firstMatch(hourAndMinute)!;
+    var hour = hourAndMinutesParsed.group(1)!;
+    var minutes = hourAndMinutesParsed.group(2)!;
 
-    var dateTime = DateTime(DateTime.now().year, month, int.parse(day!),
-        int.parse(hour!), int.parse(minutes!));
+    var dateTime = DateTime(DateTime.now().year, month, int.parse(day),
+        int.parse(hour), int.parse(minutes));
 
-    return Kholle(dateTime, subject!, message, kholleur);
+    return Kholle(dateTime, subject, kholleur, message);
   }
 }
