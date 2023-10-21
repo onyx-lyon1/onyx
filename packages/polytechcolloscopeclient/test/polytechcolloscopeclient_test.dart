@@ -39,20 +39,24 @@ Future<void> main() async {
   test(
       'Get Colloscope wrong ID',
       () async => {
-            expect(client.getColloscope(Year.second, Student("", 651635)),
+            expect(
+                client.getColloscope(
+                    Year.second, Student(Year.second, "", 651635)),
                 throwsStateError)
           });
 
   test(
       'Get Colloscope',
       () async => {
-            expect(await client.getColloscope(Year.second, Student("", id)),
+            expect(
+                await client.getColloscope(
+                    Year.second, Student(Year.second, "", id)),
                 isNotNull)
           });
 
   test('Get Colloscope', () async {
     final StudentColloscope colloscope =
-        await client.getColloscope(Year.second, Student("", id));
+        await client.getColloscope(Year.second, Student(Year.second, "", id));
     expect(colloscope, isNotNull);
     expect(colloscope.student, isNotNull);
     expect(colloscope.trinomeId, isNotNull);
@@ -68,7 +72,7 @@ Future<void> main() async {
 
   test('Fetch a student', () async {
     final StudentColloscope colloscope =
-        await client.getColloscope(Year.second, Student("", id));
+        await client.getColloscope(Year.second, Student(Year.second, "", id));
     expect(colloscope, isNotNull);
     expect(colloscope.student, isNotNull);
     expect(colloscope.student.id, isNotNull);

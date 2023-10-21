@@ -31,7 +31,7 @@ class PolytechColloscopeClient {
       var link = e.getAttrValue("href")!;
       var id = RegExp(r"id_etudiant=(\d+)").firstMatch(link)!.group(1)!;
 
-      students.add(Student(name, int.parse(id)));
+      students.add(Student(year, name, int.parse(id)));
     });
 
     return students;
