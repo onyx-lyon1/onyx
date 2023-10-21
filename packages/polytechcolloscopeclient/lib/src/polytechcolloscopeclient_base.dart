@@ -49,9 +49,9 @@ class PolytechColloscopeClient {
     return students.firstWhereOrNull((s) => s.name == match);
   }
 
-  Future<StudentColloscope> getColloscope(Year year, Student student) async {
+  Future<StudentColloscope> getColloscope(Student student) async {
     var page = await RequestsPlus.get(
-        Consts.khollesStudentURL[year]!
+        Consts.khollesStudentURL[student.year]!
             .replaceFirst(":id", student.id.toString()),
         userName: _username,
         password: _password);
