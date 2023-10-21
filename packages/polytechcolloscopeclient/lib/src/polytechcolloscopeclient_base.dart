@@ -97,11 +97,9 @@ class PolytechColloscopeClient {
 
     var subject = divText.first.text!.replaceAll(RegExp(r'[()]'), "").trim();
 
-    String message;
+    String? message;
     if (divText.length == 2) {
-      message = divText.last.text?.replaceAll(RegExp(r'[()]'), "").trim() ?? "";
-    } else {
-      message = "";
+      message = divText.last.text?.replaceAll(RegExp(r'[()]'), "").trim();
     }
 
     var dateParsed = RegExp(r"(\d{1,2}) (.{3,9})").firstMatch(date)!;
