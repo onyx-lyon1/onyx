@@ -16,19 +16,37 @@ class Consts {
     Year.first: "$_base?page=colles_1A&id_etudiant=:id",
     Year.second: "$_base?page=colles_2A&id_etudiant=:id"
   };
+}
 
-  static const Map monthsTranslation = {
-    "janvier": DateTime.january,
-    "février": DateTime.february,
-    "mars": DateTime.march,
-    "avril": DateTime.april,
-    "mai": DateTime.may,
-    "juin": DateTime.june,
-    "juillet": DateTime.july,
-    "août": DateTime.august,
-    "septembre": DateTime.september,
-    "octobre": DateTime.october,
-    "novembre": DateTime.november,
-    "décembre": DateTime.december
-  };
+extension MonthsTranslation on String {
+  int get asMonthNumber {
+    switch (this) {
+      case "janvier":
+        return DateTime.january;
+      case "février":
+        return DateTime.february;
+      case "mars":
+        return DateTime.march;
+      case "avril":
+        return DateTime.april;
+      case "mai":
+        return DateTime.may;
+      case "juin":
+        return DateTime.june;
+      case "juillet":
+        return DateTime.july;
+      case "août":
+        return DateTime.august;
+      case "septembre":
+        return DateTime.september;
+      case "octobre":
+        return DateTime.october;
+      case "novembre":
+        return DateTime.november;
+      case "décembre":
+        return DateTime.december;
+      default:
+        throw StateError("Invalid month");
+    }
+  }
 }

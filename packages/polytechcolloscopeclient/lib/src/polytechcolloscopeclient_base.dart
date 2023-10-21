@@ -106,7 +106,7 @@ class PolytechColloscopeClient {
 
     var dateParsed = RegExp(r"(\d{1,2}) (.{3,9})").firstMatch(date)!;
     var day = dateParsed.group(1)!;
-    var month = Consts.monthsTranslation[dateParsed.group(2)];
+    var month = dateParsed.group(2)!.asMonthNumber;
 
     var hourAndMinutesParsed =
         RegExp(r"(\d{1,2}) h (\d{2})").firstMatch(hourAndMinute)!;
