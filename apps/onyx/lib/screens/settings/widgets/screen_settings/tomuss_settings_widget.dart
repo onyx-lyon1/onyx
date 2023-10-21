@@ -46,23 +46,13 @@ class TomussSettingsWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
-              onTap: () => (bool b) {
-                context.read<SettingsCubit>().modify(
-                    settings: context
-                        .read<SettingsCubit>()
-                        .state
-                        .settings
-                        .copyWith(forceGreen: b));
-              },
-              child: Text(
-                "Durée d'une note récente",
-                softWrap: true,
-                overflow: TextOverflow.visible,
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyLarge!.color,
-                  fontSize: 12,
-                ),
+            Text(
+              "Durée d'une note récente",
+              softWrap: true,
+              overflow: TextOverflow.visible,
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyLarge!.color,
+                fontSize: 12,
               ),
             ),
             DropdownButton(
