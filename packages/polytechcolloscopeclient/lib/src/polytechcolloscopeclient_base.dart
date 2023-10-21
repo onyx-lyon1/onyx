@@ -102,6 +102,16 @@ class PolytechColloscopeClient {
       message = divText.last.text?.replaceAll(RegExp(r'[()]'), "").trim();
     }
 
+    // Try to parse the message (i hope this doesn't break)
+    String? room;
+    if (message != null) {
+      room = RegExp(r"salle(.*)", caseSensitive: false)
+          .firstMatch(message.replaceAll(
+              RegExp(r"\b(salle\s*)+\b", caseSensitive: false), "Salle"))
+          ?.group(1)
+          ?.trim();
+    }
+
     var dateParsed = RegExp(r"(\d{1,2}) (.{3,9})").firstMatch(date)!;
     var day = dateParsed.group(1)!;
     var month = dateParsed.group(2)!.asMonthNumber;
@@ -114,6 +124,6 @@ class PolytechColloscopeClient {
     var dateTime = DateTime(DateTime.now().year, month, int.parse(day),
         int.parse(hour), int.parse(minutes));
 
-    return Kholle(dateTime, subject, kholleur, message);
+    return Kholle(dateTime, subject, kholleur, message, room);
   }
 }
