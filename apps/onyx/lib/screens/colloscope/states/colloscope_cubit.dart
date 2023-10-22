@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/res.dart';
-import 'package:onyx/screens/settings/domain/model/settings_model.dart';
 import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
 
 part 'colloscope_state.dart';
@@ -14,25 +12,38 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
       : super(const ColloscopeState(
       status: ColloscopeStatus.initial, studentColloscope: null));
 
-  void connect(
-      {IzlyCredential? credential, required SettingsModel settings}) async {
-    //mock gestion
+  void load() async {
+    emit(state.copyWith(status: ColloscopeStatus.loading));
+
     if (Res.mock) {
-      _colloscopeClient =
-          PolytechColloscopeClient("mockUsername", "mockPassword");
       emit(state.copyWith(
         status: ColloscopeStatus.ready,
-        studentColloscope: StudentColloscope(
-            Student(Year.second, "Oui", 351), 10, [
+        studentColloscope: StudentColloscope(Student(Year.second, "Oui", 351), 10, [
           Kholle(DateTime.now(), "Oui Matiere", "Oui Kholleur", "Oui message",
-              "Oui Room")
+              "Oui Room"),
+          Kholle(DateTime.now(), "Oui Matiere", "Oui Kholleur", "Oui message",
+              "Oui Room"),
+          Kholle(DateTime.now(), "Oui Matiere", "Oui Kholleur", "Oui message",
+              "Oui Room"),
+          Kholle(DateTime.now(), "Oui Matiere", "Oui Kholleur", "Oui message",
+              null),
         ]),
       ));
 
       return;
     }
-    //cache loading
-    /*Box box = await Hive.openBox<double>("cached_izly_amount");
+
+    _colloscopeClient = PolytechColloscopeClient("username", "password");
+
+    emit(state.copyWith(
+      status: ColloscopeStatus.ready,
+      studentColloscope:
+          await _colloscopeClient!.getColloscope(Student(Year.second, "", 0)),
+    ));
+  }
+
+//cache loading
+/*Box box = await Hive.openBox<double>("cached_izly_amount");
     double amount = box.get("amount") ?? 0.0;
     Uint8List qrCode = await IzlyLogic.getQrCode();
     int qrCodeCount = await IzlyLogic.getAvailableQrCodeCount();
@@ -42,8 +53,8 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
         balance: amount,
         qrCodeAvailables: qrCodeCount));*/
 
-    //real load
-    /*try {
+//real load
+/*try {
       if (_izlyClient == null || !(await _izlyClient!.isLogged())) {
         //need to login
         credential ??= await CacheService.get<IzlyCredential>(
@@ -94,9 +105,9 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
     } catch (e) {
       emit(state.copyWith(status: IzlyStatus.error));
     }*/
-  }
+//}
 
-  /*Future<void> loadPaymentHistory({bool cache = true}) async {
+/*Future<void> loadPaymentHistory({bool cache = true}) async {
     if (state.izlyClient != null) {
       emit(state.copyWith(status: IzlyStatus.loading));
       if (cache && await CacheService.exist<IzlyPaymentModelList>()) {
@@ -120,7 +131,7 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
     }
   }*/
 
-  /*void disconnect() async {
+/*void disconnect() async {
     if (_izlyClient != null) {
       await _izlyClient!.logout();
     }

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/screens/colloscope/states/colloscope_cubit.dart';
+
+import '../widgets/kholle_widget.dart';
 
 class ColloscopePage extends StatelessWidget {
   const ColloscopePage({
@@ -8,167 +12,70 @@ class ColloscopePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const LoadingHeaderWidget(message: "Oui c'est oui");
-  }
-/*context.read<AgendaCubit>().miniCalendarScrollController =
-        PageController(initialPage: wantedDate ~/ weekLength);
-    context.read<AgendaCubit>().horizontalScrollController[0] =
-        PageController(initialPage: wantedDate);
-    context.read<AgendaCubit>().horizontalScrollController[1] =
-        PageController(initialPage: wantedDate ~/ weekLength);
-    return BlocBuilder<SettingsCubit, SettingsState>(
-      builder: (context, settingsState) {
-        return BlocBuilder<AgendaCubit, AgendaState>(
-            buildWhen: (previous, current) =>
-            current.status != AgendaStatus.dateUpdated &&
-                current.status != AgendaStatus.updateAnimating,
-            builder: (context, state) {
-              Widget? headerState;
-              switch (state.status) {
-                case AgendaStatus.initial:
-                  context.read<AgendaCubit>().load(
-                      lyon1Cas:
-                      context.read<AuthentificationCubit>().state.lyon1Cas,
-                      settings: settingsState.settings);
-                  break;
-                case AgendaStatus.loading:
-                case AgendaStatus.cacheReady:
-                  headerState = const LoadingHeaderWidget(
-                      message: "Chargement de l'agenda");
-                  break;
-                case AgendaStatus.error:
-                  headerState = const LoadingHeaderWidget(
-                      message: "Erreur lors du chargement de l'agenda");
-                  break;
-                case AgendaStatus.haveToChooseManualy:
-                  return AgendaConfigPage(
-                    noBack: true,
-                    onBack: (int agendaId) {
-                      context.read<SettingsCubit>().modify(
-                        settings: settingsState.settings.copyWith(
-                          agendaId: agendaId,
-                          fetchAgendaAuto: false,
-                        ),
-                      );
-                    },
-                  );
-                case AgendaStatus.ready:
-                  break;
-                case AgendaStatus.dateUpdated:
-                  break;
-                case AgendaStatus.updateDayCount:
-                  break;
-                case AgendaStatus.updateAnimating:
-                  break;
-              }
+    return BlocBuilder<ColloscopeCubit, ColloscopeState>(
+      builder: (context, state) {
+        Widget body;
+        Widget? stateWidget;
 
-              List<ScrollController> verticalController =
-              List.generate(3, (_) => ScrollController());
-
-              return CommonScreenWidget(
-                state: headerState,
-                header: context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .showMiniCalendar
-                    ? MiniCalendarWidget(
-                  scrollController: context
-                      .read<AgendaCubit>()
-                      .miniCalendarScrollController,
-                )
-                    : Center(
-                  child: Text(
-                    'Agenda',
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                body: DoubleScrollableWidget(
-                  listScrollController: verticalController,
-                  pageController:
-                  context.read<AgendaCubit>().verticalScrollController,
-                  child: PageView(
-                    controller:
-                    context.read<AgendaCubit>().verticalScrollController,
-                    scrollDirection: Axis.vertical,
-                    reverse: settingsState.settings.agendaPageTopToBottom,
-                    physics: const NeverScrollableScrollPhysics(),
-                    onPageChanged: (index) {
-                      if (index == 0) {
-                        if (context
-                            .read<AgendaCubit>()
-                            .horizontalScrollController[0]
-                            .hasClients) {
-                          context
-                              .read<AgendaCubit>()
-                              .horizontalScrollController[0]
-                              .jumpToPage(
-                              context.read<AgendaCubit>().state.wantedDate);
-                        }
-                      } else {
-                        if (context
-                            .read<AgendaCubit>()
-                            .horizontalScrollController[1]
-                            .hasClients) {
-                          int date =
-                              context.read<AgendaCubit>().state.wantedDate;
-                          context
-                              .read<AgendaCubit>()
-                              .horizontalScrollController[1]
-                              .jumpToPage(date ~/
-                              settingsState.settings.agendaWeekLength);
-                          context.read<AgendaCubit>().updateDisplayedDate(
-                              wantedDate: date,
-                              fromMiniCalendar: false,
-                              fromHorizontalScroll: true,
-                              settings: settingsState.settings);
-                        }
-                      }
-                    },
-                    children: [
-                      DaysViewWidget(
-                          dayCount: 1,
-                          verticalController: verticalController[0],
-                          horizontalController: context
-                              .read<AgendaCubit>()
-                              .horizontalScrollController[0]),
-                      DaysViewWidget(
-                          dayCount: settingsState.settings.agendaWeekLength,
-                          verticalController: verticalController[1],
-                          horizontalController: context
-                              .read<AgendaCubit>()
-                              .horizontalScrollController[1]),
-                      const Center(
-                        child: Text("month view coming soon"),
-                      )
-                    ],
-                  ),
-                ),
-                onRefresh: () async {
-                  context.read<AgendaCubit>().load(
-                    lyon1Cas: context
-                        .read<AuthentificationCubit>()
-                        .state
-                        .lyon1Cas,
-                    settings: settingsState.settings,
-                    fromUser: true,
-                    cache: false,
-                  );
-                  // ignore: use_build_context_synchronously
-                  while (state.status != AgendaStatus.ready &&
-                      // ignore: use_build_context_synchronously
-                      state.status != AgendaStatus.error) {
-                    await Future.delayed(const Duration(milliseconds: 100));
-                  }
-                  return;
-                },
-              );
+        switch (state.status) {
+          case ColloscopeStatus.initial:
+            stateWidget = null;
+            body = const SizedBox.shrink();
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+              context.read<ColloscopeCubit>().load();
             });
+          case ColloscopeStatus.loading:
+            stateWidget = const LoadingHeaderWidget(
+              message: "Chargement du colloscope",
+            );
+            body = const SizedBox.shrink();
+            break;
+          case ColloscopeStatus.error:
+            stateWidget = const LoadingHeaderWidget(
+              message: "Erreur lors du chargement du colloscope",
+            );
+            body = const SizedBox.shrink();
+            break;
+          case ColloscopeStatus.ready:
+            stateWidget = null;
+            body = Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: ListView(
+                children: [
+                  for (var i in state.studentColloscope!.kholles)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: KholleWidget(kholle: i),
+                    )
+                ],
+              ),
+            );
+            break;
+        }
+
+        return CommonScreenWidget(
+          onRefresh: () async {
+            context.read<ColloscopeCubit>().load();
+            while (state.status != ColloscopeStatus.ready &&
+                state.status != ColloscopeStatus.error) {
+              await Future.delayed(const Duration(milliseconds: 100));
+            }
+            return;
+          },
+          state: stateWidget,
+          header: Center(
+            child: Text(
+              'Colloscope',
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyLarge!.color,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          body: body,
+        );
       },
     );
-  }*/
+  }
 }
