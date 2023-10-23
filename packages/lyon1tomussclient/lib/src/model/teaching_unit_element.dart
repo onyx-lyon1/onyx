@@ -3,8 +3,8 @@ import 'package:lyon1tomussclient/src/parser/dateparser.dart';
 
 part 'teaching_unit_element.mapper.dart';
 
-@MappableClass(uniqueId: "TeachingUnitElement")
-/*abstract*/ class TeachingUnitElement with TeachingUnitElementMappable {
+@MappableClass(uniqueId: "TeachingUnitElement", discriminatorKey: "type")
+abstract class TeachingUnitElement with TeachingUnitElementMappable {
   @MappableField(key: "title")
   late final String title;
   @MappableField(key: "author")
@@ -15,11 +15,11 @@ part 'teaching_unit_element.mapper.dart';
   late final double position;
 
   @MappableConstructor()
-  TeachingUnitElement.mappableContruct({
+  TeachingUnitElement.mappableConstruct({
     this.title = "",
-    required this.author,
-    required this.date,
-    required this.position,
+    this.author = "",
+    this.date,
+    this.position = 0,
   });
 
   TeachingUnitElement({
@@ -44,20 +44,3 @@ part 'teaching_unit_element.mapper.dart';
 
 // bool get isVisible;
 }
-
-// @HiveType(typeId: 12)
-// class CustomElement extends TeachingUnitElement {
-//   // Ajoutez ici les propriétés spécifiques à CustomElement
-//
-//   CustomElement.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-//     coucou = json['coucou'];
-//   }
-//
-//   CustomElement({required super.name, required this.coucou});
-//
-//   @override
-//   bool get isVisible => false;
-//
-//   @override
-//   List<Object?> get customProps => [coucou];
-// }
