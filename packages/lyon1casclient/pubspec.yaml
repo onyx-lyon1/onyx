@@ -11,7 +11,6 @@ dependencies:
   beautiful_soup_dart: ^0.3.0
   copy_with_extension: ^5.0.4
   equatable: ^2.0.5
-  hive: ^2.2.3
   requests_plus: ^4.8.5
   http: ^1.1.0
 
@@ -22,3 +21,4 @@ dev_dependencies:
   hive_generator: ^2.0.1
   copy_with_extension_gen: ^5.0.4
   dotenv: ^4.2.0
+  dart_mappable_builder: ^4.0.1
