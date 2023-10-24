@@ -5,7 +5,7 @@ class URLCreator {
     return Constants.tomuss;
   }
 
-  static String previousSemester(final DateTime dt) {
+  static String previousSemesterName(final DateTime dt) {
     final String currentSemester =
         (dt.month >= 1 && dt.month < 9) ? "Printemps" : "Automne";
 
@@ -15,12 +15,16 @@ class URLCreator {
     final int prevYear =
         (currentSemester == 'Printemps') ? dt.year - 1 : dt.year;
 
-    return "${Constants.tomuss}/S/$prevYear/$prevSemester";
+    return "$prevYear/$prevSemester";
   }
 
-  static String currentSemester(final DateTime dt) {
+  static String currentSemesterName(final DateTime dt) {
     final String semester =
         (dt.month >= 1 && dt.month < 9) ? "Printemps" : "Automne";
-    return "${Constants.tomuss}/S/${dt.year}/$semester";
+    return "${dt.year}/$semester";
+  }
+
+  static String semesterFromName(final String name) {
+    return "${Constants.tomuss}/S/$name";
   }
 }
