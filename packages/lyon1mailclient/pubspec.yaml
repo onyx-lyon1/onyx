@@ -15,7 +15,6 @@ dev_dependencies:
   dart_mappable_builder: ^4.0.1
 
 dependencies:
-  hive: ^2.2.3
   requests_plus: ^4.8.3
   enough_mail: ^2.1.2
   enough_mail_html: ^2.0.1
