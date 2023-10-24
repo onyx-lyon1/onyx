@@ -1,24 +1,12 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'generated/credential.g.dart';
+part 'credential.mapper.dart';
 
-@CopyWith()
-@HiveType(typeId: 4)
-class Credential extends Equatable {
-  @HiveField(0)
+@MappableClass()
+class Credential with CredentialMappable {
   late final String username;
-  @HiveField(1)
   late final String password;
-  @HiveField(2, defaultValue: "")
   late final String tgcToken;
 
   Credential(this.username, this.password, {this.tgcToken = ""});
-
-  @override
-  List<Object?> get props => [username, password, tgcToken];
-
-  @override
-  bool? get stringify => true;
 }
