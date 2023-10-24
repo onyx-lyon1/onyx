@@ -1,10 +1,10 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:logger/logger.dart';
 
-part 'generated/res.g.dart';
+part 'res.mapper.dart';
 
 class Res {
   static Duration get animationDuration => const Duration(milliseconds: 300);
@@ -46,18 +46,18 @@ class Res {
   );
 }
 
-@HiveType(typeId: 18)
+@MappableEnum()
 enum Functionalities {
-  @HiveField(0)
+  @MappableValue(000)
   tomuss,
-  @HiveField(1)
+  @MappableValue(100)
   agenda,
-  @HiveField(2)
+  @MappableValue(200)
   mail,
-  @HiveField(3)
+  @MappableValue(300)
   map,
-  @HiveField(4)
+  @MappableValue(400)
   izly,
-  @HiveField(5)
+  @MappableValue(500)
   settings,
 }
