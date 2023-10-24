@@ -24,7 +24,6 @@ dependencies:
   requests_plus: ^4.8.3
   copy_with_extension: ^5.0.4
   equatable: ^2.0.5
-  http: ^1.1.0
   enough_mail: ^2.1.2
   enough_mail_html: ^2.0.1
 

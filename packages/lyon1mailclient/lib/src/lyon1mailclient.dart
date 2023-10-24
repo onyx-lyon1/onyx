@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:enough_mail/enough_mail.dart' hide Response;
 import 'package:hive/hive.dart';
-import 'package:http/http.dart' show Response;
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:requests_plus/requests_plus.dart';
 
@@ -352,7 +351,7 @@ class Lyon1MailClient {
     Iterable<Cookie> cookies =
         (await RequestsPlus.getStoredCookies(Lyon1MailClientConfig.baseWebUrl))
             .values;
-    Response response = await RequestsPlus.post(
+    final response = await RequestsPlus.post(
       Lyon1MailClientConfig.contactUrl,
       corsProxyUrl: _corsProxyUrl,
       headers: makeHeader(
