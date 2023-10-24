@@ -21,42 +21,6 @@ enum MenuType {
   String toString() => name;
 }
 
-@HiveType(typeId: 35)
-enum MenuRegime {
-  @HiveField(0)
-  normal,
-  @HiveField(1)
-  vegetarian,
-  @HiveField(2)
-  vegan,
-  @HiveField(3)
-  sansPorc,
-  @HiveField(4)
-  sansViande,
-  @HiveField(5)
-  sansPorcNiViande;
-
-  @override
-  String toString() => name;
-}
-
-@HiveType(typeId: 37)
-enum MenuCrousType {
-  @HiveField(0)
-  entree,
-  @HiveField(1)
-  plat,
-  @HiveField(2)
-  dessert,
-  @HiveField(3)
-  sandwich,
-  @HiveField(4)
-  salade;
-
-  @override
-  String toString() => name;
-}
-
 @CopyWith()
 @HiveType(typeId: 32)
 class MenuCrous extends Equatable {
