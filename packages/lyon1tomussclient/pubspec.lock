@@ -154,7 +154,7 @@ packages:
     source: hosted
     version: "3.1.1"
   copy_with_extension:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: copy_with_extension
       sha256: fbcf890b0c34aedf0894f91a11a579994b61b4e04080204656b582708b5b1125
@@ -189,10 +189,10 @@ packages:
     dependency: "direct main"
     description:
       name: dart_mappable
-      sha256: e78aae08dd74bfcd2d3993cb479813f2249651d0aee213353b07413b842e1625
+      sha256: c2d4775336d7166590766a1c4451edde2a302efe2a2a35ac09eef9025102e10f
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   dart_mappable_builder:
     dependency: "direct dev"
     description:
@@ -218,7 +218,7 @@ packages:
     source: hosted
     version: "4.1.0"
   equatable:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: equatable
       sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
@@ -273,14 +273,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.0"
-  hive:
-    dependency: transitive
-    description:
-      name: hive
-      sha256: "8dcf6db979d7933da8217edcec84e9df1bdb4e4edc7fc77dbd5aa74356d6d941"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.3"
   html:
     dependency: transitive
     description:

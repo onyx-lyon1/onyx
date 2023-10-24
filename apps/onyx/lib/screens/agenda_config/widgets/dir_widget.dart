@@ -5,7 +5,8 @@ import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class DirWidget extends StatelessWidget {
-  const DirWidget({super.key, required this.dir, required this.scrollController});
+  const DirWidget(
+      {super.key, required this.dir, required this.scrollController});
   final DirModel dir;
   final ScrollController scrollController;
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/packages/izlyclient/melos_izlyclient.iml" filepath="$PROJECT_DIR$/packages/izlyclient/melos_izlyclient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/lyon1agendaclient/melos_lyon1agendaclient.iml" filepath="$PROJECT_DIR$/packages/lyon1agendaclient/melos_lyon1agendaclient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/lyon1casclient/melos_lyon1casclient.iml" filepath="$PROJECT_DIR$/packages/lyon1casclient/melos_lyon1casclient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/lyon1mailclient/melos_lyon1mailclient.iml" filepath="$PROJECT_DIR$/packages/lyon1mailclient/melos_lyon1mailclient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/lyon1tomussclient/melos_lyon1tomussclient.iml" filepath="$PROJECT_DIR$/packages/lyon1tomussclient/melos_lyon1tomussclient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apps/onyx/melos_onyx.iml" filepath="$PROJECT_DIR$/apps/onyx/melos_onyx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/polytechcolloscopeclient/melos_polytechcolloscopeclient.iml" filepath="$PROJECT_DIR$/packages/polytechcolloscopeclient/melos_polytechcolloscopeclient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/melos_onyx_workspace.iml" filepath="$PROJECT_DIR$/melos_onyx_workspace.iml" />
+    </modules>
+  </component>
+</project>

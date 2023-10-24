@@ -7,6 +7,7 @@
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-64.0.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-61.0.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-65.0.0/lib" />
             </list>
           </value>
         </entry>
@@ -15,6 +16,7 @@
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-6.2.0/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-5.13.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-6.3.0/lib" />
             </list>
           </value>
         </entry>
@@ -372,7 +374,6 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dart_mappable-4.0.1/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/dart_mappable-4.0.0/lib" />
             </list>
           </value>
         </entry>
@@ -784,21 +785,7 @@
         <entry key="hive">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/hive-2.2.3/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="hive_flutter">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/hive_flutter-1.1.0/lib" />
-            </list>
-          </value>
-        </entry>
-        <entry key="hive_generator">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/hive_generator-2.0.1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/hive-4.0.0-dev.2/lib" />
             </list>
           </value>
         </entry>
@@ -875,14 +862,14 @@
         <entry key="isar">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/isar-3.1.0+1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/isar-4.0.0-dev.14/lib" />
             </list>
           </value>
         </entry>
         <entry key="isar_flutter_libs">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/isar_flutter_libs-3.1.0+1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/isar_flutter_libs-4.0.0-dev.14/lib" />
             </list>
           </value>
         </entry>
@@ -1338,13 +1325,6 @@
             </list>
           </value>
         </entry>
-        <entry key="source_helper">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/source_helper-1.3.4/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="source_map_stack_trace">
           <value>
             <list>
@@ -1434,9 +1414,9 @@
         <entry key="test">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/test-1.24.8/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/test-1.24.4/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/test-1.24.6/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/test-1.24.4/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/test-1.24.8/lib" />
             </list>
           </value>
         </entry>
@@ -1451,9 +1431,9 @@
         <entry key="test_core">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/test_core-0.5.8/lib" />
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/test_core-0.5.4/lib" />
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/test_core-0.5.6/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/test_core-0.5.4/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/test_core-0.5.8/lib" />
             </list>
           </value>
         </entry>
@@ -1771,7 +1751,6 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/cross_file-0.3.3+6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/crypto-3.0.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/csslib-1.0.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dart_mappable-4.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dart_mappable-4.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dart_mappable_builder-4.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dart_mappable_builder-4.0.1/lib" />
@@ -1832,9 +1811,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/glob-2.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/graphs-2.3.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/hex-0.2.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/hive-2.2.3/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/hive_flutter-1.1.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/hive_generator-2.0.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/hive-4.0.0-dev.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/html-0.15.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/html_unescape-2.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http-1.1.0/lib" />
@@ -1845,8 +1822,8 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/image-4.1.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/intl-0.18.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/io-1.0.4/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/isar-3.1.0+1/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/isar_flutter_libs-3.1.0+1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/isar-4.0.0-dev.14/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/isar_flutter_libs-4.0.0-dev.14/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/js-0.6.7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/json_annotation-4.8.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/latlong2-0.9.0/lib" />
@@ -1914,7 +1891,6 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shelf_static-1.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shelf_web_socket-1.0.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_gen-1.4.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_helper-1.3.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_map_stack_trace-2.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_maps-0.10.12/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_span-1.10.0/lib" />
