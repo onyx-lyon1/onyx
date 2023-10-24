@@ -1,20 +1,25 @@
 import 'dart:convert';
 
 import 'package:biometric_storage/biometric_storage.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:encrypt/encrypt.dart';
+import 'package:hive/hive.dart';
 import 'package:onyx/core/res.dart';
+import 'package:path_provider/path_provider.dart';
 
 class CacheService {
   static List<int>? secureKey;
   static BiometricStorageFile? _storageFile;
   static bool? _isBiometricEnabled;
 
-  static Future<E?> get<E>({int index = 0, List<int>? secureKey}) async {
+  static Future<E?> get<E>(
+      {int index = 0, List<int>? secureKey, bool permanent = false}) async {
     try {
-      Box<E> box = await Hive.openBox<E>(
-        "cached_$E",
-        encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
-        crashRecovery: false,
+      Box<E> box = Hive.box<E>(
+        name: "cached_$E",
+        encryptionKey:
+            (secureKey != null) ? String.fromCharCodes(secureKey) : null,
+        directory:
+            (permanent) ? (await getApplicationCacheDirectory()).path : null,
       );
       return box.get("cache$index");
     } catch (e) {
@@ -25,26 +30,31 @@ class CacheService {
   }
 
   static Future<void> set<E>(E data,
-      {int index = 0, List<int>? secureKey}) async {
+      {int index = 0, List<int>? secureKey, bool permanent = false}) async {
     try {
-      Box box = await Hive.openBox<E>(
-        "cached_$E",
-        encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
-        crashRecovery: false,
+      Box<E> box = Hive.box<E>(
+        name: "cached_$E",
+        encryptionKey:
+            (secureKey != null) ? String.fromCharCodes(secureKey) : null,
+        directory:
+            (permanent) ? (await getApplicationCacheDirectory()).path : null,
       );
-      await box.put("cache$index", data);
+      box.put("cache$index", data);
     } catch (e) {
       Res.logger.e("error while setting cache for $E: $e");
       await reset<E>();
     }
   }
 
-  static Future<bool> exist<E>({int index = 0, List<int>? secureKey}) async {
+  static Future<bool> exist<E>(
+      {int index = 0, List<int>? secureKey, bool permanent = false}) async {
     try {
-      Box box = await Hive.openBox<E>(
-        "cached_$E",
-        encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
-        crashRecovery: false,
+      Box<E> box = Hive.box<E>(
+        name: "cached_$E",
+        encryptionKey:
+            (secureKey != null) ? String.fromCharCodes(secureKey) : null,
+        directory:
+            (permanent) ? (await getApplicationCacheDirectory()).path : null,
       );
       return box.containsKey("cache$index");
     } catch (e) {
@@ -54,8 +64,12 @@ class CacheService {
     }
   }
 
-  static Future<void> reset<E>() async {
-    await Hive.deleteBoxFromDisk("cached_$E");
+  static Future<void> reset<E>({bool permanent = false}) async {
+    Hive.box<E>(
+      name: "cached_$E",
+      directory:
+          (permanent) ? (await getApplicationCacheDirectory()).path : null,
+    ).deleteFromDisk();
   }
 
   static Future<bool> toggleBiometricAuth(bool biometricAuth) async {
@@ -106,7 +120,7 @@ class CacheService {
     try {
       String? data = await _storageFile!.read();
       if (data == null) {
-        data = base64Encode(Hive.generateSecureKey());
+        data = Key.fromSecureRandom(1024).base64;
         await _storageFile!.write(data);
       }
       secureKey = base64Url.decode(data);
