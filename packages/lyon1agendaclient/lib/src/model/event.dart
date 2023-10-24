@@ -1,26 +1,16 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'generated/event.g.dart';
+part 'event.mapper.dart';
 
-@CopyWith()
-@HiveType(typeId: 3)
-class Event extends Equatable {
-  @HiveField(0)
+@MappableClass()
+class Event with EventMappable {
   late final String location;
-  @HiveField(1)
   late final String description;
-  @HiveField(2)
   late final String teacher;
-  @HiveField(3)
   late final String name;
 
-  @HiveField(4)
   late final DateTime start;
-  @HiveField(5)
   late final DateTime end;
-  @HiveField(6)
   late final DateTime eventLastModified;
 
   final dynamic menuCrous;
@@ -58,19 +48,4 @@ class Event extends Equatable {
     eventLastModified =
         DateTime.parse(eventJSON['lastModified']['dt']).toLocal();
   }
-
-  @override
-  List<Object?> get props => [
-        location,
-        description,
-        teacher,
-        name,
-        start,
-        end,
-        eventLastModified,
-        menuCrous,
-      ];
-
-  @override
-  bool get stringify => true;
 }

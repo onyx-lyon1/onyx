@@ -1,4 +1,3 @@
-import 'package:hive/hive.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1agendaclient/src/constants/constants.dart';
 import 'package:lyon1agendaclient/src/model/agenda.dart';
@@ -14,12 +13,6 @@ class Lyon1AgendaClient {
 
   Lyon1AgendaClient(this._agendaURL) {
     _corsProxyUrl = "";
-  }
-
-  static void registerAdapters() {
-    Hive.registerAdapter(AgendaAdapter());
-    Hive.registerAdapter(DayAdapter());
-    Hive.registerAdapter(EventAdapter());
   }
 
   Lyon1AgendaClient.useLyon1Cas(final Lyon1CasClient authentication) {
