@@ -1,13 +1,11 @@
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-class CbModel extends Equatable {
+part 'cb_model.mapper.dart';
+
+@MappableClass()
+class CbModel with CbModelMappable {
   final String name;
   final String id;
 
   CbModel(this.name, this.id);
-
-  @override
-  List<Object?> get props => [name, id];
-  @override
-  bool get stringify => true;
 }

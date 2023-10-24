@@ -1,34 +1,21 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'generated/menu_crous.g.dart';
+part 'menu_crous.mapper.dart';
 
-// extension ToString on MenuType {
-//   String toString() {}
-// }
-
-@HiveType(typeId: 34)
+@MappableEnum()
 enum MenuType {
-  @HiveField(0)
+  @MappableValue(000)
   matin,
-  @HiveField(1)
+  @MappableValue(100)
   midi,
-  @HiveField(2)
+  @MappableValue(200)
   soir;
-
-  @override
-  String toString() => name;
 }
 
-@CopyWith()
-@HiveType(typeId: 32)
-class MenuCrous extends Equatable {
-  @HiveField(0)
+@MappableClass()
+class MenuCrous with MenuCrousMappable {
   final DateTime date;
-  @HiveField(1)
   final MenuType type;
-  @HiveField(3)
   final List<PlatCrous> plats;
 
   MenuCrous({
@@ -53,20 +40,11 @@ class MenuCrous extends Equatable {
         //     .toList(),
         );
   }
-
-  @override
-  List<Object?> get props => [date, type, plats];
-
-  @override
-  bool get stringify => true;
 }
 
-@CopyWith()
-@HiveType(typeId: 36)
-class PlatCrous extends Equatable {
-  @HiveField(0)
+@MappableClass()
+class PlatCrous with PlatCrousMappable {
   final String name;
-  @HiveField(1)
   final List<String> variants;
 
   PlatCrous({
@@ -82,10 +60,4 @@ class PlatCrous extends Equatable {
           (json["dishes"] as List).map((e) => e["name"] as String).toList(),
     );
   }
-
-  @override
-  List<Object?> get props => [name, variants];
-
-  @override
-  bool get stringify => true;
 }

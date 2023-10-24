@@ -1,24 +1,14 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'generated/izly_credential.g.dart';
+part 'izly_credential.mapper.dart';
 
-@CopyWith()
-@HiveType(typeId: 15)
-class IzlyCredential extends Equatable {
-  @HiveField(0)
+@MappableClass()
+class IzlyCredential with IzlyCredentialMappable {
   final String username;
-  @HiveField(1)
   final String password;
 
   IzlyCredential({
     required this.username,
     required this.password,
   });
-
-  @override
-  List<Object?> get props => [username, password];
-  @override
-  bool get stringify => true;
 }

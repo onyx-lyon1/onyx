@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:hive/hive.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:izlyclient/izlyclient.dart';
@@ -14,22 +13,6 @@ class IzlyClient {
   static const _cbConfirmationLink =
       "https://secure-magenta1.be2bill.com/front/form/process";
   late final String _corsProxyUrl;
-
-  static void registerAdapters() {
-    Hive.registerAdapter(IzlyCredentialAdapter());
-    Hive.registerAdapter(IzlyQrCodeAdapter());
-    Hive.registerAdapter(IzlyQrCodeListAdapter());
-    Hive.registerAdapter(MenuTypeAdapter());
-    Hive.registerAdapter(MenuRegimeAdapter());
-    Hive.registerAdapter(MenuCrousTypeAdapter());
-    Hive.registerAdapter(PlatCrousAdapter());
-    Hive.registerAdapter(MenuCrousAdapter());
-    Hive.registerAdapter(CrousTypeAdapter());
-    Hive.registerAdapter(RestaurantModelAdapter());
-    Hive.registerAdapter(RestaurantListModelAdapter());
-    Hive.registerAdapter(IzlyPaymentModelAdapter());
-    Hive.registerAdapter(IzlyPaymentModelListAdapter());
-  }
 
   final String _username;
   final String _password;
