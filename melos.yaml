@@ -10,7 +10,7 @@ scripts:
   formatting:check: melos exec -- dart format --set-exit-if-changed .
 
   generate:
-    run: melos exec -c 1 --depends-on="build_runner" --flutter -- "flutter pub run build_runner build --delete-conflicting-outputs"
+    run: melos exec --depends-on=build_runner -- "dart run build_runner build -d"
     description: Build all generated files for Flutter packages in this project.
 
   test:
