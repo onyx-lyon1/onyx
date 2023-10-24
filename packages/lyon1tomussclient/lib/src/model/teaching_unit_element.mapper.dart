@@ -12,6 +12,13 @@ class TeachingUnitElementMapper extends ClassMapperBase<TeachingUnitElement> {
   static TeachingUnitElementMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = TeachingUnitElementMapper._());
+      EnumerationMapper.ensureInitialized();
+      GradeMapper.ensureInitialized();
+      PresenceMapper.ensureInitialized();
+      StageCodeMapper.ensureInitialized();
+      TomussTextMapper.ensureInitialized();
+      UploadMapper.ensureInitialized();
+      URLMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -41,7 +48,8 @@ class TeachingUnitElementMapper extends ClassMapperBase<TeachingUnitElement> {
   };
 
   static TeachingUnitElement _instantiate(DecodingData data) {
-    throw MapperException.missingConstructor('TeachingUnitElement');
+    throw MapperException.missingSubclass(
+        'TeachingUnitElement', 'type', '${data.value['type']}');
   }
 
   @override

@@ -10,8 +10,6 @@ void main() async {
 
   DotEnv env = DotEnv(includePlatformEnvironment: true);
   setUpAll(() async {
-    Lyon1TomussClient.registerAdapters();
-    Lyon1CasClient.registerAdapters();
     env.load();
     final String username = env['USERNAME'] ?? "";
     final String password = env['PASSWORD'] ?? "";

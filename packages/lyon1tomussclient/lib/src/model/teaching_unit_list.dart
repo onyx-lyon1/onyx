@@ -1,16 +1,12 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
 
-part 'generated/teaching_unit_list.g.dart';
+part 'teaching_unit_list.mapper.dart';
 
-@CopyWith()
-@HiveType(typeId: 11)
+@MappableClass()
 class TeachingUnitList extends Equatable {
-  @HiveField(0)
   final List<TeachingUnit> teachingUnitModels;
-  @HiveField(1)
   final int semesterIndex;
 
   TeachingUnitList(this.teachingUnitModels, this.semesterIndex);

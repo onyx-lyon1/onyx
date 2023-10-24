@@ -154,7 +154,7 @@ packages:
     source: hosted
     version: "3.1.1"
   copy_with_extension:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: copy_with_extension
       sha256: fbcf890b0c34aedf0894f91a11a579994b61b4e04080204656b582708b5b1125
@@ -218,7 +218,7 @@ packages:
     source: hosted
     version: "4.1.0"
   equatable:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: equatable
       sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2

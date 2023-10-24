@@ -1,17 +1,25 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:lyon1tomussclient/src/model/model_export.dart';
 import 'package:lyon1tomussclient/src/parser/dateparser.dart';
 
 part 'teaching_unit_element.mapper.dart';
 
-@MappableClass(uniqueId: "TeachingUnitElement", discriminatorKey: "type")
+@MappableClass(
+    uniqueId: "TeachingUnitElement",
+    discriminatorKey: "type",
+    includeSubClasses: [
+      Enumeration,
+      Grade,
+      Presence,
+      StageCode,
+      TomussText,
+      Upload,
+      URL
+    ])
 abstract class TeachingUnitElement with TeachingUnitElementMappable {
-  @MappableField(key: "title")
   late final String title;
-  @MappableField(key: "author")
   late final String author;
-  @MappableField(key: "date")
   late final DateTime? date;
-  @MappableField(key: "position")
   late final double position;
 
   @MappableConstructor()
@@ -31,7 +39,7 @@ abstract class TeachingUnitElement with TeachingUnitElementMappable {
 
   TeachingUnitElement.fromTomussJson(
       var id, var json, var stats, var line, var column, String user) {
-    // title = json['title'] ?? "";
+    title = json['title'] ?? "";
     author = json['author'] ?? "";
     if (line[id].length > 2) {
       String dateString = line[id][2].toString();
@@ -42,5 +50,5 @@ abstract class TeachingUnitElement with TeachingUnitElementMappable {
     position = json['position'].toDouble() ?? 0;
   }
 
-// bool get isVisible;
+  bool get isVisible;
 }

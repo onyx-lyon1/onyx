@@ -5,29 +5,18 @@ import 'package:requests_plus/requests_plus.dart';
 
 part 'enumeration.mapper.dart';
 
-@MappableClass(uniqueId: "Enumeration", discriminatorKey: "Enumeration")
+@MappableClass()
 class Enumeration extends TeachingUnitElement with EnumerationMappable {
-  @MappableField(
-    key: "value",
-  )
   late final String? value;
-  @MappableField(key: "values")
   late final List<String> values;
-  @MappableField(key: "comment")
   late final String comment;
 
-  @MappableField(key: "theId")
   late final String theId;
 
-  @MappableField(key: "lineId")
   late final String lineId;
-  @MappableField(key: "ue")
   late final String ue;
-  @MappableField(key: "semester")
   late final String semester;
-  @MappableField(key: "year")
   late final String year;
-  @MappableField(key: "modifiable")
   late final bool modifiable;
 
   Enumeration.fromJSON(
@@ -127,9 +116,6 @@ class Enumeration extends TeachingUnitElement with EnumerationMappable {
     this.modifiable = true,
   });
 
-// @override
-// bool get isVisible => true;
-//
-// @override
-// List<Object?> get customProps => [values, comment, modifiable, value];
+  @override
+  bool get isVisible => true;
 }
