@@ -56,11 +56,8 @@ Future<void> hiveInit({String? path}) async {
   }
 }
 
-Future<void> hiveReset({String? path}) async {
+void hiveReset({String? path}) {
   hiveInit(path: path);
-  await Hive.deleteBoxFromDisk('settings');
-  await Hive.deleteBoxFromDisk('authentication');
-  await Hive.deleteBoxFromDisk('tomuss');
-  await Hive.deleteBoxFromDisk('agenda');
-  await Hive.deleteBoxFromDisk('mails');
+  //TODO modify dir
+  Hive.deleteAllBoxesFromDisk();
 }
