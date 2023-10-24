@@ -1,40 +1,26 @@
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
-
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:enough_mail_html/enough_mail_html.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
 import 'package:lyon1mailclient/src/config/config.dart';
 
-part 'generated/mail.g.dart';
+part 'mail.mapper.dart';
 
-@CopyWith()
-@HiveType(typeId: 5)
-class Mail extends Equatable {
+@MappableClass()
+class Mail with MailMappable {
   late final MimeMessage? rawMail;
 
-  @HiveField(0)
   late final String subject;
-  @HiveField(1)
   late final String sender;
-  @HiveField(2)
   late final String excerpt;
-  @HiveField(3)
   late final String body;
-  @HiveField(4)
   late final int? id;
-  @HiveField(5)
   late final bool isRead;
-  @HiveField(6)
   late final bool isFlagged;
-  @HiveField(7)
   late final DateTime date;
-  @HiveField(8)
   late final String receiver;
-  @HiveField(9)
   late final List<String> attachments;
 
   late final List<File> attachmentsFiles;
@@ -217,21 +203,4 @@ class Mail extends Equatable {
       return "$body\n$themeScript";
     }
   }
-
-  @override
-  List<Object?> get props => [
-        subject,
-        sender,
-        excerpt,
-        body,
-        id,
-        isRead,
-        isFlagged,
-        date,
-        receiver,
-        attachments,
-      ];
-
-  @override
-  bool? get stringify => true;
 }

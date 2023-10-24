@@ -1,7 +1,6 @@
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 
 void main() async {
-  Lyon1MailClient.registerAdapters();
   final Lyon1MailClient mailClient =
       Lyon1MailClient("p1234567", "a_valid_password");
 

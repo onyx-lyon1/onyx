@@ -55,8 +55,8 @@ void main() async {
   });
 
   test("change un enum", () async {
-    final ParsedPage? parsedPageOpt = await tomussOK
-        .getParsedPage(URLCreator.currentSemester(DateTime.now()));
+    final ParsedPage? parsedPageOpt =
+        await tomussOK.getParsedPage(Lyon1TomussClient.currentSemester().url);
     expect(parsedPageOpt == null, equals(false));
     final ParsedPage parsedPage = parsedPageOpt ?? ParsedPage.empty();
     expect(parsedPage.semesters, isNotNull);
@@ -85,8 +85,8 @@ void main() async {
   });
 
   test('download an upload', () async {
-    final ParsedPage? parsedPageOpt = await tomussOK
-        .getParsedPage(URLCreator.currentSemester(DateTime.now()));
+    final ParsedPage? parsedPageOpt =
+        await tomussOK.getParsedPage(Lyon1TomussClient.currentSemester().url);
     expect(parsedPageOpt == null, equals(false));
     final ParsedPage parsedPage = parsedPageOpt ?? ParsedPage.empty();
     expect(parsedPage.semesters, isNotNull);
@@ -104,16 +104,22 @@ void main() async {
   });
 
   test('Dartus.currentSemester()', () async {
-    expect(URLCreator.currentSemester(DateTime.parse("20220124")),
+    expect(Lyon1TomussClient.currentSemester().url,
         "https://tomuss.univ-lyon1.fr/S/2022/Printemps");
 
-    expect(URLCreator.currentSemester(DateTime.parse("20211129")),
+    expect(
+        URLCreator.semesterFromName(
+            URLCreator.currentSemesterName(DateTime.parse("20211129"))),
         "https://tomuss.univ-lyon1.fr/S/2021/Automne");
 
-    expect(URLCreator.previousSemester(DateTime.parse("20220124")),
+    expect(
+        URLCreator.semesterFromName(
+            URLCreator.currentSemesterName(DateTime.parse("20220124"))),
         "https://tomuss.univ-lyon1.fr/S/2021/Automne");
 
-    expect(URLCreator.previousSemester(DateTime.parse("20211129")),
+    expect(
+        URLCreator.semesterFromName(
+            URLCreator.currentSemesterName(DateTime.parse("20211129"))),
         "https://tomuss.univ-lyon1.fr/S/2021/Printemps");
   });
 }

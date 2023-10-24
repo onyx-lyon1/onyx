@@ -1,24 +1,15 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 
-part 'generated/action.g.dart';
+part 'action.mapper.dart';
 
-@CopyWith()
-@HiveType(typeId: 23)
-class Action extends Equatable {
-  @HiveField(0)
+@MappableClass()
+class Action with ActionMappable {
   final ActionType type;
-  @HiveField(1)
   final MailBox? fromMailBox;
-  @HiveField(4)
   final Mail mail;
-  @HiveField(5)
   final int? originalMessageId;
-  @HiveField(6)
   final bool? replyAll;
-  @HiveField(8)
   final MailBox? destinationMailBox;
 
   Action({
@@ -92,17 +83,4 @@ class Action extends Equatable {
         break;
     }
   }
-
-  @override
-  List<Object?> get props => [
-        type,
-        fromMailBox,
-        mail,
-        originalMessageId,
-        replyAll,
-        destinationMailBox,
-      ];
-
-  @override
-  bool? get stringify => true;
 }

@@ -1,27 +1,27 @@
-import 'package:hive/hive.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'generated/action_type.g.dart';
+part 'action_type.mapper.dart';
 
-@HiveType(typeId: 22)
+@MappableEnum()
 enum ActionType {
-  @HiveField(0)
+  @MappableValue(000)
   archive,
-  @HiveField(1)
+  @MappableValue(100)
   markAsRead,
-  @HiveField(2)
+  @MappableValue(200)
   markAsUnread,
-  @HiveField(3)
+  @MappableValue(300)
   move,
-  @HiveField(4)
+  @MappableValue(400)
   send,
-  @HiveField(5)
+  @MappableValue(500)
   reply,
-  @HiveField(7)
+  @MappableValue(700)
   forward,
-  @HiveField(8)
+  @MappableValue(800)
   delete,
-  @HiveField(9)
+  @MappableValue(900)
   flag,
-  @HiveField(10)
+  @MappableValue(1000)
   unflag,
 }
