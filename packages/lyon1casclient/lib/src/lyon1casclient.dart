@@ -71,7 +71,7 @@ class Lyon1CasClient {
     if (wrapUrl) {
       url = "${Constants.casLogin}?service=$url${(unsafe ? '/?unsafe=1' : '')}";
     }
-    final Response response = await RequestsPlus.get(
+    final response = await RequestsPlus.get(
       url,
       corsProxyUrl: _corsProxyUrl,
       headers: {
@@ -93,7 +93,7 @@ class Lyon1CasClient {
 
   Future<String> getExecToken() async {
     // perform the request and check the status code
-    final Response response = await RequestsPlus.get(
+    final response = await RequestsPlus.get(
       Constants.casLogin,
       corsProxyUrl: _corsProxyUrl,
       headers: {
@@ -116,7 +116,7 @@ class Lyon1CasClient {
 
   Future<bool> _authenticationRequest(
       final String execToken, Credential credential) async {
-    final Response response = await RequestsPlus.post(
+    final response = await RequestsPlus.post(
       Constants.casLogin,
       corsProxyUrl: _corsProxyUrl,
       body: {
@@ -167,7 +167,7 @@ class Lyon1CasClient {
   }
 
   Future<bool> checkAuthentificated() async {
-    Response response = await RequestsPlus.get(
+    final response = await RequestsPlus.get(
       Constants.casLogin,
       corsProxyUrl: _corsProxyUrl,
       headers: {
