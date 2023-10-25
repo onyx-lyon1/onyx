@@ -144,5 +144,7 @@ this license, visit http://creativecommons.org/licenses/by-nc/4.0/ or send a let
 Mountain View, CA 94042, USA.\
 
 <p align=center>
-<img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+  <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+  <br> <br>
+  <img alt="powered by the cat" style="height: 240px" src="https://uku.s-ul.eu/Vn3ZEdLU" />
 </p>
