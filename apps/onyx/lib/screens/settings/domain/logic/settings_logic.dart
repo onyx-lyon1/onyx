@@ -17,8 +17,8 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 class SettingsLogic {
   static Future<SettingsModel> load() async {
-    if (await Hive.boxExists('settings')) {
-      Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');
+    Box<SettingsModel> box = Hive.box<SettingsModel>(name: 'settings');
+    if (box.isNotEmpty) {
       SettingsModel? tmpSettings = box.get('settings');
       if (tmpSettings != null) {
         Res.mock = tmpSettings.mock;
@@ -31,14 +31,14 @@ class SettingsLogic {
     }
   }
 
-  static Future<void> reset() async {
-    Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');
-    await box.put('settings', const SettingsModel());
+  static void reset() {
+    Box<SettingsModel> box = Hive.box<SettingsModel>(name: 'settings');
+    box.put('settings', const SettingsModel());
   }
 
-  static Future<void> modify({required SettingsModel settings}) async {
-    Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');
-    await box.put('settings', settings);
+  static void modify({required SettingsModel settings}) {
+    Box<SettingsModel> box = Hive.box<SettingsModel>(name: 'settings');
+    box.put('settings', settings);
   }
 
   static void logout(BuildContext context) async {

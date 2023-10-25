@@ -16,7 +16,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future<void> reset() async {
-    await SettingsLogic.reset();
+    SettingsLogic.reset();
     emit(state.copyWith(
         status: SettingsStatus.ready, settings: const SettingsModel()));
   }
@@ -41,7 +41,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future<void> modify({required SettingsModel settings}) async {
-    await SettingsLogic.modify(settings: settings);
+    SettingsLogic.modify(settings: settings);
     emit(state.copyWith(status: SettingsStatus.ready, settings: settings));
   }
 

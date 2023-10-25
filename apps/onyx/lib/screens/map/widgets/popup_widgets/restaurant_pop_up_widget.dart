@@ -118,24 +118,21 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
             child: InkWell(
               borderRadius: const BorderRadius.all(Radius.circular(50)),
               onTap: () async {
-                if (await IzlyLogic.isRestaurantFavourite(widget.element)) {
-                  await IzlyLogic.removeRestaurantToFavourite(widget.element);
+                if (IzlyLogic.isRestaurantFavourite(widget.element)) {
+                  IzlyLogic.removeRestaurantToFavourite(widget.element);
                 } else {
-                  await IzlyLogic.addRestaurantToFavourite(widget.element);
+                  IzlyLogic.addRestaurantToFavourite(widget.element);
                 }
                 setState(() {
                   context.read<AgendaCubit>().addRestaurant();
                 });
               },
-              child: FutureBuilder(
-                  future: IzlyLogic.isRestaurantFavourite(widget.element),
-                  builder: (context, snapshot) {
-                    return Icon(
-                        (snapshot.data ?? false)
-                            ? Icons.favorite_rounded
-                            : Icons.favorite_border_rounded,
-                        color: Theme.of(context).colorScheme.primary);
-                  }),
+              child: Icon(
+                (IzlyLogic.isRestaurantFavourite(widget.element))
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_border_rounded,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
           ),
         ],

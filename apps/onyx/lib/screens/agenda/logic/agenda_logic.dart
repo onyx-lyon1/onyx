@@ -53,7 +53,7 @@ class AgendaLogic {
     CacheService.set<List<RestaurantModel>>(restaurant);
     List<Event> menuToAdd = [];
     for (var resto in restaurant) {
-      if (await IzlyLogic.isRestaurantFavourite(resto)) {
+      if (IzlyLogic.isRestaurantFavourite(resto)) {
         for (var menu in resto.menus) {
           //find the free lunch time in the user agenda
           DateTime startLimit;

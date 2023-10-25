@@ -97,21 +97,19 @@ class IzlyLogic {
     return await izlyClient.rechargeViaSomeoneElse(amount, email, message);
   }
 
-  static Future<void> addRestaurantToFavourite(
-      RestaurantModel restaurant) async {
-    final box = await Hive.openBox("favourite_restaurant");
-    box.put(restaurant.id, true);
+  static void addRestaurantToFavourite(RestaurantModel restaurant) {
+    final box = Hive.box(name: "favourite_restaurant");
+    box.put(restaurant.id.toString(), true);
   }
 
-  static Future<void> removeRestaurantToFavourite(
-      RestaurantModel restaurant) async {
-    final box = await Hive.openBox("favourite_restaurant");
-    box.put(restaurant.id, false);
+  static void removeRestaurantToFavourite(RestaurantModel restaurant) {
+    final box = Hive.box(name: "favourite_restaurant");
+    box.put(restaurant.id.toString(), false);
   }
 
-  static Future<bool> isRestaurantFavourite(RestaurantModel restaurant) async {
-    final box = await Hive.openBox("favourite_restaurant");
-    return box.get(restaurant.id, defaultValue: false);
+  static bool isRestaurantFavourite(RestaurantModel restaurant) {
+    final box = Hive.box(name: "favourite_restaurant");
+    return box.get(restaurant.id.toString(), defaultValue: false);
   }
 
   static Future<List<IzlyPaymentModel>> getUserPayments(
