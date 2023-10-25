@@ -46,10 +46,9 @@ class SettingsLogic {
     await context.read<AuthentificationCubit>().logout();
     CacheService.reset<IzlyCredential>();
     context.read<IzlyCubit>().disconnect();
-    Hive.deleteBoxFromDisk("cached_qr_code");
-    Hive.deleteBoxFromDisk("cached_izly_amount");
-    CacheService.reset<IzlyQrCodeList>();
-    CacheService.reset<IzlyPaymentModelList>();
+    Hive.box(name: "cached_izly_amount").deleteFromDisk();
+    CacheService.reset<List<IzlyQrCode>>();
+    CacheService.reset<List<IzlyPaymentModel>>();
     CacheService.reset<Lyon1CasClient>();
     CacheService.reset<SettingsModel>();
     context.read<AgendaCubit>().resetCubit();

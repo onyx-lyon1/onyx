@@ -50,8 +50,7 @@ class AgendaLogic {
               .toList());
     }
     List<RestaurantModel> restaurant = await IzlyClient.getRestaurantCrous();
-    CacheService.set<RestaurantListModel>(
-        RestaurantListModel(restaurantList: restaurant));
+    CacheService.set<List<RestaurantModel>>(restaurant);
     List<Event> menuToAdd = [];
     for (var resto in restaurant) {
       if (await IzlyLogic.isRestaurantFavourite(resto)) {

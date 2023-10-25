@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
+import 'package:lyon1mailclient/lyon1mailclient.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
@@ -103,8 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Text('Vider le cache des notes',
                           style: TextStyle(fontSize: 17.sp)),
                       onPressed: () {
-                        CacheService.reset<TeachingUnitList>();
-                        CacheService.reset<SemesterList>();
+                        CacheService.reset<List<Semester>>();
                         context.read<TomussCubit>().load(
                             lyon1Cas: context
                                 .read<AuthentificationCubit>()
@@ -138,7 +139,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Text('Vider le cache des mails',
                           style: TextStyle(fontSize: 17.sp)),
                       onPressed: () {
-                        CacheService.reset<MailBoxList>();
+                        CacheService.reset<List<MailBox>>();
                         context.read<EmailCubit>().load(
                             cache: false,
                             blockTrackers: context
@@ -154,11 +155,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Text('Vider le cache de Izly',
                           style: TextStyle(fontSize: 17.sp)),
                       onPressed: () {
-                        CacheService.reset<IzlyQrCodeList>();
-                        CacheService.reset<IzlyPaymentModelList>();
+                        CacheService.reset<List<IzlyQrCode>>();
+                        CacheService.reset<List<IzlyPaymentModel>>();
                         CacheService.reset<IzlyCredential>();
-                        Hive.deleteBoxFromDisk("cached_qr_code");
-                        Hive.deleteBoxFromDisk("cached_izly_amount");
+                        Hive.box(name: "cached_izly_amount").deleteFromDisk();
                         context.read<IzlyCubit>().resetCubit();
                         context.read<IzlyCubit>().connect(
                             settings:
