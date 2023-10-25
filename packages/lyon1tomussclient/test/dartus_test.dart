@@ -31,8 +31,8 @@ void main() async {
     final ParsedPage parsedPage = parsedPageOpt ?? ParsedPage.empty();
     expect(parsedPage.semesters, isNotNull);
     expect(parsedPage.teachingunits, isNotNull);
-    expect(parsedPage.semesters!.isNotEmpty, equals(true));
-    expect(parsedPage.teachingunits!.isNotEmpty, equals(true));
+    expect(parsedPage.semesters.isNotEmpty, equals(true));
+    expect(parsedPage.teachingunits.isNotEmpty, equals(true));
   });
 
   test('Dartus.getPage x2', () async {
@@ -61,7 +61,7 @@ void main() async {
     final ParsedPage parsedPage = parsedPageOpt ?? ParsedPage.empty();
     expect(parsedPage.semesters, isNotNull);
     Enumeration? enumeration;
-    for (var i in parsedPage.teachingunits!) {
+    for (var i in parsedPage.teachingunits) {
       if (i.enumerations.isNotEmpty) {
         for (var j in i.enumerations) {
           if (j.value != null && j.values.length > 1 && j.modifiable) {
@@ -80,7 +80,7 @@ void main() async {
         enumeration.values[
             (enumeration.values.indexOf(enumeration.value!) + 1) %
                 enumeration.values.length],
-        parsedPage.teachingunits!.first.ticket);
+        parsedPage.teachingunits.first.ticket);
     expect(newEnumeration.value == prevValue, equals(false));
   });
 
@@ -91,7 +91,7 @@ void main() async {
     final ParsedPage parsedPage = parsedPageOpt ?? ParsedPage.empty();
     expect(parsedPage.semesters, isNotNull);
     Upload? upload;
-    for (var i in parsedPage.teachingunits!) {
+    for (var i in parsedPage.teachingunits) {
       if (i.uploads.isNotEmpty) {
         upload = i.uploads.first;
         break;
@@ -99,7 +99,7 @@ void main() async {
     }
     expect(upload == null, equals(false));
     List<int> file =
-        await upload!.getContent(parsedPage.teachingunits!.first.ticket);
+        await upload!.getContent(parsedPage.teachingunits.first.ticket);
     expect(file.isNotEmpty, equals(true));
   });
 

@@ -10,27 +10,19 @@ Future<void> tomussNotificationLogic(
   if (settings.newGradeNotification) {
     Lyon1TomussClient tomussClient = Lyon1TomussClient(lyon1Cas);
     List<TeachingUnit> teachingUnits = [];
-    int? semestreIndex;
-    Semester? semestreModel;
-    if (await CacheService.exist<SemesterList>()) {
-      SemesterList semestreModelWrapper =
-          (await CacheService.get<SemesterList>())!;
-      semestreIndex = semestreModelWrapper.semestres.length - 1;
-      semestreModel = semestreModelWrapper.semestres[semestreIndex];
-    }
-    semestreIndex ??= 0;
-    if (await CacheService.exist<TeachingUnitList>(index: semestreIndex)) {
-      teachingUnits =
-          (await CacheService.get<TeachingUnitList>(index: semestreIndex))!
-              .teachingUnitModels;
+    int? semesterIndex;
+    Semester? semesterModel;
+    if (await CacheService.exist<List<Semester>>()) {
+      List<Semester> semesterList = (await CacheService.get<List<Semester>>())!;
+      semesterIndex = semesterList.length - 1;
+      semesterModel = semesterList[semesterIndex];
+      teachingUnits = semesterModel.teachingUnits;
       List<TeachingUnit> newTeachingUnits =
-          (await TomussLogic.getSemestersAndNote(
+          (await TomussLogic.getSemesters(
                   dartus: tomussClient,
                   autoRefresh: true,
-                  semester: semestreModel ??
-                      Semester("default semester",
-                          Lyon1TomussClient.currentSemester())))
-              .schoolSubjectModel!;
+                  semester: semesterModel))
+              .semesters!.last.teachingUnits;
       for (var i in newTeachingUnits) {
         if (teachingUnits.any((element) => element.title == i.title)) {
           TeachingUnit teachingUnitModel =
@@ -57,9 +49,9 @@ Future<void> tomussNotificationLogic(
           }
         }
       }
-
-      await CacheService.set<TeachingUnitList>(
-          TeachingUnitList(teachingUnits, semestreIndex));
+      semesterModel = semesterModel.copyWith(teachingUnits: teachingUnits);
+      semesterList[semesterIndex] = semesterModel;
+      await CacheService.set<List<Semester>>(semesterList);
     }
   }
 }

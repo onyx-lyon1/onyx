@@ -12,19 +12,18 @@ import 'package:lyon1tomussclient/src/model/upload.dart';
 import 'package:lyon1tomussclient/src/model/url.dart';
 
 class HTMLparser {
-  late dynamic json;
+  late dynamic _json;
   late String _rawContent;
+  
+  late String _url;
 
   HTMLparser();
 
-  HTMLparser.toJSON(final String rawContent) {
-    parse(rawContent);
-  }
-
-  void parse(final String rawContent) {
+  void parse(final String rawContent, final String url) {
     _rawContent = rawContent;
     final String jsonReady = toJSONready(extractContent(rawContent)) ?? "[]";
-    json = jsonDecode(jsonReady);
+    _json = jsonDecode(jsonReady);
+    _url=url;
   }
 
   String? extractContent(final String rawContent) {
@@ -40,21 +39,21 @@ class HTMLparser {
 
   int? getIndexForKey(final String name) {
     int i = 0;
-    for (var key in json) {
+    for (var key in _json) {
       if (key[0] == name) return i;
       i++;
     }
     return null;
   }
 
-  List<TeachingUnit> extractTeachingUnits() {
+  List<TeachingUnit> get getTeachingUnits {
     final int? key = getIndexForKey('Grades');
     final String userName =
-        json.firstWhere((element) => element[0] == 'Login')[1];
+        _json.firstWhere((element) => element[0] == 'Login')[1];
     if (key == null) return [];
 
     final List<TeachingUnit> units = [];
-    for (var unit in json[key][1][0]) {
+    for (var unit in _json[key][1][0]) {
       List line = unit['line']; // grade value
       Map<String, dynamic> stats =
           unit['stats']; // grade statistics: rank, mediane, average
@@ -139,19 +138,25 @@ class HTMLparser {
     }
     return units;
   }
+  
+  List<Semester> get getSemesters{
+    List<Semester> semesters = getEmptySemesters;
+    int semesterIndex =
+    semesters.indexWhere((element) => _url.contains(element.title));
+    //TODO check if checking url could be better
+    semesters[semesterIndex] = semesters[semesterIndex]
+        .copyWith(teachingUnits: getTeachingUnits);
+    return semesters;
+  }
 
-  List<Semester> extractSemesters() {
+  List<Semester> get getEmptySemesters {
     final int? key = getIndexForKey('Semesters');
     if (key == null) return [];
 
     final List<Semester> semesters = [];
-    for (var item in json[key][1].keys) {
-      semesters.add(Semester(item, json[key][1][item]));
+    for (var item in _json[key][1].keys) {
+      semesters.add(Semester(item, _json[key][1][item]));
     }
     return semesters;
-  }
-
-  List<Grade> extractWeekGrades() {
-    return [];
   }
 }

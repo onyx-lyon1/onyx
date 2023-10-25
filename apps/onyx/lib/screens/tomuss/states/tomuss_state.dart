@@ -21,7 +21,6 @@ enum TomussStatus {
 @MappableClass()
 class TomussState with TomussStateMappable {
   final TomussStatus status;
-  final List<TeachingUnit> teachingUnits;
   final List<Semester> semesters;
   final int currentSemesterIndex;
   final Duration? timeout;
@@ -33,7 +32,6 @@ class TomussState with TomussStateMappable {
 
   const TomussState(
       {this.status = TomussStatus.initial,
-      this.teachingUnits = const [],
       this.semesters = const [],
       this.currentSemesterIndex = 0,
       this.timeout,

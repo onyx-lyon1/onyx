@@ -23,7 +23,7 @@ void main() async {
   final ParsedPage parsedPage = parsedPageOpt;
 
   // list teaching units
-  for (final TeachingUnit tu in parsedPage.teachingunits!) {
+  for (final TeachingUnit tu in parsedPage.teachingunits) {
     print(tu.title);
     print("\tGrades:");
     for (final Grade g in tu.grades) {
@@ -38,7 +38,7 @@ void main() async {
   }
 
   // list semesters
-  for (final Semester s in parsedPage.semesters!) {
+  for (final Semester s in parsedPage.semesters) {
     print("${s.title} (${s.url})");
   }
 }

@@ -27,22 +27,19 @@ class Lyon1TomussClient {
         return Future.delayed(Duration(seconds: delay.round() + 2), () async {
           content = (await _authentication.serviceRequest(url)).body;
           if (content.length > 1000) {
-            parser.parse(content);
-            return ParsedPage(parser.extractSemesters(),
-                parser.extractTeachingUnits(), false, Duration.zero);
+            parser.parse(content, url);
+            return ParsedPage(parser.getSemesters, false, Duration.zero);
           } else {
             return null;
           }
         });
       } else {
-        return ParsedPage(
-            null, null, true, Duration(seconds: delay.round() + 2));
+        return ParsedPage([], true, Duration(seconds: delay.round() + 2));
       }
     }
-    parser.parse(content);
+    parser.parse(content, url);
 
-    return ParsedPage(parser.extractSemesters(), parser.extractTeachingUnits(),
-        false, Duration.zero);
+    return ParsedPage(parser.getSemesters, false, Duration.zero);
   }
 
   Future<void> logout() async {

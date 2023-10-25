@@ -197,10 +197,10 @@ packages:
     dependency: "direct dev"
     description:
       name: dart_mappable_builder
-      sha256: "92cb9d38f5698f519f489b9664612136b31c470dd979e0b5aa2305b08d1c01b8"
+      sha256: "41926353f9bc20f659c39f1d83d90c9ae5fd0d14aec9b59732cf714eee589b7a"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   dart_style:
     dependency: transitive
     description:
