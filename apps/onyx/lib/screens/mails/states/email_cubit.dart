@@ -123,7 +123,7 @@ class EmailCubit extends Cubit<EmailState> {
           element.specialMailBox == loadedMail.specialMailBox);
       if (index != -1) {
         emailsBoxesComplete[index] =
-            emailsBoxesComplete[index].copyWith.emails(loadedMail.emails);
+            emailsBoxesComplete[index].copyWith(emails: loadedMail.emails);
       }
     } catch (e) {
       Res.logger.e(e);
@@ -168,7 +168,7 @@ class EmailCubit extends Cubit<EmailState> {
       status: (state.status == MailStatus.cacheLoaded)
           ? MailStatus.cacheSorted
           : MailStatus.sorted,
-      currentMailBox: state.currentMailBox!.copyWith.emails(email),
+      currentMailBox: state.currentMailBox!.copyWith(emails: email),
     ));
   }
 

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:desktop_window/desktop_window.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,8 +40,6 @@ void main() async {
     //my galaxy note 9 size (divised by four for usability on my computer)
     await DesktopWindow.setWindowSize(const Size(1440 / 4, 2960 / 4));
   }
-
-  EquatableConfig.stringify = true;
 
   Bloc.observer = BlocLogger();
 

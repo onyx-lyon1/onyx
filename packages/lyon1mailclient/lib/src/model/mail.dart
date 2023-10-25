@@ -64,6 +64,7 @@ class Mail with MailMappable {
     attachmentsFiles = [];
   }
 
+  @MappableConstructor()
   Mail({
     required this.subject,
     required this.sender,

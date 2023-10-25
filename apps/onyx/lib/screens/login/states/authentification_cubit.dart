@@ -1,5 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
@@ -11,6 +11,8 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 part 'authentification_state.dart';
+
+part 'authentification_cubit.mapper.dart';
 
 class AuthentificationCubit extends Cubit<AuthentificationState> {
   Lyon1CasClient _lyon1Cas =

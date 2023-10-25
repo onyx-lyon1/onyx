@@ -1,21 +1,19 @@
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:latlong2/latlong.dart';
 
-class Node extends Equatable {
+part 'graph_model.mapper.dart';
+@MappableClass()
+class Node with NodeMappable  {
   final int id;
   final LatLng position;
   final List<({int nodeId, double distance})> neighbours;
 
   const Node(this.id, this.position, this.neighbours);
-
-  @override
-  List<Object> get props => [id, position, neighbours];
-
-  @override
-  bool get stringify => true;
 }
 
-class Graph extends Equatable {
+
+@MappableClass()
+class Graph with GraphMappable {
   final Map<int, Node> nodes = {};
 
   Graph(List<Map<String, dynamic>> graphData) {
@@ -30,10 +28,4 @@ class Graph extends Equatable {
       nodes[node.id] = node;
     }
   }
-
-  @override
-  List<Object> get props => [nodes];
-
-  @override
-  bool get stringify => true;
 }

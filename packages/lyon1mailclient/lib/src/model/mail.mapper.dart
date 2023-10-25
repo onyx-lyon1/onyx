@@ -20,66 +20,64 @@ class MailMapper extends ClassMapperBase<Mail> {
   @override
   final String id = 'Mail';
 
-  static MimeMessage? _$rawMail(Mail v) => v.rawMail;
-  static const Field<Mail, MimeMessage> _f$rawMail =
-      Field('rawMail', _$rawMail);
-  static const Field<Mail, bool> _f$removeTrackingImages = Field(
-      'removeTrackingImages', null,
-      mode: FieldMode.param, opt: true, def: false);
   static String _$subject(Mail v) => v.subject;
-  static const Field<Mail, String> _f$subject =
-      Field('subject', _$subject, mode: FieldMode.member);
+  static const Field<Mail, String> _f$subject = Field('subject', _$subject);
   static String _$sender(Mail v) => v.sender;
-  static const Field<Mail, String> _f$sender =
-      Field('sender', _$sender, mode: FieldMode.member);
+  static const Field<Mail, String> _f$sender = Field('sender', _$sender);
   static String _$excerpt(Mail v) => v.excerpt;
-  static const Field<Mail, String> _f$excerpt =
-      Field('excerpt', _$excerpt, mode: FieldMode.member);
-  static String _$body(Mail v) => v.body;
-  static const Field<Mail, String> _f$body =
-      Field('body', _$body, mode: FieldMode.member);
-  static int? _$id(Mail v) => v.id;
-  static const Field<Mail, int> _f$id =
-      Field('id', _$id, mode: FieldMode.member);
+  static const Field<Mail, String> _f$excerpt = Field('excerpt', _$excerpt);
   static bool _$isRead(Mail v) => v.isRead;
-  static const Field<Mail, bool> _f$isRead =
-      Field('isRead', _$isRead, mode: FieldMode.member);
-  static bool _$isFlagged(Mail v) => v.isFlagged;
-  static const Field<Mail, bool> _f$isFlagged =
-      Field('isFlagged', _$isFlagged, mode: FieldMode.member);
+  static const Field<Mail, bool> _f$isRead = Field('isRead', _$isRead);
   static DateTime _$date(Mail v) => v.date;
-  static const Field<Mail, DateTime> _f$date =
-      Field('date', _$date, mode: FieldMode.member);
+  static const Field<Mail, DateTime> _f$date = Field('date', _$date);
+  static String _$body(Mail v) => v.body;
+  static const Field<Mail, String> _f$body = Field('body', _$body);
+  static int? _$id(Mail v) => v.id;
+  static const Field<Mail, int> _f$id = Field('id', _$id);
   static String _$receiver(Mail v) => v.receiver;
-  static const Field<Mail, String> _f$receiver =
-      Field('receiver', _$receiver, mode: FieldMode.member);
+  static const Field<Mail, String> _f$receiver = Field('receiver', _$receiver);
   static List<String> _$attachments(Mail v) => v.attachments;
   static const Field<Mail, List<String>> _f$attachments =
-      Field('attachments', _$attachments, mode: FieldMode.member);
+      Field('attachments', _$attachments);
+  static bool _$isFlagged(Mail v) => v.isFlagged;
+  static const Field<Mail, bool> _f$isFlagged = Field('isFlagged', _$isFlagged);
   static List<File> _$attachmentsFiles(Mail v) => v.attachmentsFiles;
   static const Field<Mail, List<File>> _f$attachmentsFiles =
-      Field('attachmentsFiles', _$attachmentsFiles, mode: FieldMode.member);
+      Field('attachmentsFiles', _$attachmentsFiles, opt: true, def: const []);
+  static MimeMessage? _$rawMail(Mail v) => v.rawMail;
+  static const Field<Mail, MimeMessage> _f$rawMail =
+      Field('rawMail', _$rawMail, opt: true);
 
   @override
   final Map<Symbol, Field<Mail, dynamic>> fields = const {
-    #rawMail: _f$rawMail,
-    #removeTrackingImages: _f$removeTrackingImages,
     #subject: _f$subject,
     #sender: _f$sender,
     #excerpt: _f$excerpt,
+    #isRead: _f$isRead,
+    #date: _f$date,
     #body: _f$body,
     #id: _f$id,
-    #isRead: _f$isRead,
-    #isFlagged: _f$isFlagged,
-    #date: _f$date,
     #receiver: _f$receiver,
     #attachments: _f$attachments,
+    #isFlagged: _f$isFlagged,
     #attachmentsFiles: _f$attachmentsFiles,
+    #rawMail: _f$rawMail,
   };
 
   static Mail _instantiate(DecodingData data) {
-    return Mail.fromRaw(data.dec(_f$rawMail),
-        removeTrackingImages: data.dec(_f$removeTrackingImages));
+    return Mail(
+        subject: data.dec(_f$subject),
+        sender: data.dec(_f$sender),
+        excerpt: data.dec(_f$excerpt),
+        isRead: data.dec(_f$isRead),
+        date: data.dec(_f$date),
+        body: data.dec(_f$body),
+        id: data.dec(_f$id),
+        receiver: data.dec(_f$receiver),
+        attachments: data.dec(_f$attachments),
+        isFlagged: data.dec(_f$isFlagged),
+        attachmentsFiles: data.dec(_f$attachmentsFiles),
+        rawMail: data.dec(_f$rawMail));
   }
 
   @override
@@ -130,7 +128,21 @@ extension MailValueCopy<$R, $Out> on ObjectCopyWith<$R, Mail, $Out> {
 
 abstract class MailCopyWith<$R, $In extends Mail, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({MimeMessage? rawMail, required bool removeTrackingImages});
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get attachments;
+  ListCopyWith<$R, File, ObjectCopyWith<$R, File, File>> get attachmentsFiles;
+  $R call(
+      {String? subject,
+      String? sender,
+      String? excerpt,
+      bool? isRead,
+      DateTime? date,
+      String? body,
+      int? id,
+      String? receiver,
+      List<String>? attachments,
+      bool? isFlagged,
+      List<File>? attachmentsFiles,
+      MimeMessage? rawMail});
   MailCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -141,15 +153,60 @@ class _MailCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Mail, $Out>
   @override
   late final ClassMapperBase<Mail> $mapper = MailMapper.ensureInitialized();
   @override
-  $R call({Object? rawMail = $none, required bool removeTrackingImages}) =>
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>
+      get attachments => ListCopyWith(
+          $value.attachments,
+          (v, t) => ObjectCopyWith(v, $identity, t),
+          (v) => call(attachments: v));
+  @override
+  ListCopyWith<$R, File, ObjectCopyWith<$R, File, File>> get attachmentsFiles =>
+      ListCopyWith(
+          $value.attachmentsFiles,
+          (v, t) => ObjectCopyWith(v, $identity, t),
+          (v) => call(attachmentsFiles: v));
+  @override
+  $R call(
+          {String? subject,
+          String? sender,
+          String? excerpt,
+          bool? isRead,
+          DateTime? date,
+          String? body,
+          Object? id = $none,
+          String? receiver,
+          List<String>? attachments,
+          bool? isFlagged,
+          List<File>? attachmentsFiles,
+          Object? rawMail = $none}) =>
       $apply(FieldCopyWithData({
-        if (rawMail != $none) #rawMail: rawMail,
-        #removeTrackingImages: removeTrackingImages
+        if (subject != null) #subject: subject,
+        if (sender != null) #sender: sender,
+        if (excerpt != null) #excerpt: excerpt,
+        if (isRead != null) #isRead: isRead,
+        if (date != null) #date: date,
+        if (body != null) #body: body,
+        if (id != $none) #id: id,
+        if (receiver != null) #receiver: receiver,
+        if (attachments != null) #attachments: attachments,
+        if (isFlagged != null) #isFlagged: isFlagged,
+        if (attachmentsFiles != null) #attachmentsFiles: attachmentsFiles,
+        if (rawMail != $none) #rawMail: rawMail
       }));
   @override
-  Mail $make(CopyWithData data) =>
-      Mail.fromRaw(data.get(#rawMail, or: $value.rawMail),
-          removeTrackingImages: data.get(#removeTrackingImages));
+  Mail $make(CopyWithData data) => Mail(
+      subject: data.get(#subject, or: $value.subject),
+      sender: data.get(#sender, or: $value.sender),
+      excerpt: data.get(#excerpt, or: $value.excerpt),
+      isRead: data.get(#isRead, or: $value.isRead),
+      date: data.get(#date, or: $value.date),
+      body: data.get(#body, or: $value.body),
+      id: data.get(#id, or: $value.id),
+      receiver: data.get(#receiver, or: $value.receiver),
+      attachments: data.get(#attachments, or: $value.attachments),
+      isFlagged: data.get(#isFlagged, or: $value.isFlagged),
+      attachmentsFiles:
+          data.get(#attachmentsFiles, or: $value.attachmentsFiles),
+      rawMail: data.get(#rawMail, or: $value.rawMail));
 
   @override
   MailCopyWith<$R2, Mail, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

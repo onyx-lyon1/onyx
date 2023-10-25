@@ -1,16 +1,25 @@
 part of 'tomuss_cubit.dart';
 
+@MappableEnum()
 enum TomussStatus {
+  @MappableValue(000)
   initial,
+  @MappableValue(100)
   loading,
+  @MappableValue(200)
   cacheReady,
+  @MappableValue(300)
   ready,
+  @MappableValue(400)
   error,
+  @MappableValue(500)
   updated,
+  @MappableValue(600)
   timeout
 }
 
-class TomussState extends Equatable {
+@MappableClass()
+class TomussState with TomussStateMappable {
   final TomussStatus status;
   final List<TeachingUnit> teachingUnits;
   final List<Semester> semesters;
@@ -22,19 +31,6 @@ class TomussState extends Equatable {
         TeachingUnit teachingUnit
       })> newElements;
 
-  @override
-  List<Object?> get props => [
-        status,
-        teachingUnits,
-        semesters,
-        currentSemesterIndex,
-        timeout,
-        newElements,
-      ];
-
-  @override
-  bool get stringify => true;
-
   const TomussState(
       {this.status = TomussStatus.initial,
       this.teachingUnits = const [],
@@ -43,24 +39,6 @@ class TomussState extends Equatable {
       this.timeout,
       this.newElements = const []});
 
-  TomussState copyWith(
-      {TomussStatus? status,
-      List<TeachingUnit>? teachingUnits,
-      List<Semester>? semesters,
-      int? currentSemesterIndex,
-      Duration? timeout,
-      List<
-              ({
-                TeachingUnitElement teachingUnitElement,
-                TeachingUnit teachingUnit
-              })>?
-          newElements}) {
-    return TomussState(
-        status: status ?? this.status,
-        teachingUnits: teachingUnits ?? this.teachingUnits,
-        semesters: semesters ?? this.semesters,
-        currentSemesterIndex: currentSemesterIndex ?? this.currentSemesterIndex,
-        timeout: timeout ?? this.timeout,
-        newElements: newElements ?? this.newElements);
-  }
+  List<TeachingUnit> get teachingUnits => semesters[currentSemesterIndex].teachingUnits;
+
 }

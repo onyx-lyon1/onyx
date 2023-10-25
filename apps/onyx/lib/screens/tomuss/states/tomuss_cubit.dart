@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
@@ -11,6 +11,8 @@ import 'package:path_provider/path_provider.dart';
 import '../../settings/settings_export.dart';
 
 part 'tomuss_state.dart';
+
+part 'tomuss_cubit.mapper.dart';
 
 class TomussCubit extends Cubit<TomussState> {
   Lyon1TomussClient? _dartus;
