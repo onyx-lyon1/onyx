@@ -113,10 +113,8 @@ class TomussCubit extends Cubit<TomussState> {
     List<Semester> semesters = state.semesters
       ..[state.currentSemesterIndex].copyWith(teachingUnits: teachingUnits);
     //save in cache
-    CacheService.set<List<Semester>>(
-        semesters);
-    emit(state.copyWith(
-        status: TomussStatus.updated, semesters: semesters));
+    CacheService.set<List<Semester>>(semesters);
+    emit(state.copyWith(status: TomussStatus.updated, semesters: semesters));
   }
 
   Future<void> updateEnumerationValue(
@@ -137,22 +135,21 @@ class TomussCubit extends Cubit<TomussState> {
     int enumerationIndex =
         teachingUnits[index].enumerations.indexOf(enumeration);
     await enumeration.updateValue(value, teachingUnits[index].ticket);
-    enumeration = enumeration.copyWith(value:value);
+    enumeration = enumeration.copyWith(value: value);
 
     teachingUnits[index].enumerations[enumerationIndex] = enumeration;
 
     //TODO check if its really working
     List<Semester> semesters = state.semesters
       ..[state.currentSemesterIndex].copyWith(teachingUnits: teachingUnits);
-    await CacheService.set<List<Semester>>(
-    semesters);
+    CacheService.set<List<Semester>>(semesters);
 
     if (recentElementIndex != -1) {
       newElements[recentElementIndex] = (
         teachingUnit: state.newElements[recentElementIndex].teachingUnit,
         teachingUnitElement: (state.newElements[recentElementIndex]
                 .teachingUnitElement as Enumeration)
-            .copyWith(value:value)
+            .copyWith(value: value)
       );
     }
     emit(state.copyWith(

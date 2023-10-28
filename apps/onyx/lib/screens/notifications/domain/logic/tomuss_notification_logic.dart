@@ -12,17 +12,16 @@ Future<void> tomussNotificationLogic(
     List<TeachingUnit> teachingUnits = [];
     int? semesterIndex;
     Semester? semesterModel;
-    if (await CacheService.exist<List<Semester>>()) {
-      List<Semester> semesterList = (await CacheService.get<List<Semester>>())!;
+    if (CacheService.exist<List<Semester>>()) {
+      List<Semester> semesterList = (CacheService.get<List<Semester>>())!;
       semesterIndex = semesterList.length - 1;
       semesterModel = semesterList[semesterIndex];
       teachingUnits = semesterModel.teachingUnits;
-      List<TeachingUnit> newTeachingUnits =
-          (await TomussLogic.getSemesters(
-                  dartus: tomussClient,
-                  autoRefresh: true,
-                  semester: semesterModel))
-              .semesters!.last.teachingUnits;
+      List<TeachingUnit> newTeachingUnits = (await TomussLogic.getSemesters(
+              dartus: tomussClient, autoRefresh: true, semester: semesterModel))
+          .semesters!
+          .last
+          .teachingUnits;
       for (var i in newTeachingUnits) {
         if (teachingUnits.any((element) => element.title == i.title)) {
           TeachingUnit teachingUnitModel =
@@ -51,7 +50,7 @@ Future<void> tomussNotificationLogic(
       }
       semesterModel = semesterModel.copyWith(teachingUnits: teachingUnits);
       semesterList[semesterIndex] = semesterModel;
-      await CacheService.set<List<Semester>>(semesterList);
+      CacheService.set<List<Semester>>(semesterList);
     }
   }
 }

@@ -49,15 +49,15 @@ class MapCubit extends Cubit<MapState> {
     }
     emit(state.copyWith(batiments: batiments));
     List<RestaurantModel> restaurant;
-    if (await CacheService.exist<List<RestaurantModel>>()) {
-      restaurant = (await CacheService.get<List<RestaurantModel>>())!;
+    if (CacheService.exist<List<RestaurantModel>>()) {
+      restaurant = (CacheService.get<List<RestaurantModel>>())!;
       emit(state.copyWith(
           restaurant: restaurant, status: MapStatus.batimentsUpdated));
     }
     restaurant = await IzlyClient.getRestaurantCrous();
     emit(state.copyWith(
         restaurant: restaurant, status: MapStatus.batimentsUpdated));
-    await CacheService.set<List<RestaurantModel>>(restaurant);
+    CacheService.set<List<RestaurantModel>>(restaurant);
   }
 
   Future<bool> updateGeolocationAutorisation() async {

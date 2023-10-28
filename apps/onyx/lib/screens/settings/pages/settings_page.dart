@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
@@ -158,7 +159,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         CacheService.reset<List<IzlyQrCode>>();
                         CacheService.reset<List<IzlyPaymentModel>>();
                         CacheService.reset<IzlyCredential>();
-                        Hive.box(name: "cached_izly_amount").deleteFromDisk();
+                        File("${CacheService.cachePath}/cached_izly_qrcode.data")
+                            .deleteSync();
                         context.read<IzlyCubit>().resetCubit();
                         context.read<IzlyCubit>().connect(
                             settings:

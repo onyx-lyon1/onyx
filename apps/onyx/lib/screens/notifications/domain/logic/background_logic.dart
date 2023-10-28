@@ -28,7 +28,7 @@ Future<bool> backgroundLogic({bool init = true}) async {
   if (!settings.firstLogin && !settings.biometricAuth) {
     Lyon1CasClient lyon1Cas = Lyon1CasClient();
     var result = await lyon1Cas.authenticate(
-        (await CacheService.get<Credential>(
+        (CacheService.get<Credential>(
             secureKey: await CacheService.getEncryptionKey(false)))!);
     if (!result.authResult) return false;
     await tomussNotificationLogic(settings, lyon1Cas);

@@ -56,8 +56,8 @@ class MailLogic {
       return mailboxesMock;
     }
     hiveInit(path: path);
-    if (await CacheService.exist<List<MailBox>>()) {
-      return (await CacheService.get<List<MailBox>>())!;
+    if (CacheService.exist<List<MailBox>>()) {
+      return (CacheService.get<List<MailBox>>())!;
     } else {
       return [];
     }

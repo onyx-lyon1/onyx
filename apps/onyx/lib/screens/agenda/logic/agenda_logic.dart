@@ -33,8 +33,8 @@ class AgendaLogic {
       return dayListMock;
     }
     await hiveInit(path: path);
-    if (await CacheService.exist<Agenda>()) {
-      return (await CacheService.get<Agenda>())!.days;
+    if (CacheService.exist<Agenda>()) {
+      return (CacheService.get<Agenda>())!.days;
     } else {
       return [];
     }

@@ -20,7 +20,7 @@ class MailSendAutocompleteWidget extends StatelessWidget {
           return MailLogic.mockAddresses;
         }
         if (!context.read<EmailCubit>().mailClient!.isAuthenticated) {
-          Credential? creds = await CacheService.get<Credential>(
+          Credential? creds = CacheService.get<Credential>(
               secureKey: await CacheService.getEncryptionKey(
                   context.read<SettingsCubit>().state.settings.biometricAuth));
           if (creds != null) {

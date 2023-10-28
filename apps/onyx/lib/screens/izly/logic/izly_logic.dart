@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
@@ -11,11 +10,11 @@ class IzlyLogic {
           .buffer
           .asUint8List();
     }
-    if (!(await CacheService.exist<List<IzlyQrCode>>())) {
+    if (!(CacheService.exist<List<IzlyQrCode>>())) {
       return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
     } else {
       List<IzlyQrCode> qrCodeModels =
-          (await CacheService.get<List<IzlyQrCode>>())!;
+          (CacheService.get<List<IzlyQrCode>>())!;
       qrCodeModels.removeWhere(
           (element) => element.expirationDate.isBefore(DateTime.now()));
 
@@ -23,7 +22,7 @@ class IzlyLogic {
         return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
       } else {
         IzlyQrCode qrCodeModel = qrCodeModels.removeAt(0);
-        await CacheService.set<List<IzlyQrCode>>(qrCodeModels);
+        CacheService.set<List<IzlyQrCode>>(qrCodeModels);
         return qrCodeModel.qrCode;
       }
     }
@@ -33,7 +32,7 @@ class IzlyLogic {
     if (Res.mock) {
       return true;
     }
-    List<IzlyQrCode> qrCodes = await CacheService.get<List<IzlyQrCode>>() ?? [];
+    List<IzlyQrCode> qrCodes = CacheService.get<List<IzlyQrCode>>() ?? [];
     try {
       qrCodes.addAll((await izlyClient.getNQRCode((3 - qrCodes.length)))
           .map((e) => IzlyQrCode(
@@ -41,7 +40,7 @@ class IzlyLogic {
               expirationDate: DateTime(DateTime.now().year,
                   DateTime.now().month, DateTime.now().day + 1, 14)))
           .toList());
-      await CacheService.set<List<IzlyQrCode>>(qrCodes);
+      CacheService.set<List<IzlyQrCode>>(qrCodes);
     } catch (e) {
       return false;
     }
@@ -49,7 +48,7 @@ class IzlyLogic {
   }
 
   static Future<int> getAvailableQrCodeCount() async {
-    List<IzlyQrCode> qrCodes = await CacheService.get<List<IzlyQrCode>>() ?? [];
+    List<IzlyQrCode> qrCodes = CacheService.get<List<IzlyQrCode>>() ?? [];
     return qrCodes.length;
   }
 
@@ -98,18 +97,25 @@ class IzlyLogic {
   }
 
   static void addRestaurantToFavourite(RestaurantModel restaurant) {
-    final box = Hive.box(name: "favourite_restaurant");
-    box.put(restaurant.id.toString(), true);
+    List<RestaurantModel> restaurants =
+        CacheService.get<List<RestaurantModel>>() ?? [];
+    if (!restaurants.any((element) => element.id == restaurant.id)) {
+      restaurants.add(restaurant);
+      CacheService.set<List<RestaurantModel>>(restaurants);
+    }
   }
 
   static void removeRestaurantToFavourite(RestaurantModel restaurant) {
-    final box = Hive.box(name: "favourite_restaurant");
-    box.put(restaurant.id.toString(), false);
+    List<RestaurantModel> restaurants =
+        CacheService.get<List<RestaurantModel>>() ?? [];
+    restaurants.removeWhere((element) => element.id == restaurant.id);
+    CacheService.set<List<RestaurantModel>>(restaurants);
   }
 
   static bool isRestaurantFavourite(RestaurantModel restaurant) {
-    final box = Hive.box(name: "favourite_restaurant");
-    return box.get(restaurant.id.toString(), defaultValue: false);
+    List<RestaurantModel> restaurants =
+        CacheService.get<List<RestaurantModel>>() ?? [];
+    return restaurants.any((element) => element.id == restaurant.id);
   }
 
   static Future<List<IzlyPaymentModel>> getUserPayments(

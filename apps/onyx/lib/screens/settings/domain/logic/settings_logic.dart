@@ -1,8 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
@@ -17,28 +18,22 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
 class SettingsLogic {
   static Future<SettingsModel> load() async {
-    Box<SettingsModel> box = Hive.box<SettingsModel>(name: 'settings');
-    if (box.isNotEmpty) {
-      SettingsModel? tmpSettings = box.get('settings');
-      if (tmpSettings != null) {
-        Res.mock = tmpSettings.mock;
-        return tmpSettings;
-      } else {
-        throw Exception("Settings not found");
-      }
+    SettingsModel? tmpSettings =
+        CacheService.get<SettingsModel>(permanent: true);
+    if (tmpSettings != null) {
+      Res.mock = tmpSettings.mock;
+      return tmpSettings;
     } else {
-      return const SettingsModel();
+      throw Exception("Settings not found");
     }
   }
 
   static void reset() {
-    Box<SettingsModel> box = Hive.box<SettingsModel>(name: 'settings');
-    box.put('settings', const SettingsModel());
+    CacheService.reset<SettingsModel>(permanent: true);
   }
 
   static void modify({required SettingsModel settings}) {
-    Box<SettingsModel> box = Hive.box<SettingsModel>(name: 'settings');
-    box.put('settings', settings);
+    CacheService.set<SettingsModel>(settings, permanent: true);
   }
 
   static void logout(BuildContext context) async {
@@ -46,7 +41,7 @@ class SettingsLogic {
     await context.read<AuthentificationCubit>().logout();
     CacheService.reset<IzlyCredential>();
     context.read<IzlyCubit>().disconnect();
-    Hive.box(name: "cached_izly_amount").deleteFromDisk();
+    File("${CacheService.cachePath}/cached_izly_amount.data").deleteSync();
     CacheService.reset<List<IzlyQrCode>>();
     CacheService.reset<List<IzlyPaymentModel>>();
     CacheService.reset<Lyon1CasClient>();

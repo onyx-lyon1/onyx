@@ -37,6 +37,6 @@ class TomussState with TomussStateMappable {
       this.timeout,
       this.newElements = const []});
 
-  List<TeachingUnit> get teachingUnits => semesters[currentSemesterIndex].teachingUnits;
-
+  List<TeachingUnit> get teachingUnits =>
+      semesters[currentSemesterIndex].teachingUnits;
 }

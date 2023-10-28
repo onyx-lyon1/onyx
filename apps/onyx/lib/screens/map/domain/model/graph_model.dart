@@ -2,15 +2,15 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:latlong2/latlong.dart';
 
 part 'graph_model.mapper.dart';
+
 @MappableClass()
-class Node with NodeMappable  {
+class Node with NodeMappable {
   final int id;
   final LatLng position;
   final List<({int nodeId, double distance})> neighbours;
 
   const Node(this.id, this.position, this.neighbours);
 }
-
 
 @MappableClass()
 class Graph with GraphMappable {

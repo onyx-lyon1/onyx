@@ -75,10 +75,16 @@ Device.pixelRatio : ${Device.pixelRatio}
                         .state
                         .settings
                         .biometricAuth)
-                    .then((key) => CacheService.get<Credential>(secureKey: key)
-                        .then((value) => context.read<EmailCubit>().connect(
-                            username: value!.username,
-                            password: value.password)));
+                    .then(
+                  (key) {
+                    Credential creds =
+                        CacheService.get<Credential>(secureKey: key)!;
+                    context.read<EmailCubit>().connect(
+                          username: creds.username,
+                          password: creds.password,
+                        );
+                  },
+                );
                 if (AgendaStatus.ready !=
                     context.read<AgendaCubit>().state.status) {
                   context.read<AgendaCubit>().load(
