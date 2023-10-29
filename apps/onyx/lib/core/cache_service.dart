@@ -13,26 +13,34 @@ class CacheService {
   static String cachePath = "";
   static String permanentPath = "";
 
-  static final Map<Type, Function(String)> _adapters = {};
+  static final Map<Type, Function> _adapters =
+      {}; //function not typed because could take Map or List
 
   static void init({String? cachePath, String? permanentPath}) async {
     CacheService.cachePath =
         cachePath ?? (await getApplicationCacheDirectory()).path;
     CacheService.permanentPath =
         permanentPath ?? (await getApplicationDocumentsDirectory()).path;
-    _adapters[List] = (json) => jsonDecode(json);
+    //create folder if not exist
+    Directory(CacheService.cachePath).createSync(recursive: true);
+    Directory(CacheService.permanentPath).createSync(recursive: true);
+    _adapters[List<int>] = (data) => data.cast<int>();
+    _adapters[List<double>] = (data) => data.cast<double>();
+    _adapters[List<String>] = (data) => data.cast<String>();
+    _adapters[List<bool>] = (data) => data.cast<bool>();
+    _adapters[List<num>] = (data) => data.cast<num>();
+    _adapters[List<Record>] = (data) => data.cast<Record>();
   }
 
-  static void registerAdapter<T>(T? Function(String) fromJson) {
+  static void registerAdapter<T>(T? Function(Map<String, dynamic>) fromJson) {
     if (!_adapters.keys.contains(T)) {
       _adapters[T] = fromJson;
-      _adapters[List<T>] = (json) => listParser<T>(json);
+      _adapters[List<T>] = listParser<T>;
     }
   }
 
-  static List<E> listParser<E>(String jsonData) {
-    List<String> datas = jsonDecode(jsonData);
-    return datas.map((e) => _adapters[E]!(e)).cast<E>().toList();
+  static List<E> listParser<E>(List jsonData) {
+    return jsonData.map((e) => _adapters[E]!(e)).cast<E>().toList();
   }
 
   static E? get<E>(
@@ -48,7 +56,7 @@ class CacheService {
         data = encrypter.decrypt(Encrypted.fromUtf8(data));
       }
       if (_adapters.keys.contains(E)) {
-        return _adapters[E]!(data);
+        return _adapters[E]!(jsonDecode(data));
       }
       return jsonDecode(data);
     } catch (e) {
@@ -64,7 +72,7 @@ class CacheService {
       File file = File(
           "${(permanent) ? permanentPath : cachePath}/cached_${E.toString()}_$index.data");
       if (!file.existsSync()) file.createSync(recursive: true);
-      String dataString = (data is String) ? data : jsonEncode(data);
+      String dataString = jsonEncode(data);
       if (secureKey != null) {
         final key = Key.fromUtf8(String.fromCharCodes(secureKey));
         final encryptor = Encrypter(AES(key));
