@@ -1,6 +1,6 @@
 extension ListExtension<T> on List<T> {
-  T get(int index, var defaultValue) {
-    if (isNotEmpty && length > index) {
+  T get(int? index, var defaultValue) {
+    if (index != null && isNotEmpty && length > index) {
       return this[index];
     }
     return defaultValue;

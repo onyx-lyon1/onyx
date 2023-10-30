@@ -47,10 +47,10 @@ class TomussCubit extends Cubit<TomussState> {
       emit(state.copyWith(
         status: TomussStatus.cacheReady,
         semesters: semesters,
-        currentSemesterIndex: semestreIndex ?? 0,
+        currentSemesterIndex: semestreIndex,
         newElements: TomussLogic.parseRecentElements(
             semesters
-                .get(semestreIndex ?? 0,
+                .get(semestreIndex,
                     Semester("title", "url", teachingUnits: []))
                 .teachingUnits,
             settings),
@@ -82,6 +82,9 @@ class TomussCubit extends Cubit<TomussState> {
         }
         semestreIndex ??= result.semesters!.indexWhere((element) =>
             element.url == Lyon1TomussClient.currentSemester().url);
+        if (semestreIndex == -1) {
+          semestreIndex = result.semesters!.length - 1;
+        }
         semesters = result.semesters!;
       } catch (e) {
         Res.logger.e("Error while loading grades: $e");
@@ -93,6 +96,13 @@ class TomussCubit extends Cubit<TomussState> {
       semesters[semestreIndex]
           .teachingUnits
           .sort((a, b) => a.title.compareTo(b.title));
+      if (CacheService.exist<List<Semester>>()) {
+        List<Semester> cacheSemesters = CacheService.get<List<Semester>>()!;
+        if (cacheSemesters.length > semestreIndex) {
+          cacheSemesters[semestreIndex] = semesters[semestreIndex];
+          semesters = cacheSemesters;
+        }
+      }
       CacheService.set<List<Semester>>(semesters);
       emit(state.copyWith(
         status: TomussStatus.ready,
