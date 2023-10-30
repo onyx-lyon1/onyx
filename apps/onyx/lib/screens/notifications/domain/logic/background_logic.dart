@@ -20,7 +20,7 @@ void workmanagerHandler() {
 
 Future<bool> backgroundLogic({bool init = true}) async {
   if (init) {
-    await cacheInit();
+    cacheInit();
     await NotificationLogic.init();
   }
   SettingsModel settings = await SettingsLogic.load();

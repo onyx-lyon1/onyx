@@ -55,7 +55,7 @@ class MailLogic {
     if (Res.mock) {
       return mailboxesMock;
     }
-    await cacheInit(cachePath: paths.cachePath, permanentPath: paths.permanentPath);
+    cacheInit(cachePath: paths.cachePath, permanentPath: paths.permanentPath);
     if (CacheService.exist<List<MailBox>>()) {
       return (CacheService.get<List<MailBox>>())!;
     } else {

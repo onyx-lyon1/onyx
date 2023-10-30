@@ -87,7 +87,7 @@ class TomussLogic {
     if (Res.mock) {
       return teachingUnitsModelListMock;
     }
-    await cacheInit(cachePath: paths.cachePath, permanentPath: paths.permanentPath);
+    cacheInit(cachePath: paths.cachePath, permanentPath: paths.permanentPath);
     if (CacheService.exist<List<Semester>>()) {
       return (CacheService.get<List<Semester>>())!;
     } else {

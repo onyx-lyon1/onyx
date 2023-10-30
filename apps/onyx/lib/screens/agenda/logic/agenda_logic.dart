@@ -32,7 +32,7 @@ class AgendaLogic {
     if (Res.mock) {
       return dayListMock;
     }
-    await cacheInit(cachePath: paths.cachePath, permanentPath: paths.permanentPath);
+    cacheInit(cachePath: paths.cachePath, permanentPath: paths.permanentPath);
     if (CacheService.exist<Agenda>()) {
       return (CacheService.get<Agenda>())!.days;
     } else {
