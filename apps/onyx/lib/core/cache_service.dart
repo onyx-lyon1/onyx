@@ -51,16 +51,19 @@ class CacheService {
       File file = File(
           "${(permanent) ? permanentPath : cachePath}/${E.toString()}_$index.data");
       if (!file.existsSync()) return null;
-      String data = file.readAsStringSync();
+      String data;
       if (secureKey != null) {
         final key = Key.fromBase64(secureKey);
         File ivFile = File("${file.path}.iv");
         if (!ivFile.existsSync()) return null;
-        final iv = IV.fromBase64(ivFile.readAsStringSync());
+        final iv = IV(ivFile.readAsBytesSync());
         final encrypter = Encrypter(AES(key));
-        data = encrypter.decrypt64(data, iv: iv);
-        //remove begin \" and end \" from string
+        data = String.fromCharCodes(
+            encrypter.decryptBytes(Encrypted(file.readAsBytesSync()), iv: iv));
+        //remove begin \" and end \" from string TODO check if really needed using bytes
         data = data.substring(1, data.length - 1).replaceAll("\\", "");
+      } else {
+        data = file.readAsStringSync();
       }
       if (_adapters.keys.contains(E)) {
         return _adapters[E]!(jsonDecode(data));
@@ -84,12 +87,13 @@ class CacheService {
         final key = Key.fromBase64(secureKey);
         final encryptor = Encrypter(AES(key));
         final iv = IV.fromSecureRandom(16);
-        dataString = encryptor.encrypt(dataString, iv: iv).base64;
+        file.writeAsBytesSync(encryptor.encrypt(dataString, iv: iv).bytes);
         File ivFile = File("${file.path}.iv");
         if (!ivFile.existsSync()) ivFile.createSync(recursive: true);
-        ivFile.writeAsStringSync(iv.base64);
+        ivFile.writeAsBytesSync(iv.bytes);
+      } else {
+        file.writeAsStringSync(dataString);
       }
-      file.writeAsStringSync(dataString);
     } catch (e) {
       Res.logger.e("error while setting cache for $E: $e");
       reset<E>();
