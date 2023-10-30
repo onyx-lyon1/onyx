@@ -38,5 +38,7 @@ class TomussState with TomussStateMappable {
       this.newElements = const []});
 
   List<TeachingUnit> get teachingUnits =>
-      semesters[currentSemesterIndex].teachingUnits;
+      (semesters.length > currentSemesterIndex)
+          ? semesters[currentSemesterIndex].teachingUnits
+          : [];
 }

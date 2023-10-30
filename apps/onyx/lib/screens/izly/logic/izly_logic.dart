@@ -4,7 +4,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 
 class IzlyLogic {
-  static Future<Uint8List> getQrCode() async {
+  static Future<List<int>> getQrCode() async {
     if (Res.mock) {
       return (await rootBundle.load('assets/izly_mock_qr-code.png'))
           .buffer

@@ -21,27 +21,27 @@ void main() {
   test("reset all", () {
     //create many files in temp
     for (int i = 0; i < 10; i++) {
-      File("/tmp/onyx/cache/cached_TestObject_$i.data")
+      File("/tmp/onyx/cache/TestObject_$i.data")
           .writeAsStringSync('{"name":"test$i","age":$i}');
     }
     for (int i = 0; i < 10; i++) {
-      File("/tmp/onyx/permanent/cached_TestObject_$i.data")
+      File("/tmp/onyx/permanent/TestObject_$i.data")
           .writeAsStringSync('{"name":"test$i","age":$i}');
     }
     //check if files exist
     for (int i = 0; i < 10; i++) {
       expect(
-          File("/tmp/onyx/cache/cached_TestObject_$i.data").existsSync(), true);
-      expect(File("/tmp/onyx/permanent/cached_TestObject_$i.data").existsSync(),
+          File("/tmp/onyx/cache/TestObject_$i.data").existsSync(), true);
+      expect(File("/tmp/onyx/permanent/TestObject_$i.data").existsSync(),
           true);
     }
     //reset all
     CacheService.resetAll();
     //check if files are deleted
     for (int i = 0; i < 10; i++) {
-      expect(File("/tmp/onyx/cache/cached_TestObject_$i.data").existsSync(),
+      expect(File("/tmp/onyx/cache/TestObject_$i.data").existsSync(),
           false);
-      expect(File("/tmp/onyx/permanent/cached_TestObject_$i.data").existsSync(),
+      expect(File("/tmp/onyx/permanent/TestObject_$i.data").existsSync(),
           false);
     }
   });
@@ -49,27 +49,27 @@ void main() {
   test("write test perma", () {
     TestObject testObject = TestObject("test", 1);
     CacheService.set(testObject, permanent: true);
-    expect(File("/tmp/onyx/permanent/cached_TestObject_0.data").existsSync(),
+    expect(File("/tmp/onyx/permanent/TestObject_0.data").existsSync(),
         true);
     expect(
-        File("/tmp/onyx/permanent/cached_TestObject_0.data").readAsStringSync(),
+        File("/tmp/onyx/permanent/TestObject_0.data").readAsStringSync(),
         '{"name":"test","age":1}');
   });
   test("write test temporary", () {
     TestObject testObject = TestObject("test", 1);
     CacheService.set(testObject, permanent: false);
-    expect(File("/tmp/onyx/cache/cached_TestObject_0.data").existsSync(), true);
-    expect(File("/tmp/onyx/cache/cached_TestObject_0.data").readAsStringSync(),
+    expect(File("/tmp/onyx/cache/TestObject_0.data").existsSync(), true);
+    expect(File("/tmp/onyx/cache/TestObject_0.data").readAsStringSync(),
         '{"name":"test","age":1}');
   });
 
   test("write test with index", () {
     TestObject testObject = TestObject("test", 1);
     CacheService.set(testObject, permanent: true, index: 999);
-    expect(File("/tmp/onyx/permanent/cached_TestObject_999.data").existsSync(),
+    expect(File("/tmp/onyx/permanent/TestObject_999.data").existsSync(),
         true);
     expect(
-        File("/tmp/onyx/permanent/cached_TestObject_999.data")
+        File("/tmp/onyx/permanent/TestObject_999.data")
             .readAsStringSync(),
         '{"name":"test","age":1}');
   });
@@ -79,16 +79,16 @@ void main() {
         List.generate(10, (index) => TestObject("test$index", index));
     CacheService.set(list, permanent: true);
     expect(
-        File("/tmp/onyx/permanent/cached_List<TestObject>_0.data").existsSync(),
+        File("/tmp/onyx/permanent/List<TestObject>_0.data").existsSync(),
         true);
     expect(
-        File("/tmp/onyx/permanent/cached_List<TestObject>_0.data")
+        File("/tmp/onyx/permanent/List<TestObject>_0.data")
             .readAsStringSync(),
         '[{"name":"test0","age":0},{"name":"test1","age":1},{"name":"test2","age":2},{"name":"test3","age":3},{"name":"test4","age":4},{"name":"test5","age":5},{"name":"test6","age":6},{"name":"test7","age":7},{"name":"test8","age":8},{"name":"test9","age":9}]');
   });
 
   test('read test perma', () {
-    File("/tmp/onyx/permanent/cached_TestObject_0.data")
+    File("/tmp/onyx/permanent/TestObject_0.data")
         .writeAsStringSync('{"name":"test","age":1}');
     TestObject? testObject = CacheService.get<TestObject>(permanent: true);
     expect(testObject!.name, "test");
@@ -96,7 +96,7 @@ void main() {
   });
 
   test('read test temporary', () {
-    File("/tmp/onyx/cache/cached_TestObject_0.data")
+    File("/tmp/onyx/cache/TestObject_0.data")
         .writeAsStringSync('{"name":"test","age":1}');
     TestObject? testObject = CacheService.get<TestObject>(permanent: false);
     expect(testObject!.name, "test");
@@ -104,7 +104,7 @@ void main() {
   });
 
   test('read list test', () {
-    File("/tmp/onyx/cache/cached_List<TestObject>_0.data").writeAsStringSync(
+    File("/tmp/onyx/cache/List<TestObject>_0.data").writeAsStringSync(
         '[{"name":"test0","age":0},{"name":"test1","age":1},{"name":"test2","age":2},{"name":"test3","age":3},{"name":"test4","age":4},{"name":"test5","age":5},{"name":"test6","age":6},{"name":"test7","age":7},{"name":"test8","age":8},{"name":"test9","age":9}]');
     List<TestObject> list = CacheService.get<List<TestObject>>()!;
     expect(list.length, 10);
@@ -118,19 +118,25 @@ void main() {
     List<int> list = List.generate(10, (index) => index);
     CacheService.set(list, permanent: true);
     expect(
-        File("/tmp/onyx/permanent/cached_List<int>_0.data").existsSync(), true);
+        File("/tmp/onyx/permanent/List<int>_0.data").existsSync(), true);
     expect(
-        File("/tmp/onyx/permanent/cached_List<int>_0.data").readAsStringSync(),
+        File("/tmp/onyx/permanent/List<int>_0.data").readAsStringSync(),
         '[0,1,2,3,4,5,6,7,8,9]');
   });
 
   test("read basic type list", () {
-    File("/tmp/onyx/cache/cached_List<int>_0.data").writeAsStringSync('[0,1,2,3,4,5,6,7,8,9]');
+    File("/tmp/onyx/cache/List<int>_0.data").writeAsStringSync('[0,1,2,3,4,5,6,7,8,9]');
     List<int> list = CacheService.get<List<int>>()!;
     expect(list.length, 10);
     for (int i = 0; i < 10; i++) {
       expect(list[i], i);
     }
+  });
+
+  test("exist", (){
+    expect(CacheService.exist<TestObject>(), false);
+    CacheService.set<TestObject>(TestObject("test", 1));
+    expect(CacheService.exist<TestObject>(), true);
   });
 }
 

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/core/extensions/list_extension.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:path_provider/path_provider.dart';
@@ -45,7 +46,11 @@ class TomussCubit extends Cubit<TomussState> {
         semesters: semesters,
         currentSemesterIndex: semestreIndex ?? 0,
         newElements: TomussLogic.parseRecentElements(
-            semesters[semestreIndex ?? 0].teachingUnits, settings),
+            semesters
+                .get(semestreIndex ?? 0,
+                    Semester("title", "url", teachingUnits: []))
+                .teachingUnits,
+            settings),
       ));
     }
     if (_dartus != null && _dartus!.lyon1Cas.isAuthenticated) {

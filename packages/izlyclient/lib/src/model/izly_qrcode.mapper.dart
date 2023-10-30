@@ -20,8 +20,8 @@ class IzlyQrCodeMapper extends ClassMapperBase<IzlyQrCode> {
   @override
   final String id = 'IzlyQrCode';
 
-  static Uint8List _$qrCode(IzlyQrCode v) => v.qrCode;
-  static const Field<IzlyQrCode, Uint8List> _f$qrCode =
+  static List<int> _$qrCode(IzlyQrCode v) => v.qrCode;
+  static const Field<IzlyQrCode, List<int>> _f$qrCode =
       Field('qrCode', _$qrCode);
   static DateTime _$expirationDate(IzlyQrCode v) => v.expirationDate;
   static const Field<IzlyQrCode, DateTime> _f$expirationDate =
@@ -92,7 +92,8 @@ extension IzlyQrCodeValueCopy<$R, $Out>
 
 abstract class IzlyQrCodeCopyWith<$R, $In extends IzlyQrCode, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({Uint8List? qrCode, DateTime? expirationDate});
+  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get qrCode;
+  $R call({List<int>? qrCode, DateTime? expirationDate});
   IzlyQrCodeCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -105,7 +106,11 @@ class _IzlyQrCodeCopyWithImpl<$R, $Out>
   late final ClassMapperBase<IzlyQrCode> $mapper =
       IzlyQrCodeMapper.ensureInitialized();
   @override
-  $R call({Uint8List? qrCode, DateTime? expirationDate}) =>
+  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get qrCode =>
+      ListCopyWith($value.qrCode, (v, t) => ObjectCopyWith(v, $identity, t),
+          (v) => call(qrCode: v));
+  @override
+  $R call({List<int>? qrCode, DateTime? expirationDate}) =>
       $apply(FieldCopyWithData({
         if (qrCode != null) #qrCode: qrCode,
         if (expirationDate != null) #expirationDate: expirationDate

@@ -15,7 +15,7 @@ class IzlyState {
   IzlyStatus status;
   IzlyClient? izlyClient;
   double balance;
-  Uint8List? qrCode;
+  List<int>? qrCode;
   int qrCodeAvailables;
   List<IzlyPaymentModel> paymentList;
 
@@ -31,7 +31,7 @@ class IzlyState {
   IzlyState copyWith({
     IzlyStatus? status,
     double? balance,
-    Uint8List? qrCode,
+    List<int>? qrCode,
     IzlyClient? izlyClient,
     int? qrCodeAvailables,
     List<IzlyPaymentModel>? paymentList,

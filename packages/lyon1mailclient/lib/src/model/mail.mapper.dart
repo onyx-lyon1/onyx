@@ -41,12 +41,12 @@ class MailMapper extends ClassMapperBase<Mail> {
       Field('attachments', _$attachments);
   static bool _$isFlagged(Mail v) => v.isFlagged;
   static const Field<Mail, bool> _f$isFlagged = Field('isFlagged', _$isFlagged);
-  static List<File> _$attachmentsFiles(Mail v) => v.attachmentsFiles;
-  static const Field<Mail, List<File>> _f$attachmentsFiles =
-      Field('attachmentsFiles', _$attachmentsFiles, opt: true, def: const []);
   static MimeMessage? _$rawMail(Mail v) => v.rawMail;
   static const Field<Mail, MimeMessage> _f$rawMail =
-      Field('rawMail', _$rawMail, opt: true);
+      Field('rawMail', _$rawMail, mode: FieldMode.member);
+  static List<File> _$attachmentsFiles(Mail v) => v.attachmentsFiles;
+  static const Field<Mail, List<File>> _f$attachmentsFiles =
+      Field('attachmentsFiles', _$attachmentsFiles, mode: FieldMode.member);
 
   @override
   final Map<Symbol, Field<Mail, dynamic>> fields = const {
@@ -60,8 +60,8 @@ class MailMapper extends ClassMapperBase<Mail> {
     #receiver: _f$receiver,
     #attachments: _f$attachments,
     #isFlagged: _f$isFlagged,
-    #attachmentsFiles: _f$attachmentsFiles,
     #rawMail: _f$rawMail,
+    #attachmentsFiles: _f$attachmentsFiles,
   };
 
   static Mail _instantiate(DecodingData data) {
@@ -75,9 +75,7 @@ class MailMapper extends ClassMapperBase<Mail> {
         id: data.dec(_f$id),
         receiver: data.dec(_f$receiver),
         attachments: data.dec(_f$attachments),
-        isFlagged: data.dec(_f$isFlagged),
-        attachmentsFiles: data.dec(_f$attachmentsFiles),
-        rawMail: data.dec(_f$rawMail));
+        isFlagged: data.dec(_f$isFlagged));
   }
 
   @override
@@ -129,7 +127,6 @@ extension MailValueCopy<$R, $Out> on ObjectCopyWith<$R, Mail, $Out> {
 abstract class MailCopyWith<$R, $In extends Mail, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get attachments;
-  ListCopyWith<$R, File, ObjectCopyWith<$R, File, File>> get attachmentsFiles;
   $R call(
       {String? subject,
       String? sender,
@@ -140,9 +137,7 @@ abstract class MailCopyWith<$R, $In extends Mail, $Out>
       int? id,
       String? receiver,
       List<String>? attachments,
-      bool? isFlagged,
-      List<File>? attachmentsFiles,
-      MimeMessage? rawMail});
+      bool? isFlagged});
   MailCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -159,12 +154,6 @@ class _MailCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Mail, $Out>
           (v, t) => ObjectCopyWith(v, $identity, t),
           (v) => call(attachments: v));
   @override
-  ListCopyWith<$R, File, ObjectCopyWith<$R, File, File>> get attachmentsFiles =>
-      ListCopyWith(
-          $value.attachmentsFiles,
-          (v, t) => ObjectCopyWith(v, $identity, t),
-          (v) => call(attachmentsFiles: v));
-  @override
   $R call(
           {String? subject,
           String? sender,
@@ -175,9 +164,7 @@ class _MailCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Mail, $Out>
           Object? id = $none,
           String? receiver,
           List<String>? attachments,
-          bool? isFlagged,
-          List<File>? attachmentsFiles,
-          Object? rawMail = $none}) =>
+          bool? isFlagged}) =>
       $apply(FieldCopyWithData({
         if (subject != null) #subject: subject,
         if (sender != null) #sender: sender,
@@ -188,9 +175,7 @@ class _MailCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Mail, $Out>
         if (id != $none) #id: id,
         if (receiver != null) #receiver: receiver,
         if (attachments != null) #attachments: attachments,
-        if (isFlagged != null) #isFlagged: isFlagged,
-        if (attachmentsFiles != null) #attachmentsFiles: attachmentsFiles,
-        if (rawMail != $none) #rawMail: rawMail
+        if (isFlagged != null) #isFlagged: isFlagged
       }));
   @override
   Mail $make(CopyWithData data) => Mail(
@@ -203,10 +188,7 @@ class _MailCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Mail, $Out>
       id: data.get(#id, or: $value.id),
       receiver: data.get(#receiver, or: $value.receiver),
       attachments: data.get(#attachments, or: $value.attachments),
-      isFlagged: data.get(#isFlagged, or: $value.isFlagged),
-      attachmentsFiles:
-          data.get(#attachmentsFiles, or: $value.attachmentsFiles),
-      rawMail: data.get(#rawMail, or: $value.rawMail));
+      isFlagged: data.get(#isFlagged, or: $value.isFlagged));
 
   @override
   MailCopyWith<$R2, Mail, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

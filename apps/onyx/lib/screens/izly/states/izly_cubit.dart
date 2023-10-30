@@ -34,11 +34,12 @@ class IzlyCubit extends Cubit<IzlyState> {
       return;
     }
     //cache loading
-    double amount = double.tryParse(
-            File("${CacheService.cachePath}/cached_izly_amount.data")
-                .readAsStringSync()) ??
-        0.0;
-    Uint8List qrCode = await IzlyLogic.getQrCode();
+    File amountFile = File("${CacheService.cachePath}/cached_izly_amount.data");
+    double amount = 0.0;
+    if (amountFile.existsSync()) {
+      amount = double.tryParse(amountFile.readAsStringSync()) ?? 0.0;
+    }
+    List<int> qrCode = await IzlyLogic.getQrCode();
     int qrCodeCount = await IzlyLogic.getAvailableQrCodeCount();
     emit(state.copyWith(
         status: IzlyStatus.connecting,

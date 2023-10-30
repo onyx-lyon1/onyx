@@ -48,7 +48,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     if (settings.biometricAuth) {
       emit(state.copyWith(status: AuthentificationStatus.waitingBiometric));
     }
-    List<int> key = await CacheService.getEncryptionKey(settings.biometricAuth);
+    String key = await CacheService.getEncryptionKey(settings.biometricAuth);
     creds ??= CacheService.get<Credential>(secureKey: key);
     if (creds == null) {
       emit(state.copyWith(status: AuthentificationStatus.needCredential));

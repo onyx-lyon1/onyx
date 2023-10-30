@@ -7,7 +7,7 @@ import 'package:onyx/core/res.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CacheService {
-  static List<int>? _secureKey;
+  static String? _secureKey;
   static BiometricStorageFile? _storageFile;
   static bool? _isBiometricEnabled;
   static String cachePath = "";
@@ -40,20 +40,27 @@ class CacheService {
   }
 
   static List<E> listParser<E>(List jsonData) {
-    return jsonData.map((e) => _adapters[E]!(e)).cast<E>().toList();
+    return jsonData
+        .map((e) => _adapters[E]!((e is String) ? jsonDecode(e) : e))
+        .cast<E>()
+        .toList();
   }
 
-  static E? get<E>(
-      {int index = 0, List<int>? secureKey, bool permanent = false}) {
+  static E? get<E>({int index = 0, String? secureKey, bool permanent = false}) {
     try {
       File file = File(
-          "${(permanent) ? permanentPath : cachePath}/cached_${E.toString()}_$index.data");
+          "${(permanent) ? permanentPath : cachePath}/${E.toString()}_$index.data");
       if (!file.existsSync()) return null;
       String data = file.readAsStringSync();
       if (secureKey != null) {
-        final key = Key.fromUtf8(String.fromCharCodes(secureKey));
+        final key = Key.fromBase64(secureKey);
+        File ivFile = File("${file.path}.iv");
+        if (!ivFile.existsSync()) return null;
+        final iv = IV.fromBase64(ivFile.readAsStringSync());
         final encrypter = Encrypter(AES(key));
-        data = encrypter.decrypt(Encrypted.fromUtf8(data));
+        data = encrypter.decrypt64(data, iv: iv);
+        //remove begin \" and end \" from string
+        data = data.substring(1, data.length - 1).replaceAll("\\", "");
       }
       if (_adapters.keys.contains(E)) {
         return _adapters[E]!(jsonDecode(data));
@@ -67,16 +74,20 @@ class CacheService {
   }
 
   static void set<E>(E data,
-      {int index = 0, List<int>? secureKey, bool permanent = false}) {
+      {int index = 0, String? secureKey, bool permanent = false}) {
     try {
       File file = File(
-          "${(permanent) ? permanentPath : cachePath}/cached_${E.toString()}_$index.data");
+          "${(permanent) ? permanentPath : cachePath}/${E.toString()}_$index.data");
       if (!file.existsSync()) file.createSync(recursive: true);
       String dataString = jsonEncode(data);
       if (secureKey != null) {
-        final key = Key.fromUtf8(String.fromCharCodes(secureKey));
+        final key = Key.fromBase64(secureKey);
         final encryptor = Encrypter(AES(key));
-        dataString = encryptor.encrypt(dataString).base64;
+        final iv = IV.fromSecureRandom(16);
+        dataString = encryptor.encrypt(dataString, iv: iv).base64;
+        File ivFile = File("${file.path}.iv");
+        if (!ivFile.existsSync()) ivFile.createSync(recursive: true);
+        ivFile.writeAsStringSync(iv.base64);
       }
       file.writeAsStringSync(dataString);
     } catch (e) {
@@ -88,7 +99,7 @@ class CacheService {
   static bool exist<E>({int index = 0, bool permanent = false}) {
     try {
       File file = File(
-          "${(permanent) ? permanentPath : cachePath}/cached_${E.toString()}_$index.data");
+          "${(permanent) ? permanentPath : cachePath}/${E.toString()}_$index.data");
       return file.existsSync();
     } catch (e) {
       Res.logger.e("error while checking existence of cache for $E: $e");
@@ -105,7 +116,7 @@ class CacheService {
       //filter files
       files = files
           .where((element) =>
-              element.path.contains("cached_${E.toString()}_") &&
+              element.path.contains("${E.toString()}_") &&
               element.path.endsWith(".data"))
           .toList();
       //delete files
@@ -123,8 +134,7 @@ class CacheService {
       List<FileSystemEntity> files = directory.listSync();
       files = files
           .where((element) =>
-              element.path.contains("cached_") &&
-              element.path.endsWith(".data"))
+              element.path.contains("") && element.path.endsWith(".data"))
           .toList();
       for (var element in files) {
         element.deleteSync();
@@ -135,8 +145,7 @@ class CacheService {
       List<FileSystemEntity> files = directory.listSync();
       files = files
           .where((element) =>
-              element.path.contains("cached_") &&
-              element.path.endsWith(".data"))
+              element.path.contains("") && element.path.endsWith(".data"))
           .toList();
       for (var element in files) {
         element.deleteSync();
@@ -145,7 +154,7 @@ class CacheService {
   }
 
   static Future<bool> toggleBiometricAuth(bool biometricAuth) async {
-    List<int> key = await getEncryptionKey(!biometricAuth);
+    String key = await getEncryptionKey(!biometricAuth);
     _isBiometricEnabled = biometricAuth;
     if (biometricAuth) {
       final canAuthentificate = await BiometricStorage().canAuthenticate();
@@ -162,11 +171,11 @@ class CacheService {
         authenticationRequired: biometricAuth,
       ),
     );
-    await _storageFile!.write(base64Encode(key));
+    await _storageFile!.write(key);
     return true;
   }
 
-  static Future<List<int>> getEncryptionKey(bool biometricAuth,
+  static Future<String> getEncryptionKey(bool biometricAuth,
       {bool autoRetry = false}) async {
     if (_isBiometricEnabled != null && _isBiometricEnabled != biometricAuth) {
       await toggleBiometricAuth(biometricAuth);
@@ -192,10 +201,10 @@ class CacheService {
     try {
       String? data = await _storageFile!.read();
       if (data == null) {
-        data = Key.fromSecureRandom(1024).base64;
+        data = Key.fromSecureRandom(32).base64;
         await _storageFile!.write(data);
       }
-      _secureKey = base64Url.decode(data);
+      _secureKey = data;
       return _secureKey!;
     } on AuthException catch (exception) {
       Res.logger.e("error while getting encryption key : $exception");
