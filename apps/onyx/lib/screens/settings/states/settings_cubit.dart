@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
@@ -7,6 +8,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:workmanager/workmanager.dart';
 
 part 'settings_state.dart';
+part 'settings_cubit.mapper.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit()
@@ -16,7 +18,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future<void> reset() async {
-    await SettingsLogic.reset();
+    SettingsLogic.reset();
     emit(state.copyWith(
         status: SettingsStatus.ready, settings: const SettingsModel()));
   }
@@ -41,7 +43,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future<void> modify({required SettingsModel settings}) async {
-    await SettingsLogic.modify(settings: settings);
+    SettingsLogic.modify(settings: settings);
     emit(state.copyWith(status: SettingsStatus.ready, settings: settings));
   }
 

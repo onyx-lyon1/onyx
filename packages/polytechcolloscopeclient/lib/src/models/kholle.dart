@@ -1,6 +1,9 @@
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-class Kholle extends Equatable {
+part 'kholle.mapper.dart';
+
+@MappableClass()
+class Kholle with KholleMappable {
   final DateTime date;
   final String subject;
   final String kholleur;
@@ -8,10 +11,4 @@ class Kholle extends Equatable {
   final String? room;
 
   Kholle(this.date, this.subject, this.kholleur, this.message, this.room);
-
-  @override
-  List<Object?> get props => [date, subject, kholleur, message, room];
-
-  @override
-  bool? get stringify => true;
 }

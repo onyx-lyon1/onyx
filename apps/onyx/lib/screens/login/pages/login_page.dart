@@ -131,10 +131,10 @@ class _LoginPageState extends State<LoginPage> {
                               child: TextFormField(
                                 autofillHints: const [AutofillHints.username],
                                 onSaved: (String? value) => username =
-                                (RegExp(r"^([pP])\d{7}$")
-                                    .hasMatch(value!.trim()))
-                                    ? value.trim().replaceFirst("p", "P")
-                                    : value.trim(),
+                                    (RegExp(r"^([pP])\d{7}$")
+                                            .hasMatch(value!.trim()))
+                                        ? value.trim().replaceFirst("p", "P")
+                                        : value.trim(),
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                   labelText: 'Username',

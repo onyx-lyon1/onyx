@@ -1,3 +1,4 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'agenda_state.dart';
+part 'agenda_cubit.mapper.dart';
 
 class AgendaCubit extends Cubit<AgendaState> {
   Lyon1AgendaClient? _agendaClient;
@@ -35,7 +37,7 @@ class AgendaCubit extends Cubit<AgendaState> {
     if (cache && !Res.mock && !kIsWeb) {
       state.realDays = await compute(
         AgendaLogic.getCache,
-        (await getApplicationDocumentsDirectory()).path,
+        (cachePath: (await getApplicationCacheDirectory()).path, permanentPath: (await getApplicationDocumentsDirectory()).path),
       );
       emit(state.copyWith(
           status: AgendaStatus.cacheReady,

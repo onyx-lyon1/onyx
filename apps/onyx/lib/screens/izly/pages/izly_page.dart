@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
@@ -78,7 +80,7 @@ class IzlyPage extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: Image.memory(state.qrCode!,
+                          child: Image.memory(Uint8List.fromList(state.qrCode!),
                               scale: 0.6, semanticLabel: "QR Code"),
                         ),
                       ),

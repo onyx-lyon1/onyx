@@ -1,8 +1,19 @@
 part of 'settings_cubit.dart';
 
-enum SettingsStatus { initial, loading, ready, error }
+@MappableEnum()
+enum SettingsStatus {
+  @MappableValue(000)
+  initial,
+  @MappableValue(100)
+  loading,
+  @MappableValue(200)
+  ready,
+  @MappableValue(300)
+  error
+}
 
-class SettingsState {
+@MappableClass()
+class SettingsState with SettingsStateMappable {
   final SettingsStatus status;
   final SettingsModel settings;
   final bool collapseAll;
@@ -12,21 +23,4 @@ class SettingsState {
     this.collapseAll = false,
     required this.settings,
   });
-
-  SettingsState copyWith({
-    SettingsStatus? status,
-    SettingsModel? settings,
-    bool? collapseAll,
-  }) {
-    return SettingsState(
-      status: status ?? this.status,
-      settings: settings ?? this.settings,
-      collapseAll: collapseAll ?? false,
-    );
-  }
-
-  @override
-  String toString() {
-    return 'SettingsState{status: $status, settings: $settings, collapseAll: $collapseAll}';
-  }
 }

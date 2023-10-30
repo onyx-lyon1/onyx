@@ -2,7 +2,6 @@ import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lyon1tomussclient/src/utils/urlcreator.dart';
 import 'package:lyon1tomussclient/src/parser/htmlparser.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
-import 'package:hive/hive.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 
 class Lyon1TomussClient {
@@ -12,22 +11,6 @@ class Lyon1TomussClient {
       : _authentication = authentication;
 
   Lyon1CasClient get lyon1Cas => _authentication;
-
-  static void registerAdapters() {
-    Hive.registerAdapter(EnumerationAdapter());
-    Hive.registerAdapter(GradeAdapter());
-    Hive.registerAdapter(PresenceAdapter());
-    Hive.registerAdapter(PresenceColorAdapter());
-    Hive.registerAdapter(SemesterAdapter());
-    Hive.registerAdapter(SemesterListAdapter());
-    Hive.registerAdapter(StageCodeAdapter());
-    Hive.registerAdapter(TeacherAdapter());
-    Hive.registerAdapter(TeachingUnitAdapter());
-    Hive.registerAdapter(TeachingUnitListAdapter());
-    Hive.registerAdapter(TomussTextAdapter());
-    Hive.registerAdapter(UploadAdapter());
-    Hive.registerAdapter(URLAdapter());
-  }
 
   Future<ParsedPage?> getParsedPage(final String url,
       {bool autoRefresh = true}) async {
@@ -44,33 +27,32 @@ class Lyon1TomussClient {
         return Future.delayed(Duration(seconds: delay.round() + 2), () async {
           content = (await _authentication.serviceRequest(url)).body;
           if (content.length > 1000) {
-            parser.parse(content);
-            return ParsedPage(parser.extractSemesters(),
-                parser.extractTeachingUnits(), false, Duration.zero);
+            parser.parse(content, url);
+            return ParsedPage(parser.getSemesters, false, Duration.zero);
           } else {
             return null;
           }
         });
       } else {
-        return ParsedPage(
-            null, null, true, Duration(seconds: delay.round() + 2));
+        return ParsedPage([], true, Duration(seconds: delay.round() + 2));
       }
     }
-    parser.parse(content);
+    parser.parse(content, url);
 
-    return ParsedPage(parser.extractSemesters(), parser.extractTeachingUnits(),
-        false, Duration.zero);
+    return ParsedPage(parser.getSemesters, false, Duration.zero);
   }
 
   Future<void> logout() async {
     _authentication.logout();
   }
 
-  static String currentSemester() {
-    return URLCreator.currentSemester(DateTime.now());
+  static Semester currentSemester() {
+    String name = URLCreator.currentSemesterName(DateTime.now());
+    return Semester(name, URLCreator.semesterFromName(name));
   }
 
-  static String previousSemester() {
-    return URLCreator.previousSemester(DateTime.now());
+  static Semester previousSemester() {
+    String name = URLCreator.previousSemesterName(DateTime.now());
+    return Semester(name, URLCreator.semesterFromName(name));
   }
 }

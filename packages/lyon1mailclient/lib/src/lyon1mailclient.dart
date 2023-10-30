@@ -3,7 +3,6 @@
 import 'dart:io';
 
 import 'package:enough_mail/enough_mail.dart' hide Response;
-import 'package:hive/hive.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:requests_plus/requests_plus.dart';
 
@@ -27,17 +26,6 @@ class Lyon1MailClient {
       throw Exception("proxyUrl must end with /");
     }
     _corsProxyUrl = corsProxyUrl;
-  }
-
-  static void registerAdapters({bool initHive = true}) {
-    Hive.registerAdapter(ActionAdapter());
-    Hive.registerAdapter(ActionListAdapter());
-    Hive.registerAdapter(ActionTypeAdapter());
-    Hive.registerAdapter(MailAdapter());
-    Hive.registerAdapter(MailBoxAdapter());
-    Hive.registerAdapter(MailBoxListAdapter());
-    Hive.registerAdapter(SpecialMailBoxAdapter());
-    if (initHive) Hive.init(Directory.current.path);
   }
 
   Future<bool> login() async {
@@ -165,25 +153,26 @@ class Lyon1MailClient {
       mails
           .add(Mail.fromRaw(email, removeTrackingImages: removeTrackingImages));
     }
+
     if (mailbox.name.contains("Boîte d'envoi")) {
-      Box<ActionList> actionsBox = await Hive.openBox<ActionList>("cached_0");
-      ActionList actionList =
-          actionsBox.get("cache0") ?? ActionList(action: []);
-      for (Action action in actionList.action) {
-        switch (action.type) {
-          case ActionType.send:
-          case ActionType.forward:
-          case ActionType.reply:
-            mails.add(Mail.fromRaw(await _buildSendEmail(
-                recipients: [Address(action.mail.receiver, "")],
-                subject: action.mail.subject,
-                body: action.mail.body,
-                attachments: action.mail.attachmentsFiles)));
-            break;
-          default:
-            break;
-        }
-      }
+      // Box<List<Action>> actionsBox =
+      //     await Hive.openBox<List<Action>>("cached_0");
+      // List<Action> actionList = actionsBox.get("cache0") ?? [];
+      // for (Action action in actionList) {
+      //   switch (action.type) {
+      //     case ActionType.send:
+      //     case ActionType.forward:
+      //     case ActionType.reply:
+      //       mails.add(Mail.fromRaw(await _buildSendEmail(
+      //           recipients: [Address(action.mail.receiver, "")],
+      //           subject: action.mail.subject,
+      //           body: action.mail.body,
+      //           attachments: action.mail.attachmentsFiles)));
+      //       break;
+      //     default:
+      //       break;
+      //   }
+      // }
     }
 
     return mails.reversed
@@ -424,33 +413,38 @@ class Lyon1MailClient {
   }
 
   Future<void> addAction(Action action, {bool autoDoAction = true}) async {
-    Box<ActionList> box = await Hive.openBox<ActionList>("cached_0");
-    ActionList wrapper = box.get("cache0") ?? ActionList(action: []);
-    if (!wrapper.action.contains(action)) {
-      wrapper.action.add(action);
-      await box.put("cache0", wrapper);
-      if (autoDoAction) {
-        doActions();
-      }
-    }
+    //TODO add action gestion with new hive
+    // Box<List<Action>> box = await Hive.openBox<List<Action>>("cached_0");
+    // List<Action> actionList = box.get("cache0") ?? [];
+    // if (!actionList.contains(action)) {
+    //   actionList.add(action);
+    //   await box.put("cache0", actionList);
+    //   if (autoDoAction) {
+    //     doActions();
+    //   }
+    // }
   }
 
   Future<void> removeAction(Action action) async {
-    Box<ActionList> box = await Hive.openBox<ActionList>("cached_0");
-    ActionList wrapper = box.get("cache0") ?? ActionList(action: []);
-    while (wrapper.action.contains(action)) {
-      wrapper.action.remove(action);
-    }
-    await box.put("cache0", wrapper);
+    //TODO add action gestion with new hive
+    // Box<List<Action>> box = await Hive.openBox<List<Action>>("cached_0");
+    // List<Action> actionList = box.get("cache0") ?? [];
+    // while (actionList.contains(action)) {
+    //   actionList.remove(action);
+    // }
+    // await box.put("cache0", actionList);
   }
 
   Future<void> cleanActions() async {
-    await Hive.deleteBoxFromDisk("cached_0");
+    //TODO add action gestion with new hive
+    // await Hive.deleteBoxFromDisk("cached_0");
   }
 
   Future<List<Action>> getActions() async {
-    Box<ActionList> box = await Hive.openBox<ActionList>("cached_0");
-    return List.from(box.get("cache0")?.action ?? []);
+    //TODO add action gestion with new hive
+    // Box<List<Action>> box = await Hive.openBox<List<Action>>("cached_0");
+    // return List.from(box.get("cache0") ?? []);
+    return [];
   }
 
   Future<void> doActions() async {

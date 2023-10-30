@@ -8,7 +8,8 @@ import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MailSendAutocompleteWidget extends StatelessWidget {
-  const MailSendAutocompleteWidget({super.key, required this.destinationEditor});
+  const MailSendAutocompleteWidget(
+      {super.key, required this.destinationEditor});
   final TextEditingController destinationEditor;
 
   @override
@@ -19,9 +20,9 @@ class MailSendAutocompleteWidget extends StatelessWidget {
           return MailLogic.mockAddresses;
         }
         if (!context.read<EmailCubit>().mailClient!.isAuthenticated) {
-          Credential? creds = await CacheService.get<Credential>(
+          Credential? creds = CacheService.get<Credential>(
               secureKey: await CacheService.getEncryptionKey(
-                  context.read<SettingsCubit>().state.settings.biometricAuth));
+                  context.read<SettingsCubit>().state.settings.biometricAuth), permanent: true);
           if (creds != null) {
             // ignore: use_build_context_synchronously
             context

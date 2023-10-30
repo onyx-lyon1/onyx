@@ -1,65 +1,166 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:biometric_storage/biometric_storage.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:encrypt/encrypt.dart';
 import 'package:onyx/core/res.dart';
+import 'package:path_provider/path_provider.dart';
 
 class CacheService {
-  static List<int>? secureKey;
+  static String? _secureKey;
   static BiometricStorageFile? _storageFile;
   static bool? _isBiometricEnabled;
+  static String cachePath = "";
+  static String permanentPath = "";
 
-  static Future<E?> get<E>({int index = 0, List<int>? secureKey}) async {
+  static final Map<Type, Function> _adapters =
+      {}; //function not typed because could take Map or List
+
+  static void init({String? cachePath, String? permanentPath}) async {
+    CacheService.cachePath =
+        cachePath ?? (await getApplicationCacheDirectory()).path;
+    CacheService.permanentPath =
+        permanentPath ?? (await getApplicationDocumentsDirectory()).path;
+    //create folder if not exist
+    Directory(CacheService.cachePath).createSync(recursive: true);
+    Directory(CacheService.permanentPath).createSync(recursive: true);
+    _adapters[List<int>] = (data) => data.cast<int>();
+    _adapters[List<double>] = (data) => data.cast<double>();
+    _adapters[List<String>] = (data) => data.cast<String>();
+    _adapters[List<bool>] = (data) => data.cast<bool>();
+    _adapters[List<num>] = (data) => data.cast<num>();
+    _adapters[List<Record>] = (data) => data.cast<Record>();
+  }
+
+  static void registerAdapter<T>(T? Function(Map<String, dynamic>) fromJson) {
+    if (!_adapters.keys.contains(T)) {
+      _adapters[T] = fromJson;
+      _adapters[List<T>] = listParser<T>;
+    }
+  }
+
+  static List<E> listParser<E>(List jsonData) {
+    return jsonData
+        .map((e) => _adapters[E]!((e is String) ? jsonDecode(e) : e))
+        .cast<E>()
+        .toList();
+  }
+
+  static E? get<E>({int index = 0, String? secureKey, bool permanent = false}) {
     try {
-      Box<E> box = await Hive.openBox<E>(
-        "cached_$E",
-        encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
-        crashRecovery: false,
-      );
-      return box.get("cache$index");
+      File file = File(
+          "${(permanent) ? permanentPath : cachePath}/${E.toString()}_$index.data");
+      if (!file.existsSync()) return null;
+      String data;
+      if (secureKey != null) {
+        final key = Key.fromBase64(secureKey);
+        File ivFile = File("${file.path}.iv");
+        if (!ivFile.existsSync()) return null;
+        final iv = IV(ivFile.readAsBytesSync());
+        final encrypter = Encrypter(AES(key));
+        data = String.fromCharCodes(
+            encrypter.decryptBytes(Encrypted(file.readAsBytesSync()), iv: iv));
+        //remove begin \" and end \" from string TODO check if really needed using bytes
+        // data = data.substring(1, data.length - 1).replaceAll("\\", "");
+      } else {
+        data = file.readAsStringSync();
+      }
+      if (_adapters.keys.contains(E)) {
+        return _adapters[E]!(jsonDecode(data));
+      }
+      return jsonDecode(data);
     } catch (e) {
       Res.logger.e("error while getting cache for $E: $e");
-      await reset<E>();
+      reset<E>();
       return null;
     }
   }
 
-  static Future<void> set<E>(E data,
-      {int index = 0, List<int>? secureKey}) async {
+  static void set<E>(E data,
+      {int index = 0, String? secureKey, bool permanent = false}) {
     try {
-      Box box = await Hive.openBox<E>(
-        "cached_$E",
-        encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
-        crashRecovery: false,
-      );
-      await box.put("cache$index", data);
+      File file = File(
+          "${(permanent) ? permanentPath : cachePath}/${E.toString()}_$index.data");
+      if (!file.existsSync()) file.createSync(recursive: true);
+      String dataString = jsonEncode(data);
+      if (secureKey != null) {
+        final key = Key.fromBase64(secureKey);
+        final encryptor = Encrypter(AES(key));
+        final iv = IV.fromSecureRandom(16);
+        file.writeAsBytesSync(encryptor.encrypt(dataString, iv: iv).bytes);
+        File ivFile = File("${file.path}.iv");
+        if (!ivFile.existsSync()) ivFile.createSync(recursive: true);
+        ivFile.writeAsBytesSync(iv.bytes);
+      } else {
+        file.writeAsStringSync(dataString);
+      }
     } catch (e) {
       Res.logger.e("error while setting cache for $E: $e");
-      await reset<E>();
+      reset<E>();
     }
   }
 
-  static Future<bool> exist<E>({int index = 0, List<int>? secureKey}) async {
+  static bool exist<E>({int index = 0, bool permanent = false}) {
     try {
-      Box box = await Hive.openBox<E>(
-        "cached_$E",
-        encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
-        crashRecovery: false,
-      );
-      return box.containsKey("cache$index");
+      File file = File(
+          "${(permanent) ? permanentPath : cachePath}/${E.toString()}_$index.data");
+      return file.existsSync();
     } catch (e) {
       Res.logger.e("error while checking existence of cache for $E: $e");
-      await reset<E>();
+      reset<E>();
       return false;
     }
   }
 
-  static Future<void> reset<E>() async {
-    await Hive.deleteBoxFromDisk("cached_$E");
+  static void reset<E>({bool permanent = false}) {
+    try {
+      //list files
+      Directory directory = Directory((permanent) ? permanentPath : cachePath);
+      List<FileSystemEntity> files = directory.listSync();
+      //filter files
+      files = files
+          .where((element) =>
+              element.path.contains("${E.toString()}_") &&
+              element.path.endsWith(".data"))
+          .toList();
+      //delete files
+      for (var element in files) {
+        element.deleteSync();
+      }
+    } catch (e) {
+      Res.logger.e("error while resetting cache for $E: $e");
+    }
+  }
+
+  static void resetAll({bool cache = true, bool permanent = true}) {
+    if (cache) {
+      Directory directory = Directory(cachePath);
+      List<FileSystemEntity> files = directory.listSync();
+      files = files
+          .where((element) =>
+              element.path.contains("") &&
+              (element.path.endsWith(".data") || element.path.endsWith(".iv")))
+          .toList();
+      for (var element in files) {
+        element.deleteSync();
+      }
+    }
+    if (permanent) {
+      Directory directory = Directory(permanentPath);
+      List<FileSystemEntity> files = directory.listSync();
+      files = files
+          .where((element) =>
+              element.path.contains("") &&
+              (element.path.endsWith(".data") || element.path.endsWith(".iv")))
+          .toList();
+      for (var element in files) {
+        element.deleteSync();
+      }
+    }
   }
 
   static Future<bool> toggleBiometricAuth(bool biometricAuth) async {
-    List<int> key = await getEncryptionKey(!biometricAuth);
+    String key = await getEncryptionKey(!biometricAuth);
     _isBiometricEnabled = biometricAuth;
     if (biometricAuth) {
       final canAuthentificate = await BiometricStorage().canAuthenticate();
@@ -76,17 +177,17 @@ class CacheService {
         authenticationRequired: biometricAuth,
       ),
     );
-    await _storageFile!.write(base64Encode(key));
+    await _storageFile!.write(key);
     return true;
   }
 
-  static Future<List<int>> getEncryptionKey(bool biometricAuth,
+  static Future<String> getEncryptionKey(bool biometricAuth,
       {bool autoRetry = false}) async {
     if (_isBiometricEnabled != null && _isBiometricEnabled != biometricAuth) {
       await toggleBiometricAuth(biometricAuth);
     }
-    if (secureKey != null) {
-      return secureKey!;
+    if (_secureKey != null) {
+      return _secureKey!;
     }
     if (_isBiometricEnabled ?? false) {
       final canAuthentificate = await BiometricStorage().canAuthenticate();
@@ -106,11 +207,11 @@ class CacheService {
     try {
       String? data = await _storageFile!.read();
       if (data == null) {
-        data = base64Encode(Hive.generateSecureKey());
+        data = Key.fromSecureRandom(32).base64;
         await _storageFile!.write(data);
       }
-      secureKey = base64Url.decode(data);
-      return secureKey!;
+      _secureKey = data;
+      return _secureKey!;
     } on AuthException catch (exception) {
       Res.logger.e("error while getting encryption key : $exception");
       if (autoRetry && exception.code == AuthExceptionCode.userCanceled) {

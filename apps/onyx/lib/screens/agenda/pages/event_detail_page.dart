@@ -40,9 +40,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
       }
     } else {
       List<RestaurantModel> tmpRestaurants = [];
-      if (await CacheService.exist<RestaurantListModel>()) {
-        tmpRestaurants =
-            (await CacheService.get<RestaurantListModel>())!.restaurantList;
+      if (CacheService.exist<List<RestaurantModel>>()) {
+        tmpRestaurants = (CacheService.get<List<RestaurantModel>>())!;
       } else {
         tmpRestaurants = await IzlyClient.getRestaurantCrous();
       }

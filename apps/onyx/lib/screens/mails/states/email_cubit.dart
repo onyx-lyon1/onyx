@@ -1,3 +1,4 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
@@ -7,6 +8,7 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'email_state.dart';
+part 'email_cubit.mapper.dart';
 
 class EmailCubit extends Cubit<EmailState> {
   Lyon1MailClient? mailClient;
@@ -24,7 +26,7 @@ class EmailCubit extends Cubit<EmailState> {
 
     if (!kIsWeb) {
       emailsBoxesComplete = await compute(
-          MailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
+          MailLogic.cacheLoad, (cachePath: (await getApplicationCacheDirectory()).path, permanentPath: (await getApplicationDocumentsDirectory()).path));
     }
 
     if (emailsBoxesComplete.isNotEmpty) {
@@ -73,7 +75,7 @@ class EmailCubit extends Cubit<EmailState> {
     }
     if (cache && !Res.mock && !kIsWeb) {
       List<MailBox> emailCache = await compute(
-          MailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
+          MailLogic.cacheLoad, (cachePath: (await getApplicationCacheDirectory()).path, permanentPath: (await getApplicationDocumentsDirectory()).path));
       if (emailCache.isNotEmpty &&
           !listEquals(emailCache, emailsBoxesComplete)) {
         emailsBoxesComplete = emailCache;
@@ -123,7 +125,7 @@ class EmailCubit extends Cubit<EmailState> {
           element.specialMailBox == loadedMail.specialMailBox);
       if (index != -1) {
         emailsBoxesComplete[index] =
-            emailsBoxesComplete[index].copyWith.emails(loadedMail.emails);
+            emailsBoxesComplete[index].copyWith(emails: loadedMail.emails);
       }
     } catch (e) {
       Res.logger.e(e);
@@ -131,8 +133,7 @@ class EmailCubit extends Cubit<EmailState> {
       return;
     }
 
-    CacheService.set<MailBoxList>(
-        MailBoxList(mailBoxes: emailsBoxesComplete)); //await à definir
+    CacheService.set<List<MailBox>>(emailsBoxesComplete); //await à definir
     currentMailBoxIndex = emailsBoxesComplete.indexWhere(
         (element) => element.specialMailBox == SpecialMailBox.inbox);
     emit(state.copyWith(
@@ -168,7 +169,7 @@ class EmailCubit extends Cubit<EmailState> {
       status: (state.status == MailStatus.cacheLoaded)
           ? MailStatus.cacheSorted
           : MailStatus.sorted,
-      currentMailBox: state.currentMailBox!.copyWith.emails(email),
+      currentMailBox: state.currentMailBox!.copyWith(emails: email),
     ));
   }
 
@@ -183,7 +184,7 @@ class EmailCubit extends Cubit<EmailState> {
         mailBoxes: emailsBoxesComplete,
         currentMailBox:
             emailsBoxesComplete[currentMailBoxIndex])); //do it locally
-    CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
+    CacheService.set<List<MailBox>>(emailsBoxesComplete);
   }
 
   void markAsRead({required Mail email, required MailBox from}) async {
@@ -199,8 +200,7 @@ class EmailCubit extends Cubit<EmailState> {
           emailsBoxesComplete[currentMailBoxIndex].emails[index].copyWith(
                 isRead: true,
               );
-      CacheService.set<MailBoxList>(
-          MailBoxList(mailBoxes: emailsBoxesComplete));
+      CacheService.set<List<MailBox>>(emailsBoxesComplete);
       emit(state.copyWith(
           status: MailStatus.updated,
           mailBoxes: emailsBoxesComplete,
@@ -225,7 +225,7 @@ class EmailCubit extends Cubit<EmailState> {
           specialMailBox: SpecialMailBox.archive,
           emails: [email]));
     }
-    CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
+    CacheService.set<List<MailBox>>(emailsBoxesComplete);
     emit(state.copyWith(
         status: MailStatus.updated,
         mailBoxes: emailsBoxesComplete,
@@ -247,7 +247,7 @@ class EmailCubit extends Cubit<EmailState> {
 
     emailsBoxesComplete[currentMailBoxIndex].emails.remove(email);
     emailsBoxesComplete[emailsBoxesComplete.indexOf(folder)].emails.add(email);
-    CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
+    CacheService.set<List<MailBox>>(emailsBoxesComplete);
     emit(state.copyWith(
         status: MailStatus.updated,
         mailBoxes: emailsBoxesComplete,
@@ -268,8 +268,7 @@ class EmailCubit extends Cubit<EmailState> {
           emailsBoxesComplete[currentMailBoxIndex].emails[index].copyWith(
                 isRead: false,
               );
-      CacheService.set<MailBoxList>(
-          MailBoxList(mailBoxes: emailsBoxesComplete));
+      CacheService.set<List<MailBox>>(emailsBoxesComplete);
       emit(state.copyWith(
           status: MailStatus.updated,
           mailBoxes: emailsBoxesComplete,
@@ -296,7 +295,7 @@ class EmailCubit extends Cubit<EmailState> {
         emailsBoxesComplete[currentMailBoxIndex].emails[index].copyWith(
               isFlagged: true,
             );
-    CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
+    CacheService.set<List<MailBox>>(emailsBoxesComplete);
     emit(state.copyWith(
         status: MailStatus.updated,
         mailBoxes: emailsBoxesComplete,
@@ -317,7 +316,7 @@ class EmailCubit extends Cubit<EmailState> {
         emailsBoxesComplete[currentMailBoxIndex].emails[index].copyWith(
               isFlagged: false,
             );
-    CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
+    CacheService.set<List<MailBox>>(emailsBoxesComplete);
     emit(state.copyWith(
         status: MailStatus.updated,
         mailBoxes: emailsBoxesComplete,

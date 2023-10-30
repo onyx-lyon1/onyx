@@ -1,21 +1,20 @@
 import 'package:flutter/services.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 
 class IzlyLogic {
-  static Future<Uint8List> getQrCode() async {
+  static Future<List<int>> getQrCode() async {
     if (Res.mock) {
       return (await rootBundle.load('assets/izly_mock_qr-code.png'))
           .buffer
           .asUint8List();
     }
-    if (!(await CacheService.exist<IzlyQrCodeList>())) {
+    if (!(CacheService.exist<List<IzlyQrCode>>())) {
       return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
     } else {
       List<IzlyQrCode> qrCodeModels =
-          (await CacheService.get<IzlyQrCodeList>())!.qrCodes;
+          (CacheService.get<List<IzlyQrCode>>())!;
       qrCodeModels.removeWhere(
           (element) => element.expirationDate.isBefore(DateTime.now()));
 
@@ -23,8 +22,7 @@ class IzlyLogic {
         return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
       } else {
         IzlyQrCode qrCodeModel = qrCodeModels.removeAt(0);
-        await CacheService.set<IzlyQrCodeList>(
-            IzlyQrCodeList(qrCodes: qrCodeModels));
+        CacheService.set<List<IzlyQrCode>>(qrCodeModels);
         return qrCodeModel.qrCode;
       }
     }
@@ -34,8 +32,7 @@ class IzlyLogic {
     if (Res.mock) {
       return true;
     }
-    List<IzlyQrCode> qrCodes =
-        ((await CacheService.get<IzlyQrCodeList>())?.qrCodes) ?? [];
+    List<IzlyQrCode> qrCodes = CacheService.get<List<IzlyQrCode>>() ?? [];
     try {
       qrCodes.addAll((await izlyClient.getNQRCode((3 - qrCodes.length)))
           .map((e) => IzlyQrCode(
@@ -43,7 +40,7 @@ class IzlyLogic {
               expirationDate: DateTime(DateTime.now().year,
                   DateTime.now().month, DateTime.now().day + 1, 14)))
           .toList());
-      await CacheService.set<IzlyQrCodeList>(IzlyQrCodeList(qrCodes: qrCodes));
+      CacheService.set<List<IzlyQrCode>>(qrCodes);
     } catch (e) {
       return false;
     }
@@ -51,8 +48,7 @@ class IzlyLogic {
   }
 
   static Future<int> getAvailableQrCodeCount() async {
-    List<IzlyQrCode> qrCodes =
-        ((await CacheService.get<IzlyQrCodeList>())?.qrCodes) ?? [];
+    List<IzlyQrCode> qrCodes = CacheService.get<List<IzlyQrCode>>() ?? [];
     return qrCodes.length;
   }
 
@@ -100,21 +96,26 @@ class IzlyLogic {
     return await izlyClient.rechargeViaSomeoneElse(amount, email, message);
   }
 
-  static Future<void> addRestaurantToFavourite(
-      RestaurantModel restaurant) async {
-    final box = await Hive.openBox("favourite_restaurant");
-    box.put(restaurant.id, true);
+  static void addRestaurantToFavourite(RestaurantModel restaurant) {
+    List<RestaurantModel> restaurants =
+        CacheService.get<List<RestaurantModel>>(permanent: true) ?? [];
+    if (!restaurants.any((element) => element.id == restaurant.id)) {
+      restaurants.add(restaurant);
+      CacheService.set<List<RestaurantModel>>(restaurants, permanent: true);
+    }
   }
 
-  static Future<void> removeRestaurantToFavourite(
-      RestaurantModel restaurant) async {
-    final box = await Hive.openBox("favourite_restaurant");
-    box.put(restaurant.id, false);
+  static void removeRestaurantToFavourite(RestaurantModel restaurant) {
+    List<RestaurantModel> restaurants =
+        CacheService.get<List<RestaurantModel>>(permanent: true) ?? [];
+    restaurants.removeWhere((element) => element.id == restaurant.id);
+    CacheService.set<List<RestaurantModel>>(restaurants, permanent: true);
   }
 
-  static Future<bool> isRestaurantFavourite(RestaurantModel restaurant) async {
-    final box = await Hive.openBox("favourite_restaurant");
-    return box.get(restaurant.id, defaultValue: false);
+  static bool isRestaurantFavourite(RestaurantModel restaurant) {
+    List<RestaurantModel> restaurants =
+        CacheService.get<List<RestaurantModel>>(permanent: true) ?? [];
+    return restaurants.any((element) => element.id == restaurant.id);
   }
 
   static Future<List<IzlyPaymentModel>> getUserPayments(

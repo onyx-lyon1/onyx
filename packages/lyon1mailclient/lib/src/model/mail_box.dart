@@ -1,20 +1,14 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:enough_mail/enough_mail.dart' as enough_mail;
 import 'package:enough_mail/highlevel.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 
-part 'generated/mail_box.g.dart';
+part 'mail_box.mapper.dart';
 
-@CopyWith()
-@HiveType(typeId: 19)
-class MailBox extends Equatable {
-  @HiveField(0)
+@MappableClass()
+class MailBox with MailBoxMappable {
   late final String name;
-  @HiveField(1)
   late final SpecialMailBox? specialMailBox;
-  @HiveField(2)
   late final List<Mail> emails;
 
   MailBox({
@@ -73,24 +67,18 @@ class MailBox extends Equatable {
       specialMailBox = null;
     }
   }
-
-  @override
-  List<Object?> get props => [name, specialMailBox, emails];
-
-  @override
-  bool? get stringify => true;
 }
 
-@HiveType(typeId: 20)
+@MappableEnum()
 enum SpecialMailBox {
-  @HiveField(0)
+  @MappableValue(000)
   inbox,
-  @HiveField(1)
+  @MappableValue(100)
   sent,
-  @HiveField(2)
+  @MappableValue(200)
   trash,
-  @HiveField(3)
+  @MappableValue(300)
   flagged,
-  @HiveField(4)
+  @MappableValue(400)
   archive,
 }

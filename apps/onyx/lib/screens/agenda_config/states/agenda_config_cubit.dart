@@ -1,3 +1,4 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +7,7 @@ import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 
 part 'agenda_config_state.dart';
-
+part 'agenda_config_cubit.mapper.dart';
 class AgendaConfigCubit extends Cubit<AgendaConfigState> {
   final Function(int backIndex) onBack;
   List<DirModel> dirs = [];

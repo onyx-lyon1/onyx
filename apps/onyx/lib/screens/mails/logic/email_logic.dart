@@ -51,13 +51,13 @@ class MailLogic {
     return mailBox;
   }
 
-  static Future<List<MailBox>> cacheLoad(String? path) async {
+  static Future<List<MailBox>> cacheLoad(({String? cachePath, String? permanentPath}) paths) async {
     if (Res.mock) {
       return mailboxesMock;
     }
-    hiveInit(path: path);
-    if (await CacheService.exist<MailBoxList>()) {
-      return (await CacheService.get<MailBoxList>())!.mailBoxes;
+    cacheInit(cachePath: paths.cachePath, permanentPath: paths.permanentPath);
+    if (CacheService.exist<List<MailBox>>()) {
+      return (CacheService.get<List<MailBox>>())!;
     } else {
       return [];
     }

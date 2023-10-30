@@ -8,8 +8,8 @@ import 'package:onyx/screens/settings/settings_export.dart';
 Future<void> agendaNotificationLogic(
     SettingsModel settings, Lyon1CasClient lyon1Cas) async {
   if (settings.calendarUpdateNotification) {
-    if (await CacheService.exist<Agenda>()) {
-      List<Day> days = (await CacheService.get<Agenda>())!.days;
+    if (CacheService.exist<Agenda>()) {
+      List<Day> days = (CacheService.get<Agenda>())!.days;
 
       List<Day> newDays = await AgendaLogic.load(
           agendaClient: Lyon1AgendaClient.useLyon1Cas(lyon1Cas),
@@ -39,7 +39,7 @@ Future<void> agendaNotificationLogic(
               payload: "newEvent");
         }
       }
-      await CacheService.set<Agenda>(Agenda(newDays));
+      CacheService.set<Agenda>(Agenda(newDays));
     }
   }
 }

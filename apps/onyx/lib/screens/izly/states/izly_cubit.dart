@@ -1,7 +1,9 @@
+import 'dart:io';
+
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
@@ -9,6 +11,7 @@ import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/domain/model/settings_model.dart';
 
 part 'izly_state.dart';
+part 'izly_cubit.mapper.dart';
 
 class IzlyCubit extends Cubit<IzlyState> {
   IzlyClient? _izlyClient;
@@ -33,9 +36,12 @@ class IzlyCubit extends Cubit<IzlyState> {
       return;
     }
     //cache loading
-    Box box = await Hive.openBox<double>("cached_izly_amount");
-    double amount = box.get("amount") ?? 0.0;
-    Uint8List qrCode = await IzlyLogic.getQrCode();
+    File amountFile = File("${CacheService.cachePath}/cached_izly_amount.data");
+    double amount = 0.0;
+    if (amountFile.existsSync()) {
+      amount = double.tryParse(amountFile.readAsStringSync()) ?? 0.0;
+    }
+    List<int> qrCode = await IzlyLogic.getQrCode();
     int qrCodeCount = await IzlyLogic.getAvailableQrCodeCount();
     emit(state.copyWith(
         status: IzlyStatus.connecting,
@@ -47,9 +53,9 @@ class IzlyCubit extends Cubit<IzlyState> {
     try {
       if (_izlyClient == null || !(await _izlyClient!.isLogged())) {
         //need to login
-        credential ??= await CacheService.get<IzlyCredential>(
+        credential ??= CacheService.get<IzlyCredential>(
             secureKey:
-                await CacheService.getEncryptionKey(settings.biometricAuth));
+                await CacheService.getEncryptionKey(settings.biometricAuth), permanent: true);
         if (credential == null) {
           emit(state.copyWith(status: IzlyStatus.noCredentials));
           return;
@@ -58,18 +64,16 @@ class IzlyCubit extends Cubit<IzlyState> {
             corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
         bool loginResult = await _izlyClient!.login();
         if (!loginResult) {
-          if (await CacheService.exist<IzlyCredential>(
-              secureKey: await CacheService.getEncryptionKey(
-                  settings.biometricAuth))) {
+          if (CacheService.exist<IzlyCredential>()) {
             emit(state.copyWith(status: IzlyStatus.error));
           } else {
             emit(state.copyWith(status: IzlyStatus.noCredentials));
           }
           return;
         } else {
-          await CacheService.set<IzlyCredential>(credential,
+          CacheService.set<IzlyCredential>(credential,
               secureKey:
-                  await CacheService.getEncryptionKey(settings.biometricAuth));
+                  await CacheService.getEncryptionKey(settings.biometricAuth), permanent: true);
         }
       }
       emit(state.copyWith(status: IzlyStatus.loading, izlyClient: _izlyClient));
@@ -83,9 +87,8 @@ class IzlyCubit extends Cubit<IzlyState> {
       }
       //load balance
       double balance = await _izlyClient!.getBalance();
-      Box box = await Hive.openBox<double>("cached_izly_amount");
-      await box.put("amount", balance);
-      box.close();
+      File("${CacheService.cachePath}/cached_izly_amount.data")
+          .writeAsStringSync(balance.toString());
       int qrCodeCount = await IzlyLogic.getAvailableQrCodeCount();
       emit(state.copyWith(
           status: IzlyStatus.loaded,
@@ -100,19 +103,19 @@ class IzlyCubit extends Cubit<IzlyState> {
   Future<void> loadPaymentHistory({bool cache = true}) async {
     if (state.izlyClient != null) {
       emit(state.copyWith(status: IzlyStatus.loading));
-      if (cache && await CacheService.exist<IzlyPaymentModelList>()) {
-        emit(state.copyWith(
-            status: IzlyStatus.cacheLoaded,
-            paymentList:
-                (await CacheService.get<IzlyPaymentModelList>())!.payments));
+      if (cache && CacheService.exist<List<IzlyPaymentModel>>()) {
+        emit(
+          state.copyWith(
+              status: IzlyStatus.cacheLoaded,
+              paymentList: (CacheService.get<List<IzlyPaymentModel>>())!),
+        );
       }
       try {
         List<IzlyPaymentModel> paymentList =
             await IzlyLogic.getUserPayments(state.izlyClient!);
         emit(state.copyWith(
             status: IzlyStatus.loaded, paymentList: paymentList));
-        await CacheService.set<IzlyPaymentModelList>(
-            IzlyPaymentModelList(payments: paymentList));
+        CacheService.set<List<IzlyPaymentModel>>(paymentList);
       } catch (e) {
         emit(state.copyWith(status: IzlyStatus.error));
       }

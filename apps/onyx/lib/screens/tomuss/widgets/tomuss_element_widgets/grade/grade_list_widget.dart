@@ -5,7 +5,10 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class GradeListWidget extends StatelessWidget {
   const GradeListWidget(
-      {super.key, required this.grades, this.depth = 1, this.lastElement = true});
+      {super.key,
+      required this.grades,
+      this.depth = 1,
+      this.lastElement = true});
   final Grade grades;
   final int depth;
   final bool lastElement;

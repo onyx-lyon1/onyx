@@ -1,18 +1,14 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
-import 'package:hive/hive.dart';
 
-part 'generated/url.g.dart';
+part 'url.mapper.dart';
 
-@CopyWith()
-@HiveType(typeId: 31)
-class URL extends TeachingUnitElement {
-  @HiveField(2, defaultValue: "")
+@MappableClass()
+class URL extends TeachingUnitElement with URLMappable {
   late final String value;
 
   URL.fromJSON(var id, Map json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
-
+      : super.fromTomussJson(id, json, stats, line, column, user) {
     var props = line[id];
     if (props is List && props.isNotEmpty) {
       value = props[0].toString();
@@ -31,9 +27,15 @@ class URL extends TeachingUnitElement {
     required this.value,
   });
 
-  @override
-  bool get isVisible => true;
+  @MappableConstructor()
+  URL.mappableConstruct({
+    super.title = "",
+    super.author = "",
+    super.date,
+    super.position = 0,
+    this.value = "",
+  });
 
   @override
-  List<Object?> get customProps => [title, author, value, position];
+  bool get isVisible => true;
 }

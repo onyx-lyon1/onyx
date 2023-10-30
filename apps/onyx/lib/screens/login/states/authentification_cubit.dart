@@ -1,5 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
@@ -11,6 +11,8 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 part 'authentification_state.dart';
+
+part 'authentification_cubit.mapper.dart';
 
 class AuthentificationCubit extends Cubit<AuthentificationState> {
   Lyon1CasClient _lyon1Cas =
@@ -33,9 +35,10 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
   Future<void> login(
       {Credential? creds, required SettingsModel settings}) async {
     if (Res.mock) {
-      await CacheService.set<Credential>(
+      CacheService.set<Credential>(
         Credential("mockUsername", "mockPassword"),
         secureKey: await CacheService.getEncryptionKey(settings.biometricAuth),
+        permanent: true
       );
       _lyon1Cas.isAuthenticated = true;
       emit(state.copyWith(
@@ -46,8 +49,8 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     if (settings.biometricAuth) {
       emit(state.copyWith(status: AuthentificationStatus.waitingBiometric));
     }
-    List<int> key = await CacheService.getEncryptionKey(settings.biometricAuth);
-    creds ??= await CacheService.get<Credential>(secureKey: key);
+    String key = await CacheService.getEncryptionKey(settings.biometricAuth);
+    creds ??= CacheService.get<Credential>(secureKey: key, permanent: true);
     if (creds == null) {
       emit(state.copyWith(status: AuthentificationStatus.needCredential));
       return;
@@ -66,9 +69,10 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
                 ? AuthentificationStatus.authentificated
                 : AuthentificationStatus.error,
             lyon1Cas: _lyon1Cas));
-        await CacheService.set<Credential>(
+        CacheService.set<Credential>(
           auth.credential,
           secureKey: key,
+          permanent: true
         );
       } catch (e) {
         Res.logger.e(e);
@@ -94,9 +98,9 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
 
   Future<void> logout() async {
     Res.logger.t("logout");
-    CacheService.reset<TeachingUnitList>();
+    CacheService.reset<List<TeachingUnit>>();
     CacheService.reset<Agenda>();
-    CacheService.reset<MailBoxList>();
+    CacheService.reset<List<MailBox>>();
     CacheService.reset<Credential>();
     SettingsLogic.reset();
     await _lyon1Cas.logout();

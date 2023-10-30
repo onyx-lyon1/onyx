@@ -50,3 +50,4 @@ app.*.map.json
 
 apps/onyx/assets/key.txt
 apps/onyx/assets/iv.txt
+apps/.flutter

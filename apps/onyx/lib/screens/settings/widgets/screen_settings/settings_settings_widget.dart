@@ -69,7 +69,7 @@ class SettingsSettingsWidget extends StatelessWidget {
                 }
               }
 
-              await CacheService.toggleBiometricAuth(value);
+              CacheService.toggleBiometricAuth(value);
               context.read<SettingsCubit>().modify(
                   settings: context
                       .read<SettingsCubit>()

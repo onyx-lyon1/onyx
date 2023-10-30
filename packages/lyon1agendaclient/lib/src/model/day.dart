@@ -1,16 +1,11 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 
-part 'generated/day.g.dart';
+part 'day.mapper.dart';
 
-@CopyWith()
-@HiveType(typeId: 1)
-class Day extends Equatable {
-  @HiveField(0)
+@MappableClass()
+class Day with DayMappable {
   final List<Event> events;
-  @HiveField(1)
   final DateTime date;
 
   Day(this.date, this.events);
@@ -37,10 +32,4 @@ class Day extends Equatable {
             event.description.contains(r))
         .toList();
   }
-
-  @override
-  List<Object?> get props => [events, date];
-
-  @override
-  bool get stringify => true;
 }

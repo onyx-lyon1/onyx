@@ -19,7 +19,6 @@ void main() async {
 
     authOK = Lyon1CasClient();
     credential = Credential(username, password);
-    Lyon1CasClient.registerAdapters();
   });
 
   test('getExecToken', () async {

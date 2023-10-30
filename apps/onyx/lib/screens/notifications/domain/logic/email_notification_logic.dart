@@ -7,16 +7,15 @@ import 'package:onyx/screens/settings/settings_export.dart';
 
 Future<void> emailNotificationLogic(SettingsModel settings) async {
   if (settings.newMailNotification) {
-    if (await CacheService.exist<MailBoxList>()) {
-      List<MailBox> mailBoxes =
-          (await CacheService.get<MailBoxList>())!.mailBoxes;
+    if (CacheService.exist<List<MailBox>>()) {
+      List<MailBox> mailBoxes = (CacheService.get<List<MailBox>>())!;
       List<Mail> email = mailBoxes
           .firstWhere(
               (element) => element.specialMailBox == SpecialMailBox.inbox)
           .emails;
 
-      Credential creds = (await CacheService.get<Credential>(
-          secureKey: await CacheService.getEncryptionKey(false)))!;
+      Credential creds = (CacheService.get<Credential>(
+          secureKey: await CacheService.getEncryptionKey(false), permanent: true))!;
       Lyon1MailClient mail = await MailLogic.connect(
           username: creds.username, password: creds.password);
       List<Mail> newMails = (await MailLogic.load(
@@ -40,7 +39,7 @@ Future<void> emailNotificationLogic(SettingsModel settings) async {
         mailBoxes[index] = mailBoxes[index].copyWith(emails: newMails);
       }
 
-      await CacheService.set<MailBoxList>(MailBoxList(mailBoxes: mailBoxes));
+      CacheService.set<List<MailBox>>(mailBoxes);
     }
   }
 }

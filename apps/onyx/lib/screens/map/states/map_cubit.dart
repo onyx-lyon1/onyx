@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/map/map_export.dart';
 
 part 'map_state.dart';
+part 'map_cubit.mapper.dart';
 
 class MapCubit extends Cubit<MapState> {
   MapCubit() : super(MapState()) {
@@ -49,17 +51,15 @@ class MapCubit extends Cubit<MapState> {
     }
     emit(state.copyWith(batiments: batiments));
     List<RestaurantModel> restaurant;
-    if (await CacheService.exist<RestaurantListModel>()) {
-      restaurant =
-          (await CacheService.get<RestaurantListModel>())!.restaurantList;
+    if (CacheService.exist<List<RestaurantModel>>()) {
+      restaurant = (CacheService.get<List<RestaurantModel>>())!;
       emit(state.copyWith(
           restaurant: restaurant, status: MapStatus.batimentsUpdated));
     }
     restaurant = await IzlyClient.getRestaurantCrous();
     emit(state.copyWith(
         restaurant: restaurant, status: MapStatus.batimentsUpdated));
-    await CacheService.set<RestaurantListModel>(
-        RestaurantListModel(restaurantList: restaurant));
+    CacheService.set<List<RestaurantModel>>(restaurant);
   }
 
   Future<bool> updateGeolocationAutorisation() async {

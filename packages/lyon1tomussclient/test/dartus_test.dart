@@ -10,8 +10,6 @@ void main() async {
 
   DotEnv env = DotEnv(includePlatformEnvironment: true);
   setUpAll(() async {
-    Lyon1TomussClient.registerAdapters();
-    Lyon1CasClient.registerAdapters();
     env.load();
     final String username = env['USERNAME'] ?? "";
     final String password = env['PASSWORD'] ?? "";
@@ -33,8 +31,8 @@ void main() async {
     final ParsedPage parsedPage = parsedPageOpt ?? ParsedPage.empty();
     expect(parsedPage.semesters, isNotNull);
     expect(parsedPage.teachingunits, isNotNull);
-    expect(parsedPage.semesters!.isNotEmpty, equals(true));
-    expect(parsedPage.teachingunits!.isNotEmpty, equals(true));
+    expect(parsedPage.semesters.isNotEmpty, equals(true));
+    expect(parsedPage.teachingunits.isNotEmpty, equals(true));
   });
 
   test('Dartus.getPage x2', () async {
@@ -57,13 +55,13 @@ void main() async {
   });
 
   test("change un enum", () async {
-    final ParsedPage? parsedPageOpt = await tomussOK
-        .getParsedPage(URLCreator.currentSemester(DateTime.now()));
+    final ParsedPage? parsedPageOpt =
+        await tomussOK.getParsedPage(Lyon1TomussClient.currentSemester().url);
     expect(parsedPageOpt == null, equals(false));
     final ParsedPage parsedPage = parsedPageOpt ?? ParsedPage.empty();
     expect(parsedPage.semesters, isNotNull);
     Enumeration? enumeration;
-    for (var i in parsedPage.teachingunits!) {
+    for (var i in parsedPage.teachingunits) {
       if (i.enumerations.isNotEmpty) {
         for (var j in i.enumerations) {
           if (j.value != null && j.values.length > 1 && j.modifiable) {
@@ -82,18 +80,18 @@ void main() async {
         enumeration.values[
             (enumeration.values.indexOf(enumeration.value!) + 1) %
                 enumeration.values.length],
-        parsedPage.teachingunits!.first.ticket);
+        parsedPage.teachingunits.first.ticket);
     expect(newEnumeration.value == prevValue, equals(false));
   });
 
   test('download an upload', () async {
-    final ParsedPage? parsedPageOpt = await tomussOK
-        .getParsedPage(URLCreator.currentSemester(DateTime.now()));
+    final ParsedPage? parsedPageOpt =
+        await tomussOK.getParsedPage(Lyon1TomussClient.currentSemester().url);
     expect(parsedPageOpt == null, equals(false));
     final ParsedPage parsedPage = parsedPageOpt ?? ParsedPage.empty();
     expect(parsedPage.semesters, isNotNull);
     Upload? upload;
-    for (var i in parsedPage.teachingunits!) {
+    for (var i in parsedPage.teachingunits) {
       if (i.uploads.isNotEmpty) {
         upload = i.uploads.first;
         break;
@@ -101,21 +99,27 @@ void main() async {
     }
     expect(upload == null, equals(false));
     List<int> file =
-        await upload!.getContent(parsedPage.teachingunits!.first.ticket);
+        await upload!.getContent(parsedPage.teachingunits.first.ticket);
     expect(file.isNotEmpty, equals(true));
   });
 
   test('Dartus.currentSemester()', () async {
-    expect(URLCreator.currentSemester(DateTime.parse("20220124")),
+    expect(Lyon1TomussClient.currentSemester().url,
         "https://tomuss.univ-lyon1.fr/S/2022/Printemps");
 
-    expect(URLCreator.currentSemester(DateTime.parse("20211129")),
+    expect(
+        URLCreator.semesterFromName(
+            URLCreator.currentSemesterName(DateTime.parse("20211129"))),
         "https://tomuss.univ-lyon1.fr/S/2021/Automne");
 
-    expect(URLCreator.previousSemester(DateTime.parse("20220124")),
+    expect(
+        URLCreator.semesterFromName(
+            URLCreator.currentSemesterName(DateTime.parse("20220124"))),
         "https://tomuss.univ-lyon1.fr/S/2021/Automne");
 
-    expect(URLCreator.previousSemester(DateTime.parse("20211129")),
+    expect(
+        URLCreator.semesterFromName(
+            URLCreator.currentSemesterName(DateTime.parse("20211129"))),
         "https://tomuss.univ-lyon1.fr/S/2021/Printemps");
   });
 }

@@ -1,38 +1,32 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 import 'package:lyon1tomussclient/src/parser/condition_parser.dart';
 import 'package:lyon1tomussclient/src/parser/dateparser.dart';
-import 'package:hive/hive.dart';
 
-part 'generated/presence.g.dart';
+part 'presence.mapper.dart';
 
-@HiveType(typeId: 26)
+@MappableEnum()
 enum PresenceColor {
-  @HiveField(0)
+  @MappableValue(100)
   green,
-  @HiveField(1)
+  @MappableValue(200)
   red,
-  @HiveField(2)
+  @MappableValue(300)
   unset
 }
 
-@CopyWith()
-@HiveType(typeId: 27)
-class Presence extends TeachingUnitElement {
-  @HiveField(1, defaultValue: "")
+@MappableClass()
+class Presence extends TeachingUnitElement with PresenceMappable {
   late final String value;
-  @HiveField(3, defaultValue: "")
   late final String? emptyIs;
-  @HiveField(4, defaultValue: PresenceColor.unset)
   late final PresenceColor color;
-  @HiveField(5, defaultValue: null)
   late final DateTime? visibilityDate;
-  @HiveField(6, defaultValue: null)
   late final bool? visible;
 
   Presence.fromJSON(
       var id, var json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+      : super.fromTomussJson(id, json, stats, line, column, user) {
     emptyIs = json['empty_is'];
     if (line[id] == null || (line[id] is List && line[id].isEmpty)) {
       value = "";
@@ -92,7 +86,16 @@ class Presence extends TeachingUnitElement {
     required this.visible,
   });
 
-  @override
-  List<Object?> get customProps =>
-      [value, emptyIs, color, visibilityDate, visible];
+  @MappableConstructor()
+  Presence.mappableConstruct({
+    super.title = "",
+    super.author = "",
+    super.date,
+    super.position = 0,
+    this.value = "",
+    this.emptyIs,
+    this.color = PresenceColor.unset,
+    this.visibilityDate,
+    this.visible,
+  });
 }

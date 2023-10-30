@@ -34,7 +34,6 @@ void main() {
     if (username.isEmpty || password.isEmpty) {
       fail("username or password were empty. check your envt variables");
     }
-    Lyon1MailClient.registerAdapters();
     mailClient = Lyon1MailClient(username, password);
     mailClient.cleanActions();
     await mailClient.login();

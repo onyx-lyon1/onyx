@@ -28,13 +28,13 @@ class AgendaLogic {
     return agendaOpt.days;
   }
 
-  static Future<List<Day>> getCache(String? path) async {
+  static Future<List<Day>> getCache(({String? cachePath, String? permanentPath}) paths) async {
     if (Res.mock) {
       return dayListMock;
     }
-    await hiveInit(path: path);
-    if (await CacheService.exist<Agenda>()) {
-      return (await CacheService.get<Agenda>())!.days;
+    cacheInit(cachePath: paths.cachePath, permanentPath: paths.permanentPath);
+    if (CacheService.exist<Agenda>()) {
+      return (CacheService.get<Agenda>())!.days;
     } else {
       return [];
     }
@@ -50,11 +50,10 @@ class AgendaLogic {
               .toList());
     }
     List<RestaurantModel> restaurant = await IzlyClient.getRestaurantCrous();
-    CacheService.set<RestaurantListModel>(
-        RestaurantListModel(restaurantList: restaurant));
+    CacheService.set<List<RestaurantModel>>(restaurant);
     List<Event> menuToAdd = [];
     for (var resto in restaurant) {
-      if (await IzlyLogic.isRestaurantFavourite(resto)) {
+      if (IzlyLogic.isRestaurantFavourite(resto)) {
         for (var menu in resto.menus) {
           //find the free lunch time in the user agenda
           DateTime startLimit;

@@ -13,7 +13,7 @@ void main() async {
   final Lyon1TomussClient tomuss = Lyon1TomussClient(lyon1Cas);
 
   final ParsedPage? parsedPageOpt =
-      await tomuss.getParsedPage(Lyon1TomussClient.currentSemester());
+      await tomuss.getParsedPage(Lyon1TomussClient.currentSemester().url);
 
   if (parsedPageOpt == null) {
     print("There was an error while fetching Tomuss");
@@ -23,7 +23,7 @@ void main() async {
   final ParsedPage parsedPage = parsedPageOpt;
 
   // list teaching units
-  for (final TeachingUnit tu in parsedPage.teachingunits!) {
+  for (final TeachingUnit tu in parsedPage.teachingunits) {
     print(tu.title);
     print("\tGrades:");
     for (final Grade g in tu.grades) {
@@ -38,7 +38,7 @@ void main() async {
   }
 
   // list semesters
-  for (final Semester s in parsedPage.semesters!) {
+  for (final Semester s in parsedPage.semesters) {
     print("${s.title} (${s.url})");
   }
 }

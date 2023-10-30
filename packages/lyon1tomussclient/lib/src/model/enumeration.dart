@@ -1,38 +1,27 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/constant/constants.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
-import 'package:hive/hive.dart';
 import 'package:requests_plus/requests_plus.dart';
-import 'package:copy_with_extension/copy_with_extension.dart';
 
-part 'generated/enumeration.g.dart';
+part 'enumeration.mapper.dart';
 
-@CopyWith()
-@HiveType(typeId: 25)
-class Enumeration extends TeachingUnitElement {
-  @HiveField(1, defaultValue: null)
+@MappableClass()
+class Enumeration extends TeachingUnitElement with EnumerationMappable {
   late final String? value;
-  @HiveField(2, defaultValue: [])
   late final List<String> values;
-  @HiveField(4, defaultValue: "")
   late final String comment;
 
-  @HiveField(6, defaultValue: "")
   late final String theId;
 
-  @HiveField(7, defaultValue: "")
   late final String lineId;
-  @HiveField(8, defaultValue: "")
   late final String ue;
-  @HiveField(9, defaultValue: "")
   late final String semester;
-  @HiveField(10, defaultValue: "")
   late final String year;
-  @HiveField(12, defaultValue: true)
   late final bool modifiable;
 
   Enumeration.fromJSON(
       var id, var json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+      : super.fromTomussJson(id, json, stats, line, column, user) {
     comment = json['comment'] ?? "";
     if (json["type"] == "Bool") {
       values = ['OUI', 'NON'];
@@ -110,9 +99,23 @@ class Enumeration extends TeachingUnitElement {
     return copyWith(value: value);
   }
 
-  @override
-  bool get isVisible => true;
+  @MappableConstructor()
+  Enumeration.mappableConsctruct({
+    super.title = "",
+    super.author = "",
+    super.date,
+    super.position = 0,
+    this.value,
+    this.values = const [],
+    this.comment = "",
+    this.theId = "",
+    this.lineId = "",
+    this.ue = "",
+    this.semester = "",
+    this.year = "",
+    this.modifiable = true,
+  });
 
   @override
-  List<Object?> get customProps => [values, comment, modifiable, value];
+  bool get isVisible => true;
 }

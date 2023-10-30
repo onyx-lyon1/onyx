@@ -20,7 +20,7 @@ void workmanagerHandler() {
 
 Future<bool> backgroundLogic({bool init = true}) async {
   if (init) {
-    await hiveInit();
+    cacheInit();
     await NotificationLogic.init();
   }
   SettingsModel settings = await SettingsLogic.load();
@@ -28,8 +28,8 @@ Future<bool> backgroundLogic({bool init = true}) async {
   if (!settings.firstLogin && !settings.biometricAuth) {
     Lyon1CasClient lyon1Cas = Lyon1CasClient();
     var result = await lyon1Cas.authenticate(
-        (await CacheService.get<Credential>(
-            secureKey: await CacheService.getEncryptionKey(false)))!);
+        (CacheService.get<Credential>(
+            secureKey: await CacheService.getEncryptionKey(false), permanent: true))!);
     if (!result.authResult) return false;
     await tomussNotificationLogic(settings, lyon1Cas);
     await emailNotificationLogic(settings);

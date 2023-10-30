@@ -1,15 +1,15 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
-part 'generated/theme_mode_enum.g.dart';
+part 'theme_mode_enum.mapper.dart';
 
-@HiveType(typeId: 8)
+@MappableEnum()
 enum ThemeModeEnum {
-  @HiveField(0)
+  @MappableValue(000)
   system,
-  @HiveField(1)
+  @MappableValue(100)
   dark,
-  @HiveField(2)
+  @MappableValue(200)
   light,
 }
 

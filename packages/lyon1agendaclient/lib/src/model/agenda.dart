@@ -1,14 +1,10 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 
-part 'generated/agenda.g.dart';
+part 'agenda.mapper.dart';
 
-@CopyWith()
-@HiveType(typeId: 2)
-class Agenda extends Equatable {
-  @HiveField(0)
+@MappableClass()
+class Agenda with AgendaMappable {
   late final List<Day> days;
 
   Agenda(this.days);
@@ -16,10 +12,4 @@ class Agenda extends Equatable {
   Agenda.empty() {
     days = [];
   }
-
-  @override
-  List<Object?> get props => [days];
-
-  @override
-  bool get stringify => true;
 }

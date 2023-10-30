@@ -1,9 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'dart:io';
-
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:hive/hive.dart';
 import 'package:http/http.dart';
 import 'package:requests_plus/requests_plus.dart';
 
@@ -14,11 +11,6 @@ class Lyon1CasClient {
   static String encryptionKeyName = "tgcToken";
   bool isAuthenticated = false;
   late final String _corsProxyUrl;
-
-  static void registerAdapters({bool initHive = true}) {
-    Hive.registerAdapter(CredentialAdapter());
-    if (initHive) Hive.init(Directory.current.path);
-  }
 
   String get corsProxyUrl => _corsProxyUrl;
 
@@ -50,7 +42,7 @@ class Lyon1CasClient {
     } else {
       isAuthenticated = true;
     }
-    credential = credential.copyWith.tgcToken((await getTgcToken()) ?? "");
+    credential = credential.copyWith(tgcToken: (await getTgcToken()) ?? "");
     return (credential: credential, authResult: isAuthenticated);
   }
 

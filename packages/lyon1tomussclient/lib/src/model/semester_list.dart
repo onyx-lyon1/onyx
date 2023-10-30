@@ -1,23 +1,12 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/model/semester.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
 
-part 'generated/semester_list.g.dart';
+part 'semester_list.mapper.dart';
 
-@CopyWith()
-@HiveType(typeId: 14)
-class SemesterList extends Equatable {
-  @HiveField(0)
+@MappableClass()
+class SemesterList with SemesterListMappable {
   final List<Semester> semestres;
-  @HiveField(1)
   final int currentSemesterIndex;
 
   SemesterList(this.semestres, {this.currentSemesterIndex = 0});
-
-  @override
-  List<Object?> get props => [semestres, currentSemesterIndex];
-
-  @override
-  bool? get stringify => true;
 }

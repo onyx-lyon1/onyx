@@ -1,23 +1,39 @@
 part of 'email_cubit.dart';
 
+@MappableEnum()
 enum MailStatus {
+  @MappableValue(000)
   initial,
+  @MappableValue(100)
   connecting,
+  @MappableValue(200)
   connected,
+  @MappableValue(300)
   loading,
+  @MappableValue(400)
   cacheLoaded,
+  @MappableValue(500)
   loaded,
+  @MappableValue(600)
   sending,
+  @MappableValue(700)
   sended,
+  @MappableValue(800)
   updated,
+  @MappableValue(900)
   error,
+  @MappableValue(1000)
   nonFatalError,
+  @MappableValue(1100)
   sorted,
+  @MappableValue(1200)
   cacheSorted,
+  @MappableValue(1300)
   mailboxesLoaded
 }
 
-class EmailState {
+@MappableClass()
+class EmailState with EmailStateMappable {
   final MailStatus status;
   final List<MailBox> mailBoxes;
   MailBox? currentMailBox;
@@ -37,23 +53,5 @@ class EmailState {
         name: "Boite de réception",
         specialMailBox: SpecialMailBox.inbox,
         emails: const []);
-  }
-
-  EmailState copyWith({
-    MailStatus? status,
-    List<MailBox>? mailBoxes,
-    MailBox? currentMailBox,
-    int? emailNumber,
-    bool? connected,
-    List<Mail>? selectedMails,
-  }) {
-    return EmailState(
-      status: status ?? this.status,
-      mailBoxes: mailBoxes ?? this.mailBoxes,
-      emailNumber: emailNumber ?? this.emailNumber,
-      currentMailBox: currentMailBox ?? this.currentMailBox,
-      connected: connected ?? this.connected,
-      selectedMails: selectedMails ?? this.selectedMails,
-    );
   }
 }

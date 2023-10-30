@@ -1,16 +1,13 @@
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:polytechcolloscopeclient/src/models/student.dart';
 
-class StudentColloscope extends Equatable {
+part 'student_colloscope.mapper.dart';
+
+@MappableClass()
+class StudentColloscope with StudentColloscopeMappable {
   final Student student;
   final int trinomeId;
   final List kholles;
 
   StudentColloscope(this.student, this.trinomeId, this.kholles);
-
-  @override
-  List<Object?> get props => [student, trinomeId, kholles];
-
-  @override
-  bool? get stringify => true;
 }
