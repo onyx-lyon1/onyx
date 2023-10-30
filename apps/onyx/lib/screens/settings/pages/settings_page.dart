@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -168,17 +169,18 @@ class _SettingsPageState extends State<SettingsPage> {
                       },
                     )
                   ]),
-                  SettingsCardWidget(name: "Notifications", widgets: [
-                    MaterialButton(
-                      color: const Color(0xffbf616a),
-                      textColor: Colors.white70,
-                      child: Text('Tester les notifications',
-                          style: TextStyle(fontSize: 17.sp)),
-                      onPressed: () {
-                        backgroundLogic(init: false);
-                      },
-                    ),
-                  ]),
+                  if (kDebugMode)
+                    SettingsCardWidget(name: "Notifications", widgets: [
+                      MaterialButton(
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: Text('Tester les notifications',
+                            style: TextStyle(fontSize: 17.sp)),
+                        onPressed: () {
+                          backgroundLogic(init: false);
+                        },
+                      ),
+                    ]),
                   const SettingsLinkWidget(),
                 ],
               ),
