@@ -9,8 +9,6 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/map/map_export.dart';
 
 class GeolocationLogic {
-  static LatLng? lastLocation;
-
   static Future<LatLng?> getCurrentLocation(
       {bool askPermission = true, required BuildContext context}) async {
     if (Res.mock) {
@@ -31,7 +29,6 @@ class GeolocationLogic {
     }
 
     Position userPos = await Geolocator.getCurrentPosition();
-    lastLocation = LatLng(userPos.latitude, userPos.longitude);
     return LatLng(userPos.latitude, userPos.longitude);
   }
 

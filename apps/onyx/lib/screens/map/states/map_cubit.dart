@@ -18,10 +18,12 @@ class MapCubit extends Cubit<MapState> {
 
   Future<void> navigate(BuildContext context, LatLng latLng) async {
     List<List<LatLng>> paths;
-    if (GeolocationLogic.lastLocation != null) {
+    if (!NavigationLogic.calculating) {
+      NavigationLogic.calculating = true;
       paths = await NavigationLogic.navigateToBatimentFromLocation(
           context, [latLng],
-          useLastLocation: true);
+          useLastLocation: false);
+      NavigationLogic.calculating = false;
       emit(
         state.copyWith(
           status: MapStatus.batimentsUpdated,
@@ -29,16 +31,6 @@ class MapCubit extends Cubit<MapState> {
         ),
       );
     }
-    // ignore: use_build_context_synchronously
-    paths = await NavigationLogic.navigateToBatimentFromLocation(
-        context, [latLng],
-        useLastLocation: false);
-    emit(
-      state.copyWith(
-        status: MapStatus.batimentsUpdated,
-        path: (paths.isNotEmpty) ? paths.first : [],
-      ),
-    );
   }
 
   void loadBatiment() async {
