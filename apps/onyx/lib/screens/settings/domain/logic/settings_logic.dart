@@ -39,7 +39,8 @@ class SettingsLogic {
     await context.read<AuthentificationCubit>().logout();
     CacheService.resetAll();
     context.read<IzlyCubit>().disconnect();
-    File("${CacheService.cachePath}/cached_izly_amount.data").deleteSync();
+    File file = File("${CacheService.cachePath}/cached_izly_amount.data");
+    if (file.existsSync()) file.deleteSync();
     context.read<AgendaCubit>().resetCubit();
     context.read<IzlyCubit>().resetCubit();
     context.read<EmailCubit>().resetCubit();
