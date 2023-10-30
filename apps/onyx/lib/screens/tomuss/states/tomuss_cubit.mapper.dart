@@ -131,22 +131,22 @@ class TomussStateMapper extends ClassMapperBase<TomussState> {
   @override
   final Function instantiate = _instantiate;
 
-  static TomussState fromMap(Map<String, dynamic> map) {
+  static TomussState fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<TomussState>(map);
   }
 
-  static TomussState fromJson(String json) {
+  static TomussState deserialize(String json) {
     return ensureInitialized().decodeJson<TomussState>(json);
   }
 }
 
 mixin TomussStateMappable {
-  String toJson() {
+  String serialize() {
     return TomussStateMapper.ensureInitialized()
         .encodeJson<TomussState>(this as TomussState);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return TomussStateMapper.ensureInitialized()
         .encodeMap<TomussState>(this as TomussState);
   }
@@ -293,11 +293,11 @@ class _t$_R0Mapper extends RecordMapperBase<_t$_R0> {
   @override
   final Function instantiate = _instantiate;
 
-  static _t$_R0<A, B> fromMap<A, B>(Map<String, dynamic> map) {
+  static _t$_R0<A, B> fromJson<A, B>(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<_t$_R0<A, B>>(map);
   }
 
-  static _t$_R0<A, B> fromJson<A, B>(String json) {
+  static _t$_R0<A, B> deserialize<A, B>(String json) {
     return ensureInitialized().decodeJson<_t$_R0<A, B>>(json);
   }
 }

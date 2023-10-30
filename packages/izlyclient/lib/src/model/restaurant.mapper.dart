@@ -126,22 +126,22 @@ class RestaurantModelMapper extends ClassMapperBase<RestaurantModel> {
   @override
   final Function instantiate = _instantiate;
 
-  static RestaurantModel fromMap(Map<String, dynamic> map) {
+  static RestaurantModel fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<RestaurantModel>(map);
   }
 
-  static RestaurantModel fromJson(String json) {
+  static RestaurantModel deserialize(String json) {
     return ensureInitialized().decodeJson<RestaurantModel>(json);
   }
 }
 
 mixin RestaurantModelMappable {
-  String toJson() {
+  String serialize() {
     return RestaurantModelMapper.ensureInitialized()
         .encodeJson<RestaurantModel>(this as RestaurantModel);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return RestaurantModelMapper.ensureInitialized()
         .encodeMap<RestaurantModel>(this as RestaurantModel);
   }

@@ -86,22 +86,22 @@ class TomussTextMapper extends SubClassMapperBase<TomussText> {
   @override
   final Function instantiate = _instantiate;
 
-  static TomussText fromMap(Map<String, dynamic> map) {
+  static TomussText fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<TomussText>(map);
   }
 
-  static TomussText fromJson(String json) {
+  static TomussText deserialize(String json) {
     return ensureInitialized().decodeJson<TomussText>(json);
   }
 }
 
 mixin TomussTextMappable {
-  String toJson() {
+  String serialize() {
     return TomussTextMapper.ensureInitialized()
         .encodeJson<TomussText>(this as TomussText);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return TomussTextMapper.ensureInitialized()
         .encodeMap<TomussText>(this as TomussText);
   }

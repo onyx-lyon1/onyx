@@ -7,40 +7,40 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 Future<void> hiveInit({String? path}) async {
-  CacheService.registerAdapter<SettingsModel>(SettingsModelMapper.fromMap);
+  CacheService.registerAdapter<SettingsModel>(SettingsModelMapper.fromJson);
 
-  CacheService.registerAdapter<IzlyCredential>(IzlyCredentialMapper.fromMap);
-  CacheService.registerAdapter<IzlyQrCode>(IzlyQrCodeMapper.fromMap);
-  CacheService.registerAdapter<PlatCrous>(PlatCrousMapper.fromMap);
-  CacheService.registerAdapter<RestaurantModel>(RestaurantModelMapper.fromMap);
+  CacheService.registerAdapter<IzlyCredential>(IzlyCredentialMapper.fromJson);
+  CacheService.registerAdapter<IzlyQrCode>(IzlyQrCodeMapper.fromJson);
+  CacheService.registerAdapter<PlatCrous>(PlatCrousMapper.fromJson);
+  CacheService.registerAdapter<RestaurantModel>(RestaurantModelMapper.fromJson);
   CacheService.registerAdapter<IzlyPaymentModel>(
-      IzlyPaymentModelMapper.fromMap);
+      IzlyPaymentModelMapper.fromJson);
 
   //TOMUSS
-  CacheService.registerAdapter<Enumeration>(EnumerationMapper.fromMap);
-  CacheService.registerAdapter<Grade>(GradeMapper.fromMap);
-  CacheService.registerAdapter<Presence>(PresenceMapper.fromMap);
+  CacheService.registerAdapter<Enumeration>(EnumerationMapper.fromJson);
+  CacheService.registerAdapter<Grade>(GradeMapper.fromJson);
+  CacheService.registerAdapter<Presence>(PresenceMapper.fromJson);
   // CacheService.registerAdapter<>( ,PresenceColorMapper.);
-  CacheService.registerAdapter<Semester>(SemesterMapper.fromMap);
-  CacheService.registerAdapter<StageCode>(StageCodeMapper.fromMap);
-  CacheService.registerAdapter<Teacher>(TeacherMapper.fromMap);
-  CacheService.registerAdapter<TeachingUnit>(TeachingUnitMapper.fromMap);
-  CacheService.registerAdapter<TomussText>(TomussTextMapper.fromMap);
-  CacheService.registerAdapter<Upload>(UploadMapper.fromMap);
-  CacheService.registerAdapter<URL>(URLMapper.fromMap);
+  CacheService.registerAdapter<Semester>(SemesterMapper.fromJson);
+  CacheService.registerAdapter<StageCode>(StageCodeMapper.fromJson);
+  CacheService.registerAdapter<Teacher>(TeacherMapper.fromJson);
+  CacheService.registerAdapter<TeachingUnit>(TeachingUnitMapper.fromJson);
+  CacheService.registerAdapter<TomussText>(TomussTextMapper.fromJson);
+  CacheService.registerAdapter<Upload>(UploadMapper.fromJson);
+  CacheService.registerAdapter<URL>(URLMapper.fromJson);
 
   //CAS
-  CacheService.registerAdapter<Credential>(CredentialMapper.fromMap);
+  CacheService.registerAdapter<Credential>(CredentialMapper.fromJson);
 
   //CALENDAR
-  CacheService.registerAdapter<Agenda>(AgendaMapper.fromMap);
-  CacheService.registerAdapter<Day>(DayMapper.fromMap);
-  CacheService.registerAdapter<Event>(EventMapper.fromMap);
+  CacheService.registerAdapter<Agenda>(AgendaMapper.fromJson);
+  CacheService.registerAdapter<Day>(DayMapper.fromJson);
+  CacheService.registerAdapter<Event>(EventMapper.fromJson);
 
   //MAIL
-  CacheService.registerAdapter<Action>(ActionMapper.fromMap);
-  CacheService.registerAdapter<Mail>(MailMapper.fromMap);
-  CacheService.registerAdapter<MailBox>(MailBoxMapper.fromMap);
+  CacheService.registerAdapter<Action>(ActionMapper.fromJson);
+  CacheService.registerAdapter<Mail>(MailMapper.fromJson);
+  CacheService.registerAdapter<MailBox>(MailBoxMapper.fromJson);
 
   CacheService.init(cachePath: path, permanentPath: "/tmp/onyx/perma");
 }

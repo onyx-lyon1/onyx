@@ -41,22 +41,22 @@ class TeacherMapper extends ClassMapperBase<Teacher> {
   @override
   final Function instantiate = _instantiate;
 
-  static Teacher fromMap(Map<String, dynamic> map) {
+  static Teacher fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Teacher>(map);
   }
 
-  static Teacher fromJson(String json) {
+  static Teacher deserialize(String json) {
     return ensureInitialized().decodeJson<Teacher>(json);
   }
 }
 
 mixin TeacherMappable {
-  String toJson() {
+  String serialize() {
     return TeacherMapper.ensureInitialized()
         .encodeJson<Teacher>(this as Teacher);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return TeacherMapper.ensureInitialized()
         .encodeMap<Teacher>(this as Teacher);
   }

@@ -65,21 +65,21 @@ class URLMapper extends SubClassMapperBase<URL> {
   @override
   final Function instantiate = _instantiate;
 
-  static URL fromMap(Map<String, dynamic> map) {
+  static URL fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<URL>(map);
   }
 
-  static URL fromJson(String json) {
+  static URL deserialize(String json) {
     return ensureInitialized().decodeJson<URL>(json);
   }
 }
 
 mixin URLMappable {
-  String toJson() {
+  String serialize() {
     return URLMapper.ensureInitialized().encodeJson<URL>(this as URL);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return URLMapper.ensureInitialized().encodeMap<URL>(this as URL);
   }
 

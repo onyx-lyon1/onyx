@@ -42,22 +42,22 @@ class IzlyQrCodeMapper extends ClassMapperBase<IzlyQrCode> {
   @override
   final Function instantiate = _instantiate;
 
-  static IzlyQrCode fromMap(Map<String, dynamic> map) {
+  static IzlyQrCode fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<IzlyQrCode>(map);
   }
 
-  static IzlyQrCode fromJson(String json) {
+  static IzlyQrCode deserialize(String json) {
     return ensureInitialized().decodeJson<IzlyQrCode>(json);
   }
 }
 
 mixin IzlyQrCodeMappable {
-  String toJson() {
+  String serialize() {
     return IzlyQrCodeMapper.ensureInitialized()
         .encodeJson<IzlyQrCode>(this as IzlyQrCode);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return IzlyQrCodeMapper.ensureInitialized()
         .encodeMap<IzlyQrCode>(this as IzlyQrCode);
   }

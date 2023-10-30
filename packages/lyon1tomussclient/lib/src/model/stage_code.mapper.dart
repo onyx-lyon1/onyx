@@ -66,22 +66,22 @@ class StageCodeMapper extends SubClassMapperBase<StageCode> {
   @override
   final Function instantiate = _instantiate;
 
-  static StageCode fromMap(Map<String, dynamic> map) {
+  static StageCode fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<StageCode>(map);
   }
 
-  static StageCode fromJson(String json) {
+  static StageCode deserialize(String json) {
     return ensureInitialized().decodeJson<StageCode>(json);
   }
 }
 
 mixin StageCodeMappable {
-  String toJson() {
+  String serialize() {
     return StageCodeMapper.ensureInitialized()
         .encodeJson<StageCode>(this as StageCode);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return StageCodeMapper.ensureInitialized()
         .encodeMap<StageCode>(this as StageCode);
   }

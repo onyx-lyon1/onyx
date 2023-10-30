@@ -42,22 +42,22 @@ class SemesterListMapper extends ClassMapperBase<SemesterList> {
   @override
   final Function instantiate = _instantiate;
 
-  static SemesterList fromMap(Map<String, dynamic> map) {
+  static SemesterList fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<SemesterList>(map);
   }
 
-  static SemesterList fromJson(String json) {
+  static SemesterList deserialize(String json) {
     return ensureInitialized().decodeJson<SemesterList>(json);
   }
 }
 
 mixin SemesterListMappable {
-  String toJson() {
+  String serialize() {
     return SemesterListMapper.ensureInitialized()
         .encodeJson<SemesterList>(this as SemesterList);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return SemesterListMapper.ensureInitialized()
         .encodeMap<SemesterList>(this as SemesterList);
   }

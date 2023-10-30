@@ -97,22 +97,22 @@ class MenuCrousMapper extends ClassMapperBase<MenuCrous> {
   @override
   final Function instantiate = _instantiate;
 
-  static MenuCrous fromMap(Map<String, dynamic> map) {
+  static MenuCrous fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<MenuCrous>(map);
   }
 
-  static MenuCrous fromJson(String json) {
+  static MenuCrous deserialize(String json) {
     return ensureInitialized().decodeJson<MenuCrous>(json);
   }
 }
 
 mixin MenuCrousMappable {
-  String toJson() {
+  String serialize() {
     return MenuCrousMapper.ensureInitialized()
         .encodeJson<MenuCrous>(this as MenuCrous);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return MenuCrousMapper.ensureInitialized()
         .encodeMap<MenuCrous>(this as MenuCrous);
   }
@@ -216,22 +216,22 @@ class PlatCrousMapper extends ClassMapperBase<PlatCrous> {
   @override
   final Function instantiate = _instantiate;
 
-  static PlatCrous fromMap(Map<String, dynamic> map) {
+  static PlatCrous fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<PlatCrous>(map);
   }
 
-  static PlatCrous fromJson(String json) {
+  static PlatCrous deserialize(String json) {
     return ensureInitialized().decodeJson<PlatCrous>(json);
   }
 }
 
 mixin PlatCrousMappable {
-  String toJson() {
+  String serialize() {
     return PlatCrousMapper.ensureInitialized()
         .encodeJson<PlatCrous>(this as PlatCrous);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return PlatCrousMapper.ensureInitialized()
         .encodeMap<PlatCrous>(this as PlatCrous);
   }

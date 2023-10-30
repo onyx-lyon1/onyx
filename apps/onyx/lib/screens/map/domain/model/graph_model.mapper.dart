@@ -44,21 +44,21 @@ class NodeMapper extends ClassMapperBase<Node> {
   @override
   final Function instantiate = _instantiate;
 
-  static Node fromMap(Map<String, dynamic> map) {
+  static Node fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Node>(map);
   }
 
-  static Node fromJson(String json) {
+  static Node deserialize(String json) {
     return ensureInitialized().decodeJson<Node>(json);
   }
 }
 
 mixin NodeMappable {
-  String toJson() {
+  String serialize() {
     return NodeMapper.ensureInitialized().encodeJson<Node>(this as Node);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return NodeMapper.ensureInitialized().encodeMap<Node>(this as Node);
   }
 
@@ -160,21 +160,21 @@ class GraphMapper extends ClassMapperBase<Graph> {
   @override
   final Function instantiate = _instantiate;
 
-  static Graph fromMap(Map<String, dynamic> map) {
+  static Graph fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Graph>(map);
   }
 
-  static Graph fromJson(String json) {
+  static Graph deserialize(String json) {
     return ensureInitialized().decodeJson<Graph>(json);
   }
 }
 
 mixin GraphMappable {
-  String toJson() {
+  String serialize() {
     return GraphMapper.ensureInitialized().encodeJson<Graph>(this as Graph);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return GraphMapper.ensureInitialized().encodeMap<Graph>(this as Graph);
   }
 
@@ -265,11 +265,11 @@ class _t$_R0Mapper extends RecordMapperBase<_t$_R0> {
   @override
   final Function instantiate = _instantiate;
 
-  static _t$_R0<A, B> fromMap<A, B>(Map<String, dynamic> map) {
+  static _t$_R0<A, B> fromJson<A, B>(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<_t$_R0<A, B>>(map);
   }
 
-  static _t$_R0<A, B> fromJson<A, B>(String json) {
+  static _t$_R0<A, B> deserialize<A, B>(String json) {
     return ensureInitialized().decodeJson<_t$_R0<A, B>>(json);
   }
 }

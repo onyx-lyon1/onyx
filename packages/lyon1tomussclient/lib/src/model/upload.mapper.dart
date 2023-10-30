@@ -76,21 +76,21 @@ class UploadMapper extends SubClassMapperBase<Upload> {
   @override
   final Function instantiate = _instantiate;
 
-  static Upload fromMap(Map<String, dynamic> map) {
+  static Upload fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Upload>(map);
   }
 
-  static Upload fromJson(String json) {
+  static Upload deserialize(String json) {
     return ensureInitialized().decodeJson<Upload>(json);
   }
 }
 
 mixin UploadMappable {
-  String toJson() {
+  String serialize() {
     return UploadMapper.ensureInitialized().encodeJson<Upload>(this as Upload);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return UploadMapper.ensureInitialized().encodeMap<Upload>(this as Upload);
   }
 

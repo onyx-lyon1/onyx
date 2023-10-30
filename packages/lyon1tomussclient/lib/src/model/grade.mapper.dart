@@ -107,21 +107,21 @@ class GradeMapper extends SubClassMapperBase<Grade> {
   @override
   final Function instantiate = _instantiate;
 
-  static Grade fromMap(Map<String, dynamic> map) {
+  static Grade fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Grade>(map);
   }
 
-  static Grade fromJson(String json) {
+  static Grade deserialize(String json) {
     return ensureInitialized().decodeJson<Grade>(json);
   }
 }
 
 mixin GradeMappable {
-  String toJson() {
+  String serialize() {
     return GradeMapper.ensureInitialized().encodeJson<Grade>(this as Grade);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return GradeMapper.ensureInitialized().encodeMap<Grade>(this as Grade);
   }
 

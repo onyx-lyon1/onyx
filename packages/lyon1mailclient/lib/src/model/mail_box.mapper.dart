@@ -105,22 +105,22 @@ class MailBoxMapper extends ClassMapperBase<MailBox> {
   @override
   final Function instantiate = _instantiate;
 
-  static MailBox fromMap(Map<String, dynamic> map) {
+  static MailBox fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<MailBox>(map);
   }
 
-  static MailBox fromJson(String json) {
+  static MailBox deserialize(String json) {
     return ensureInitialized().decodeJson<MailBox>(json);
   }
 }
 
 mixin MailBoxMappable {
-  String toJson() {
+  String serialize() {
     return MailBoxMapper.ensureInitialized()
         .encodeJson<MailBox>(this as MailBox);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return MailBoxMapper.ensureInitialized()
         .encodeMap<MailBox>(this as MailBox);
   }

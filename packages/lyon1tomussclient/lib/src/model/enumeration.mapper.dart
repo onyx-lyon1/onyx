@@ -106,22 +106,22 @@ class EnumerationMapper extends SubClassMapperBase<Enumeration> {
   @override
   final Function instantiate = _instantiate;
 
-  static Enumeration fromMap(Map<String, dynamic> map) {
+  static Enumeration fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Enumeration>(map);
   }
 
-  static Enumeration fromJson(String json) {
+  static Enumeration deserialize(String json) {
     return ensureInitialized().decodeJson<Enumeration>(json);
   }
 }
 
 mixin EnumerationMappable {
-  String toJson() {
+  String serialize() {
     return EnumerationMapper.ensureInitialized()
         .encodeJson<Enumeration>(this as Enumeration);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return EnumerationMapper.ensureInitialized()
         .encodeMap<Enumeration>(this as Enumeration);
   }

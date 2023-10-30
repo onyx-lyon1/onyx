@@ -63,21 +63,21 @@ class ActionMapper extends ClassMapperBase<Action> {
   @override
   final Function instantiate = _instantiate;
 
-  static Action fromMap(Map<String, dynamic> map) {
+  static Action fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Action>(map);
   }
 
-  static Action fromJson(String json) {
+  static Action deserialize(String json) {
     return ensureInitialized().decodeJson<Action>(json);
   }
 }
 
 mixin ActionMappable {
-  String toJson() {
+  String serialize() {
     return ActionMapper.ensureInitialized().encodeJson<Action>(this as Action);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return ActionMapper.ensureInitialized().encodeMap<Action>(this as Action);
   }
 

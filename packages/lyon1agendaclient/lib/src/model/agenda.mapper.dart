@@ -36,21 +36,21 @@ class AgendaMapper extends ClassMapperBase<Agenda> {
   @override
   final Function instantiate = _instantiate;
 
-  static Agenda fromMap(Map<String, dynamic> map) {
+  static Agenda fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Agenda>(map);
   }
 
-  static Agenda fromJson(String json) {
+  static Agenda deserialize(String json) {
     return ensureInitialized().decodeJson<Agenda>(json);
   }
 }
 
 mixin AgendaMappable {
-  String toJson() {
+  String serialize() {
     return AgendaMapper.ensureInitialized().encodeJson<Agenda>(this as Agenda);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return AgendaMapper.ensureInitialized().encodeMap<Agenda>(this as Agenda);
   }
 

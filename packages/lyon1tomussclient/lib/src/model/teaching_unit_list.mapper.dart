@@ -43,22 +43,22 @@ class TeachingUnitListMapper extends ClassMapperBase<TeachingUnitList> {
   @override
   final Function instantiate = _instantiate;
 
-  static TeachingUnitList fromMap(Map<String, dynamic> map) {
+  static TeachingUnitList fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<TeachingUnitList>(map);
   }
 
-  static TeachingUnitList fromJson(String json) {
+  static TeachingUnitList deserialize(String json) {
     return ensureInitialized().decodeJson<TeachingUnitList>(json);
   }
 }
 
 mixin TeachingUnitListMappable {
-  String toJson() {
+  String serialize() {
     return TeachingUnitListMapper.ensureInitialized()
         .encodeJson<TeachingUnitList>(this as TeachingUnitList);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return TeachingUnitListMapper.ensureInitialized()
         .encodeMap<TeachingUnitList>(this as TeachingUnitList);
   }

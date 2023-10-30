@@ -47,22 +47,22 @@ class IzlyPaymentModelMapper extends ClassMapperBase<IzlyPaymentModel> {
   @override
   final Function instantiate = _instantiate;
 
-  static IzlyPaymentModel fromMap(Map<String, dynamic> map) {
+  static IzlyPaymentModel fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<IzlyPaymentModel>(map);
   }
 
-  static IzlyPaymentModel fromJson(String json) {
+  static IzlyPaymentModel deserialize(String json) {
     return ensureInitialized().decodeJson<IzlyPaymentModel>(json);
   }
 }
 
 mixin IzlyPaymentModelMappable {
-  String toJson() {
+  String serialize() {
     return IzlyPaymentModelMapper.ensureInitialized()
         .encodeJson<IzlyPaymentModel>(this as IzlyPaymentModel);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return IzlyPaymentModelMapper.ensureInitialized()
         .encodeMap<IzlyPaymentModel>(this as IzlyPaymentModel);
   }

@@ -41,22 +41,22 @@ class IzlyCredentialMapper extends ClassMapperBase<IzlyCredential> {
   @override
   final Function instantiate = _instantiate;
 
-  static IzlyCredential fromMap(Map<String, dynamic> map) {
+  static IzlyCredential fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<IzlyCredential>(map);
   }
 
-  static IzlyCredential fromJson(String json) {
+  static IzlyCredential deserialize(String json) {
     return ensureInitialized().decodeJson<IzlyCredential>(json);
   }
 }
 
 mixin IzlyCredentialMappable {
-  String toJson() {
+  String serialize() {
     return IzlyCredentialMapper.ensureInitialized()
         .encodeJson<IzlyCredential>(this as IzlyCredential);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return IzlyCredentialMapper.ensureInitialized()
         .encodeMap<IzlyCredential>(this as IzlyCredential);
   }

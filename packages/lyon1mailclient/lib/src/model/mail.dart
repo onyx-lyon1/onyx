@@ -76,8 +76,6 @@ class Mail with MailMappable {
     required this.receiver,
     required this.attachments,
     required this.isFlagged,
-    // this.attachmentsFiles = const [],
-    // this.rawMail,
   });
 
   Mail.forSending({

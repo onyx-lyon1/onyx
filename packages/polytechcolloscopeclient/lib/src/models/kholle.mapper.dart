@@ -49,21 +49,21 @@ class KholleMapper extends ClassMapperBase<Kholle> {
   @override
   final Function instantiate = _instantiate;
 
-  static Kholle fromMap(Map<String, dynamic> map) {
+  static Kholle fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Kholle>(map);
   }
 
-  static Kholle fromJson(String json) {
+  static Kholle deserialize(String json) {
     return ensureInitialized().decodeJson<Kholle>(json);
   }
 }
 
 mixin KholleMappable {
-  String toJson() {
+  String serialize() {
     return KholleMapper.ensureInitialized().encodeJson<Kholle>(this as Kholle);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return KholleMapper.ensureInitialized().encodeMap<Kholle>(this as Kholle);
   }
 

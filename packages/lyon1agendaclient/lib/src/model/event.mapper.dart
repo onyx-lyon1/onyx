@@ -67,21 +67,21 @@ class EventMapper extends ClassMapperBase<Event> {
   @override
   final Function instantiate = _instantiate;
 
-  static Event fromMap(Map<String, dynamic> map) {
+  static Event fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Event>(map);
   }
 
-  static Event fromJson(String json) {
+  static Event deserialize(String json) {
     return ensureInitialized().decodeJson<Event>(json);
   }
 }
 
 mixin EventMappable {
-  String toJson() {
+  String serialize() {
     return EventMapper.ensureInitialized().encodeJson<Event>(this as Event);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return EventMapper.ensureInitialized().encodeMap<Event>(this as Event);
   }
 

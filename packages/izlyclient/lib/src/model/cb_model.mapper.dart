@@ -38,22 +38,22 @@ class CbModelMapper extends ClassMapperBase<CbModel> {
   @override
   final Function instantiate = _instantiate;
 
-  static CbModel fromMap(Map<String, dynamic> map) {
+  static CbModel fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<CbModel>(map);
   }
 
-  static CbModel fromJson(String json) {
+  static CbModel deserialize(String json) {
     return ensureInitialized().decodeJson<CbModel>(json);
   }
 }
 
 mixin CbModelMappable {
-  String toJson() {
+  String serialize() {
     return CbModelMapper.ensureInitialized()
         .encodeJson<CbModel>(this as CbModel);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return CbModelMapper.ensureInitialized()
         .encodeMap<CbModel>(this as CbModel);
   }

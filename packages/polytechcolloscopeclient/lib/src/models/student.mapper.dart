@@ -41,22 +41,22 @@ class StudentMapper extends ClassMapperBase<Student> {
   @override
   final Function instantiate = _instantiate;
 
-  static Student fromMap(Map<String, dynamic> map) {
+  static Student fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Student>(map);
   }
 
-  static Student fromJson(String json) {
+  static Student deserialize(String json) {
     return ensureInitialized().decodeJson<Student>(json);
   }
 }
 
 mixin StudentMappable {
-  String toJson() {
+  String serialize() {
     return StudentMapper.ensureInitialized()
         .encodeJson<Student>(this as Student);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return StudentMapper.ensureInitialized()
         .encodeMap<Student>(this as Student);
   }

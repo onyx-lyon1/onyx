@@ -46,22 +46,22 @@ class StudentColloscopeMapper extends ClassMapperBase<StudentColloscope> {
   @override
   final Function instantiate = _instantiate;
 
-  static StudentColloscope fromMap(Map<String, dynamic> map) {
+  static StudentColloscope fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<StudentColloscope>(map);
   }
 
-  static StudentColloscope fromJson(String json) {
+  static StudentColloscope deserialize(String json) {
     return ensureInitialized().decodeJson<StudentColloscope>(json);
   }
 }
 
 mixin StudentColloscopeMappable {
-  String toJson() {
+  String serialize() {
     return StudentColloscopeMapper.ensureInitialized()
         .encodeJson<StudentColloscope>(this as StudentColloscope);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return StudentColloscopeMapper.ensureInitialized()
         .encodeMap<StudentColloscope>(this as StudentColloscope);
   }

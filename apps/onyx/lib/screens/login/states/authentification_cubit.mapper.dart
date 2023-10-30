@@ -105,22 +105,22 @@ class AuthentificationStateMapper
   @override
   final Function instantiate = _instantiate;
 
-  static AuthentificationState fromMap(Map<String, dynamic> map) {
+  static AuthentificationState fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<AuthentificationState>(map);
   }
 
-  static AuthentificationState fromJson(String json) {
+  static AuthentificationState deserialize(String json) {
     return ensureInitialized().decodeJson<AuthentificationState>(json);
   }
 }
 
 mixin AuthentificationStateMappable {
-  String toJson() {
+  String serialize() {
     return AuthentificationStateMapper.ensureInitialized()
         .encodeJson<AuthentificationState>(this as AuthentificationState);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return AuthentificationStateMapper.ensureInitialized()
         .encodeMap<AuthentificationState>(this as AuthentificationState);
   }

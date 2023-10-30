@@ -39,21 +39,21 @@ class DayMapper extends ClassMapperBase<Day> {
   @override
   final Function instantiate = _instantiate;
 
-  static Day fromMap(Map<String, dynamic> map) {
+  static Day fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Day>(map);
   }
 
-  static Day fromJson(String json) {
+  static Day deserialize(String json) {
     return ensureInitialized().decodeJson<Day>(json);
   }
 }
 
 mixin DayMappable {
-  String toJson() {
+  String serialize() {
     return DayMapper.ensureInitialized().encodeJson<Day>(this as Day);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return DayMapper.ensureInitialized().encodeMap<Day>(this as Day);
   }
 

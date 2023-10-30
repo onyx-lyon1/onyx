@@ -38,22 +38,22 @@ class AddressMapper extends ClassMapperBase<Address> {
   @override
   final Function instantiate = _instantiate;
 
-  static Address fromMap(Map<String, dynamic> map) {
+  static Address fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Address>(map);
   }
 
-  static Address fromJson(String json) {
+  static Address deserialize(String json) {
     return ensureInitialized().decodeJson<Address>(json);
   }
 }
 
 mixin AddressMappable {
-  String toJson() {
+  String serialize() {
     return AddressMapper.ensureInitialized()
         .encodeJson<Address>(this as Address);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return AddressMapper.ensureInitialized()
         .encodeMap<Address>(this as Address);
   }

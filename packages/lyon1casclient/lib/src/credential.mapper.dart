@@ -45,22 +45,22 @@ class CredentialMapper extends ClassMapperBase<Credential> {
   @override
   final Function instantiate = _instantiate;
 
-  static Credential fromMap(Map<String, dynamic> map) {
+  static Credential fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Credential>(map);
   }
 
-  static Credential fromJson(String json) {
+  static Credential deserialize(String json) {
     return ensureInitialized().decodeJson<Credential>(json);
   }
 }
 
 mixin CredentialMappable {
-  String toJson() {
+  String serialize() {
     return CredentialMapper.ensureInitialized()
         .encodeJson<Credential>(this as Credential);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return CredentialMapper.ensureInitialized()
         .encodeMap<Credential>(this as Credential);
   }

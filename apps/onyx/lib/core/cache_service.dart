@@ -61,7 +61,7 @@ class CacheService {
         data = String.fromCharCodes(
             encrypter.decryptBytes(Encrypted(file.readAsBytesSync()), iv: iv));
         //remove begin \" and end \" from string TODO check if really needed using bytes
-        data = data.substring(1, data.length - 1).replaceAll("\\", "");
+        // data = data.substring(1, data.length - 1).replaceAll("\\", "");
       } else {
         data = file.readAsStringSync();
       }

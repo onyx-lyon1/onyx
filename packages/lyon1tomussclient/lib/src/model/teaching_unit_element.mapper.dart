@@ -56,18 +56,18 @@ class TeachingUnitElementMapper extends ClassMapperBase<TeachingUnitElement> {
   @override
   final Function instantiate = _instantiate;
 
-  static TeachingUnitElement fromMap(Map<String, dynamic> map) {
+  static TeachingUnitElement fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<TeachingUnitElement>(map);
   }
 
-  static TeachingUnitElement fromJson(String json) {
+  static TeachingUnitElement deserialize(String json) {
     return ensureInitialized().decodeJson<TeachingUnitElement>(json);
   }
 }
 
 mixin TeachingUnitElementMappable {
-  String toJson();
-  Map<String, dynamic> toMap();
+  String serialize();
+  Map<String, dynamic> toJson();
   TeachingUnitElementCopyWith<TeachingUnitElement, TeachingUnitElement,
       TeachingUnitElement> get copyWith;
 }

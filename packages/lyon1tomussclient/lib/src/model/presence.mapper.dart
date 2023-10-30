@@ -137,22 +137,22 @@ class PresenceMapper extends SubClassMapperBase<Presence> {
   @override
   final Function instantiate = _instantiate;
 
-  static Presence fromMap(Map<String, dynamic> map) {
+  static Presence fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Presence>(map);
   }
 
-  static Presence fromJson(String json) {
+  static Presence deserialize(String json) {
     return ensureInitialized().decodeJson<Presence>(json);
   }
 }
 
 mixin PresenceMappable {
-  String toJson() {
+  String serialize() {
     return PresenceMapper.ensureInitialized()
         .encodeJson<Presence>(this as Presence);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return PresenceMapper.ensureInitialized()
         .encodeMap<Presence>(this as Presence);
   }

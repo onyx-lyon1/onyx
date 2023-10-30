@@ -81,21 +81,21 @@ class MailMapper extends ClassMapperBase<Mail> {
   @override
   final Function instantiate = _instantiate;
 
-  static Mail fromMap(Map<String, dynamic> map) {
+  static Mail fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<Mail>(map);
   }
 
-  static Mail fromJson(String json) {
+  static Mail deserialize(String json) {
     return ensureInitialized().decodeJson<Mail>(json);
   }
 }
 
 mixin MailMappable {
-  String toJson() {
+  String serialize() {
     return MailMapper.ensureInitialized().encodeJson<Mail>(this as Mail);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return MailMapper.ensureInitialized().encodeMap<Mail>(this as Mail);
   }
 

@@ -172,22 +172,22 @@ class SettingsModelMapper extends ClassMapperBase<SettingsModel> {
   @override
   final Function instantiate = _instantiate;
 
-  static SettingsModel fromMap(Map<String, dynamic> map) {
+  static SettingsModel fromJson(Map<String, dynamic> map) {
     return ensureInitialized().decodeMap<SettingsModel>(map);
   }
 
-  static SettingsModel fromJson(String json) {
+  static SettingsModel deserialize(String json) {
     return ensureInitialized().decodeJson<SettingsModel>(json);
   }
 }
 
 mixin SettingsModelMappable {
-  String toJson() {
+  String serialize() {
     return SettingsModelMapper.ensureInitialized()
         .encodeJson<SettingsModel>(this as SettingsModel);
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return SettingsModelMapper.ensureInitialized()
         .encodeMap<SettingsModel>(this as SettingsModel);
   }
