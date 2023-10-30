@@ -5,6 +5,7 @@ import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:path_provider/path_provider.dart';
 
 Future<void> cacheInit({String? cachePath, String? permanentPath}) async {
   CacheService.registerAdapter<SettingsModel>(SettingsModelMapper.fromJson);
@@ -42,5 +43,23 @@ Future<void> cacheInit({String? cachePath, String? permanentPath}) async {
   CacheService.registerAdapter<Mail>(MailMapper.fromJson);
   CacheService.registerAdapter<MailBox>(MailBoxMapper.fromJson);
 
+  //clean all .hive and .hive.lock files
+  cleanOldHiveFiles(cachePath);
+
   CacheService.init(cachePath: cachePath, permanentPath: permanentPath);
+}
+
+
+void cleanOldHiveFiles(String? cachePath) async {
+  String tmpPath = cachePath ?? (await getApplicationDocumentsDirectory()).path;
+  Directory directory = Directory(tmpPath);
+  List<FileSystemEntity> files = directory.listSync();
+  for (FileSystemEntity file in files) {
+    if (file.path.endsWith(".hive")) {
+      file.deleteSync();
+      if (File(file.path.replaceFirst(".hive", ".lock")).existsSync()){
+        File(file.path.replaceFirst(".hive", ".lock")).deleteSync();
+      }
+    }
+  }
 }
