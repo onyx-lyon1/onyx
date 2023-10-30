@@ -67,7 +67,6 @@ class Event extends Equatable {
         name,
         start,
         end,
-        eventLastModified,
         menuCrous,
       ];
 
