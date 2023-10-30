@@ -39,7 +39,10 @@ class TomussCubit extends Cubit<TomussState> {
     if (cache && !kIsWeb) {
       semesters = await compute(
         TomussLogic.getSemesterCache,
-        (await getApplicationCacheDirectory()).path,
+        (
+          cachePath: (await getApplicationCacheDirectory()).path,
+          permanentPath: (await getApplicationDocumentsDirectory()).path
+        ),
       );
       emit(state.copyWith(
         status: TomussStatus.cacheReady,

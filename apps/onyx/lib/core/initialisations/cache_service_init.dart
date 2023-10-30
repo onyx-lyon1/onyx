@@ -6,7 +6,7 @@ import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
-Future<void> hiveInit({String? cachePath, String? permanentPath}) async {
+Future<void> cacheInit({String? cachePath, String? permanentPath}) async {
   CacheService.registerAdapter<SettingsModel>(SettingsModelMapper.fromJson);
 
   CacheService.registerAdapter<IzlyCredential>(IzlyCredentialMapper.fromJson);
@@ -42,5 +42,5 @@ Future<void> hiveInit({String? cachePath, String? permanentPath}) async {
   CacheService.registerAdapter<Mail>(MailMapper.fromJson);
   CacheService.registerAdapter<MailBox>(MailBoxMapper.fromJson);
 
-  CacheService.init(cachePath: path, permanentPath: "/tmp/onyx/perma");
+  CacheService.init(cachePath: cachePath, permanentPath: permanentPath);
 }

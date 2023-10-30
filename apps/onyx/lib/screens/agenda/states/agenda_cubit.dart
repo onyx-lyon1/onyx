@@ -35,7 +35,7 @@ class AgendaCubit extends Cubit<AgendaState> {
     if (cache && !Res.mock && !kIsWeb) {
       state.realDays = await compute(
         AgendaLogic.getCache,
-        (await getApplicationDocumentsDirectory()).path,
+        (cachePath: (await getApplicationCacheDirectory()).path, permanentPath: (await getApplicationDocumentsDirectory()).path),
       );
       emit(state.copyWith(
           status: AgendaStatus.cacheReady,

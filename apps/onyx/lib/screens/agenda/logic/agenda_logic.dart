@@ -28,11 +28,11 @@ class AgendaLogic {
     return agendaOpt.days;
   }
 
-  static Future<List<Day>> getCache(String? path) async {
+  static Future<List<Day>> getCache(({String? cachePath, String? permanentPath}) paths) async {
     if (Res.mock) {
       return dayListMock;
     }
-    await hiveInit(cachePath: path);
+    await cacheInit(cachePath: paths.cachePath, permanentPath: paths.permanentPath);
     if (CacheService.exist<Agenda>()) {
       return (CacheService.get<Agenda>())!.days;
     } else {

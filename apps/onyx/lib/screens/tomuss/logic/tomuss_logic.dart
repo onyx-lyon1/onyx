@@ -83,11 +83,11 @@ class TomussLogic {
         autoRefresh: autoRefresh);
   }
 
-  static Future<List<Semester>> getSemesterCache(String? path) async {
+  static Future<List<Semester>> getSemesterCache(({String? cachePath, String? permanentPath}) paths) async {
     if (Res.mock) {
       return teachingUnitsModelListMock;
     }
-    await hiveInit(cachePath: path);
+    await cacheInit(cachePath: paths.cachePath, permanentPath: paths.permanentPath);
     if (CacheService.exist<List<Semester>>()) {
       return (CacheService.get<List<Semester>>())!;
     } else {

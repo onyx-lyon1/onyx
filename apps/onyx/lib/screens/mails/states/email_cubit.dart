@@ -24,7 +24,7 @@ class EmailCubit extends Cubit<EmailState> {
 
     if (!kIsWeb) {
       emailsBoxesComplete = await compute(
-          MailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
+          MailLogic.cacheLoad, (cachePath: (await getApplicationCacheDirectory()).path, permanentPath: (await getApplicationDocumentsDirectory()).path));
     }
 
     if (emailsBoxesComplete.isNotEmpty) {
@@ -73,7 +73,7 @@ class EmailCubit extends Cubit<EmailState> {
     }
     if (cache && !Res.mock && !kIsWeb) {
       List<MailBox> emailCache = await compute(
-          MailLogic.cacheLoad, (await getApplicationDocumentsDirectory()).path);
+          MailLogic.cacheLoad, (cachePath: (await getApplicationCacheDirectory()).path, permanentPath: (await getApplicationDocumentsDirectory()).path));
       if (emailCache.isNotEmpty &&
           !listEquals(emailCache, emailsBoxesComplete)) {
         emailsBoxesComplete = emailCache;
