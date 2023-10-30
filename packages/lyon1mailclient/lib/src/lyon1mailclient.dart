@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, depend_on_referenced_packages
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:enough_mail/enough_mail.dart' hide Response;
@@ -16,8 +17,10 @@ class Lyon1MailClient {
   late String _corsProxyUrl;
   late Address emailAddress;
 
+  static String cachePath = "";
+
   Lyon1MailClient(final String username, final String password,
-      {String corsProxyUrl = ""}) {
+      {String corsProxyUrl = "", required String cachePath}) {
     _client = ImapClient(isLogEnabled: false);
     _smtpClient = SmtpClient("univ-lyon1.fr");
     _username = username;
@@ -26,6 +29,8 @@ class Lyon1MailClient {
       throw Exception("proxyUrl must end with /");
     }
     _corsProxyUrl = corsProxyUrl;
+    // ignore: prefer_initializing_formals
+    Lyon1MailClient.cachePath = cachePath;
   }
 
   Future<bool> login() async {
@@ -412,43 +417,66 @@ class Lyon1MailClient {
     await _client.createMailbox(name);
   }
 
-  Future<void> addAction(Action action, {bool autoDoAction = true}) async {
-    //TODO add action gestion with new hive
-    // Box<List<Action>> box = await Hive.openBox<List<Action>>("cached_0");
-    // List<Action> actionList = box.get("cache0") ?? [];
-    // if (!actionList.contains(action)) {
-    //   actionList.add(action);
-    //   await box.put("cache0", actionList);
-    //   if (autoDoAction) {
-    //     doActions();
-    //   }
-    // }
+  void addAction(Action action, {bool autoDoAction = true}) {
+    File file = File("$cachePath/Lis<Action>_0.data");
+    List<Action> actionList = [];
+    if (!file.existsSync()) {
+      file.createSync(recursive: true);
+    } else {
+      actionList = jsonDecode(file.readAsStringSync())
+          .map(
+              (e) => ActionMapper.fromJson(((e is String) ? jsonDecode(e) : e)))
+          .cast<Action>()
+          .toList();
+    }
+    if (!actionList.contains(action)) {
+      actionList.add(action);
+      file.writeAsStringSync(jsonEncode(actionList));
+      if (autoDoAction) {
+        doActions();
+      }
+    }
   }
 
-  Future<void> removeAction(Action action) async {
-    //TODO add action gestion with new hive
-    // Box<List<Action>> box = await Hive.openBox<List<Action>>("cached_0");
-    // List<Action> actionList = box.get("cache0") ?? [];
-    // while (actionList.contains(action)) {
-    //   actionList.remove(action);
-    // }
-    // await box.put("cache0", actionList);
+  void removeAction(Action action) {
+    File file = File("$cachePath/Lis<Action>_0.data");
+    List<Action> actionList = [];
+    if (!file.existsSync()) {
+      file.createSync(recursive: true);
+    } else {
+      actionList = jsonDecode(file.readAsStringSync())
+          .map(
+              (e) => ActionMapper.fromJson(((e is String) ? jsonDecode(e) : e)))
+          .cast<Action>()
+          .toList();
+    }
+    if (actionList.contains(action)) {
+      actionList.remove(action);
+      file.writeAsStringSync(jsonEncode(actionList));
+    }
   }
 
-  Future<void> cleanActions() async {
-    //TODO add action gestion with new hive
-    // await Hive.deleteBoxFromDisk("cached_0");
+  void cleanActions() {
+    File file = File("$cachePath/Lis<Action>_0.data");
+    if (file.existsSync()) {
+      file.deleteSync();
+    }
   }
 
-  Future<List<Action>> getActions() async {
-    //TODO add action gestion with new hive
-    // Box<List<Action>> box = await Hive.openBox<List<Action>>("cached_0");
-    // return List.from(box.get("cache0") ?? []);
-    return [];
+  List<Action> getActions() {
+    File file = File("$cachePath/Lis<Action>_0.data");
+    if (!file.existsSync()) {
+      file.createSync(recursive: true);
+      return [];
+    }
+    return jsonDecode(file.readAsStringSync())
+        .map((e) => ActionMapper.fromJson(((e is String) ? jsonDecode(e) : e)))
+        .cast<Action>()
+        .toList();
   }
 
   Future<void> doActions() async {
-    final List<Action> actions = await getActions();
+    final List<Action> actions = getActions();
     if (actions.isEmpty) return;
     for (Action action in actions) {
       if (action.fromMailBox != null) {

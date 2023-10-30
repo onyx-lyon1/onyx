@@ -76,7 +76,10 @@ class Mail with MailMappable {
     required this.receiver,
     required this.attachments,
     required this.isFlagged,
-  });
+  }){
+    attachmentsFiles = [];
+    rawMail = null;
+  }
 
   Mail.forSending({
     required this.subject,

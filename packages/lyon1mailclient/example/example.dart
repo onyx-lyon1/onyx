@@ -2,7 +2,7 @@ import 'package:lyon1mailclient/lyon1mailclient.dart';
 
 void main() async {
   final Lyon1MailClient mailClient =
-      Lyon1MailClient("p1234567", "a_valid_password");
+      Lyon1MailClient("p1234567", "a_valid_password", cachePath: "/tmp/onyx/cache");
 
   if (!await mailClient.login()) {
     // handle gracefully

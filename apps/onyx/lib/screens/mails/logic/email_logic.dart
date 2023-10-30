@@ -9,7 +9,7 @@ class MailLogic {
   static Future<Lyon1MailClient> connect(
       {required String username, required String password}) async {
     Lyon1MailClient mailClient = Lyon1MailClient(username, password,
-        corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
+        corsProxyUrl: (kIsWeb) ? Res.corsProxy : "", cachePath: CacheService.cachePath);
     if (Res.mock) {
       return mailClient;
     }
