@@ -20,8 +20,6 @@ class IzlyClient {
     Hive.registerAdapter(IzlyQrCodeAdapter());
     Hive.registerAdapter(IzlyQrCodeListAdapter());
     Hive.registerAdapter(MenuTypeAdapter());
-    Hive.registerAdapter(MenuRegimeAdapter());
-    Hive.registerAdapter(MenuCrousTypeAdapter());
     Hive.registerAdapter(PlatCrousAdapter());
     Hive.registerAdapter(MenuCrousAdapter());
     Hive.registerAdapter(CrousTypeAdapter());

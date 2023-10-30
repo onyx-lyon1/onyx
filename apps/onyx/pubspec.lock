@@ -420,11 +420,9 @@ packages:
   drag_and_drop_lists:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "7e964329f20c696801768fa6c054bd5325b74a75"
-      url: "https://github.com/onyx-lyon1/DragAndDropLists.git"
-    source: git
+      path: "/home/eymeric/tmp/DragAndDropLists"
+      relative: false
+    source: path
     version: "0.3.3"
   encrypt:
     dependency: "direct main"
@@ -741,10 +739,10 @@ packages:
     dependency: transitive
     description:
       name: geolocator_android
-      sha256: "93906636752ea4d4e778afa981fdfe7409f545b3147046300df194330044d349"
+      sha256: cf85c7d61c112cd9c50b97b85d6e91b337726005a986dbba6eba73bf7ed4168f
       url: "https://pub.dev"
     source: hosted
-    version: "4.3.1"
+    version: "4.3.3"
   geolocator_apple:
     dependency: transitive
     description:
@@ -924,10 +922,9 @@ packages:
   izlyclient:
     dependency: "direct main"
     description:
-      name: izlyclient
-      sha256: "4e244302fd418a7dc1632184679ac2338201dbbe94bb4637555818ce6f2ab247"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/izlyclient"
+      relative: true
+    source: path
     version: "1.0.6"
   js:
     dependency: transitive
@@ -988,34 +985,30 @@ packages:
   lyon1agendaclient:
     dependency: "direct main"
     description:
-      name: lyon1agendaclient
-      sha256: "77b7bad372d1e5b7002350b17f4cf3059e452d6db4616b05ded67c4bc31a33e9"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1agendaclient"
+      relative: true
+    source: path
     version: "1.0.7"
   lyon1casclient:
     dependency: "direct main"
     description:
-      name: lyon1casclient
-      sha256: "686fd85334e08cc51c14485b58efb94ebbaaff46ffa70d458a402d9eb9972276"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1casclient"
+      relative: true
+    source: path
     version: "1.0.6"
   lyon1mailclient:
     dependency: "direct main"
     description:
-      name: lyon1mailclient
-      sha256: a61b6da0a97c96d4ca5cd4f42b2c94ab8e16ab8627d3cbb23f4c9c9380e5816b
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1mailclient"
+      relative: true
+    source: path
     version: "1.0.7"
   lyon1tomussclient:
     dependency: "direct main"
     description:
-      name: lyon1tomussclient
-      sha256: e0d3785eb99196e52ae3b1fbcfaee770688142b4691d35f2ab0812f4e193a021
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../packages/lyon1tomussclient"
+      relative: true
+    source: path
     version: "1.0.7"
   matcher:
     dependency: transitive
@@ -1594,10 +1587,10 @@ packages:
     dependency: transitive
     description:
       name: uuid
-      sha256: "648e103079f7c64a36dc7d39369cabb358d377078a051d6ae2ad3aa539519313"
+      sha256: b715b8d3858b6fa9f68f87d20d98830283628014750c2b09b6f516c1da4af2a7
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.7"
+    version: "4.1.0"
   vector_math:
     dependency: transitive
     description:

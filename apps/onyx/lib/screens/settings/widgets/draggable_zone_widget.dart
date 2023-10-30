@@ -72,7 +72,8 @@ class DraggableZoneWidget extends StatelessWidget {
                   .toList())
         ];
         return DragAndDropLists(
-          listPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          listPadding:
+              const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           disableScrolling: true,
           itemDivider: const Divider(
             thickness: 2,
@@ -83,15 +84,16 @@ class DraggableZoneWidget extends StatelessWidget {
             verticalAlignment: DragHandleVerticalAlignment.top,
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: 5.w, vertical: ((!Res.isWide) ? 7.h : 7.h) - 5.h),
+                  horizontal: 5.w,
+                  vertical: ((!Res.isWide) ? 7.h : 7.h) - 5.h),
               child: Icon(
                 Icons.drag_indicator_rounded,
                 color: Theme.of(context).primaryColor,
               ),
             ),
           ),
-          itemSizeAnimationDurationMilliseconds: 200,
-          listSizeAnimationDurationMilliseconds: 200,
+          itemSizeAnimationDurationMilliseconds: Res.animationDuration.inMilliseconds,
+          listSizeAnimationDurationMilliseconds: Res.animationDuration.inMilliseconds,
           children: contents,
           lastListTargetSize: 0.0,
           onItemDraggingChanged: (DragAndDropItem item, bool isDragging) {
@@ -99,8 +101,8 @@ class DraggableZoneWidget extends StatelessWidget {
               context.read<SettingsCubit>().collapseAll();
             }
           },
-          onItemReorder: (int oldItemIndex, int oldListIndex, int newItemIndex,
-              int newListIndex) {
+          onItemReorder: (int oldItemIndex, int oldListIndex,
+              int newItemIndex, int newListIndex) {
             context.read<SettingsCubit>().move(
                 oldEnabled: oldListIndex == 0,
                 newEnabled: newListIndex == 0,

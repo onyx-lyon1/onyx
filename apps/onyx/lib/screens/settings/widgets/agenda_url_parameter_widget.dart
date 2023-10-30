@@ -6,9 +6,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaUrlParameterWidget extends StatelessWidget {
-  const AgendaUrlParameterWidget({super.key, required this.sizeUpdate});
-
-  final VoidCallback sizeUpdate;
+  const AgendaUrlParameterWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,6 @@ class AgendaUrlParameterWidget extends StatelessWidget {
       buildWhen: (previous, current) {
         if (previous.settings.fetchAgendaAuto !=
             current.settings.fetchAgendaAuto) {
-          WidgetsBinding.instance.addPostFrameCallback((_) => sizeUpdate());
         }
         return true;
       },

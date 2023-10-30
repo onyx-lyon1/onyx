@@ -86,7 +86,6 @@ extension FunctionalitiesExtention on Functionalities {
       case Functionalities.agenda:
         return AgendaSettingsWidget(
           key: key,
-          sizeUpdate: sizeUpdate!,
         );
       case Functionalities.mail:
         return MailSettingsWidget(

@@ -8,9 +8,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaSettingsWidget extends StatelessWidget {
-  const AgendaSettingsWidget({super.key, required this.sizeUpdate});
-  final VoidCallback sizeUpdate;
-
+  const AgendaSettingsWidget({super.key});
   @override
   Widget build(BuildContext context) {
     final settings = context.read<SettingsCubit>().state.settings;
@@ -183,7 +181,7 @@ class AgendaSettingsWidget extends StatelessWidget {
             ],
           ),
         ),
-        AgendaUrlParameterWidget(sizeUpdate: sizeUpdate),
+        const AgendaUrlParameterWidget(),
       ],
     );
   }
