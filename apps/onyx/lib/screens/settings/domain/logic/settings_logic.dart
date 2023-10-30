@@ -4,8 +4,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:izlyclient/izlyclient.dart';
-import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
@@ -39,13 +37,9 @@ class SettingsLogic {
   static void logout(BuildContext context) async {
     Res.mock = false;
     await context.read<AuthentificationCubit>().logout();
-    CacheService.reset<IzlyCredential>();
+    CacheService.resetAll();
     context.read<IzlyCubit>().disconnect();
     File("${CacheService.cachePath}/cached_izly_amount.data").deleteSync();
-    CacheService.reset<List<IzlyQrCode>>();
-    CacheService.reset<List<IzlyPaymentModel>>();
-    CacheService.reset<Lyon1CasClient>();
-    CacheService.reset<SettingsModel>();
     context.read<AgendaCubit>().resetCubit();
     context.read<IzlyCubit>().resetCubit();
     context.read<EmailCubit>().resetCubit();
