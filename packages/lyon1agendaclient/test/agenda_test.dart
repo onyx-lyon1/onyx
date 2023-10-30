@@ -21,7 +21,6 @@ void main() async {
       for (final Event event in day.events) {
         expect(event.start.runtimeType, equals(DateTime));
         expect(event.end.runtimeType, equals(DateTime));
-        expect(event.eventLastModified.runtimeType, equals(DateTime));
 
         expect(event.description, isNot(isEmpty));
         expect(event.description.contains("Exported"), equals(false));

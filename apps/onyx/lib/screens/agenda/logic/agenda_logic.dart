@@ -130,8 +130,7 @@ class AgendaLogic {
                       description: "",
                       name: menu.type.toString(),
                       start: start,
-                      end: end,
-                      eventLastModified: DateTime.now())));
+                      end: end)));
                   break;
                 }
               }
@@ -144,7 +143,7 @@ class AgendaLogic {
                   name: menu.type.toString(),
                   start: startLimit.add(const Duration(minutes: 1)),
                   end: endLimit.subtract(const Duration(minutes: 1)),
-                  eventLastModified: DateTime.now())));
+                  )));
             }
           }
         }
@@ -172,7 +171,7 @@ class AgendaLogic {
           name: "mockname1",
           start: DateTime(2022, 9, 1, 8),
           end: DateTime(2022, 9, 1, 9),
-          eventLastModified: DateTime(2022, 9, 1)),
+      ),
       Event(
           location: "Thémis",
           description: "mockDescription2",
@@ -180,7 +179,7 @@ class AgendaLogic {
           name: "mockname2",
           start: DateTime(2022, 9, 1, 9),
           end: DateTime(2022, 9, 1, 10),
-          eventLastModified: DateTime(2022, 9, 1)),
+          ),
       Event(
           location: "Nautibus",
           description: "mockDescription3",
@@ -188,7 +187,7 @@ class AgendaLogic {
           name: "mockname3",
           start: DateTime(2022, 9, 1, 10),
           end: DateTime(2022, 9, 1, 11),
-          eventLastModified: DateTime(2022, 9, 1)),
+          ),
     ]),
     Day(DateTime(2022, 9, 2), [
       Event(
@@ -198,7 +197,7 @@ class AgendaLogic {
           name: "mockname4",
           start: DateTime(2022, 9, 1, 11),
           end: DateTime(2022, 9, 1, 12),
-          eventLastModified: DateTime(2022, 9, 1)),
+          ),
       Event(
           location: "ISTIL",
           description: "mockDescription5",
@@ -206,7 +205,7 @@ class AgendaLogic {
           name: "mockname5",
           start: DateTime(2022, 9, 1, 12),
           end: DateTime(2022, 9, 1, 13),
-          eventLastModified: DateTime(2022, 9, 1)),
+          ),
       Event(
           location: "Forel",
           description: "mockDescription6",
@@ -214,7 +213,7 @@ class AgendaLogic {
           name: "mockname6",
           start: DateTime(2022, 9, 1, 13),
           end: DateTime(2022, 9, 1, 14),
-          eventLastModified: DateTime(2022, 9, 1)),
+          ),
     ]),
     Day(DateTime(2022, 9, 3), [
       Event(
@@ -224,7 +223,7 @@ class AgendaLogic {
           name: "mockname7",
           start: DateTime(2022, 9, 1, 14),
           end: DateTime(2022, 9, 1, 15),
-          eventLastModified: DateTime(2022, 9, 1)),
+          ),
       Event(
           location: "Thémis",
           description: "mockDescription8",
@@ -232,7 +231,7 @@ class AgendaLogic {
           name: "mockname8",
           start: DateTime(2022, 9, 1, 15),
           end: DateTime(2022, 9, 1, 16),
-          eventLastModified: DateTime(2022, 9, 1)),
+          ),
       Event(
           location: "Nautibus",
           description: "mockDescription9",
@@ -240,7 +239,7 @@ class AgendaLogic {
           name: "mockname9",
           start: DateTime(2022, 9, 1, 16),
           end: DateTime(2022, 9, 1, 17),
-          eventLastModified: DateTime(2022, 9, 1)),
+          ),
     ]),
     for (int i = 4; i < 300; i++)
       Day(

@@ -19,7 +19,7 @@ abstract class _$EventCWProxy {
 
   Event end(DateTime end);
 
-  Event eventLastModified(DateTime eventLastModified);
+  Event menuCrous(dynamic menuCrous);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Event(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -34,7 +34,7 @@ abstract class _$EventCWProxy {
     String? name,
     DateTime? start,
     DateTime? end,
-    DateTime? eventLastModified,
+    dynamic menuCrous,
   });
 }
 
@@ -63,8 +63,7 @@ class _$EventCWProxyImpl implements _$EventCWProxy {
   Event end(DateTime end) => this(end: end);
 
   @override
-  Event eventLastModified(DateTime eventLastModified) =>
-      this(eventLastModified: eventLastModified);
+  Event menuCrous(dynamic menuCrous) => this(menuCrous: menuCrous);
 
   @override
 
@@ -81,7 +80,7 @@ class _$EventCWProxyImpl implements _$EventCWProxy {
     Object? name = const $CopyWithPlaceholder(),
     Object? start = const $CopyWithPlaceholder(),
     Object? end = const $CopyWithPlaceholder(),
-    Object? eventLastModified = const $CopyWithPlaceholder(),
+    Object? menuCrous = const $CopyWithPlaceholder(),
   }) {
     return Event(
       location: location == const $CopyWithPlaceholder() || location == null
@@ -109,11 +108,10 @@ class _$EventCWProxyImpl implements _$EventCWProxy {
           ? _value.end
           // ignore: cast_nullable_to_non_nullable
           : end as DateTime,
-      eventLastModified: eventLastModified == const $CopyWithPlaceholder() ||
-              eventLastModified == null
-          ? _value.eventLastModified
+      menuCrous: menuCrous == const $CopyWithPlaceholder() || menuCrous == null
+          ? _value.menuCrous
           // ignore: cast_nullable_to_non_nullable
-          : eventLastModified as DateTime,
+          : menuCrous as dynamic,
     );
   }
 }
@@ -145,14 +143,13 @@ class EventAdapter extends TypeAdapter<Event> {
       name: fields[3] as String,
       start: fields[4] as DateTime,
       end: fields[5] as DateTime,
-      eventLastModified: fields[6] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, Event obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.location)
       ..writeByte(1)
@@ -164,9 +161,7 @@ class EventAdapter extends TypeAdapter<Event> {
       ..writeByte(4)
       ..write(obj.start)
       ..writeByte(5)
-      ..write(obj.end)
-      ..writeByte(6)
-      ..write(obj.eventLastModified);
+      ..write(obj.end);
   }
 
   @override

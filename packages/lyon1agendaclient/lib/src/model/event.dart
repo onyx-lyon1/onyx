@@ -20,8 +20,6 @@ class Event extends Equatable {
   late final DateTime start;
   @HiveField(5)
   late final DateTime end;
-  @HiveField(6)
-  late final DateTime eventLastModified;
 
   final dynamic menuCrous;
 
@@ -32,7 +30,6 @@ class Event extends Equatable {
     required this.name,
     required this.start,
     required this.end,
-    required this.eventLastModified,
     this.menuCrous,
   });
 
@@ -55,8 +52,6 @@ class Event extends Equatable {
         : "";
     start = DateTime.parse(eventJSON['dtstart']['dt']).toLocal();
     end = DateTime.parse(eventJSON['dtend']['dt']).toLocal();
-    eventLastModified =
-        DateTime.parse(eventJSON['lastModified']['dt']).toLocal();
   }
 
   @override
