@@ -22,7 +22,7 @@ class MailSendAutocompleteWidget extends StatelessWidget {
         if (!context.read<EmailCubit>().mailClient!.isAuthenticated) {
           Credential? creds = CacheService.get<Credential>(
               secureKey: await CacheService.getEncryptionKey(
-                  context.read<SettingsCubit>().state.settings.biometricAuth));
+                  context.read<SettingsCubit>().state.settings.biometricAuth), permanent: true);
           if (creds != null) {
             // ignore: use_build_context_synchronously
             context

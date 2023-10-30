@@ -78,7 +78,7 @@ Device.pixelRatio : ${Device.pixelRatio}
                     .then(
                   (key) {
                     Credential creds =
-                        CacheService.get<Credential>(secureKey: key)!;
+                        CacheService.get<Credential>(secureKey: key, permanent: true)!;
                     context.read<EmailCubit>().connect(
                           username: creds.username,
                           password: creds.password,

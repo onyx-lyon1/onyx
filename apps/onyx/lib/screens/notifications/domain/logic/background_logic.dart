@@ -29,7 +29,7 @@ Future<bool> backgroundLogic({bool init = true}) async {
     Lyon1CasClient lyon1Cas = Lyon1CasClient();
     var result = await lyon1Cas.authenticate(
         (CacheService.get<Credential>(
-            secureKey: await CacheService.getEncryptionKey(false)))!);
+            secureKey: await CacheService.getEncryptionKey(false), permanent: true))!);
     if (!result.authResult) return false;
     await tomussNotificationLogic(settings, lyon1Cas);
     await emailNotificationLogic(settings);

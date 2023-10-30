@@ -38,6 +38,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
       CacheService.set<Credential>(
         Credential("mockUsername", "mockPassword"),
         secureKey: await CacheService.getEncryptionKey(settings.biometricAuth),
+        permanent: true
       );
       _lyon1Cas.isAuthenticated = true;
       emit(state.copyWith(
@@ -49,7 +50,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
       emit(state.copyWith(status: AuthentificationStatus.waitingBiometric));
     }
     String key = await CacheService.getEncryptionKey(settings.biometricAuth);
-    creds ??= CacheService.get<Credential>(secureKey: key);
+    creds ??= CacheService.get<Credential>(secureKey: key, permanent: true);
     if (creds == null) {
       emit(state.copyWith(status: AuthentificationStatus.needCredential));
       return;
@@ -71,6 +72,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
         CacheService.set<Credential>(
           auth.credential,
           secureKey: key,
+          permanent: true
         );
       } catch (e) {
         Res.logger.e(e);

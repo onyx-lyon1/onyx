@@ -15,7 +15,7 @@ Future<void> emailNotificationLogic(SettingsModel settings) async {
           .emails;
 
       Credential creds = (CacheService.get<Credential>(
-          secureKey: await CacheService.getEncryptionKey(false)))!;
+          secureKey: await CacheService.getEncryptionKey(false), permanent: true))!;
       Lyon1MailClient mail = await MailLogic.connect(
           username: creds.username, password: creds.password);
       List<Mail> newMails = (await MailLogic.load(

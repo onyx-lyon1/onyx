@@ -98,23 +98,23 @@ class IzlyLogic {
 
   static void addRestaurantToFavourite(RestaurantModel restaurant) {
     List<RestaurantModel> restaurants =
-        CacheService.get<List<RestaurantModel>>() ?? [];
+        CacheService.get<List<RestaurantModel>>(permanent: true) ?? [];
     if (!restaurants.any((element) => element.id == restaurant.id)) {
       restaurants.add(restaurant);
-      CacheService.set<List<RestaurantModel>>(restaurants);
+      CacheService.set<List<RestaurantModel>>(restaurants, permanent: true);
     }
   }
 
   static void removeRestaurantToFavourite(RestaurantModel restaurant) {
     List<RestaurantModel> restaurants =
-        CacheService.get<List<RestaurantModel>>() ?? [];
+        CacheService.get<List<RestaurantModel>>(permanent: true) ?? [];
     restaurants.removeWhere((element) => element.id == restaurant.id);
-    CacheService.set<List<RestaurantModel>>(restaurants);
+    CacheService.set<List<RestaurantModel>>(restaurants, permanent: true);
   }
 
   static bool isRestaurantFavourite(RestaurantModel restaurant) {
     List<RestaurantModel> restaurants =
-        CacheService.get<List<RestaurantModel>>() ?? [];
+        CacheService.get<List<RestaurantModel>>(permanent: true) ?? [];
     return restaurants.any((element) => element.id == restaurant.id);
   }
 

@@ -55,7 +55,7 @@ class MailsPage extends StatelessWidget {
           case MailStatus.initial:
             CacheService.getEncryptionKey(
                     context.read<SettingsCubit>().state.settings.biometricAuth)
-                .then((key) => CacheService.get<Credential>(secureKey: key))
+                .then((key) => CacheService.get<Credential>(secureKey: key, permanent: true))
                 .then((value) => context.read<EmailCubit>().connect(
                     username: value!.username, password: value.password));
 
