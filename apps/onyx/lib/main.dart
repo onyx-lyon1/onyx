@@ -25,7 +25,7 @@ void main() async {
 
   await FlutterMapTileCaching.initialise();
   await FMTC.instance('mapStore').manage.createAsync();
-  await cacheInit();
+  cacheInit();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:izlyclient/izlyclient.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
@@ -7,7 +9,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:path_provider/path_provider.dart';
 
-Future<void> cacheInit({String? cachePath, String? permanentPath}) async {
+void cacheInit({String? cachePath, String? permanentPath}) {
   CacheService.registerAdapter<SettingsModel>(SettingsModelMapper.fromJson);
 
   CacheService.registerAdapter<IzlyCredential>(IzlyCredentialMapper.fromJson);
@@ -21,7 +23,6 @@ Future<void> cacheInit({String? cachePath, String? permanentPath}) async {
   CacheService.registerAdapter<Enumeration>(EnumerationMapper.fromJson);
   CacheService.registerAdapter<Grade>(GradeMapper.fromJson);
   CacheService.registerAdapter<Presence>(PresenceMapper.fromJson);
-  // CacheService.registerAdapter<>( ,PresenceColorMapper.);
   CacheService.registerAdapter<Semester>(SemesterMapper.fromJson);
   CacheService.registerAdapter<StageCode>(StageCodeMapper.fromJson);
   CacheService.registerAdapter<Teacher>(TeacherMapper.fromJson);
