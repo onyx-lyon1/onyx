@@ -52,7 +52,7 @@ class SettingsModel with SettingsModelMappable {
     this.calendarUpdateNotification = true,
     this.agendaId,
     this.newMailNotification = true,
-    this.blockTrackers = true,
+    this.blockTrackers = false,
     this.forcedMailTheme = true,
     this.shownAgendaPopup = false,
     this.enabledFunctionalities = const [

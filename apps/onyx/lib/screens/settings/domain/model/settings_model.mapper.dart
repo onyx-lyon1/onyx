@@ -57,7 +57,7 @@ class SettingsModelMapper extends ClassMapperBase<SettingsModel> {
       Field('newMailNotification', _$newMailNotification, opt: true, def: true);
   static bool _$blockTrackers(SettingsModel v) => v.blockTrackers;
   static const Field<SettingsModel, bool> _f$blockTrackers =
-      Field('blockTrackers', _$blockTrackers, opt: true, def: true);
+      Field('blockTrackers', _$blockTrackers, opt: true, def: false);
   static bool _$forcedMailTheme(SettingsModel v) => v.forcedMailTheme;
   static const Field<SettingsModel, bool> _f$forcedMailTheme =
       Field('forcedMailTheme', _$forcedMailTheme, opt: true, def: true);
