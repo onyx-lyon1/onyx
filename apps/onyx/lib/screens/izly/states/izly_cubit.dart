@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/domain/model/settings_model.dart';
 
 part 'izly_state.dart';
+part 'izly_cubit.mapper.dart';
 
 class IzlyCubit extends Cubit<IzlyState> {
   IzlyClient? _izlyClient;

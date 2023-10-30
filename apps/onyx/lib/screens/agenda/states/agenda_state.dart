@@ -1,18 +1,29 @@
 part of 'agenda_cubit.dart';
 
+@MappableEnum()
 enum AgendaStatus {
+  @MappableValue(000)
   initial,
+  @MappableValue(100)
   loading,
+  @MappableValue(200)
   ready,
+  @MappableValue(300)
   cacheReady,
+  @MappableValue(400)
   dateUpdated,
+  @MappableValue(500)
   error,
+  @MappableValue(600)
   haveToChooseManualy,
+  @MappableValue(700)
   updateDayCount,
+  @MappableValue(800)
   updateAnimating,
 }
 
-class AgendaState {
+@MappableClass()
+class AgendaState with AgendaStateMappable{
   AgendaStatus status;
   List<Day> realDays;
   int wantedDate;
@@ -22,19 +33,6 @@ class AgendaState {
     this.realDays = const [],
     required this.wantedDate,
   });
-
-  AgendaState copyWith({
-    AgendaStatus? status,
-    List<Day>? realDays,
-    int? wantedDate,
-  }) {
-    return AgendaState(
-      status: status ?? this.status,
-      realDays: realDays ?? this.realDays,
-      wantedDate: wantedDate ?? this.wantedDate,
-    );
-  }
-
   int getDayIndex(
       {required DateTime date,
       required SettingsModel settings,

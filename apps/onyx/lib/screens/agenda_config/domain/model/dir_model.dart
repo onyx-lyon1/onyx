@@ -1,4 +1,13 @@
-class DirModel {
+import 'package:dart_mappable/dart_mappable.dart';
+
+part 'dir_model.mapper.dart';
+
+@MappableClass(
+    generateMethods: GenerateMethods.equals |
+        GenerateMethods.stringify |
+        GenerateMethods.encode |
+        GenerateMethods.copy)
+class DirModel with DirModelMappable {
   final String name;
   final int identifier;
   final List<DirModel>? children;
@@ -17,21 +26,4 @@ class DirModel {
             : (json['children'] as List<dynamic>)
                 .map((e) => DirModel.fromJson(e))
                 .toList();
-
-  @override
-  String toString() {
-    return 'DirModel{name: $name}';
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is DirModel &&
-          runtimeType == other.runtimeType &&
-          name == other.name &&
-          identifier == other.identifier &&
-          children == other.children;
-
-  @override
-  int get hashCode => name.hashCode ^ identifier.hashCode ^ children.hashCode;
 }

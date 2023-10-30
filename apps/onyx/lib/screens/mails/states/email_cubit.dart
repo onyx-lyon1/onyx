@@ -1,3 +1,4 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
@@ -7,6 +8,7 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'email_state.dart';
+part 'email_cubit.mapper.dart';
 
 class EmailCubit extends Cubit<EmailState> {
   Lyon1MailClient? mailClient;

@@ -1,17 +1,27 @@
 part of 'izly_cubit.dart';
 
+@MappableEnum()
 enum IzlyStatus {
+  @MappableValue(000)
   initial,
+  @MappableValue(100)
   connecting,
+  @MappableValue(200)
   connected,
+  @MappableValue(300)
   loading,
+  @MappableValue(400)
   loaded,
+  @MappableValue(500)
   cacheLoaded,
+  @MappableValue(600)
   error,
+  @MappableValue(700)
   noCredentials
 }
 
-class IzlyState {
+@MappableClass()
+class IzlyState with IzlyStateMappable {
   IzlyStatus status;
   IzlyClient? izlyClient;
   double balance;
@@ -27,22 +37,4 @@ class IzlyState {
     this.qrCodeAvailables = 0,
     this.paymentList = const [],
   });
-
-  IzlyState copyWith({
-    IzlyStatus? status,
-    double? balance,
-    List<int>? qrCode,
-    IzlyClient? izlyClient,
-    int? qrCodeAvailables,
-    List<IzlyPaymentModel>? paymentList,
-  }) {
-    return IzlyState(
-      status: status ?? this.status,
-      balance: balance ?? this.balance,
-      qrCode: qrCode ?? this.qrCode,
-      izlyClient: izlyClient ?? this.izlyClient,
-      qrCodeAvailables: qrCodeAvailables ?? this.qrCodeAvailables,
-      paymentList: paymentList ?? this.paymentList,
-    );
-  }
 }

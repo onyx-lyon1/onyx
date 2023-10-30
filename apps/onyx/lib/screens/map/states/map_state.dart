@@ -1,8 +1,19 @@
 part of 'map_cubit.dart';
 
-enum MapStatus { initial, batimentsUpdated, loading, error }
+@MappableEnum()
+enum MapStatus {
+  @MappableValue(000)
+  initial,
+  @MappableValue(100)
+  batimentsUpdated,
+  @MappableValue(200)
+  loading,
+  @MappableValue(300)
+  error
+}
 
-class MapState {
+@MappableClass()
+class MapState with MapStateMappable{
   final MapStatus status;
   final List<BatimentModel> batiments;
   final List<RestaurantModel> restaurant;
@@ -16,45 +27,4 @@ class MapState {
     this.restaurant = const [],
     this.geolocationAutorisation = false,
   });
-
-  MapState copyWith({
-    MapStatus? status,
-    List<BatimentModel>? batiments,
-    List<LatLng>? path,
-    List<RestaurantModel>? restaurant,
-    bool? geolocationAutorisation,
-  }) {
-    return MapState(
-      status: status ?? this.status,
-      batiments: batiments ?? this.batiments,
-      path: path ?? this.path,
-      restaurant: restaurant ?? this.restaurant,
-      geolocationAutorisation:
-          geolocationAutorisation ?? this.geolocationAutorisation,
-    );
-  }
-
-  @override
-  String toString() {
-    return 'MapState{status: $status, batiments: $batiments, restaurant: $restaurant, path: $path, geolocationAutorisation: $geolocationAutorisation}';
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MapState &&
-          runtimeType == other.runtimeType &&
-          status == other.status &&
-          listEquals(batiments, other.batiments) &&
-          listEquals(path, other.path) &&
-          listEquals(restaurant, other.restaurant) &&
-          geolocationAutorisation == other.geolocationAutorisation;
-
-  @override
-  int get hashCode =>
-      status.hashCode ^
-      batiments.hashCode ^
-      restaurant.hashCode ^
-      path.hashCode ^
-      geolocationAutorisation.hashCode;
 }
