@@ -138,7 +138,8 @@ class CacheService {
       List<FileSystemEntity> files = directory.listSync();
       files = files
           .where((element) =>
-              element.path.contains("") && element.path.endsWith(".data"))
+              element.path.contains("") &&
+              (element.path.endsWith(".data") || element.path.endsWith(".iv")))
           .toList();
       for (var element in files) {
         element.deleteSync();
@@ -149,7 +150,8 @@ class CacheService {
       List<FileSystemEntity> files = directory.listSync();
       files = files
           .where((element) =>
-              element.path.contains("") && element.path.endsWith(".data"))
+              element.path.contains("") &&
+              (element.path.endsWith(".data") || element.path.endsWith(".iv")))
           .toList();
       for (var element in files) {
         element.deleteSync();
