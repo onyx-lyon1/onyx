@@ -87,7 +87,7 @@ class TomussLogic {
     if (Res.mock) {
       return teachingUnitsModelListMock;
     }
-    await hiveInit(path: path);
+    await hiveInit(cachePath: path);
     if (CacheService.exist<List<Semester>>()) {
       return (CacheService.get<List<Semester>>())!;
     } else {

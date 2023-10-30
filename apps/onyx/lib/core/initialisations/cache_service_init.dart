@@ -6,7 +6,7 @@ import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
-Future<void> hiveInit({String? path}) async {
+Future<void> hiveInit({String? cachePath, String? permanentPath}) async {
   CacheService.registerAdapter<SettingsModel>(SettingsModelMapper.fromJson);
 
   CacheService.registerAdapter<IzlyCredential>(IzlyCredentialMapper.fromJson);

@@ -5,6 +5,8 @@ import 'package:biometric_storage/biometric_storage.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:onyx/core/res.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path_provider_android/path_provider_android.dart';
+import 'package:path_provider_ios/path_provider_ios.dart';
 
 class CacheService {
   static String? _secureKey;
