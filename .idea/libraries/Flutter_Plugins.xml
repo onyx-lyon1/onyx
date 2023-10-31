@@ -43,7 +43,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_windows-3.0.8" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_local_notifications-16.1.0" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/pasteboard-0.2.0" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/geolocator_android-4.3.3" />
+      <root url="file://$USER_HOME$/.pub-cache/git/flutter-geolocator-57a41d89b75fa0fe41c3dbc955cc864703551cab/geolocator_android" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
