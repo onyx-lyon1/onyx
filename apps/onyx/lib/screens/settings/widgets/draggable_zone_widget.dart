@@ -23,14 +23,13 @@ class DraggableZoneWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               contentsWhenEmpty: const SizedBox.shrink(),
-              header: const Padding(
+              header: Padding(
                 padding: EdgeInsets.only(
-                  top: 15.0,
-                  left: 15,
-                  right: 15,
-                  bottom: 5,
+                  top: 2.h,
+                  left: 4.w,
+                  bottom: 0.8.h,
                 ),
-                child: Text(
+                child: const Text(
                   'Activé',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
@@ -41,7 +40,7 @@ class DraggableZoneWidget extends StatelessWidget {
                   .state
                   .settings
                   .enabledFunctionalities
-                  .map((e) => screenSettingsDragAndDropItem(e))
+                  .map((e) => screenSettingsDragAndDropItem( e))
                   .toList()),
           DragAndDropList(
               canDrag: false,
@@ -50,19 +49,17 @@ class DraggableZoneWidget extends StatelessWidget {
                 color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              header: const Padding(
+              header: Padding(
                 padding: EdgeInsets.only(
-                  top: 15.0,
-                  left: 15,
-                  right: 15,
-                  bottom: 5,
+                  top: 2.h,
+                  left: 4.w,
+                  bottom: 0.8.h,
                 ),
-                child: Text(
+                child: const Text(
                   'Désactivé',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
-              horizontalAlignment: MainAxisAlignment.center,
               children: context
                   .read<SettingsCubit>()
                   .state
@@ -72,44 +69,44 @@ class DraggableZoneWidget extends StatelessWidget {
                   .toList())
         ];
         return DragAndDropLists(
-          listPadding:
-              const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          listPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.5.h),
           disableScrolling: true,
           itemDivider: const Divider(
-            thickness: 2,
-            height: 2,
+            height: 4,
             color: Colors.transparent,
           ),
+          lastListTargetSize: 0.0,
           itemDragHandle: DragHandle(
             verticalAlignment: DragHandleVerticalAlignment.top,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 5.w,
-                  vertical: ((!Res.isWide) ? 7.h : 7.h) - 5.h),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              margin: EdgeInsets.only(top: 2.609603340292276.h - 13.5), //just don't know how to center this
               child: Icon(
                 Icons.drag_indicator_rounded,
+                size: 27,
                 color: Theme.of(context).primaryColor,
               ),
             ),
           ),
-          itemSizeAnimationDurationMilliseconds: Res.animationDuration.inMilliseconds,
-          listSizeAnimationDurationMilliseconds: Res.animationDuration.inMilliseconds,
+          itemSizeAnimationDurationMilliseconds:
+              Res.animationDuration.inMilliseconds,
+          listSizeAnimationDurationMilliseconds:
+              Res.animationDuration.inMilliseconds,
           children: contents,
-          lastListTargetSize: 0.0,
           onItemDraggingChanged: (DragAndDropItem item, bool isDragging) {
             if (isDragging) {
               context.read<SettingsCubit>().collapseAll();
             }
           },
-          onItemReorder: (int oldItemIndex, int oldListIndex,
-              int newItemIndex, int newListIndex) {
+          onItemReorder: (int oldItemIndex, int oldListIndex, int newItemIndex,
+              int newListIndex) {
             context.read<SettingsCubit>().move(
                 oldEnabled: oldListIndex == 0,
                 newEnabled: newListIndex == 0,
                 oldIndex: oldItemIndex,
                 newIndex: newItemIndex);
           },
-          onListReorder: (int oldListIndex, int newListIndex) {},
+          onListReorder: (_, __) {},
         );
       },
     );

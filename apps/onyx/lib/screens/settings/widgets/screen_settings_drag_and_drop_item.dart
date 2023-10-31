@@ -35,7 +35,6 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
         child: ExpansionTile(
           onExpansionChanged: (bool b) => isExpandedController.add(b),
           initiallyExpanded: false,
-          maintainState: false,
           trailing: const SizedBox.shrink(),
           leading: StreamBuilder(
               stream: isExpandedController.stream,
