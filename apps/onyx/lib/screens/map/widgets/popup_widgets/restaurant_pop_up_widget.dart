@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
@@ -83,20 +84,25 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
   List<DateTime> dates = [];
   int currentDateIndex = 0;
   List<MenuCrous>? menus;
+  late PageController menuController;
+  late PageController dateController;
+  bool fromDate = false;
+  bool fromMenu = false;
 
   @override
   void initState() {
     dates = widget.element.menus.map((e) => e.date).toList();
     dates.sort((a, b) => a.compareTo(b));
+    currentDateIndex = 0;
     for (int i = 0; i < dates.length; i++) {
       if (!dates[i].shrink(3).isBefore(DateTime.now().shrink(3))) {
         currentDateIndex = i;
         break;
       }
     }
-    menus = widget.element.menus
-        .where((element) => element.date.isSameDay(dates[currentDateIndex]))
-        .toList();
+
+    menuController = PageController(initialPage: currentDateIndex);
+    dateController = PageController(initialPage: currentDateIndex);
     super.initState();
   }
 
@@ -149,48 +155,124 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        setState(() {
-                          if (currentDateIndex > 0) {
-                            currentDateIndex--;
-                            menus = widget.element.menus
-                                .where((element) => element.date
-                                    .isSameDay(dates[currentDateIndex]))
-                                .toList();
-                          }
-                        });
+                        if (currentDateIndex > 0) {
+                          currentDateIndex--;
+                          fromDate = true;
+                          fromMenu = true;
+                          dateController.animateToPage(
+                            currentDateIndex,
+                            duration: Res.animationDuration,
+                            curve: Curves.easeIn,
+                          );
+                          menuController.animateToPage(
+                            currentDateIndex,
+                            duration: Res.animationDuration,
+                            curve: Curves.easeIn,
+                          );
+                          Future.delayed(Res.animationDuration, () {
+                            fromDate = false;
+                            fromMenu = false;
+                          });
+                        }
                       },
                       icon: const Icon(Icons.arrow_back_ios_rounded),
                     ),
                     Expanded(
-                      child: Center(
-                        child: Text(dates[currentDateIndex].dateBeautifull()),
+                      child: SizedBox(
+                        height: 5.h,
+                        child: PageView(
+                          controller: dateController,
+                          onPageChanged: (i) async {
+                            if (!fromMenu) {
+                              currentDateIndex = i;
+                              fromDate = true;
+                              await menuController.animateToPage(
+                                currentDateIndex,
+                                duration: Res.animationDuration,
+                                curve: Curves.easeIn,
+                              );
+                              fromDate = false;
+                            }
+                          },
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            for (var d in dates)
+                              Center(
+                                child: Text(d.dateBeautifull()),
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                     IconButton(
                       onPressed: () {
-                        setState(() {
-                          if (currentDateIndex < dates.length - 1) {
-                            currentDateIndex++;
-                            menus = widget.element.menus
-                                .where((element) => element.date
-                                    .isSameDay(dates[currentDateIndex]))
-                                .toList();
-                          }
-                        });
+                        if (currentDateIndex < dates.length - 1) {
+                          currentDateIndex++;
+                          fromDate = true;
+                          fromMenu = true;
+                          dateController.animateToPage(
+                            currentDateIndex,
+                            duration: Res.animationDuration,
+                            curve: Curves.easeIn,
+                          );
+                          menuController.animateToPage(
+                            currentDateIndex,
+                            duration: Res.animationDuration,
+                            curve: Curves.easeIn,
+                          );
+                          Future.delayed(Res.animationDuration, () {
+                            fromDate = false;
+                            fromMenu = false;
+                          });
+                        }
                       },
                       icon: const Icon(Icons.arrow_forward_ios_rounded),
                     ),
                   ],
                 ),
-                if (menus != null)
+                if (widget.element.menus.isNotEmpty)
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          for (MenuCrous menuCrous in menus!)
-                            MenuWidget(menuCrous: menuCrous),
-                        ],
-                      ),
+                    child: PageView(
+                      controller: menuController,
+                      onPageChanged: (i) async {
+                        if (!fromDate) {
+                          currentDateIndex = i;
+                          fromMenu = true;
+                          await dateController.animateToPage(
+                            currentDateIndex,
+                            duration: Res.animationDuration,
+                            curve: Curves.easeIn,
+                          );
+                          fromMenu = false;
+                        }
+                      },
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        for (var d in dates)
+                          SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                for (MenuCrous menuCrous in widget.element.menus
+                                    .where(
+                                        (element) => element.date.isSameDay(d))
+                                    .toList())
+                                  MenuWidget(menuCrous: menuCrous),
+                              ],
+                            ),
+                          ),
+                      ],
+                      // builder: (context) {
+                      //   return Expanded(
+                      //     child: SingleChildScrollView(
+                      //       child: Column(
+                      //         children: [
+                      //           for (MenuCrous menuCrous in menus!)
+                      //             MenuWidget(menuCrous: menuCrous),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   );
+                      // }
                     ),
                   ),
               ],
