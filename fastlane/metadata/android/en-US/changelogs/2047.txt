@@ -1,0 +1,11 @@
+New Features
+
+    DIsplayed rooms on agenda
+
+Bug fixes
+
+    Fixed a lot of typos
+    Fixed some UI glitches
+    Fixed a lot of various minor bugs
+    More Tomuss fixes...
+

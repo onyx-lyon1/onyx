@@ -1,0 +1,14 @@
+Tous les services de Lyon 1 nécessaires au quotidien réunis dans une application cross-plateforme, légère et moderne.
+
+- Vos emails universitaires, accessibles par tout, tout le temps. Recevez et envoyez des emails depuis Onyx. Marquez les plus importants, supprimez les autres. 
+
+- Vos notes Tomuss dans une nouvelle présentation plus claire et moderne. Ajoutez vos propres coefficients à chaque note pour créer une moyenne représentative des conditions de validation de l'année pour chaque unité d'enseignement.
+
+- Votre emploi du temps universitaire synchronisé. Avec une carte intégrée pour trouver cet amphi que personne ne connaît, rapidement. Laissez Onyx vous prévenir des modifications qui ont été apportées à votre emploi du temps dans les jours à venir pour ne pas vous laisser surprendre.
+
+- Une carte du campus, avec uniquement les informations les plus importantes, entièrement locale et fonctionnant hors connexion.
+
+- Izly. Payez avec les QR codes, même sans connexion. Pensez simplement à recharger votre compte avant, ou à demander à quelqu'un de le faire pour vous, là aussi directement depuis l'application.
+
+Essayez, c'est open-source !  Onyx est une application faite pour les étudiants, par les étudiants.
+

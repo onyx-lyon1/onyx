@@ -1,0 +1,13 @@
+All the Lyon 1 services you need on a daily basis, in a lightweight, modern cross-platform application.
+
+- Your university emails, accessible everywhere, anytime. Receive and send emails from Onyx. Flag the most important ones, delete the others. 
+
+- Your Tomuss grades in a new, clearer and modern presentation. Add your own coefficients to each grade to create an average representative of the year's validation conditions for each teaching unit.
+
+- Your synchronized university schedule. With an integrated map to find that lecture hall nobody knows about, fast. Let Onyx warn you of changes to your schedule in the coming days, so you don't get caught out.
+
+- A map of the campus, with only the most important information, entirely local and functional offline.
+
+- Izly. Pay with QR codes, even without a connection. Just remember to refill your account first, or ask someone to do it for you, again directly from the app.
+
+Try it, it's open-source!  Onyx is an application made for students, by students.
