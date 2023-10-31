@@ -85,6 +85,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
                   const DraggableZoneWidget(),
+                  SizedBox(height: 1.5.h,),
                   SettingsCardWidget(
                     name: 'Connexion',
                     widgets: [

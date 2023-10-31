@@ -40,7 +40,7 @@ class DraggableZoneWidget extends StatelessWidget {
                   .state
                   .settings
                   .enabledFunctionalities
-                  .map((e) => screenSettingsDragAndDropItem( e))
+                  .map((e) => screenSettingsDragAndDropItem(e))
                   .toList()),
           DragAndDropList(
               canDrag: false,
@@ -69,10 +69,15 @@ class DraggableZoneWidget extends StatelessWidget {
                   .toList())
         ];
         return DragAndDropLists(
-          listPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.5.h),
+          listPadding: EdgeInsets.symmetric(horizontal: 4.w),
           disableScrolling: true,
           itemDivider: const Divider(
             height: 4,
+            color: Colors.transparent,
+          ),
+          listDividerOnLastChild: false,
+          listDivider: Divider(
+            height: 3.h,
             color: Colors.transparent,
           ),
           lastListTargetSize: 0.0,
@@ -80,7 +85,8 @@ class DraggableZoneWidget extends StatelessWidget {
             verticalAlignment: DragHandleVerticalAlignment.top,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 5.w),
-              margin: EdgeInsets.only(top: 2.609603340292276.h - 13.5), //just don't know how to center this
+              margin: EdgeInsets.only(top: 2.609603340292276.h - 13.5),
+              //just don't know how to center this
               child: Icon(
                 Icons.drag_indicator_rounded,
                 size: 27,
