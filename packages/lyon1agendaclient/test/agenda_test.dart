@@ -12,7 +12,7 @@ void main() async {
 
     final Lyon1AgendaClient agendaClient =
         Lyon1AgendaClient(AgendaURL(Lyon1CasClient()));
-    final Agenda? agendaOpt = await agendaClient.getAgenda(id: icalId);
+    final Agenda? agendaOpt = await agendaClient.getAgenda(ids: [icalId]);
 
     expect(agendaOpt == null, equals(false));
 

@@ -33,8 +33,8 @@ class SettingsModel extends Equatable {
   final bool showMiniCalendar;
   @HiveField(7)
   final bool calendarUpdateNotification;
-  @HiveField(8)
-  final int? agendaId;
+  @HiveField(8, defaultValue: [])
+  final List<int> agendaIds;
   @HiveField(19, defaultValue: 5)
   final int agendaWeekLength;
   @HiveField(20, defaultValue: 0)
@@ -84,7 +84,7 @@ class SettingsModel extends Equatable {
     this.fetchAgendaAuto = true,
     this.showMiniCalendar = true,
     this.calendarUpdateNotification = true,
-    this.agendaId,
+    this.agendaIds = const [],
     this.newMailNotification = true,
     this.blockTrackers = true,
     this.forcedMailTheme = true,
@@ -117,7 +117,7 @@ class SettingsModel extends Equatable {
         fetchAgendaAuto,
         showMiniCalendar,
         calendarUpdateNotification,
-        agendaId,
+        agendaIds,
         newMailNotification,
         blockTrackers,
         forcedMailTheme,

@@ -94,13 +94,13 @@ class AgendaSelectionWidget extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => SafeArea(
                           child: AgendaConfigPage(
-                            onBack: (index) {
+                            onBack: (List<int> ids) {
                               context.read<SettingsCubit>().modify(
                                   settings: context
                                       .read<SettingsCubit>()
                                       .state
                                       .settings
-                                      .copyWith(agendaId: index));
+                                      .copyWith(agendaIds: ids));
                               Navigator.pop(context);
                             },
                           ),

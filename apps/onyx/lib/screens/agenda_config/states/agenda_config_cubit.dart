@@ -8,15 +8,12 @@ import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 part 'agenda_config_state.dart';
 
 class AgendaConfigCubit extends Cubit<AgendaConfigState> {
-  final Function(int backIndex) onBack;
+  final Function(List<int> backIndexs) onBack;
   List<DirModel> dirs = [];
 
   AgendaConfigCubit({required this.onBack})
       : super(AgendaConfigState(
-            choosedId: 0,
-            dirs: [],
-            error: '',
-            status: AgendaConfigStatus.initial));
+            dirs: [], error: '', status: AgendaConfigStatus.initial));
 
   void loadDirs() async {
     emit(state.copyWith(status: AgendaConfigStatus.loading));
@@ -90,12 +87,38 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
     }
   }
 
-  void chooseDir(int id) {
-    onBack(id);
+  void toggleChooseDir(DirModel dir, {bool collapse = true}) {
+    if (collapse) {
+      //remove all expanded dirs after this dir
+      bool found = false;
+      for (var i = 0; i < state.expandedDirs.length && !found; i++) {
+        if (state.expandedDirs[i].children?.contains(dir) ?? false) {
+          found = true;
+          for (var j = i + 1; j < state.expandedDirs.length; j++) {
+            collapseDir(state.expandedDirs[j]);
+          }
+        }
+      }
+      if (!found) {
+        for (var i = 0; i < state.expandedDirs.length; i++) {
+          collapseDir(state.expandedDirs[i]);
+        }
+      }
+    }
+    List<int> choosedIds = List.from(state.choosedIds);
+    if (choosedIds.contains(dir.identifier)) {
+      choosedIds.remove(dir.identifier);
+      emit(state.copyWith(
+          choosedIds: choosedIds, status: AgendaConfigStatus.choosed));
+    } else {
+      emit(state.copyWith(
+          choosedIds: state.choosedIds + [dir.identifier],
+          status: AgendaConfigStatus.choosed));
+    }
   }
 
   void resetCubit() {
     emit(AgendaConfigState(
-        choosedId: 0, dirs: [], error: '', status: AgendaConfigStatus.initial));
+        dirs: [], error: '', status: AgendaConfigStatus.initial));
   }
 }

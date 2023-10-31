@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 /// don't forget to add NeverScrollableScrollPhysics() to all the scrollable widgets
-class DoubleScrollableWidget extends StatefulWidget {
-  const DoubleScrollableWidget(
+class MultiScrollableWidget extends StatefulWidget {
+  const MultiScrollableWidget(
       {super.key,
       required this.pageController,
       required this.listScrollController,
@@ -14,10 +14,10 @@ class DoubleScrollableWidget extends StatefulWidget {
   final Widget child;
 
   @override
-  State<DoubleScrollableWidget> createState() => _DoubleScrollableWidgetState();
+  State<MultiScrollableWidget> createState() => _MultiScrollableWidgetState();
 }
 
-class _DoubleScrollableWidgetState extends State<DoubleScrollableWidget> {
+class _MultiScrollableWidgetState extends State<MultiScrollableWidget> {
   late ScrollController _activeScrollController;
   Drag? _drag;
 

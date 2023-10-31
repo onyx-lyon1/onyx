@@ -55,10 +55,10 @@ class AgendaPage extends StatelessWidget {
                 case AgendaStatus.haveToChooseManualy:
                   return AgendaConfigPage(
                     noBack: true,
-                    onBack: (int agendaId) {
+                    onBack: (List<int> agendaIds) {
                       context.read<SettingsCubit>().modify(
                             settings: settingsState.settings.copyWith(
-                              agendaId: agendaId,
+                              agendaIds: agendaIds,
                               fetchAgendaAuto: false,
                             ),
                           );
@@ -99,7 +99,7 @@ class AgendaPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                body: DoubleScrollableWidget(
+                body: MultiScrollableWidget(
                   listScrollController: verticalController,
                   pageController:
                       context.read<AgendaCubit>().verticalScrollController,

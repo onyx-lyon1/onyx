@@ -7,8 +7,10 @@ import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaConfigPage extends StatelessWidget {
-  const AgendaConfigPage({super.key, required this.onBack, this.noBack = false});
-  final Function(int backIndex) onBack;
+  const AgendaConfigPage(
+      {super.key, required this.onBack, this.noBack = false});
+
+  final Function(List<int> backIndexs) onBack;
   final bool noBack;
 
   @override
@@ -52,37 +54,83 @@ class AgendaConfigPage extends StatelessWidget {
                         curve: Curves.easeInOut);
                     return false;
                   },
-                  child: DoubleScrollableWidget(
-                    pageController: pageController,
-                    listScrollController: [listScrollController],
-                    child: PageView.custom(
-                      controller: pageController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      childrenDelegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          if (index == 0) {
-                            return DirWidget(
-                              dir: DirModel(
-                                name: "Agendas",
-                                identifier: 0,
-                                children: state.dirs,
-                              ),
-                              scrollController: listScrollController,
-                            );
-                          } else {
-                            if (state.dirs.isNotEmpty &&
-                                index - 1 < state.expandedDirs.length) {
-                              return DirWidget(
-                                dir: state.expandedDirs[index - 1],
-                                scrollController: listScrollController,
-                              );
-                            }
-                          }
-                          return null;
-                        },
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      MultiScrollableWidget(
+                        pageController: pageController,
+                        listScrollController: [listScrollController],
+                        child: PageView.custom(
+                          controller: pageController,
+                          physics: const NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          childrenDelegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              if (index == 0) {
+                                return DirWidget(
+                                  dir: DirModel(
+                                    name: "Agendas",
+                                    identifier: 0,
+                                    children: state.dirs,
+                                  ),
+                                  scrollController: listScrollController,
+                                );
+                              } else {
+                                if (state.dirs.isNotEmpty &&
+                                    index - 1 < state.expandedDirs.length) {
+                                  return DirWidget(
+                                    dir: state.expandedDirs[index - 1],
+                                    scrollController: listScrollController,
+                                  );
+                                }
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
                       ),
-                    ),
+                      BlocBuilder<AgendaConfigCubit, AgendaConfigState>(
+                        builder: (context, state) {
+                          return AnimatedScale(
+                            scale: state.choosedIds.isNotEmpty ? 1 : 0,
+                            duration: Res.animationDuration,
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                bottom: 10.h,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: Theme.of(context).primaryColor,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.5),
+                                    blurRadius: 8,
+                                    offset:
+                                        const Offset(4, 4), // Shadow position
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  context
+                                      .read<AgendaConfigCubit>()
+                                      .onBack(state.choosedIds);
+                                },
+                                icon: Icon(
+                                  Icons.check_rounded,
+                                  color: Theme.of(context)
+                                      .bottomNavigationBarTheme
+                                      .unselectedItemColor,
+                                  size: 30.sp,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    ],
                   ),
                 ),
               );
@@ -98,9 +146,11 @@ class AgendaConfigPage extends StatelessWidget {
                 openBuilder: (context, closechild) => const QrCodeScannerPage(),
                 onClosed: (result) {
                   if (result != null) {
-                    context
-                        .read<AgendaConfigCubit>()
-                        .chooseDir(AgendaConfigLogic.urlToIndex(result));
+                    List<int> indexs = AgendaConfigLogic.urlToIndexs(result);
+                    for (var index in indexs) {
+                      context.read<AgendaConfigCubit>().toggleChooseDir(
+                          context.read<AgendaConfigCubit>().state.dirs[index]);
+                    }
                   }
                 },
                 closedColor: Theme.of(context).primaryColor,
@@ -109,7 +159,7 @@ class AgendaConfigPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                   onTap: openchild,
                   child: Padding(
-                    padding: EdgeInsets.all(1.5.h),
+                    padding: EdgeInsets.all(0.8.h),
                     child: Icon(
                       Icons.qr_code_rounded,
                       color: Theme.of(context)

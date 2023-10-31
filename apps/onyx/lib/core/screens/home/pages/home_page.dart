@@ -101,7 +101,7 @@ class HomePageState extends State<HomePage> {
         return BlocListener<SettingsCubit, SettingsState>(
           //fetch agenda whenn settings change
           listenWhen: (previous, current) =>
-              previous.settings.agendaId != current.settings.agendaId ||
+              previous.settings.agendaIds != current.settings.agendaIds ||
               previous.settings.fetchAgendaAuto !=
                   current.settings.fetchAgendaAuto,
           listener: (context, settingsState) {

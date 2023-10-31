@@ -14,13 +14,13 @@ class AgendaConfigState {
   final List<DirModel> dirs;
   final String error;
   final List<DirModel> expandedDirs;
-  final int choosedId;
+  final List<int> choosedIds;
 
   AgendaConfigState({
     required this.status,
     required this.dirs,
     required this.error,
-    required this.choosedId,
+    this.choosedIds = const [],
     this.expandedDirs = const [],
   });
 
@@ -28,21 +28,21 @@ class AgendaConfigState {
     AgendaConfigStatus? status,
     List<DirModel>? dirs,
     String? error,
-    int? choosedId,
+    List<int>? choosedIds,
     List<DirModel>? expandedDirs,
   }) {
     return AgendaConfigState(
       status: status ?? this.status,
       dirs: dirs ?? this.dirs,
       error: error ?? this.error,
-      choosedId: choosedId ?? this.choosedId,
+      choosedIds: choosedIds ?? this.choosedIds,
       expandedDirs: expandedDirs ?? this.expandedDirs,
     );
   }
 
   @override
   String toString() {
-    return 'AgendaConfigState{status: $status, dirs: $dirs, error: $error, expandedIds: $expandedDirs, choosedId: $choosedId}';
+    return 'AgendaConfigState{status: $status, dirs: $dirs, error: $error, expandedIds: $expandedDirs, choosedId: $choosedIds}';
   }
 
   @override
@@ -54,7 +54,7 @@ class AgendaConfigState {
           dirs == other.dirs &&
           error == other.error &&
           expandedDirs == other.expandedDirs &&
-          choosedId == other.choosedId;
+          choosedIds == other.choosedIds;
 
   @override
   int get hashCode =>
@@ -62,5 +62,5 @@ class AgendaConfigState {
       dirs.hashCode ^
       error.hashCode ^
       expandedDirs.hashCode ^
-      choosedId.hashCode;
+      choosedIds.hashCode;
 }

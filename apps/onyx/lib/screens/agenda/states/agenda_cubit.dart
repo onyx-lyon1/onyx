@@ -50,7 +50,7 @@ class AgendaCubit extends Cubit<AgendaState> {
             settings: settings);
       }
     }
-    if (!settings.fetchAgendaAuto && settings.agendaId == null) {
+    if (!settings.fetchAgendaAuto && settings.agendaIds.isEmpty) {
       emit(state.copyWith(status: AgendaStatus.haveToChooseManualy));
       return;
     }

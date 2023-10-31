@@ -23,7 +23,7 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel calendarUpdateNotification(bool calendarUpdateNotification);
 
-  SettingsModel agendaId(int? agendaId);
+  SettingsModel agendaIds(List<int> agendaIds);
 
   SettingsModel newMailNotification(bool newMailNotification);
 
@@ -70,7 +70,7 @@ abstract class _$SettingsModelCWProxy {
     bool? fetchAgendaAuto,
     bool? showMiniCalendar,
     bool? calendarUpdateNotification,
-    int? agendaId,
+    List<int>? agendaIds,
     bool? newMailNotification,
     bool? blockTrackers,
     bool? forcedMailTheme,
@@ -126,7 +126,7 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
       this(calendarUpdateNotification: calendarUpdateNotification);
 
   @override
-  SettingsModel agendaId(int? agendaId) => this(agendaId: agendaId);
+  SettingsModel agendaIds(List<int> agendaIds) => this(agendaIds: agendaIds);
 
   @override
   SettingsModel newMailNotification(bool newMailNotification) =>
@@ -201,7 +201,7 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
     Object? fetchAgendaAuto = const $CopyWithPlaceholder(),
     Object? showMiniCalendar = const $CopyWithPlaceholder(),
     Object? calendarUpdateNotification = const $CopyWithPlaceholder(),
-    Object? agendaId = const $CopyWithPlaceholder(),
+    Object? agendaIds = const $CopyWithPlaceholder(),
     Object? newMailNotification = const $CopyWithPlaceholder(),
     Object? blockTrackers = const $CopyWithPlaceholder(),
     Object? forcedMailTheme = const $CopyWithPlaceholder(),
@@ -259,10 +259,10 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
               ? _value.calendarUpdateNotification
               // ignore: cast_nullable_to_non_nullable
               : calendarUpdateNotification as bool,
-      agendaId: agendaId == const $CopyWithPlaceholder()
-          ? _value.agendaId
+      agendaIds: agendaIds == const $CopyWithPlaceholder() || agendaIds == null
+          ? _value.agendaIds
           // ignore: cast_nullable_to_non_nullable
-          : agendaId as int?,
+          : agendaIds as List<int>,
       newMailNotification:
           newMailNotification == const $CopyWithPlaceholder() ||
                   newMailNotification == null
@@ -372,7 +372,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       fetchAgendaAuto: fields[5] as bool,
       showMiniCalendar: fields[6] as bool,
       calendarUpdateNotification: fields[7] as bool,
-      agendaId: fields[8] as int?,
+      agendaIds: fields[8] == null ? [] : (fields[8] as List).cast<int>(),
       newMailNotification: fields[9] as bool,
       blockTrackers: fields[10] as bool,
       forcedMailTheme: fields[11] as bool,
@@ -427,7 +427,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(7)
       ..write(obj.calendarUpdateNotification)
       ..writeByte(8)
-      ..write(obj.agendaId)
+      ..write(obj.agendaIds)
       ..writeByte(19)
       ..write(obj.agendaWeekLength)
       ..writeByte(20)

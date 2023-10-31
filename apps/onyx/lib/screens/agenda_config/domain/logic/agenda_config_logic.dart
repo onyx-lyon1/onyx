@@ -29,9 +29,10 @@ class AgendaConfigLogic {
     return dirs;
   }
 
-  static int urlToIndex(String url) {
-    String resources = url.substring(url.indexOf("resources=") + 10);
-    return int.parse(resources.substring(0, resources.indexOf("&")));
+  static List<int> urlToIndexs(String url) {
+    String resources =
+        RegExp(r"resources=([0-9,]+)").firstMatch(url)!.group(0)!.split("=")[1];
+    return resources.split(",").map((e) => int.parse(e)).toList();
   }
 
   static const List<DirModel> mockDirList = [
