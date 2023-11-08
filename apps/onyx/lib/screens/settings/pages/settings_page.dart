@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -34,73 +33,107 @@ class _SettingsPageState extends State<SettingsPage> {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) => Container(
         color: Theme.of(context).colorScheme.background,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-              height: Res.bottomNavBarHeight,
-              color: Theme.of(context).cardTheme.color,
-              child: Center(
-                child: Text(
-                  'Paramètres',
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
+        child: Column(mainAxisSize: MainAxisSize.max, children: [
+          Container(
+            height: Res.bottomNavBarHeight,
+            color: Theme.of(context).cardTheme.color,
+            child: Center(
+              child: Text(
+                'Paramètres',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            Expanded(
-              child: ListView(
-                children: [
-                  SettingsCardWidget(
-                    name: 'Général',
-                    widgets: [
-                      DropDownWidget(
-                          text: 'Choisir le thème',
-                          items: const ["Système", "Sombre", "Clair"],
-                          value: state.settings.themeMode.index,
-                          onChanged: (int b) {
-                            ThemeModeEnum themeMode;
-                            switch (b) {
-                              case 0:
-                                themeMode = ThemeModeEnum.system;
-                                break;
-                              case 1:
-                                themeMode = ThemeModeEnum.dark;
-                                break;
-                              case 2:
-                                themeMode = ThemeModeEnum.light;
-                                break;
-                              default:
-                                themeMode = ThemeModeEnum.system;
-                                break;
-                            }
-
-                            context.read<SettingsCubit>().modify(
-                                settings: state.settings
-                                    .copyWith(themeMode: themeMode));
-                          }),
-                    ],
-                  ),
-                  const DraggableZoneWidget(),
-                  SizedBox(height: 1.5.h,),
-                  SettingsCardWidget(
-                    name: 'Connexion',
-                    widgets: [
-                      Center(
-                        child: MaterialButton(
-                          color: const Color(0xffbf616a),
-                          textColor: Colors.white70,
-                          child: Text('Déconnexion',
-                              style: TextStyle(fontSize: 17.sp)),
-                          onPressed: () => SettingsLogic.logout(context),
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                SettingsCardWidget(
+                  name: 'Général',
+                  widgets: [
+                    DropDownWidget(
+                        text: 'Choisir le thème',
+                        items: const [
+                          "Système",
+                          "Sombre",
+                          "Clair",
+                        ],
+                        value: state.settings.themeMode.index,
+                        onChanged: (int choice) {
+                          switch (choice) {
+                            case 0:
+                              context.read<SettingsCubit>().modify(
+                                  settings: context
+                                      .read<SettingsCubit>()
+                                      .state
+                                      .settings
+                                      .copyWith(
+                                          themeMode: ThemeModeEnum.system));
+                              break;
+                            case 1:
+                              context.read<SettingsCubit>().modify(
+                                  settings: context
+                                      .read<SettingsCubit>()
+                                      .state
+                                      .settings
+                                      .copyWith(themeMode: ThemeModeEnum.dark));
+                              break;
+                            case 2:
+                              context.read<SettingsCubit>().modify(
+                                  settings: context
+                                      .read<SettingsCubit>()
+                                      .state
+                                      .settings
+                                      .copyWith(
+                                          themeMode: ThemeModeEnum.light));
+                              break;
+                          }
+                        }),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    MaterialButton(
+                        color: Theme.of(context).primaryColor,
+                        textColor:
+                            Theme.of(context).textTheme.bodyLarge?.color ??
+                                Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                    ],
-                  ),
-                  SettingsCardWidget(name: "Cache", widgets: [
+                        child: Text('Changer les thèmes',
+                            style: TextStyle(fontSize: 17.sp)),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const ThemesSwap(),
+                          ));
+                        }),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                  ],
+                ),
+                const DraggableZoneWidget(),
+                SettingsCardWidget(
+                  name: 'Connexion',
+                  widgets: [
+                    MaterialButton(
+                      color: const Color(0xffbf616a),
+                      textColor: Colors.white70,
+                      child: Text('Déconnexion',
+                          style: TextStyle(fontSize: 17.sp)),
+                      onPressed: () => SettingsLogic.logout(context),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+                SettingsCardWidget(
+                  name: "Cache",
+                  widgets: [
                     MaterialButton(
                       color: const Color(0xffbf616a),
                       textColor: Colors.white70,
@@ -119,59 +152,80 @@ class _SettingsPageState extends State<SettingsPage> {
                                 context.read<SettingsCubit>().state.settings);
                       },
                     ),
-                    MaterialButton(
-                      color: const Color(0xffbf616a),
-                      textColor: Colors.white70,
-                      child: Text('Vider le cache de l\'agenda',
-                          style: TextStyle(fontSize: 17.sp)),
-                      onPressed: () {
-                        CacheService.reset<Agenda>();
-                        context.read<AgendaCubit>().load(
-                            lyon1Cas: context
-                                .read<AuthentificationCubit>()
-                                .state
-                                .lyon1Cas,
-                            settings:
-                                context.read<SettingsCubit>().state.settings,
-                            cache: false);
-                      },
-                    ),
-                    MaterialButton(
-                      color: const Color(0xffbf616a),
-                      textColor: Colors.white70,
-                      child: Text('Vider le cache des mails',
-                          style: TextStyle(fontSize: 17.sp)),
-                      onPressed: () {
-                        CacheService.reset<MailBoxList>();
-                        context.read<EmailCubit>().load(
-                            cache: false,
-                            blockTrackers: context
-                                .read<SettingsCubit>()
-                                .state
-                                .settings
-                                .blockTrackers);
-                      },
-                    ),
-                    MaterialButton(
-                      color: const Color(0xffbf616a),
-                      textColor: Colors.white70,
-                      child: Text('Vider le cache de Izly',
-                          style: TextStyle(fontSize: 17.sp)),
-                      onPressed: () {
-                        CacheService.reset<IzlyQrCodeList>();
-                        CacheService.reset<IzlyPaymentModelList>();
-                        CacheService.reset<IzlyCredential>();
-                        Hive.deleteBoxFromDisk("cached_qr_code");
-                        Hive.deleteBoxFromDisk("cached_izly_amount");
-                        context.read<IzlyCubit>().resetCubit();
-                        context.read<IzlyCubit>().connect(
-                            settings:
-                                context.read<SettingsCubit>().state.settings);
-                      },
-                    )
-                  ]),
-                  if (kDebugMode)
-                    SettingsCardWidget(name: "Notifications", widgets: [
+                    SettingsCardWidget(name: "Cache", widgets: [
+                      MaterialButton(
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: Text('Vider le cache des notes',
+                            style: TextStyle(fontSize: 17.sp)),
+                        onPressed: () {
+                          CacheService.reset<TeachingUnitList>();
+                          CacheService.reset<SemesterList>();
+                          context.read<TomussCubit>().load(
+                              lyon1Cas: context
+                                  .read<AuthentificationCubit>()
+                                  .state
+                                  .lyon1Cas,
+                              cache: false,
+                              settings:
+                                  context.read<SettingsCubit>().state.settings);
+                        },
+                      ),
+                      MaterialButton(
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: Text('Vider le cache de l\'agenda',
+                            style: TextStyle(fontSize: 17.sp)),
+                        onPressed: () {
+                          CacheService.reset<Agenda>();
+                          context.read<AgendaCubit>().load(
+                              lyon1Cas: context
+                                  .read<AuthentificationCubit>()
+                                  .state
+                                  .lyon1Cas,
+                              settings:
+                                  context.read<SettingsCubit>().state.settings,
+                              cache: false);
+                        },
+                      ),
+                      MaterialButton(
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: Text('Vider le cache des mails',
+                            style: TextStyle(fontSize: 17.sp)),
+                        onPressed: () {
+                          CacheService.reset<MailBoxList>();
+                          context.read<EmailCubit>().load(
+                              cache: false,
+                              blockTrackers: context
+                                  .read<SettingsCubit>()
+                                  .state
+                                  .settings
+                                  .blockTrackers);
+                        },
+                      ),
+                      MaterialButton(
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: Text('Vider le cache de Izly',
+                            style: TextStyle(fontSize: 17.sp)),
+                        onPressed: () {
+                          CacheService.reset<IzlyQrCodeList>();
+                          CacheService.reset<IzlyPaymentModelList>();
+                          CacheService.reset<IzlyCredential>();
+                          Hive.deleteBoxFromDisk("cached_qr_code");
+                          Hive.deleteBoxFromDisk("cached_izly_amount");
+                          context.read<IzlyCubit>().resetCubit();
+                          context.read<IzlyCubit>().connect(
+                              settings:
+                                  context.read<SettingsCubit>().state.settings);
+                        },
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ]),
+                    SettingsCardWidget(name: "Notification", widgets: [
                       MaterialButton(
                         color: const Color(0xffbf616a),
                         textColor: Colors.white70,
@@ -181,13 +235,17 @@ class _SettingsPageState extends State<SettingsPage> {
                           backgroundLogic(init: false);
                         },
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                     ]),
-                  const SettingsLinkWidget(),
-                ],
-              ),
+                    const SettingsLinkWidget(),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ]),
       ),
     );
   }

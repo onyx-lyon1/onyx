@@ -63,14 +63,16 @@ class TomussCompactElementWidget extends StatelessWidget {
                                 overflow: TextOverflow.clip,
                                 color:
                                     (Theme.of(context).colorScheme.background ==
-                                            OnyxTheme.darkTheme()
+                                            OnyxTheme()
+                                                .darkTheme
                                                 .colorScheme
                                                 .background)
                                         ? Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
                                             .color
-                                        : OnyxTheme.darkTheme()
+                                        : OnyxTheme()
+                                            .darkTheme
                                             .colorScheme
                                             .background,
                               ),
@@ -96,14 +98,16 @@ class TomussCompactElementWidget extends StatelessWidget {
                                       (Theme.of(context)
                                                   .colorScheme
                                                   .background ==
-                                              OnyxTheme.darkTheme()
+                                              OnyxTheme()
+                                                  .darkTheme
                                                   .colorScheme
                                                   .background)
                                           ? Theme.of(context)
                                               .textTheme
                                               .bodyMedium!
                                               .color
-                                          : OnyxTheme.darkTheme()
+                                          : OnyxTheme()
+                                              .darkTheme
                                               .colorScheme
                                               .background,
                                 ),
@@ -127,14 +131,16 @@ class TomussCompactElementWidget extends StatelessWidget {
                                 overflow: TextOverflow.clip,
                                 color:
                                     (Theme.of(context).colorScheme.background ==
-                                            OnyxTheme.darkTheme()
+                                            OnyxTheme()
+                                                .darkTheme
                                                 .colorScheme
                                                 .background)
                                         ? Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
                                             .color
-                                        : OnyxTheme.darkTheme()
+                                        : OnyxTheme()
+                                            .darkTheme
                                             .colorScheme
                                             .background,
                               ),

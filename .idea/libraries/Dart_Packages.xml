@@ -418,7 +418,7 @@
         <entry key="drag_and_drop_lists">
           <value>
             <list>
-              <option value="$USER_HOME$/tmp/DragAndDropLists/lib" />
+              <option value="$USER_HOME$/.pub-cache/git/DragAndDropLists-7478471d0a3e1926375de7d46d8bd781976acfb7//lib" />
             </list>
           </value>
         </entry>
@@ -881,6 +881,34 @@
             </list>
           </value>
         </entry>
+        <entry key="json_class">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/json_class-3.0.0+8/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="json_schema">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/json_schema-5.1.3/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="json_theme">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/json_theme-6.3.1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="json_theme_annotation">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/json_theme_annotation-1.0.2/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="latlong2">
           <value>
             <list>
@@ -1246,6 +1274,13 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/responsive_sizer-3.2.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="rfc_6901">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/rfc_6901-0.2.0/lib" />
             </list>
           </value>
         </entry>
@@ -1682,6 +1717,7 @@
       </option>
     </properties>
     <CLASSES>
+      <root url="file://$USER_HOME$/.pub-cache/git/DragAndDropLists-7478471d0a3e1926375de7d46d8bd781976acfb7//lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-61.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-64.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-65.0.0/lib" />
@@ -1819,6 +1855,10 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/isar_flutter_libs-3.1.0+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/js-0.6.7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/json_annotation-4.8.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/json_class-3.0.0+8/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/json_schema-5.1.3/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/json_theme-6.3.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/json_theme_annotation-1.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/latlong2-0.9.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/lints-2.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/lints-3.0.0/lib" />
@@ -1875,6 +1915,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/requests_plus-4.8.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/requests_plus-4.8.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/responsive_sizer-3.2.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/rfc_6901-0.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/rxdart-0.27.7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/screenshot-2.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus-7.2.1/lib" />
@@ -1948,7 +1989,6 @@
       <root url="file://$USER_HOME$/bin/flutter-sdk/packages/flutter/lib" />
       <root url="file://$USER_HOME$/bin/flutter-sdk/packages/flutter_test/lib" />
       <root url="file://$USER_HOME$/bin/flutter-sdk/packages/flutter_web_plugins/lib" />
-      <root url="file://$USER_HOME$/tmp/DragAndDropLists/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
