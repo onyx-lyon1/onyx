@@ -141,6 +141,12 @@ class ThemeCubit extends Cubit<ThemeState> {
     }
   }
 
+  void setChangeAutoTheme(bool value) async {
+    Box box = await Hive.openBox('themesUserData');
+    themesUserData.changeAutoTheme = value;
+    await box.put('data', themesUserData);
+  }
+
   void setThemeMode(ThemeMode themeMode) {
     emit(state.copyWith(themeMode: themeMode));
   }

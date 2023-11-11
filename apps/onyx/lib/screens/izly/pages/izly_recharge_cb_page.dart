@@ -81,7 +81,16 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Text("Payer"),
+                    child: Text("Payer",
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.color ??
+                                ((Theme.of(context).brightness ==
+                                        Brightness.light)
+                                    ? const Color.fromARGB(255, 255, 255, 255)
+                                    : const Color.fromARGB(255, 0, 0, 0)))),
                   )
                 ],
               ),

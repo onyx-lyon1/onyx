@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/screens/settings/states/theme_cubit.dart';
 
 class SettingsSettingsWidget extends StatelessWidget {
   const SettingsSettingsWidget({super.key});
@@ -77,9 +78,14 @@ class SettingsSettingsWidget extends StatelessWidget {
                       .settings
                       .copyWith(biometricAuth: value));
             },
-          )
-        else
-          const Text("pour l'instant, rien à configurer")
+          ),
+        TextSwitchWidget(
+          text: 'Changer automatiquement au theme selectionné',
+          value: context.read<ThemeCubit>().themesUserData.changeAutoTheme,
+          onChanged: (bool value) {
+            context.read<ThemeCubit>().setChangeAutoTheme(value);
+          },
+        ),
       ],
     );
   }

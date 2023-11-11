@@ -122,6 +122,18 @@ class _ThemesSwapState extends State<ThemesSwap> {
                   onTap: () {
                     context.read<ThemeCubit>().loadTheme(theme);
                     saveChangeTheme(theme);
+                    if (themesUserData.changeAutoTheme) {
+                      context.read<SettingsCubit>().modify(
+                          settings: context
+                              .read<SettingsCubit>()
+                              .state
+                              .settings
+                              .copyWith(
+                                  themeMode: (theme.theme.brightness ==
+                                          Brightness.light)
+                                      ? ThemeModeEnum.light
+                                      : ThemeModeEnum.dark));
+                    }
                   },
                   onDoubleTap: () {
                     setThemeFavorite(context, theme);
@@ -174,6 +186,7 @@ class _ThemesSwapState extends State<ThemesSwap> {
     }
 
     await box.put('data', themesUserData);
+    setState(() {});
   }
 
   void setThemeFavorite(BuildContext context, ThemeInfo theme) async {

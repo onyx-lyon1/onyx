@@ -38,6 +38,8 @@ class ThemesUserData {
   String lightThemeSelected;
   @HiveField(3)
   List<Map<String, dynamic>> favoriteThemes;
+  @HiveField(4)
+  bool changeAutoTheme;
 
   ThemesUserData()
       : themesCreated = [
@@ -45,7 +47,8 @@ class ThemesUserData {
         ],
         darkThemeSelected = 'Dark Default',
         lightThemeSelected = 'Light Default',
-        favoriteThemes = [];
+        favoriteThemes = [],
+        changeAutoTheme = true;
 }
 
 class ThemeInfo {

@@ -24,13 +24,14 @@ class ThemesUserDataAdapter extends TypeAdapter<ThemesUserData> {
       ..lightThemeSelected = fields[2] as String
       ..favoriteThemes = (fields[3] as List)
           .map((dynamic e) => (e as Map).cast<String, dynamic>())
-          .toList();
+          .toList()
+      ..changeAutoTheme = fields[4] as bool;
   }
 
   @override
   void write(BinaryWriter writer, ThemesUserData obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.themesCreated)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class ThemesUserDataAdapter extends TypeAdapter<ThemesUserData> {
       ..writeByte(2)
       ..write(obj.lightThemeSelected)
       ..writeByte(3)
-      ..write(obj.favoriteThemes);
+      ..write(obj.favoriteThemes)
+      ..writeByte(4)
+      ..write(obj.changeAutoTheme);
   }
 
   @override
