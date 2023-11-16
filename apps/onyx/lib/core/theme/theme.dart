@@ -58,22 +58,17 @@ class OnyxTheme {
 
   ThemeData nichihachiTheme = ThemeData(
     useMaterial3: true,
-    cardTheme: const CardTheme(
-        color: Color.fromARGB(
-            255, 40, 40, 60)), // Fond du titre en haut de l'écran
-    cardColor: const Color.fromARGB(
-        255, 40, 40, 60), // Fond des sous-éléments de la page
-    secondaryHeaderColor: Color.fromARGB(255, 2, 36, 68), // N'est pas utilisé
-    primaryColor:
-        const Color.fromARGB(255, 80, 120, 255), // Couleur des boutons
+    cardTheme: const CardTheme(color: Color.fromARGB(255, 40, 40, 60)),
+    cardColor: const Color.fromARGB(255, 40, 40, 60),
+    secondaryHeaderColor: const Color.fromARGB(255, 2, 36, 68),
+    primaryColor: const Color.fromARGB(255, 80, 120, 255),
     textSelectionTheme: TextSelectionThemeData(
-      cursorColor: Color.fromARGB(255, 140, 251, 255), // N'est pas important
+      cursorColor: const Color.fromARGB(255, 140, 251, 255),
       selectionColor: const Color.fromARGB(255, 140, 251, 255).withOpacity(0.7),
     ),
     brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color.fromARGB(
-          255, 30, 30, 50), // Navigation entre les pages en bas de l'écran
+      backgroundColor: Color.fromARGB(255, 30, 30, 50),
       unselectedItemColor: Color.fromARGB(255, 120, 120, 120),
       selectedItemColor: Color.fromARGB(255, 80, 120, 255),
     ),
@@ -83,9 +78,8 @@ class OnyxTheme {
       bodyMedium: TextStyle(color: Color.fromARGB(255, 211, 211, 211)),
     ),
     colorScheme: const ColorScheme.dark(
-      background: Color.fromARGB(255, 20, 20, 30), // Fond de l'écran
-      primary: Color.fromARGB(255, 80, 120,
-          255), // Pour certains éléments comme la couleur d'un texte défilant
+      background: Color.fromARGB(255, 20, 20, 30),
+      primary: Color.fromARGB(255, 80, 120, 255),
     ),
   );
 
@@ -119,50 +113,42 @@ class OnyxTheme {
     useMaterial3: true,
     cardTheme: const CardTheme(color: Color.fromARGB(255, 30, 30, 30)),
     cardColor: const Color.fromARGB(255, 30, 30, 30),
-    secondaryHeaderColor: Color.fromARGB(40, 255, 255, 255),
-    primaryColor: const Color.fromARGB(255, 255, 87, 34), // Rouge vif
+    secondaryHeaderColor: const Color.fromARGB(40, 255, 255, 255),
+    primaryColor: const Color.fromARGB(255, 255, 87, 34),
     textSelectionTheme: TextSelectionThemeData(
-      cursorColor: const Color.fromARGB(255, 255, 87, 34), // Rouge vif
+      cursorColor: const Color.fromARGB(255, 255, 87, 34),
       selectionColor: const Color.fromARGB(255, 255, 87, 34).withOpacity(0.7),
     ),
-    brightness: Brightness.dark, // Thème sombre pour un aspect futuriste
+    brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color.fromARGB(255, 40, 40, 40), // Fond sombre
-      unselectedItemColor: Color.fromARGB(255, 120, 120, 120), // Gris foncé
-      selectedItemColor: Color.fromARGB(255, 255, 87, 34), // Rouge vif
+      backgroundColor: Color.fromARGB(255, 40, 40, 40),
+      unselectedItemColor: Color.fromARGB(255, 120, 120, 120),
+      selectedItemColor: Color.fromARGB(255, 255, 87, 34),
     ),
     textTheme: const TextTheme(
-      labelLarge:
-          TextStyle(color: Color.fromARGB(255, 255, 255, 255)), // Texte blanc
-      bodyLarge:
-          TextStyle(color: Color.fromARGB(255, 200, 200, 200)), // Gris clair
-      bodyMedium:
-          TextStyle(color: Color.fromARGB(255, 200, 200, 200)), // Gris clair
+      labelLarge: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+      bodyLarge: TextStyle(color: Color.fromARGB(255, 200, 200, 200)),
+      bodyMedium: TextStyle(color: Color.fromARGB(255, 200, 200, 200)),
     ),
     colorScheme: const ColorScheme.dark(
-      background: Color.fromARGB(255, 20, 20, 20), // Fond très sombre
-      primary: Color.fromARGB(255, 255, 87, 34), // Rouge vif
+      background: Color.fromARGB(255, 20, 20, 20),
+      primary: Color.fromARGB(255, 255, 87, 34),
     ),
   );
 
   ThemeData badappleTheme = ThemeData(
     useMaterial3: true,
-    cardTheme: const CardTheme(
-        color: Color.fromARGB(
-            255, 20, 20, 20)), // Fond du titre en haut de l'écran
-    cardColor: const Color.fromARGB(
-        255, 20, 20, 20), // Fond des sous-éléments de la page
-    primaryColor: Color.fromARGB(230, 255, 255, 255), // Couleur des boutons
-    secondaryHeaderColor: Color.fromARGB(255, 255, 255, 255),
+    cardTheme: const CardTheme(color: Color.fromARGB(255, 20, 20, 20)),
+    cardColor: const Color.fromARGB(255, 20, 20, 20),
+    primaryColor: const Color.fromARGB(230, 255, 255, 255),
+    secondaryHeaderColor: const Color.fromARGB(255, 255, 255, 255),
     textSelectionTheme: TextSelectionThemeData(
-      cursorColor:
-          const Color.fromARGB(255, 255, 255, 255), // N'est pas important
+      cursorColor: const Color.fromARGB(255, 255, 255, 255),
       selectionColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.7),
     ),
     brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color.fromARGB(
-          255, 10, 10, 10), // Navigation entre les pages en bas de l'écran
+      backgroundColor: Color.fromARGB(255, 10, 10, 10),
       unselectedItemColor: Color.fromARGB(255, 100, 100, 100),
       selectedItemColor: Color.fromARGB(255, 255, 255, 255),
     ),
@@ -173,29 +159,24 @@ class OnyxTheme {
       bodySmall: TextStyle(color: Colors.black),
     ),
     colorScheme: const ColorScheme.dark(
-      background: Color.fromARGB(255, 10, 10, 10), // Fond de l'écran
-      primary: Color.fromARGB(255, 200, 200, 200), // Couleur secondaire
+      background: Color.fromARGB(255, 10, 10, 10),
+      primary: Color.fromARGB(255, 200, 200, 200),
     ),
   );
 
   ThemeData moonlightTheme = ThemeData(
     useMaterial3: true,
-    cardTheme: const CardTheme(
-        color: Color.fromARGB(
-            255, 35, 40, 50)), // Fond du titre en haut de l'écran
-    cardColor: const Color.fromARGB(
-        255, 35, 40, 50), // Fond des sous-éléments de la page
-    primaryColor:
-        const Color.fromARGB(255, 140, 180, 200), // Couleur des boutons
+    cardTheme: const CardTheme(color: Color.fromARGB(255, 35, 40, 50)),
+    cardColor: const Color.fromARGB(255, 35, 40, 50),
+    primaryColor: const Color.fromARGB(255, 140, 180, 200),
+    secondaryHeaderColor: const Color.fromARGB(40, 255, 255, 255),
     textSelectionTheme: TextSelectionThemeData(
-      cursorColor:
-          const Color.fromARGB(255, 140, 180, 200), // N'est pas important
+      cursorColor: const Color.fromARGB(255, 140, 180, 200),
       selectionColor: const Color.fromARGB(255, 140, 180, 200).withOpacity(0.7),
     ),
     brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color.fromARGB(
-          255, 25, 30, 35), // Navigation entre les pages en bas de l'écran
+      backgroundColor: Color.fromARGB(255, 25, 30, 35),
       unselectedItemColor: Color.fromARGB(255, 80, 80, 80),
       selectedItemColor: Color.fromARGB(255, 140, 180, 200),
     ),
@@ -205,30 +186,24 @@ class OnyxTheme {
       bodyMedium: TextStyle(color: Color.fromARGB(255, 180, 180, 180)),
     ),
     colorScheme: const ColorScheme.dark(
-      background: Color.fromARGB(255, 20, 25, 30), // Fond de l'écran
-      primary: Color.fromARGB(255, 140, 180,
-          200), // Pour certains éléments comme la couleur d'un texte défilant
+      background: Color.fromARGB(255, 20, 25, 30),
+      primary: Color.fromARGB(255, 140, 180, 200),
     ),
   );
 
   ThemeData stardewValleyTheme = ThemeData(
     useMaterial3: true,
-    cardTheme: const CardTheme(
-        color: Color.fromARGB(
-            255, 220, 240, 200)), // Fond du titre en haut de l'écran
-    cardColor: const Color.fromARGB(
-        255, 220, 240, 200), // Fond des sous-éléments de la page
-    primaryColor: Color.fromARGB(255, 74, 212, 74), // Couleur des boutons
-    secondaryHeaderColor: Color.fromARGB(255, 253, 248, 201),
+    cardTheme: const CardTheme(color: Color.fromARGB(255, 220, 240, 200)),
+    cardColor: const Color.fromARGB(255, 220, 240, 200),
+    primaryColor: const Color.fromARGB(255, 74, 212, 74),
+    secondaryHeaderColor: const Color.fromARGB(255, 253, 248, 201),
     textSelectionTheme: TextSelectionThemeData(
-      cursorColor:
-          const Color.fromARGB(255, 255, 200, 50), // N'est pas important
+      cursorColor: const Color.fromARGB(255, 255, 200, 50),
       selectionColor: const Color.fromARGB(255, 255, 200, 50).withOpacity(0.7),
     ),
     brightness: Brightness.light,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color.fromARGB(
-          255, 200, 220, 160), // Navigation entre les pages en bas de l'écran
+      backgroundColor: Color.fromARGB(255, 200, 220, 160),
       unselectedItemColor: Color.fromARGB(255, 83, 95, 77),
       selectedItemColor: Color.fromARGB(255, 74, 212, 74),
     ),

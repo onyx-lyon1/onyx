@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/core/theme/theme_export.dart';
 
@@ -27,25 +25,15 @@ class _ThemesSwapState extends State<ThemesSwap> {
   }
 
   Future<void> _loadThemesUserData() async {
-    if (!Hive.isAdapterRegistered(ThemesUserDataAdapter().typeId)) {
-      Hive.registerAdapter(ThemesUserDataAdapter());
-    } else {
-      if (kDebugMode) {
-        print("Adaptateur de ThemeUserData déjà enregistré");
-      }
-    }
-
-    Box box = await Hive.openBox('themesUserData');
-
-    if (box.containsKey('data')) {
-      themesUserData = box.get('data');
-    } else {
-      themesUserData = ThemesUserData();
-      await box.put('data', themesUserData);
-    }
-
-    themeCreatedLight = listJsonToThemeInfo(themesUserData.themesCreated, 0);
-    themeCreatedDark = listJsonToThemeInfo(themesUserData.themesCreated, 1);
+    themesUserData = BlocProvider.of<ThemeCubit>(context).themesUserData;
+    themeCreatedLight = BlocProvider.of<ThemeCubit>(context)
+        .themesCreated
+        .where((themeInfo) => themeInfo.theme.brightness == Brightness.light)
+        .toList();
+    themeCreatedDark = BlocProvider.of<ThemeCubit>(context)
+        .themesCreated
+        .where((themeInfo) => themeInfo.theme.brightness == Brightness.dark)
+        .toList();
 
     setState(() {});
   }
@@ -59,16 +47,17 @@ class _ThemesSwapState extends State<ThemesSwap> {
         body: SingleChildScrollView(
             child: Column(children: [
           expansionTheme(context, "Thèmes favoris",
-              listJsonToThemeInfo(themesUserData.favoriteThemes, -1), []),
-          expansionTheme(
-              context, "Thèmes clairs", themesPresetLight, themeCreatedLight),
-          expansionTheme(
-              context, "Thèmes sombres", themesPresetDark, themeCreatedDark),
+              listJsonToThemeInfo(themesUserData.favoriteThemes)),
+          expansionTheme(context, "Thèmes clairs", themesPresetLight,
+              themesCreated: themeCreatedLight),
+          expansionTheme(context, "Thèmes sombres", themesPresetDark,
+              themesCreated: themeCreatedDark),
         ])));
   }
 
-  Widget expansionTheme(BuildContext context, String title,
-      List<ThemeInfo> themesPreset, List<ThemeInfo> themesCreated) {
+  Widget expansionTheme(
+      BuildContext context, String title, List<ThemeInfo> themesPreset,
+      {List<ThemeInfo> themesCreated = const []}) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       shape: RoundedRectangleBorder(
@@ -121,7 +110,7 @@ class _ThemesSwapState extends State<ThemesSwap> {
               return GestureDetector(
                   onTap: () {
                     context.read<ThemeCubit>().loadTheme(theme);
-                    saveChangeTheme(theme);
+                    context.read<ThemeCubit>().saveChangeTheme(theme);
                     if (themesUserData.changeAutoTheme) {
                       context.read<SettingsCubit>().modify(
                           settings: context
@@ -136,7 +125,7 @@ class _ThemesSwapState extends State<ThemesSwap> {
                     }
                   },
                   onDoubleTap: () {
-                    setThemeFavorite(context, theme);
+                    context.read<ThemeCubit>().setThemeFavorite(context, theme);
                   },
                   onLongPress: () {
                     if (index >= listThemesPreset.length) {
@@ -174,47 +163,6 @@ class _ThemesSwapState extends State<ThemesSwap> {
             });
           }),
     ]);
-  }
-
-  void saveChangeTheme(ThemeInfo theme) async {
-    final box = await Hive.openBox('themesUserData');
-
-    if (theme.theme.brightness == Brightness.dark) {
-      themesUserData.darkThemeSelected = theme.name;
-    } else {
-      themesUserData.lightThemeSelected = theme.name;
-    }
-
-    await box.put('data', themesUserData);
-    setState(() {});
-  }
-
-  void setThemeFavorite(BuildContext context, ThemeInfo theme) async {
-    final box = await Hive.openBox('themesUserData');
-    //If the theme is in the favorite list, delete it.
-    // ignore: use_build_context_synchronously
-    int index = await context
-        .read<ThemeCubit>()
-        .searchThemeInJsonList(theme, themesUserData.favoriteThemes);
-    if (kDebugMode) {
-      print(index);
-    }
-    if (index != -1) {
-      themesUserData.favoriteThemes.removeAt(index);
-    } else {
-      themesUserData.favoriteThemes.add(themeInfoToJson(theme));
-    }
-    box.put('data', themesUserData);
-    //Reload the page
-    // ignore: use_build_context_synchronously
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) {
-          return const ThemesSwap();
-        },
-      ),
-    );
   }
 
   void popupMenuThemeCreated(BuildContext context, ThemeInfo theme) {

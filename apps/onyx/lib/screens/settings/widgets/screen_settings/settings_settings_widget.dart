@@ -79,11 +79,16 @@ class SettingsSettingsWidget extends StatelessWidget {
                       .copyWith(biometricAuth: value));
             },
           ),
-        TextSwitchWidget(
-          text: 'Changer automatiquement au theme selectionné',
-          value: context.read<ThemeCubit>().themesUserData.changeAutoTheme,
-          onChanged: (bool value) {
-            context.read<ThemeCubit>().setChangeAutoTheme(value);
+        BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, themeState) {
+            return TextSwitchWidget(
+              text: 'Changer automatiquement au theme selectionné',
+              value: themeState.changeAutoTheme ??
+                  context.read<ThemeCubit>().themesUserData.changeAutoTheme,
+              onChanged: (bool value) {
+                context.read<ThemeCubit>().setChangeAutoTheme(value);
+              },
+            );
           },
         ),
       ],

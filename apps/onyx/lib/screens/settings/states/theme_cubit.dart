@@ -7,22 +7,23 @@ import 'package:onyx/screens/settings/settings_export.dart';
 
 part 'theme_state.dart';
 
-List<ThemeInfo> themesCreated = [];
-
 class ThemeCubit extends Cubit<ThemeState> {
+  late Box box;
   late ThemesUserData themesUserData;
+  late List<ThemeInfo> themesCreated;
   List<ThemeInfo> themesPreset;
 
   ThemeCubit(this.themesPreset) : super(const ThemeState()) {
     _initializeThemes();
   }
 
+  /// This function initilize the Hive of ThemeUserData and load the themes selected.
   Future<void> _initializeThemes() async {
     if (!Hive.isAdapterRegistered(ThemesUserDataAdapter().typeId)) {
       Hive.registerAdapter(ThemesUserDataAdapter());
     }
 
-    Box box = await Hive.openBox('themesUserData');
+    box = await Hive.openBox('themesUserData');
 
     if (box.containsKey('data')) {
       themesUserData = box.get('data');
@@ -31,10 +32,15 @@ class ThemeCubit extends Cubit<ThemeState> {
       await box.put('data', themesUserData);
     }
 
+    themesCreated = listJsonToThemeInfo(themesUserData.themesCreated);
+
     await loadTheme(themesUserData.lightThemeSelected);
     await loadTheme(themesUserData.darkThemeSelected);
   }
 
+  /// Load the theme from the input.
+  ///
+  /// The theme must be a String, a ThemeData or a ThemeInfo type.
   Future<void> loadTheme(final theme) async {
     ThemeData themeSelected;
     if (theme is String) {
@@ -63,11 +69,13 @@ class ThemeCubit extends Cubit<ThemeState> {
     toggleThemeMode();
   }
 
+  /// Return a list of the main colors of a theme : The font, the background and the button.
   Future<List<Color>> extractThemeColor(ThemeData theme) async {
-    Color fontColor = theme.textTheme.labelLarge?.color ?? Colors.black;
+    Color fontColor = theme.textTheme.labelLarge!.color!;
     return [fontColor, theme.cardColor, theme.colorScheme.primary];
   }
 
+  /// Add a new theme to the themesCreated list in the Hive.
   Future<void> newTheme(ThemeInfo themeCreated) async {
     if (await searchIndexTheme(themeCreated.name, themesCreated) != -1) {
       return Future.error("The theme [${themeCreated.name}] already exist !");
@@ -79,10 +87,11 @@ class ThemeCubit extends Cubit<ThemeState> {
     themesCreated.add(themeCreated);
   }
 
+  /// Delete a theme from the themesCreated list in the Hive.
+  ///
+  /// The theme must be a String, a ThemeData or a ThemeInfo type.
   Future<void> deleteTheme(final theme) async {
-    Box box = await Hive.openBox('themesUserData');
-    int index = await searchIndexTheme(
-        theme, listJsonToThemeInfo(themesUserData.themesCreated, -1));
+    int index = await searchIndexTheme(theme, themesCreated);
     if (index == -1) {
       if (theme is String) {
         return Future.error("The theme [$theme] doesn't exist !");
@@ -96,19 +105,34 @@ class ThemeCubit extends Cubit<ThemeState> {
     await box.put('data', themesUserData);
   }
 
+  /// Part of searchIndexTheme.
   Future<int> searchThemeInJsonList(
-      ThemeInfo theme, List<Map<String, dynamic>> jsonList) async {
+      final theme, List<Map<String, dynamic>> jsonList) async {
     int index = 0;
-    for (Map<String, dynamic> json in jsonList) {
-      if (json['name'] == theme.name) {
-        return index;
+    if (theme is String) {
+      for (Map<String, dynamic> json in jsonList) {
+        if (json['name'] == theme) {
+          return index;
+        }
+        index++;
       }
-      index++;
+    } else if (theme is ThemeInfo) {
+      for (Map<String, dynamic> json in jsonList) {
+        if (json['name'] == theme.name) {
+          return index;
+        }
+        index++;
+      }
+    } else {
+      return Future.error("Wrong type entered at searching a index !");
     }
     return -1;
   }
 
-  Future<int> searchIndexTheme(final theme, List<ThemeInfo> themesList) async {
+  /// Part of searchIndexTheme.
+  Future<int> searchThemeInThemeInfo(
+      final theme, List<ThemeInfo> themesList) async {
+    int index = 0;
     if (theme is String) {
       int index = 0;
       for (ThemeInfo themeFromList in themesList) {
@@ -117,34 +141,82 @@ class ThemeCubit extends Cubit<ThemeState> {
         }
         index++;
       }
-      return -1;
     } else if (theme is ThemeData) {
-      int index = 0;
       for (ThemeInfo themeFromList in themesList) {
         if (themeFromList.theme == theme) {
           return index;
         }
         index++;
       }
-      return -1;
     } else if (theme is ThemeInfo) {
-      int index = 0;
       for (ThemeInfo themeFromList in themesList) {
         if (themeFromList == theme) {
           return index;
         }
         index++;
       }
-      return -1;
     } else {
       return Future.error("Wrong type entered at searching a index !");
     }
+    return -1;
+  }
+
+  /// Return the index of the theme in the themesList. If the theme isn't in the list, the function return -1.
+  ///
+  /// The theme must be a String, a ThemeData or a ThemeInfo type.
+  ///
+  /// The themesList must be a list of ThemeInfo or Json.
+  Future<int> searchIndexTheme(final theme, final themesList) async {
+    if (themesList is List<ThemeInfo>) {
+      return searchThemeInThemeInfo(theme, themesList);
+    } else if (themesList is List<Map<String, dynamic>>) {
+      return searchThemeInJsonList(theme, themesList);
+    }
+    return Future.error("Wrong type entered at searching an index !");
+  }
+
+  /// Change the theme selected in the Hive at darkThemeSelected or lightThemeSelected.
+  void saveChangeTheme(ThemeInfo theme) async {
+    if (theme.theme.brightness == Brightness.dark) {
+      themesUserData.darkThemeSelected = theme.name;
+    } else {
+      themesUserData.lightThemeSelected = theme.name;
+    }
+
+    await box.put('data', themesUserData);
+  }
+
+  /// Add the theme in the Hive at the favoriteThemes list.
+  /// If the theme is already in the list, remove it from the list.
+  void setThemeFavorite(BuildContext context, ThemeInfo theme) async {
+    int index = await context
+        .read<ThemeCubit>()
+        .searchIndexTheme(theme, themesUserData.favoriteThemes);
+    if (kDebugMode) {
+      print(index);
+    }
+    if (index != -1) {
+      themesUserData.favoriteThemes.removeAt(index);
+    } else {
+      themesUserData.favoriteThemes.add(themeInfoToJson(theme));
+    }
+    box.put('data', themesUserData);
+    //Reload the page
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return const ThemesSwap();
+        },
+      ),
+    );
   }
 
   void setChangeAutoTheme(bool value) async {
-    Box box = await Hive.openBox('themesUserData');
     themesUserData.changeAutoTheme = value;
     await box.put('data', themesUserData);
+    emit(state.copyWith(changeAutoTheme: value));
   }
 
   void setThemeMode(ThemeMode themeMode) {

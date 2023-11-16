@@ -70,11 +70,13 @@ class ThemeInfo {
       };
 }
 
+/// Transform a Json type to a ThemeInfo type and return it. If the json is not a theme, return a default theme.
 ThemeInfo jsonToThemeInfo(Map<String, dynamic> json) {
   return ThemeInfo(json['name'] as String,
       ThemeDecoder.decodeThemeData(json['theme']) ?? ThemeData());
 }
 
+/// Transform a ThemeInfo type to a Json type and return it.
 Map<String, dynamic> themeInfoToJson(ThemeInfo theme) {
   return {
     'name': theme.name,
@@ -82,27 +84,11 @@ Map<String, dynamic> themeInfoToJson(ThemeInfo theme) {
   };
 }
 
-List<ThemeInfo> listJsonToThemeInfo(
-    List<Map<String, dynamic>> jsonList, int brightness) {
+/// Transform a Json list to a ThemeInfo list and return it.
+List<ThemeInfo> listJsonToThemeInfo(List<Map<String, dynamic>> jsonList) {
   List<ThemeInfo> themeList = [];
-  ThemeInfo theme;
   for (Map<String, dynamic> json in jsonList) {
-    theme = jsonToThemeInfo(json);
-    switch (brightness) {
-      case (0): //Light
-        if (theme.theme.brightness == Brightness.light) {
-          themeList.add(theme);
-        }
-        break;
-      case (1): //Dark
-        if (theme.theme.brightness == Brightness.dark) {
-          themeList.add(theme);
-        }
-        break;
-      default: //No brightness
-        themeList.add(theme);
-        break;
-    }
+    themeList.add(jsonToThemeInfo(json));
   }
   return themeList;
 }
