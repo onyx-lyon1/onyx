@@ -16,16 +16,17 @@ class ThemesUserDataAdapter extends TypeAdapter<ThemesUserData> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ThemesUserData()
-      ..themesCreated = (fields[0] as List)
+    return ThemesUserData(
+      themesCreated: (fields[0] as List)
           .map((dynamic e) => (e as Map).cast<String, dynamic>())
-          .toList()
-      ..darkThemeSelected = fields[1] as String
-      ..lightThemeSelected = fields[2] as String
-      ..favoriteThemes = (fields[3] as List)
+          .toList(),
+      darkThemeSelected: fields[1] as String,
+      lightThemeSelected: fields[2] as String,
+      favoriteThemes: (fields[3] as List)
           .map((dynamic e) => (e as Map).cast<String, dynamic>())
-          .toList()
-      ..changeAutoTheme = fields[4] as bool;
+          .toList(),
+      changeAutoTheme: fields[4] as bool,
+    );
   }
 
   @override

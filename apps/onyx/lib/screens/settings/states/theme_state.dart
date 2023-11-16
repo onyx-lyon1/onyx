@@ -7,14 +7,15 @@ class ThemeState extends Equatable {
   final ThemeData? darkTheme;
   final ThemeData? lightTheme;
   final ThemeMode? themeMode;
-  final bool? changeAutoTheme;
+  final ThemesUserData? themesUserData;
 
-  const ThemeState(
-      {this.status = ThemeStateStatus.init,
-      this.lightTheme,
-      this.darkTheme,
-      this.themeMode,
-      this.changeAutoTheme});
+  const ThemeState({
+    this.status = ThemeStateStatus.init,
+    this.lightTheme,
+    this.darkTheme,
+    this.themeMode,
+    this.themesUserData,
+  });
 
   // Define a copyWith method for creating a new instance with modified properties
   ThemeState copyWith({
@@ -22,20 +23,20 @@ class ThemeState extends Equatable {
     ThemeData? darkTheme,
     ThemeData? lightTheme,
     ThemeMode? themeMode,
-    bool? changeAutoTheme,
+    ThemesUserData? themesUserData,
   }) {
     return ThemeState(
       status: state ?? this.status,
       darkTheme: darkTheme ?? this.darkTheme,
       lightTheme: lightTheme ?? this.lightTheme,
       themeMode: themeMode ?? this.themeMode,
-      changeAutoTheme: changeAutoTheme ?? this.changeAutoTheme,
+      themesUserData: themesUserData ?? this.themesUserData,
     );
   }
 
   @override
   List<Object?> get props =>
-      [status, darkTheme, lightTheme, themeMode, changeAutoTheme];
+      [status, darkTheme, lightTheme, themeMode, themesUserData];
 
   @override
   bool? get stringify => true;

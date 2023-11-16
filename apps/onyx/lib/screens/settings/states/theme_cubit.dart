@@ -36,6 +36,9 @@ class ThemeCubit extends Cubit<ThemeState> {
 
     await loadTheme(themesUserData.lightThemeSelected);
     await loadTheme(themesUserData.darkThemeSelected);
+
+    emit(state.copyWith(
+        state: ThemeStateStatus.loaded, themesUserData: themesUserData));
   }
 
   /// Load the theme from the input.
@@ -77,14 +80,21 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   /// Add a new theme to the themesCreated list in the Hive.
   Future<void> newTheme(ThemeInfo themeCreated) async {
-    if (await searchIndexTheme(themeCreated.name, themesCreated) != -1) {
+    if (await searchIndexTheme(
+            themeCreated.name, state.themesUserData!.themesCreated) !=
+        -1) {
       return Future.error("The theme [${themeCreated.name}] already exist !");
     }
 
     if (kDebugMode) {
       print("Theme builded: ${themeCreated.name}");
     }
-    themesCreated.add(themeCreated);
+
+    themesUserData.themesCreated.add(themeInfoToJson(themeCreated));
+
+    final updatedUserData = themesUserData.copyWith();
+    await box.put('data', updatedUserData);
+    emit(state.copyWith(themesUserData: updatedUserData));
   }
 
   /// Delete a theme from the themesCreated list in the Hive.
@@ -102,29 +112,19 @@ class ThemeCubit extends Cubit<ThemeState> {
       }
     }
     themesUserData.themesCreated.removeAt(index);
-    await box.put('data', themesUserData);
+    final updatedUserData = themesUserData.copyWith();
+    await box.put('data', updatedUserData);
+    emit(state.copyWith(themesUserData: updatedUserData));
   }
 
   /// Part of searchIndexTheme.
-  Future<int> searchThemeInJsonList(
-      final theme, List<Map<String, dynamic>> jsonList) async {
+  int searchThemeInJsonList(String theme, List<Map<String, dynamic>> jsonList) {
     int index = 0;
-    if (theme is String) {
-      for (Map<String, dynamic> json in jsonList) {
-        if (json['name'] == theme) {
-          return index;
-        }
-        index++;
+    for (Map<String, dynamic> json in jsonList) {
+      if (json['name'] == theme) {
+        return index;
       }
-    } else if (theme is ThemeInfo) {
-      for (Map<String, dynamic> json in jsonList) {
-        if (json['name'] == theme.name) {
-          return index;
-        }
-        index++;
-      }
-    } else {
-      return Future.error("Wrong type entered at searching a index !");
+      index++;
     }
     return -1;
   }
@@ -177,13 +177,15 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   /// Change the theme selected in the Hive at darkThemeSelected or lightThemeSelected.
   void saveChangeTheme(ThemeInfo theme) async {
+    late ThemesUserData updatedUserData;
     if (theme.theme.brightness == Brightness.dark) {
-      themesUserData.darkThemeSelected = theme.name;
+      updatedUserData = themesUserData.copyWith(darkThemeSelected: theme.name);
     } else {
-      themesUserData.lightThemeSelected = theme.name;
+      updatedUserData = themesUserData.copyWith(lightThemeSelected: theme.name);
     }
-
-    await box.put('data', themesUserData);
+    themesUserData = updatedUserData;
+    await box.put('data', updatedUserData);
+    emit(state.copyWith(themesUserData: updatedUserData));
   }
 
   /// Add the theme in the Hive at the favoriteThemes list.
@@ -191,7 +193,7 @@ class ThemeCubit extends Cubit<ThemeState> {
   void setThemeFavorite(BuildContext context, ThemeInfo theme) async {
     int index = await context
         .read<ThemeCubit>()
-        .searchIndexTheme(theme, themesUserData.favoriteThemes);
+        .searchIndexTheme(theme.name, themesUserData.favoriteThemes);
     if (kDebugMode) {
       print(index);
     }
@@ -200,23 +202,17 @@ class ThemeCubit extends Cubit<ThemeState> {
     } else {
       themesUserData.favoriteThemes.add(themeInfoToJson(theme));
     }
-    box.put('data', themesUserData);
-    //Reload the page
-    // ignore: use_build_context_synchronously
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) {
-          return const ThemesSwap();
-        },
-      ),
-    );
+    final updatedUserData = themesUserData.copyWith();
+
+    await box.put('data', updatedUserData);
+    emit(state.copyWith(themesUserData: updatedUserData));
   }
 
   void setChangeAutoTheme(bool value) async {
-    themesUserData.changeAutoTheme = value;
+    final updatedUserData = themesUserData.copyWith(changeAutoTheme: value);
+    themesUserData = updatedUserData;
     await box.put('data', themesUserData);
-    emit(state.copyWith(changeAutoTheme: value));
+    emit(state.copyWith(themesUserData: updatedUserData));
   }
 
   void setThemeMode(ThemeMode themeMode) {

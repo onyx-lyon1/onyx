@@ -118,7 +118,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                               255, 0, 0, 0)))),
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const ThemesSwap(),
+                              builder: (context) => ThemesSwap(),
                             ));
                           }),
                       const SizedBox(

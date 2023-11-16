@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:onyx/core/theme/theme_export.dart';
 import 'package:json_theme/json_theme.dart';
 
 part 'generated/theme_mode_enum.g.dart';
@@ -31,24 +30,39 @@ extension ThemeModeEnumExtension on ThemeModeEnum {
 @HiveType(typeId: 42)
 class ThemesUserData {
   @HiveField(0)
-  List<Map<String, dynamic>> themesCreated;
+  final List<Map<String, dynamic>> themesCreated;
   @HiveField(1)
-  String darkThemeSelected;
+  final String darkThemeSelected;
   @HiveField(2)
-  String lightThemeSelected;
+  final String lightThemeSelected;
   @HiveField(3)
-  List<Map<String, dynamic>> favoriteThemes;
+  final List<Map<String, dynamic>> favoriteThemes;
   @HiveField(4)
-  bool changeAutoTheme;
+  final bool changeAutoTheme;
 
-  ThemesUserData()
-      : themesCreated = [
-          themeInfoToJson(ThemeInfo('Dark Test', OnyxTheme().darkTheme)),
-        ],
-        darkThemeSelected = 'Dark Default',
-        lightThemeSelected = 'Light Default',
-        favoriteThemes = [],
-        changeAutoTheme = true;
+  const ThemesUserData({
+    this.themesCreated = const [],
+    this.darkThemeSelected = 'Dark Default',
+    this.lightThemeSelected = 'Light Default',
+    this.favoriteThemes = const [],
+    this.changeAutoTheme = true,
+  });
+
+  copyWith({
+    List<Map<String, dynamic>>? themesCreated,
+    String? darkThemeSelected,
+    String? lightThemeSelected,
+    List<Map<String, dynamic>>? favoriteThemes,
+    bool? changeAutoTheme,
+  }) {
+    return ThemesUserData(
+      themesCreated: themesCreated ?? this.themesCreated,
+      darkThemeSelected: darkThemeSelected ?? this.darkThemeSelected,
+      lightThemeSelected: lightThemeSelected ?? this.lightThemeSelected,
+      favoriteThemes: favoriteThemes ?? this.favoriteThemes,
+      changeAutoTheme: changeAutoTheme ?? this.changeAutoTheme,
+    );
+  }
 }
 
 class ThemeInfo {
