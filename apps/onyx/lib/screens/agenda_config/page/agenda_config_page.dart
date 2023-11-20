@@ -162,10 +162,7 @@ class AgendaConfigPage extends StatelessWidget {
                     padding: EdgeInsets.all(0.8.h),
                     child: Icon(
                       Icons.qr_code_rounded,
-                      color: Theme.of(context).textTheme.bodySmall?.color ??
-                          ((Theme.of(context).brightness == Brightness.light)
-                              ? const Color.fromARGB(255, 255, 255, 255)
-                              : const Color.fromARGB(255, 0, 0, 0)),
+                      color: Theme.of(context).textTheme.bodySmall!.color,
                       size: 30.sp,
                     ),
                   ),

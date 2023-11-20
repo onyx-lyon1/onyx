@@ -35,7 +35,7 @@ class IzlyRechargeAmountWidget extends StatelessWidget {
                   border: InputBorder.none,
                 ),
                 style: TextStyle(
-                  fontSize: 15.sp,
+                    fontSize: 15.sp,
                     color: Theme.of(context).textTheme.bodyLarge!.color),
                 textAlign: TextAlign.center,
                 textAlignVertical: TextAlignVertical.center,
@@ -129,13 +129,13 @@ class IzlyRechargeAmountExampleValuesWidget extends StatelessWidget {
             width: 17.w,
             height: 17.w,
             child: Center(
-              child: Text(value.toStringAsFixed(2),
-                  style: TextStyle(
-                      fontSize: 15.sp,
-                      color: Theme.of(context).textTheme.bodySmall?.color ??
-                          ((Theme.of(context).brightness == Brightness.light)
-                              ? Color.fromARGB(255, 255, 255, 255)
-                              : const Color.fromARGB(255, 0, 0, 0)))),
+              child: Text(
+                value.toStringAsFixed(2),
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  color: Theme.of(context).textTheme.bodySmall!.color,
+                ),
+              ),
             ),
           ),
         ),

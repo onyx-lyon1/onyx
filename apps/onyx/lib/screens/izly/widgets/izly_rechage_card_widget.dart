@@ -43,19 +43,15 @@ class IzlayRechargeCardWidget extends StatelessWidget {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon,
-                  color: Theme.of(context).textTheme.bodySmall?.color ??
-                      ((Theme.of(context).brightness == Brightness.light)
-                          ? const Color.fromARGB(255, 255, 255, 255)
-                          : const Color.fromARGB(255, 0, 0, 0))),
+              Icon(
+                icon,
+                color: Theme.of(context).textTheme.bodySmall!.color,
+              ),
               Text(
                 text,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.bodySmall?.color ??
-                      ((Theme.of(context).brightness == Brightness.light)
-                          ? const Color.fromARGB(255, 255, 255, 255)
-                          : const Color.fromARGB(255, 0, 0, 0)),
+                  color: Theme.of(context).textTheme.bodySmall!.color,
                 ),
               ),
             ],

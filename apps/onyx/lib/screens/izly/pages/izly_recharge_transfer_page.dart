@@ -35,16 +35,12 @@ class IzlyRechargeTranferPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Text("Transferer",
-                        style: TextStyle(
-                            color: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.color ??
-                                ((Theme.of(context).brightness ==
-                                        Brightness.light)
-                                    ? const Color.fromARGB(255, 255, 255, 255)
-                                    : const Color.fromARGB(255, 0, 0, 0)))),
+                    child: Text(
+                      "Transferer",
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodySmall?.color,
+                      ),
+                    ),
                   ),
                 ],
               ),

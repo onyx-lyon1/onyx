@@ -98,12 +98,9 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                                       horizontal: 2.w, vertical: 0.5.h),
                                   child: Text(
                                     "Confidentialité",
-                                    style: (Theme.of(context)
+                                    style: Theme.of(context)
                                                 .textTheme
-                                                .bodySmall ??
-                                            Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!)
+                                                .bodySmall!
                                         .copyWith(fontSize: 17.sp),
                                   ),
                                 ),
@@ -141,7 +138,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                             Icons.school_rounded,
                             size: 18.sp,
                             color:
-                                (Theme.of(context).textTheme.bodySmall?.color ??
+                                (Theme.of(context).textTheme.bodySmall!.color ??
                                         Theme.of(context)
                                             .textTheme
                                             .bodyLarge!
@@ -229,14 +226,8 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                           child: Text(
                             'Connexion',
                             style: TextStyle(
-                              color: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.color ??
-                                  ((Theme.of(context).brightness ==
-                                          Brightness.light)
-                                      ? const Color.fromARGB(255, 255, 255, 255)
-                                      : const Color.fromARGB(255, 0, 0, 0)),
+                              color:
+                                  Theme.of(context).textTheme.bodySmall?.color,
                               fontSize: 18.sp,
                             ),
                           ),
@@ -300,14 +291,14 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       decoration: widget.decoration.copyWith(
           labelText: 'Password',
           labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: (Theme.of(context).textTheme.bodySmall?.color ??
+                color: (Theme.of(context).textTheme.bodySmall!.color ??
                         Theme.of(context).textTheme.bodyLarge!.color!)
                     .withOpacity(0.5),
               ),
           prefixIcon: Icon(
             Icons.lock_rounded,
             size: 18.sp,
-            color: (Theme.of(context).textTheme.bodySmall?.color ??
+            color: (Theme.of(context).textTheme.bodySmall!.color ??
                     Theme.of(context).textTheme.bodyLarge!.color!)
                 .withOpacity(0.5),
           ),
@@ -316,7 +307,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
                 _isObscure
                     ? Icons.visibility_rounded
                     : Icons.visibility_off_rounded,
-                color: (Theme.of(context).textTheme.bodySmall?.color ??
+                color: (Theme.of(context).textTheme.bodySmall!.color ??
                     Theme.of(context).textTheme.bodyLarge!.color!),
               ),
               onPressed: () {

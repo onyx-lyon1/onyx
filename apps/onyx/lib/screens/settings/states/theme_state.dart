@@ -19,14 +19,14 @@ class ThemeState extends Equatable {
 
   // Define a copyWith method for creating a new instance with modified properties
   ThemeState copyWith({
-    ThemeStateStatus? state,
+    ThemeStateStatus? status,
     ThemeData? darkTheme,
     ThemeData? lightTheme,
     ThemeMode? themeMode,
     ThemesUserData? themesUserData,
   }) {
     return ThemeState(
-      status: state ?? this.status,
+      status: status ?? this.status,
       darkTheme: darkTheme ?? this.darkTheme,
       lightTheme: lightTheme ?? this.lightTheme,
       themeMode: themeMode ?? this.themeMode,

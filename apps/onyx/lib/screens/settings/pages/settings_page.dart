@@ -97,30 +97,28 @@ class _SettingsPageState extends State<SettingsPage> {
                         height: 5,
                       ),
                       MaterialButton(
-                          color: Theme.of(context).primaryColor,
-                          textColor:
-                              Theme.of(context).textTheme.bodyLarge?.color ??
-                                  Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).primaryColor,
+                        textColor:
+                            Theme.of(context).textTheme.bodyLarge?.color ??
+                                Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          'Changer les thèmes',
+                          style: TextStyle(
+                            fontSize: 17.sp,
+                            color: Theme.of(context).textTheme.bodySmall?.color,
                           ),
-                          child: Text('Changer les thèmes',
-                              style: TextStyle(
-                                  fontSize: 17.sp,
-                                  color: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.color ??
-                                      ((Theme.of(context).brightness ==
-                                              Brightness.light)
-                                          ? Color.fromARGB(255, 255, 255, 255)
-                                          : const Color.fromARGB(
-                                              255, 0, 0, 0)))),
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ThemesSwap(),
-                            ));
-                          }),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const ThemesSwap(),
+                            ),
+                          );
+                        },
+                      ),
                       const SizedBox(
                         height: 5,
                       ),

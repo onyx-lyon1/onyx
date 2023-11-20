@@ -2,7 +2,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:flutter/material.dart';
 
 class OnyxTheme {
-  ThemeData darkTheme = ThemeData(
+  static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     cardTheme: const CardTheme(color: Color(0xff4c566a)),
     cardColor: const Color(0xff4c566a),
@@ -22,6 +22,7 @@ class OnyxTheme {
       labelLarge: TextStyle(color: Color(0xffffffff)),
       bodyLarge: TextStyle(color: Color(0xffd8dee9)),
       bodyMedium: TextStyle(color: Color(0xffc2c8d2)),
+      bodySmall: TextStyle(color: Colors.black),
     ),
     colorScheme: const ColorScheme.dark(
       background: Color(0xff434c5e),
@@ -29,7 +30,7 @@ class OnyxTheme {
     ),
   );
 
-  ThemeData lightTheme = ThemeData(
+  static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     cardTheme: const CardTheme(color: Color(0xffe5e9f0)),
     cardColor: const Color(0xffe5e9f0),
@@ -49,6 +50,7 @@ class OnyxTheme {
       labelLarge: TextStyle(color: Color(0xff4c566a)),
       bodyLarge: TextStyle(color: Color(0xff4c566a)),
       bodyMedium: TextStyle(color: Color(0xff4c566a)),
+      bodySmall: TextStyle(color: Colors.white),
     ),
     colorScheme: const ColorScheme.light(
       background: Color(0xffd8dee9),
@@ -56,7 +58,7 @@ class OnyxTheme {
     ),
   );
 
-  ThemeData nichihachiTheme = ThemeData(
+  static ThemeData nichihachiTheme = ThemeData(
     useMaterial3: true,
     cardTheme: const CardTheme(color: Color.fromARGB(255, 40, 40, 60)),
     cardColor: const Color.fromARGB(255, 40, 40, 60),
@@ -76,6 +78,7 @@ class OnyxTheme {
       labelLarge: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
       bodyLarge: TextStyle(color: Color.fromARGB(255, 211, 211, 211)),
       bodyMedium: TextStyle(color: Color.fromARGB(255, 211, 211, 211)),
+      bodySmall: TextStyle(color: Colors.black),
     ),
     colorScheme: const ColorScheme.dark(
       background: Color.fromARGB(255, 20, 20, 30),
@@ -83,7 +86,7 @@ class OnyxTheme {
     ),
   );
 
-  ThemeData blueSkyTheme = ThemeData(
+  static ThemeData blueSkyTheme = ThemeData(
     useMaterial3: true,
     cardTheme: const CardTheme(color: Color.fromARGB(255, 220, 240, 255)),
     cardColor: const Color.fromARGB(255, 220, 240, 255),
@@ -102,6 +105,7 @@ class OnyxTheme {
       labelLarge: TextStyle(color: Color.fromARGB(255, 76, 79, 106)),
       bodyLarge: TextStyle(color: Color.fromARGB(255, 76, 79, 106)),
       bodyMedium: TextStyle(color: Color.fromARGB(255, 76, 79, 106)),
+      bodySmall: TextStyle(color: Colors.white),
     ),
     colorScheme: const ColorScheme.light(
       background: Color.fromARGB(255, 204, 226, 255),
@@ -109,7 +113,7 @@ class OnyxTheme {
     ),
   );
 
-  ThemeData ultrakillTheme = ThemeData(
+  static ThemeData ultrakillTheme = ThemeData(
     useMaterial3: true,
     cardTheme: const CardTheme(color: Color.fromARGB(255, 30, 30, 30)),
     cardColor: const Color.fromARGB(255, 30, 30, 30),
@@ -129,6 +133,7 @@ class OnyxTheme {
       labelLarge: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
       bodyLarge: TextStyle(color: Color.fromARGB(255, 200, 200, 200)),
       bodyMedium: TextStyle(color: Color.fromARGB(255, 200, 200, 200)),
+      bodySmall: TextStyle(color: Colors.black),
     ),
     colorScheme: const ColorScheme.dark(
       background: Color.fromARGB(255, 20, 20, 20),
@@ -136,7 +141,7 @@ class OnyxTheme {
     ),
   );
 
-  ThemeData badappleTheme = ThemeData(
+  static ThemeData badappleTheme = ThemeData(
     useMaterial3: true,
     cardTheme: const CardTheme(color: Color.fromARGB(255, 20, 20, 20)),
     cardColor: const Color.fromARGB(255, 20, 20, 20),
@@ -164,7 +169,7 @@ class OnyxTheme {
     ),
   );
 
-  ThemeData moonlightTheme = ThemeData(
+  static ThemeData moonlightTheme = ThemeData(
     useMaterial3: true,
     cardTheme: const CardTheme(color: Color.fromARGB(255, 35, 40, 50)),
     cardColor: const Color.fromARGB(255, 35, 40, 50),
@@ -184,6 +189,7 @@ class OnyxTheme {
       labelLarge: TextStyle(color: Color.fromARGB(255, 200, 200, 220)),
       bodyLarge: TextStyle(color: Color.fromARGB(255, 180, 180, 180)),
       bodyMedium: TextStyle(color: Color.fromARGB(255, 180, 180, 180)),
+      bodySmall: TextStyle(color: Colors.black),
     ),
     colorScheme: const ColorScheme.dark(
       background: Color.fromARGB(255, 20, 25, 30),
@@ -191,7 +197,7 @@ class OnyxTheme {
     ),
   );
 
-  ThemeData stardewValleyTheme = ThemeData(
+  static ThemeData stardewValleyTheme = ThemeData(
     useMaterial3: true,
     cardTheme: const CardTheme(color: Color.fromARGB(255, 220, 240, 200)),
     cardColor: const Color.fromARGB(255, 220, 240, 200),
@@ -211,29 +217,30 @@ class OnyxTheme {
       labelLarge: TextStyle(color: Color.fromARGB(255, 76, 79, 106)),
       bodyLarge: TextStyle(color: Color.fromARGB(255, 76, 79, 106)),
       bodyMedium: TextStyle(color: Color.fromARGB(255, 76, 79, 106)),
+      bodySmall: TextStyle(color: Colors.white),
     ),
     colorScheme: const ColorScheme.light(
       background: Color.fromARGB(255, 198, 226, 143),
       primary: Color.fromARGB(255, 34, 139, 34),
     ),
   );
+
+  static List<ThemeInfo> themesPreset = [
+    ThemeInfo('Dark Default', OnyxTheme.darkTheme),
+    ThemeInfo('Light Default', OnyxTheme.lightTheme),
+    ThemeInfo('Nichi Hachi', OnyxTheme.nichihachiTheme),
+    ThemeInfo('Blue Sky', OnyxTheme.blueSkyTheme),
+    ThemeInfo('ULTRAKILL', OnyxTheme.ultrakillTheme),
+    ThemeInfo('Stardew Valley', OnyxTheme.stardewValleyTheme),
+    ThemeInfo('Bad Apple', OnyxTheme.badappleTheme),
+    ThemeInfo('Moon Light', OnyxTheme.moonlightTheme),
+  ];
+
+  static List<ThemeInfo> themesPresetDark = themesPreset
+      .where((themeInfo) => themeInfo.theme.brightness == Brightness.dark)
+      .toList();
+
+  static List<ThemeInfo> themesPresetLight = themesPreset
+      .where((themeInfo) => themeInfo.theme.brightness == Brightness.light)
+      .toList();
 }
-
-List<ThemeInfo> themesPreset = [
-  ThemeInfo('Dark Default', OnyxTheme().darkTheme),
-  ThemeInfo('Light Default', OnyxTheme().lightTheme),
-  ThemeInfo('Nichi Hachi', OnyxTheme().nichihachiTheme),
-  ThemeInfo('Blue Sky', OnyxTheme().blueSkyTheme),
-  ThemeInfo('ULTRAKILL', OnyxTheme().ultrakillTheme),
-  ThemeInfo('Stardew Valley', OnyxTheme().stardewValleyTheme),
-  ThemeInfo('Bad Apple', OnyxTheme().badappleTheme),
-  ThemeInfo('Moon Light', OnyxTheme().moonlightTheme),
-];
-
-List<ThemeInfo> themesPresetDark = themesPreset
-    .where((themeInfo) => themeInfo.theme.brightness == Brightness.dark)
-    .toList();
-
-List<ThemeInfo> themesPresetLight = themesPreset
-    .where((themeInfo) => themeInfo.theme.brightness == Brightness.light)
-    .toList();

@@ -41,11 +41,11 @@ class _ThemesSwapState extends State<ThemesSwap> {
                 "Thèmes favoris",
                 listJsonToThemeInfo(themeState.themesUserData!.favoriteThemes),
                 themeState),
-            expansionTheme(
-                context, "Thèmes clairs", themesPresetLight, themeState,
+            expansionTheme(context, "Thèmes clairs",
+                OnyxTheme.themesPresetLight, themeState,
                 themesCreated: themeCreatedLight),
-            expansionTheme(
-                context, "Thèmes sombres", themesPresetDark, themeState,
+            expansionTheme(context, "Thèmes sombres",
+                OnyxTheme.themesPresetDark, themeState,
                 themesCreated: themeCreatedDark),
           ]));
         }));
@@ -163,9 +163,9 @@ class _ThemesSwapState extends State<ThemesSwap> {
                           theme.name,
                           themeState.themesUserData!.favoriteThemes) !=
                       -1)
-                     Positioned(
+                    Positioned(
                       top: 15,
-                      right: 18 - (index+1)%2*2,
+                      right: 18 - (index + 1) % 2 * 2,
                       child: const Icon(
                         Icons.favorite,
                         color: Colors.red,

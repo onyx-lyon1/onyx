@@ -57,7 +57,7 @@ class OnyxAppState extends State<OnyxApp> {
           BlocProvider<MapCubit>(create: (context) => MapCubit()),
           BlocProvider<IzlyCubit>(create: (context) => IzlyCubit()),
           BlocProvider<ThemeCubit>(
-              create: (context) => ThemeCubit(themesPreset)),
+              create: (context) => ThemeCubit(OnyxTheme.themesPreset)),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, themeState) {
@@ -141,9 +141,9 @@ class OnyxAppState extends State<OnyxApp> {
                         theme: themeState.lightTheme,
                         darkTheme: themeState.darkTheme,
                         home: Scaffold(
-                            backgroundColor: themeState
-                                    .darkTheme?.colorScheme.background ??
-                                OnyxTheme().darkTheme.colorScheme.background,
+                            backgroundColor:
+                                themeState.darkTheme?.colorScheme.background ??
+                                    OnyxTheme.darkTheme.colorScheme.background,
                             body:
                                 const CustomCircularProgressIndicatorWidget()),
                       );

@@ -28,7 +28,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     if (box.containsKey('data')) {
       themesUserData = box.get('data');
     } else {
-      themesUserData = ThemesUserData();
+      themesUserData = const ThemesUserData();
       await box.put('data', themesUserData);
     }
 
@@ -38,7 +38,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     await loadTheme(themesUserData.darkThemeSelected);
 
     emit(state.copyWith(
-        state: ThemeStateStatus.loaded, themesUserData: themesUserData));
+        status: ThemeStateStatus.loaded, themesUserData: themesUserData));
   }
 
   /// Load the theme from the input.

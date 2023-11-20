@@ -87,10 +87,7 @@ class MailSendPage extends StatelessWidget {
             padding: EdgeInsets.all(1.5.h),
             child: Icon(Icons.send_rounded,
                 size: 25.sp,
-                color: Theme.of(context).textTheme.bodySmall?.color ??
-                    ((Theme.of(context).brightness == Brightness.light)
-                        ? const Color.fromARGB(255, 255, 255, 255)
-                        : const Color.fromARGB(255, 0, 0, 0))),
+                color: Theme.of(context).textTheme.bodySmall!.color),
           ),
         ),
       ),
