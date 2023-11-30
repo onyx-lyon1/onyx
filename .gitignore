@@ -50,6 +50,5 @@ app.*.map.json
 
 apps/onyx/assets/key.txt
 apps/onyx/assets/iv.txt
-
-apps/onyx/CMakeCache.txt
-apps/onyx/CMakeFiles*
+!flake.lock
+.direnv/
