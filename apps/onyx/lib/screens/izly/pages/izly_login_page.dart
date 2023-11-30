@@ -99,8 +99,8 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                                   child: Text(
                                     "Confidentialité",
                                     style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
+                                        .textTheme
+                                        .bodySmall!
                                         .copyWith(fontSize: 17.sp),
                                   ),
                                 ),

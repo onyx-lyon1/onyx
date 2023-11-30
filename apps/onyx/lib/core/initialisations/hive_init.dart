@@ -12,6 +12,7 @@ Future<void> hiveInit({String? path}) async {
   Hive.registerAdapter(FunctionalitiesAdapter());
   Hive.registerAdapter(ThemeModeEnumAdapter());
   Hive.registerAdapter(SettingsModelAdapter());
+  Hive.registerAdapter(ThemeSettingsModelAdapter());
 
   IzlyClient.registerAdapters();
   Lyon1TomussClient.registerAdapters();

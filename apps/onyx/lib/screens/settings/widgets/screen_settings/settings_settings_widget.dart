@@ -83,9 +83,9 @@ class SettingsSettingsWidget extends StatelessWidget {
           builder: (context, themeState) {
             return TextSwitchWidget(
               text: 'Changer automatiquement au theme selectionné',
-              value: themeState.themesUserData!.changeAutoTheme,
+              value: themeState.themesSettings!.autoSwitchTheme,
               onChanged: (bool value) {
-                context.read<ThemeCubit>().setChangeAutoTheme(value);
+                context.read<ThemeCubit>().updateAutoSwitchTheme(value);
               },
             );
           },

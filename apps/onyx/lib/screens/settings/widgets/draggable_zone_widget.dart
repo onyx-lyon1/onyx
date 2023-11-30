@@ -82,9 +82,9 @@ class DraggableZoneWidget extends StatelessWidget {
           ),
           lastListTargetSize: 0.0,
           itemDragHandle: DragHandle(
-            verticalAlignment: DragHandleVerticalAlignment.center,
+            verticalAlignment: DragHandleVerticalAlignment.top,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
               child: Icon(
                 Icons.drag_indicator_rounded,
                 size: 30,

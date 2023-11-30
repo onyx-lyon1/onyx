@@ -2,228 +2,119 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-  late Box box;
-  late ThemesUserData themesUserData;
-  late List<ThemeInfo> themesCreated;
-  List<ThemeInfo> themesPreset;
-
-  ThemeCubit(this.themesPreset) : super(const ThemeState()) {
-    _initializeThemes();
+  ThemeCubit() : super(const ThemeState()) {
+    init();
   }
 
   /// This function initilize the Hive of ThemeUserData and load the themes selected.
-  Future<void> _initializeThemes() async {
-    if (!Hive.isAdapterRegistered(ThemesUserDataAdapter().typeId)) {
-      Hive.registerAdapter(ThemesUserDataAdapter());
-    }
+  Future<void> init() async {
+    emit(state.copyWith(status: ThemeStateStatus.init));
+    ThemeSettingsModel themesUserData;
 
-    box = await Hive.openBox('themesUserData');
-
-    if (box.containsKey('data')) {
-      themesUserData = box.get('data');
+    if (await CacheService.exist<ThemeSettingsModel>()) {
+      themesUserData = (await CacheService.get<ThemeSettingsModel>())!;
     } else {
-      themesUserData = const ThemesUserData();
-      await box.put('data', themesUserData);
+      themesUserData = ThemeSettingsModel();
+      await CacheService.set<ThemeSettingsModel>(themesUserData);
     }
-
-    themesCreated = listJsonToThemeInfo(themesUserData.themesCreated);
-
-    await loadTheme(themesUserData.lightThemeSelected);
-    await loadTheme(themesUserData.darkThemeSelected);
 
     emit(state.copyWith(
-        status: ThemeStateStatus.loaded, themesUserData: themesUserData));
-  }
-
-  /// Load the theme from the input.
-  ///
-  /// The theme must be a String, a ThemeData or a ThemeInfo type.
-  Future<void> loadTheme(final theme) async {
-    ThemeData themeSelected;
-    if (theme is String) {
-      int indexThemesCreated = await searchIndexTheme(theme, themesCreated);
-      int indexThemesPreset = await searchIndexTheme(theme, themesPreset);
-      if (indexThemesCreated != -1) {
-        themeSelected = themesCreated[indexThemesCreated].theme;
-      } else if (indexThemesPreset != -1) {
-        themeSelected = themesPreset[indexThemesPreset].theme;
-      } else {
-        return Future.error("The theme [$theme] doesn't exist !");
-      }
-    } else if (theme is ThemeData) {
-      themeSelected = theme;
-    } else if (theme is ThemeInfo) {
-      themeSelected = theme.theme;
-    } else {
-      return Future.error("Wrong type entered at loading a theme !");
-    }
-
-    //Set the theme depending of the brightness
-    themeSelected.brightness == Brightness.dark
-        ? emit(state.copyWith(darkTheme: themeSelected))
-        : emit(state.copyWith(lightTheme: themeSelected));
-
-    toggleThemeMode();
-  }
-
-  /// Return a list of the main colors of a theme : The font, the background and the button.
-  Future<List<Color>> extractThemeColor(ThemeData theme) async {
-    Color fontColor = theme.textTheme.labelLarge!.color!;
-    return [fontColor, theme.cardColor, theme.colorScheme.primary];
+        status: ThemeStateStatus.loaded, themesSettings: themesUserData));
   }
 
   /// Add a new theme to the themesCreated list in the Hive.
-  Future<void> newTheme(ThemeInfo themeCreated) async {
-    if (await searchIndexTheme(
-            themeCreated.name, state.themesUserData!.themesCreated) !=
-        -1) {
+  Future<void> newTheme(ThemeModel themeCreated) async {
+    if (state.themesSettings!.themesCreated.contains(themeCreated)) {
       return Future.error("The theme [${themeCreated.name}] already exist !");
     }
 
     if (kDebugMode) {
-      print("Theme builded: ${themeCreated.name}");
+      Res.logger.i("Theme builded: ${themeCreated.name}");
     }
 
-    themesUserData.themesCreated.add(themeInfoToJson(themeCreated));
+    ThemeSettingsModel themesUserData = state.themesSettings!.copyWith(
+        themesCreated: state.themesSettings!.themesCreated..add(themeCreated));
 
-    final updatedUserData = themesUserData.copyWith();
-    await box.put('data', updatedUserData);
-    emit(state.copyWith(themesUserData: updatedUserData));
+    await CacheService.set<ThemeSettingsModel>(themesUserData);
+    emit(state.copyWith(themesSettings: themesUserData));
   }
 
   /// Delete a theme from the themesCreated list in the Hive.
   ///
   /// The theme must be a String, a ThemeData or a ThemeInfo type.
-  Future<void> deleteTheme(final theme) async {
-    int index = await searchIndexTheme(theme, themesCreated);
-    if (index == -1) {
-      if (theme is String) {
-        return Future.error("The theme [$theme] doesn't exist !");
-      } else if (theme is ThemeInfo) {
-        return Future.error("The theme [${theme.name}] doesn't exist !");
-      } else {
-        return Future.error("The theme doesn't exist !");
-      }
+  Future<void> deleteTheme(final ThemeModel theme) async {
+    if (!state.themesSettings!.themesCreated.contains(theme)) {
+      return Future.error("The theme [$theme] doesn't exist !");
     }
-    themesUserData.themesCreated.removeAt(index);
-    final updatedUserData = themesUserData.copyWith();
-    await box.put('data', updatedUserData);
-    emit(state.copyWith(themesUserData: updatedUserData));
-  }
 
-  /// Part of searchIndexTheme.
-  int searchThemeInJsonList(String theme, List<Map<String, dynamic>> jsonList) {
-    int index = 0;
-    for (Map<String, dynamic> json in jsonList) {
-      if (json['name'] == theme) {
-        return index;
-      }
-      index++;
-    }
-    return -1;
-  }
-
-  /// Part of searchIndexTheme.
-  Future<int> searchThemeInThemeInfo(
-      final theme, List<ThemeInfo> themesList) async {
-    int index = 0;
-    if (theme is String) {
-      int index = 0;
-      for (ThemeInfo themeFromList in themesList) {
-        if (themeFromList.name == theme) {
-          return index;
-        }
-        index++;
-      }
-    } else if (theme is ThemeData) {
-      for (ThemeInfo themeFromList in themesList) {
-        if (themeFromList.theme == theme) {
-          return index;
-        }
-        index++;
-      }
-    } else if (theme is ThemeInfo) {
-      for (ThemeInfo themeFromList in themesList) {
-        if (themeFromList == theme) {
-          return index;
-        }
-        index++;
-      }
-    } else {
-      return Future.error("Wrong type entered at searching a index !");
-    }
-    return -1;
-  }
-
-  /// Return the index of the theme in the themesList. If the theme isn't in the list, the function return -1.
-  ///
-  /// The theme must be a String, a ThemeData or a ThemeInfo type.
-  ///
-  /// The themesList must be a list of ThemeInfo or Json.
-  Future<int> searchIndexTheme(final theme, final themesList) async {
-    if (themesList is List<ThemeInfo>) {
-      return searchThemeInThemeInfo(theme, themesList);
-    } else if (themesList is List<Map<String, dynamic>>) {
-      return searchThemeInJsonList(theme, themesList);
-    }
-    return Future.error("Wrong type entered at searching an index !");
+    ThemeSettingsModel themesUserData = state.themesSettings!.copyWith(
+        themesCreated: state.themesSettings!.themesCreated..remove(theme));
+    await CacheService.set<ThemeSettingsModel>(themesUserData);
+    emit(state.copyWith(themesSettings: themesUserData));
   }
 
   /// Change the theme selected in the Hive at darkThemeSelected or lightThemeSelected.
-  void saveChangeTheme(ThemeInfo theme) async {
-    late ThemesUserData updatedUserData;
+  Future<void> chooseTheme(ThemeModel theme) async {
+    late ThemeSettingsModel updatedUserData;
     if (theme.theme.brightness == Brightness.dark) {
-      updatedUserData = themesUserData.copyWith(darkThemeSelected: theme.name);
+      updatedUserData =
+          state.themesSettings!.copyWith(darkThemeSelected: theme.name);
     } else {
-      updatedUserData = themesUserData.copyWith(lightThemeSelected: theme.name);
+      updatedUserData =
+          state.themesSettings!.copyWith(lightThemeSelected: theme.name);
     }
-    themesUserData = updatedUserData;
-    await box.put('data', updatedUserData);
-    emit(state.copyWith(themesUserData: updatedUserData));
+    await CacheService.set<ThemeSettingsModel>(updatedUserData);
+    emit(state.copyWith(
+        themesSettings: updatedUserData, status: ThemeStateStatus.updated));
   }
 
   /// Add the theme in the Hive at the favoriteThemes list.
   /// If the theme is already in the list, remove it from the list.
-  void setThemeFavorite(BuildContext context, ThemeInfo theme) async {
-    int index = await context
-        .read<ThemeCubit>()
-        .searchIndexTheme(theme.name, themesUserData.favoriteThemes);
-    if (kDebugMode) {
-      print(index);
-    }
+  void toggleThemeFavorite(ThemeModel theme) async {
+    int index = state.themesSettings!.favoriteThemes
+        .indexWhere((element) => element.name == theme.name);
+    ThemeSettingsModel themesUserData;
     if (index != -1) {
-      themesUserData.favoriteThemes.removeAt(index);
+      themesUserData = state.themesSettings!.copyWith(
+          favoriteThemes: state.themesSettings!.favoriteThemes.toList()
+            ..removeAt(index));
     } else {
-      themesUserData.favoriteThemes.add(themeInfoToJson(theme));
+      themesUserData = state.themesSettings!.copyWith(
+          favoriteThemes: state.themesSettings!.favoriteThemes.toList()
+            ..add(theme));
     }
-    final updatedUserData = themesUserData.copyWith();
-
-    await box.put('data', updatedUserData);
-    emit(state.copyWith(themesUserData: updatedUserData));
+    await CacheService.set<ThemeSettingsModel>(themesUserData);
+    emit(state.copyWith(themesSettings: themesUserData));
   }
 
-  void setChangeAutoTheme(bool value) async {
-    final updatedUserData = themesUserData.copyWith(changeAutoTheme: value);
-    themesUserData = updatedUserData;
-    await box.put('data', themesUserData);
-    emit(state.copyWith(themesUserData: updatedUserData));
+  void updateThemeMode(ThemeModeEnum themeMode) async {
+    final updatedUserData =
+        state.themesSettings!.copyWith(themeMode: themeMode);
+    await CacheService.set<ThemeSettingsModel>(updatedUserData);
+    emit(state.copyWith(
+        themesSettings: updatedUserData, status: ThemeStateStatus.updated));
   }
 
-  void setThemeMode(ThemeMode themeMode) {
-    emit(state.copyWith(themeMode: themeMode));
+  void updateAutoSwitchTheme(bool autoSwitchTheme) async {
+    final updatedUserData =
+        state.themesSettings!.copyWith(autoSwitchTheme: autoSwitchTheme);
+    await CacheService.set<ThemeSettingsModel>(updatedUserData);
+    emit(state.copyWith(
+        themesSettings: updatedUserData, status: ThemeStateStatus.updated));
   }
 
   void toggleThemeMode() {
-    if (state.themeMode == ThemeMode.dark) {
-      setThemeMode(ThemeMode.light);
-    } else if (state.themeMode == ThemeMode.dark) {
-      setThemeMode(ThemeMode.dark);
+    if (state.themesSettings!.themeMode == ThemeModeEnum.dark) {
+      emit(state.copyWith(themeMode: ThemeMode.light));
+    } else if (state.themesSettings!.themeMode == ThemeModeEnum.light) {
+      emit(state.copyWith(themeMode: ThemeMode.dark));
     }
   }
 }

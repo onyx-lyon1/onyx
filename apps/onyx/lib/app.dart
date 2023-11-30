@@ -56,52 +56,50 @@ class OnyxAppState extends State<OnyxApp> {
           BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
           BlocProvider<MapCubit>(create: (context) => MapCubit()),
           BlocProvider<IzlyCubit>(create: (context) => IzlyCubit()),
-          BlocProvider<ThemeCubit>(
-              create: (context) => ThemeCubit(OnyxTheme.themesPreset)),
+          BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
         ],
-        child: BlocBuilder<ThemeCubit, ThemeState>(
-          builder: (context, themeState) {
-            return BlocBuilder<AuthentificationCubit, AuthentificationState>(
-              builder: (context, authState) {
-                if (kDebugMode) {
-                  print("Device.orientation : ${Device.orientation}");
-                  print("Device.deviceType : ${Device.deviceType}");
-                  print("Device.screenType : ${Device.screenType}");
-                  print("Device.width : ${Device.width}");
-                  print("Device.height : ${Device.height}");
-                  print("Device.boxConstraints : ${Device.boxConstraints}");
-                  print("Device.aspectRatio : ${Device.aspectRatio}");
-                  print("Device.pixelRatio : ${Device.pixelRatio}");
-                }
+        child: BlocBuilder<AuthentificationCubit, AuthentificationState>(
+          builder: (context, authState) {
+            if (kDebugMode) {
+              print("Device.orientation : ${Device.orientation}");
+              print("Device.deviceType : ${Device.deviceType}");
+              print("Device.screenType : ${Device.screenType}");
+              print("Device.width : ${Device.width}");
+              print("Device.height : ${Device.height}");
+              print("Device.boxConstraints : ${Device.boxConstraints}");
+              print("Device.aspectRatio : ${Device.aspectRatio}");
+              print("Device.pixelRatio : ${Device.pixelRatio}");
+            }
 
-                if (authState.status ==
-                    AuthentificationStatus.authentificated) {
-                  CacheService.getEncryptionKey(context
-                          .read<SettingsCubit>()
-                          .state
-                          .settings
-                          .biometricAuth)
-                      .then((key) =>
-                          CacheService.get<Credential>(secureKey: key).then(
-                              (value) => context.read<EmailCubit>().connect(
-                                  username: value!.username,
-                                  password: value.password)));
-                  if (AgendaStatus.ready !=
-                      context.read<AgendaCubit>().state.status) {
-                    context.read<AgendaCubit>().load(
-                        lyon1Cas: authState.lyon1Cas,
-                        settings: context.read<SettingsCubit>().state.settings);
-                  }
-                  context.read<TomussCubit>().load(
-                        lyon1Cas: authState.lyon1Cas,
-                        settings: context.read<SettingsCubit>().state.settings,
-                        force: true,
-                      );
-                }
+            if (authState.status == AuthentificationStatus.authentificated) {
+              CacheService.getEncryptionKey(context
+                      .read<SettingsCubit>()
+                      .state
+                      .settings
+                      .biometricAuth)
+                  .then((key) => CacheService.get<Credential>(secureKey: key)
+                      .then((value) => context.read<EmailCubit>().connect(
+                          username: value!.username,
+                          password: value.password)));
+              if (AgendaStatus.ready !=
+                  context.read<AgendaCubit>().state.status) {
+                context.read<AgendaCubit>().load(
+                    lyon1Cas: authState.lyon1Cas,
+                    settings: context.read<SettingsCubit>().state.settings);
+              }
+              context.read<TomussCubit>().load(
+                    lyon1Cas: authState.lyon1Cas,
+                    settings: context.read<SettingsCubit>().state.settings,
+                    force: true,
+                  );
+            }
+            return BlocBuilder<ThemeCubit, ThemeState>(
+              builder: (context, themeState) {
                 return BlocBuilder<SettingsCubit, SettingsState>(
                   builder: (context, settingsState) {
-                    if (settingsState.status == SettingsStatus.ready ||
-                        settingsState.status == SettingsStatus.error) {
+                    if ((settingsState.status == SettingsStatus.ready ||
+                            settingsState.status == SettingsStatus.error) &&
+                        (themeState.status != ThemeStateStatus.init)) {
                       if (authState.status == AuthentificationStatus.initial) {
                         context
                             .read<AuthentificationCubit>()
@@ -121,7 +119,8 @@ class OnyxAppState extends State<OnyxApp> {
                         navigatorKey: OnyxApp.navigatorKey,
                         scrollBehavior: const CustomScrollBehavior(),
                         debugShowCheckedModeBanner: false,
-                        themeMode: settingsState.settings.themeMode.themeMode,
+                        themeMode:
+                            themeState.themesSettings!.themeMode.toThemeMode,
                         theme: themeState.lightTheme,
                         darkTheme: themeState.darkTheme,
                         home: (authState.status ==
@@ -134,16 +133,16 @@ class OnyxAppState extends State<OnyxApp> {
                             : LoginPage(key: UniqueKey()),
                       );
                     } else {
+                      context.read<ThemeCubit>().init();
                       context.read<SettingsCubit>().load();
                       return MaterialApp(
                         debugShowCheckedModeBanner: false,
-                        themeMode: settingsState.settings.themeMode.themeMode,
-                        theme: themeState.lightTheme,
-                        darkTheme: themeState.darkTheme,
+                        themeMode: ThemeMode.system,
+                        theme: OnyxTheme.lightTheme,
+                        darkTheme: OnyxTheme.darkTheme,
                         home: Scaffold(
                             backgroundColor:
-                                themeState.darkTheme?.colorScheme.background ??
-                                    OnyxTheme.darkTheme.colorScheme.background,
+                                Theme.of(context).colorScheme.background,
                             body:
                                 const CustomCircularProgressIndicatorWidget()),
                       );

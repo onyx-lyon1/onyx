@@ -225,22 +225,22 @@ class OnyxTheme {
     ),
   );
 
-  static List<ThemeInfo> themesPreset = [
-    ThemeInfo('Dark Default', OnyxTheme.darkTheme),
-    ThemeInfo('Light Default', OnyxTheme.lightTheme),
-    ThemeInfo('Nichi Hachi', OnyxTheme.nichihachiTheme),
-    ThemeInfo('Blue Sky', OnyxTheme.blueSkyTheme),
-    ThemeInfo('ULTRAKILL', OnyxTheme.ultrakillTheme),
-    ThemeInfo('Stardew Valley', OnyxTheme.stardewValleyTheme),
-    ThemeInfo('Bad Apple', OnyxTheme.badappleTheme),
-    ThemeInfo('Moon Light', OnyxTheme.moonlightTheme),
+  static List<ThemeModel> themesPreset = [
+    ThemeModel('Dark Default', OnyxTheme.darkTheme),
+    ThemeModel('Light Default', OnyxTheme.lightTheme),
+    ThemeModel('Nichi Hachi', OnyxTheme.nichihachiTheme),
+    ThemeModel('Blue Sky', OnyxTheme.blueSkyTheme),
+    ThemeModel('ULTRAKILL', OnyxTheme.ultrakillTheme),
+    ThemeModel('Stardew Valley', OnyxTheme.stardewValleyTheme),
+    ThemeModel('Bad Apple', OnyxTheme.badappleTheme),
+    ThemeModel('Moon Light', OnyxTheme.moonlightTheme),
   ];
 
-  static List<ThemeInfo> themesPresetDark = themesPreset
+  static List<ThemeModel> themesPresetDark = themesPreset
       .where((themeInfo) => themeInfo.theme.brightness == Brightness.dark)
       .toList();
 
-  static List<ThemeInfo> themesPresetLight = themesPreset
+  static List<ThemeModel> themesPresetLight = themesPreset
       .where((themeInfo) => themeInfo.theme.brightness == Brightness.light)
       .toList();
 }

@@ -2,7 +2,6 @@ import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/core/res.dart';
-import 'package:onyx/screens/settings/settings_export.dart';
 
 part 'generated/settings_model.g.dart';
 
@@ -17,8 +16,6 @@ class SettingsModel extends Equatable {
   //tomuss
   @HiveField(1)
   final bool forceGreen;
-  @HiveField(2)
-  final ThemeModeEnum themeMode;
   @HiveField(3)
   final bool newGradeNotification;
   @HiveField(4)
@@ -78,7 +75,6 @@ class SettingsModel extends Equatable {
   const SettingsModel({
     this.biometricAuth = false,
     this.forceGreen = false,
-    this.themeMode = ThemeModeEnum.system,
     this.newGradeNotification = true,
     this.showHiddenUE = false,
     this.fetchAgendaAuto = true,
@@ -111,7 +107,6 @@ class SettingsModel extends Equatable {
   @override
   List<Object?> get props => [
         forceGreen,
-        themeMode,
         newGradeNotification,
         showHiddenUE,
         fetchAgendaAuto,

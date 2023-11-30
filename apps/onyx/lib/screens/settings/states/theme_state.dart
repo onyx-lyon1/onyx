@@ -1,43 +1,66 @@
 part of 'theme_cubit.dart';
 
-enum ThemeStateStatus { init, loaded, updated }
+enum ThemeStateStatus { init, loaded, updated, error }
 
 class ThemeState extends Equatable {
   final ThemeStateStatus status;
-  final ThemeData? darkTheme;
-  final ThemeData? lightTheme;
-  final ThemeMode? themeMode;
-  final ThemesUserData? themesUserData;
+  final ThemeSettingsModel? themesSettings;
 
   const ThemeState({
     this.status = ThemeStateStatus.init,
-    this.lightTheme,
-    this.darkTheme,
-    this.themeMode,
-    this.themesUserData,
+    this.themesSettings,
   });
 
   // Define a copyWith method for creating a new instance with modified properties
   ThemeState copyWith({
     ThemeStateStatus? status,
-    ThemeData? darkTheme,
-    ThemeData? lightTheme,
     ThemeMode? themeMode,
-    ThemesUserData? themesUserData,
+    ThemeSettingsModel? themesSettings,
   }) {
     return ThemeState(
       status: status ?? this.status,
-      darkTheme: darkTheme ?? this.darkTheme,
-      lightTheme: lightTheme ?? this.lightTheme,
-      themeMode: themeMode ?? this.themeMode,
-      themesUserData: themesUserData ?? this.themesUserData,
+      themesSettings: themesSettings ?? this.themesSettings,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [status, darkTheme, lightTheme, themeMode, themesUserData];
+  List<Object?> get props => [
+        status,
+        themesSettings,
+      ];
 
   @override
   bool? get stringify => true;
+
+  ThemeData? get theme {
+    if (themesSettings!.themeMode.toThemeMode == ThemeMode.dark) {
+      return darkTheme;
+    } else {
+      return lightTheme;
+    }
+  }
+
+  ThemeData? get darkTheme {
+    return (themesSettings != null)
+        ? _getTheme(themesSettings!.darkThemeSelected)
+        : null;
+  }
+
+  ThemeData? get lightTheme => (themesSettings != null)
+      ? _getTheme(themesSettings!.lightThemeSelected)
+      : null;
+
+  ThemeData? _getTheme(String themeName) {
+    int indexThemesCreated = themesSettings!.themesCreated
+        .indexWhere((element) => element.name == themeName);
+    int indexThemesPreset = themesSettings!.themesPreset
+        .indexWhere((element) => element.name == themeName);
+    if (indexThemesCreated != -1) {
+      return themesSettings!.themesCreated[indexThemesCreated].theme;
+    } else if (indexThemesPreset != -1) {
+      return themesSettings!.themesPreset[indexThemesPreset].theme;
+    } else {
+      return null;
+    }
+  }
 }

@@ -13,6 +13,7 @@ import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/notifications/domain/logic/background_logic.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/screens/settings/states/theme_cubit.dart';
 import 'package:onyx/screens/settings/widgets/draggable_zone_widget.dart';
 import 'package:onyx/screens/settings/widgets/drop_down_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
@@ -54,45 +55,41 @@ class _SettingsPageState extends State<SettingsPage> {
                   SettingsCardWidget(
                     name: 'Général',
                     widgets: [
-                      DropDownWidget(
-                          text: 'Choisir le thème',
-                          items: const [
-                            "Système",
-                            "Sombre",
-                            "Clair",
-                          ],
-                          value: state.settings.themeMode.index,
-                          onChanged: (int choice) {
-                            switch (choice) {
-                              case 0:
-                                context.read<SettingsCubit>().modify(
-                                    settings: context
-                                        .read<SettingsCubit>()
-                                        .state
-                                        .settings
-                                        .copyWith(
-                                            themeMode: ThemeModeEnum.system));
-                                break;
-                              case 1:
-                                context.read<SettingsCubit>().modify(
-                                    settings: context
-                                        .read<SettingsCubit>()
-                                        .state
-                                        .settings
-                                        .copyWith(
-                                            themeMode: ThemeModeEnum.dark));
-                                break;
-                              case 2:
-                                context.read<SettingsCubit>().modify(
-                                    settings: context
-                                        .read<SettingsCubit>()
-                                        .state
-                                        .settings
-                                        .copyWith(
-                                            themeMode: ThemeModeEnum.light));
-                                break;
-                            }
-                          }),
+                      BlocBuilder<ThemeCubit, ThemeState>(
+                        buildWhen: (previous, current) {
+                          return previous.themesSettings!.themeMode !=
+                              current.themesSettings!.themeMode;
+                        },
+                        builder: (context, themeState) {
+                          return DropDownWidget(
+                              text: 'Choisir le thème',
+                              items: const [
+                                "Système",
+                                "Sombre",
+                                "Clair",
+                              ],
+                              value: themeState.themesSettings!.themeMode.index,
+                              onChanged: (int choice) {
+                                switch (choice) {
+                                  case 0:
+                                    context
+                                        .read<ThemeCubit>()
+                                        .updateThemeMode(ThemeModeEnum.system);
+                                    break;
+                                  case 1:
+                                    context
+                                        .read<ThemeCubit>()
+                                        .updateThemeMode(ThemeModeEnum.dark);
+                                    break;
+                                  case 2:
+                                    context
+                                        .read<ThemeCubit>()
+                                        .updateThemeMode(ThemeModeEnum.light);
+                                    break;
+                                }
+                              });
+                        },
+                      ),
                       const SizedBox(
                         height: 5,
                       ),
