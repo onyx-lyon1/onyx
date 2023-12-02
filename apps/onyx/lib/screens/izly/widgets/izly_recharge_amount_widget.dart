@@ -132,8 +132,9 @@ class IzlyRechargeAmountExampleValuesWidget extends StatelessWidget {
               child: Text(
                 value.toStringAsFixed(2),
                 style: TextStyle(
-                    fontSize: 15.sp,
-                    color: Theme.of(context).textTheme.bodyLarge!.color),
+                  fontSize: 15.sp,
+                  color: Theme.of(context).textTheme.bodySmall!.color,
+                ),
               ),
             ),
           ),

@@ -100,7 +100,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                                     "Confidentialité",
                                     style: Theme.of(context)
                                         .textTheme
-                                        .bodyLarge!
+                                        .bodySmall!
                                         .copyWith(fontSize: 17.sp),
                                   ),
                                 ),
@@ -124,28 +124,38 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                           labelText: 'Username',
                           labelStyle:
                               Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .color!
-                                        .withOpacity(0.5),
+                                    color: (Theme.of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.color ??
+                                            Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge!
+                                                .color!)
+                                        .withOpacity(0.7),
                                   ),
                           prefixIcon: Icon(
                             Icons.school_rounded,
                             size: 18.sp,
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .color!
-                                .withOpacity(0.5),
+                            color:
+                                (Theme.of(context).textTheme.bodySmall!.color ??
+                                        Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .color!)
+                                    .withOpacity(0.7),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                                 width: 2,
                                 color: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .color!),
+                                        .textTheme
+                                        .bodySmall
+                                        ?.color ??
+                                    Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .color!),
                           ),
                           disabledBorder: InputBorder.none,
                         ),
@@ -174,9 +184,13 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                             borderSide: BorderSide(
                                 width: 2,
                                 color: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .color!),
+                                        .textTheme
+                                        .bodySmall
+                                        ?.color ??
+                                    Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .color!),
                           ),
                           disabledBorder: InputBorder.none,
                         ),
@@ -211,10 +225,11 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                         child: Center(
                           child: Text(
                             'Connexion',
-                            style:
-                                Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      fontSize: 18.sp,
-                                    ),
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).textTheme.bodySmall?.color,
+                              fontSize: 18.sp,
+                            ),
                           ),
                         ),
                       ),
@@ -276,24 +291,24 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       decoration: widget.decoration.copyWith(
           labelText: 'Password',
           labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .color!
+                color: (Theme.of(context).textTheme.bodySmall!.color ??
+                        Theme.of(context).textTheme.bodyLarge!.color!)
                     .withOpacity(0.5),
               ),
           prefixIcon: Icon(
             Icons.lock_rounded,
             size: 18.sp,
-            color:
-                Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.5),
+            color: (Theme.of(context).textTheme.bodySmall!.color ??
+                    Theme.of(context).textTheme.bodyLarge!.color!)
+                .withOpacity(0.5),
           ),
           suffixIcon: IconButton(
               icon: Icon(
                 _isObscure
                     ? Icons.visibility_rounded
                     : Icons.visibility_off_rounded,
-                color: Theme.of(context).textTheme.bodyLarge!.color,
+                color: (Theme.of(context).textTheme.bodySmall!.color ??
+                    Theme.of(context).textTheme.bodyLarge!.color!),
               ),
               onPressed: () {
                 setState(() {

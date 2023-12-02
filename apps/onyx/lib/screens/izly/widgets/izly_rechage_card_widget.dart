@@ -43,10 +43,16 @@ class IzlayRechargeCardWidget extends StatelessWidget {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon),
+              Icon(
+                icon,
+                color: Theme.of(context).textTheme.bodySmall!.color,
+              ),
               Text(
                 text,
                 textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodySmall!.color,
+                ),
               ),
             ],
           )),

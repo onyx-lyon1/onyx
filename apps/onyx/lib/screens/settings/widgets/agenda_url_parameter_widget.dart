@@ -13,8 +13,7 @@ class AgendaUrlParameterWidget extends StatelessWidget {
     return BlocBuilder<SettingsCubit, SettingsState>(
       buildWhen: (previous, current) {
         if (previous.settings.fetchAgendaAuto !=
-            current.settings.fetchAgendaAuto) {
-        }
+            current.settings.fetchAgendaAuto) {}
         return true;
       },
       builder: (context, state) {

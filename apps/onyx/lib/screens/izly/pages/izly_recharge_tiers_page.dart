@@ -67,7 +67,12 @@ class IzlyRechargeTiersPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Text("Transferer"),
+                    child: Text(
+                      "Transferer",
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodySmall!.color,
+                      ),
+                    ),
                   ),
                 ],
               ),

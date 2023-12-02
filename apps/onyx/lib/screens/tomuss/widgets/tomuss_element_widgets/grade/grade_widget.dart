@@ -92,7 +92,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: OnyxTheme.darkTheme().colorScheme.background,
+                        color: OnyxTheme.darkTheme.colorScheme.background,
                         fontSize: 20.sp,
                       ),
                     ),
@@ -105,7 +105,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                       flex: 5,
                       child: Container(
                         height: 0.2.h,
-                        color: OnyxTheme.darkTheme().colorScheme.background,
+                        color: OnyxTheme.darkTheme.colorScheme.background,
                       ),
                     ),
                     const Spacer(),
@@ -118,7 +118,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                     ((widget.grades.isNotEmpty) ? denominator : '-').toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: OnyxTheme.darkTheme().colorScheme.background,
+                        color: OnyxTheme.darkTheme.colorScheme.background,
                         fontSize: 16.sp),
                   ),
                 ),

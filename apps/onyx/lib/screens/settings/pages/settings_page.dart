@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -14,6 +13,7 @@ import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/notifications/domain/logic/background_logic.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/screens/settings/states/theme_cubit.dart';
 import 'package:onyx/screens/settings/widgets/draggable_zone_widget.dart';
 import 'package:onyx/screens/settings/widgets/drop_down_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
@@ -33,10 +33,8 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) => Container(
-        color: Theme.of(context).colorScheme.background,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
+          color: Theme.of(context).colorScheme.background,
+          child: Column(mainAxisSize: MainAxisSize.max, children: [
             Container(
               height: Res.bottomNavBarHeight,
               color: Theme.of(context).cardTheme.color,
@@ -57,46 +55,85 @@ class _SettingsPageState extends State<SettingsPage> {
                   SettingsCardWidget(
                     name: 'Général',
                     widgets: [
-                      DropDownWidget(
-                          text: 'Choisir le thème',
-                          items: const ["Système", "Sombre", "Clair"],
-                          value: state.settings.themeMode.index,
-                          onChanged: (int b) {
-                            ThemeModeEnum themeMode;
-                            switch (b) {
-                              case 0:
-                                themeMode = ThemeModeEnum.system;
-                                break;
-                              case 1:
-                                themeMode = ThemeModeEnum.dark;
-                                break;
-                              case 2:
-                                themeMode = ThemeModeEnum.light;
-                                break;
-                              default:
-                                themeMode = ThemeModeEnum.system;
-                                break;
-                            }
-
-                            context.read<SettingsCubit>().modify(
-                                settings: state.settings
-                                    .copyWith(themeMode: themeMode));
-                          }),
+                      BlocBuilder<ThemeCubit, ThemeState>(
+                        buildWhen: (previous, current) {
+                          return previous.themesSettings!.themeMode !=
+                              current.themesSettings!.themeMode;
+                        },
+                        builder: (context, themeState) {
+                          return DropDownWidget(
+                              text: 'Choisir le thème',
+                              items: const [
+                                "Système",
+                                "Sombre",
+                                "Clair",
+                              ],
+                              value: themeState.themesSettings!.themeMode.index,
+                              onChanged: (int choice) {
+                                switch (choice) {
+                                  case 0:
+                                    context
+                                        .read<ThemeCubit>()
+                                        .updateThemeMode(ThemeModeEnum.system);
+                                    break;
+                                  case 1:
+                                    context
+                                        .read<ThemeCubit>()
+                                        .updateThemeMode(ThemeModeEnum.dark);
+                                    break;
+                                  case 2:
+                                    context
+                                        .read<ThemeCubit>()
+                                        .updateThemeMode(ThemeModeEnum.light);
+                                    break;
+                                }
+                              });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      MaterialButton(
+                        color: Theme.of(context).primaryColor,
+                        textColor:
+                            Theme.of(context).textTheme.bodyLarge?.color ??
+                                Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          'Changer les thèmes',
+                          style: TextStyle(
+                            fontSize: 17.sp,
+                            color: Theme.of(context).textTheme.bodySmall?.color,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const ThemesSwap(),
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
                     ],
                   ),
                   const DraggableZoneWidget(),
-                  SizedBox(height: 1.5.h,),
                   SettingsCardWidget(
                     name: 'Connexion',
                     widgets: [
-                      Center(
-                        child: MaterialButton(
-                          color: const Color(0xffbf616a),
-                          textColor: Colors.white70,
-                          child: Text('Déconnexion',
-                              style: TextStyle(fontSize: 17.sp)),
-                          onPressed: () => SettingsLogic.logout(context),
-                        ),
+                      MaterialButton(
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: Text('Déconnexion',
+                            style: TextStyle(fontSize: 17.sp)),
+                        onPressed: () => SettingsLogic.logout(context),
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                     ],
                   ),
@@ -168,27 +205,30 @@ class _SettingsPageState extends State<SettingsPage> {
                             settings:
                                 context.read<SettingsCubit>().state.settings);
                       },
-                    )
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                   ]),
-                  if (kDebugMode)
-                    SettingsCardWidget(name: "Notifications", widgets: [
-                      MaterialButton(
-                        color: const Color(0xffbf616a),
-                        textColor: Colors.white70,
-                        child: Text('Tester les notifications',
-                            style: TextStyle(fontSize: 17.sp)),
-                        onPressed: () {
-                          backgroundLogic(init: false);
-                        },
-                      ),
-                    ]),
+                  SettingsCardWidget(name: "Notification", widgets: [
+                    MaterialButton(
+                      color: const Color(0xffbf616a),
+                      textColor: Colors.white70,
+                      child: Text('Tester les notifications',
+                          style: TextStyle(fontSize: 17.sp)),
+                      onPressed: () {
+                        backgroundLogic(init: false);
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ]),
                   const SettingsLinkWidget(),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
+            )
+          ])),
     );
   }
 }

@@ -19,7 +19,8 @@ class NavigationLogic {
       BuildContext context, List<LatLng> latLngs,
       {bool useLastLocation = false}) async {
     List<List<LatLng>> paths = [];
-    LatLng position = (await GeolocationLogic.getCurrentLocation(context: context))!;
+    LatLng position =
+        (await GeolocationLogic.getCurrentLocation(context: context))!;
     for (var latLng in latLngs) {
       if (position.inside(MapRes.minBound, MapRes.maxBound) &&
           latLng.inside(MapRes.minBound, MapRes.maxBound)) {

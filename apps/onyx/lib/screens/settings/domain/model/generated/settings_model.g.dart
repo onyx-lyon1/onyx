@@ -11,8 +11,6 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel forceGreen(bool forceGreen);
 
-  SettingsModel themeMode(ThemeModeEnum themeMode);
-
   SettingsModel newGradeNotification(bool newGradeNotification);
 
   SettingsModel showHiddenUE(bool showHiddenUE);
@@ -64,7 +62,6 @@ abstract class _$SettingsModelCWProxy {
   SettingsModel call({
     bool? biometricAuth,
     bool? forceGreen,
-    ThemeModeEnum? themeMode,
     bool? newGradeNotification,
     bool? showHiddenUE,
     bool? fetchAgendaAuto,
@@ -100,10 +97,6 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
 
   @override
   SettingsModel forceGreen(bool forceGreen) => this(forceGreen: forceGreen);
-
-  @override
-  SettingsModel themeMode(ThemeModeEnum themeMode) =>
-      this(themeMode: themeMode);
 
   @override
   SettingsModel newGradeNotification(bool newGradeNotification) =>
@@ -195,7 +188,6 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
   SettingsModel call({
     Object? biometricAuth = const $CopyWithPlaceholder(),
     Object? forceGreen = const $CopyWithPlaceholder(),
-    Object? themeMode = const $CopyWithPlaceholder(),
     Object? newGradeNotification = const $CopyWithPlaceholder(),
     Object? showHiddenUE = const $CopyWithPlaceholder(),
     Object? fetchAgendaAuto = const $CopyWithPlaceholder(),
@@ -228,10 +220,6 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
               ? _value.forceGreen
               // ignore: cast_nullable_to_non_nullable
               : forceGreen as bool,
-      themeMode: themeMode == const $CopyWithPlaceholder() || themeMode == null
-          ? _value.themeMode
-          // ignore: cast_nullable_to_non_nullable
-          : themeMode as ThemeModeEnum,
       newGradeNotification:
           newGradeNotification == const $CopyWithPlaceholder() ||
                   newGradeNotification == null
@@ -366,7 +354,6 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
     return SettingsModel(
       biometricAuth: fields[16] == null ? false : fields[16] as bool,
       forceGreen: fields[1] as bool,
-      themeMode: fields[2] as ThemeModeEnum,
       newGradeNotification: fields[3] as bool,
       showHiddenUE: fields[4] as bool,
       fetchAgendaAuto: fields[5] as bool,
@@ -405,15 +392,13 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(23)
+      ..writeByte(22)
       ..writeByte(15)
       ..write(obj.firstLogin)
       ..writeByte(16)
       ..write(obj.biometricAuth)
       ..writeByte(1)
       ..write(obj.forceGreen)
-      ..writeByte(2)
-      ..write(obj.themeMode)
       ..writeByte(3)
       ..write(obj.newGradeNotification)
       ..writeByte(4)

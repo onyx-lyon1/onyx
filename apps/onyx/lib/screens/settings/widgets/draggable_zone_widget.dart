@@ -84,12 +84,10 @@ class DraggableZoneWidget extends StatelessWidget {
           itemDragHandle: DragHandle(
             verticalAlignment: DragHandleVerticalAlignment.top,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
-              margin: EdgeInsets.only(top: 2.609603340292276.h - 13.5),
-              //just don't know how to center this
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
               child: Icon(
                 Icons.drag_indicator_rounded,
-                size: 27,
+                size: 30,
                 color: Theme.of(context).primaryColor,
               ),
             ),

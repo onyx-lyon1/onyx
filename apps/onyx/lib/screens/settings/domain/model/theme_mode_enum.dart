@@ -14,7 +14,7 @@ enum ThemeModeEnum {
 }
 
 extension ThemeModeEnumExtension on ThemeModeEnum {
-  ThemeMode get themeMode {
+  ThemeMode get toThemeMode {
     switch (this) {
       case ThemeModeEnum.system:
         return ThemeMode.system;
@@ -22,6 +22,17 @@ extension ThemeModeEnumExtension on ThemeModeEnum {
         return ThemeMode.light;
       case ThemeModeEnum.dark:
         return ThemeMode.dark;
+    }
+  }
+}
+
+extension BrightnessExtension on Brightness {
+  ThemeModeEnum get toThemeModeEnum {
+    switch (this) {
+      case Brightness.light:
+        return ThemeModeEnum.light;
+      case Brightness.dark:
+        return ThemeModeEnum.dark;
     }
   }
 }

@@ -420,9 +420,11 @@ packages:
   drag_and_drop_lists:
     dependency: "direct main"
     description:
-      path: "/home/eymeric/tmp/DragAndDropLists"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "7478471d0a3e1926375de7d46d8bd781976acfb7"
+      url: "https://github.com/onyx-lyon1/DragAndDropLists.git"
+    source: git
     version: "0.3.3"
   encrypt:
     dependency: "direct main"
@@ -942,6 +944,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+  json_class:
+    dependency: transitive
+    description:
+      name: json_class
+      sha256: "95ae95062f7827ca77b7eb7b4a72db97bf01f71ed22bdbd98a3cc6d2691de961"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0+8"
+  json_schema:
+    dependency: transitive
+    description:
+      name: json_schema
+      sha256: "0a5f510ed29e26f4eea261b192bbee1824b6903e04194f4907fd0207e94f6c7d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.3"
+  json_theme:
+    dependency: "direct main"
+    description:
+      name: json_theme
+      sha256: b0caa894f0dda0f59b468774623ad3231969931572bea653e9a0e5923101b76e
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.1"
+  json_theme_annotation:
+    dependency: transitive
+    description:
+      name: json_theme_annotation
+      sha256: "62cc1d5332547c9b8a67077e9fba0e13a47295c7aa6c5568c0f97f0561260537"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   latlong2:
     dependency: "direct main"
     description:
@@ -1330,6 +1364,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
+  rfc_6901:
+    dependency: transitive
+    description:
+      name: rfc_6901
+      sha256: df1bbfa3d023009598f19636d6114c6ac1e0b7bb7bf6a260f0e6e6ce91416820
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   rxdart:
     dependency: transitive
     description:
@@ -1519,6 +1561,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.1"
+  uri:
+    dependency: transitive
+    description:
+      name: uri
+      sha256: "889eea21e953187c6099802b7b4cf5219ba8f3518f604a1033064d45b1b8268a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   url_launcher:
     dependency: "direct main"
     description:

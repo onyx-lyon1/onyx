@@ -40,18 +40,18 @@ class CacheService {
   }
 
   static Future<bool> exist<E>({int index = 0, List<int>? secureKey}) async {
-    try {
-      Box box = await Hive.openBox<E>(
-        "cached_$E",
-        encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
-        crashRecovery: false,
-      );
-      return box.containsKey("cache$index");
-    } catch (e) {
-      Res.logger.e("error while checking existence of cache for $E: $e");
-      await reset<E>();
-      return false;
-    }
+    // try {
+    Box box = await Hive.openBox<E>(
+      "cached_$E",
+      encryptionCipher: (secureKey != null) ? HiveAesCipher(secureKey) : null,
+      crashRecovery: false,
+    );
+    return box.containsKey("cache$index");
+    // } catch (e) {
+    //   Res.logger.e("error while checking existence of cache for $E: $e");
+    //   await reset<E>();
+    //   return false;
+    // }
   }
 
   static Future<void> reset<E>() async {
