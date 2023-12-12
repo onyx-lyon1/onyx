@@ -52,3 +52,4 @@ apps/onyx/assets/key.txt
 apps/onyx/assets/iv.txt
 !flake.lock
 .direnv/
+.android

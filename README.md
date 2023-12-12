@@ -124,6 +124,11 @@ To set up your development environment:
     and `git update-index --assume-unchanged apps/onyx/assets/iv.txt` to ignore
     changes to this file.
 
+### android emulation
+
+if you are using the flake, to create an virtual device, run : `avdmanager create avd --force --name phone --package 'system-images;android-33;google_apis_playstore;x86_64'`
+then to run it simply run : `emulator -avd phone -skin 720x1280`
+
 ### End-to-End Testing 🧪
 
 To run end-to-end tests:

@@ -1,0 +1,68 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "onyx (debug mode)",
+            "cwd": "apps/onyx",
+            "type": "dart",
+            "request": "launch",
+            "env": {
+                "LD_LIBRARY_PATH": "${env:LD_LIBRARY_PATH}"
+            },
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "onyx (profile mode)",
+            "cwd": "apps/onyx",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "onyx (release mode)",
+            "cwd": "apps/onyx",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "izlyclient",
+            "cwd": "packages/izlyclient",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "lyon1agendaclient",
+            "cwd": "packages/lyon1agendaclient",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "lyon1casclient",
+            "cwd": "packages/lyon1casclient",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "lyon1mailclient",
+            "cwd": "packages/lyon1mailclient",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "lyon1tomussclient",
+            "cwd": "packages/lyon1tomussclient",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "polytechcolloscopeclient",
+            "cwd": "packages/polytechcolloscopeclient",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}
