@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
@@ -22,6 +23,12 @@ class IzlyLogic {
       if (qrCodeModels.isEmpty) {
         return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
       } else {
+        //if there is no internet it may be better not to delete the last qrcode
+        if ((await Connectivity().checkConnectivity()) ==
+                ConnectivityResult.none &&
+            qrCodeModels.length == 1) {
+          return qrCodeModels[0].qrCode;
+        }
         IzlyQrCode qrCodeModel = qrCodeModels.removeAt(0);
         await CacheService.set<IzlyQrCodeList>(
             IzlyQrCodeList(qrCodes: qrCodeModels));
