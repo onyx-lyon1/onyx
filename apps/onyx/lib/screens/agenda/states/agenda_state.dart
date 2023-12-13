@@ -54,73 +54,64 @@ class AgendaState {
 
   List<Day> days(SettingsModel settingsModel) {
     List<Day> realDays = List.from(this.realDays);
+    List<Day> paddingBefore = [];
+    List<Day> paddingAfter = [];
+    // remove disabled days
     realDays = realDays
         .where((element) =>
             !settingsModel.agendaDisabledDays.contains(element.date.weekday))
         .toList();
 
-    int todayWeekday = DateTime.now().weekday;
-    for (var i = 0; i < 7; i++) {
+    // move today week day to next week day if on a disabled day
+    int todayOffset = 0;
+    for (var i = 0;
+        i < 7 &&
+            settingsModel.agendaDisabledDays.contains(
+                (DateTime.now().weekday + todayOffset).positiveModulo(8));
+        i++) {
       //use for to ensure that we don't loop forever
-      if (settingsModel.agendaDisabledDays.contains(todayWeekday)) {
-        todayWeekday += 1;
-      } else {
-        todayWeekday = todayWeekday.positiveModulo(7);
-        break;
-      }
+      todayOffset++;
     }
-    int todayOffset;
-    if (settingsModel.agendaWeekReference >= 8) {
-      todayOffset = settingsModel.agendaWeekRerenceAlignement - 2;
-    } else {
-      todayOffset = todayWeekday -
-          (settingsModel.agendaWeekReference -
-              settingsModel.agendaWeekRerenceAlignement -
-              1);
-    }
-    todayOffset = todayOffset.positiveModulo(settingsModel.agendaWeekLength);
-    int todayIndex = getDayIndex(
-        date: DateTime.now(), settings: settingsModel, useRealDays: true);
 
+    int weekReference = settingsModel.agendaWeekReference;
+    if (weekReference == 8) {
+      weekReference = DateTime.now().weekday - 1;
+    }
+    int todayIndex = realDays.indexWhere(
+        (element) => element.date.day == (DateTime.now().day + todayOffset));
     if (todayIndex != -1) {
-      int paddingBeforeCount = (todayOffset - todayIndex)
-          .positiveModulo(settingsModel.agendaWeekLength);
-      int paddingAfterCount = (settingsModel.agendaWeekLength -
-              ((realDays.length + paddingBeforeCount) %
-                  settingsModel.agendaWeekLength))
-          .clamp(0, settingsModel.agendaWeekLength - 1);
+      int indexToAlign = todayIndex -
+          (realDays[todayIndex].date.weekday - (weekReference + 1));
+      int alignement = indexToAlign % settingsModel.agendaWeekLength;
+      int alignementOffset =
+          settingsModel.agendaWeekRerenceAlignement - alignement;
+      alignementOffset =
+          alignementOffset.positiveModulo(settingsModel.agendaWeekLength);
 
-      int postPaddingCount = 0;
-      List<Day> paddingBefore = [];
-      for (int i = 0; i < paddingBeforeCount + postPaddingCount; i++) {
-        DateTime date = realDays.first.date
-            .subtract(Duration(days: paddingBeforeCount - i));
-        if (settingsModel.agendaDisabledDays.contains(date.weekday)) {
-          postPaddingCount++;
-        } else {
-          paddingBefore.add(Day(date, const []));
-        }
+      if (alignementOffset != 0) {
+        paddingBefore = List.generate(
+          alignementOffset,
+          (index) => Day(
+              realDays[0]
+                  .date
+                  .subtract(Duration(days: alignementOffset - index + 1)),
+              const []),
+        );
+        paddingAfter = List.generate(
+          settingsModel.agendaWeekLength - alignementOffset,
+          (index) => Day(
+              realDays[realDays.length - 1].date.add(Duration(days: index + 1)),
+              const []),
+        );
       }
-
-      postPaddingCount = 0;
-      List<Day> paddingAfter = [];
-      for (int i = 0; i < paddingAfterCount + postPaddingCount; i++) {
-        DateTime date = realDays.last.date.add(Duration(days: i + 1));
-        if (settingsModel.agendaDisabledDays.contains(date.weekday)) {
-          postPaddingCount++;
-        } else {
-          paddingAfter.add(Day(date, const []));
-        }
-      }
-
-      return [
-        ...paddingBefore,
-        ...realDays,
-        ...paddingAfter,
-      ];
     }
-
-    // Si aucune correspondance n'est trouvée pour aujourd'hui, retourner simplement les jours réels.
-    return realDays;
+    return [
+      ...paddingBefore,
+      ...realDays,
+      ...paddingAfter,
+    ];
   }
+
+  // Si aucune correspondance n'est trouvée pour aujourd'hui, retourner simplement les jours réels.
+  // return realDays;
 }
