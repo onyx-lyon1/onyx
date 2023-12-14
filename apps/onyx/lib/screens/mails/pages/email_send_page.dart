@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_quill/flutter_quill.dart' hide Text;
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -202,35 +202,44 @@ class MailSendPage extends StatelessWidget {
                 height: (originalMessage == null) ? 62.5.h : 75.h,
                 width: 100.w,
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      QuillToolbar.basic(
-                          controller: controller, multiRowsDisplay: false),
-                      Container(
-                        height: (originalMessage != null) ? 40.h : 52.h,
-                        width: 100.w,
-                        padding: const EdgeInsets.all(10),
-                        child: QuillEditor.basic(
-                          controller: controller,
-                          readOnly: false, // true for view only mode
+                  child: QuillProvider(
+                    configurations: QuillConfigurations(
+                      controller: controller,
+                      sharedConfigurations: const QuillSharedConfigurations(),
+                    ),
+                    child: Column(
+                      children: [
+                        const QuillToolbar(
+                          configurations: QuillToolbarConfigurations(
+                              multiRowsDisplay: false),
                         ),
-                      ),
-                      (originalMessage != null)
-                          ? Container(
-                              width: 100.w,
-                              height: 75.h,
-                              padding: EdgeInsets.all(1.h),
-                              child: MailContentWidget(
-                                  mail: context
-                                      .read<EmailCubit>()
-                                      .state
-                                      .currentMailBox!
-                                      .emails
-                                      .firstWhere((element) =>
-                                          element.id == originalMessage)),
+                        Container(
+                          height: (originalMessage != null) ? 40.h : 52.h,
+                          width: 100.w,
+                          padding: const EdgeInsets.all(10),
+                          child: QuillEditor.basic(
+                            configurations: const QuillEditorConfigurations(
+                              readOnly: false, // true for view only mode
                             )
-                          : Container(),
-                    ],
+                          ),
+                        ),
+                        (originalMessage != null)
+                            ? Container(
+                                width: 100.w,
+                                height: 75.h,
+                                padding: EdgeInsets.all(1.h),
+                                child: MailContentWidget(
+                                    mail: context
+                                        .read<EmailCubit>()
+                                        .state
+                                        .currentMailBox!
+                                        .emails
+                                        .firstWhere((element) =>
+                                            element.id == originalMessage)),
+                              )
+                            : Container(),
+                      ],
+                    ),
                   ),
                 ),
               ),

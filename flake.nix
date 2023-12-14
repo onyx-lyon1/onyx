@@ -34,14 +34,14 @@
           androidComposition = pkgs.androidenv.composeAndroidPackages {
             # Installing both version for aapt2 and version that flutter wants
             buildToolsVersions = [buildToolsVersionForAapt2 "30.0.3"];
-            platformVersions = ["33" "31" "30"];
+            platformVersions = ["34" "33" "31" "30"];
             abiVersions = ["armeabi-v7a" "arm64-v8a" "x86" "x86_64"];
             includeEmulator = true;
             emulatorVersion = "34.1.9";
             toolsVersion = "26.1.1";
             platformToolsVersion = "33.0.3";
             includeSources = false;
-            includeSystemImages = true;
+            includeSystemImages = false;
             systemImageTypes = ["google_apis_playstore"];
             # cmakeVersions = [ "3.10.2" ];
             includeNDK = true;
@@ -67,6 +67,8 @@
             ANDROID_SDK_ROOT = "${androidSdk}/libexec/android-sdk";
             ANDROID_NDK_ROOT = "${androidSdk}/libexec/android-sdk/ndk-bundle";
             ANDROID_AVD_HOME = "${PWD}/.android/avd";
+            ANDROID_HOME = "${androidSdk}/libexec/android-sdk";
+            FLUTTER_SDK = "${pkgs.flutter}";
             GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/libexec/android-sdk/build-tools/${buildToolsVersionForAapt2}/aapt2";
             LD_LIBRARY_PATH = "${PWD}/apps/onyx/build/linux/x64/debug/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/release/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/profile/bundle/lib/";
             buildInputs = with pkgs; [
