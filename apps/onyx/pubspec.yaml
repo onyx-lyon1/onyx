@@ -38,7 +38,7 @@ dependencies:
   file_picker: ^6.0.0
   open_filex: ^4.3.4
   flutter_file_dialog: ^3.0.2
-  flutter_quill: ^8.6.4
+  flutter_quill: ^9.0.5
   vsc_quill_delta_to_html: ^1.0.3
   enough_mail: ^2.1.3
 

@@ -6,10 +6,11 @@ list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   desktop_window
   geolocator_windows
+  irondash_engine_context
   isar_flutter_libs
-  pasteboard
   permission_handler_windows
   share_plus
+  super_native_extensions
   url_launcher_windows
 )
 
