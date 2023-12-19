@@ -202,44 +202,38 @@ class MailSendPage extends StatelessWidget {
                 height: (originalMessage == null) ? 62.5.h : 75.h,
                 width: 100.w,
                 child: SingleChildScrollView(
-                  child: QuillProvider(
-                    configurations: QuillConfigurations(
-                      controller: controller,
-                      sharedConfigurations: const QuillSharedConfigurations(),
-                    ),
-                    child: Column(
-                      children: [
-                        const QuillToolbar(
-                          configurations: QuillToolbarConfigurations(
-                              multiRowsDisplay: false),
-                        ),
-                        Container(
-                          height: (originalMessage != null) ? 40.h : 52.h,
-                          width: 100.w,
-                          padding: const EdgeInsets.all(10),
-                          child: QuillEditor.basic(
-                            configurations: const QuillEditorConfigurations(
-                              readOnly: false, // true for view only mode
+                  child: Column(
+                    children: [
+                      QuillSimpleToolbar(
+                        configurations: QuillSimpleToolbarConfigurations(
+                            controller: controller, multiRowsDisplay: false),
+                      ),
+                      Container(
+                        height: (originalMessage != null) ? 40.h : 52.h,
+                        width: 100.w,
+                        padding: const EdgeInsets.all(10),
+                        child: QuillEditor.basic(
+                            configurations: QuillEditorConfigurations(
+                          controller: controller,
+                          readOnly: false, // true for view only mode
+                        )),
+                      ),
+                      (originalMessage != null)
+                          ? Container(
+                              width: 100.w,
+                              height: 75.h,
+                              padding: EdgeInsets.all(1.h),
+                              child: MailContentWidget(
+                                  mail: context
+                                      .read<EmailCubit>()
+                                      .state
+                                      .currentMailBox!
+                                      .emails
+                                      .firstWhere((element) =>
+                                          element.id == originalMessage)),
                             )
-                          ),
-                        ),
-                        (originalMessage != null)
-                            ? Container(
-                                width: 100.w,
-                                height: 75.h,
-                                padding: EdgeInsets.all(1.h),
-                                child: MailContentWidget(
-                                    mail: context
-                                        .read<EmailCubit>()
-                                        .state
-                                        .currentMailBox!
-                                        .emails
-                                        .firstWhere((element) =>
-                                            element.id == originalMessage)),
-                              )
-                            : Container(),
-                      ],
-                    ),
+                          : Container(),
+                    ],
                   ),
                 ),
               ),

@@ -5,8 +5,9 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   biometric_storage
   desktop_window
+  irondash_engine_context
   isar_flutter_libs
-  pasteboard
+  super_native_extensions
   url_launcher_linux
 )
 
