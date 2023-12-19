@@ -32,6 +32,7 @@ class TomussCubit extends Cubit<TomussState> {
     emit(state.copyWith(
         status: TomussStatus.loading, currentSemesterIndex: semestreIndex));
     _dartus = Lyon1TomussClient(lyon1Cas);
+    Student? student;
     List<TeachingUnit> teachingUnits = [];
     List<Semester> semesters = [];
 
@@ -61,11 +62,7 @@ class TomussCubit extends Cubit<TomussState> {
     }
     if (_dartus != null && _dartus!.lyon1Cas.isAuthenticated) {
       try {
-        ({
-          List<Semester>? semesters,
-          List<TeachingUnit>? schoolSubjectModel,
-          Duration? timeout,
-        }) result = await TomussLogic.getSemestersAndNote(
+        final result = await TomussLogic.getNameAndSemestersAndNotes(
             dartus: _dartus!,
             semesterIndex: semestreIndex,
             autoRefresh: false,
@@ -74,6 +71,8 @@ class TomussCubit extends Cubit<TomussState> {
                 : null);
         if (result.timeout != null) {
           emit(state.copyWith(
+            name: result.student?.name,
+            surname: result.student?.surname,
             currentSemesterIndex: semestreIndex ?? 0,
             status: TomussStatus.timeout,
             timeout: result.timeout,
@@ -87,6 +86,7 @@ class TomussCubit extends Cubit<TomussState> {
             (element) => element.url == Lyon1TomussClient.currentSemester());
         semesters = result.semesters!;
         teachingUnits = result.schoolSubjectModel!;
+        student = result.student;
       } catch (e) {
         Res.logger.e("Error while loading grades: $e");
         emit(state.copyWith(status: TomussStatus.error));
@@ -101,6 +101,8 @@ class TomussCubit extends Cubit<TomussState> {
       CacheService.set<SemesterList>(
           SemesterList(semesters, currentSemesterIndex: semestreIndex));
       emit(state.copyWith(
+        name: student?.name,
+        surname: student?.surname,
         status: TomussStatus.ready,
         teachingUnits: teachingUnits,
         semesters: semesters,

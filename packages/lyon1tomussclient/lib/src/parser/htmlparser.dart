@@ -1,15 +1,6 @@
 import 'dart:convert';
 
-import 'package:lyon1tomussclient/src/model/enumeration.dart';
-import 'package:lyon1tomussclient/src/model/grade.dart';
-import 'package:lyon1tomussclient/src/model/presence.dart';
-import 'package:lyon1tomussclient/src/model/semester.dart';
-import 'package:lyon1tomussclient/src/model/stage_code.dart';
-import 'package:lyon1tomussclient/src/model/teacher.dart';
-import 'package:lyon1tomussclient/src/model/teaching_unit.dart';
-import 'package:lyon1tomussclient/src/model/tomuss_text.dart';
-import 'package:lyon1tomussclient/src/model/upload.dart';
-import 'package:lyon1tomussclient/src/model/url.dart';
+import 'package:lyon1tomussclient/src/model/model_export.dart';
 
 class HTMLparser {
   late dynamic json;
@@ -153,5 +144,12 @@ class HTMLparser {
 
   List<Grade> extractWeekGrades() {
     return [];
+  }
+
+  Student extractStudent() {
+    final int? key = getIndexForKey('Names');
+    if (key == null) return Student("", "", "");
+
+    return Student.fromJSON(json[key][1]);
   }
 }

@@ -121,6 +121,7 @@ flutter:
     - assets/izly_mock_qr-code.png
     - assets/key.txt
     - assets/graph.json.gz
+    - assets/colloscope_ids.enc
 
 
   #   - images/a_dot_burr.jpeg

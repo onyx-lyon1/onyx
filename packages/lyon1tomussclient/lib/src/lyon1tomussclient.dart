@@ -1,9 +1,9 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:lyon1tomussclient/src/utils/urlcreator.dart';
-import 'package:lyon1tomussclient/src/parser/htmlparser.dart';
-import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:hive/hive.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
+import 'package:lyon1tomussclient/src/parser/htmlparser.dart';
+import 'package:lyon1tomussclient/src/utils/urlcreator.dart';
 
 class Lyon1TomussClient {
   final Lyon1CasClient _authentication;
@@ -27,6 +27,7 @@ class Lyon1TomussClient {
     Hive.registerAdapter(TomussTextAdapter());
     Hive.registerAdapter(UploadAdapter());
     Hive.registerAdapter(URLAdapter());
+    Hive.registerAdapter(StudentAdapter());
   }
 
   Future<ParsedPage?> getParsedPage(final String url,
@@ -45,7 +46,9 @@ class Lyon1TomussClient {
           content = (await _authentication.serviceRequest(url)).body;
           if (content.length > 1000) {
             parser.parse(content);
-            return ParsedPage(parser.extractSemesters(),
+            return ParsedPage(
+                parser.extractStudent(),
+                parser.extractSemesters(),
                 parser.extractTeachingUnits(), false, Duration.zero);
           } else {
             return null;
@@ -53,13 +56,13 @@ class Lyon1TomussClient {
         });
       } else {
         return ParsedPage(
-            null, null, true, Duration(seconds: delay.round() + 2));
+            null, null, null, true, Duration(seconds: delay.round() + 2));
       }
     }
     parser.parse(content);
 
-    return ParsedPage(parser.extractSemesters(), parser.extractTeachingUnits(),
-        false, Duration.zero);
+    return ParsedPage(parser.extractStudent(), parser.extractSemesters(),
+        parser.extractTeachingUnits(), false, Duration.zero);
   }
 
   Future<void> logout() async {

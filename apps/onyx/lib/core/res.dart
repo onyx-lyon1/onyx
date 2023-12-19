@@ -30,10 +30,14 @@ class Res {
   static bool get isLandscape => Device.orientation == Orientation.landscape;
 
   static bool mock = false;
+
   static const String corsProxy = "https://192.168.220.102:3000/";
-  static const String agendaIdsIvPath = "assets/iv.txt";
-  static const String agendaIdsKeyPath = "assets/key.txt";
+
+  static const String ivPath = "assets/iv.txt";
+  static const String keyPath = "assets/key.txt";
   static const String agendaIdsPath = "assets/agenda_ids.json.enc";
+
+  static const String colloscopeIdsPath = "assets/colloscope_ids.enc";
 
   static const Duration agendaDayStart = Duration(hours: 6);
   static const Duration agendaDayEnd = Duration(hours: 22);

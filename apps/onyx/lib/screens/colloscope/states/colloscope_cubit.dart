@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:encrypt/encrypt.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
 import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
@@ -12,7 +17,7 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
       : super(const ColloscopeState(
       status: ColloscopeStatus.initial, studentColloscope: null));
 
-  void load() async {
+  void load(String name, String surname) async {
     emit(state.copyWith(status: ColloscopeStatus.loading));
 
     if (Res.mock) {
@@ -33,12 +38,35 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
       return;
     }
 
-    _colloscopeClient = PolytechColloscopeClient("username", "password");
+    if (name.isEmpty || surname.isEmpty) {
+      emit(state.copyWith(status: ColloscopeStatus.error));
+      return;
+    }
+
+    final encrypted = await rootBundle.loadString(Res.colloscopeIdsPath);
+    final key = Key.fromBase64(await rootBundle.loadString(Res.keyPath));
+    final iv = IV.fromBase64(await rootBundle.loadString(Res.ivPath));
+    final encrypter = Encrypter(AES(key));
+    final decrypted =
+        encrypter.decrypt(Encrypted.fromBase64(encrypted), iv: iv);
+    final decoded = base64.decode(decrypted);
+    final deziped = gzip.decode(decoded);
+    final jsonText = utf8.decode(deziped);
+
+    final json = jsonDecode(jsonText);
+    final username = json["username"];
+    final password = json["password"];
+
+    _colloscopeClient = PolytechColloscopeClient(username, password);
+
+    print("name: $name, surname: $surname");
+
+    final student =
+        await _colloscopeClient?.fetchStudent(Year.second, name, surname);
 
     emit(state.copyWith(
       status: ColloscopeStatus.ready,
-      studentColloscope:
-          await _colloscopeClient!.getColloscope(Student(Year.second, "", 0)),
+      studentColloscope: await _colloscopeClient!.getColloscope(student!),
     ));
   }
 

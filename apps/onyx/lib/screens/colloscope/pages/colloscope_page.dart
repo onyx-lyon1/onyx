@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/colloscope/states/colloscope_cubit.dart';
+import 'package:onyx/screens/tomuss/states/tomuss_cubit.dart';
 
 import '../widgets/kholle_widget.dart';
 
@@ -12,6 +13,9 @@ class ColloscopePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? name = context.read<TomussCubit>().state.name;
+    String? surname = context.read<TomussCubit>().state.surname;
+
     return BlocBuilder<ColloscopeCubit, ColloscopeState>(
       builder: (context, state) {
         Widget body;
@@ -22,7 +26,7 @@ class ColloscopePage extends StatelessWidget {
             stateWidget = null;
             body = const SizedBox.shrink();
             WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-              context.read<ColloscopeCubit>().load();
+              context.read<ColloscopeCubit>().load(name, surname);
             });
           case ColloscopeStatus.loading:
             stateWidget = const LoadingHeaderWidget(
@@ -55,7 +59,7 @@ class ColloscopePage extends StatelessWidget {
 
         return CommonScreenWidget(
           onRefresh: () async {
-            context.read<ColloscopeCubit>().load();
+            context.read<ColloscopeCubit>().load(name, surname);
             while (state.status != ColloscopeStatus.ready &&
                 state.status != ColloscopeStatus.error) {
               await Future.delayed(const Duration(milliseconds: 100));

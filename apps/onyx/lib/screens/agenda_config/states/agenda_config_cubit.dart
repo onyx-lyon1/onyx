@@ -20,8 +20,8 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
     try {
       dirs = await compute(AgendaConfigLogic.loadDirs, (
         encryptedData: await rootBundle.loadString(Res.agendaIdsPath),
-        key: await rootBundle.loadString(Res.agendaIdsKeyPath),
-        iv: await rootBundle.loadString(Res.agendaIdsIvPath),
+        key: await rootBundle.loadString(Res.keyPath),
+        iv: await rootBundle.loadString(Res.ivPath),
         mock: Res.mock,
       ));
       emit(state.copyWith(status: AgendaConfigStatus.loaded, dirs: dirs));

@@ -4,6 +4,7 @@ export 'presence.dart';
 export 'semester.dart';
 export 'semester_list.dart';
 export 'stage_code.dart';
+export 'student.dart';
 export 'teacher.dart';
 export 'teaching_unit.dart';
 export 'teaching_unit_element.dart';
