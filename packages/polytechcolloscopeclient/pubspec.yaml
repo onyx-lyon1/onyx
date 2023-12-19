@@ -9,7 +9,7 @@ environment:
 # Add regular dependencies here.
 dependencies:
   beautiful_soup_dart: ^0.3.0
-  collection: ^1.18.0
+  collection: ^1.17.2
   dotenv: ^4.2.0
   equatable: ^2.0.5
   html: ^0.15.4

@@ -1337,6 +1337,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  polytechcolloscopeclient:
+    dependency: "direct main"
+    description:
+      path: "../../packages/polytechcolloscopeclient"
+      relative: true
+    source: path
+    version: "1.0.0"
   pool:
     dependency: transitive
     description:
