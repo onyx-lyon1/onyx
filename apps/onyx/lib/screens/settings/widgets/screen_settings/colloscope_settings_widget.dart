@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
@@ -29,7 +30,7 @@ class ColloscopeSettingsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Override Year (WIP)",
+              "Forcer l'année",
               softWrap: true,
               overflow: TextOverflow.visible,
               style: TextStyle(
@@ -44,7 +45,8 @@ class ColloscopeSettingsWidget extends StatelessWidget {
                   .settings
                   .colloscopeOverrideYearId,
               items: const [
-                DropdownMenuItem(value: 0, child: Text("Automatique (WIP)")),
+                DropdownMenuItem(
+                    value: 0, child: Text("Détection automatique")),
                 DropdownMenuItem(value: 1, child: Text("1ère année")),
                 DropdownMenuItem(value: 2, child: Text("2e année")),
               ],
@@ -63,7 +65,7 @@ class ColloscopeSettingsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Override Student (WIP)",
+              "Forcer un ID",
               softWrap: true,
               overflow: TextOverflow.visible,
               style: TextStyle(
@@ -71,24 +73,43 @@ class ColloscopeSettingsWidget extends StatelessWidget {
                 fontSize: 12,
               ),
             ),
-            DropdownButton(
-              value: context
-                  .read<SettingsCubit>()
-                  .state
-                  .settings
-                  .colloscopeOverrideStudentId,
-              items: const [
-                DropdownMenuItem(value: 0, child: Text("0")),
-                DropdownMenuItem(value: 351, child: Text("351")),
-              ],
-              onChanged: (int? value) {
-                context.read<SettingsCubit>().modify(
-                    settings: context
-                        .read<SettingsCubit>()
-                        .state
-                        .settings
-                        .copyWith(colloscopeOverrideStudentId: value));
-              },
+            SizedBox(
+              width: 160,
+              child: TextFormField(
+                maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                decoration: InputDecoration(
+                  hintText: "(laisser vide pour désactiver)",
+                  hintStyle: TextStyle(
+                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    fontSize: 12,
+                  ),
+                  counterText: "",
+                ),
+                maxLength: 3,
+                minLines: 1,
+                maxLines: 1,
+                initialValue: context
+                    .read<SettingsCubit>()
+                    .state
+                    .settings
+                    .colloscopeOverrideStudentId
+                    .toString()
+                    .replaceFirst("-1", ""),
+                onChanged: (String? value) {
+                  int newId = (value!.isEmpty) ? -1 : int.parse(value);
+
+                  context.read<SettingsCubit>().modify(
+                      settings: context
+                          .read<SettingsCubit>()
+                          .state
+                          .settings
+                          .copyWith(colloscopeOverrideStudentId: newId));
+                },
+              ),
             ),
           ],
         ),

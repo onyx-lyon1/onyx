@@ -15,15 +15,17 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
 
   ColloscopeCubit()
       : super(const ColloscopeState(
-      status: ColloscopeStatus.initial, studentColloscope: null));
+            status: ColloscopeStatus.initial, studentColloscope: null));
 
-  void load(String name, String surname) async {
+  void load(
+      String name, String surname, String username, int yearOverride) async {
     emit(state.copyWith(status: ColloscopeStatus.loading));
 
     if (Res.mock) {
       emit(state.copyWith(
         status: ColloscopeStatus.ready,
-        studentColloscope: StudentColloscope(Student(Year.second, "Oui", 351), 10, [
+        studentColloscope:
+            StudentColloscope(Student(Year.second, "Oui", 351), 10, [
           Kholle(DateTime.now(), "Oui Matiere", "Oui Kholleur", "Oui message",
               "Oui Room"),
           Kholle(DateTime.now(), "Oui Matiere", "Oui Kholleur", "Oui message",
@@ -54,19 +56,33 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
     final jsonText = utf8.decode(deziped);
 
     final json = jsonDecode(jsonText);
-    final username = json["username"];
-    final password = json["password"];
 
-    _colloscopeClient = PolytechColloscopeClient(username, password);
+    _colloscopeClient =
+        PolytechColloscopeClient(json["username"], json["password"]);
 
-    print("name: $name, surname: $surname");
+    int year;
 
-    final student =
-        await _colloscopeClient?.fetchStudent(Year.second, name, surname);
+    if (yearOverride != 0) {
+      year = yearOverride;
+    } else if (RegExp(r"^([pP])\d{7}$").hasMatch(username.trim())) {
+      year = int.parse(username.substring(1, 3));
+      year = DateTime.now().year - 2000 - year + 1;
+    } else {
+      emit(state.copyWith(status: ColloscopeStatus.error));
+      return;
+    }
+
+    final student = await _colloscopeClient?.fetchStudent(
+        Year.values[year - 1], name, surname);
+
+    if (student == null) {
+      emit(state.copyWith(status: ColloscopeStatus.error));
+      return;
+    }
 
     emit(state.copyWith(
       status: ColloscopeStatus.ready,
-      studentColloscope: await _colloscopeClient!.getColloscope(student!),
+      studentColloscope: await _colloscopeClient!.getColloscope(student),
     ));
   }
 
