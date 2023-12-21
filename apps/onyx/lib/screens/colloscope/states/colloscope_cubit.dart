@@ -17,7 +17,9 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
 
   ColloscopeCubit()
       : super(const ColloscopeState(
-            status: ColloscopeStatus.initial, studentColloscope: null));
+            status: ColloscopeStatus.initial,
+            studentColloscope: null,
+            reloadScheduled: false));
 
   void load(String name, String surname, String username, int yearOverride,
       int studentOverride) async {
@@ -108,6 +110,13 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
   }
 
   void resetCubit() {
-    emit(state.copyWith(status: ColloscopeStatus.initial));
+    emit(state.copyWith(
+        status: ColloscopeStatus.initial,
+        studentColloscope: null,
+        reloadScheduled: false));
+  }
+
+  void scheduleReload() {
+    emit(state.copyWith(reloadScheduled: true));
   }
 }

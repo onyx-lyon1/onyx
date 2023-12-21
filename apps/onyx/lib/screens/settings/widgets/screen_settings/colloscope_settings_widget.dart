@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/screens/colloscope/states/colloscope_cubit.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 class ColloscopeSettingsWidget extends StatelessWidget {
@@ -57,6 +58,7 @@ class ColloscopeSettingsWidget extends StatelessWidget {
                         .state
                         .settings
                         .copyWith(colloscopeOverrideYearId: value));
+                context.read<ColloscopeCubit>().scheduleReload();
               },
             ),
           ],
@@ -108,6 +110,7 @@ class ColloscopeSettingsWidget extends StatelessWidget {
                           .state
                           .settings
                           .copyWith(colloscopeOverrideStudentId: newId));
+                  context.read<ColloscopeCubit>().scheduleReload();
                 },
               ),
             ),
