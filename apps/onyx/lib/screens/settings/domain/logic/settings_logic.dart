@@ -48,6 +48,7 @@ class SettingsLogic {
     context.read<IzlyCubit>().disconnect();
     Hive.deleteBoxFromDisk("cached_qr_code");
     Hive.deleteBoxFromDisk("cached_izly_amount");
+    Hive.deleteBoxFromDisk("cached_colloscope_data");
     CacheService.reset<IzlyQrCodeList>();
     CacheService.reset<IzlyPaymentModelList>();
     CacheService.reset<Lyon1CasClient>();
