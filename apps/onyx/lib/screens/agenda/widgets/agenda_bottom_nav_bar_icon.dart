@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AgendaBottomNavBarIcon extends StatelessWidget {
   const AgendaBottomNavBarIcon({super.key, required this.selected});
+
   final bool selected;
 
   @override
@@ -28,9 +29,9 @@ class AgendaBottomNavBarIcon extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: ((1 / 3) * constraints.maxHeight) * 0.7,
+            top: ((2 / 3) * constraints.maxHeight) * 0.4,
             child: SizedBox(
-              height: ((2 / 3) * constraints.maxHeight) * 1.2,
+              height: (constraints.maxHeight) * 0.7,
               child: FittedBox(
                 fit: BoxFit.fitHeight,
                 child: Text(
