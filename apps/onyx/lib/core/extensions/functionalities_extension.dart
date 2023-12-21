@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/colloscope/pages/colloscope_page.dart';
+import 'package:onyx/screens/colloscope/widgets/colloscope_bottom_nav_bar_icon.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
@@ -45,7 +46,7 @@ extension FunctionalitiesExtention on Functionalities {
       case Functionalities.settings:
         return Icons.settings_rounded;
       case Functionalities.colloscope:
-        return Icons.settings_rounded;
+        return Icons.school_rounded;
     }
   }
 
@@ -79,11 +80,11 @@ extension FunctionalitiesExtention on Functionalities {
       case Functionalities.map:
         return MapBottomNavBarIcon(selected: selected);
       case Functionalities.izly:
-        return IzlyBottomNavBarIconWidget(selected: selected);
+        return IzlyBottomNavBarIcon(selected: selected);
       case Functionalities.settings:
         return SettingsBottomNavBarIcon(selected: selected);
       case Functionalities.colloscope:
-        return SettingsBottomNavBarIcon(selected: selected);
+        return ColloscopeBottomNavBarIcon(selected: selected);
     }
   }
 
