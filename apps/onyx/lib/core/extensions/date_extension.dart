@@ -26,7 +26,7 @@ const List<String> monthNames = [
   "Avril",
   "Mai",
   "Juin",
-  "Julliet",
+  "Juillet",
   "Août",
   "Septembre",
   "Octobre",
