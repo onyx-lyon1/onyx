@@ -2,7 +2,7 @@ part of 'colloscope_cubit.dart';
 
 enum ColloscopeStatus {
   initial,
-  loading,
+  gatheringColloscopeData,
   error,
   ready,
 }

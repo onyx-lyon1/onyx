@@ -1,7 +1,4 @@
-enum Year {
-  first,
-  second,
-}
+import 'models/year.dart';
 
 class Consts {
   // HTTPS because the website is not available in HTTP
