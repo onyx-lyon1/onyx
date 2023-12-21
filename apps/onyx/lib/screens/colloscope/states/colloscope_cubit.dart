@@ -17,8 +17,8 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
       : super(const ColloscopeState(
             status: ColloscopeStatus.initial, studentColloscope: null));
 
-  void load(
-      String name, String surname, String username, int yearOverride) async {
+  void load(String name, String surname, String username, int yearOverride,
+      int studentOverride) async {
     emit(state.copyWith(status: ColloscopeStatus.loading));
 
     if (Res.mock) {
@@ -37,11 +37,6 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
         ]),
       ));
 
-      return;
-    }
-
-    if (name.isEmpty || surname.isEmpty) {
-      emit(state.copyWith(status: ColloscopeStatus.error));
       return;
     }
 
@@ -72,8 +67,14 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
       return;
     }
 
-    final student = await _colloscopeClient?.fetchStudent(
-        Year.values[year - 1], name, surname);
+    Student? student;
+
+    if (studentOverride != -1) {
+      student = Student(Year.values[year - 1], name, studentOverride);
+    } else {
+      student = await _colloscopeClient!
+          .fetchStudent(Year.values[year - 1], name, surname);
+    }
 
     if (student == null) {
       emit(state.copyWith(status: ColloscopeStatus.error));

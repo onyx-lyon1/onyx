@@ -23,6 +23,12 @@ class ColloscopePage extends StatelessWidget {
     int yearOverride =
         context.read<SettingsCubit>().state.settings.colloscopeOverrideYearId;
 
+    int studentOverride = context
+        .read<SettingsCubit>()
+        .state
+        .settings
+        .colloscopeOverrideStudentId;
+
     return BlocBuilder<ColloscopeCubit, ColloscopeState>(
       builder: (context, state) {
         Widget body;
@@ -35,7 +41,7 @@ class ColloscopePage extends StatelessWidget {
             WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
               context
                   .read<ColloscopeCubit>()
-                  .load(name, surname, username, yearOverride);
+                  .load(name, surname, username, yearOverride, studentOverride);
             });
           case ColloscopeStatus.loading:
             stateWidget = const LoadingHeaderWidget(
@@ -70,7 +76,7 @@ class ColloscopePage extends StatelessWidget {
           onRefresh: () async {
             context
                 .read<ColloscopeCubit>()
-                .load(name, surname, username, yearOverride);
+                .load(name, surname, username, yearOverride, studentOverride);
             while (state.status != ColloscopeStatus.ready &&
                 state.status != ColloscopeStatus.error) {
               await Future.delayed(const Duration(milliseconds: 100));
