@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:encrypt/encrypt.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
@@ -96,6 +97,13 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
       ));
     } catch (e) {
       emit(state.copyWith(status: ColloscopeStatus.error));
+      if (await Connectivity().checkConnectivity() == ConnectivityResult.none) {
+        Connectivity().onConnectivityChanged.listen((event) async {
+          if (event != ConnectivityResult.none) {
+            resetCubit();
+          }
+        });
+      }
     }
   }
 
