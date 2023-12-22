@@ -43,7 +43,9 @@ class SettingsModel extends Equatable {
   final bool showMiniCalendar;
   @HiveField(7)
   final bool calendarUpdateNotification;
-  @HiveField(8, defaultValue: [])
+  @HiveField(8)
+  final int? agendaId;
+  @HiveField(27, defaultValue: [])
   final List<int> agendaIds;
   @HiveField(19, defaultValue: 5)
   final int agendaWeekLength;
@@ -116,6 +118,7 @@ class SettingsModel extends Equatable {
     this.colloscopeAutoUpdateAgenda = true,
     this.colloscopeOverrideStudentId = 0,
     this.colloscopeOverrideYearId = 0,
+    this.agendaId
   });
 
   @override

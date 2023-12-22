@@ -31,8 +31,9 @@ class SettingsCubit extends Cubit<SettingsState> {
           status: SettingsStatus.error, settings: const SettingsModel()));
     }
 
-    var enabled = state.settings.enabledFunctionalities;
-    var disabled = state.settings.disabledFunctionalities;
+    var settings = state.settings.copyWith();
+    var enabled = settings.enabledFunctionalities;
+    var disabled = settings.disabledFunctionalities;
     var enabledOrDisabled = enabled + disabled;
 
     Functionalities.values
@@ -45,9 +46,18 @@ class SettingsCubit extends Cubit<SettingsState> {
       }
     });
 
-    if (!(state.settings.calendarUpdateNotification &&
-        state.settings.newMailNotification &&
-        state.settings.newGradeNotification)) {
+    //ensure retrocompatibility
+    if (settings.agendaIds.isEmpty && settings.agendaId != null){
+      settings.agendaIds.add(settings.agendaId!);
+    }
+
+    if (state.settings != settings){
+      emit(state.copyWith(settings: settings));
+    }
+
+    if (!(settings.calendarUpdateNotification &&
+        settings.newMailNotification &&
+        settings.newGradeNotification)) {
       if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
           !Platform.environment.containsKey('FLUTTER_TEST')) {
         Workmanager().cancelByUniqueName("updateChecking");
