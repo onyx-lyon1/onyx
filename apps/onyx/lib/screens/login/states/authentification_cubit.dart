@@ -65,7 +65,8 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
             status: auth.authResult
                 ? AuthentificationStatus.authentificated
                 : AuthentificationStatus.error,
-            lyon1Cas: _lyon1Cas));
+            lyon1Cas: _lyon1Cas,
+            username: auth.credential.username));
         await CacheService.set<Credential>(
           auth.credential,
           secureKey: key,

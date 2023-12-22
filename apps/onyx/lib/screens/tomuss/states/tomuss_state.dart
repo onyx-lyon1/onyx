@@ -12,6 +12,9 @@ enum TomussStatus {
 
 class TomussState extends Equatable {
   final TomussStatus status;
+
+  final String name, surname;
+
   final List<TeachingUnit> teachingUnits;
   final List<Semester> semesters;
   final int currentSemesterIndex;
@@ -25,6 +28,8 @@ class TomussState extends Equatable {
   @override
   List<Object?> get props => [
         status,
+        name,
+        surname,
         teachingUnits,
         semesters,
         currentSemesterIndex,
@@ -37,6 +42,8 @@ class TomussState extends Equatable {
 
   const TomussState(
       {this.status = TomussStatus.initial,
+      this.name = "",
+      this.surname = "",
       this.teachingUnits = const [],
       this.semesters = const [],
       this.currentSemesterIndex = 0,
@@ -45,6 +52,8 @@ class TomussState extends Equatable {
 
   TomussState copyWith(
       {TomussStatus? status,
+      String? name,
+      String? surname,
       List<TeachingUnit>? teachingUnits,
       List<Semester>? semesters,
       int? currentSemesterIndex,
@@ -57,6 +66,8 @@ class TomussState extends Equatable {
           newElements}) {
     return TomussState(
         status: status ?? this.status,
+        name: name ?? this.name,
+        surname: surname ?? this.surname,
         teachingUnits: teachingUnits ?? this.teachingUnits,
         semesters: semesters ?? this.semesters,
         currentSemesterIndex: currentSemesterIndex ?? this.currentSemesterIndex,

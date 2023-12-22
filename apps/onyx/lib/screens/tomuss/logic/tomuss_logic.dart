@@ -20,11 +20,12 @@ class GetCacheDataPass {
 class TomussLogic {
   static Future<
           ({
+            Student? student,
             List<Semester>? semesters,
             List<TeachingUnit>? schoolSubjectModel,
             Duration? timeout,
           })>
-      getSemestersAndNote(
+      getNameAndSemestersAndNotes(
           {required Lyon1TomussClient dartus,
           Semester? semester,
           int? semesterIndex,
@@ -37,6 +38,7 @@ class TomussLogic {
       }
       if (parsedPage.isTimedOut) {
         return (
+          student: null,
           semesters: null,
           schoolSubjectModel: null,
           timeout: parsedPage.timeout
@@ -68,12 +70,14 @@ class TomussLogic {
         }
       }
       return (
+        student: parsedPage.student,
         semesters: parsedPage.semesters,
         schoolSubjectModel: parsedPage.teachingunits,
         timeout: null
       );
     } else {
       return (
+        student: Student("Jean", "Dupont", ""),
         semesters: [
           Semester("2022/Automne", Lyon1TomussClient.currentSemester())
         ],

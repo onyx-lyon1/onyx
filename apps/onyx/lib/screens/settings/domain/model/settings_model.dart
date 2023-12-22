@@ -5,6 +5,19 @@ import 'package:onyx/core/res.dart';
 
 part 'generated/settings_model.g.dart';
 
+const List<Functionalities> defaultEnabledFunctionalities = [
+  Functionalities.tomuss,
+  Functionalities.agenda,
+  Functionalities.mail,
+  Functionalities.settings,
+  Functionalities.izly,
+  Functionalities.map,
+];
+
+const List<Functionalities> defaultDisabledFunctionalities = [
+  Functionalities.colloscope
+];
+
 @CopyWith()
 @HiveType(typeId: 7)
 class SettingsModel extends Equatable {
@@ -54,16 +67,10 @@ class SettingsModel extends Equatable {
   @HiveField(11)
   final bool forcedMailTheme;
 
-  @HiveField(12, defaultValue: [
-    Functionalities.tomuss,
-    Functionalities.agenda,
-    Functionalities.mail,
-    Functionalities.settings,
-    Functionalities.izly,
-    Functionalities.map,
-  ])
+  @HiveField(12, defaultValue: defaultEnabledFunctionalities)
   final List<Functionalities> enabledFunctionalities;
-  @HiveField(13, defaultValue: [])
+
+  @HiveField(13, defaultValue: defaultDisabledFunctionalities)
   final List<Functionalities> disabledFunctionalities;
 
   @HiveField(17, defaultValue: false)
@@ -71,6 +78,17 @@ class SettingsModel extends Equatable {
 
   @HiveField(18, defaultValue: false)
   final bool shownAgendaPopup;
+
+  // Colloscope
+
+  @HiveField(24, defaultValue: true)
+  final bool colloscopeAutoUpdateAgenda;
+
+  @HiveField(25, defaultValue: 0)
+  final int colloscopeOverrideStudentId;
+
+  @HiveField(26, defaultValue: 0)
+  final int colloscopeOverrideYearId;
 
   const SettingsModel({
     this.biometricAuth = false,
@@ -85,15 +103,8 @@ class SettingsModel extends Equatable {
     this.blockTrackers = true,
     this.forcedMailTheme = true,
     this.shownAgendaPopup = false,
-    this.enabledFunctionalities = const [
-      Functionalities.tomuss,
-      Functionalities.agenda,
-      Functionalities.mail,
-      Functionalities.settings,
-      Functionalities.izly,
-      Functionalities.map,
-    ],
-    this.disabledFunctionalities = const [],
+    this.enabledFunctionalities = defaultEnabledFunctionalities,
+    this.disabledFunctionalities = defaultDisabledFunctionalities,
     this.recentGradeDuration = 7,
     this.firstLogin = true,
     this.mock = false,
@@ -102,6 +113,9 @@ class SettingsModel extends Equatable {
     this.agendaDisabledDays = const [6, 7],
     this.agendaPageTopToBottom = false,
     this.agendaWeekRerenceAlignement = 0,
+    this.colloscopeAutoUpdateAgenda = true,
+    this.colloscopeOverrideStudentId = 0,
+    this.colloscopeOverrideYearId = 0,
   });
 
   @override
@@ -127,7 +141,10 @@ class SettingsModel extends Equatable {
         agendaWeekReference,
         agendaDisabledDays,
         agendaPageTopToBottom,
-        agendaWeekRerenceAlignement
+        agendaWeekRerenceAlignement,
+        colloscopeAutoUpdateAgenda,
+        colloscopeOverrideStudentId,
+        colloscopeOverrideYearId,
       ];
 
   @override

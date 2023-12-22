@@ -53,6 +53,12 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel agendaWeekRerenceAlignement(int agendaWeekRerenceAlignement);
 
+  SettingsModel colloscopeAutoUpdateAgenda(bool colloscopeAutoUpdateAgenda);
+
+  SettingsModel colloscopeOverrideStudentId(int colloscopeOverrideStudentId);
+
+  SettingsModel colloscopeOverrideYearId(int colloscopeOverrideYearId);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -82,6 +88,9 @@ abstract class _$SettingsModelCWProxy {
     List<int>? agendaDisabledDays,
     bool? agendaPageTopToBottom,
     int? agendaWeekRerenceAlignement,
+    bool? colloscopeAutoUpdateAgenda,
+    int? colloscopeOverrideStudentId,
+    int? colloscopeOverrideYearId,
   });
 }
 
@@ -178,6 +187,18 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
       this(agendaWeekRerenceAlignement: agendaWeekRerenceAlignement);
 
   @override
+  SettingsModel colloscopeAutoUpdateAgenda(bool colloscopeAutoUpdateAgenda) =>
+      this(colloscopeAutoUpdateAgenda: colloscopeAutoUpdateAgenda);
+
+  @override
+  SettingsModel colloscopeOverrideStudentId(int colloscopeOverrideStudentId) =>
+      this(colloscopeOverrideStudentId: colloscopeOverrideStudentId);
+
+  @override
+  SettingsModel colloscopeOverrideYearId(int colloscopeOverrideYearId) =>
+      this(colloscopeOverrideYearId: colloscopeOverrideYearId);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -208,6 +229,9 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
     Object? agendaDisabledDays = const $CopyWithPlaceholder(),
     Object? agendaPageTopToBottom = const $CopyWithPlaceholder(),
     Object? agendaWeekRerenceAlignement = const $CopyWithPlaceholder(),
+    Object? colloscopeAutoUpdateAgenda = const $CopyWithPlaceholder(),
+    Object? colloscopeOverrideStudentId = const $CopyWithPlaceholder(),
+    Object? colloscopeOverrideYearId = const $CopyWithPlaceholder(),
   }) {
     return SettingsModel(
       biometricAuth:
@@ -327,6 +351,24 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
               ? _value.agendaWeekRerenceAlignement
               // ignore: cast_nullable_to_non_nullable
               : agendaWeekRerenceAlignement as int,
+      colloscopeAutoUpdateAgenda:
+          colloscopeAutoUpdateAgenda == const $CopyWithPlaceholder() ||
+                  colloscopeAutoUpdateAgenda == null
+              ? _value.colloscopeAutoUpdateAgenda
+              // ignore: cast_nullable_to_non_nullable
+              : colloscopeAutoUpdateAgenda as bool,
+      colloscopeOverrideStudentId:
+          colloscopeOverrideStudentId == const $CopyWithPlaceholder() ||
+                  colloscopeOverrideStudentId == null
+              ? _value.colloscopeOverrideStudentId
+              // ignore: cast_nullable_to_non_nullable
+              : colloscopeOverrideStudentId as int,
+      colloscopeOverrideYearId:
+          colloscopeOverrideYearId == const $CopyWithPlaceholder() ||
+                  colloscopeOverrideYearId == null
+              ? _value.colloscopeOverrideYearId
+              // ignore: cast_nullable_to_non_nullable
+              : colloscopeOverrideYearId as int,
     );
   }
 }
@@ -375,7 +417,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
             ]
           : (fields[12] as List).cast<Functionalities>(),
       disabledFunctionalities: fields[13] == null
-          ? []
+          ? [Functionalities.colloscope]
           : (fields[13] as List).cast<Functionalities>(),
       recentGradeDuration: fields[14] == null ? 7 : fields[14] as int,
       firstLogin: fields[15] == null ? true : fields[15] as bool,
@@ -386,13 +428,17 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
           fields[21] == null ? [6, 7] : (fields[21] as List).cast<int>(),
       agendaPageTopToBottom: fields[22] == null ? false : fields[22] as bool,
       agendaWeekRerenceAlignement: fields[23] == null ? 0 : fields[23] as int,
+      colloscopeAutoUpdateAgenda:
+          fields[24] == null ? true : fields[24] as bool,
+      colloscopeOverrideStudentId: fields[25] == null ? 0 : fields[25] as int,
+      colloscopeOverrideYearId: fields[26] == null ? 0 : fields[26] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(22)
+      ..writeByte(25)
       ..writeByte(15)
       ..write(obj.firstLogin)
       ..writeByte(16)
@@ -436,7 +482,13 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(17)
       ..write(obj.mock)
       ..writeByte(18)
-      ..write(obj.shownAgendaPopup);
+      ..write(obj.shownAgendaPopup)
+      ..writeByte(24)
+      ..write(obj.colloscopeAutoUpdateAgenda)
+      ..writeByte(25)
+      ..write(obj.colloscopeOverrideStudentId)
+      ..writeByte(26)
+      ..write(obj.colloscopeOverrideYearId);
   }
 
   @override

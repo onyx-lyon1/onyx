@@ -85,6 +85,10 @@ extension DateExtension on DateTime {
   String toWeekDayName({bool short = false}) =>
       short ? weekDaysShort[weekday - 1] : weekDays[weekday - 1];
 
+  String toHourMinuteString() {
+    return "${hour.toFixedLengthString(2)}h${minute.toFixedLengthString(2)}";
+  }
+
   String toMonthName({bool short = false}) {
     return short ? monthNamesShort[month - 1] : monthNames[month - 1];
   }

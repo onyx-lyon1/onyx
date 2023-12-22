@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
+import 'package:onyx/screens/colloscope/pages/colloscope_page.dart';
+import 'package:onyx/screens/colloscope/widgets/colloscope_bottom_nav_bar_icon.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/screens/settings/widgets/screen_settings/colloscope_settings_widget.dart';
 import 'package:onyx/screens/settings/widgets/screen_settings/email_settings_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 
@@ -23,6 +26,8 @@ extension FunctionalitiesExtention on Functionalities {
         return "Izly";
       case Functionalities.settings:
         return "Paramètres";
+      case Functionalities.colloscope:
+        return "Colloscope";
     }
   }
 
@@ -40,6 +45,8 @@ extension FunctionalitiesExtention on Functionalities {
         return Icons.attach_money_rounded;
       case Functionalities.settings:
         return Icons.settings_rounded;
+      case Functionalities.colloscope:
+        return Icons.school_rounded;
     }
   }
 
@@ -57,6 +64,8 @@ extension FunctionalitiesExtention on Functionalities {
         return const IzlyPage();
       case Functionalities.settings:
         return const SettingsPage();
+      case Functionalities.colloscope:
+        return const ColloscopePage();
     }
   }
 
@@ -71,9 +80,11 @@ extension FunctionalitiesExtention on Functionalities {
       case Functionalities.map:
         return MapBottomNavBarIcon(selected: selected);
       case Functionalities.izly:
-        return IzlyBottomNavBarIconWidget(selected: selected);
+        return IzlyBottomNavBarIcon(selected: selected);
       case Functionalities.settings:
         return SettingsBottomNavBarIcon(selected: selected);
+      case Functionalities.colloscope:
+        return ColloscopeBottomNavBarIcon(selected: selected);
     }
   }
 
@@ -101,6 +112,10 @@ extension FunctionalitiesExtention on Functionalities {
         );
       case Functionalities.settings:
         return SettingsSettingsWidget(
+          key: key,
+        );
+      case Functionalities.colloscope:
+        return ColloscopeSettingsWidget(
           key: key,
         );
     }

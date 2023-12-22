@@ -77,6 +77,9 @@ dependencies:
   logger: ^2.0.2+1
   json_theme: ^6.3.1
 
+  #colloscope
+  polytechcolloscopeclient: ^1.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -118,6 +121,7 @@ flutter:
     - assets/izly_mock_qr-code.png
     - assets/key.txt
     - assets/graph.json.gz
+    - assets/colloscope_ids.enc
 
 
   #   - images/a_dot_burr.jpeg

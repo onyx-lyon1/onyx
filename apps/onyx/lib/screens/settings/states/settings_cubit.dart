@@ -30,6 +30,21 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(state.copyWith(
           status: SettingsStatus.error, settings: const SettingsModel()));
     }
+
+    var enabled = state.settings.enabledFunctionalities;
+    var disabled = state.settings.disabledFunctionalities;
+    var enabledOrDisabled = enabled + disabled;
+
+    Functionalities.values
+        .where((e) => !enabledOrDisabled.contains(e))
+        .forEach((element) {
+      if (defaultEnabledFunctionalities.contains(element)) {
+        enabled.add(element);
+      } else if (defaultDisabledFunctionalities.contains(element)) {
+        disabled.add(element);
+      }
+    });
+
     if (!(state.settings.calendarUpdateNotification &&
         state.settings.newMailNotification &&
         state.settings.newGradeNotification)) {

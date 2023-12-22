@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class IzlyBottomNavBarIconWidget extends StatelessWidget {
-  const IzlyBottomNavBarIconWidget({super.key, required this.selected});
+class ColloscopeBottomNavBarIcon extends StatelessWidget {
+  const ColloscopeBottomNavBarIcon({super.key, required this.selected});
+
   final bool selected;
 
   @override
@@ -9,7 +10,7 @@ class IzlyBottomNavBarIconWidget extends StatelessWidget {
     return FittedBox(
       fit: BoxFit.fitHeight,
       child: Icon(
-        Icons.attach_money_rounded,
+        Icons.school_rounded,
         color: selected
             ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
             : Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,

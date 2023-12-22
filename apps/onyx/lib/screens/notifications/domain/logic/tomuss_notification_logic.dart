@@ -24,7 +24,7 @@ Future<void> tomussNotificationLogic(
           (await CacheService.get<TeachingUnitList>(index: semestreIndex))!
               .teachingUnitModels;
       List<TeachingUnit> newTeachingUnits =
-          (await TomussLogic.getSemestersAndNote(
+          (await TomussLogic.getNameAndSemestersAndNotes(
                   dartus: tomussClient,
                   autoRefresh: true,
                   semester: semestreModel ??

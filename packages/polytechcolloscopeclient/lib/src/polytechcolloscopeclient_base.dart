@@ -1,10 +1,11 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:collection/collection.dart';
+import 'package:hive/hive.dart';
 import 'package:html/dom.dart';
 import 'package:requests_plus/requests_plus.dart';
 
 import 'consts.dart';
-import 'models/models.dart';
+import 'models/model_export.dart';
 
 class PolytechColloscopeClient {
   final String _username, _password;
@@ -125,5 +126,12 @@ class PolytechColloscopeClient {
         int.parse(hour), int.parse(minutes));
 
     return Kholle(dateTime, subject, kholleur, message, room);
+  }
+
+  static void registerAdapters() {
+    Hive.registerAdapter(StudentAdapter());
+    Hive.registerAdapter(KholleAdapter());
+    Hive.registerAdapter(YearAdapter());
+    Hive.registerAdapter(StudentColloscopeAdapter());
   }
 }

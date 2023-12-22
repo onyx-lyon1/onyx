@@ -7,6 +7,7 @@ import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
 
 Future<void> hiveInit({String? path}) async {
   Hive.registerAdapter(FunctionalitiesAdapter());
@@ -19,6 +20,7 @@ Future<void> hiveInit({String? path}) async {
   Lyon1CasClient.registerAdapters(initHive: false);
   Lyon1AgendaClient.registerAdapters();
   Lyon1MailClient.registerAdapters(initHive: false);
+  PolytechColloscopeClient.registerAdapters();
 
   if (path != null || kIsWeb) {
     Hive.init(path);
@@ -34,4 +36,5 @@ Future<void> hiveReset({String? path}) async {
   await Hive.deleteBoxFromDisk('tomuss');
   await Hive.deleteBoxFromDisk('agenda');
   await Hive.deleteBoxFromDisk('mails');
+  await Hive.deleteBoxFromDisk('cached_colloscope_data');
 }
