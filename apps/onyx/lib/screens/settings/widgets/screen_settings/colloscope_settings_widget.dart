@@ -76,7 +76,7 @@ class ColloscopeSettingsWidget extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: 160,
+              width: 170,
               child: TextFormField(
                 maxLengthEnforcement: MaxLengthEnforcement.enforced,
                 keyboardType: TextInputType.number,
