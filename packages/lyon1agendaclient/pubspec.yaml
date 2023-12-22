@@ -1,7 +1,7 @@
 name: lyon1agendaclient
 description: A Dart library for retrieving Lyon 1 University agendas using Lyon1CasClient for authentication.
-repository: https://github.com/onyx-lyon1/lyon1agendaclient
-version: 1.0.7
+repository: https://github.com/onyx-lyon1/onyx/packages/lyon1agendaclient
+version: 1.0.8
 environment:
   sdk: '>=3.0.0 <4.0.0'
 
