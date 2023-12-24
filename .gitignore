@@ -53,3 +53,5 @@ apps/onyx/assets/iv.txt
 !flake.lock
 .direnv/
 .android
+apps/onyx/upload-keystore.jks
+apps/onyx/key.properties
