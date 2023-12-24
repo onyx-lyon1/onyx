@@ -78,6 +78,7 @@ dependencies:
 
   #colloscope
   polytechcolloscopeclient: ^1.0.8
+  diacritic: ^0.1.5
 
 dev_dependencies:
   flutter_test:

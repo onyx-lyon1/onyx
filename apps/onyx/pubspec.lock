@@ -426,7 +426,7 @@ packages:
     source: hosted
     version: "7.0.0"
   diacritic:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: diacritic
       sha256: "96db5db6149cbe4aa3cfcbfd170aca9b7648639be7e48025f9d458517f807fe4"
