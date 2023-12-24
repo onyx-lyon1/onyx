@@ -1351,7 +1351,7 @@ packages:
       path: "../../packages/polytechcolloscopeclient"
       relative: true
     source: path
-    version: "1.0.8"
+    version: "1.0.9"
   pool:
     dependency: transitive
     description:
