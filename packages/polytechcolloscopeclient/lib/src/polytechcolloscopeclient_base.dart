@@ -1,5 +1,6 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:collection/collection.dart';
+import 'package:diacritic/diacritic.dart';
 import 'package:hive/hive.dart';
 import 'package:html/dom.dart';
 import 'package:requests_plus/requests_plus.dart';
@@ -47,7 +48,7 @@ class PolytechColloscopeClient {
         "${name.substring(0, 1).toUpperCase()}. ${surname.toUpperCase()}";
 
     var students = await fetchStudents(year);
-    return students.firstWhereOrNull((s) => s.name == match);
+    return students.firstWhereOrNull((s) => removeDiacritics(s.name) == match);
   }
 
   Future<StudentColloscope> getColloscope(Student student) async {

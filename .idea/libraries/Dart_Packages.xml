@@ -426,6 +426,13 @@
             </list>
           </value>
         </entry>
+        <entry key="diacritic">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/diacritic-0.1.5/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="diff_match_patch">
           <value>
             <list>
@@ -1872,6 +1879,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/desktop_window-0.4.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/device_info_plus-9.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/device_info_plus_platform_interface-7.0.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/diacritic-0.1.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/diff_match_patch-0.4.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dotenv-4.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/dotenv-4.2.0/lib" />

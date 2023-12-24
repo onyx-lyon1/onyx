@@ -16,7 +16,7 @@ dependencies:
   copy_with_extension: ^5.0.4
   html: ^0.15.4
   requests_plus: ^4.8.4
-  # path: ^1.8.0
+  diacritic: ^0.1.5
 
 dev_dependencies:
   lints: ^3.0.0
