@@ -116,8 +116,8 @@ class SettingsModel extends Equatable {
     this.agendaPageTopToBottom = false,
     this.agendaWeekRerenceAlignement = 0,
     this.colloscopeAutoUpdateAgenda = true,
-    this.colloscopeOverrideStudentId = 0,
-    this.colloscopeOverrideYearId = 0,
+      this.colloscopeOverrideStudentId = -1,
+      this.colloscopeOverrideYearId = 0,
     this.agendaId
   });
 
