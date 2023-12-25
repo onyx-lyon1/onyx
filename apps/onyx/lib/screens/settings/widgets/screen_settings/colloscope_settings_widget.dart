@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/colloscope/states/colloscope_cubit.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ColloscopeSettingsWidget extends StatelessWidget {
   const ColloscopeSettingsWidget({super.key});
@@ -46,8 +47,7 @@ class ColloscopeSettingsWidget extends StatelessWidget {
                   .settings
                   .colloscopeOverrideYearId,
               items: const [
-                DropdownMenuItem(
-                    value: 0, child: Text("Détection automatique")),
+                DropdownMenuItem(value: 0, child: Text("Automatique")),
                 DropdownMenuItem(value: 1, child: Text("1ère année")),
                 DropdownMenuItem(value: 2, child: Text("2e année")),
               ],
@@ -65,18 +65,24 @@ class ColloscopeSettingsWidget extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "Forcer un ID",
-              softWrap: true,
-              overflow: TextOverflow.visible,
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyLarge!.color,
-                fontSize: 12,
+            Flexible(
+              flex: 3,
+              fit: FlexFit.tight,
+              child: Text(
+                "Forcer un ID",
+                softWrap: true,
+                overflow: TextOverflow.visible,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
+                  fontSize: 12,
+                ),
               ),
             ),
-            SizedBox(
-              width: 170,
+            Flexible(
+              flex: 5,
               child: TextFormField(
                 maxLengthEnforcement: MaxLengthEnforcement.enforced,
                 keyboardType: TextInputType.number,
@@ -84,16 +90,18 @@ class ColloscopeSettingsWidget extends StatelessWidget {
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 decoration: InputDecoration(
-                  hintText: "(laisser vide pour désactiver)",
+                  hintText: "(vide pour désactiver)",
                   hintStyle: TextStyle(
                     color: Theme.of(context).textTheme.bodyLarge!.color,
-                    fontSize: 12,
+                    fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
                   ),
                   counterText: "",
+                  isDense: true,
                 ),
                 maxLength: 3,
                 minLines: 1,
                 maxLines: 1,
+                textAlignVertical: TextAlignVertical.center,
                 initialValue: context
                     .read<SettingsCubit>()
                     .state
