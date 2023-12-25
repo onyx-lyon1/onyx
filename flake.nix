@@ -1,6 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    #nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:hatch01/nixpkgs/master";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -74,6 +75,7 @@
             buildInputs = with pkgs; [
               chromium
               flutter
+              melos
               jdk17
               androidSdk
               at-spi2-core
