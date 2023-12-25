@@ -16,22 +16,25 @@ class ColloscopePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? name = context.read<TomussCubit>().state.name;
-    String? surname = context.read<TomussCubit>().state.surname;
-
-    String? username = context.read<AuthentificationCubit>().state.username;
-
-    int yearOverride =
-        context.read<SettingsCubit>().state.settings.colloscopeOverrideYearId;
-
-    int studentOverride = context
-        .read<SettingsCubit>()
-        .state
-        .settings
-        .colloscopeOverrideStudentId;
-
     return BlocBuilder<ColloscopeCubit, ColloscopeState>(
       builder: (context, state) {
+        String? name = context.read<TomussCubit>().state.name;
+        String? surname = context.read<TomussCubit>().state.surname;
+
+        String? username = context.read<AuthentificationCubit>().state.username;
+
+        int yearOverride = context
+            .read<SettingsCubit>()
+            .state
+            .settings
+            .colloscopeOverrideYearId;
+
+        int studentOverride = context
+            .read<SettingsCubit>()
+            .state
+            .settings
+            .colloscopeOverrideStudentId;
+
         Widget body = const SizedBox.shrink();
         Widget? stateWidget;
 
