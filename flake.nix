@@ -102,8 +102,8 @@
               libepoxy
               libgcrypt
               libgpg-error
-              patchelf
-            ];
+              apksigner
+              ];
           };
         formatter = pkgs.alejandra;
       };
