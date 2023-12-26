@@ -148,7 +148,5 @@ This work is licensed under the GPL-3.0 License. To view a copy of
 this license, visit https://www.gnu.org/licenses/
 
 <p align=center>
-  <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
-  <br> <br>
   <img alt="powered by the cat" style="height: 240px" src="https://uku.s-ul.eu/Vn3ZEdLU" />
 </p>
