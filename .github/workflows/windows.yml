@@ -23,4 +23,4 @@ jobs:
      
      - name: Build
        working-directory: apps/onyx
-       run: flutter build windows
+       run: flutter build windows --no-tree-shake-icons

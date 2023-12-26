@@ -25,8 +25,8 @@ jobs:
 
     - name: Build APK
       working-directory: apps/onyx
-      run: flutter build apk --profile
+      run: flutter build apk --profile --no-tree-shake-icons
 
     - name: Build App Bundle
       working-directory: apps/onyx
-      run: flutter build appbundle --profile
+      run: flutter build appbundle --profile --no-tree-shake-icons

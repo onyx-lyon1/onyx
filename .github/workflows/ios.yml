@@ -22,4 +22,4 @@ jobs:
     
     - name: Build
       working-directory: apps/onyx
-      run: flutter build ios --release --no-codesign
+      run: flutter build ios --release --no-codesign --no-tree-shake-icons
