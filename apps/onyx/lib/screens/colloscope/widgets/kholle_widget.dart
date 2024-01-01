@@ -26,7 +26,8 @@ class KholleWidget extends StatelessWidget {
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          return Expanded(
+          return SizedBox(
+            height: constraints.maxHeight,
             child: Row(
               children: [
                 Flexible(
@@ -43,6 +44,7 @@ class KholleWidget extends StatelessWidget {
                           ? Theme.of(context).primaryColor
                           : Colors.transparent,
                     ),
+                    height: constraints.maxHeight,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
