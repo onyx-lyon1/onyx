@@ -74,7 +74,10 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
         year = yearOverride;
       } else if (RegExp(r"^([pP])\d{7}$").hasMatch(username.trim())) {
         year = int.parse(username.substring(1, 3));
-        year = DateTime.now().year - 2000 - year + 1;
+        year = DateTime.now().year -
+            2000 -
+            year +
+            (DateTime.now().month >= 6 ? 1 : 0);
       }
 
       Student? student;
