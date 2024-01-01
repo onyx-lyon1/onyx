@@ -114,7 +114,7 @@ class PolytechColloscopeClient {
           ?.trim();
     }
 
-    var dateParsed = RegExp(r"(\d{1,2}) (.{3,9})").firstMatch(date)!;
+    var dateParsed = RegExp(r"(\d{1,2}) (.{3,9}) ").firstMatch(date)!;
     var day = dateParsed.group(1)!;
     var month = dateParsed.group(2)!.asMonthNumber;
 
