@@ -71,20 +71,27 @@ class Lyon1CasClient {
     if (wrapUrl) {
       url = "${Constants.casLogin}?service=$url${(unsafe ? '/?unsafe=1' : '')}";
     }
-    final response = await RequestsPlus.get(
-      url,
-      corsProxyUrl: _corsProxyUrl,
-      headers: {
-        'User-Agent': Constants.userAgent,
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'DNT': '1', // Do Not Track, because, why not
-      },
-      followRedirects: followRedirects,
-      withCredentials: true,
-    );
-
-    if ((response.statusCode) >= 400) {
+    Response? response;
+    for (var i = 0;
+        i < 5 && (response?.request?.url.host.contains("cas") ?? true);
+        i++) {
+      if (response != null) {
+        url = response.request!.url.toString();
+      }
+      response = await RequestsPlus.get(
+        url,
+        corsProxyUrl: _corsProxyUrl,
+        headers: {
+          'User-Agent': Constants.userAgent,
+          'Connection': 'keep-alive',
+          'Upgrade-Insecure-Requests': '1',
+          'DNT': '1', // Do Not Track, because, why not
+        },
+        followRedirects: followRedirects,
+        withCredentials: true,
+      );
+    }
+    if ((response!.statusCode) >= 400) {
       throw "Failed to fetch the page: ${response.statusCode}";
     }
 
