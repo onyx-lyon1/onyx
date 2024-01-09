@@ -1,39 +1,57 @@
-# PolytechColloscopeClient
+# 🚀 PolytechColloscopeClient
 
-PolytechColloscopeClient is a library aiming at providing a simple interface to fetch data from Polytech Lyon Colloscope
-Website
+PolytechColloscopeClient is a Dart library designed to provide a user-friendly interface for fetching data from the Polytech Lyon Colloscope website.
 
-### Usage :
+## ✨ Features
 
-To begin with, you need to create a new instance of the client :
+- Fetch data such as the list of students, individual student details, and their respective colloscope information.
+- Easy integration with Dart projects for accessing Polytech Lyon Colloscope data.
 
-```Dart
+## ⚙️ Usage
+
+Start by adding the following dependency to your project's `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  polytechcolloscopeclient: any
+```
+
+Create an instance of the client by providing your Polytech Lyon Colloscope username and password:
+
+```dart
+import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
+
 var client = PolytechColloscopeClient(username, password);
 ```
 
-Then, you can fetch various data from the website :
+### Fetching Students
 
-Get the list of all the students (returns a list of Student objects containing student name and ID) :
-You must specify the year of the students you want to fetch using the Year enum (Year.first or Year.second)
-Example :
+Get the list of all students for a specific year (Year.first or Year.second):
 
-```Dart
+```dart
 var students = await client.getStudents(Year.second);
 ```
 
-You can also fetch a specific student using his name, surname and year (actually, only the first letter of the name is
-required since the website only shows the inital) :
+### Fetching a Specific Student
 
-```Dart
+Fetch details of a specific student using their name, surname, and year:
+
+```dart
 var student = await client.fetchStudent(Year.second, name, surname);
 ```
 
-You can then get the student's colloscope :
+### Fetching Colloscope for a Student
 
-```Dart
+Fetch the colloscope for a specific student, containing their trinomeID and a list of kholles:
+
+```dart
 var colloscope = await client.fetchColloscope(student);
 ```
 
-The colloscope contains a Student object, its trinomeID, and a list of kholles
-Each Kholle object contains the date of the kholle, the subject, the kholleur, and possibly a message containing the
-room (if present on the website)
+The colloscope includes information about each kholle, such as the date, subject, kholleur, and optional room details.
+
+Make sure to replace `username` and `password` with your actual Polytech Lyon Colloscope credentials.
+
+## 🌍 Community and Support
+
+For questions, bug reports, or feature requests related to `PolytechColloscopeClient`, please visit the [PolytechColloscopeClient GitHub repository](https://github.com/your-username/polytechcolloscopeclient). Contributions and feedback are welcome!

@@ -16,7 +16,7 @@ Add the following to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  izlyclient: ^1.0.0
+  izlyclient: any
 ```
 
 ## 🔒 Usage

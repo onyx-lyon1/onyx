@@ -13,7 +13,7 @@ Add the following to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  lyon1casclient: ^1.0.0
+  lyon1casclient: any
 ```
 
 ## 🔒 Usage

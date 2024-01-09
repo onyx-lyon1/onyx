@@ -14,8 +14,8 @@ Add the following to your project's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  lyon1tomussclient: ^1.0.0
-  lyon1casclient: ^1.0.0
+  lyon1tomussclient: any
+  lyon1casclient: any
 ```
 
 ## 🔒 Usage
