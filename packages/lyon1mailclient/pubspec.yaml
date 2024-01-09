@@ -1,7 +1,7 @@
 name: lyon1mailclient
 description: A Dart library for interacting with Lyon 1 University's email system, providing functionality to fetch and manage email messages.
 version: 1.0.8
-repository: https://github.com/onyx-lyon1/onxy/packages/lyon1mailclient
+repository: https://github.com/onyx-lyon1/onxy/tree/main/packages/lyon1mailclient
 
 environment:
   sdk: '>=3.0.0 <4.0.0'

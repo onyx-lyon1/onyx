@@ -1,7 +1,7 @@
 name: polytechcolloscopeclient
 description: a library aiming at providing a simple interface to fetch data from Polytech Lyon Colloscope
 version: 1.0.9
-repository: https://github.com/onyx-lyon1/onyx/packages/polytechcolloscopeclient
+repository: https://github.com/onyx-lyon1/onyx/tree/main/packages/polytechcolloscopeclient
 
 environment:
   sdk: ">=3.0.0 <4.0.0"

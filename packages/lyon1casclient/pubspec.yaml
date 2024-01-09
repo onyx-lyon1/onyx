@@ -1,7 +1,7 @@
 name: lyon1casclient
 description: A Dart library that provides authentication with the CAS (Central Authentication Service) system of Lyon 1 University (https://cas.univ-lyon1.fr).
 version: 1.0.7
-repository: https://github.com/onyx-lyon1/onxy/packages/lyon1casclient
+repository: https://github.com/onyx-lyon1/onxy/tree/main/packages/lyon1casclient
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
