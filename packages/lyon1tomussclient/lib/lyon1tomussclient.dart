@@ -1,3 +1,5 @@
+library;
+
 export 'package:lyon1tomussclient/src/lyon1tomussclient.dart'
     show Lyon1TomussClient;
 export 'package:lyon1tomussclient/src/model/enumeration.dart';
