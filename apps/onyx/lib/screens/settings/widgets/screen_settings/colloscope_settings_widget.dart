@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/colloscope/states/colloscope_cubit.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ColloscopeSettingsWidget extends StatelessWidget {
   const ColloscopeSettingsWidget({super.key});

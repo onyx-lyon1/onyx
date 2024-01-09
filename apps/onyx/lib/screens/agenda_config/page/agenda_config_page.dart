@@ -46,13 +46,13 @@ class AgendaConfigPage extends StatelessWidget {
                         curve: Curves.easeInOut);
                   }
                 },
-                child: WillPopScope(
-                  onWillPop: () async {
+                child: PopScope(
+
+                  onPopInvoked: (_) async {
                     pageController.animateToPage(
                         pageController.page!.toInt() - 1,
                         duration: Res.animationDuration,
                         curve: Curves.easeInOut);
-                    return false;
                   },
                   child: Stack(
                     alignment: Alignment.bottomCenter,

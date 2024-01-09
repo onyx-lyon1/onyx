@@ -83,10 +83,9 @@ class MailsPage extends StatelessWidget {
           case MailStatus.sorted:
             break;
         }
-        return WillPopScope(
-          onWillPop: () {
+        return PopScope(
+          onPopInvoked: (_) {
             context.read<EmailCubit>().unselectAllMails();
-            return Future.value(true);
           },
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
