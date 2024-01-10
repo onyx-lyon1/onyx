@@ -1,8 +1,9 @@
 {
   inputs = {
     #nixpkgs.url = "nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:hatch01/nixpkgs/master";
-
+    #nixpkgs.url = "github:hatch01/nixpkgs/master";
+    nixpkgs.url = "github:FlafyDev/nixpkgs/flutter-from-source-5";
+  
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -31,6 +32,7 @@
               android_sdk.accept_license = true;
             };
           };
+          melos = pkgs.callPackage ./nix/melos { };
           buildToolsVersionForAapt2 = "34.0.0-rc4";
           androidComposition = pkgs.androidenv.composeAndroidPackages {
             # Installing both version for aapt2 and version that flutter wants

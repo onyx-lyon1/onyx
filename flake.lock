@@ -22,16 +22,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1703614376,
-        "narHash": "sha256-vxAVBBO/kRnz6UQawUTV46OXKzbR3xpv4mjLQ6iOYjI=",
-        "owner": "hatch01",
+        "lastModified": 1704896411,
+        "narHash": "sha256-FIFez3ZRBAdSzP/jvegCOBvUjT6+qGASwHzsvGlDtAE=",
+        "owner": "FlafyDev",
         "repo": "nixpkgs",
-        "rev": "add48edca679e9ee8e129d6e773398b1586545e4",
+        "rev": "7cef3fb48a63aae1fd0839f8d2682c3b9785f2e3",
         "type": "github"
       },
       "original": {
-        "owner": "hatch01",
-        "ref": "master",
+        "owner": "FlafyDev",
+        "ref": "flutter-from-source-5",
         "repo": "nixpkgs",
         "type": "github"
       }
