@@ -11,12 +11,7 @@ class Lyon1ExamenClient {
       : _authentication = authentication;
 
   Future<List<ExamensModel>> fetchExams() async {
-    final resp = (await _authentication.serviceRequest(
-      examensUrl,
-      followRedirects: true,
-      wrapUrl: true,
-      unsafe: true,
-    ));
+    final resp = (await _authentication.serviceRequest(examensUrl));
     final body = resp.body;
     final soup = BeautifulSoup(body);
     final convocSoup = soup.find("form", attrs: {
