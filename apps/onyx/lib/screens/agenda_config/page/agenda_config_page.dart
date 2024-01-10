@@ -47,7 +47,6 @@ class AgendaConfigPage extends StatelessWidget {
                   }
                 },
                 child: PopScope(
-
                   onPopInvoked: (_) async {
                     pageController.animateToPage(
                         pageController.page!.toInt() - 1,
@@ -171,41 +170,40 @@ class AgendaConfigPage extends StatelessWidget {
             ),
             body: CommonScreenWidget(
               header: LayoutBuilder(builder: (context, constraints) {
-                return Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: constraints.maxWidth * 0.01,
-                      vertical: constraints.maxWidth * 0.01),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      if (!noBack)
-                        Padding(
-                          padding: EdgeInsets.only(left: 2.w),
-                          child: Material(
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    if (!noBack)
+                      Padding(
+                        padding: EdgeInsets.only(left: 2.w),
+                        child: Material(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(100)),
+                          color: Colors.transparent,
+                          child: InkWell(
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(100)),
-                            child: InkWell(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(100)),
-                              onTap: () {
-                                if (state.status ==
-                                    AgendaConfigStatus.searchResult) {
-                                  context.read<AgendaConfigCubit>().unSearch();
-                                } else {
-                                  Navigator.of(context).pop();
-                                }
-                              },
-                              child: const Icon(
-                                Icons.arrow_back_rounded,
-                              ),
+                            onTap: () {
+                              if (state.status ==
+                                  AgendaConfigStatus.searchResult) {
+                                context.read<AgendaConfigCubit>().unSearch();
+                              } else {
+                                Navigator.of(context).pop();
+                              }
+                            },
+                            child: const Icon(
+                              Icons.arrow_back_rounded,
                             ),
                           ),
                         ),
-                      Expanded(
+                      ),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.background,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        margin: const EdgeInsets.all(8.0),
                         child: TextField(
                           onChanged: (String query) {},
                           onSubmitted: (String query) {
@@ -221,19 +219,14 @@ class AgendaConfigPage extends StatelessWidget {
                           decoration: InputDecoration(
                             // contentPadding: EdgeInsets.symmetric(vertical: 1.5.h),
                             hintText: "Recherche dans les agendas",
-                            prefixIcon: Icon(
-                              Icons.search_rounded,
-                              color: Theme.of(context)
-                                  .bottomNavigationBarTheme
-                                  .unselectedItemColor,
-                            ),
                             border: InputBorder.none,
-                            // contentPadding: EdgeInsets.zero,
+                            contentPadding: EdgeInsets.only(left: 4.w),
                           ),
+                          expands: false,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 );
               }),
               body: body,
