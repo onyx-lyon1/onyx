@@ -13,7 +13,7 @@
                 "LD_LIBRARY_PATH": "${env:LD_LIBRARY_PATH}"
             },
             "args": [
-                "--no-tree-shake-icons"
+                "no-tree-shake-icons"
             ],
             "program": "lib/main.dart"
         },
@@ -33,7 +33,7 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--no-tree-shake-icons"
+                "no-tree-shake-icons"
             ],
             "flutterMode": "release"
         },
