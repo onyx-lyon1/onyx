@@ -1,13 +1,11 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/functionalities_extension.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
-import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -99,88 +97,75 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthentificationCubit, AuthentificationState>(
       builder: (context, authState) {
-        return BlocListener<SettingsCubit, SettingsState>(
-          //fetch agenda whenn settings change
-          listenWhen: (previous, current) =>
-              !listEquals(
-                  previous.settings.agendaIds, current.settings.agendaIds) ||
-              previous.settings.fetchAgendaAuto !=
-                  current.settings.fetchAgendaAuto,
-          listener: (context, settingsState) {
-            context.read<AgendaCubit>().load(
-                lyon1Cas: authState.lyon1Cas,
-                settings: settingsState.settings,
-                cache: false);
-          },
-          child: Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.background,
-            resizeToAvoidBottomInset: false,
-            body: SafeArea(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: CommonScreenWidget(
-                      onRefresh: () async {},
-                      state: (authState.status ==
-                              AuthentificationStatus.authentificating)
-                          ? const LoadingHeaderWidget(
-                              message: "Connection à cas",
-                            )
-                          : null,
-                      body: InfiniteScrollLoopWidget(
-                        key: const Key("home"),
-                        builder: (context, index) {
-                          return SizedBox(
-                            width: 100.w,
-                            height: 100.h,
-                            child: context
-                                .read<SettingsCubit>()
-                                .state
-                                .settings
-                                .enabledFunctionalities[index %
-                                    context
-                                        .read<SettingsCubit>()
-                                        .state
-                                        .settings
-                                        .enabledFunctionalities
-                                        .length]
-                                .toPage(),
-                          );
-                        },
-                        scrollController: mainPageController,
-                        axisDirection: AxisDirection.right,
-                        physics: const PageScrollPhysics(),
-                        onChange: (offset) {
-                          setState(() {
-                            animateScroll();
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: Res.bottomNavBarHeight,
-                    padding: EdgeInsets.symmetric(vertical: 0.9.h),
-                    child: BottomNavBarWidget(
-                      scrollController: bottomBarController,
-                      currentIndex: bottomBarController.hasClients
-                          ? (((bottomBarController.offset +
-                                      ((bottomBarController.offset > 0)
-                                          ? Res.bottomNavBarItemWidth / 2
-                                          : -Res.bottomNavBarItemWidth / 2)) ~/
-                                  Res.bottomNavBarItemWidth) +
-                              2)
-                          : 0,
-                      onTap: (realIndex) {
-                        actionOnTap(context, realIndex, mainPageController);
+        return Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          resizeToAvoidBottomInset: false,
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: CommonScreenWidget(
+                    onRefresh: () async {},
+                    state:
+                        (context.read<AuthentificationCubit>().state.status ==
+                                AuthentificationStatus.authentificating)
+                            ? const LoadingHeaderWidget(
+                                message: "Connection à cas",
+                              )
+                            : null,
+                    body: InfiniteScrollLoopWidget(
+                      key: const Key("home"),
+                      builder: (context, index) {
+                        return SizedBox(
+                          width: 100.w,
+                          height: 100.h,
+                          child: context
+                              .read<SettingsCubit>()
+                              .state
+                              .settings
+                              .enabledFunctionalities[index %
+                                  context
+                                      .read<SettingsCubit>()
+                                      .state
+                                      .settings
+                                      .enabledFunctionalities
+                                      .length]
+                              .toPage(),
+                        );
+                      },
+                      scrollController: mainPageController,
+                      axisDirection: AxisDirection.right,
+                      physics: const PageScrollPhysics(),
+                      onChange: (offset) {
                         setState(() {
-                          animatePage(realIndex);
+                          animateScroll();
                         });
                       },
                     ),
-                  )
-                ],
-              ),
+                  ),
+                ),
+                Container(
+                  height: Res.bottomNavBarHeight,
+                  padding: EdgeInsets.symmetric(vertical: 0.9.h),
+                  child: BottomNavBarWidget(
+                    scrollController: bottomBarController,
+                    currentIndex: bottomBarController.hasClients
+                        ? (((bottomBarController.offset +
+                                    ((bottomBarController.offset > 0)
+                                        ? Res.bottomNavBarItemWidth / 2
+                                        : -Res.bottomNavBarItemWidth / 2)) ~/
+                                Res.bottomNavBarItemWidth) +
+                            2)
+                        : 0,
+                    onTap: (realIndex) {
+                      actionOnTap(context, realIndex, mainPageController);
+                      setState(() {
+                        animatePage(realIndex);
+                      });
+                    },
+                  ),
+                )
+              ],
             ),
           ),
         );
