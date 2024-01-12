@@ -34,7 +34,8 @@ class Lyon1TomussClient {
       {bool autoRefresh = true}) async {
     if (!_authentication.isAuthenticated) return null;
 
-    String content = (await _authentication.serviceRequest(url)).body;
+    String content =
+        (await _authentication.serviceRequest(url, wrapUrl: false)).body;
     final HTMLparser parser = HTMLparser();
 
     if (content.length < 1000) {
@@ -42,18 +43,8 @@ class Lyon1TomussClient {
       // there is a delay if you refresh tomuss too quicky
       final double delay = double.tryParse(bs.find("#t")?.text ?? "") ?? 15.0;
       if (autoRefresh) {
-        return Future.delayed(Duration(seconds: delay.round() + 2), () async {
-          content = (await _authentication.serviceRequest(url)).body;
-          if (content.length > 1000) {
-            parser.parse(content);
-            return ParsedPage(
-                parser.extractStudent(),
-                parser.extractSemesters(),
-                parser.extractTeachingUnits(), false, Duration.zero);
-          } else {
-            return null;
-          }
-        });
+        return Future.delayed(Duration(seconds: delay.round() + 2),
+            () => getParsedPage(url, autoRefresh: false));
       } else {
         return ParsedPage(
             null, null, null, true, Duration(seconds: delay.round() + 2));
