@@ -66,10 +66,8 @@ class _TomussPageState extends State<TomussPage> {
             break;
           case TomussStatus.loading:
           case TomussStatus.cacheReady:
-            loadingHeader = LoadingHeaderWidget(
+            loadingHeader = const LoadingHeaderWidget(
               message: "Chargement des notes",
-              timeout: state.timeout,
-              timeoutCallBack: () {},
             );
             break;
 
