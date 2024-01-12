@@ -11,7 +11,7 @@ abstract class _$StudentColloscopeCWProxy {
 
   StudentColloscope trinomeId(int trinomeId);
 
-  StudentColloscope kholles(List<dynamic> kholles);
+  StudentColloscope kholles(List<Kholle> kholles);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `StudentColloscope(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -22,7 +22,7 @@ abstract class _$StudentColloscopeCWProxy {
   StudentColloscope call({
     Student? student,
     int? trinomeId,
-    List<dynamic>? kholles,
+    List<Kholle>? kholles,
   });
 }
 
@@ -39,7 +39,7 @@ class _$StudentColloscopeCWProxyImpl implements _$StudentColloscopeCWProxy {
   StudentColloscope trinomeId(int trinomeId) => this(trinomeId: trinomeId);
 
   @override
-  StudentColloscope kholles(List<dynamic> kholles) => this(kholles: kholles);
+  StudentColloscope kholles(List<Kholle> kholles) => this(kholles: kholles);
 
   @override
 
@@ -66,7 +66,7 @@ class _$StudentColloscopeCWProxyImpl implements _$StudentColloscopeCWProxy {
       kholles == const $CopyWithPlaceholder() || kholles == null
           ? _value.kholles
           // ignore: cast_nullable_to_non_nullable
-          : kholles as List<dynamic>,
+          : kholles as List<Kholle>,
     );
   }
 }
@@ -95,7 +95,7 @@ class StudentColloscopeAdapter extends TypeAdapter<StudentColloscope> {
     return StudentColloscope(
       fields[0] as Student,
       fields[1] as int,
-      (fields[2] as List).cast<dynamic>(),
+      (fields[2] as List).cast<Kholle>(),
     );
   }
 

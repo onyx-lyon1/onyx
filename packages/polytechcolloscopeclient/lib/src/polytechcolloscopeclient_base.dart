@@ -73,7 +73,7 @@ class PolytechColloscopeClient {
 
     var tableHtml = bs.find("table.colles");
 
-    List kholles = [];
+    List<Kholle> kholles = [];
 
     tableHtml?.findAll("tr").forEach((e) {
       kholles.add(parseKholle(e));
