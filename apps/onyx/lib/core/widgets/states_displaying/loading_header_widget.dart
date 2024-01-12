@@ -11,10 +11,8 @@ class LoadingHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (timeout != null) {
-      Future.delayed(timeout!, timeoutCallBack!);
-    } else if (timeoutCallBack != null) {
-      timeoutCallBack!.call();
+    if (timeout != null && timeoutCallBack != null) {
+      Future.delayed(timeout!, timeoutCallBack);
     }
     return AnimatedContainer(
         duration: const Duration(milliseconds: 1000),
