@@ -64,16 +64,19 @@ class Lyon1CasClient {
     isAuthenticated = false;
   }
 
-  Future<Response> serviceRequest(String url,
-      {bool unsafe = true,
-      bool wrapUrl = true,
-      bool followRedirects = true}) async {
+  Future<Response> serviceRequest(
+    String url, {
+    bool unsafe = true,
+    bool wrapUrl = true,
+    bool followRedirects = true,
+    int maxRetry = 5,
+  }) async {
     if (wrapUrl) {
       url = "${Constants.casLogin}?service=$url${(unsafe ? '/?unsafe=1' : '')}";
     }
     Response? response;
     for (var i = 0;
-        i < 5 && (response?.request?.url.host.contains("cas") ?? true);
+        i < maxRetry && (response?.request?.url.host.contains("cas") ?? true);
         i++) {
       if (response != null) {
         url = response.request!.url.toString();
@@ -90,7 +93,7 @@ class Lyon1CasClient {
         followRedirects: followRedirects,
         withCredentials: true,
       );
-    }
+          }
     if ((response!.statusCode) >= 400) {
       throw "Failed to fetch the page: ${response.statusCode}";
     }
