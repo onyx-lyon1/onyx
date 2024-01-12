@@ -1,3 +1,4 @@
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,7 @@ class AgendaCubit extends Cubit<AgendaState> {
       : super(AgendaState(
             status: AgendaStatus.initial, wantedDate: 0, realDays: []));
 
-  Future<void> load(
+  void load(
       {required Lyon1CasClient? lyon1Cas,
       required SettingsModel settings,
       bool cache = true,
@@ -82,6 +83,21 @@ class AgendaCubit extends Cubit<AgendaState> {
       }
       await addRestaurant();
     }
+  }
+
+  void addExternalEvent(List<Event> events) {
+    emit(state.copyWith(examEvents: state.examEvents + events));
+  }
+
+  void removeExternalEvent(List<Event> events) {
+    emit(state.copyWith(
+        examEvents: state.examEvents
+            .where((element) => !events.contains(element))
+            .toList()));
+  }
+
+  void clearExternalEvent(List<Event> events) {
+    emit(state.copyWith(examEvents: []));
   }
 
   Future<void> addRestaurant() async {

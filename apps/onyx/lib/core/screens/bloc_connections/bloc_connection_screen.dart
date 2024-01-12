@@ -17,6 +17,7 @@ class BlocConnectionScreen extends StatelessWidget {
         TomussConnection(),
         AuthentificationConnection(),
         SettingsConnection(),
+        ExamensConnection(),
       ],
       child: child,
     );

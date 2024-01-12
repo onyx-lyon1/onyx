@@ -15,23 +15,27 @@ enum AgendaStatus {
 class AgendaState {
   AgendaStatus status;
   List<Day> realDays;
+  List<Event> examEvents = [];
   int wantedDate;
 
   AgendaState({
     this.status = AgendaStatus.initial,
     this.realDays = const [],
+    this.examEvents = const [],
     required this.wantedDate,
   });
 
   AgendaState copyWith({
     AgendaStatus? status,
     List<Day>? realDays,
+    List<Event>? examEvents,
     int? wantedDate,
   }) {
     return AgendaState(
       status: status ?? this.status,
       realDays: realDays ?? this.realDays,
       wantedDate: wantedDate ?? this.wantedDate,
+      examEvents: examEvents ?? this.examEvents,
     );
   }
 
@@ -105,6 +109,43 @@ class AgendaState {
         );
       }
     }
+
+    //add examEvents
+    for (var i in examEvents) {
+      int index =
+          realDays.indexWhere((element) => element.date.isSameDay(i.start));
+      if (index != -1) {
+        //remove if an event with name colle/kholle is at the same time
+        for (var j = 0; j < realDays[index].events.length; j++) {
+          if (realDays[index]
+                  .events[j]
+                  .start
+                  .isBefore(i.start.add(Durations.short1)) &&
+              realDays[index]
+                  .events[j]
+                  .end
+                  .isAfter(i.start.subtract(Durations.short1))) {
+            for (var name in ["colle", "kholle"]) {
+              if (removeDiacritics(realDays[index].events[j].name)
+                  .toLowerCase()
+                  .trim()
+                  .contains(name)) {
+                realDays[index].events.removeAt(j);
+              }
+            }
+
+            break;
+          }
+        }
+        realDays[index] = realDays[index].copyWith(events: [
+          ...realDays[index].events,
+          i,
+        ]);
+      } else {
+        realDays.add(Day(i.start.shrink(3), [i]));
+      }
+    }
+
     return [
       ...paddingBefore,
       ...realDays,
