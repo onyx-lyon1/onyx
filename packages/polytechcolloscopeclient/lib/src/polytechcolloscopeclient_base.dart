@@ -114,17 +114,19 @@ class PolytechColloscopeClient {
           ?.trim();
     }
 
-    var dateParsed = RegExp(r"(\d{1,2}) (.{3,9}) ").firstMatch(date)!;
+    var dateParsed =
+        RegExp(r"(\d{1,2})\s*(\S{3,9})\s*(\d{4})?").firstMatch(date)!;
     var day = dateParsed.group(1)!;
     var month = dateParsed.group(2)!.asMonthNumber;
+    var year = int.parse(dateParsed.group(3) ?? DateTime.now().year.toString());
 
     var hourAndMinutesParsed =
         RegExp(r"(\d{1,2}) h (\d{2})").firstMatch(hourAndMinute)!;
     var hour = hourAndMinutesParsed.group(1)!;
     var minutes = hourAndMinutesParsed.group(2)!;
 
-    var dateTime = DateTime(DateTime.now().year, month, int.parse(day),
-        int.parse(hour), int.parse(minutes));
+    var dateTime = DateTime(
+        year, month, int.parse(day), int.parse(hour), int.parse(minutes));
 
     return Kholle(dateTime, subject, kholleur, message, room);
   }
