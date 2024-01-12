@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/settings/domain/model/settings_model.dart';
 import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
 
 part 'colloscope_state.dart';
@@ -21,8 +22,8 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
             studentColloscope: null,
             reloadScheduled: false));
 
-  void load(String name, String surname, String username, int yearOverride,
-      int studentOverride) async {
+  void load(String name, String surname, String username,
+      SettingsModel settings) async {
     if (Res.mock) {
       emit(state.copyWith(
         status: ColloscopeStatus.ready,
@@ -41,6 +42,8 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
 
       return;
     }
+    int yearOverride = settings.colloscopeOverrideYearId;
+    int studentOverride = settings.colloscopeOverrideStudentId;
 
     Box box = await Hive.openBox<StudentColloscope>("cached_colloscope_data");
     StudentColloscope cachedColloscope =
@@ -53,53 +56,53 @@ class ColloscopeCubit extends Cubit<ColloscopeState> {
     ));
 
     try {
-    final encrypted = await rootBundle.loadString(Res.colloscopeIdsPath);
-    final key = Key.fromBase64(await rootBundle.loadString(Res.keyPath));
-    final iv = IV.fromBase64(await rootBundle.loadString(Res.ivPath));
-    final encrypter = Encrypter(AES(key));
-    final decrypted =
-        encrypter.decrypt(Encrypted.fromBase64(encrypted), iv: iv);
-    final decoded = base64.decode(decrypted);
-    final deziped = gzip.decode(decoded);
-    final jsonText = utf8.decode(deziped);
+      final encrypted = await rootBundle.loadString(Res.colloscopeIdsPath);
+      final key = Key.fromBase64(await rootBundle.loadString(Res.keyPath));
+      final iv = IV.fromBase64(await rootBundle.loadString(Res.ivPath));
+      final encrypter = Encrypter(AES(key));
+      final decrypted =
+          encrypter.decrypt(Encrypted.fromBase64(encrypted), iv: iv);
+      final decoded = base64.decode(decrypted);
+      final deziped = gzip.decode(decoded);
+      final jsonText = utf8.decode(deziped);
 
-    final json = jsonDecode(jsonText);
+      final json = jsonDecode(jsonText);
 
-    _colloscopeClient =
-        PolytechColloscopeClient(json["username"], json["password"]);
+      _colloscopeClient =
+          PolytechColloscopeClient(json["username"], json["password"]);
 
-    int? year;
+      int? year;
 
-    if (yearOverride != 0) {
-      year = yearOverride;
-    } else if (RegExp(r"^([pP])\d{7}$").hasMatch(username.trim())) {
-      year = int.parse(username.substring(1, 3));
-      year = DateTime.now().year -
-          2000 -
-          year +
-          (DateTime.now().month >= 6 ? 1 : 0);
-    }
+      if (yearOverride != 0) {
+        year = yearOverride;
+      } else if (RegExp(r"^([pP])\d{7}$").hasMatch(username.trim())) {
+        year = int.parse(username.substring(1, 3));
+        year = DateTime.now().year -
+            2000 -
+            year +
+            (DateTime.now().month >= 6 ? 1 : 0);
+      }
 
-    Student? student;
+      Student? student;
 
-    if (studentOverride != -1) {
-      student = Student(Year.values[year! - 1], name, studentOverride);
-    } else {
-      student = await _colloscopeClient!
-          .fetchStudent(Year.values[year! - 1], name, surname);
-    }
+      if (studentOverride != -1) {
+        student = Student(Year.values[year! - 1], name, studentOverride);
+      } else {
+        student = await _colloscopeClient!
+            .fetchStudent(Year.values[year! - 1], name, surname);
+      }
 
-    StudentColloscope colloscope =
-        await _colloscopeClient!.getColloscope(student!);
+      StudentColloscope colloscope =
+          await _colloscopeClient!.getColloscope(student!);
 
-    box = await Hive.openBox<StudentColloscope>("cached_colloscope_data");
-    await box.put("colloscope", colloscope);
-    box.close();
+      box = await Hive.openBox<StudentColloscope>("cached_colloscope_data");
+      await box.put("colloscope", colloscope);
+      box.close();
 
-    emit(state.copyWith(
-      status: ColloscopeStatus.ready,
-      studentColloscope: colloscope,
-    ));
+      emit(state.copyWith(
+        status: ColloscopeStatus.ready,
+        studentColloscope: colloscope,
+      ));
     } catch (e) {
       Res.logger.e(e);
       emit(state.copyWith(status: ColloscopeStatus.error));

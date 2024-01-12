@@ -28,16 +28,7 @@ class ColloscopePage extends StatelessWidget {
                   context.read<TomussCubit>().state.name,
                   context.read<TomussCubit>().state.surname,
                   context.read<AuthentificationCubit>().state.username,
-                  context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .colloscopeOverrideYearId,
-                  context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .colloscopeOverrideStudentId);
+                  context.read<SettingsCubit>().state.settings);
             });
           case ColloscopeStatus.gatheringColloscopeData:
             stateWidget = const LoadingHeaderWidget(
@@ -62,16 +53,7 @@ class ColloscopePage extends StatelessWidget {
                 context.read<TomussCubit>().state.name,
                 context.read<TomussCubit>().state.surname,
                 context.read<AuthentificationCubit>().state.username,
-                context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .colloscopeOverrideYearId,
-                context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .colloscopeOverrideStudentId);
+                context.read<SettingsCubit>().state.settings);
           },
           state: stateWidget,
           header: Center(
