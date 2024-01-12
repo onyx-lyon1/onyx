@@ -18,32 +18,26 @@ class ColloscopePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ColloscopeCubit, ColloscopeState>(
       builder: (context, state) {
-        String? name = context.read<TomussCubit>().state.name;
-        String? surname = context.read<TomussCubit>().state.surname;
-
-        String? username = context.read<AuthentificationCubit>().state.username;
-
-        int yearOverride = context
-            .read<SettingsCubit>()
-            .state
-            .settings
-            .colloscopeOverrideYearId;
-
-        int studentOverride = context
-            .read<SettingsCubit>()
-            .state
-            .settings
-            .colloscopeOverrideStudentId;
-
         Widget body = const SizedBox.shrink();
         Widget? stateWidget;
 
         switch (state.status) {
           case ColloscopeStatus.initial:
             WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-              context
-                  .read<ColloscopeCubit>()
-                  .load(name, surname, username, yearOverride, studentOverride);
+              context.read<ColloscopeCubit>().load(
+                  context.read<TomussCubit>().state.name,
+                  context.read<TomussCubit>().state.surname,
+                  context.read<AuthentificationCubit>().state.username,
+                  context
+                      .read<SettingsCubit>()
+                      .state
+                      .settings
+                      .colloscopeOverrideYearId,
+                  context
+                      .read<SettingsCubit>()
+                      .state
+                      .settings
+                      .colloscopeOverrideStudentId);
             });
           case ColloscopeStatus.gatheringColloscopeData:
             stateWidget = const LoadingHeaderWidget(
@@ -64,9 +58,20 @@ class ColloscopePage extends StatelessWidget {
 
         return CommonScreenWidget(
           onRefresh: () async {
-            context
-                .read<ColloscopeCubit>()
-                .load(name, surname, username, yearOverride, studentOverride);
+            context.read<ColloscopeCubit>().load(
+                context.read<TomussCubit>().state.name,
+                context.read<TomussCubit>().state.surname,
+                context.read<AuthentificationCubit>().state.username,
+                context
+                    .read<SettingsCubit>()
+                    .state
+                    .settings
+                    .colloscopeOverrideYearId,
+                context
+                    .read<SettingsCubit>()
+                    .state
+                    .settings
+                    .colloscopeOverrideStudentId);
           },
           state: stateWidget,
           header: Center(
