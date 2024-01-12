@@ -102,7 +102,8 @@ class HomePageState extends State<HomePage> {
         return BlocListener<SettingsCubit, SettingsState>(
           //fetch agenda whenn settings change
           listenWhen: (previous, current) =>
-              !listEquals(previous.settings.agendaIds, current.settings.agendaIds) ||
+              !listEquals(
+                  previous.settings.agendaIds, current.settings.agendaIds) ||
               previous.settings.fetchAgendaAuto !=
                   current.settings.fetchAgendaAuto,
           listener: (context, settingsState) {
@@ -159,7 +160,7 @@ class HomePageState extends State<HomePage> {
                   ),
                   Container(
                     height: Res.bottomNavBarHeight,
-                    padding: EdgeInsets.symmetric(vertical: 1.5.h),
+                    padding: EdgeInsets.symmetric(vertical: 0.9.h),
                     child: BottomNavBarWidget(
                       scrollController: bottomBarController,
                       currentIndex: bottomBarController.hasClients

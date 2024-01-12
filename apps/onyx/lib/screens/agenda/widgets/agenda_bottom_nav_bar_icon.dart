@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaBottomNavBarIcon extends StatelessWidget {
   const AgendaBottomNavBarIcon({super.key, required this.selected});
@@ -7,51 +8,54 @@ class AgendaBottomNavBarIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return Stack(
-        alignment: Alignment.center,
-        fit: StackFit.passthrough,
+    return FittedBox(
+      fit: BoxFit.fitHeight,
+      child: Column(
         children: [
-          SizedBox(
-            child: FittedBox(
-              fit: BoxFit.fitHeight,
-              child: Icon(
-                Icons.calendar_today_rounded,
-                color: selected
-                    ? Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .selectedItemColor
-                    : Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .unselectedItemColor,
-                // size: 30.sp,
-              ),
-            ),
-          ),
-          Positioned(
-            top: ((2 / 3) * constraints.maxHeight) * 0.4,
-            child: SizedBox(
-              height: (constraints.maxHeight) * 0.7,
-              child: FittedBox(
-                fit: BoxFit.fitHeight,
-                child: Text(
-                  DateTime.now().day.toString(),
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: (selected)
-                            ? Theme.of(context)
-                                .bottomNavigationBarTheme
-                                .selectedItemColor
-                            : Theme.of(context)
-                                .bottomNavigationBarTheme
-                                .unselectedItemColor,
-                        // ),
-                      ),
+          LayoutBuilder(builder: (context, constraints) {
+            return Stack(
+              alignment: Alignment.center,
+              fit: StackFit.passthrough,
+              children: [
+                FittedBox(
+                  fit: BoxFit.fitHeight,
+                  child: Icon(
+                    Icons.calendar_today_rounded,
+                    color: selected
+                        ? Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .selectedItemColor
+                        : Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .unselectedItemColor,
+                  ),
                 ),
-              ),
-            ),
+                Padding(
+                  padding: EdgeInsets.only(top: 0.7.h),
+                  child: Text(
+                    DateTime.now().day.toString(),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: (selected)
+                              ? Theme.of(context)
+                                  .bottomNavigationBarTheme
+                                  .selectedItemColor
+                              : Theme.of(context)
+                                  .bottomNavigationBarTheme
+                                  .unselectedItemColor,
+                          // ),
+                          fontSize: 14.sp,
+                        ),
+                  ),
+                ),
+              ],
+            );
+          }),
+          Text(
+            "Agenda",
+            style: TextStyle(fontSize: 13.sp),
           ),
         ],
-      );
-    });
+      ),
+    );
   }
 }
