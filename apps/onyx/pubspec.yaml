@@ -80,6 +80,9 @@ dependencies:
   polytechcolloscopeclient: ^1.0.9
   diacritic: ^0.1.5
 
+  #examen
+  lyon1examenclient: ^1.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
