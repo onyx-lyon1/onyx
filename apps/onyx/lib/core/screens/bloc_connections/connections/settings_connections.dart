@@ -16,16 +16,16 @@ class SettingsConnection extends BlocListener<SettingsCubit, SettingsState> {
             AuthentificationState authState =
                 context.read<AuthentificationCubit>().state;
             if ((settingsState.status == SettingsStatus.ready ||
-                    settingsState.status == SettingsStatus.error) &&
-                (themeState.status != ThemeStateStatus.init)) {
+                settingsState.status == SettingsStatus.error)) {
               if (authState.status == AuthentificationStatus.initial) {
                 context
                     .read<AuthentificationCubit>()
                     .login(settings: settingsState.settings);
               }
-            } else {
+            }
+
+            if (themeState.status != ThemeStateStatus.init) {
               context.read<ThemeCubit>().init();
-              context.read<SettingsCubit>().load();
             }
 
             //update agenda if the ids are changed
