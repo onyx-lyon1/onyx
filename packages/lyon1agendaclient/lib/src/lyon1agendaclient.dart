@@ -27,15 +27,19 @@ class Lyon1AgendaClient {
     _corsProxyUrl = authentication.corsProxyUrl;
   }
 
-  Future<Agenda?> getAgenda({List<int>? ids}) async {
+  Future<List<int>> get getAgendaIds async =>
+      (await _agendaURL.getUserAgendaIds())
+          .resources
+          .split(",")
+          .map((e) => int.parse(e))
+          .toList();
+
+  Future<Agenda?> getAgenda({required List<int> ids}) async {
+    assert(ids.isNotEmpty);
     String url = "";
-    if (ids == null || ids.isEmpty) {
-      url = (await _agendaURL.getURL()); //it's everytime 2 for the project id
-    } else {
-      url = (await _agendaURL.getURL(
-          projectid: "3",
-          resources: ids.join(","))); //it's everytime 2 for the project id
-    }
+    url = (await _agendaURL.getURL(
+        projectid: "3",
+        resources: ids.join(","))); //it's everytime 2 for the project id
     url = url.replaceFirst("http:", "https:"); // force https
 
     final response = await RequestsPlus.get(

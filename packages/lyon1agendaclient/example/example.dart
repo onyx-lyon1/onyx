@@ -5,6 +5,10 @@ void main() async {
   final Lyon1AgendaClient agendaClient =
       Lyon1AgendaClient.useLyon1Cas(Lyon1CasClient());
   final Agenda? agendaOpt = await agendaClient.getAgenda(ids: [10069]);
+  //or for automatic ids fetching:
+  final Agenda? agendaOpt2 =
+      await agendaClient.getAgenda(ids: await agendaClient.getAgendaIds);
+
   if (agendaOpt == null) {
     // handle gracefully
   }

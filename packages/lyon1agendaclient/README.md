@@ -31,6 +31,8 @@ Then, use the `Lyon1AgendaClient` class to retrieve agendas, authenticating with
 void main() async {
   final Lyon1AgendaClient agendaClient = Lyon1AgendaClient.useLyon1Cas(Lyon1CasClient());
   final Agenda? agendaOpt = await agendaClient.getAgenda(id: 10069);
+  //you can allso ask to fetch automatically the ids
+  // final Agenda? agendaOpt2 = await agendaClient.getAgenda(ids: await agendaClient.getAgendaIds);
 
   if (agendaOpt == null) {
     // Handle gracefully
