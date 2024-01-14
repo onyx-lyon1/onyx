@@ -26,7 +26,7 @@ class FunctionalitiesAdapter extends TypeAdapter<Functionalities> {
       case 5:
         return Functionalities.settings;
       case 6:
-        return Functionalities.colloscope;
+        return Functionalities.examen;
       default:
         return Functionalities.tomuss;
     }
@@ -53,7 +53,7 @@ class FunctionalitiesAdapter extends TypeAdapter<Functionalities> {
       case Functionalities.settings:
         writer.writeByte(5);
         break;
-      case Functionalities.colloscope:
+      case Functionalities.examen:
         writer.writeByte(6);
         break;
     }

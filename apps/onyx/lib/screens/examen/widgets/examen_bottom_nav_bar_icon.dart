@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class ColloscopeBottomNavBarIcon extends StatelessWidget {
-  const ColloscopeBottomNavBarIcon({super.key, required this.selected});
+class ExamenBottomNavBarIcon extends StatelessWidget {
+  const ExamenBottomNavBarIcon({super.key, required this.selected});
 
   final bool selected;
 

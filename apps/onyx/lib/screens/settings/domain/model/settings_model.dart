@@ -6,17 +6,16 @@ import 'package:onyx/core/res.dart';
 part 'generated/settings_model.g.dart';
 
 const List<Functionalities> defaultEnabledFunctionalities = [
+  Functionalities.mail,
   Functionalities.tomuss,
   Functionalities.agenda,
-  Functionalities.mail,
   Functionalities.settings,
   Functionalities.izly,
+  Functionalities.examen,
   Functionalities.map,
 ];
 
-const List<Functionalities> defaultDisabledFunctionalities = [
-  Functionalities.colloscope
-];
+const List<Functionalities> defaultDisabledFunctionalities = [];
 
 @CopyWith()
 @HiveType(typeId: 7)
@@ -85,12 +84,14 @@ class SettingsModel extends Equatable {
 
   @HiveField(24, defaultValue: true)
   final bool colloscopeAutoUpdateAgenda;
-
   @HiveField(25, defaultValue: 0)
   final int colloscopeOverrideStudentId;
-
   @HiveField(26, defaultValue: 0)
   final int colloscopeOverrideYearId;
+  @HiveField(28, defaultValue: null)
+  final bool? colloscopeEnabled;
+  @HiveField(29, defaultValue: true)
+  final bool examenAddToAgenda;
 
   const SettingsModel({
     this.biometricAuth = false,
@@ -116,9 +117,11 @@ class SettingsModel extends Equatable {
     this.agendaPageTopToBottom = false,
     this.agendaWeekRerenceAlignement = 0,
     this.colloscopeAutoUpdateAgenda = true,
-      this.colloscopeOverrideStudentId = -1,
-      this.colloscopeOverrideYearId = 0,
-    this.agendaId
+    this.colloscopeOverrideStudentId = -1,
+    this.colloscopeOverrideYearId = 0,
+    this.colloscopeEnabled,
+    this.agendaId,
+    this.examenAddToAgenda = true,
   });
 
   @override
@@ -148,6 +151,8 @@ class SettingsModel extends Equatable {
         colloscopeAutoUpdateAgenda,
         colloscopeOverrideStudentId,
         colloscopeOverrideYearId,
+        colloscopeEnabled,
+        agendaId,
       ];
 
   @override

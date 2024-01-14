@@ -57,9 +57,13 @@ class AgendaCubit extends Cubit<AgendaState> {
     }
     if (lyon1Cas != null && lyon1Cas.isAuthenticated) {
       _agendaClient = Lyon1AgendaClient.useLyon1Cas(lyon1Cas);
+      List<int> ids = settings.agendaIds;
       try {
+        if (settings.fetchAgendaAuto) {
+          ids = (await _agendaClient!.getAgendaIds);
+        }
         state.realDays = await AgendaLogic.load(
-            agendaClient: _agendaClient!, settings: settings);
+            agendaClient: _agendaClient!, settings: settings, ids: ids);
       } catch (e) {
         if (e.toString().contains("AutoIdException")) {
           emit(state.copyWith(status: AgendaStatus.haveToChooseManualy));
@@ -69,12 +73,16 @@ class AgendaCubit extends Cubit<AgendaState> {
         return;
       }
       CacheService.set<Agenda>(Agenda(state.realDays));
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           status: AgendaStatus.ready,
           realDays: state.realDays,
           wantedDate: state.realDays
               .indexWhere((element) => element.date.isSameDay(DateTime.now()))
-              .clamp(0, state.realDays.length)));
+              .clamp(0, state.realDays.length),
+          agendaIds: ids,
+        ),
+      );
       if (state.status != AgendaStatus.cacheReady && !fromUser) {
         goToday(
             fromMiniCalendar: false,
@@ -96,7 +104,7 @@ class AgendaCubit extends Cubit<AgendaState> {
             .toList()));
   }
 
-  void clearExternalEvent(List<Event> events) {
+  void clearExternalEvent() {
     emit(state.copyWith(examEvents: []));
   }
 

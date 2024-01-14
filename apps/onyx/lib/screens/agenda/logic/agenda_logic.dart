@@ -11,14 +11,14 @@ class AgendaLogic {
   static Future<List<Day>> load(
       {required Lyon1AgendaClient agendaClient,
       required SettingsModel settings,
+      required List<int> ids,
       DateTime? maxDate}) async {
     if (Res.mock) {
       return dayListMock;
     }
     Agenda? agendaOpt;
     try {
-      agendaOpt = await agendaClient.getAgenda(
-          ids: (settings.fetchAgendaAuto) ? null : settings.agendaIds);
+      agendaOpt = await agendaClient.getAgenda(ids: ids);
       if (agendaOpt == null || agendaOpt.days.isEmpty) {
         throw Exception("Agenda is empty");
       }

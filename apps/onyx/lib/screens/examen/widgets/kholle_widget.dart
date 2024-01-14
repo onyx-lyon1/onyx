@@ -79,7 +79,7 @@ class KholleWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         Flexible(
-                          flex: 3,
+                          flex: 4,
                           fit: FlexFit.tight,
                           child: Center(
                             child: Text(

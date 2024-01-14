@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/agenda/states/agenda_cubit.dart';
+import 'package:onyx/screens/examen/states/examen_cubit.dart';
 import 'package:onyx/screens/login/states/authentification_cubit.dart';
 import 'package:onyx/screens/mails/states/email_cubit.dart';
 import 'package:onyx/screens/settings/domain/model/settings_model.dart';
@@ -44,6 +45,16 @@ class AuthentificationConnection
                       lyon1Cas: authState.lyon1Cas,
                       settings: context.read<SettingsCubit>().state.settings,
                       force: true,
+                    );
+              }
+              if (ExamenStatus.ready !=
+                  context.read<ExamenCubit>().state.status) {
+                context.read<ExamenCubit>().load(
+                      context.read<TomussCubit>().state.name,
+                      context.read<TomussCubit>().state.surname,
+                      context.read<AuthentificationCubit>().state.username,
+                      context.read<SettingsCubit>().state.settings,
+                      context.read<AuthentificationCubit>().state.lyon1Cas,
                     );
               }
             }

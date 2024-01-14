@@ -1,6 +1,8 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:hive/hive.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
-import 'package:lyon1examenclient/src/examens_model.dart';
+import 'package:lyon1examenclient/lyon1examenclient.dart';
+import 'package:lyon1examenclient/src/duration_adapter.dart';
 
 class Lyon1ExamenClient {
   static const String examensUrl =
@@ -10,7 +12,13 @@ class Lyon1ExamenClient {
   const Lyon1ExamenClient(Lyon1CasClient authentication)
       : _authentication = authentication;
 
-  Future<List<ExamensModel>> fetchExams() async {
+  static void registerAdapters() {
+    Hive.registerAdapter(ExamenModelAdapter());
+    Hive.registerAdapter(ExamenListModelAdapter());
+    Hive.registerAdapter(DurationAdapter());
+  }
+
+  Future<List<ExamenModel>> fetchExams() async {
     final resp = (await _authentication.serviceRequest(examensUrl));
     final body = resp.body;
     final soup = BeautifulSoup(body);
@@ -24,7 +32,7 @@ class Lyon1ExamenClient {
         .findAll("span")
         .where((element) => RegExp(r'target_examen\d+').hasMatch(element.id))
         .toList();
-    List<ExamensModel> retour = [];
+    List<ExamenModel> retour = [];
     for (var i in spanList) {
       final title = i.findPreviousElement("b")!.text;
       final codeName = i.text;
@@ -48,8 +56,7 @@ class Lyon1ExamenClient {
           .firstMatch(dateElements.last.nextParsedAll[3].text!);
       final location = locationAndPlace!.group(1)!;
       final place = int.parse(locationAndPlace.group(2)!);
-      retour
-          .add(ExamensModel(title, codeName, date, duration, location, place));
+      retour.add(ExamenModel(title, codeName, date, duration, location, place));
     }
 
     return retour;

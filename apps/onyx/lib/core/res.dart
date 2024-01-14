@@ -56,6 +56,44 @@ class Res {
       printTime: true,
     ),
   );
+
+  static const List<int> peipStudentsAgendaIds = [
+    4883,
+    4884,
+    4885,
+    4932,
+    4933,
+    4934,
+    4937,
+    4938,
+    4940,
+    4945,
+    4944,
+    4946,
+    7311,
+    7308,
+    7317,
+    4978,
+    4981,
+    4985,
+    16803,
+    16804,
+    16805,
+    36598,
+    36599,
+    36600,
+    36602,
+    36603,
+    36604,
+    36606,
+    45289,
+    36607,
+    45291,
+    36608,
+    45293,
+    15330,
+    6295,
+  ];
 }
 
 @HiveType(typeId: 18)
@@ -73,5 +111,5 @@ enum Functionalities {
   @HiveField(5)
   settings,
   @HiveField(6)
-  colloscope,
+  examen,
 }

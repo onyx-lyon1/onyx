@@ -16,6 +16,7 @@ class AgendaState {
   AgendaStatus status;
   List<Day> realDays;
   List<Event> examEvents = [];
+  List<int> agendaIds = [];
   int wantedDate;
 
   AgendaState({
@@ -23,6 +24,7 @@ class AgendaState {
     this.realDays = const [],
     this.examEvents = const [],
     required this.wantedDate,
+    this.agendaIds = const [],
   });
 
   AgendaState copyWith({
@@ -30,12 +32,14 @@ class AgendaState {
     List<Day>? realDays,
     List<Event>? examEvents,
     int? wantedDate,
+    List<int>? agendaIds,
   }) {
     return AgendaState(
       status: status ?? this.status,
       realDays: realDays ?? this.realDays,
       wantedDate: wantedDate ?? this.wantedDate,
       examEvents: examEvents ?? this.examEvents,
+      agendaIds: agendaIds ?? this.agendaIds,
     );
   }
 
@@ -131,6 +135,7 @@ class AgendaState {
                   .trim()
                   .contains(name)) {
                 realDays[index].events.removeAt(j);
+                j--;
               }
             }
 

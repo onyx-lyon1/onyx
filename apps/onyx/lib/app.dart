@@ -10,7 +10,7 @@ import 'package:onyx/core/screens/home/home_export.dart';
 import 'package:onyx/core/theme/theme_export.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
-import 'package:onyx/screens/colloscope/states/colloscope_cubit.dart';
+import 'package:onyx/screens/examen/states/examen_cubit.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
@@ -56,7 +56,7 @@ class OnyxAppState extends State<OnyxApp> {
           BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
           BlocProvider<MapCubit>(create: (context) => MapCubit()),
           BlocProvider<IzlyCubit>(create: (context) => IzlyCubit()),
-          BlocProvider<ColloscopeCubit>(create: (context) => ColloscopeCubit()),
+          BlocProvider<ExamenCubit>(create: (context) => ExamenCubit()),
           BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
         ],
         child: BlocConnectionScreen(

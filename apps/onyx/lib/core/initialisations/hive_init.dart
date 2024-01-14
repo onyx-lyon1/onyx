@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
+import 'package:lyon1examenclient/lyon1examenclient.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/res.dart';
@@ -21,6 +22,7 @@ Future<void> hiveInit({String? path}) async {
   Lyon1AgendaClient.registerAdapters();
   Lyon1MailClient.registerAdapters(initHive: false);
   PolytechColloscopeClient.registerAdapters();
+  Lyon1ExamenClient.registerAdapters();
 
   if (path != null || kIsWeb) {
     Hive.init(path);

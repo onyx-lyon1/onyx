@@ -13,7 +13,10 @@ Future<void> agendaNotificationLogic(
 
       List<Day> newDays = await AgendaLogic.load(
           agendaClient: Lyon1AgendaClient.useLyon1Cas(lyon1Cas),
-          settings: settings);
+          settings: settings,
+          ids: (settings.fetchAgendaAuto
+              ? (await Lyon1AgendaClient.useLyon1Cas(lyon1Cas).getAgendaIds)
+              : settings.agendaIds));
       List<Day> notifyDays = [];
       for (var i in newDays) {
         if (i.date.isAfter(DateTime.now()) &&

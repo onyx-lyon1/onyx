@@ -9,6 +9,7 @@ environment:
 dependencies:
   beautiful_soup_dart: ^0.3.0
   dart_mappable: ^4.2.0
+  hive: ^2.2.3
   lyon1casclient: ^1.0.7
 
 dev_dependencies:
@@ -17,3 +18,4 @@ dev_dependencies:
   dart_mappable_builder: ^4.2.0
   build_runner: ^2.4.7
   dotenv: ^4.2.0
+  hive_generator: ^2.0.1

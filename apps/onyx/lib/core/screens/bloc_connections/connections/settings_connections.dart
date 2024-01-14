@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/screens/bloc_connections/connections/agenda_connections.dart';
 import 'package:onyx/screens/agenda/states/agenda_cubit.dart';
 import 'package:onyx/screens/login/states/authentification_cubit.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
@@ -39,6 +40,9 @@ class SettingsConnection extends BlocListener<SettingsCubit, SettingsState> {
                       context.read<AuthentificationCubit>().state.lyon1Cas,
                   settings: settingsState.settings,
                   cache: false);
+              if (settingsState.settings.colloscopeEnabled == null) {
+                AgendaConnection.updateColloscopeEnabled(context);
+              }
             }
             previous = settingsState;
           },

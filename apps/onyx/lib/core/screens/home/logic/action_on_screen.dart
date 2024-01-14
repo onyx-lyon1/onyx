@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
-import 'package:onyx/screens/colloscope/states/colloscope_cubit.dart';
+import 'package:onyx/screens/examen/states/examen_cubit.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -27,11 +27,11 @@ void actionOnScreen(BuildContext context, int index) {
       .state
       .settings
       .enabledFunctionalities
-      .indexOf(Functionalities.colloscope);
+      .indexOf(Functionalities.examen);
 
   if (indexLocal == colloscopeIndex) {
-    if (context.read<ColloscopeCubit>().state.reloadScheduled) {
-      context.read<ColloscopeCubit>().resetCubit();
+    if (context.read<ExamenCubit>().state.reloadScheduled) {
+      context.read<ExamenCubit>().resetCubit();
     }
   }
 
