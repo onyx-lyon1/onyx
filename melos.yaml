@@ -15,3 +15,6 @@ scripts:
 
   test:
     run: melos exec --no-flutter dart test
+
+  format:
+    run: melos exec dart format lib/

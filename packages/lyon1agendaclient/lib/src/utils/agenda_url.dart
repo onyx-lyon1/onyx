@@ -16,7 +16,7 @@ class AgendaURL {
   Future<String> getURLForDates(final DateTime start, final DateTime end,
       {String? resources_, String? projectid_}) async {
     if (resources_ == null || projectid_ == null) {
-      final ids = await _getUserAgendaIds();
+      final ids = await getUserAgendaIds();
       resources_ = ids.resources;
       projectid_ = ids.projectid;
     }
@@ -29,7 +29,7 @@ class AgendaURL {
     return "http://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=$resources&projectId=$projectid&calType=ical&firstDate=$start&lastDate=$end";
   }
 
-  Future<({String resources, String projectid})> _getUserAgendaIds() async {
+  Future<({String resources, String projectid})> getUserAgendaIds() async {
     if (!_authentication.isAuthenticated) {
       throw Exception("unAuthenticated");
     }

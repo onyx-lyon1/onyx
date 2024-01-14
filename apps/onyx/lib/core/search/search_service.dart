@@ -20,7 +20,7 @@ class SearchService {
     List<String> aTerms = a.toLowerCase().split(" ");
     aTerms = aTerms.where((term) => term.length > 1).toList();
     aTerms = aTerms.map((e) => removeDiacritics(e)).toList();
-    
+
     //remove special characters
     aTerms = aTerms.map((e) => e.replaceAll(RegExp(r"[^\w\s]"), '')).toList();
     aTerms = aTerms.where((term) => !term.contains("amphi")).toList();

@@ -47,11 +47,11 @@ class SettingsCubit extends Cubit<SettingsState> {
     });
 
     //ensure retrocompatibility
-    if (settings.agendaIds.isEmpty && settings.agendaId != null){
+    if (settings.agendaIds.isEmpty && settings.agendaId != null) {
       settings.agendaIds.add(settings.agendaId!);
     }
 
-    if (state.settings != settings){
+    if (state.settings != settings) {
       emit(state.copyWith(settings: settings));
     }
 

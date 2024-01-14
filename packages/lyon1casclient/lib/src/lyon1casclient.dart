@@ -93,7 +93,7 @@ class Lyon1CasClient {
         followRedirects: followRedirects,
         withCredentials: true,
       );
-          }
+    }
     if ((response!.statusCode) >= 400) {
       throw "Failed to fetch the page: ${response.statusCode}";
     }

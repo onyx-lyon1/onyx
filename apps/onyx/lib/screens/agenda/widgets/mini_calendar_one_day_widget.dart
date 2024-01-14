@@ -22,20 +22,19 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
     final SettingsModel settings = context.read<SettingsCubit>().state.settings;
     return BlocBuilder<AgendaCubit, AgendaState>(
       buildWhen: (previous, current) {
-          if (previous.days(settings).length>previous.wantedDate && current.days(settings).length>current.wantedDate){
-            return 
-              previous
-                .days(settings)[previous.wantedDate]
-                .date
-                .isSameDay(current.days(settings)[currentDateIndex].date) ||
+        if (previous.days(settings).length > previous.wantedDate &&
+            current.days(settings).length > current.wantedDate) {
+          return previous
+                  .days(settings)[previous.wantedDate]
+                  .date
+                  .isSameDay(current.days(settings)[currentDateIndex].date) ||
               current
-                .days(settings)[current.wantedDate]
-                .date
-                .isSameDay(current.days(settings)[currentDateIndex].date);
-          }
-          return true;
+                  .days(settings)[current.wantedDate]
+                  .date
+                  .isSameDay(current.days(settings)[currentDateIndex].date);
+        }
+        return true;
       },
-         
       builder: (context, state) {
         return SizedBox(
           key: Key(
