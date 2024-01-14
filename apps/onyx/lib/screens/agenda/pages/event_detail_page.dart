@@ -123,9 +123,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       ],
                     ),
                   ),
-                EventDetailText(
-                    icon: Icons.location_on_rounded,
-                    text: widget.event.location),
+                if (widget.event.description.isNotEmpty)
+                  EventDetailText(
+                      icon: Icons.location_on_rounded,
+                      text: widget.event.location),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 1.h),
                   child: ClipRRect(

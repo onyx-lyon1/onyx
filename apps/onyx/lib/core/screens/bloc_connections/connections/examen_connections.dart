@@ -21,7 +21,7 @@ class ExamensConnection extends BlocListener<ExamenCubit, ExamenState> {
                       (e) => Event(
                           name: "Kholle de ${e.subject}",
                           teacher: e.kholleur,
-                          location: e.room ?? "",
+                          location: e.room?.trim() ?? "",
                           start: e.date,
                           end: e.date.add(const Duration(hours: 1)),
                           description: e.message ?? ""),
