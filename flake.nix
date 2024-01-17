@@ -2,7 +2,8 @@
   inputs = {
     #nixpkgs.url = "nixpkgs/nixos-unstable";
     #nixpkgs.url = "github:hatch01/nixpkgs/master";
-    nixpkgs.url = "github:FlafyDev/nixpkgs/flutter-from-source-5";
+    #nixpkgs.url = "github:FlafyDev/nixpkgs/flutter-from-source-5";
+    nixpkgs.url = "github:NixOs/nixpkgs/master";
   
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
