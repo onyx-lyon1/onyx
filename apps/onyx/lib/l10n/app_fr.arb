@@ -99,5 +99,57 @@
     "sit": "place",
     "@sit": {
         "description": "Sit (in a room or amphitheater)"
+    },
+    "agendaSelection": "Sélectionner l''agenda",
+    "@agendaSelection": {
+        "description": "Select the agenda"
+    },
+    "enabled": "Activé",
+    "@enabled": {
+        "description": "Enabled"
+    },
+    "disabled": "Désactivé",
+    "@disabled": {
+        "description": "Disabled"
+    },
+    "settings": "Paramètres",
+    "@settings": {
+        "description": "Settings"
+    },
+    "showMiniCalendar": "Afficher le mini calendrier en haut de page",
+    "@showMiniCalendar": {
+        "description": "Show the mini calendar at the top of the page"
+    },
+    "calendarUpdateNotification": "Notification en cas de mise à jour de l''agenda",
+    "@calendarUpdateNotification": {
+        "description": "Notification in case of calendar update"
+    },
+    "agendaPageBottomToTop": "Affichage des agendas de bas en haut",
+    "@agendaPageBottomToTop": {
+        "description": "Display the agendas from bottom to top"
+    },
+    "agendaWeekLength": "Nombre de jours affichés en mode semaine",
+    "@agendaWeekLength": {
+        "description": "Number of days displayed in week mode"
+    },
+    "agendaWeekReference": "Jour de référence en mode semaine",
+    "@agendaWeekReference": {
+        "description": "Reference day in week mode"
+    },
+    "today": "Aujourd''hui",
+    "@today": {
+        "description": "Today"
+    },
+    "agendaWeekReferenceAlignement": "Alignement du jour de référence",
+    "@agendaWeekReferenceAlignement": {
+        "description": "Reference day alignment"
+    },
+    "disabledDays": "Jours cachés",
+    "@disabledDays": {
+        "description": "Hidden days"
+    },
+    "cantHideAllDays": "Vous ne pouvez pas cacher tous les jours",
+    "@cantHideAllDays": {
+        "description": "You can't hide all the days"
     }
 }

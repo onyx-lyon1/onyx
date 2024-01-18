@@ -7,6 +7,8 @@ import 'package:onyx/core/extensions/date_extension.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class AgendaSettingsWidget extends StatelessWidget {
   const AgendaSettingsWidget({super.key});
   @override
@@ -15,7 +17,7 @@ class AgendaSettingsWidget extends StatelessWidget {
     return Column(
       children: [
         TextSwitchWidget(
-          text: 'Montrer le mini calendrier en haut de page',
+          text: AppLocalizations.of(context)!.showMiniCalendar,
           value: settings.showMiniCalendar,
           onChanged: (bool b) {
             context
@@ -26,7 +28,7 @@ class AgendaSettingsWidget extends StatelessWidget {
         if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
             !settings.biometricAuth)
           TextSwitchWidget(
-            text: 'Notification en cas de modification de l\'agenda',
+            text: AppLocalizations.of(context)!.calendarUpdateNotification,
             value: settings.calendarUpdateNotification,
             onChanged: (bool b) {
               context.read<SettingsCubit>().modify(
@@ -34,7 +36,7 @@ class AgendaSettingsWidget extends StatelessWidget {
             },
           ),
         TextSwitchWidget(
-          text: 'Affichage des agendas de bas en haut',
+          text: AppLocalizations.of(context)!.agendaPageBottomToTop,
           value: settings.agendaPageTopToBottom,
           onChanged: (bool b) {
             context
@@ -46,7 +48,7 @@ class AgendaSettingsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Column(
             children: [
-              const Text('Nombre de jours affichés en mode semaine'),
+              Text(AppLocalizations.of(context)!.agendaWeekLength),
               Slider(
                 value: settings.agendaWeekLength.toDouble(),
                 onChanged: (double d) {
@@ -73,7 +75,7 @@ class AgendaSettingsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Column(
             children: [
-              const Text('Jour de référence en mode semaine'),
+              Text(AppLocalizations.of(context)!.agendaWeekReference),
               SizedBox(
                 height: 1.h,
               ),
@@ -95,7 +97,8 @@ class AgendaSettingsWidget extends StatelessWidget {
                   child: InkWell(
                     onTap: () => context.read<SettingsCubit>().modify(
                         settings: settings.copyWith(agendaWeekReference: 8)),
-                    child: const Center(child: Text("Aujourd'hui")),
+                    child: Center(
+                        child: Text(AppLocalizations.of(context)!.today)),
                   ),
                 ),
               ),
@@ -106,7 +109,7 @@ class AgendaSettingsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Column(
             children: [
-              const Text('Alignement du Jour de référence'),
+              Text(AppLocalizations.of(context)!.agendaWeekReferenceAlignement),
               SizedBox(
                 height: 1.h,
               ),
@@ -125,7 +128,7 @@ class AgendaSettingsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Column(
             children: [
-              const Text('Jour caché'),
+              Text(AppLocalizations.of(context)!.disabledDays),
               SizedBox(
                 height: 1.h,
               ),
@@ -144,8 +147,8 @@ class AgendaSettingsWidget extends StatelessWidget {
                   } else {
                     if (settings.agendaDisabledDays.length == 6) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: const Text(
-                            'Vous ne pouvez pas cacher tous les jours'),
+                        content:
+                            Text(AppLocalizations.of(context)!.cantHideAllDays),
                         backgroundColor: Theme.of(context).primaryColor,
                       ));
 

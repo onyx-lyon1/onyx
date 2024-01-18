@@ -5,6 +5,8 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class DraggableZoneWidget extends StatelessWidget {
   const DraggableZoneWidget({super.key});
 
@@ -29,8 +31,8 @@ class DraggableZoneWidget extends StatelessWidget {
                   left: 4.w,
                   bottom: 0.8.h,
                 ),
-                child: const Text(
-                  'Activé',
+                child: Text(
+                  AppLocalizations.of(context)!.enabled,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
@@ -55,8 +57,8 @@ class DraggableZoneWidget extends StatelessWidget {
                   left: 4.w,
                   bottom: 0.8.h,
                 ),
-                child: const Text(
-                  'Désactivé',
+                child: Text(
+                  AppLocalizations.of(context)!.disabled,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
