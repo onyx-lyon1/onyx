@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lyon1examenclient/lyon1examenclient.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExamenWidget extends StatelessWidget {
   const ExamenWidget({
@@ -118,7 +119,7 @@ class ExamenWidget extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   Text(
-                                      "${examen.location}, place ${examen.place}"),
+                                      "${examen.location}, ${AppLocalizations.of(context)!.sit} ${examen.place}"),
                                 ],
                               ),
                             ))

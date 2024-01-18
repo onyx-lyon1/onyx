@@ -23,7 +23,7 @@ screen:
 
 - [ ] agenda screen
 - [ ] agenda_config screen
-- [ ] examen
+- [x] examen
 - [ ] izly
 - [x] login
 - [ ] mails

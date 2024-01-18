@@ -7,6 +7,7 @@ import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:onyx/screens/tomuss/states/tomuss_cubit.dart';
 import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExamenPage extends StatelessWidget {
   const ExamenPage({
@@ -31,8 +32,8 @@ class ExamenPage extends StatelessWidget {
                 );
             break;
           case ExamenStatus.loading:
-            stateWidget = const LoadingHeaderWidget(
-              message: "Accès au Examens",
+            stateWidget = LoadingHeaderWidget(
+              message: AppLocalizations.of(context)!.accessingExams,
             );
             body = buildExamen(context);
             break;
@@ -40,8 +41,8 @@ class ExamenPage extends StatelessWidget {
             body = buildExamen(context);
             break;
           case ExamenStatus.error:
-            stateWidget = const LoadingHeaderWidget(
-              message: "Erreur lors du chargement de examens",
+            stateWidget = LoadingHeaderWidget(
+              message: AppLocalizations.of(context)!.errorAccessingExams,
             );
             body = buildExamen(context);
             break;
@@ -55,6 +56,7 @@ class ExamenPage extends StatelessWidget {
                   context.read<AuthentificationCubit>().state.username,
                   context.read<SettingsCubit>().state.settings,
                   context.read<AuthentificationCubit>().state.lyon1Cas,
+                  AppLocalizations.of(context)!,
                 );
           },
           state: stateWidget,

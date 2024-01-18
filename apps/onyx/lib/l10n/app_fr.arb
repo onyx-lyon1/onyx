@@ -8,6 +8,10 @@
     "@initialization": {
         "description": "Initialisation"
     },
+    "yes": "Oui",
+    "@yes": {
+        "description": "Yes"
+    },
     "onyxSubTitle": "Pour Lyon 1",
     "@onyxSubTitle": {
         "description": "The subtitle under the name Onyx"
@@ -51,5 +55,49 @@
     "mockPassword": "Mot de passe simulé",
     "@mockPassword": {
         "description": "Mock password"
+    },
+    "accessingExams": "Accès aux examens",
+    "@accessingExams": {
+        "description": "Accessing accessingExamens"
+    },
+    "errorAccessingExams": "Erreur lors de l''accès aux examens",
+    "@errorAccessingExams": {
+        "description": "Error accessing accessingExamens"
+    },
+    "mockStudent": "Étudiant simulé",
+    "@mockStudent": {
+        "description": "Mock student"
+    },
+    "mockSchoolSubject": "Matière simulée",
+    "@mockSchoolSubject": {
+        "description": "Mock school subject"
+    },
+    "mockTutorialLeader": "Kholleur simulé",
+    "@mockTutorialLeader": {
+        "description": "Mock tutorial leader"
+    },
+    "mockMessage": "Message simulé",
+    "@mockMessage": {
+        "description": "Mock message"
+    },
+    "mockRoom": "Salle simulée",
+    "@mockRoom": {
+        "description": "Mock room"
+    },
+    "mockTitle": "Titre simulé",
+    "@mockTitle": {
+        "description": "Mock title"
+    },
+    "mockCodeName": "Nom de code simulé",
+    "@mockCodeName": {
+        "description": "Mock code name"
+    },
+    "exams": "Examens",
+    "@exams": {
+        "description": "Exams"
+    },
+    "sit": "place",
+    "@sit": {
+        "description": "Sit (in a room or amphitheater)"
     }
 }
