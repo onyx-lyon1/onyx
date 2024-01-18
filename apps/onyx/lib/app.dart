@@ -92,9 +92,9 @@ class OnyxAppState extends State<OnyxApp> {
                               themeState.themesSettings!.themeMode.toThemeMode,
                           theme: themeState.lightTheme,
                           darkTheme: themeState.darkTheme,
-                          locale: (settingsState.settings.language != null)
+                          locale: settingsState.settings.language != null
                               ? Locale(settingsState.settings.language!)
-                              : Locale(Platform.localeName.split('_')[0]),
+                              : null,
                           localizationsDelegates:
                               AppLocalizations.localizationsDelegates,
                           supportedLocales: AppLocalizations.supportedLocales,
