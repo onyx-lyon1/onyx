@@ -5,6 +5,7 @@ import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/bloc_connections/bloc_connection_screen.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
 import 'package:onyx/core/theme/theme_export.dart';
@@ -19,6 +20,8 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'core/widgets/states_displaying/state_displaying_widget_export.dart';
 
@@ -88,6 +91,12 @@ class OnyxAppState extends State<OnyxApp> {
                               themeState.themesSettings!.themeMode.toThemeMode,
                           theme: themeState.lightTheme,
                           darkTheme: themeState.darkTheme,
+                          localizationsDelegates:
+                              AppLocalizations.localizationsDelegates,
+                          supportedLocales: AppLocalizations.supportedLocales,
+                          locale: (settingsState.settings.language != null)
+                              ? Locale(settingsState.settings.language!)
+                              : Localizations.localeOf(context),
                           home: (authState.status ==
                                       AuthentificationStatus.authentificated ||
                                   authState.status ==

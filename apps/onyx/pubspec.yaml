@@ -21,6 +21,11 @@ dependencies:
   copy_with_extension: ^5.0.4
   responsive_sizer: 3.2.0
   desktop_window: ^0.4.0
+  # internationalization
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
   #agenda
   lyon1agendaclient: ^1.0.8
 
@@ -112,6 +117,7 @@ flutter_launcher_icons:
 
 flutter:
   uses-material-design: true
+  generate: true
   assets:
     - assets/agenda_ids.json.enc
     - assets/batiment_lyon1.json

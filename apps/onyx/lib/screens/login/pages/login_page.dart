@@ -8,6 +8,7 @@ import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/login/pages/waiting_biometric.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
 
@@ -54,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("ONYX",
+                            Text(AppLocalizations.of(context)!.onyx,
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!

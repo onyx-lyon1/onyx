@@ -65,6 +65,8 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel examenAddToAgenda(bool examenAddToAgenda);
 
+  SettingsModel language(String? language);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -100,6 +102,7 @@ abstract class _$SettingsModelCWProxy {
     bool? colloscopeEnabled,
     int? agendaId,
     bool? examenAddToAgenda,
+    String? language,
   });
 }
 
@@ -219,6 +222,9 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
       this(examenAddToAgenda: examenAddToAgenda);
 
   @override
+  SettingsModel language(String? language) => this(language: language);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -255,6 +261,7 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
     Object? colloscopeEnabled = const $CopyWithPlaceholder(),
     Object? agendaId = const $CopyWithPlaceholder(),
     Object? examenAddToAgenda = const $CopyWithPlaceholder(),
+    Object? language = const $CopyWithPlaceholder(),
   }) {
     return SettingsModel(
       biometricAuth:
@@ -405,6 +412,10 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
           ? _value.examenAddToAgenda
           // ignore: cast_nullable_to_non_nullable
           : examenAddToAgenda as bool,
+      language: language == const $CopyWithPlaceholder()
+          ? _value.language
+          // ignore: cast_nullable_to_non_nullable
+          : language as String?,
     );
   }
 }
@@ -472,13 +483,14 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       colloscopeEnabled: fields[28] as bool?,
       agendaId: fields[8] as int?,
       examenAddToAgenda: fields[29] == null ? true : fields[29] as bool,
+      language: fields[30] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(28)
+      ..writeByte(29)
       ..writeByte(15)
       ..write(obj.firstLogin)
       ..writeByte(16)
@@ -534,7 +546,9 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(28)
       ..write(obj.colloscopeEnabled)
       ..writeByte(29)
-      ..write(obj.examenAddToAgenda);
+      ..write(obj.examenAddToAgenda)
+      ..writeByte(30)
+      ..write(obj.language);
   }
 
   @override

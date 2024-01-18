@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WaitingBiometric extends StatelessWidget {
   const WaitingBiometric({super.key});
@@ -35,7 +36,7 @@ class WaitingBiometric extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "ONYX",
+                          AppLocalizations.of(context)!.onyx,
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!

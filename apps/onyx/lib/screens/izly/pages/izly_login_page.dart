@@ -7,6 +7,7 @@ import 'package:onyx/core/screens/privacy_policie_page.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IzlyLoginPage extends StatefulWidget {
   const IzlyLoginPage({super.key});
@@ -46,7 +47,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("ONYX",
+                    Text(AppLocalizations.of(context)!.onyx,
                         style:
                             Theme.of(context).textTheme.displayLarge!.copyWith(
                                   fontSize: 20.sp,

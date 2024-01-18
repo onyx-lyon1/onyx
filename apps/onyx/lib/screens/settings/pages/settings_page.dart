@@ -18,6 +18,7 @@ import 'package:onyx/screens/settings/widgets/draggable_zone_widget.dart';
 import 'package:onyx/screens/settings/widgets/drop_down_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({
@@ -55,6 +56,28 @@ class _SettingsPageState extends State<SettingsPage> {
                   SettingsCardWidget(
                     name: 'Général',
                     widgets: [
+                      DropdownButton(
+                        value: context
+                            .read<SettingsCubit>()
+                            .state
+                            .settings
+                            .language,
+                        items: AppLocalizations.supportedLocales
+                            .map(
+                              (e) => DropdownMenuItem(
+                                child: Text(e.languageCode),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (value) {
+                          context.read<SettingsCubit>().modify(
+                              settings: context
+                                  .read<SettingsCubit>()
+                                  .state
+                                  .settings
+                                  .copyWith(language: value));
+                        },
+                      ),
                       BlocBuilder<ThemeCubit, ThemeState>(
                         buildWhen: (previous, current) {
                           return previous.themesSettings!.themeMode !=
