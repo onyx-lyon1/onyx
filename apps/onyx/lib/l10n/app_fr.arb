@@ -38,5 +38,9 @@
     "fatalError": "Erreur fatale",
     "@fatalError": {
         "description": "Fatal error"
+    },
+    "casConnexion": "Connexion à CAS",
+    "@casConnexion": {
+        "description": "CAS connexion"
     }
 }

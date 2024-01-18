@@ -10,6 +10,8 @@ import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -106,13 +108,14 @@ class HomePageState extends State<HomePage> {
                 Expanded(
                   child: CommonScreenWidget(
                     onRefresh: () async {},
-                    state:
-                        (context.read<AuthentificationCubit>().state.status ==
-                                AuthentificationStatus.authentificating)
-                            ? const LoadingHeaderWidget(
-                                message: "Connection à cas",
-                              )
-                            : null,
+                    state: (context
+                                .read<AuthentificationCubit>()
+                                .state
+                                .status ==
+                            AuthentificationStatus.authentificating)
+                        ? LoadingHeaderWidget(
+                            message: AppLocalizations.of(context)!.casConnexion)
+                        : null,
                     body: InfiniteScrollLoopWidget(
                       key: const Key("home"),
                       builder: (context, index) {
