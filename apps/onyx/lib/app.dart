@@ -22,6 +22,7 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'dart:io' show Platform;
 
 import 'core/widgets/states_displaying/state_displaying_widget_export.dart';
 
@@ -91,12 +92,12 @@ class OnyxAppState extends State<OnyxApp> {
                               themeState.themesSettings!.themeMode.toThemeMode,
                           theme: themeState.lightTheme,
                           darkTheme: themeState.darkTheme,
+                          locale: (settingsState.settings.language != null)
+                              ? Locale(settingsState.settings.language!)
+                              : Locale(Platform.localeName.split('_')[0]),
                           localizationsDelegates:
                               AppLocalizations.localizationsDelegates,
                           supportedLocales: AppLocalizations.supportedLocales,
-                          locale: (settingsState.settings.language != null)
-                              ? Locale(settingsState.settings.language!)
-                              : Localizations.localeOf(context),
                           home: (authState.status ==
                                       AuthentificationStatus.authentificated ||
                                   authState.status ==
