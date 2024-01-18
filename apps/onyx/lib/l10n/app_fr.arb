@@ -1,3 +1,42 @@
 {
-    "onyx": "Onyx"
+    "onyx": "Onyx",
+    "@onyx": {
+        "description": "The Name of the app"
+    },
+    "initialization": "Initialisation",
+    "@initialization": {
+        "description": "Initialisation"
+    },
+    "onyxSubTitle": "Pour Lyon 1",
+    "@onyxSubTitle": {
+        "description": "The subtitle under the name Onyx"
+    },
+    "authentication": "Authentification",
+    "@authentication": {
+        "description": "Authentication"
+    },
+    "privacy": "Confidentialité",
+    "@privacy": {
+        "description": "Privacy"
+    },
+    "wrongIdFormat": "L'identifiant n'est pas dans le bon format",
+    "@wrongIdFormat": {
+        "description": "The id is not in the right format"
+    },
+    "discoverApp": "Découvrir l''application",
+    "@discoverApp": {
+        "description": "Discover the app"
+    },
+    "yourAuthentificated": "Vous êtes authentifié",
+    "@yourAuthentificated": {
+        "description": "You are authentificated"
+    },
+    "loginError": "Erreur de connexion",
+    "@loginError": {
+        "description": "Login error"
+    },
+    "fatalError": "Erreur fatale",
+    "@fatalError": {
+        "description": "Fatal error"
+    }
 }
