@@ -1,3 +1,5 @@
+- [ ] PENSER A METTRE NULL PLUTOT QUE local("fr") DANS LE CHOIX DE LA LANGUE DANS APP.DART
+
 core:
 - extensions: //a vérifier
     + [ ] color
@@ -22,7 +24,7 @@ core:
 screen:
 
 - [ ] agenda screen
-- [ ] agenda_config screen
+- [x] agenda_config screen // en vrai faudrait voir pour traduire le nom des dossier mais ca alourdis trop je pense
 - [x] examen
 - [ ] izly
 - [x] login

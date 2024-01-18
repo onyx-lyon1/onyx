@@ -151,5 +151,37 @@
     "cantHideAllDays": "Vous ne pouvez pas cacher tous les jours",
     "@cantHideAllDays": {
         "description": "You can't hide all the days"
+    },
+    "root": "Racine",
+    "@root": {
+        "description": "Root"
+    },
+    "folder": "Dossier",
+    "@dossier": {
+        "description": "Dossier"
+    },
+    "subFolder": "Sous-dossier",
+    "@subFolder": {
+        "description": "Sub folder"
+    },
+    "anotherRoot": "Autre racine",
+    "@anotherRoot": {
+        "description": "Another root"
+    },
+    "loadingAgendaList": "Chargement de la liste des agendas",
+    "@loadingAgendaList": {
+        "description": "Loading agenda list"
+    },
+    "errorAppeared": "Une erreur est survenue",
+    "@errorAppeared": {
+        "description": "An error appears"
+    },
+    "calendar": "Agenda",
+    "@calendar": {
+        "description": "Calendar"
+    },
+    "searchInCalendars": "Rechercher dans les agendas",
+    "@searchInCalendars": {
+        "description": "Search in calendars"
     }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:encrypt/encrypt.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AgendaConfigLogic {
   static Future<List<DirModel>> loadDirs(
@@ -10,9 +11,10 @@ class AgendaConfigLogic {
         String encryptedData,
         String key,
         String iv,
-        bool mock
+        bool mock,
+        AppLocalizations appLocalizations,
       }) loadData) async {
-    if (loadData.mock) return mockDirList;
+    if (loadData.mock) return mockDirList(loadData.appLocalizations);
 
     List<DirModel> dirs = [];
 
@@ -35,41 +37,75 @@ class AgendaConfigLogic {
     return resources.split(",").map((e) => int.parse(e)).toList();
   }
 
-  static const List<DirModel> mockDirList = [
-    DirModel(name: "Root", identifier: 1, children: [
-      DirModel(name: "Folder A", identifier: 2, children: [
-        DirModel(name: "Subfolder A1", identifier: 3),
-        DirModel(name: "Subfolder A2", identifier: 4),
-      ]),
-      DirModel(name: "Folder B", identifier: 5, children: [
-        DirModel(name: "Subfolder B1", identifier: 6),
-      ]),
-    ]),
-    DirModel(name: "Another Root", identifier: 7, children: [
-      DirModel(name: "Folder X", identifier: 8),
-      DirModel(name: "Folder Y", identifier: 9, children: [
-        DirModel(name: "Subfolder Y1", identifier: 10),
-        DirModel(name: "Subfolder Y2", identifier: 11),
-      ]),
-    ]),
-    DirModel(name: "Folder C", identifier: 12),
-    DirModel(name: "Folder D", identifier: 13, children: [
-      DirModel(name: "Subfolder D1", identifier: 14),
-    ]),
-    DirModel(name: "Folder E", identifier: 15, children: [
-      DirModel(name: "Subfolder E1", identifier: 16),
-      DirModel(name: "Subfolder E2", identifier: 17),
-      DirModel(name: "Subfolder E3", identifier: 18),
-    ]),
-    DirModel(name: "Folder F", identifier: 19, children: [
-      DirModel(name: "Subfolder F1", identifier: 20),
-      DirModel(name: "Subfolder F2", identifier: 21),
-    ]),
-    DirModel(name: "Folder G", identifier: 22),
-    DirModel(name: "Folder H", identifier: 23, children: [
-      DirModel(name: "Subfolder H1", identifier: 24),
-      DirModel(name: "Subfolder H2", identifier: 25),
-    ]),
-    // Add more directories as needed
-  ];
+  static List<DirModel> mockDirList(AppLocalizations appLocalizations) => [
+        DirModel(name: appLocalizations.root, identifier: 1, children: [
+          DirModel(
+              name: "${appLocalizations.folder} A",
+              identifier: 2,
+              children: [
+                DirModel(
+                    name: "${appLocalizations.subFolder} A1", identifier: 3),
+                DirModel(
+                    name: "${appLocalizations.subFolder} A2", identifier: 4),
+              ]),
+          DirModel(
+              name: "${appLocalizations.folder} B",
+              identifier: 5,
+              children: [
+                DirModel(
+                    name: "${appLocalizations.subFolder} B1", identifier: 6),
+              ]),
+        ]),
+        DirModel(name: appLocalizations.anotherRoot, identifier: 7, children: [
+          DirModel(name: "${appLocalizations.folder} X", identifier: 8),
+          DirModel(
+              name: "${appLocalizations.folder} Y",
+              identifier: 9,
+              children: [
+                DirModel(
+                    name: "${appLocalizations.subFolder} Y1", identifier: 10),
+                DirModel(
+                    name: "${appLocalizations.subFolder} Y2", identifier: 11),
+              ]),
+        ]),
+        DirModel(name: "${appLocalizations.folder} C", identifier: 12),
+        DirModel(
+            name: "${appLocalizations.folder} D",
+            identifier: 13,
+            children: [
+              DirModel(
+                  name: "${appLocalizations.subFolder} D1", identifier: 14),
+            ]),
+        DirModel(
+            name: "${appLocalizations.folder} E",
+            identifier: 15,
+            children: [
+              DirModel(
+                  name: "${appLocalizations.subFolder} E1", identifier: 16),
+              DirModel(
+                  name: "${appLocalizations.subFolder} E2", identifier: 17),
+              DirModel(
+                  name: "${appLocalizations.subFolder} E3", identifier: 18),
+            ]),
+        DirModel(
+            name: "${appLocalizations.folder} F",
+            identifier: 19,
+            children: [
+              DirModel(
+                  name: "${appLocalizations.subFolder} F1", identifier: 20),
+              DirModel(
+                  name: "${appLocalizations.subFolder} F2", identifier: 21),
+            ]),
+        DirModel(name: "${appLocalizations.folder} G", identifier: 22),
+        DirModel(
+            name: "${appLocalizations.folder} H",
+            identifier: 23,
+            children: [
+              DirModel(
+                  name: "${appLocalizations.subFolder} H1", identifier: 24),
+              DirModel(
+                  name: "${appLocalizations.subFolder} H2", identifier: 25),
+            ]),
+        // Add more directories as needed
+      ];
 }

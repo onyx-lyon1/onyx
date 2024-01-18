@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'agenda_config_state.dart';
 
@@ -15,7 +16,7 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
       : super(AgendaConfigState(
             dirs: [], error: '', status: AgendaConfigStatus.initial));
 
-  void loadDirs() async {
+  void loadDirs(AppLocalizations appLocalizations) async {
     emit(state.copyWith(status: AgendaConfigStatus.loading));
     try {
       dirs = await compute(AgendaConfigLogic.loadDirs, (
@@ -23,6 +24,7 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
         key: await rootBundle.loadString(Res.keyPath),
         iv: await rootBundle.loadString(Res.ivPath),
         mock: Res.mock,
+        appLocalizations: appLocalizations,
       ));
       emit(state.copyWith(status: AgendaConfigStatus.loaded, dirs: dirs));
     } catch (e) {
