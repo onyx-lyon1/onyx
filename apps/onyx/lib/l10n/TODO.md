@@ -16,13 +16,16 @@ core:
 - [ ] theme name maybe
 - [ ] widget normalement rien a faire
 
+
+- [ ] le mock mon dieux que c'est long
+
 screen:
 
 - [ ] agenda screen
 - [ ] agenda_config screen
 - [ ] examen
 - [ ] izly
-- [ ] login
+- [x] login
 - [ ] mails
 - [ ] map
 - [ ] notifications

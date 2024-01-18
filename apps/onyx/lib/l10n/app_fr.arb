@@ -1,4 +1,5 @@
 {
+    "@@locale": "fr",
     "onyx": "Onyx",
     "@onyx": {
         "description": "The Name of the app"
@@ -42,5 +43,13 @@
     "casConnexion": "Connexion à CAS",
     "@casConnexion": {
         "description": "CAS connexion"
+    },
+    "mockUsername": "Nom d''utilisateur simulé",
+    "@mockUsername": {
+        "description": "Mock username"
+    },
+    "mockPassword": "Mot de passe simulé",
+    "@mockPassword": {
+        "description": "Mock password"
     }
 }

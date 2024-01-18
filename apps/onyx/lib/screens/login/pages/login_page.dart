@@ -258,8 +258,10 @@ class _LoginPageState extends State<LoginPage> {
                                 mock: true,
                               ));
                       context.read<AuthentificationCubit>().login(
-                          settings:
-                              context.read<SettingsCubit>().state.settings);
+                            settings:
+                                context.read<SettingsCubit>().state.settings,
+                            appLocalizations: AppLocalizations.of(context)!,
+                          );
                     },
                     child: Text(AppLocalizations.of(context)!.discoverApp),
                   ),
@@ -294,8 +296,10 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       context.read<AuthentificationCubit>().login(
-          creds: Credential(username, password),
-          settings: context.read<SettingsCubit>().state.settings);
+            creds: Credential(username, password),
+            settings: context.read<SettingsCubit>().state.settings,
+            appLocalizations: AppLocalizations.of(context)!,
+          );
     }
   }
 }
