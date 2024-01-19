@@ -352,8 +352,8 @@
     "@loadingMails" : {
         "description" : "Loading mails"
     },
-    "ErrorOccured" : "Une erreur est survenue",
-    "@ErrorOccured" : {
+    "errorOccured" : "Une erreur est survenue",
+    "@errorOccured" : {
         "description" : "An error occured"
     },
     "sendingEmail" : "Envoi du mail",
@@ -364,4 +364,16 @@
     "@loadMoreMails" : {
         "description" : "Load 20 more mails"
     },
+    "tomussConnection" : "Connexion à Tomuss",
+    "@tomussConnection" : {
+        "description" : "Tomuss connection"
+    },
+    "loadingGrades" : "Chargement des notes",
+    "@loadingGrades" : {
+        "description" : "Loading grades"
+    },
+    "loadingGradesError" : "Erreur de chargement des notes",
+    "@loadingGradesError" : {
+        "description" : "Loading grades error"
+    }
 }

@@ -10,6 +10,8 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:onyx/screens/tomuss/widgets/teaching_unit_children_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class TomussPage extends StatefulWidget {
   const TomussPage({super.key});
 
@@ -60,14 +62,14 @@ class _TomussPageState extends State<TomussPage> {
                       context.read<AuthentificationCubit>().state.lyon1Cas,
                   settings: context.read<SettingsCubit>().state.settings,
                 );
-            loadingHeader = const LoadingHeaderWidget(
-              message: "Connection à tomuss",
+            loadingHeader = LoadingHeaderWidget(
+              message: AppLocalizations.of(context)!.tomussConnection,
             );
             break;
           case TomussStatus.loading:
           case TomussStatus.cacheReady:
-            loadingHeader = const LoadingHeaderWidget(
-              message: "Chargement des notes",
+            loadingHeader = LoadingHeaderWidget(
+              message: AppLocalizations.of(context)!.loadingGrades,
             );
             break;
 
@@ -81,15 +83,15 @@ class _TomussPageState extends State<TomussPage> {
                     settings: context.read<SettingsCubit>().state.settings,
                   );
             });
-            loadingHeader = const LoadingHeaderWidget(
-              message: "Erreur pendant le chargement des notes",
+            loadingHeader = LoadingHeaderWidget(
+              message: AppLocalizations.of(context)!.loadingGradesError,
             );
             break;
           case TomussStatus.updated:
             break;
           case TomussStatus.timeout:
             loadingHeader = LoadingHeaderWidget(
-                message: "Chargement des notes",
+                message: AppLocalizations.of(context)!.loadingGrades,
                 timeout: state.timeout,
                 timeoutCallBack: () {
                   context.read<TomussCubit>().load(

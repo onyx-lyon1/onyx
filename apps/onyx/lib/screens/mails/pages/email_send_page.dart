@@ -171,7 +171,7 @@ class MailSendPage extends StatelessWidget {
                             )
                           : SizedBox(
                               width: 70.w,
-                              child: const Center(
+                              child: Center(
                                 child: Text(
                                   AppLocalizations.of(context)!.reply,
                                   maxLines: 1,

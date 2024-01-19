@@ -51,7 +51,7 @@ class MailsPage extends StatelessWidget {
             break;
           case MailStatus.nonFatalError:
             loadingHeader = LoadingHeaderWidget(
-              message: AppLocalizations.of(context)!.errorOccurred,
+              message: AppLocalizations.of(context)!.errorOccured,
             );
             break;
           case MailStatus.initial:
@@ -74,7 +74,7 @@ class MailsPage extends StatelessWidget {
             break;
           case MailStatus.sending:
             loadingHeader = LoadingHeaderWidget(
-                message: AppLocalizations.of(context)!.sendingMail);
+                message: AppLocalizations.of(context)!.sendingEmail);
             break;
           case MailStatus.loaded:
             break;

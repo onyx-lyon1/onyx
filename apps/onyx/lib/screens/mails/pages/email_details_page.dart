@@ -78,14 +78,14 @@ class MailDetailsPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SelectableText(
-                            "${AppLocalizations.of(context!.from)} : ${mail.sender}",
+                            "${AppLocalizations.of(context)!.from} : ${mail.sender}",
                             maxLines: 1,
                           ),
                           SizedBox(
                             height: 1.h,
                           ),
                           SelectableText(
-                            "${AppLocalizations.of(context!.to)} : ${mail.receiver}",
+                            "${AppLocalizations.of(context)!.to} : ${mail.receiver}",
                             maxLines: 1,
                           ),
                         ],

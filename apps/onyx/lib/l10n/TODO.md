@@ -29,8 +29,8 @@ screen:
 - [x] examen
 - [x] izly
 - [x] login
-- [ ] mails
-- [ ] map
-- [ ] notifications
-- [ ] settinfs
+- [x] mails
+- [ ] map (faut translate les amphis)
+- [ ] notifications (on a pas de contexte, rip)
+- [ ] settings
 - [ ] tomuss
