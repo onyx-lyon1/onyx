@@ -37,7 +37,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/izly.png",
+                  Res.izlyLogoPath,
                   width: 25.w,
                 ),
                 SizedBox(

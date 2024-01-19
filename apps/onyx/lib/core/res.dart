@@ -40,6 +40,7 @@ class Res {
   static const String colloscopeIdsPath = "assets/colloscope_ids.enc";
 
   static const String iconPath = "assets/icon_transparent.png";
+  static const String izlyLogoPath = "assets/izly.png";
 
   static const Duration agendaDayStart = Duration(hours: 6);
   static const Duration agendaDayEnd = Duration(hours: 22);
