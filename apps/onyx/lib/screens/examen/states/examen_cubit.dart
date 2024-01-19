@@ -84,7 +84,9 @@ class ExamenCubit extends Cubit<ExamenState> {
 
     try {
       //Colloscope
-      if (settings.colloscopeEnabled ?? false) {
+      if ((settings.colloscopeEnabled ?? false) &&
+          name.isNotEmpty &&
+          surname.isNotEmpty) {
         int yearOverride = settings.colloscopeOverrideYearId;
         int studentOverride = settings.colloscopeOverrideStudentId;
 
@@ -105,10 +107,6 @@ class ExamenCubit extends Cubit<ExamenState> {
 
         int? year;
 
-        var box = await Hive.openBox<String>("username");
-        if (name.isEmpty) name = box.get("name") ?? "";
-        if (surname.isEmpty) surname = box.get("surname") ?? "";
-
         if (yearOverride != 0) {
           year = yearOverride;
         } else if (RegExp(r"^([pP])\d{7}$").hasMatch(username.trim())) {
@@ -127,10 +125,6 @@ class ExamenCubit extends Cubit<ExamenState> {
           student = await _colloscopeClient!
               .fetchStudent(Year.values[year! - 1], name, surname);
         }
-
-        await box.put("name", name);
-        await box.put("surname", surname);
-        box.close();
 
         StudentColloscope colloscope =
             await _colloscopeClient!.getColloscope(student!);
