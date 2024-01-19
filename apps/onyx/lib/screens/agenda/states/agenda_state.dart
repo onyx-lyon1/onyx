@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_this, prefer_initializing_formals
+
 part of 'agenda_cubit.dart';
 
 enum AgendaStatus {
@@ -13,57 +15,28 @@ enum AgendaStatus {
 }
 
 class AgendaState {
-  AgendaStatus status;
-  List<Day> realDays;
-  List<Event> examEvents = [];
-  List<int> agendaIds = [];
-  int wantedDate;
+  final AgendaStatus status;
+  late final List<Day> realDays;
+  late final int paddingBefore;
+  late final int paddingAfter;
+  final List<Event> examEvents;
+  final List<int> agendaIds;
+  final int wantedDate;
 
   AgendaState({
     this.status = AgendaStatus.initial,
-    this.realDays = const [],
+    List<Day> realDays = const [],
     this.examEvents = const [],
     required this.wantedDate,
     this.agendaIds = const [],
-  });
-
-  AgendaState copyWith({
-    AgendaStatus? status,
-    List<Day>? realDays,
-    List<Event>? examEvents,
-    int? wantedDate,
-    List<int>? agendaIds,
+    required SettingsModel settingsModel,
   }) {
-    return AgendaState(
-      status: status ?? this.status,
-      realDays: realDays ?? this.realDays,
-      wantedDate: wantedDate ?? this.wantedDate,
-      examEvents: examEvents ?? this.examEvents,
-      agendaIds: agendaIds ?? this.agendaIds,
-    );
-  }
-
-  int getDayIndex(
-      {required DateTime date,
-      required SettingsModel settings,
-      bool useRealDays = false}) {
-    List<Day> tmpDays = (useRealDays) ? realDays : days(settings);
-    int distance = tmpDays.length;
-    int index = -1;
-
-    for (int i = 0; i < tmpDays.length; i++) {
-      if ((tmpDays[i].date.difference(date).inDays).abs() < distance) {
-        distance = (tmpDays[i].date.difference(date).inDays).abs();
-        index = i;
-      }
+    if (realDays.isEmpty) {
+      this.realDays = realDays;
+      this.paddingBefore = 0;
+      this.paddingAfter = 0;
+      return;
     }
-    return index;
-  }
-
-  List<Day> days(SettingsModel settingsModel) {
-    List<Day> realDays = List.from(this.realDays);
-    List<Day> paddingBefore = [];
-    List<Day> paddingAfter = [];
     // remove disabled days
     realDays = realDays
         .where((element) =>
@@ -96,22 +69,8 @@ class AgendaState {
       alignementOffset =
           alignementOffset.positiveModulo(settingsModel.agendaWeekLength);
 
-      if (alignementOffset != 0) {
-        paddingBefore = List.generate(
-          alignementOffset,
-          (index) => Day(
-              realDays[0]
-                  .date
-                  .subtract(Duration(days: alignementOffset - index + 1)),
-              const []),
-        );
-        paddingAfter = List.generate(
-          settingsModel.agendaWeekLength - alignementOffset,
-          (index) => Day(
-              realDays[realDays.length - 1].date.add(Duration(days: index + 1)),
-              const []),
-        );
-      }
+      this.paddingBefore = alignementOffset;
+      this.paddingAfter = settingsModel.agendaWeekLength - alignementOffset;
     }
 
     //add examEvents
@@ -138,10 +97,57 @@ class AgendaState {
                 j--;
               }
             }
-
             break;
           }
         }
+      }
+    }
+
+    this.realDays = realDays;
+  }
+
+  AgendaState copyWith({
+    AgendaStatus? status,
+    List<Day>? realDays,
+    List<Event>? examEvents,
+    int? wantedDate,
+    List<int>? agendaIds,
+    required SettingsModel settingsModel,
+  }) {
+    return AgendaState(
+      status: status ?? this.status,
+      realDays: realDays ?? this.realDays,
+      wantedDate: wantedDate ?? this.wantedDate,
+      examEvents: examEvents ?? this.examEvents,
+      agendaIds: agendaIds ?? this.agendaIds,
+      settingsModel: settingsModel,
+    );
+  }
+
+  int getDayIndex(
+      {required DateTime date,
+      required SettingsModel settings,
+      bool useRealDays = false}) {
+    List<Day> tmpDays = (useRealDays) ? realDays : days;
+    int distance = tmpDays.length;
+    int index = -1;
+
+    for (int i = 0; i < tmpDays.length; i++) {
+      if ((tmpDays[i].date.difference(date).inDays).abs() < distance) {
+        distance = (tmpDays[i].date.difference(date).inDays).abs();
+        index = i;
+      }
+    }
+    return index;
+  }
+
+  List<Day> get days {
+    List<Day> realDays = List.from(this.realDays);
+    //add examEvents
+    for (var i in examEvents) {
+      int index =
+          realDays.indexWhere((element) => element.date.isSameDay(i.start));
+      if (index != -1) {
         realDays[index] = realDays[index].copyWith(events: [
           ...realDays[index].events,
           i,
@@ -150,11 +156,18 @@ class AgendaState {
         realDays.add(Day(i.start.shrink(3), [i]));
       }
     }
-
     return [
-      ...paddingBefore,
+      ...List.generate(
+        paddingBefore,
+        (index) =>
+            Day(realDays[0].date.subtract(Duration(days: index + 1)), const []),
+      ),
       ...realDays,
-      ...paddingAfter,
+      ...List.generate(
+        paddingAfter,
+        (index) =>
+            Day(realDays[0].date.subtract(Duration(days: index + 1)), const []),
+      ),
     ];
   }
 

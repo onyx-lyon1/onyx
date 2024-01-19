@@ -18,7 +18,6 @@ class MiniCalendarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final int dayCount =
         context.read<SettingsCubit>().state.settings.agendaWeekLength;
-    final SettingsModel settings = context.read<SettingsCubit>().state.settings;
     return PageView.builder(
       scrollDirection: Axis.horizontal,
       controller: scrollController,
@@ -33,14 +32,14 @@ class MiniCalendarWidget extends StatelessWidget {
       itemBuilder: (context, rawIndex) {
         int index = rawIndex * dayCount;
         if (index + dayCount <
-            context.read<AgendaCubit>().state.days(settings).length) {
+            context.read<AgendaCubit>().state.days.length) {
           return Row(
             children: [
               SizedBox(
                 width: DaysViewRes.leftHourIndicatorWidth.w,
                 child: Center(
                   child: Text(
-                    "S: ${context.read<AgendaCubit>().state.days(settings)[index].date.toWeekNumber()}",
+                    "S: ${context.read<AgendaCubit>().state.days[index].date.toWeekNumber()}",
                   ),
                 ),
               ),

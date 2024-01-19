@@ -25,14 +25,17 @@ class AgendaCubit extends Cubit<AgendaState> {
 
   AgendaCubit()
       : super(AgendaState(
-            status: AgendaStatus.initial, wantedDate: 0, realDays: []));
+            status: AgendaStatus.initial,
+            wantedDate: 0,
+            realDays: [],
+            settingsModel: const SettingsModel()));
 
   void load(
       {required Lyon1CasClient? lyon1Cas,
       required SettingsModel settings,
       bool cache = true,
       bool fromUser = false}) async {
-    emit(state.copyWith(status: AgendaStatus.loading));
+    emit(state.copyWith(status: AgendaStatus.loading, settingsModel: settings));
     if (cache && !Res.mock && !kIsWeb) {
       state.realDays = await compute(
         AgendaLogic.getCache,
@@ -43,7 +46,8 @@ class AgendaCubit extends Cubit<AgendaState> {
           realDays: state.realDays,
           wantedDate: state.realDays
               .indexWhere((element) => element.date.isSameDay(DateTime.now()))
-              .clamp(0, state.realDays.length)));
+              .clamp(0, state.realDays.length),
+          settingsModel: settings));
       if (!fromUser) {
         goToday(
             fromMiniCalendar: false,
@@ -52,7 +56,8 @@ class AgendaCubit extends Cubit<AgendaState> {
       }
     }
     if (!settings.fetchAgendaAuto && settings.agendaIds.isEmpty) {
-      emit(state.copyWith(status: AgendaStatus.haveToChooseManualy));
+      emit(state.copyWith(
+          status: AgendaStatus.haveToChooseManualy, settingsModel: settings));
       return;
     }
     if (lyon1Cas != null && lyon1Cas.isAuthenticated) {
@@ -62,55 +67,68 @@ class AgendaCubit extends Cubit<AgendaState> {
         if (settings.fetchAgendaAuto) {
           ids = (await _agendaClient!.getAgendaIds);
         }
-        state.realDays = await AgendaLogic.load(
+        List<Day> realDays = await AgendaLogic.load(
             agendaClient: _agendaClient!, settings: settings, ids: ids);
+
+        CacheService.set<Agenda>(Agenda(realDays));
+        emit(
+          state.copyWith(
+            status: AgendaStatus.ready,
+            realDays: realDays,
+            wantedDate: realDays
+                .indexWhere((element) => element.date.isSameDay(DateTime.now()))
+                .clamp(0, state.realDays.length),
+            agendaIds: ids,
+            settingsModel: settings,
+          ),
+        );
+        if (state.status != AgendaStatus.cacheReady && !fromUser) {
+          goToday(
+              fromMiniCalendar: false,
+              fromHorizontalScroll: false,
+              settings: settings);
+        }
+        await addRestaurant();
       } catch (e) {
         if (e.toString().contains("AutoIdException")) {
-          emit(state.copyWith(status: AgendaStatus.haveToChooseManualy));
+          emit(state.copyWith(
+              status: AgendaStatus.haveToChooseManualy,
+              settingsModel: settings));
         } else {
-          emit(state.copyWith(status: AgendaStatus.error));
+          Res.logger.e(e);
+          emit(state.copyWith(
+              status: AgendaStatus.error, settingsModel: settings));
         }
         return;
       }
-      CacheService.set<Agenda>(Agenda(state.realDays));
-      emit(
-        state.copyWith(
-          status: AgendaStatus.ready,
-          realDays: state.realDays,
-          wantedDate: state.realDays
-              .indexWhere((element) => element.date.isSameDay(DateTime.now()))
-              .clamp(0, state.realDays.length),
-          agendaIds: ids,
-        ),
-      );
-      if (state.status != AgendaStatus.cacheReady && !fromUser) {
-        goToday(
-            fromMiniCalendar: false,
-            fromHorizontalScroll: false,
-            settings: settings);
-      }
-      await addRestaurant();
     }
   }
 
   void addExternalEvent(List<Event> events) {
-    emit(state.copyWith(examEvents: state.examEvents + events));
+    emit(state.copyWith(
+        examEvents: state.examEvents + events,
+        settingsModel: const SettingsModel()));
   }
 
   void removeExternalEvent(List<Event> events) {
     emit(state.copyWith(
-        examEvents: state.examEvents
-            .where((element) => !events.contains(element))
-            .toList()));
+      examEvents: state.examEvents
+          .where((element) => !events.contains(element))
+          .toList(),
+      settingsModel: const SettingsModel(),
+    ));
   }
 
   void clearExternalEvent() {
-    emit(state.copyWith(examEvents: []));
+    emit(state.copyWith(examEvents: [], settingsModel: const SettingsModel()));
   }
 
   Future<void> addRestaurant() async {
     List<Day> days = await AgendaLogic.addRestaurant(List.from(state.realDays));
-    emit(state.copyWith(status: AgendaStatus.ready, realDays: days));
+    emit(state.copyWith(
+        status: AgendaStatus.ready,
+        realDays: days,
+        settingsModel: const SettingsModel()));
   }
 
   void updateDisplayedDate(
@@ -157,6 +175,7 @@ class AgendaCubit extends Cubit<AgendaState> {
       state.copyWith(
         status: AgendaStatus.dateUpdated,
         wantedDate: wantedDate,
+        settingsModel: settings,
       ),
     );
   }
@@ -176,7 +195,10 @@ class AgendaCubit extends Cubit<AgendaState> {
   }
 
   void resetCubit() {
-    emit(
-        AgendaState(status: AgendaStatus.initial, wantedDate: 0, realDays: []));
+    emit(AgendaState(
+        status: AgendaStatus.initial,
+        wantedDate: 0,
+        realDays: [],
+        settingsModel: const SettingsModel()));
   }
 }

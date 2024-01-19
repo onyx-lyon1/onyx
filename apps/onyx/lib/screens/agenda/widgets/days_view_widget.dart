@@ -21,7 +21,6 @@ class DaysViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SettingsModel settings = context.read<SettingsCubit>().state.settings;
     var agendaState = context.read<AgendaCubit>().state;
 
     double columnWidth = DaysViewRes.columnWidth(dayCount);
@@ -63,7 +62,7 @@ class DaysViewWidget extends StatelessWidget {
                   },
                   itemBuilder: (context, rawJ) {
                     int j = rawJ * dayCount;
-                    if (j + dayCount < agendaState.days(settings).length) {
+                    if (j + dayCount < agendaState.days.length) {
                       return Row(
                         children: [
                           for (var i = 0; i < dayCount; i++)
@@ -72,13 +71,13 @@ class DaysViewWidget extends StatelessWidget {
                                 Column(
                                   children: [
                                     ...buildEventWidgetList(
-                                      agendaState.days(settings)[j + i].events,
+                                      agendaState.days[j + i].events,
                                       columnWidth,
                                     )
                                   ],
                                 ),
                                 if (DateTime.now().isSameDay(
-                                    agendaState.days(settings)[j + i].date))
+                                    agendaState.days[j + i].date))
                                   CurrentDateIndicator(
                                       columnWidth: columnWidth),
                               ],

@@ -19,26 +19,21 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SettingsModel settings = context.read<SettingsCubit>().state.settings;
     return BlocBuilder<AgendaCubit, AgendaState>(
       buildWhen: (previous, current) {
-        if (previous.days(settings).length > previous.wantedDate &&
-            current.days(settings).length > current.wantedDate) {
-          return previous
-                  .days(settings)[previous.wantedDate]
-                  .date
-                  .isSameDay(current.days(settings)[currentDateIndex].date) ||
-              current
-                  .days(settings)[current.wantedDate]
-                  .date
-                  .isSameDay(current.days(settings)[currentDateIndex].date);
+        if (previous.days.length > previous.wantedDate &&
+            current.days.length > current.wantedDate) {
+          return (previous.days[previous.wantedDate].date
+                      .isSameDay(current.days[currentDateIndex].date) ||
+                  current.days[current.wantedDate].date
+                      .isSameDay(current.days[currentDateIndex].date)) &&
+              (!context.read<AgendaCubit>().blockMiniCalendar);
         }
         return true;
       },
       builder: (context, state) {
         return SizedBox(
-          key: Key(
-              state.days(settings)[currentDateIndex].date.shrink(3).toString()),
+          key: Key(state.days[currentDateIndex].date.shrink(3).toString()),
           height: Res.bottomNavBarHeight,
           width: (100 - DaysViewRes.leftHourIndicatorWidth).w /
               context.read<SettingsCubit>().state.settings.agendaWeekLength,
@@ -50,16 +45,16 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
                 decoration: BoxDecoration(
-                  color: (state.days(settings)[state.wantedDate].date.day ==
-                              state.days(settings)[currentDateIndex].date.day &&
-                          state.days(settings)[state.wantedDate].date.month ==
-                              state.days(settings)[currentDateIndex].date.month)
+                  color: (state.days[state.wantedDate].date.day ==
+                              state.days[currentDateIndex].date.day &&
+                          state.days[state.wantedDate].date.month ==
+                              state.days[currentDateIndex].date.month)
                       ? Theme.of(context).primaryColor
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: (DateTime.now().isSameDay(
-                            state.days(settings)[currentDateIndex].date))
+                    color: (DateTime.now()
+                            .isSameDay(state.days[currentDateIndex].date))
                         ? Theme.of(context).primaryColor
                         : Colors.transparent,
                     width: 0.5.w,
@@ -81,9 +76,7 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
                       SizedBox(
                         height: 2.9.h,
                         child: Text(
-                          state
-                              .days(settings)[currentDateIndex]
-                              .date
+                          state.days[currentDateIndex].date
                               .toMonthName(short: true),
                           style: TextStyle(fontSize: 15.sp),
                         ),
@@ -91,20 +84,14 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
                       SizedBox(
                         height: 3.h,
                         child: Text(
-                          state
-                              .days(settings)[currentDateIndex]
-                              .date
-                              .day
-                              .toString(),
+                          state.days[currentDateIndex].date.day.toString(),
                           style: TextStyle(fontSize: 17.sp),
                         ),
                       ),
                       SizedBox(
                         height: 3.h,
                         child: Text(
-                          state
-                              .days(settings)[currentDateIndex]
-                              .date
+                          state.days[currentDateIndex].date
                               .toWeekDayName(short: true),
                           style: TextStyle(fontSize: 15.sp),
                         ),
