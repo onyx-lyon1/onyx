@@ -315,5 +315,53 @@
     "pleaseWait" : "Veuillez patienter",
     "@pleaseWait" : {
         "description" : "Please wait"
-    }
+    },
+    "from" : "De",
+    "@from" : {
+        "description" : "From"
+    },
+    "to" : "À",
+    "@to" : {
+        "description" : "To"
+    },
+    "me" : "Moi",
+    "@me" : {
+        "description" : "Me"
+    },
+    "mailSendPageErrorTitle" : "Veuillez remplir correctement tous les champs",
+    "@mailSendPageErrorTitle" : {
+        "description" : "Please fill all the fields correctly"
+    },
+    "objects" : "Objets",
+    "@objects" : {
+        "description" : "Objects"
+    },
+    "reply" : "Réponse",
+    "@reply" : {
+        "description" : "Answer"
+    },
+    "mailServerConnection" : "Connexion au serveur de mail",
+    "@mailServerConnection" : {
+        "description" : "Mail server connection"
+    },
+    "mailServerConnectionError" : "Erreur de chargement des mails",
+    "@mailServerConnectionError" : {
+        "description" : "Mail server connection error"
+    },
+    "loadingMails" : "Chargement des mails",
+    "@loadingMails" : {
+        "description" : "Loading mails"
+    },
+    "ErrorOccured" : "Une erreur est survenue",
+    "@ErrorOccured" : {
+        "description" : "An error occured"
+    },
+    "sendingEmail" : "Envoi du mail",
+    "@sendingEmail" : {
+        "description" : "Sending email"
+    },
+    "loadMoreMails" : "Charger 20 mails supplémentaires",
+    "@loadMoreMails" : {
+        "description" : "Load 20 more mails"
+    },
 }

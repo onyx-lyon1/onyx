@@ -6,6 +6,8 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class MailDetailsPage extends StatelessWidget {
   final Mail mail;
 
@@ -76,14 +78,14 @@ class MailDetailsPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SelectableText(
-                            "De : ${mail.sender}",
+                            "${AppLocalizations.of(context!.from)} : ${mail.sender}",
                             maxLines: 1,
                           ),
                           SizedBox(
                             height: 1.h,
                           ),
                           SelectableText(
-                            "À : ${mail.receiver}",
+                            "${AppLocalizations.of(context!.to)} : ${mail.receiver}",
                             maxLines: 1,
                           ),
                         ],

@@ -9,6 +9,8 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class MailsPage extends StatelessWidget {
   const MailsPage({
     super.key,
@@ -31,25 +33,25 @@ class MailsPage extends StatelessWidget {
         Widget? loadingHeader;
         switch (state.status) {
           case MailStatus.connecting:
-            loadingHeader = const LoadingHeaderWidget(
-              message: "Connection au Mails",
+            loadingHeader = LoadingHeaderWidget(
+              message: AppLocalizations.of(context)!.mailServerConnection,
             );
             break;
           case MailStatus.loading:
           case MailStatus.cacheLoaded:
           case MailStatus.cacheSorted:
           case MailStatus.mailboxesLoaded:
-            loadingHeader =
-                const LoadingHeaderWidget(message: "Chargement des Mails");
+            loadingHeader = LoadingHeaderWidget(
+                message: AppLocalizations.of(context)!.loadingMails);
             break;
           case MailStatus.error:
-            loadingHeader = const LoadingHeaderWidget(
-              message: "Erreur de chargement des Mails",
+            loadingHeader = LoadingHeaderWidget(
+              message: AppLocalizations.of(context)!.mailServerConnectionError,
             );
             break;
           case MailStatus.nonFatalError:
-            loadingHeader = const LoadingHeaderWidget(
-              message: "Une erreur est survenue",
+            loadingHeader = LoadingHeaderWidget(
+              message: AppLocalizations.of(context)!.errorOccurred,
             );
             break;
           case MailStatus.initial:
@@ -71,8 +73,8 @@ class MailsPage extends StatelessWidget {
 
             break;
           case MailStatus.sending:
-            loadingHeader =
-                const LoadingHeaderWidget(message: "Envoie du mail");
+            loadingHeader = LoadingHeaderWidget(
+                message: AppLocalizations.of(context)!.sendingMail);
             break;
           case MailStatus.loaded:
             break;
@@ -152,8 +154,9 @@ class MailsPage extends StatelessWidget {
                                     child: Center(
                                       child: Padding(
                                         padding: EdgeInsets.all(8.w),
-                                        child: const Text(
-                                            "Charger 20 messages de plus"),
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                .loadMoreMails),
                                       ),
                                     ),
                                   ),

@@ -8,6 +8,8 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class MailSendPage extends StatelessWidget {
   final int? originalMessage;
   final bool? replyAll;
@@ -52,7 +54,7 @@ class MailSendPage extends StatelessWidget {
                 (originalMessage != null && bodyHtml(controller).isNotEmpty)) {
               Mail email = Mail(
                 subject: subjectEditor.text,
-                sender: "moi",
+                sender: AppLocalizations.of(context)!.me,
                 excerpt: "",
                 isRead: false,
                 date: DateTime.now(),
@@ -77,8 +79,8 @@ class MailSendPage extends StatelessWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                   backgroundColor: Theme.of(context).colorScheme.background,
-                  title: const Text(
-                      "Veuillez remplir correctement tous les champs"),
+                  title: Text(
+                      AppLocalizations.of(context)!.mailSendPageErrorTitle),
                 ),
               );
             }
@@ -136,7 +138,8 @@ class MailSendPage extends StatelessWidget {
                                         .color!,
                                   ),
                                   decoration: InputDecoration(
-                                      hintText: "Objets",
+                                      hintText:
+                                          AppLocalizations.of(context)!.objects,
                                       hintStyle: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!
@@ -170,7 +173,7 @@ class MailSendPage extends StatelessWidget {
                               width: 70.w,
                               child: const Center(
                                 child: Text(
-                                  "Réponse",
+                                  AppLocalizations.of(context)!.reply,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
