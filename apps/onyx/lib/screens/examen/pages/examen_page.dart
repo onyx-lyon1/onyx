@@ -22,6 +22,13 @@ class ExamenPage extends StatelessWidget {
 
         switch (state.status) {
           case ExamenStatus.initial:
+            context.read<ExamenCubit>().load(
+                  context.read<TomussCubit>().state.name,
+                  context.read<TomussCubit>().state.surname,
+                  context.read<AuthentificationCubit>().state.username,
+                  context.read<SettingsCubit>().state.settings,
+                  context.read<AuthentificationCubit>().state.lyon1Cas,
+                );
             break;
           case ExamenStatus.loading:
             stateWidget = const LoadingHeaderWidget(
