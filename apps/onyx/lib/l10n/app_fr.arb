@@ -183,5 +183,137 @@
     "searchInCalendars": "Rechercher dans les agendas",
     "@searchInCalendars": {
         "description": "Search in calendars"
+    },
+    "needCameraToScanQrCode": "Nous avons besoin de la caméra pour scanner le QR code",
+    "@needCameraTOScanQrCode": {
+        "description": "We need camera to scan qr codes"
+    },
+    "forLyon1" : "Pour Lyon 1",
+    "@forLyon1" : {
+        "description" : "For Lyon 1"
+    },
+    "username" : "Nom d''utilisateur",
+    "@username" : {
+        "description" : "Username"
+    },
+    "password" : "Mot de passe",
+    "@password" : {
+        "description" : "Password"
+    },
+    "connexion" : "Connexion",
+    "@connexion" : {
+        "description" : "Connexion"
+    },
+    "pleaseEnterUsername" : "Veuillez entrer l''identitfiant",
+    "@pleaseEnterUsername" : {
+        "description" : "Please enter the username"
+    },
+    "pleaseEnterAValidEmail" : "Veuillez entrer un email valide",
+    "@pleaseEnterAValidEmail" : {
+        "description" : "Please enter a valid email"
+    },
+    "pleaseEnterPassword" : "Veuillez entrer le mot de passe",
+    "@pleaseEnterPassword" : {
+        "description" : "Please enter the password"
+    },
+    "passwordShouldBeANumber" : "Le mot de passe doit être un nombre",
+    "@passwordShouldBeANumber" : {
+        "description" : "The password should be a number"
+    },
+    "connecting" : "Connexion en cours",
+    "@connecting" : {
+        "description" : "Connecting"
+    },
+    "thereWasAnErrorWhileConnecting" : "Une erreur est survenue lors de la connexion",
+    "@thereWasAnErrorWhileConnecting" : {
+        "description" : "There was an error while connecting"
+    },
+    "loading" : "Chargement ...",
+    "@loading" : {
+        "description" : "Loading"
+    },
+    "available" : "{count, plural, =0 {Aucun QR Code disponible} =1 {1 Qr Code disponibles} other {{count} Qr Codes disponibles}}",
+    "@available" : {
+        "description" : "Available",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "offline" : "hors connexion",
+    "@offline" : {
+        "description" : "Offline"
+    },
+    "izly" : "Izly",
+    "@izly" : {
+        "description" : "Izly"
+    },
+    "youAreNotConnectedToIzly" : "Vous n''êtes pas connecté à Izly",
+    "@youAreNotConnectedToIzly" : {
+        "description" : "You are not connected to Izly"
+    },
+    "paymentHistory" : "Historique des paiements",
+    "@paymentHistory" : {
+        "description" : "Payment history"
+    },
+    "refillWithBankCard" : "Recharger avec une carte bancaire",
+    "@refillWithBankCard" : {
+        "description" : "Refill with bank card"
+    },
+    "refillWithBankTransfer" : "Recharger par virement",
+    "@refillWithBankTransfer" : {
+        "description" : "Refill with bank transfer"
+    },
+    "pay" : "Payer",
+    "@pay" : {
+        "description" : "Pay"
+    },
+    "pleaseSelectAnAmount" : "Veuillez entrer un montant",
+    "@pleaseSelectAnAmount" : {
+        "description" : "Please enter an amount"
+    },
+    "minimumAmountIs" : "Le montant minimum est de {countEuros}€}",
+    "@minimumAmountIs" : {
+        "description" : "The minimum amount is {countEuros}€",
+        "placeholders": {
+            "countEuros": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "bankTransfer" : "Virement",
+    "@bankTransfer" : {
+        "description" : "Bank transfer"
+    },
+    "bankCard" : "Carte bancaire",
+    "@bankCard" : {
+        "description" : "Bank card"
+    },
+    "thirdParty" : "Rechargement par un tiers",
+    "@thirdParty" : {
+        "description" : "Third party"
+    },
+    "mail" : "Mail",
+    "@mail" : {
+        "description" : "Mail"
+    },
+    "message" : "Message",
+    "@message" : {
+        "description" : "Message"
+    },
+    "transfer" : "Transférer",
+    "@transfer" : {
+        "description" : "Transfer"
+    },
+    "recharging" : "En cours de rechargement",
+    "@recharging" : {
+        "description" : "Recharging"
+    },
+    "pleaseWait" : "Veuillez patienter",
+    "@pleaseWait" : {
+        "description" : "Please wait"
     }
 }

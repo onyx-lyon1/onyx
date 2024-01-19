@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_dart_scan/qr_code_dart_scan.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class QrCodeScannerPage extends StatefulWidget {
   const QrCodeScannerPage({super.key});
 
@@ -44,11 +46,11 @@ class QrCodeScannerPageState extends State<QrCodeScannerPage> {
                   }
                 },
               )
-            : const Center(
+            : Center(
                 child: Text(
-                  'Nous avons besoin de la caméra pour scanner le QR code',
+                  AppLocalizations.of(context)!.needCameraToScanQrCode,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                 ),

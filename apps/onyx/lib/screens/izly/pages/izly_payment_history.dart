@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IzlyPaymentHistory extends StatelessWidget {
   const IzlyPaymentHistory({super.key});
@@ -19,8 +20,8 @@ class IzlyPaymentHistory extends StatelessWidget {
       builder: (context, state) {
         Widget body;
         if (state.izlyClient == null) {
-          body = const StateDisplayingPage(
-            message: "Vous n'êtes pas encore connecté à Izly",
+          body = StateDisplayingPage(
+            message: AppLocalizations.of(context)!.youAreNotConnectedToIzly,
           );
         } else if (state.paymentList.isEmpty) {
           body = CircularProgressIndicator(
@@ -65,10 +66,11 @@ class IzlyPaymentHistory extends StatelessWidget {
           child: Material(
             child: CommonScreenWidget(
               state: (IzlyStatus.loading == state.status)
-                  ? const LoadingHeaderWidget(message: "Chargement...")
+                  ? LoadingHeaderWidget(
+                      message: AppLocalizations.of(context)!.loading)
                   : null,
-              header: const IzlyRechargeHeaderWidget(
-                  title: "Historique des paiements"),
+              header: IzlyRechargeHeaderWidget(
+                  title: AppLocalizations.of(context)!.paymentHistory),
               body: Center(
                 child: body,
               ),

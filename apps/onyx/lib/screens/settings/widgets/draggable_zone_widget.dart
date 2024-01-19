@@ -33,7 +33,8 @@ class DraggableZoneWidget extends StatelessWidget {
                 ),
                 child: Text(
                   AppLocalizations.of(context)!.enabled,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
               horizontalAlignment: MainAxisAlignment.center,
@@ -59,7 +60,8 @@ class DraggableZoneWidget extends StatelessWidget {
                 ),
                 child: Text(
                   AppLocalizations.of(context)!.disabled,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
               children: context
