@@ -12,7 +12,7 @@ void main() async {
   if (agendaOpt == null) {
     // handle gracefully
   }
-  final Agenda agenda = agendaOpt ?? Agenda.empty();
+  final Agenda agenda = agendaOpt ?? agendaOpt2 ?? Agenda.empty();
 
   for (final Day day in agenda.days) {
     print(day.date.toString());
