@@ -611,10 +611,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_keyboard_visibility
-      sha256: "98664be7be0e3ffca00de50f7f6a287ab62c763fc8c762e0a21584584a3ff4f8"
+      sha256: "4983655c26ab5b959252ee204c2fffa4afeb4413cd030455194ec0caa3b8e7cb"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.0"
+    version: "5.4.1"
   flutter_keyboard_visibility_linux:
     dependency: transitive
     description:
@@ -768,10 +768,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: da24b2119d2789291c057536721252f53bb9985ed011db137561453b4452d5d3
+      sha256: "7e56e9b47010ee8550b465cbc5c5e34ce728ad7db9edebe62c32e9a1e31d682e"
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.10"
+    version: "9.1.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -1049,10 +1049,18 @@ packages:
     dependency: transitive
     description:
       name: json_theme_annotation
-      sha256: "5028118736881e9b340f22376aebeb57a77954f53510288622133c50efa1bcee"
+      sha256: "2c0771ce66716d65c67f85679f2ad50687d11aabc32162def053ebb65e4b7b70"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.3+2"
+    version: "1.0.3+1"
+  keyboard_attachable:
+    dependency: "direct main"
+    description:
+      name: keyboard_attachable
+      sha256: a77db8fa31b004426c54b87ece3ba72aae49d6d9c175d159ef9671a5fa113d8c
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   latlong2:
     dependency: "direct main"
     description:

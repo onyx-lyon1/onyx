@@ -12,6 +12,10 @@
     "@yes": {
         "description": "Yes"
     },
+    "no": "No",
+    "@no": {
+        "description": "No"
+    },
     "onyxSubTitle": "For Lyon 1",
     "@onyxSubTitle": {
         "description": "The subtitle under the name Onyx"
