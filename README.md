@@ -77,10 +77,11 @@ To build the app, follow these steps:
     - libgtk3
     - libglib2
     - libsecret
+    - zenity
 
   On Debian/Ubuntu like distros, they can be installed with this single command :
   ```shell 
-  sudo apt install pkg-config libgtk-3-dev libglib2.0-dev libsecret-1-dev
+  sudo apt install pkg-config libgtk-3-dev libglib2.0-dev libsecret-1-dev zenity
   ```
 - #### Android
   You will need a recent version of [Android Sdk](https://developer.android.com/studio).

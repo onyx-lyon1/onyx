@@ -103,6 +103,7 @@
               libgcrypt
               libgpg-error
               apksigner
+              gnome.zenity
               ];
           };
         formatter = pkgs.alejandra;
