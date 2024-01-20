@@ -2,10 +2,11 @@
 
 import 'dart:io';
 
-import 'package:enough_mail/enough_mail.dart' hide Response;
+import 'package:enough_mail/enough_mail.dart';
 import 'package:hive/hive.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:requests_plus/requests_plus.dart';
+import 'package:collection/collection.dart';
 
 import 'config/config.dart';
 
@@ -196,16 +197,32 @@ class Lyon1MailClient {
     required String subject,
     required String body,
     List<File>? attachments,
+    bool appendToSent = true,
   }) async {
+    MimeMessage message = await _buildSendEmail(
+      recipients: recipients,
+      subject: subject,
+      body: body,
+      attachments: attachments,
+    );
     final SmtpResponse response = await _smtpClient.sendMessage(
-      (await _buildSendEmail(
-        recipients: recipients,
-        subject: subject,
-        body: body,
-        attachments: attachments,
-      )),
+      message,
       recipients: recipients.map((e) => MailAddress(e.name, e.email)).toList(),
     );
+
+    if (appendToSent) {
+      final sentMailBox = (await getRawMailboxes()).firstWhereOrNull(
+          (element) => element.flags.contains(MailboxFlag.sent));
+      print(sentMailBox);
+      if (sentMailBox != null) {
+        // await _client.selectMailbox(sentMailBox);
+        await _client.appendMessage(
+          message,
+          targetMailboxPath: sentMailBox.path,
+          flags: [MessageFlags.seen],
+        );
+      }
+    }
 
     return response.isOkStatus;
   }
