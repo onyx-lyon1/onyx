@@ -6,7 +6,6 @@ import 'package:encrypt/encrypt.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1examenclient/lyon1examenclient.dart';
 import 'package:onyx/core/cache_service.dart';
