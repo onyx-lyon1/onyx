@@ -64,6 +64,7 @@ class EmailSendCubit extends Cubit<EmailSendState> {
         receiver: state.destinationEditor!.text,
         isFlagged: false,
         attachments: state.attachments.map((e) => e.path).toList(),
+        attachmentsFiles: state.attachments,
       );
 
       emailCubit.send(
