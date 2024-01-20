@@ -8,17 +8,9 @@ import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 
 class EmailSendBottomBarWidget extends StatelessWidget {
   const EmailSendBottomBarWidget({super.key});
-
-  String bodyHtml(QuillController controller) {
-    return QuillDeltaToHtmlConverter(
-            List.castFrom(controller.document.toDelta().toJson()),
-            ConverterOptions.forEmail())
-        .convert();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,54 +66,7 @@ class EmailSendBottomBarWidget extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                   child: InkWell(
                     splashColor: Theme.of(context).cardTheme.color,
-                    onTap: () {
-                      if ((state.destinationEditor!.value.text.isNotEmpty &&
-                              state.subjectEditor!.value.text.isNotEmpty &&
-                              bodyHtml(state.controller!).isNotEmpty &&
-                              state.destinationEditor!.value.text
-                                  .contains("@") &&
-                              state.destinationEditor!.value.text
-                                  .contains(".")) ||
-                          (state.originalMessage != null &&
-                              bodyHtml(state.controller!).isNotEmpty)) {
-                        Mail email = Mail(
-                          subject: state.subjectEditor!.text,
-                          sender: "moi",
-                          excerpt: "",
-                          isRead: false,
-                          date: DateTime.now(),
-                          body: bodyHtml(state.controller!),
-                          id: 0,
-                          receiver: state.destinationEditor!.text,
-                          isFlagged: false,
-                          attachments:
-                              state.attachments.map((e) => e.path).toList(),
-                        );
-
-                        context.read<EmailCubit>().send(
-                              email: email,
-                              replyAll: state.replyAll,
-                              replyOriginalMessageId: state.originalMessage,
-                              reply: state.reply!,
-                              forward: state.forward!,
-                              from: context
-                                  .read<EmailCubit>()
-                                  .state
-                                  .currentMailBox!,
-                            );
-                        Navigator.pop(context);
-                      } else {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.background,
-                            title: const Text(
-                                "Veuillez remplir correctement tous les champs"),
-                          ),
-                        );
-                      }
-                    },
+                    onTap: () => context.read<EmailSendCubit>().sendEmail(context.read<EmailCubit>()),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 1.5.w),
                       child: Icon(Icons.send_rounded,

@@ -1,6 +1,6 @@
 part of 'email_send_cubit.dart';
 
-enum EmailSendStatus { initial, sending, sent, updated, error }
+enum EmailSendStatus { initial, sending, sent, updated, error, inputNotValid }
 
 @CopyWith()
 class EmailSendState {

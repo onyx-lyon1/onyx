@@ -24,7 +24,25 @@ class MailSendPage extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           EmailSendCubit(originalMessage, replyAll, reply, forward),
-      child: BlocBuilder<EmailSendCubit, EmailSendState>(
+      child: BlocConsumer<EmailSendCubit, EmailSendState>(
+        listener: (context, state) {
+          switch (state.status) {
+            case EmailSendStatus.sent:
+              Navigator.pop(context);
+              break;
+            case EmailSendStatus.inputNotValid:
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  backgroundColor: Theme.of(context).colorScheme.background,
+                  title: const Text(
+                      "Veuillez remplir correctement tous les champs"),
+                ),
+              );
+              break;
+            default:
+          }
+        },
         builder: (context, state) {
           if (state.status != EmailSendStatus.initial) {
             return SafeArea(
