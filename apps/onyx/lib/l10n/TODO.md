@@ -15,8 +15,8 @@ core:
   - [x] presence
   - [x] sprecial mailbox
 
-- [ ] home screen
-- [ ] privacy policie
+- [x] home screen
+- [x] privacy policie
 - [ ] search (stop words particulary)
 - [ ] theme name maybe
 - [ ] widget normalement rien a faire

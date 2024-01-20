@@ -440,5 +440,65 @@
                 "type": "String"
             }
         }
+    },
+    "grades": "Notes",
+    "@grades": {
+        "description": "Grades"
+    },
+    "agenda": "Agenda",
+    "@agenda": {
+        "description": "Agenda"
+    },
+    "mails": "Mails",
+    "@mails": {
+        "description": "Mails"
+    },
+    "map": "Carte",
+    "@map": {
+        "description": "Map"
+    },
+    "ok": "Ok",
+    "@ok": {
+        "description": "Ok"
+    },
+    "warningSelectShouldAgenda": "L''agenda est sélectionné automatiquement. Cela peut être inexact,\nsurtout pour les étudiants de Polytech.\nN''hésitez pas à le sélectionner manuellement dans les paramètres.",
+    "@warningSelectShouldAgenda": {
+        "description": "The agenda is automatically selected. It can be wrong,\nespecially for Polytech students.\nDon't hesitate to select it manually in the settings."
+    },
+    "privacyPolicy": "Politique de confidentialité",
+    "@privacyPolicy": {
+        "description": "Privacy policy"
+    },
+    "dataCollection": "Collecte de données",
+    "@dataCollection": {
+        "description": "Data collection"
+    },
+    "dataSafety": "Sécurité des données",
+    "@dataSafety": {
+        "description": "Data safety"
+    },
+    "contactUs": "Nous contacter",
+    "@contactUs": {
+        "description": "Contact us"
+    },
+    "weTakeCareOfYourData": "Notre application est conçue pour fournir un accès en ligne aux services de l''université de Lyon 1. Nous prenons la protection de vos informations personnelles au sérieux et nous sommes déterminés à assurer la confidentialité de vos informations.",
+    "@weTakeCareOfYourData": {
+        "description": "Our application is designed to provide online access to the services of the University of Lyon 1. We take the protection of your personal information seriously and we are committed to ensuring the confidentiality of your information."
+    },
+    "dataOnlyStoredOnYourDevice": "Notre application ne collecte aucune information personnelle. Les données de connexion sont stockées uniquement sur le téléphone de l''utilisateur et ne sont communiquées qu''avec les serveurs de l''université, pour lesquels nous ne sommes pas responsables.",
+    "@dataOnlyStoredOnYourDevice": {
+        "description": "Our application does not collect any personal information. Login data is stored only on the user''s phone and is only communicated with the university''s servers, for which we are not responsible."
+    },
+    "ourSecurityMeasures": "Nous prenons des mesures de sécurité raisonnables pour protéger vos informations personnelles contre la perte, l''utilisation abusive, l''accès non autorisé, la modification et la divulgation. Néanmoins, aucune méthode de transmission sur Internet ou de stockage électronique n''est sûre à 100 %. Par conséquent, bien que nous nous efforcions de protéger vos informations personnelles, nous ne pouvons garantir la sécurité absolue de vos informations transmises à notre application et vous le faites à vos risques et périls.",
+    "@ourSecurityMeasures": {
+        "description": "We take reasonable security measures to protect your personal information against loss, misuse, unauthorized access, modification and disclosure. Nevertheless, no method of transmission over the Internet or electronic storage is 100% secure. Therefore, while we strive to protect your personal information, we cannot guarantee the absolute security of your information transmitted to our application and you do so at your own risk."
+    },
+    "weCanModifyRules": "Nous nous réservons le droit de modifier cette politique de confidentialité de temps à autre. Toute modification sera publiée sur cette page et prendra effet immédiatement après sa publication. Il est de votre responsabilité de consulter régulièrement cette page pour vous tenir informé des modifications apportées à notre politique de confidentialité.",
+    "@weCanModifyRules": {
+        "description": "We reserve the right to modify this privacy policy from time to time. Any changes will be posted on this page and will take effect immediately upon posting. It is your responsibility to check this page regularly to keep up to date with any changes to our privacy policy."
+    },
+    "ifQuestionThenGithub": "Si vous avez des questions concernant cette politique de confidentialité, veuillez nous contacter sur github",
+    "@ifQuestionThenGithub": {
+        "description": "If you have any questions about this privacy policy, please contact us on github"
     }
 }
