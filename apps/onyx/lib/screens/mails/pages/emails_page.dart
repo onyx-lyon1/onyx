@@ -82,14 +82,12 @@ class MailsPage extends StatelessWidget {
             break;
           case MailStatus.sended:
             WidgetsBinding.instance.addPostFrameCallback(
-              (timeStamp) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: const Text("Mail envoyé"),
-                    duration: Res.animationDuration,
-                  ),
-                );
-              },
+              (_) => ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text("Mail envoyé"),
+                  duration: Res.animationDuration,
+                ),
+              ),
             );
             break;
           case MailStatus.updated:
