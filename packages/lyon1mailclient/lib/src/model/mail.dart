@@ -201,8 +201,8 @@ class Mail extends Equatable {
         DarkReader.enable({
         mode: ${(isDarkMode) ? "1" : "0"},
         brightness: 100,
-        contrast: 90,
-        sepia: 10,
+        contrast: 100,
+        sepia: 0,
         ${(isDarkMode && bgColor != null) ? "darkSchemeBackgroundColor: '$bgColor'," : ""}
         ${(isDarkMode && textColor != null) ? "darkSchemeTextColor: '$textColor'," : ""}
         ${(!isDarkMode && bgColor != null) ? "lightSchemeBackgroundColor: '$bgColor'," : ""}
