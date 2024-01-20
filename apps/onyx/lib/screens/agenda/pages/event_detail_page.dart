@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:intl/intl.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
@@ -9,6 +10,7 @@ import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventDetailPage extends StatefulWidget {
   final Event event;
@@ -98,8 +100,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         "${widget.event.start.hour.toFixedLengthString(2)}h${widget.event.start.minute.toFixedLengthString(2)} ${widget.event.end.hour.toFixedLengthString(2)}h${widget.event.end.minute.toFixedLengthString(2)}"),
                 EventDetailText(
                   icon: Icons.calendar_month_rounded,
-                  text:
-                      '${widget.event.start.toWeekDayName()} ${widget.event.start.day} ${widget.event.start.toMonthName()}',
+                  text: DateFormat('yMMMMEEEEd',
+                          AppLocalizations.of(context)!.localeName)
+                      .format(widget.event.start),
                 ),
                 if (widget.event.teacher.isNotEmpty)
                   EventDetailText(

@@ -10,6 +10,8 @@ import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class RestaurantPopUpWidget extends StatelessWidget {
   const RestaurantPopUpWidget(
@@ -198,7 +200,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
                           children: [
                             for (var d in dates)
                               Center(
-                                child: Text(d.dateBeautifull()),
+                                child: Text(d.dateBeautifull(AppLocalizations.of(context)!.localeName)),
                               ),
                           ],
                         ),

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/date_extension.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:intl/intl.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -80,7 +81,9 @@ class AgendaSettingsWidget extends StatelessWidget {
                 height: 1.h,
               ),
               AgendaWeekDaySelector(
-                elements: weekDaysShort,
+                elements: DateFormat.E(AppLocalizations.of(context)!.localeName)
+                    .dateSymbols
+                    .SHORTWEEKDAYS,
                 colorCondition: (i) => i == settings.agendaWeekReference,
                 disabledCondition: (i) =>
                     settings.agendaDisabledDays.contains(i + 1),
@@ -133,7 +136,9 @@ class AgendaSettingsWidget extends StatelessWidget {
                 height: 1.h,
               ),
               AgendaWeekDaySelector(
-                elements: weekDaysShort,
+                elements: DateFormat.E(AppLocalizations.of(context)!.localeName)
+                    .dateSymbols
+                    .SHORTWEEKDAYS,
                 colorCondition: (i) =>
                     settings.agendaDisabledDays.contains(i + 1),
                 onTap: (int rawI) {

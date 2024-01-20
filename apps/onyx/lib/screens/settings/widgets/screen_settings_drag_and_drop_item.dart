@@ -7,6 +7,8 @@ import 'package:onyx/core/extensions/functionalities_extension.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 DragAndDropItem screenSettingsDragAndDropItem(Functionalities functionality) {
   return DragAndDropItem(
@@ -49,7 +51,7 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
           title: Row(
             children: [
               Icon(functionality.toIcon()),
-              Text(functionality.toCleanString())
+              Text(functionality.toCleanString(AppLocalizations.of(context)!))
             ],
           ),
           childrenPadding: const EdgeInsets.all(15),

@@ -6,6 +6,7 @@ import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda/widgets/days_view_widget_res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MiniCalendarOneDayWidget extends StatelessWidget {
   const MiniCalendarOneDayWidget({
@@ -76,8 +77,9 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
                       SizedBox(
                         height: 2.9.h,
                         child: Text(
-                          state.days[currentDateIndex].date
-                              .toMonthName(short: true),
+                          state.days[currentDateIndex].date.toMonthName(
+                              AppLocalizations.of(context)!.localeName,
+                              short: true),
                           style: TextStyle(fontSize: 15.sp),
                         ),
                       ),
@@ -91,8 +93,9 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
                       SizedBox(
                         height: 3.h,
                         child: Text(
-                          state.days[currentDateIndex].date
-                              .toWeekDayName(short: true),
+                          state.days[currentDateIndex].date.toWeekDayName(
+                              AppLocalizations.of(context)!.localeName,
+                              short: true),
                           style: TextStyle(fontSize: 15.sp),
                         ),
                       ),

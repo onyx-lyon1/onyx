@@ -50,7 +50,9 @@ class ExamenWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          examen.date.toMonthName(short: true),
+                          examen.date.toMonthName(
+                              AppLocalizations.of(context)!.localeName,
+                              short: true),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17.sp,
@@ -64,7 +66,9 @@ class ExamenWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          examen.date.toWeekDayName(short: false),
+                          examen.date.toWeekDayName(
+                              AppLocalizations.of(context)!.localeName,
+                              short: false),
                         ),
                       ],
                     ),
@@ -87,7 +91,8 @@ class ExamenWidget extends StatelessWidget {
                             children: [
                               Center(
                                 child: Text(
-                                  examen.date.toHourMinuteString(),
+                                  examen.date.toHourMinuteString(
+                                      AppLocalizations.of(context)!.localeName),
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20.sp,

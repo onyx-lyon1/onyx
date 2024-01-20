@@ -4,16 +4,16 @@ core:
 
 - extensions: //a vérifier
 
-  - [ ] color
-  - [ ] cords
-  - [ ] date
-  - [ ] dureation
-  - [ ] functionalities
-  - [ ] int
-  - [ ] lat_lng
-  - [ ] mail
-  - [ ] presence
-  - [ ] sprecial mailbox
+  - [x] color
+  - [x] cords
+  - [x] date
+  - [x] dureation
+  - [x] functionalities
+  - [x] int
+  - [x] lat_lng
+  - [x] mail
+  - [x] presence
+  - [x] sprecial mailbox
 
 - [ ] home screen
 - [ ] privacy policie
