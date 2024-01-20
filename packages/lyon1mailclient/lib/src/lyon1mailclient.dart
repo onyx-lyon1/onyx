@@ -447,7 +447,7 @@ class Lyon1MailClient {
       wrapper.action.add(action);
       await box.put("cache0", wrapper);
       if (autoDoAction) {
-        doActions();
+        await doActions();
       }
     }
   }
