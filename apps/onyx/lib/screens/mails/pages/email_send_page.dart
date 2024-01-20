@@ -160,15 +160,6 @@ class MailSendPage extends StatelessWidget {
                       if (state.attachments.isNotEmpty) SizedBox(height: 1.h),
                       Container(
                         color: Theme.of(context).cardTheme.color,
-                        constraints: BoxConstraints(
-                          minHeight: (100 -
-                                  (8 +
-                                      1 +
-                                      ((!state.reply!) ? 7 : 0) +
-                                      1 +
-                                      ((state.attachments.isNotEmpty) ? 8 : 0)))
-                              .h,
-                        ),
                         child: Column(
                           children: [
                             Padding(
@@ -177,6 +168,15 @@ class MailSendPage extends StatelessWidget {
                                 configurations: QuillEditorConfigurations(
                                   controller: state.controller!,
                                   readOnly: false, // true for view only mode
+                                  minHeight: (100 -
+                                          (8 +
+                                              1 +
+                                              ((!state.reply!) ? 7 : 0) +
+                                              1 +
+                                              ((state.attachments.isNotEmpty)
+                                                  ? 8
+                                                  : 0)))
+                                      .h,
                                 ),
                               ),
                             ),
