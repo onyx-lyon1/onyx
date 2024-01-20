@@ -45,10 +45,7 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                     ? Theme.of(context).primaryColor
                     : Theme.of(context).primaryColor.withOpacity(0.3),
               ),
-              width: 50.w,
-              child: const Center(
-                child: AgendaSelectionWidget(),
-              ),
+              child: const AgendaSelectionWidget(),
             ),
           ],
         );
@@ -108,7 +105,7 @@ class AgendaSelectionWidget extends StatelessWidget {
                     );
                   }
                 : null,
-            child: Container(
+            child: Padding(
               padding: EdgeInsets.all(2.w),
               child: Text(
                 'Sélectionner l\'agenda',
