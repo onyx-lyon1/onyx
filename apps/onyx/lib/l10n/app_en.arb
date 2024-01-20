@@ -344,9 +344,9 @@
     "@mailSendPageErrorTitle": {
         "description": "Please fill all the fields correctly"
     },
-    "objects": "Objects",
-    "@objects": {
-        "description": "Objects"
+    "subject": "subject",
+    "@subject": {
+        "description": "subject"
     },
     "reply": "Reply",
     "@reply": {
@@ -986,5 +986,9 @@
     "realyQuit": "Do you really want to quit?",
     "@realyQuit": {
         "description": "Do you really want to quit?"
+    },
+    "response": "Response",
+    "@response": {
+        "description": "Response"
     }
 }
