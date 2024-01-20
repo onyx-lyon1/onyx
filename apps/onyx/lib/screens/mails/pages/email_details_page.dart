@@ -96,6 +96,51 @@ class MailDetailsPage extends StatelessWidget {
                   SizedBox(
                     height: 1.h,
                   ),
+                  if (mail.attachments.isNotEmpty)
+                    Container(
+                      color: Theme.of(context).cardTheme.color,
+                      padding: EdgeInsets.all(1.h),
+                      height: 7.h,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: mail.attachments.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: MailAttachmentWidget(
+                              fileName: mail.attachments[index],
+                              onTap: () async {
+                                //save data in a file and open it
+                                if (mail.attachmentsFiles
+                                    .where((element) => element.path
+                                        .contains(mail.attachments[1]))
+                                    .isEmpty) {
+                                  mail.attachmentsFiles.insert(
+                                      index,
+                                      await AttachmentLogic
+                                          .getAttachmentLocalPath(
+                                              email: mail,
+                                              mailClient: context
+                                                  .read<EmailCubit>()
+                                                  .mailClient!,
+                                              emailNumber: state.emailNumber,
+                                              fileName: mail.attachments[index],
+                                              folder: state.currentMailBox!));
+                                }
+                                // ignore: use_build_context_synchronously
+                                showDialog(
+                                    context: context,
+                                    builder: (_) => SaveOrOpenDialogWidget(
+                                          filePath:
+                                              mail.attachmentsFiles[index].path,
+                                        ));
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   Container(
                     color: Theme.of(context).cardTheme.color,
                     height: (mail.attachments.isNotEmpty) ? 57.h : 70.h,
@@ -103,56 +148,6 @@ class MailDetailsPage extends StatelessWidget {
                     padding: EdgeInsets.all(1.h),
                     child: MailContentWidget(mail: mail),
                   ),
-                  (mail.attachments.isNotEmpty)
-                      ? Container(
-                          color: Theme.of(context).cardTheme.color,
-                          padding: EdgeInsets.all(0.5.h),
-                          height: 12.h,
-                          width: 100.w,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: mail.attachments.length,
-                            itemBuilder: (context, index) {
-                              return MailAttachmentWidget(
-                                fileName: mail.attachments[index],
-                                onTap: () async {
-                                  //save data in a file and open it
-                                  if (mail.attachmentsFiles
-                                      .where((element) => element.path
-                                          .contains(mail.attachments[index]))
-                                      .isEmpty) {
-                                    mail.attachmentsFiles.addAll(List.generate(
-                                        index -
-                                            mail.attachmentsFiles.length +
-                                            1,
-                                        (index) => File("")));
-                                    mail.attachmentsFiles[index] =
-                                        await AttachmentLogic
-                                            .getAttachmentLocalPath(
-                                      email: mail,
-                                      mailClient: context
-                                          .read<EmailCubit>()
-                                          .mailClient!,
-                                      emailNumber: state.emailNumber,
-                                      fileName: mail.attachments[index],
-                                      folder: state.currentMailBox!,
-                                      appLocalizations:
-                                          AppLocalizations.of(context),
-                                    );
-                                  }
-                                  // ignore: use_build_context_synchronously
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) => SaveOrOpenDialogWidget(
-                                            filePath: mail
-                                                .attachmentsFiles[index].path,
-                                          ));
-                                },
-                              );
-                            },
-                          ),
-                        )
-                      : Container(),
                 ],
               ),
             ),
