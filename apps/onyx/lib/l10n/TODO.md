@@ -24,13 +24,13 @@ core:
 
 screen:
 
-- [ ] agenda screen
+- [x] agenda screen
 - [x] agenda_config screen // en vrai faudrait voir pour traduire le nom des dossier mais ca alourdis trop je pense
 - [x] examen
 - [x] izly
 - [x] login
 - [x] mails
 - [ ] map (faut translate les amphis)
-- [ ] notifications (on a pas de contexte, rip)
-- [ ] settings
-- [ ] tomuss
+- [x] notifications (on a pas de contexte, rip)
+- [x] settings
+- [x] tomuss
