@@ -16,17 +16,17 @@ class EmailSendBottomBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EmailSendCubit, EmailSendState>(
       builder: (context, state) {
-        return SizedBox(
+        return Container(
           height: 5.h,
+          color: Theme.of(context).colorScheme.background,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 height: double.infinity,
                 child: Material(
-                  color: Theme.of(context).primaryColor,
+                  color: Colors.transparent,
                   child: InkWell(
-                    splashColor: Theme.of(context).cardTheme.color,
                     onTap: () async {
                       FilePickerResult? result = await FilePicker.platform
                           .pickFiles(allowMultiple: true);
@@ -42,16 +42,14 @@ class EmailSendBottomBarWidget extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 1.5.w),
                       child: Icon(Icons.attach_file_rounded,
-                          color: Theme.of(context).textTheme.bodySmall!.color),
+                          color: Theme.of(context).primaryColor),
                     ),
                   ),
                 ),
               ),
               Expanded(
-                child: Container(
-                  color: Theme.of(context).colorScheme.background,
+                child: SizedBox(
                   height: double.infinity,
-                  alignment: AlignmentDirectional.center,
                   child: QuillSimpleToolbar(
                     configurations: QuillSimpleToolbarConfigurations(
                       controller: state.controller!,
@@ -63,14 +61,15 @@ class EmailSendBottomBarWidget extends StatelessWidget {
               SizedBox(
                 height: double.infinity,
                 child: Material(
-                  color: Theme.of(context).primaryColor,
+                  color: Colors.transparent,
                   child: InkWell(
-                    splashColor: Theme.of(context).cardTheme.color,
-                    onTap: () => context.read<EmailSendCubit>().sendEmail(context.read<EmailCubit>()),
+                    onTap: () => context
+                        .read<EmailSendCubit>()
+                        .sendEmail(context.read<EmailCubit>()),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 1.5.w),
                       child: Icon(Icons.send_rounded,
-                          color: Theme.of(context).textTheme.bodySmall!.color),
+                          color: Theme.of(context).primaryColor),
                     ),
                   ),
                 ),
