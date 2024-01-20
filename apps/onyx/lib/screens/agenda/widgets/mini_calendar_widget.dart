@@ -5,6 +5,7 @@ import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda/widgets/days_view_widget_res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MiniCalendarWidget extends StatelessWidget {
   final PageController scrollController;
@@ -31,15 +32,21 @@ class MiniCalendarWidget extends StatelessWidget {
       },
       itemBuilder: (context, rawIndex) {
         int index = rawIndex * dayCount;
-        if (index + dayCount <
-            context.read<AgendaCubit>().state.days.length) {
+        if (index + dayCount < context.read<AgendaCubit>().state.days.length) {
           return Row(
             children: [
               SizedBox(
                 width: DaysViewRes.leftHourIndicatorWidth.w,
                 child: Center(
                   child: Text(
-                    "S: ${context.read<AgendaCubit>().state.days[index].date.toWeekNumber()}",
+                    AppLocalizations.of(context)!.weekNumberShort(
+                      context
+                          .read<AgendaCubit>()
+                          .state
+                          .days[index]
+                          .date
+                          .toWeekNumber(),
+                    ),
                   ),
                 ),
               ),

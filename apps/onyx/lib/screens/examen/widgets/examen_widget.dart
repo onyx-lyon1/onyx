@@ -124,7 +124,10 @@ class ExamenWidget extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   Text(
-                                      "${examen.location}, ${AppLocalizations.of(context)!.sit} ${examen.place}"),
+                                    AppLocalizations.of(context)!
+                                        .examLocationPlace(
+                                            examen.location, examen.place),
+                                  ),
                                 ],
                               ),
                             ))

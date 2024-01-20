@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
 import 'package:onyx/core/theme/theme_export.dart';
 import 'package:onyx/screens/settings/widgets/theme_swap/theme_list_expansion_tile.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ThemesSwap extends StatefulWidget {
   const ThemesSwap({super.key});
@@ -16,7 +17,7 @@ class _ThemesSwapState extends State<ThemesSwap> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Changer les thèmes"),
+        title: Text(AppLocalizations.of(context)!.changeTheme),
       ),
       body: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, themeState) {
@@ -24,17 +25,17 @@ class _ThemesSwapState extends State<ThemesSwap> {
             child: Column(
               children: [
                 ThemeListExpansionTile(
-                  title: "Thèmes favoris",
+                  title: AppLocalizations.of(context)!.favoriteTheme,
                   themesPreset: themeState.themesSettings!.favoriteThemes,
                   themesCreated: const [],
                 ),
                 ThemeListExpansionTile(
-                  title: "Thèmes clairs",
+                  title: AppLocalizations.of(context)!.lightTheme,
                   themesPreset: OnyxTheme.themesPresetLight,
                   themesCreated: themeState.themesSettings!.lightThemesCreated,
                 ),
                 ThemeListExpansionTile(
-                  title: "Thèmes sombres",
+                  title: AppLocalizations.of(context)!.darkTheme,
                   themesPreset: OnyxTheme.themesPresetDark,
                   themesCreated: themeState.themesSettings!.darkThemesCreated,
                 ),

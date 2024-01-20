@@ -32,9 +32,10 @@ class EmailState {
     this.emailNumber = 20,
     this.connected = false,
     this.selectedMails = const [],
+    required AppLocalizations appLocalizations,
   }) {
     currentMailBox ??= MailBox(
-        name: "Boite de réception",
+        name: appLocalizations.inbox,
         specialMailBox: SpecialMailBox.inbox,
         emails: const []);
   }
@@ -46,6 +47,7 @@ class EmailState {
     int? emailNumber,
     bool? connected,
     List<Mail>? selectedMails,
+    required AppLocalizations appLocalizations,
   }) {
     return EmailState(
       status: status ?? this.status,
@@ -54,6 +56,7 @@ class EmailState {
       currentMailBox: currentMailBox ?? this.currentMailBox,
       connected: connected ?? this.connected,
       selectedMails: selectedMails ?? this.selectedMails,
+      appLocalizations: appLocalizations,
     );
   }
 }

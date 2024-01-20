@@ -25,7 +25,9 @@ class AuthentificationConnection
                   .then((key) => CacheService.get<Credential>(secureKey: key)
                       .then((value) => context.read<EmailCubit>().connect(
                           username: value!.username,
-                          password: value.password)));
+                          password: value.password,
+                          appLocalizations: AppLocalizations.of(context)!,
+                          )));
               if (context.read<SettingsCubit>().state.settings.firstLogin) {
                 context.read<SettingsCubit>().modify(
                     settings: context

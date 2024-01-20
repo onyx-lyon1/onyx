@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MailSettingsWidget extends StatelessWidget {
   const MailSettingsWidget({super.key});
@@ -41,7 +42,11 @@ class MailSettingsWidget extends StatelessWidget {
                     .state
                     .settings
                     .copyWith(forcedMailTheme: b));
-            context.read<EmailCubit>().load(blockTrackers: b, cache: false);
+            context.read<EmailCubit>().load(
+                  blockTrackers: b,
+                  cache: false,
+                  appLocalizations: AppLocalizations.of(context)!,
+                );
           },
         ),
         TextSwitchWidget(

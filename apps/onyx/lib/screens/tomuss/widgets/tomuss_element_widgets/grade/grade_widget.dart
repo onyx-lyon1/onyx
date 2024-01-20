@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GradeWidget extends StatefulWidget {
   final List<Grade> grades;
@@ -169,8 +170,11 @@ class _GradeWidgetState extends State<GradeWidget> {
                         fileName: 'screenshot.png',
                       );
                       Share.shareXFiles(
-                          [XFile("${tmpDir.path}/screenshot.png")],
-                          text: "Voici ma note en ${widget.text1} !");
+                        [XFile("${tmpDir.path}/screenshot.png")],
+                        // ignore: use_build_context_synchronously
+                        text: AppLocalizations.of(context)!
+                            .hereMyGrade(widget.text1),
+                      );
                     },
                     icon: Icon(
                       Icons.share_rounded,

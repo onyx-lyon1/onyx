@@ -5,6 +5,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MapSearchAutocompleteWidget extends StatelessWidget {
   const MapSearchAutocompleteWidget({super.key, required this.controller});
@@ -106,7 +107,7 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
                     .bottomNavigationBarTheme
                     .unselectedItemColor,
               ),
-              hintText: "Bâtiment",
+              hintText: AppLocalizations.of(context)!.building,
               hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Theme.of(context)
                       .textTheme

@@ -117,7 +117,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
           Flexible(
             flex: 10,
             child: Text(
-              "menu de : ${widget.element.name}",
+              AppLocalizations.of(context)!.menuOf(widget.element.name),
               maxLines: 3,
               softWrap: true,
             ),
@@ -149,7 +149,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
         ],
       ),
       content: (dates.isEmpty)
-          ? const Text("Aucun menu pour ce restaurant")
+          ? Text(AppLocalizations.of(context)!.noMenuForThisRestaurant)
           : Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -284,7 +284,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text("Fermer"),
+          child: Text(AppLocalizations.of(context)!.close),
         )
       ],
     );

@@ -5,6 +5,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'email_state.dart';
 
@@ -17,10 +18,19 @@ class EmailCubit extends Cubit<EmailState> {
   String lastFilter = "";
   int emailNumber = 20;
 
-  EmailCubit() : super(EmailState());
+  EmailCubit(
+    AppLocalizations appLocalizations,
+  ) : super(EmailState(appLocalizations: appLocalizations));
 
-  void connect({required String? username, required String? password}) async {
-    emit(state.copyWith(status: MailStatus.connecting, connected: false));
+  void connect({
+    required String? username,
+    required String? password,
+    required AppLocalizations appLocalizations,
+  }) async {
+    emit(state.copyWith(
+        status: MailStatus.connecting,
+        connected: false,
+        appLocalizations: appLocalizations));
 
     if (!kIsWeb) {
       emailsBoxesComplete = await compute(
@@ -33,9 +43,11 @@ class EmailCubit extends Cubit<EmailState> {
       );
       emit(
         state.copyWith(
-            mailBoxes: emailsBoxesComplete,
-            status: MailStatus.cacheLoaded,
-            currentMailBox: emailsBoxesComplete[currentMailBoxIndex]),
+          mailBoxes: emailsBoxesComplete,
+          status: MailStatus.cacheLoaded,
+          currentMailBox: emailsBoxesComplete[currentMailBoxIndex],
+          appLocalizations: appLocalizations,
+        ),
       );
     }
 
@@ -45,19 +57,31 @@ class EmailCubit extends Cubit<EmailState> {
         password = password;
         mailClient =
             await MailLogic.connect(username: username, password: password);
-        emit(state.copyWith(status: MailStatus.connected, connected: true));
+        emit(state.copyWith(
+          status: MailStatus.connected,
+          connected: true,
+          appLocalizations: appLocalizations,
+        ));
       } catch (e) {
         Res.logger.e("error while connecting (email): $e");
-        emit(state.copyWith(status: MailStatus.error));
+        emit(state.copyWith(
+          status: MailStatus.error,
+          appLocalizations: appLocalizations,
+        ));
       }
     }
   }
 
-  void load(
-      {bool cache = true,
-      required bool blockTrackers,
-      MailBox? mailbox}) async {
-    emit(state.copyWith(status: MailStatus.loading));
+  void load({
+    bool cache = true,
+    required bool blockTrackers,
+    MailBox? mailbox,
+    required AppLocalizations appLocalizations,
+  }) async {
+    emit(state.copyWith(
+      status: MailStatus.loading,
+      appLocalizations: appLocalizations,
+    ));
     if (Res.mock) {
       emailsBoxesComplete = MailLogic.mailboxesMock;
       currentMailBoxIndex = 0;
@@ -67,6 +91,7 @@ class EmailCubit extends Cubit<EmailState> {
                 mailBoxes: emailsBoxesComplete,
                 status: MailStatus.loaded,
                 currentMailBox: emailsBoxesComplete[currentMailBoxIndex],
+                appLocalizations: appLocalizations,
               )));
 
       return;
@@ -94,10 +119,12 @@ class EmailCubit extends Cubit<EmailState> {
           currentMailBox = emailsBoxesComplete[currentMailBoxIndex];
         }
         emit(state.copyWith(
-            mailBoxes: emailsBoxesComplete,
-            status: MailStatus.cacheLoaded,
-            currentMailBox: currentMailBox));
-        filter(filter: lastFilter);
+          mailBoxes: emailsBoxesComplete,
+          status: MailStatus.cacheLoaded,
+          currentMailBox: currentMailBox,
+          appLocalizations: appLocalizations,
+        ));
+        filter(filter: lastFilter, appLocalizations: appLocalizations);
       }
     }
     try {
@@ -111,13 +138,16 @@ class EmailCubit extends Cubit<EmailState> {
         }
       }
       emit(state.copyWith(
-          mailBoxes: emailsBoxesComplete, status: MailStatus.mailboxesLoaded));
-      MailBox loadedMail = (await MailLogic.load(
-        emailNumber: emailNumber,
-        mailClient: mailClient!,
-        blockTrackers: blockTrackers,
-        mailBox: mailbox,
+        mailBoxes: emailsBoxesComplete,
+        status: MailStatus.mailboxesLoaded,
+        appLocalizations: appLocalizations,
       ));
+      MailBox loadedMail = (await MailLogic.load(
+          emailNumber: emailNumber,
+          mailClient: mailClient!,
+          blockTrackers: blockTrackers,
+          mailBox: mailbox,
+          appLocalizations: appLocalizations));
       int index = emailsBoxesComplete.indexWhere((element) =>
           element.name == loadedMail.name ||
           element.specialMailBox == loadedMail.specialMailBox);
@@ -127,7 +157,10 @@ class EmailCubit extends Cubit<EmailState> {
       }
     } catch (e) {
       Res.logger.e(e);
-      emit(state.copyWith(status: MailStatus.error));
+      emit(state.copyWith(
+        status: MailStatus.error,
+        appLocalizations: appLocalizations,
+      ));
       return;
     }
 
@@ -136,15 +169,20 @@ class EmailCubit extends Cubit<EmailState> {
     currentMailBoxIndex = emailsBoxesComplete.indexWhere(
         (element) => element.specialMailBox == SpecialMailBox.inbox);
     emit(state.copyWith(
-        status: MailStatus.loaded,
-        mailBoxes: emailsBoxesComplete,
-        currentMailBox: (mailbox == null && currentMailBoxIndex != -1)
-            ? emailsBoxesComplete[currentMailBoxIndex]
-            : mailbox));
-    filter(filter: lastFilter);
+      status: MailStatus.loaded,
+      mailBoxes: emailsBoxesComplete,
+      currentMailBox: (mailbox == null && currentMailBoxIndex != -1)
+          ? emailsBoxesComplete[currentMailBoxIndex]
+          : mailbox,
+      appLocalizations: appLocalizations,
+    ));
+    filter(filter: lastFilter, appLocalizations: appLocalizations);
   }
 
-  void filter({required String filter}) async {
+  void filter({
+    required String filter,
+    required AppLocalizations appLocalizations,
+  }) async {
     lastFilter = filter;
     List<Mail> email = [];
     if (filter != "") {
@@ -169,24 +207,34 @@ class EmailCubit extends Cubit<EmailState> {
           ? MailStatus.cacheSorted
           : MailStatus.sorted,
       currentMailBox: state.currentMailBox!.copyWith.emails(email),
+      appLocalizations: appLocalizations,
     ));
   }
 
-  void delete({required Mail email, required MailBox from}) async {
+  void delete({
+    required Mail email,
+    required MailBox from,
+    required AppLocalizations appLocalizations,
+  }) async {
     if (!Res.mock) {
       mailClient!.addAction(
           Action(type: ActionType.delete, mail: email, fromMailBox: from));
     }
     emailsBoxesComplete[currentMailBoxIndex].emails.remove(email);
     emit(state.copyWith(
-        status: MailStatus.updated,
-        mailBoxes: emailsBoxesComplete,
-        currentMailBox:
-            emailsBoxesComplete[currentMailBoxIndex])); //do it locally
+      status: MailStatus.updated,
+      mailBoxes: emailsBoxesComplete,
+      currentMailBox: emailsBoxesComplete[currentMailBoxIndex],
+      appLocalizations: appLocalizations,
+    )); //do it locally
     CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
   }
 
-  void markAsRead({required Mail email, required MailBox from}) async {
+  void markAsRead({
+    required Mail email,
+    required MailBox from,
+    required AppLocalizations appLocalizations,
+  }) async {
     if (!email.isRead) {
       if (!Res.mock) {
         mailClient!.addAction(Action(
@@ -202,13 +250,19 @@ class EmailCubit extends Cubit<EmailState> {
       CacheService.set<MailBoxList>(
           MailBoxList(mailBoxes: emailsBoxesComplete));
       emit(state.copyWith(
-          status: MailStatus.updated,
-          mailBoxes: emailsBoxesComplete,
-          currentMailBox: emailsBoxesComplete[currentMailBoxIndex]));
+        status: MailStatus.updated,
+        mailBoxes: emailsBoxesComplete,
+        currentMailBox: emailsBoxesComplete[currentMailBoxIndex],
+        appLocalizations: appLocalizations,
+      ));
     }
   }
 
-  Future<void> archive({required Mail email, required MailBox from}) async {
+  Future<void> archive({
+    required Mail email,
+    required MailBox from,
+    required AppLocalizations appLocalizations,
+  }) async {
     if (!Res.mock) {
       mailClient!.addAction(
           Action(type: ActionType.archive, mail: email, fromMailBox: from));
@@ -221,22 +275,25 @@ class EmailCubit extends Cubit<EmailState> {
       emailsBoxesComplete[index].emails.add(email);
     } else {
       emailsBoxesComplete.add(MailBox(
-          name: "Archive",
+          name: appLocalizations.archive,
           specialMailBox: SpecialMailBox.archive,
           emails: [email]));
     }
     CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
     emit(state.copyWith(
-        status: MailStatus.updated,
-        mailBoxes: emailsBoxesComplete,
-        currentMailBox:
-            emailsBoxesComplete[currentMailBoxIndex])); //do it locally
+      status: MailStatus.updated,
+      mailBoxes: emailsBoxesComplete,
+      currentMailBox: emailsBoxesComplete[currentMailBoxIndex],
+      appLocalizations: appLocalizations,
+    )); //do it locally
   }
 
-  Future<void> move(
-      {required Mail email,
-      required MailBox folder,
-      required MailBox from}) async {
+  Future<void> move({
+    required Mail email,
+    required MailBox folder,
+    required MailBox from,
+    required AppLocalizations appLocalizations,
+  }) async {
     if (!Res.mock) {
       mailClient!.addAction(Action(
           type: ActionType.move,
@@ -249,13 +306,18 @@ class EmailCubit extends Cubit<EmailState> {
     emailsBoxesComplete[emailsBoxesComplete.indexOf(folder)].emails.add(email);
     CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
     emit(state.copyWith(
-        status: MailStatus.updated,
-        mailBoxes: emailsBoxesComplete,
-        currentMailBox:
-            emailsBoxesComplete[currentMailBoxIndex])); //do it locally
+      status: MailStatus.updated,
+      mailBoxes: emailsBoxesComplete,
+      currentMailBox: emailsBoxesComplete[currentMailBoxIndex],
+      appLocalizations: appLocalizations,
+    )); //do it locally
   }
 
-  void markAsUnread({required Mail email, required MailBox from}) async {
+  void markAsUnread({
+    required Mail email,
+    required MailBox from,
+    required AppLocalizations appLocalizations,
+  }) async {
     if (email.isRead) {
       if (!Res.mock) {
         mailClient!.addAction(Action(
@@ -271,21 +333,31 @@ class EmailCubit extends Cubit<EmailState> {
       CacheService.set<MailBoxList>(
           MailBoxList(mailBoxes: emailsBoxesComplete));
       emit(state.copyWith(
-          status: MailStatus.updated,
-          mailBoxes: emailsBoxesComplete,
-          currentMailBox: emailsBoxesComplete[currentMailBoxIndex]));
+        status: MailStatus.updated,
+        mailBoxes: emailsBoxesComplete,
+        currentMailBox: emailsBoxesComplete[currentMailBoxIndex],
+        appLocalizations: appLocalizations,
+      ));
     }
   }
 
-  void toggleFlag({required Mail email, required MailBox from}) async {
+  void toggleFlag({
+    required Mail email,
+    required MailBox from,
+    required AppLocalizations appLocalizations,
+  }) async {
     if (email.isFlagged) {
-      unflag(email: email, from: from);
+      unflag(email: email, from: from, appLocalizations: appLocalizations);
     } else {
-      flag(email: email, from: from);
+      flag(email: email, from: from, appLocalizations: appLocalizations);
     }
   }
 
-  void flag({required Mail email, required MailBox from}) async {
+  void flag({
+    required Mail email,
+    required MailBox from,
+    required AppLocalizations appLocalizations,
+  }) async {
     if (!Res.mock) {
       mailClient!.addAction(
           Action(type: ActionType.flag, mail: email, fromMailBox: from));
@@ -298,14 +370,17 @@ class EmailCubit extends Cubit<EmailState> {
             );
     CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
     emit(state.copyWith(
-        status: MailStatus.updated,
-        mailBoxes: emailsBoxesComplete,
-        currentMailBox: emailsBoxesComplete[currentMailBoxIndex]));
+      status: MailStatus.updated,
+      mailBoxes: emailsBoxesComplete,
+      currentMailBox: emailsBoxesComplete[currentMailBoxIndex],
+      appLocalizations: appLocalizations,
+    ));
   }
 
   void unflag({
     required Mail email,
     required MailBox from,
+    required AppLocalizations appLocalizations,
   }) async {
     if (!Res.mock) {
       mailClient!.addAction(
@@ -319,12 +394,17 @@ class EmailCubit extends Cubit<EmailState> {
             );
     CacheService.set<MailBoxList>(MailBoxList(mailBoxes: emailsBoxesComplete));
     emit(state.copyWith(
-        status: MailStatus.updated,
-        mailBoxes: emailsBoxesComplete,
-        currentMailBox: emailsBoxesComplete[currentMailBoxIndex]));
+      status: MailStatus.updated,
+      mailBoxes: emailsBoxesComplete,
+      currentMailBox: emailsBoxesComplete[currentMailBoxIndex],
+      appLocalizations: appLocalizations,
+    ));
     if (!mailClient!.isAuthenticated && !Res.mock) {
       if (!await mailClient!.login()) {
-        emit(state.copyWith(status: MailStatus.nonFatalError));
+        emit(state.copyWith(
+          status: MailStatus.nonFatalError,
+          appLocalizations: appLocalizations,
+        ));
         return;
       }
     }
@@ -337,6 +417,7 @@ class EmailCubit extends Cubit<EmailState> {
     bool reply = false,
     bool forward = false,
     required MailBox from,
+    required AppLocalizations appLocalizations,
   }) async {
     Action action = Action(
         type: (reply)
@@ -351,44 +432,77 @@ class EmailCubit extends Cubit<EmailState> {
     }
   }
 
-  void selectMail({required Mail email}) {
+  void selectMail({
+    required Mail email,
+    required AppLocalizations appLocalizations,
+  }) {
     emit(state.copyWith(
-        selectedMails: List.from(state.selectedMails)..add(email)));
+      selectedMails: List.from(state.selectedMails)..add(email),
+      appLocalizations: appLocalizations,
+    ));
   }
 
-  void unselectMail({required Mail emails}) {
+  void unselectMail({
+    required Mail emails,
+    required AppLocalizations appLocalizations,
+  }) {
     emit(state.copyWith(
-        selectedMails: List.from(state.selectedMails)..remove(emails)));
+      selectedMails: List.from(state.selectedMails)..remove(emails),
+      appLocalizations: appLocalizations,
+    ));
   }
 
-  void unselectAllMails() {
-    emit(state.copyWith(selectedMails: []));
+  void unselectAllMails(
+    AppLocalizations appLocalizations,
+  ) {
+    emit(state.copyWith(
+      selectedMails: [],
+      appLocalizations: appLocalizations,
+    ));
   }
 
-  void toggleMailSelection({required Mail emails}) {
+  void toggleMailSelection({
+    required Mail emails,
+    required AppLocalizations appLocalizations,
+  }) {
     if (state.selectedMails.contains(emails)) {
-      unselectMail(emails: emails);
+      unselectMail(emails: emails, appLocalizations: appLocalizations);
     } else {
-      selectMail(email: emails);
+      selectMail(email: emails, appLocalizations: appLocalizations);
     }
   }
 
-  void increaseNumber({required bool blockTrackers}) {
+  void increaseNumber({
+    required bool blockTrackers,
+    required AppLocalizations appLocalizations,
+  }) {
     emailNumber += 20;
-    emit(state.copyWith(status: MailStatus.loading));
-    load(cache: false, blockTrackers: blockTrackers);
+    emit(state.copyWith(
+      status: MailStatus.loading,
+      appLocalizations: appLocalizations,
+    ));
+    load(
+        cache: false,
+        blockTrackers: blockTrackers,
+        appLocalizations: appLocalizations);
     return;
   }
 
-  void resetCubit() {
+  void resetCubit(
+    AppLocalizations appLocalizations,
+  ) {
     mailClient = null;
     emailsBoxesComplete = [];
     emailNumber = 20;
     lastFilter = "";
-    emit(EmailState(status: MailStatus.initial));
+    emit(EmailState(
+        status: MailStatus.initial, appLocalizations: appLocalizations));
   }
 
-  void doQueuedAction({required bool blockTrackers}) async {
+  void doQueuedAction({
+    required bool blockTrackers,
+    required AppLocalizations appLocalizations,
+  }) async {
     final List<Action> actions = await mailClient!.getActions();
     if (actions.isEmpty || !state.connected) return;
     for (Action action in actions) {
@@ -397,22 +511,35 @@ class EmailCubit extends Cubit<EmailState> {
           .indexWhere((element) => element.name == action.fromMailBox!.name);
       switch (action.type) {
         case ActionType.archive:
-          archive(email: action.mail, from: action.fromMailBox!);
+          archive(
+              email: action.mail,
+              from: action.fromMailBox!,
+              appLocalizations: appLocalizations);
           break;
         case ActionType.move:
           move(
               email: action.mail,
               folder: action.destinationMailBox!,
-              from: action.fromMailBox!);
+              from: action.fromMailBox!,
+              appLocalizations: appLocalizations);
           break;
         case ActionType.markAsUnread:
-          markAsUnread(email: action.mail, from: action.fromMailBox!);
+          markAsUnread(
+              email: action.mail,
+              from: action.fromMailBox!,
+              appLocalizations: appLocalizations);
           break;
         case ActionType.send:
-          send(email: action.mail, from: action.fromMailBox!);
+          send(
+              email: action.mail,
+              from: action.fromMailBox!,
+              appLocalizations: appLocalizations);
           break;
         case ActionType.markAsRead:
-          markAsRead(email: action.mail, from: action.fromMailBox!);
+          markAsRead(
+              email: action.mail,
+              from: action.fromMailBox!,
+              appLocalizations: appLocalizations);
           break;
         case ActionType.reply:
           send(
@@ -420,23 +547,34 @@ class EmailCubit extends Cubit<EmailState> {
               replyOriginalMessageId: action.originalMessageId!,
               replyAll: action.replyAll,
               reply: true,
-              from: action.fromMailBox!);
+              from: action.fromMailBox!,
+              appLocalizations: appLocalizations);
           break;
         case ActionType.forward:
           send(
               email: action.mail,
               replyOriginalMessageId: action.originalMessageId!,
               forward: true,
-              from: action.fromMailBox!);
+              from: action.fromMailBox!,
+              appLocalizations: appLocalizations);
           break;
         case ActionType.delete:
-          delete(email: action.mail, from: action.fromMailBox!);
+          delete(
+              email: action.mail,
+              from: action.fromMailBox!,
+              appLocalizations: appLocalizations);
           break;
         case ActionType.flag:
-          flag(email: action.mail, from: action.fromMailBox!);
+          flag(
+              email: action.mail,
+              from: action.fromMailBox!,
+              appLocalizations: appLocalizations);
           break;
         case ActionType.unflag:
-          unflag(email: action.mail, from: action.fromMailBox!);
+          unflag(
+              email: action.mail,
+              from: action.fromMailBox!,
+              appLocalizations: appLocalizations);
           break;
       }
     }

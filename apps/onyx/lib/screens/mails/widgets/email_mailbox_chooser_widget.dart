@@ -6,6 +6,7 @@ import 'package:onyx/core/extensions/mail_box_extension.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MailMailboxChooserWidget extends StatefulWidget {
   const MailMailboxChooserWidget({super.key});
@@ -60,6 +61,7 @@ class _MailMailboxChooserWidgetState extends State<MailMailboxChooserWidget> {
                                     .settings
                                     .blockTrackers,
                                 mailbox: e,
+                                appLocalizations: AppLocalizations.of(context)!,
                               );
                           _collapse();
                         },

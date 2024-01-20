@@ -3,6 +3,7 @@ import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/screens/agenda/states/agenda_cubit.dart';
 import 'package:onyx/screens/examen/states/examen_cubit.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExamensConnection extends BlocListener<ExamenCubit, ExamenState> {
   ExamensConnection({
@@ -19,7 +20,8 @@ class ExamensConnection extends BlocListener<ExamenCubit, ExamenState> {
               context.read<AgendaCubit>().addExternalEvent([
                 ...state.studentColloscope?.kholles.map(
                       (e) => Event(
-                          name: "Kholle de ${e.subject}",
+                          name: AppLocalizations.of(context)!
+                              .kholleOf(e.kholleur),
                           teacher: e.kholleur,
                           location: e.room?.trim() ?? "",
                           start: e.date,
@@ -29,9 +31,9 @@ class ExamensConnection extends BlocListener<ExamenCubit, ExamenState> {
                     [],
                 ...state.examens.map(
                   (e) => Event(
-                      name: "Examen : ${e.title}",
+                      name: AppLocalizations.of(context)!.examOf(e.codeName),
                       teacher: "",
-                      location: "${e.location}, place: ${e.place}",
+                      location: AppLocalizations.of(context)!.examLocationPlace(e.location, e.place),
                       start: e.date,
                       end: e.date.add(e.duration),
                       description: e.codeName),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MailSendAttachmentWidget extends StatefulWidget {
   const MailSendAttachmentWidget({super.key, required this.attachments});
@@ -30,7 +31,7 @@ class _MailSendAttachmentWidgetState extends State<MailSendAttachmentWidget> {
           if (index == 0) {
             return MailAttachmentWidget(
               icon: Icons.add_rounded,
-              fileName: "Ajouter\n une pièce jointe",
+              fileName: AppLocalizations.of(context)!.addAttachment,
               onTap: () async {
                 FilePickerResult? result =
                     await FilePicker.platform.pickFiles(allowMultiple: true);
@@ -65,7 +66,8 @@ class _MailSendAttachmentWidgetState extends State<MailSendAttachmentWidget> {
                 showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                          title: const Text("Supprimer la pièce jointe ?"),
+                          title: Text(AppLocalizations.of(context)!
+                              .deleteAttachmentConfirmation),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -74,8 +76,8 @@ class _MailSendAttachmentWidgetState extends State<MailSendAttachmentWidget> {
                               style: TextButton.styleFrom(
                                   backgroundColor:
                                       Theme.of(context).primaryColor),
-                              child: const Text("Annuler",
-                                  style: TextStyle(color: Colors.white)),
+                              child: Text(AppLocalizations.of(context)!.cancel,
+                                  style: const TextStyle(color: Colors.white)),
                             ),
                             TextButton(
                               onPressed: () {
@@ -87,9 +89,9 @@ class _MailSendAttachmentWidgetState extends State<MailSendAttachmentWidget> {
                               style: TextButton.styleFrom(
                                   backgroundColor:
                                       Theme.of(context).primaryColor),
-                              child: const Text(
-                                "Supprimer",
-                                style: TextStyle(color: Colors.white),
+                              child: Text(
+                                AppLocalizations.of(context)!.delete,
+                                style: const TextStyle(color: Colors.white),
                               ),
                             ),
                           ],

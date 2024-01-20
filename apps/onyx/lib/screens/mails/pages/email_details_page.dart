@@ -124,14 +124,16 @@ class MailDetailsPage extends StatelessWidget {
                                         index,
                                         await AttachmentLogic
                                             .getAttachmentLocalPath(
-                                                email: mail,
-                                                mailClient: context
-                                                    .read<EmailCubit>()
-                                                    .mailClient!,
-                                                emailNumber: state.emailNumber,
-                                                fileName:
-                                                    mail.attachments[index],
-                                                folder: state.currentMailBox!));
+                                          email: mail,
+                                          mailClient: context
+                                              .read<EmailCubit>()
+                                              .mailClient!,
+                                          emailNumber: state.emailNumber,
+                                          fileName: mail.attachments[index],
+                                          folder: state.currentMailBox!,
+                                          appLocalizations:
+                                              AppLocalizations.of(context)!,
+                                        ));
                                   }
                                   // ignore: use_build_context_synchronously
                                   showDialog(

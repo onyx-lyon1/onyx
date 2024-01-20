@@ -5,7 +5,6 @@ import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/cache_service.dart';
-import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
@@ -73,7 +72,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     onPressed: () => Navigator.pop(context),
                     icon: const Icon(Icons.arrow_back_rounded)),
                 Text(
-                  "Détail de l'événement",
+                  AppLocalizations.of(context)!.eventDetails,
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 20.sp,
                       ),
@@ -95,9 +94,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       .copyWith(fontSize: 18.sp, fontWeight: FontWeight.w500),
                 ),
                 EventDetailText(
-                    icon: Icons.access_time_rounded,
-                    text:
-                        "${widget.event.start.hour.toFixedLengthString(2)}h${widget.event.start.minute.toFixedLengthString(2)} ${widget.event.end.hour.toFixedLengthString(2)}h${widget.event.end.minute.toFixedLengthString(2)}"),
+                  icon: Icons.access_time_rounded,
+                  text:
+                      "${DateFormat.jm(AppLocalizations.of(context)!.localeName).format(widget.event.start)} ${DateFormat.jm(AppLocalizations.of(context)!.localeName).format(widget.event.end)}",
+                ),
                 EventDetailText(
                   icon: Icons.calendar_month_rounded,
                   text: DateFormat('yMMMMEEEEd',
@@ -141,9 +141,11 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           future: loadBatimentAndRestaurants(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return const Center(
-                                  child: StateDisplayingPage(
-                                      message: "Chargement des bâtiments"));
+                              return Center(
+                                child: StateDisplayingPage(
+                                    message: AppLocalizations.of(context)!
+                                        .loadingBuildings),
+                              );
                             }
                             return MapWidget(
                               batiments: batiments,
@@ -211,7 +213,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         borderRadius: BorderRadius.circular(10),
                         child: Center(
                           child: Text(
-                            "Itinéraire",
+                            AppLocalizations.of(context)!.route,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!

@@ -14,6 +14,7 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsLogic {
   static Future<SettingsModel> load() async {
@@ -55,7 +56,9 @@ class SettingsLogic {
     CacheService.reset<SettingsModel>();
     context.read<AgendaCubit>().resetCubit();
     context.read<IzlyCubit>().resetCubit();
-    context.read<EmailCubit>().resetCubit();
+    context.read<EmailCubit>().resetCubit(
+          AppLocalizations.of(context)!,
+        );
     context.read<MapCubit>().resetCubit();
     reset();
     context.read<SettingsCubit>().resetCubit();

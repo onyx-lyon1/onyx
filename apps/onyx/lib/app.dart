@@ -54,7 +54,8 @@ class OnyxAppState extends State<OnyxApp> {
           BlocProvider<AuthentificationCubit>(
               create: (context) => AuthentificationCubit()),
           BlocProvider<SettingsCubit>(create: (context) => SettingsCubit()),
-          BlocProvider<EmailCubit>(create: (context) => EmailCubit()),
+          BlocProvider<EmailCubit>(
+              create: (context) => EmailCubit(AppLocalizations.of(context)!)),
           BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
           BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
           BlocProvider<MapCubit>(create: (context) => MapCubit()),

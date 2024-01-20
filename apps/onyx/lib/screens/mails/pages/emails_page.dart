@@ -27,7 +27,8 @@ class MailsPage extends StatelessWidget {
       listener: (context, state) {
         context.read<EmailCubit>().doQueuedAction(
             blockTrackers:
-                context.read<SettingsCubit>().state.settings.blockTrackers);
+                context.read<SettingsCubit>().state.settings.blockTrackers,
+            appLocalizations: AppLocalizations.of(context)!);
       },
       builder: (context, state) {
         Widget? loadingHeader;
@@ -59,7 +60,10 @@ class MailsPage extends StatelessWidget {
                     context.read<SettingsCubit>().state.settings.biometricAuth)
                 .then((key) => CacheService.get<Credential>(secureKey: key))
                 .then((value) => context.read<EmailCubit>().connect(
-                    username: value!.username, password: value.password));
+                      username: value!.username,
+                      password: value.password,
+                      appLocalizations: AppLocalizations.of(context)!,
+                    ));
 
             break;
           case MailStatus.connected:
@@ -69,6 +73,7 @@ class MailsPage extends StatelessWidget {
                       .state
                       .settings
                       .blockTrackers,
+                  appLocalizations: AppLocalizations.of(context)!,
                 );
 
             break;
@@ -87,7 +92,9 @@ class MailsPage extends StatelessWidget {
         }
         return PopScope(
           onPopInvoked: (_) {
-            context.read<EmailCubit>().unselectAllMails();
+            context
+                .read<EmailCubit>()
+                .unselectAllMails(AppLocalizations.of(context)!);
           },
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
@@ -150,6 +157,8 @@ class MailsPage extends StatelessWidget {
                                               .state
                                               .settings
                                               .blockTrackers,
+                                          appLocalizations:
+                                              AppLocalizations.of(context)!,
                                         ),
                                     child: Center(
                                       child: Padding(
@@ -176,6 +185,7 @@ class MailsPage extends StatelessWidget {
                           .state
                           .settings
                           .blockTrackers,
+                      appLocalizations: AppLocalizations.of(context)!,
                     );
                 return;
               },

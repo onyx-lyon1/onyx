@@ -22,7 +22,11 @@ Future<void> emailNotificationLogic(
       Lyon1MailClient mail = await MailLogic.connect(
           username: creds.username, password: creds.password);
       List<Mail> newMails = (await MailLogic.load(
-              mailClient: mail, emailNumber: 20, blockTrackers: true))
+        mailClient: mail,
+        emailNumber: 20,
+        blockTrackers: true,
+        appLocalizations: localizations,
+      ))
           .emails;
       for (var i in newMails) {
         if (!i.isRead &&

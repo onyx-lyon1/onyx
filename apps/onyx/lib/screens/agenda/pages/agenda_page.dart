@@ -7,6 +7,8 @@ import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class AgendaPage extends StatelessWidget {
   const AgendaPage({
@@ -45,12 +47,12 @@ class AgendaPage extends StatelessWidget {
                   break;
                 case AgendaStatus.loading:
                 case AgendaStatus.cacheReady:
-                  headerState = const LoadingHeaderWidget(
-                      message: "Chargement de l'agenda");
+                  headerState = LoadingHeaderWidget(
+                      message: AppLocalizations.of(context)!.loadingAgenda);
                   break;
                 case AgendaStatus.error:
-                  headerState = const LoadingHeaderWidget(
-                      message: "Erreur lors du chargement de l'agenda");
+                  headerState = LoadingHeaderWidget(
+                      message: AppLocalizations.of(context)!.agendaError);
                   break;
                 case AgendaStatus.haveToChooseManualy:
                   return AgendaConfigPage(
@@ -154,8 +156,9 @@ class AgendaPage extends StatelessWidget {
                           horizontalController: context
                               .read<AgendaCubit>()
                               .horizontalScrollController[1]),
-                      const Center(
-                        child: Text("month view coming soon"),
+                      Center(
+                        child:
+                            Text(AppLocalizations.of(context)!.monthViewSoon),
                       )
                     ],
                   ),

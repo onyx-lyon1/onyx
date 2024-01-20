@@ -246,6 +246,10 @@
             }
         }
     },
+    "qrCode": "QR Code",
+    "@qrCode": {
+        "description": "QR Code"
+    },
     "offline": "hors connexion",
     "@offline": {
         "description": "Offline"
@@ -497,6 +501,10 @@
     "@ourSecurityMeasures": {
         "description": "We take reasonable security measures to protect your personal information against loss, misuse, unauthorized access, modification and disclosure. Nevertheless, no method of transmission over the Internet or electronic storage is 100% secure. Therefore, while we strive to protect your personal information, we cannot guarantee the absolute security of your information transmitted to our application and you do so at your own risk."
     },
+    "modificationOfThePrivacyPolicy": "Modification de cette politique de confidentialité",
+    "@modificationOfThePrivacyPolicy": {
+        "description": "Modification of the privacy policy"
+    },
     "weCanModifyRules": "Nous nous réservons le droit de modifier cette politique de confidentialité de temps à autre. Toute modification sera publiée sur cette page et prendra effet immédiatement après sa publication. Il est de votre responsabilité de consulter régulièrement cette page pour vous tenir informé des modifications apportées à notre politique de confidentialité.",
     "@weCanModifyRules": {
         "description": "We reserve the right to modify this privacy policy from time to time. Any changes will be posted on this page and will take effect immediately upon posting. It is your responsibility to check this page regularly to keep up to date with any changes to our privacy policy."
@@ -504,5 +512,355 @@
     "ifQuestionThenGithub": "Si vous avez des questions concernant cette politique de confidentialité, veuillez nous contacter sur github",
     "@ifQuestionThenGithub": {
         "description": "If you have any questions about this privacy policy, please contact us on github"
+    },
+    "kholleOf": "Kholle de {teacher}",
+    "@kholleFrom": {
+        "description": "Kholle of {teacher}",
+        "placeholders": {
+            "teacher": {
+                "type": "String"
+            }
+        }
+    },
+    "examOf": "Examen : {title}",
+    "@examOf": {
+        "description": "Exam : {title}",
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "examLocationPlace": "{location}, place : {place}",
+    "@examLocationPlace": {
+        "description": "{location}, place : {place}",
+        "placeholders": {
+            "location": {
+                "type": "String"
+            },
+            "place": {
+                "type": "num",
+                "format": "decimalPattern"
+            }
+        }
+    },
+    "warning": "Attention",
+    "@warning": {
+        "description": "Warning"
+    },
+    "loadingAgenda": "Chargement de l''agenda",
+    "@loadingAgenda": {
+        "description": "Loading agenda"
+    },
+    "agendaError": "Erreur lors du chargement de l''agenda",
+    "@agendaError": {
+        "description": "Agenda error"
+    },
+    "monthViewSoon": "La vue mensuelle arrive bientôt",
+    "@monthViewSoon": {
+        "description": "The month view is coming soon"
+    },
+    "eventDetails": "Détails de l''évènement",
+    "@eventDetails": {
+        "description": "Event details"
+    },
+    "loadingBuildings": "Chargement des bâtiments",
+    "@loadingBuildings": {
+        "description": "Loading buildings"
+    },
+    "route": "Itinéraire",
+    "@route": {
+        "description": "Route"
+    },
+    "weekNumberShort": "S: {weekNumber}",
+    "@weekNumberShort": {
+        "description": "S: {weekNumber} displayed in the minicalendar at the left",
+        "placeholders": {
+            "weekNumber": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "inbox": "Boîte de réception",
+    "@inbox": {
+        "description": "Inbox"
+    },
+    "archive": "Archives",
+    "@archive": {
+        "description": "Archive"
+    },
+    "delete": "Supprimer",
+    "@delete": {
+        "description": "Delete"
+    },
+    "toArchive": "Archiver",
+    "@toArchive": {
+        "description": "To archive"
+    },
+    "markAsReadUnread": "Marquer comme lu/non lu",
+    "@markAsReadUnread": {
+        "description": "Mark as read/unread"
+    },
+    "moveTo": "Déplacer vers",
+    "@moveTo": {
+        "description": "Move to"
+    },
+    "markAsImportant": "Marquer comme important",
+    "@markAsImportant": {
+        "description": "Mark as important"
+    },
+    "searchInTheNLastEmails": "Rechercher dans les {count} derniers mails",
+    "@searchInTheNLastEmails": {
+        "description": "Search in the {count} last emails",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "minuteCompact": "{minutes}min",
+    "@minuteCompact": {
+        "description": "{minutes}min",
+        "placeholders": {
+            "minutes": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "hourCompact": "{hours}h",
+    "@hourCompact": {
+        "description": "{hours}h",
+        "placeholders": {
+            "hours": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "dayCompact": "{days}j",
+    "@dayCompact": {
+        "description": "{days}j",
+        "placeholders": {
+            "days": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "now": "Maintenant",
+    "@now": {
+        "description": "Now"
+    },
+    "flagedEmail": "Mail marqué : {subject}",
+    "@flagedEmail": {
+        "description": "Flagged email : {subject}",
+        "placeholders": {
+            "subject": {
+                "type": "String"
+            }
+        }
+    },
+    "unflagedEmail": "Mail non marqué : {subject}",
+    "@unflagedEmail": {
+        "description": "Unflagged email : {subject}",
+        "placeholders": {
+            "subject": {
+                "type": "String"
+            }
+        }
+    },
+    "addAttachment": "Ajouter une pièce jointe",
+    "@addAttachment": {
+        "description": "Add attachment"
+    },
+    "deleteAttachmentConfirmation": "Supprimer la pièce jointe ?",
+    "@deleteAttachmentConfirmation": {
+        "description": "Delete attachment"
+    },
+    "cancel": "Annuler",
+    "@cancel": {
+        "description": "Cancel"
+    },
+    "emailAddressHint": "Destinataire : PXXXXXXX, prenom.nom@status.univ-lyon1.fr",
+    "@emailAddressHint": {
+        "description": "Recipient : PXXXXXXX, firstName.surname@status.univ-lyon.fr"
+    },
+    "building": "Bâtiment",
+    "@building": {
+        "description": "Building"
+    },
+    "menuOf": "Menu de {restaurant}",
+    "@menuOf": {
+        "description": "Menu of {restaurant}",
+        "placeholders": {
+            "restaurant": {
+                "type": "String"
+            }
+        }
+    },
+    "noMenuForThisRestaurant": "Pas de menu pour ce restaurant",
+    "@noMenuForThisRestaurant": {
+        "description": "No menu for this restaurant"
+    },
+    "close": "Fermer",
+    "@close": {
+        "description": "Close"
+    },
+    "system": "Système",
+    "@system": {
+        "description": "System"
+    },
+    "dark": "Sombre",
+    "@dark": {
+        "description": "Dark"
+    },
+    "light": "Clair",
+    "@light": {
+        "description": "Light"
+    },
+    "chooseTheme": "Choisir le thème",
+    "@chooseTheme": {
+        "description": "Choose the theme"
+    },
+    "cache": "Cache",
+    "@cache": {
+        "description": "Cache"
+    },
+    "clearIzlyCache": "Vider le cache d''Izly",
+    "@clearIzlyCache": {
+        "description": "Clear Izly cache"
+    },
+    "notifications": "Notifications",
+    "@notifications": {
+        "description": "Notifications"
+    },
+    "checkForNewNotifications": "Vérifier les nouvelles notifications",
+    "@checkForNewNotifications": {
+        "description": "Check for new notifications"
+    },
+    "changeTheme": "Changer de thème",
+    "@changeTheme": {
+        "description": "Change theme"
+    },
+    "favoriteTheme": "Thème favori",
+    "@favoriteTheme": {
+        "description": "Favorite theme"
+    },
+    "lightTheme": "Thème clair",
+    "@lightTheme": {
+        "description": "Light theme"
+    },
+    "darkTheme": "Thème sombre",
+    "@darkTheme": {
+        "description": "Dark theme"
+    },
+    "examenAddToAgenda": "Ajouter les examens à l''agenda",
+    "@examenAddToAgenda": {
+        "description": "Add exams to calendar"
+    },
+    "enableColloscope": "Activer Colloscope",
+    "@enableColloscope": {
+        "description": "Enable Colloscope"
+    },
+    "forceYear": "Forcer l''année",
+    "@forceYear": {
+        "description": "Force year"
+    },
+    "forceYearValue": "{count, plural, =0{Automatique} =1{1ère année} other{{count}e année}}",
+    "@forceYearValue": {
+        "description": "{count, plural, =0{Automatic} =1{1st year} =2{2nd year}}",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "forceStudentId": "Forcer un ID",
+    "@forceStudentId": {
+        "description": "Force an ID"
+    },
+    "emptyToDisable": "(vide pour désactiver)",
+    "@emptyToDisable": {
+        "description": "Leave empty to disable"
+    },
+    "yetNothingToConfigure": "Rien à configurer pour le moment",
+    "@yetNothingToConfigure": {
+        "description": "Yet nothing to configure"
+    },
+    "enablebiometricAuth": "Activer l''authentification par empreinte digitale",
+    "@enablebiometricAuth": {
+        "description": "Enable fingerprint authentication"
+    },
+    "unableToEnableBiometricAuth": "Impossible d''activer l''authentification par empreinte digitale",
+    "@unableToEnableBiometricAuth": {
+        "description": "Unable to enable fingerprint authentication"
+    },
+    "enableBiometricAuthDisableNotifications": "L''authentification par empreinte digitale désactive les notifications",
+    "@enableBiometricAuthDisableNotifications": {
+        "description": "Fingerprint authentication disables notifications"
+    },
+    "autoChangeTheme": "Changer automatiquement au theme selectionné",
+    "@autoChangeTheme": {
+        "description": "Automatically change to the selected theme"
+    },
+    "recentGradeDuration": "Durée d''une note récente",
+    "@recentGradeDuration": {
+        "description": "Duration of a recent note"
+    },
+    "nDays": "{count, plural, =0{0 jour} =1{1 jour} other{{count} jours}}",
+    "@nDays": {
+        "description": "{count, plural, =0{0 day} =1{1 day} other{{count} days}}",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "selectSemester": "Sélectionner un semestre",
+    "@selectSemester": {
+        "description": "Select a semester"
+    },
+    "noteDescription": "Moyenne : {average} · Mediane : {mediane}\nClassement : {rank}/{groupeSize}\nProfesseur : {author}",
+    "@noteDescription": {
+        "description": "Average : {average} · Median : {mediane}\nRanking : {rank}/{groupeSize}\nTeacher : {author}",
+        "placeholders": {
+            "average": {
+                "type": "double",
+                "format": "compact"
+            },
+            "mediane": {
+                "type": "double",
+                "format": "compact"
+            },
+            "rank": {
+                "type": "int",
+                "format": "compact"
+            },
+            "groupeSize": {
+                "type": "int",
+                "format": "compact"
+            },
+            "author": {
+                "type": "String"
+            }
+        }
+    },
+    "tomuss": "Tomuss",
+    "@tomuss": {
+        "description": "Tomuss"
+    },
+    "hereMyGrade": "Voici ma note en {title}",
+    "@hereMyGrade": {
+        "description": "Here is my grade in {title}",
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
     }
 }

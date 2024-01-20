@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsSettingsWidget extends StatelessWidget {
   const SettingsSettingsWidget({super.key});
@@ -19,7 +20,7 @@ class SettingsSettingsWidget extends StatelessWidget {
       children: [
         if (!kIsWeb && (Platform.isIOS || Platform.isAndroid))
           TextSwitchWidget(
-            text: "Activer l'authentification par empreinte digitale",
+            text: AppLocalizations.of(context)!.enablebiometricAuth,
             value: context.read<SettingsCubit>().state.settings.biometricAuth,
             onChanged: (value) async {
               if (value) {
@@ -30,15 +31,15 @@ class SettingsSettingsWidget extends StatelessWidget {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                            title: const Text("Erreur"),
-                            content: const Text(
-                                "Impossible d'activer l'authentification par empreinte digitale"),
+                            title: Text(AppLocalizations.of(context)!.error),
+                            content: Text(AppLocalizations.of(context)!
+                                .unableToEnableBiometricAuth),
                             actions: [
                               TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: const Text("OK"))
+                                  child: Text(AppLocalizations.of(context)!.ok))
                             ],
                           ));
                   return;
@@ -47,21 +48,22 @@ class SettingsSettingsWidget extends StatelessWidget {
                 await showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                          title: const Text("Attention"),
-                          content: const Text(
-                              "L'authentification par empreinte digitale désactive les notifications"),
+                          title: Text(AppLocalizations.of(context)!.warning),
+                          content: Text(AppLocalizations.of(context)!
+                              .enableBiometricAuthDisableNotifications),
                           actions: [
                             TextButton(
                                 onPressed: () {
                                   undo = true;
                                   Navigator.of(context).pop();
                                 },
-                                child: const Text("Annuler")),
+                                child:
+                                    Text(AppLocalizations.of(context)!.cancel)),
                             TextButton(
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: const Text("OK"))
+                                child: Text(AppLocalizations.of(context)!.ok))
                           ],
                         ));
                 if (undo) {
@@ -82,7 +84,7 @@ class SettingsSettingsWidget extends StatelessWidget {
         BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, themeState) {
             return TextSwitchWidget(
-              text: 'Changer automatiquement au theme selectionné',
+              text: AppLocalizations.of(context)!.autoChangeTheme,
               value: themeState.themesSettings!.autoSwitchTheme,
               onChanged: (bool value) {
                 context.read<ThemeCubit>().updateAutoSwitchTheme(value);
