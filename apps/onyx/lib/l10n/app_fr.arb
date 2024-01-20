@@ -188,53 +188,53 @@
     "@needCameraTOScanQrCode": {
         "description": "We need camera to scan qr codes"
     },
-    "forLyon1" : "Pour Lyon 1",
-    "@forLyon1" : {
-        "description" : "For Lyon 1"
+    "forLyon1": "Pour Lyon 1",
+    "@forLyon1": {
+        "description": "For Lyon 1"
     },
-    "username" : "Nom d''utilisateur",
-    "@username" : {
-        "description" : "Username"
+    "username": "Nom d''utilisateur",
+    "@username": {
+        "description": "Username"
     },
-    "password" : "Mot de passe",
-    "@password" : {
-        "description" : "Password"
+    "password": "Mot de passe",
+    "@password": {
+        "description": "Password"
     },
-    "connexion" : "Connexion",
-    "@connexion" : {
-        "description" : "Connexion"
+    "connexion": "Connexion",
+    "@connexion": {
+        "description": "Connexion"
     },
-    "pleaseEnterUsername" : "Veuillez entrer l''identitfiant",
-    "@pleaseEnterUsername" : {
-        "description" : "Please enter the username"
+    "pleaseEnterUsername": "Veuillez entrer l''identitfiant",
+    "@pleaseEnterUsername": {
+        "description": "Please enter the username"
     },
-    "pleaseEnterAValidEmail" : "Veuillez entrer un email valide",
-    "@pleaseEnterAValidEmail" : {
-        "description" : "Please enter a valid email"
+    "pleaseEnterAValidEmail": "Veuillez entrer un email valide",
+    "@pleaseEnterAValidEmail": {
+        "description": "Please enter a valid email"
     },
-    "pleaseEnterPassword" : "Veuillez entrer le mot de passe",
-    "@pleaseEnterPassword" : {
-        "description" : "Please enter the password"
+    "pleaseEnterPassword": "Veuillez entrer le mot de passe",
+    "@pleaseEnterPassword": {
+        "description": "Please enter the password"
     },
-    "passwordShouldBeANumber" : "Le mot de passe doit être un nombre",
-    "@passwordShouldBeANumber" : {
-        "description" : "The password should be a number"
+    "passwordShouldBeANumber": "Le mot de passe doit être un nombre",
+    "@passwordShouldBeANumber": {
+        "description": "The password should be a number"
     },
-    "connecting" : "Connexion en cours",
-    "@connecting" : {
-        "description" : "Connecting"
+    "connecting": "Connexion en cours",
+    "@connecting": {
+        "description": "Connecting"
     },
-    "thereWasAnErrorWhileConnecting" : "Une erreur est survenue lors de la connexion",
-    "@thereWasAnErrorWhileConnecting" : {
-        "description" : "There was an error while connecting"
+    "thereWasAnErrorWhileConnecting": "Une erreur est survenue lors de la connexion",
+    "@thereWasAnErrorWhileConnecting": {
+        "description": "There was an error while connecting"
     },
-    "loading" : "Chargement ...",
-    "@loading" : {
-        "description" : "Loading"
+    "loading": "Chargement ...",
+    "@loading": {
+        "description": "Loading"
     },
-    "available" : "{count, plural, =0 {Aucun QR Code disponible} =1 {1 Qr Code disponibles} other {{count} Qr Codes disponibles}}",
-    "@available" : {
-        "description" : "Available",
+    "available": "{count, plural, =0 {Aucun QR Code disponible} =1 {1 Qr Code disponibles} other {{count} Qr Codes disponibles}}",
+    "@available": {
+        "description": "Available",
         "placeholders": {
             "count": {
                 "type": "int",
@@ -242,41 +242,41 @@
             }
         }
     },
-    "offline" : "hors connexion",
-    "@offline" : {
-        "description" : "Offline"
+    "offline": "hors connexion",
+    "@offline": {
+        "description": "Offline"
     },
-    "izly" : "Izly",
-    "@izly" : {
-        "description" : "Izly"
+    "izly": "Izly",
+    "@izly": {
+        "description": "Izly"
     },
-    "youAreNotConnectedToIzly" : "Vous n''êtes pas connecté à Izly",
-    "@youAreNotConnectedToIzly" : {
-        "description" : "You are not connected to Izly"
+    "youAreNotConnectedToIzly": "Vous n''êtes pas connecté à Izly",
+    "@youAreNotConnectedToIzly": {
+        "description": "You are not connected to Izly"
     },
-    "paymentHistory" : "Historique des paiements",
-    "@paymentHistory" : {
-        "description" : "Payment history"
+    "paymentHistory": "Historique des paiements",
+    "@paymentHistory": {
+        "description": "Payment history"
     },
-    "refillWithBankCard" : "Recharger avec une carte bancaire",
-    "@refillWithBankCard" : {
-        "description" : "Refill with bank card"
+    "refillWithBankCard": "Recharger avec une carte bancaire",
+    "@refillWithBankCard": {
+        "description": "Refill with bank card"
     },
-    "refillWithBankTransfer" : "Recharger par virement",
-    "@refillWithBankTransfer" : {
-        "description" : "Refill with bank transfer"
+    "refillWithBankTransfer": "Recharger par virement",
+    "@refillWithBankTransfer": {
+        "description": "Refill with bank transfer"
     },
-    "pay" : "Payer",
-    "@pay" : {
-        "description" : "Pay"
+    "pay": "Payer",
+    "@pay": {
+        "description": "Pay"
     },
-    "pleaseSelectAnAmount" : "Veuillez entrer un montant",
-    "@pleaseSelectAnAmount" : {
-        "description" : "Please enter an amount"
+    "pleaseSelectAnAmount": "Veuillez entrer un montant",
+    "@pleaseSelectAnAmount": {
+        "description": "Please enter an amount"
     },
-    "minimumAmountIs" : "Le montant minimum est de {countEuros}€}",
-    "@minimumAmountIs" : {
-        "description" : "The minimum amount is {countEuros}€",
+    "minimumAmountIs": "Le montant minimum est de {countEuros}€}",
+    "@minimumAmountIs": {
+        "description": "The minimum amount is {countEuros}€",
         "placeholders": {
             "countEuros": {
                 "type": "int",
@@ -284,96 +284,161 @@
             }
         }
     },
-    "bankTransfer" : "Virement",
-    "@bankTransfer" : {
-        "description" : "Bank transfer"
+    "bankTransfer": "Virement",
+    "@bankTransfer": {
+        "description": "Bank transfer"
     },
-    "bankCard" : "Carte bancaire",
-    "@bankCard" : {
-        "description" : "Bank card"
+    "bankCard": "Carte bancaire",
+    "@bankCard": {
+        "description": "Bank card"
     },
-    "thirdParty" : "Rechargement par un tiers",
-    "@thirdParty" : {
-        "description" : "Third party"
+    "thirdParty": "Rechargement par un tiers",
+    "@thirdParty": {
+        "description": "Third party"
     },
-    "mail" : "Mail",
-    "@mail" : {
-        "description" : "Mail"
+    "mail": "Mail",
+    "@mail": {
+        "description": "Mail"
     },
-    "message" : "Message",
-    "@message" : {
-        "description" : "Message"
+    "message": "Message",
+    "@message": {
+        "description": "Message"
     },
-    "transfer" : "Transférer",
-    "@transfer" : {
-        "description" : "Transfer"
+    "transfer": "Transférer",
+    "@transfer": {
+        "description": "Transfer"
     },
-    "recharging" : "En cours de rechargement",
-    "@recharging" : {
-        "description" : "Recharging"
+    "recharging": "En cours de rechargement",
+    "@recharging": {
+        "description": "Recharging"
     },
-    "pleaseWait" : "Veuillez patienter",
-    "@pleaseWait" : {
-        "description" : "Please wait"
+    "pleaseWait": "Veuillez patienter",
+    "@pleaseWait": {
+        "description": "Please wait"
     },
-    "from" : "De",
-    "@from" : {
-        "description" : "From"
+    "from": "De",
+    "@from": {
+        "description": "From"
     },
-    "to" : "À",
-    "@to" : {
-        "description" : "To"
+    "to": "À",
+    "@to": {
+        "description": "To"
     },
-    "me" : "Moi",
-    "@me" : {
-        "description" : "Me"
+    "me": "Moi",
+    "@me": {
+        "description": "Me"
     },
-    "mailSendPageErrorTitle" : "Veuillez remplir correctement tous les champs",
-    "@mailSendPageErrorTitle" : {
-        "description" : "Please fill all the fields correctly"
+    "mailSendPageErrorTitle": "Veuillez remplir correctement tous les champs",
+    "@mailSendPageErrorTitle": {
+        "description": "Please fill all the fields correctly"
     },
-    "objects" : "Objets",
-    "@objects" : {
-        "description" : "Objects"
+    "objects": "Objets",
+    "@objects": {
+        "description": "Objects"
     },
-    "reply" : "Réponse",
-    "@reply" : {
-        "description" : "Answer"
+    "reply": "Réponse",
+    "@reply": {
+        "description": "Answer"
     },
-    "mailServerConnection" : "Connexion au serveur de mail",
-    "@mailServerConnection" : {
-        "description" : "Mail server connection"
+    "mailServerConnection": "Connexion au serveur de mail",
+    "@mailServerConnection": {
+        "description": "Mail server connection"
     },
-    "mailServerConnectionError" : "Erreur de chargement des mails",
-    "@mailServerConnectionError" : {
-        "description" : "Mail server connection error"
+    "mailServerConnectionError": "Erreur de chargement des mails",
+    "@mailServerConnectionError": {
+        "description": "Mail server connection error"
     },
-    "loadingMails" : "Chargement des mails",
-    "@loadingMails" : {
-        "description" : "Loading mails"
+    "loadingMails": "Chargement des mails",
+    "@loadingMails": {
+        "description": "Loading mails"
     },
-    "errorOccured" : "Une erreur est survenue",
-    "@errorOccured" : {
-        "description" : "An error occured"
+    "errorOccured": "Une erreur est survenue",
+    "@errorOccured": {
+        "description": "An error occured"
     },
-    "sendingEmail" : "Envoi du mail",
-    "@sendingEmail" : {
-        "description" : "Sending email"
+    "sendingEmail": "Envoi du mail",
+    "@sendingEmail": {
+        "description": "Sending email"
     },
-    "loadMoreMails" : "Charger 20 mails supplémentaires",
-    "@loadMoreMails" : {
-        "description" : "Load 20 more mails"
+    "loadMoreMails": "Charger 20 mails supplémentaires",
+    "@loadMoreMails": {
+        "description": "Load 20 more mails"
     },
-    "tomussConnection" : "Connexion à Tomuss",
-    "@tomussConnection" : {
-        "description" : "Tomuss connection"
+    "tomussConnection": "Connexion à Tomuss",
+    "@tomussConnection": {
+        "description": "Tomuss connection"
     },
-    "loadingGrades" : "Chargement des notes",
-    "@loadingGrades" : {
-        "description" : "Loading grades"
+    "loadingGrades": "Chargement des notes",
+    "@loadingGrades": {
+        "description": "Loading grades"
     },
-    "loadingGradesError" : "Erreur de chargement des notes",
-    "@loadingGradesError" : {
-        "description" : "Loading grades error"
+    "loadingGradesError": "Erreur de chargement des notes",
+    "@loadingGradesError": {
+        "description": "Loading grades error"
+    },
+    "newEvent": "Nouvel événement",
+    "@newEvent": {
+        "description": "New event"
+    },
+    "nDayModified": "{count, plural, =0 {vous avez Aucun jour modifié} =1 {vous avez 1 jour modifié} other {vous avez {count} jours modifiés}}",
+    "@nDayModified": {
+        "description": "You have {count} modified days",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "newEventAt": "Vous avez un nouvel évènement le : ${date}",
+    "@newEventAt": {
+        "description": "You have a new event at : ${date}",
+        "placeholders": {
+            "date": {
+                "type": "DateTime",
+                "format": "yMd"
+            }
+        }
+    },
+    "newEmail": "Nouveau mail",
+    "@newEmail": {
+        "description": "New email"
+    },
+    "youHaveANewEmail": "Vous avez un nouveau mail de {sender} \n\n {excerpt}",
+    "@youHaveANewEmail": {
+        "description": "You have a new email from {sender} \n\n {excerpt}",
+        "placeholders": {
+            "sender": {
+                "type": "String"
+            },
+            "excerpt": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultSemester": "Semestre par défaut",
+    "@defaultSemester": {
+        "description": "Default semester"
+    },
+    "newGrade": "Nouvelle note",
+    "@newGrade": {
+        "description": "New grade"
+    },
+    "youHaveANewGrade": "Vous avez eu ${numerator}/${denominator} (${title}) en : ${title}",
+    "@youHaveANewGrade": {
+        "description": "You have a new grade : ${numerator}/${denominator} (${title}) in : ${title}",
+        "placeholders": {
+            "numerator": {
+                "type": "double",
+                "format": "compact"
+            },
+            "denominator": {
+                "type": "double",
+                "format": "compact"
+            },
+            "title": {
+                "type": "String"
+            }
+        }
     }
 }

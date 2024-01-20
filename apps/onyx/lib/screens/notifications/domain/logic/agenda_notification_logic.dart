@@ -4,9 +4,10 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Future<void> agendaNotificationLogic(
-    SettingsModel settings, Lyon1CasClient lyon1Cas) async {
+Future<void> agendaNotificationLogic(SettingsModel settings,
+    Lyon1CasClient lyon1Cas, AppLocalizations localizations) async {
   if (settings.calendarUpdateNotification) {
     if (await CacheService.exist<Agenda>()) {
       List<Day> days = (await CacheService.get<Agenda>())!.days;
@@ -30,16 +31,15 @@ Future<void> agendaNotificationLogic(
       }
       if (notifyDays.length > 4) {
         await NotificationLogic.showNotification(
-            title: "Nouvel évènement",
-            body:
-                "Vous avez ${notifyDays.length} jours modifiés dans votre agenda",
-            payload: "newEvent");
+            title: localizations.newEvent,
+            body: localizations.nDayModified(notifyDays.length),
+            payload: localizations.newEvent);
       } else {
         for (var i in notifyDays) {
           await NotificationLogic.showNotification(
-              title: "Nouvel évènement",
-              body: "Vous avez un nouvel évènement le : ${i.date.toString()}",
-              payload: "newEvent");
+              title: localizations.newEvent,
+              body: localizations.newEventAt(i.date),
+              payload: localizations.newEvent);
         }
       }
       await CacheService.set<Agenda>(Agenda(newDays));

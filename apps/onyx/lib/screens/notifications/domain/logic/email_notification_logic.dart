@@ -4,8 +4,10 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Future<void> emailNotificationLogic(SettingsModel settings) async {
+Future<void> emailNotificationLogic(
+    SettingsModel settings, AppLocalizations localizations) async {
   if (settings.newMailNotification) {
     if (await CacheService.exist<MailBoxList>()) {
       List<MailBox> mailBoxes =
@@ -28,10 +30,9 @@ Future<void> emailNotificationLogic(SettingsModel settings) async {
               return element == i;
             })) {
           await NotificationLogic.showNotification(
-              title: "Nouveau mail",
-              body:
-                  "Vous avez un nouveau mail de ${i.sender} \n\n ${i.excerpt}",
-              payload: "newMail");
+              title: localizations.newEmail,
+              body: localizations.youHaveANewEmail(i.sender, i.excerpt),
+              payload: localizations.newEmail);
         }
       }
       int index = mailBoxes.indexWhere(

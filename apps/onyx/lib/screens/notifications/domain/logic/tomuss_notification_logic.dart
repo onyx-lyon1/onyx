@@ -4,9 +4,10 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Future<void> tomussNotificationLogic(
-    SettingsModel settings, Lyon1CasClient lyon1Cas) async {
+Future<void> tomussNotificationLogic(SettingsModel settings,
+    Lyon1CasClient lyon1Cas, AppLocalizations localizations) async {
   if (settings.newGradeNotification) {
     Lyon1TomussClient tomussClient = Lyon1TomussClient(lyon1Cas);
     List<TeachingUnit> teachingUnits = [];
@@ -28,7 +29,7 @@ Future<void> tomussNotificationLogic(
                   dartus: tomussClient,
                   autoRefresh: true,
                   semester: semestreModel ??
-                      Semester("default semester",
+                      Semester(localizations.defaultSemester,
                           Lyon1TomussClient.currentSemester())))
               .schoolSubjectModel!;
       for (var i in newTeachingUnits) {
@@ -41,19 +42,19 @@ Future<void> tomussNotificationLogic(
                 element.numerator == x.numerator &&
                 element.denominator == x.denominator)) {
               await NotificationLogic.showNotification(
-                  title: "Nouvelles notes",
-                  body:
-                      "Vous avez eu ${x.numerator}/${x.denominator} (${x.title}) en : ${i.title}",
-                  payload: "newGrades");
+                  title: localizations.newGrade,
+                  body: localizations.youHaveANewGrade(
+                      x.numerator, x.denominator, x.title),
+                  payload: localizations.newGrade);
             }
           }
         } else {
           for (var x in i.grades) {
             await NotificationLogic.showNotification(
-                title: "Nouvelles notes",
-                body:
-                    "Vous avez eu ${x.numerator}/${x.denominator} (${x.title}) en : ${i.title}",
-                payload: "newGrades");
+                title: localizations.newGrade,
+                body: localizations.youHaveANewGrade(
+                    x.numerator, x.denominator, x.title),
+                payload: localizations.newGrade);
           }
         }
       }
