@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ErrorDialogWidget extends StatelessWidget {
   const ErrorDialogWidget({super.key, required this.message});
@@ -7,7 +8,7 @@ class ErrorDialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Erreur"),
+      title: Text(AppLocalizations.of(context)!.error),
       content: Text(message),
       actions: [
         TextButton(
@@ -15,7 +16,7 @@ class ErrorDialogWidget extends StatelessWidget {
             Navigator.pop(context);
           },
           child: Text(
-            "OK",
+            AppLocalizations.of(context)!.ok,
             style: TextStyle(color: Theme.of(context).primaryColor),
           ),
         )
