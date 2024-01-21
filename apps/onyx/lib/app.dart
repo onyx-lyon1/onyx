@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
@@ -94,8 +95,10 @@ class OnyxAppState extends State<OnyxApp> {
                           darkTheme: themeState.darkTheme,
                           locale: Locale(Platform.localeName.split("_")[0],
                               Platform.localeName.split("_")[1]),
-                          localizationsDelegates:
-                              AppLocalizations.localizationsDelegates,
+                          localizationsDelegates: const [
+                            LocaleNamesLocalizationsDelegate(),
+                            ...AppLocalizations.localizationsDelegates
+                          ],
                           supportedLocales: AppLocalizations.supportedLocales,
                           localeListResolutionCallback:
                               (locales, supportedLocales) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
@@ -70,8 +71,9 @@ class _SettingsPageState extends State<SettingsPage> {
                         // afterward we add in the list the auto option
                         items: [
                           AppLocalizations.of(context)!.auto,
-                          ...AppLocalizations.supportedLocales
-                              .map((e) => e.languageCode)
+                          ...AppLocalizations.supportedLocales.map((e) =>
+                              LocaleNames.of(context)?.nameOf(e.languageCode) ??
+                              e.languageCode)
                         ],
                         onChanged: (value) {
                           context.read<SettingsCubit>().modify(
