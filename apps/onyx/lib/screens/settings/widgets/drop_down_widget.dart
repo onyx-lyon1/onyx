@@ -33,6 +33,7 @@ class DropDownWidget extends StatelessWidget {
               .map(
                 (e) => DropdownMenuItem(
                   value: items.indexOf(e),
+                  alignment: AlignmentDirectional.center,
                   child: Text(e),
                 ),
               )
@@ -42,6 +43,7 @@ class DropDownWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           dropdownColor: Theme.of(context).colorScheme.background,
           focusColor: Theme.of(context).cardTheme.color,
+          alignment: AlignmentDirectional.centerEnd,
         ),
       ],
     );
