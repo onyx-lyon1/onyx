@@ -19,6 +19,7 @@ import 'package:onyx/screens/settings/widgets/drop_down_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:collection/collection.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({
@@ -56,26 +57,35 @@ class _SettingsPageState extends State<SettingsPage> {
                   SettingsCardWidget(
                     name: AppLocalizations.of(context)!.general,
                     widgets: [
-                      DropdownButton(
-                        value: context
-                            .read<SettingsCubit>()
-                            .state
-                            .settings
-                            .language,
-                        items: AppLocalizations.supportedLocales
-                            .map(
-                              (e) => DropdownMenuItem(
-                                child: Text(e.languageCode),
-                              ),
-                            )
-                            .toList(),
+                      DropDownWidget(
+                        text: AppLocalizations.of(context)!.chooseLanguage,
+                        value: AppLocalizations.supportedLocales.indexWhere(
+                                (element) =>
+                                    element.languageCode ==
+                                    context
+                                        .read<SettingsCubit>()
+                                        .state
+                                        .settings
+                                        .language) +
+                            1, //little trick, if it does not found because null, it will return -1, so +1 to get 0
+                        // afterward we add in the list the auto option
+                        items: [
+                          AppLocalizations.of(context)!.auto,
+                          ...AppLocalizations.supportedLocales
+                              .map((e) => e.languageCode)
+                        ],
                         onChanged: (value) {
                           context.read<SettingsCubit>().modify(
                               settings: context
                                   .read<SettingsCubit>()
                                   .state
                                   .settings
-                                  .copyWith(language: value));
+                                  .copyWith(
+                                      language: (value == 0)
+                                          ? null
+                                          : AppLocalizations
+                                              .supportedLocales[value - 1]
+                                              .languageCode));
                         },
                       ),
                       BlocBuilder<ThemeCubit, ThemeState>(
@@ -92,7 +102,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 AppLocalizations.of(context)!.light,
                               ],
                               value: themeState.themesSettings!.themeMode.index,
-                              onChanged: (int choice) {
+                              onChanged: (choice) {
                                 switch (choice) {
                                   case 0:
                                     context

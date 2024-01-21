@@ -974,5 +974,13 @@
     "unableToOpenLink": "Impossible d''ouvrir le lien",
     "@unableToOpenLink": {
         "description": "Unable to open the link"
+    },
+    "chooseLanguage": "Choisir la langue",
+    "@chooseLanguage": {
+        "description": "Choose the language"
+    },
+    "auto": "Automatique",
+    "@auto": {
+        "description": "Auto"
     }
 }
