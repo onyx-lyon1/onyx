@@ -72,7 +72,7 @@ class AgendaConfigPage extends StatelessWidget {
                                 return DirWidget(
                                   dir: DirModel(
                                     name:
-                                        AppLocalizations.of(context)!.calendar,
+                                        AppLocalizations.of(context)!.agenda,
                                     identifier: 0,
                                     children: state.dirs,
                                   ),

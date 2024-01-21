@@ -16,7 +16,7 @@ class TomussSettingsWidget extends StatelessWidget {
         if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
             !context.read<SettingsCubit>().state.settings.biometricAuth)
           TextSwitchWidget(
-            text: 'Notification en cas de nouvelle note',
+            text: AppLocalizations.of(context)!.notifIfNewGrade,
             value: context
                 .read<SettingsCubit>()
                 .state
@@ -32,7 +32,7 @@ class TomussSettingsWidget extends StatelessWidget {
             },
           ),
         TextSwitchWidget(
-          text: 'Forcer les notes en vert',
+          text: AppLocalizations.of(context)!.forceGreenGrade,
           value: context.read<SettingsCubit>().state.settings.forceGreen,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
@@ -81,7 +81,7 @@ class TomussSettingsWidget extends StatelessWidget {
           ],
         ),
         // TextSwitchWidget(
-        //   text: 'Montrer les UEs cachées',
+        //   text: AppLocalizations.of(context)!.showHiddenUE,
         //   value: context
         //       .read<SettingsCubit>()
         //       .state

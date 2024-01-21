@@ -36,7 +36,7 @@
     "@yourAuthentificated": {
         "description": "You are authentificated"
     },
-    "loginError": "Erreur de connexion",
+    "loginError": "Erreur de connection",
     "@loginError": {
         "description": "Login error"
     },
@@ -180,10 +180,6 @@
     "@errorAppeared": {
         "description": "An error appears"
     },
-    "calendar": "Agenda",
-    "@calendar": {
-        "description": "Calendar"
-    },
     "searchInCalendars": "Rechercher dans les agendas",
     "@searchInCalendars": {
         "description": "Search in calendars"
@@ -204,9 +200,13 @@
     "@password": {
         "description": "Password"
     },
-    "connexion": "Connexion",
-    "@connexion": {
-        "description": "Connexion"
+    "login": "Connection",
+    "@login": {
+        "description": "login"
+    },
+    "logout": "Déconnection",
+    "@logout": {
+        "description": "logout"
     },
     "pleaseEnterUsername": "Veuillez entrer l''identitfiant",
     "@pleaseEnterUsername": {
@@ -862,5 +862,117 @@
                 "type": "String"
             }
         }
+    },
+    "darkDefault": "Sombre (par défaut)",
+    "@darkDefault": {
+        "description": "Dark (default)"
+    },
+    "lightDefault": "Clair (par défaut)",
+    "@lightDefault": {
+        "description": "Light (default)"
+    },
+    "nichiHachi": "Nichi Hachi",
+    "@nichiHachi": {
+        "description": "Nichi Hachi"
+    },
+    "blueSky": "Ciel bleu",
+    "@blueSky": {
+        "description": "Blue sky"
+    },
+    "ultrakill": "ULTRAKILL",
+    "@ultrakill": {
+        "description": "ULTRAKILL"
+    },
+    "stardewValley": "Stardew Valley",
+    "@stardewValley": {
+        "description": "Stardew Valley"
+    },
+    "badApple": "Bad Apple",
+    "@badApple": {
+        "description": "Bad Apple"
+    },
+    "moonLight": "Moon Light",
+    "@moonLight": {
+        "description": "Moon Light"
+    },
+    "eventSubtitle": "{duration} • {location}",
+    "@eventSubtitle": {
+        "description": "{duration} • {location}",
+        "placeholders": {
+            "duration": {
+                "type": "String"
+            },
+            "location": {
+                "type": "String"
+            }
+        }
+    },
+    "pleaseEnterId": "Veuillez entrer l''identifiant",
+    "@pleaseEnterId": {
+        "description": "Please enter an id"
+    },
+    "general": "Général",
+    "@general": {
+        "description": "General"
+    },
+    "changeThemes": "Changer les thèmes",
+    "@changeThemes": {
+        "description": "Change themes"
+    },
+    "clearGradeCache": "Vider le cache des notes",
+    "@clearGradeCache": {
+        "description": "Clear grade cache"
+    },
+    "clearAgendaCache": "Vider le cache de l''agenda",
+    "@clearAgendaCache": {
+        "description": "Clear agenda cache"
+    },
+    "clearEmailCache": "Vider le cache des mails",
+    "@clearEmailCache": {
+        "description": "Clear email cache"
+    },
+    "fetchAgendaAuto": "Récupérer automatiquement l''agenda",
+    "@fetchAgendaAuto": {
+        "description": "Automatically fetch the agenda"
+    },
+    "notifIfNewEmail": "Notification en cas de nouveau mail",
+    "@notifIfNewEmail": {
+        "description": "Notification in case of new email"
+    },
+    "forceMailTheme": "Forcer le thème des mails",
+    "@forceMailTheme": {
+        "description": "Force the mail theme"
+    },
+    "blockTrackers": "Bloquer les trackers",
+    "@blockTrackers": {
+        "description": "Block trackers"
+    },
+    "logoutIzly": "Déconnexion d''Izly",
+    "@logoutIzly": {
+        "description": "Logout Izly"
+    },
+    "notifIfNewGrade": "Notification en cas de nouvelle note",
+    "@notifIfNewGrade": {
+        "description": "Notification in case of new grade"
+    },
+    "forceGreenGrade": "Frocer les notes en vert",
+    "@forceGreenGrade": {
+        "description": "Force the grades in green"
+    },
+    "showHiddenUE": "Afficher les UE cachées",
+    "@showHiddenUE": {
+        "description": "Show hidden UE"
+    },
+    "modify": "Modifier",
+    "@modify": {
+        "description": "Modify"
+    },
+    "pleaseSelectOutputFile": "Veuillez sélectionner un fichier de sortie",
+    "@pleaseSelectOutputFile": {
+        "description": "Please select an output file"
+    },
+    "unableToOpenLink": "Impossible d''ouvrir le lien",
+    "@unableToOpenLink": {
+        "description": "Unable to open the link"
     }
 }

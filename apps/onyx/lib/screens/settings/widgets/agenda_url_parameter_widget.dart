@@ -22,7 +22,7 @@ class AgendaUrlParameterWidget extends StatelessWidget {
         return Column(
           children: [
             TextSwitchWidget(
-              text: 'Récupérer automatiquement les ressources de l\'agenda',
+              text: AppLocalizations.of(context)!.fetchAgendaAuto,
               value:
                   context.read<SettingsCubit>().state.settings.fetchAgendaAuto,
               onChanged: (bool b) {

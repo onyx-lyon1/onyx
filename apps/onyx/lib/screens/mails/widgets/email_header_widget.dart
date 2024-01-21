@@ -24,7 +24,6 @@ class MailHeaderWidget extends StatelessWidget {
                     context.read<EmailCubit>().delete(
                           email: email,
                           from: state.currentMailBox!,
-                          appLocalizations: AppLocalizations.of(context)!,
                         );
                   }
                   context.read<EmailCubit>().unselectAllMails(
@@ -66,13 +65,11 @@ class MailHeaderWidget extends StatelessWidget {
                       context.read<EmailCubit>().markAsRead(
                             email: email,
                             from: state.currentMailBox!,
-                            appLocalizations: AppLocalizations.of(context)!,
                           );
                     } else {
                       context.read<EmailCubit>().markAsUnread(
                             email: email,
                             from: state.currentMailBox!,
-                            appLocalizations: AppLocalizations.of(context)!,
                           );
                     }
                   }
@@ -113,7 +110,6 @@ class MailHeaderWidget extends StatelessWidget {
                             email: email,
                             folder: folder,
                             from: state.currentMailBox!,
-                            appLocalizations: AppLocalizations.of(context)!,
                           );
                     }
                     context
@@ -130,7 +126,6 @@ class MailHeaderWidget extends StatelessWidget {
                     context.read<EmailCubit>().toggleFlag(
                           email: email,
                           from: state.currentMailBox!,
-                          appLocalizations: AppLocalizations.of(context)!,
                         );
                   }
                   context.read<EmailCubit>().unselectAllMails(
@@ -164,7 +159,6 @@ class MailHeaderWidget extends StatelessWidget {
                       onChanged: (String query) {
                         context.read<EmailCubit>().filter(
                               filter: query,
-                              appLocalizations: AppLocalizations.of(context)!,
                             );
                       },
                       onSubmitted: (String query) {

@@ -32,6 +32,8 @@ class Res {
   static bool mock = false;
 
   static const String corsProxy = "https://192.168.220.102:3000/";
+  static const String discordUrl = "https://discord.gg/ReUKtKU523";
+  static const String websiteUrl = "https://onyx-lyon1.github.io/";
 
   static const String ivPath = "assets/iv.txt";
   static const String keyPath = "assets/key.txt";
@@ -41,7 +43,10 @@ class Res {
 
   static const String iconPath = "assets/icon_transparent.png";
   static const String izlyLogoPath = "assets/izly.png";
+  static const String izlyMockQrCodePath = "assets/izly_mock_qr-code.png";
   static const String batimentsPath = "assets/batiment_lyon1.json";
+  static const String graphPath = 'assets/graph.json.gz';
+  static const String discordLogoPath = 'assets/discord_Logo.png';
 
   static const Duration agendaDayStart = Duration(hours: 6);
   static const Duration agendaDayEnd = Duration(hours: 22);

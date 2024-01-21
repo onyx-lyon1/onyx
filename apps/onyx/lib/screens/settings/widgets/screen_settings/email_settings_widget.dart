@@ -17,7 +17,7 @@ class MailSettingsWidget extends StatelessWidget {
         if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
             !context.read<SettingsCubit>().state.settings.biometricAuth)
           TextSwitchWidget(
-            text: 'Notification en cas de nouveaux mails',
+            text: AppLocalizations.of(context)!.notifIfNewEmail,
             value: context
                 .read<SettingsCubit>()
                 .state
@@ -33,7 +33,7 @@ class MailSettingsWidget extends StatelessWidget {
             },
           ),
         TextSwitchWidget(
-          text: 'Forcer le thème des mails',
+          text: AppLocalizations.of(context)!.forceMailTheme,
           value: context.read<SettingsCubit>().state.settings.forcedMailTheme,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
@@ -50,7 +50,7 @@ class MailSettingsWidget extends StatelessWidget {
           },
         ),
         TextSwitchWidget(
-          text: 'Bloquer les trackers',
+          text: AppLocalizations.of(context)!.blockTrackers,
           value: context.read<SettingsCubit>().state.settings.blockTrackers,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(

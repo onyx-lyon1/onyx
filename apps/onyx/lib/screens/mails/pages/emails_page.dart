@@ -131,12 +131,14 @@ class MailsPage extends StatelessWidget {
                       controller: scrollController,
                       childrenDelegate:
                           SliverChildBuilderDelegate((context, index) {
-                        if (index < state.currentMailBox!.emails.length) {
+                        if (index <
+                            (state.currentMailBox?.emails.length ?? 0)) {
                           return MailWidget(
                               email: state.currentMailBox!.emails[index]);
                         } else if ((index ==
-                                state.currentMailBox!.emails.length) &&
-                            state.currentMailBox!.emails.isNotEmpty) {
+                                (state.currentMailBox?.emails.length ?? 0)) &&
+                            (state.currentMailBox?.emails.isNotEmpty ??
+                                false)) {
                           return Material(
                             color: Theme.of(context).colorScheme.background,
                             child: (state.status == MailStatus.loading)

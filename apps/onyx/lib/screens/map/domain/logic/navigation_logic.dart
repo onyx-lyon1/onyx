@@ -43,7 +43,7 @@ class NavigationLogic {
   static Future<void> _loadGraph(BuildContext context) async {
     if (graph == null) {
       ByteData data =
-          await DefaultAssetBundle.of(context).load('assets/graph.json.gz');
+          await DefaultAssetBundle.of(context).load(Res.graphPath);
       final bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       final decodedData = jsonDecode(String.fromCharCodes(gzip.decode(bytes)));

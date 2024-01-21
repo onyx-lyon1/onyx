@@ -18,7 +18,7 @@ core:
 - [x] home screen
 - [x] privacy policie
 - [ ] search (stop words particulary)
-- [ ] theme name maybe //je sais pas faire
+- [x] theme name maybe
 - [x] widget normalement rien a faire
 - [ ] le mock mon dieux que c'est long
 

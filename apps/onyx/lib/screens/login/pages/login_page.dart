@@ -137,7 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                                         : value.trim(),
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
-                                  labelText: 'Username',
+                                  labelText:
+                                      AppLocalizations.of(context)!.username,
                                   labelStyle: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
@@ -172,7 +173,8 @@ class _LoginPageState extends State<LoginPage> {
                                     return null;
                                   }
                                   if (value == null || value.isEmpty) {
-                                    return 'Veuillez entrer l\'identifiant';
+                                    return AppLocalizations.of(context)!
+                                        .pleaseEnterId;
                                   } else if (!RegExp(
                                           r"(^([pP])\d{7}$)|(.{2,}\..{2,})")
                                       .hasMatch(value.trim())) {
@@ -205,7 +207,8 @@ class _LoginPageState extends State<LoginPage> {
                                     return null;
                                   }
                                   if (value == null || value.isEmpty) {
-                                    return 'Veuillez entrer un mot de passe';
+                                    return AppLocalizations.of(context)!
+                                        .pleaseEnterPassword;
                                   }
                                   return null;
                                 },
@@ -225,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    'Connexion',
+                                    AppLocalizations.of(context)!.login,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!
@@ -335,7 +338,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       textInputAction: TextInputAction.done,
       onFieldSubmitted: (String useless) => widget.onFieldSubmitted(),
       decoration: widget.decoration.copyWith(
-          labelText: 'Password',
+          labelText: AppLocalizations.of(context)!.password,
           labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context)
                     .textTheme

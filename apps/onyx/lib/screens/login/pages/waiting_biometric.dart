@@ -71,7 +71,7 @@ class WaitingBiometric extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    'Déconnection',
+                    AppLocalizations.of(context)!.logout,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 17.sp,
                         ),

@@ -8,12 +8,12 @@ import 'package:onyx/core/res.dart';
 class IzlyLogic {
   static Future<Uint8List> getQrCode() async {
     if (Res.mock) {
-      return (await rootBundle.load('assets/izly_mock_qr-code.png'))
+      return (await rootBundle.load(Res.izlyMockQrCodePath))
           .buffer
           .asUint8List();
     }
     if (!(await CacheService.exist<IzlyQrCodeList>())) {
-      return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
+      return (await rootBundle.load(Res.izlyLogoPath)).buffer.asUint8List();
     } else {
       List<IzlyQrCode> qrCodeModels =
           (await CacheService.get<IzlyQrCodeList>())!.qrCodes;
@@ -21,7 +21,7 @@ class IzlyLogic {
           (element) => element.expirationDate.isBefore(DateTime.now()));
 
       if (qrCodeModels.isEmpty) {
-        return (await rootBundle.load('assets/izly.png')).buffer.asUint8List();
+        return (await rootBundle.load(Res.izlyLogoPath)).buffer.asUint8List();
       } else {
         //if there is no internet it may be better not to delete the last qrcode
         if ((await Connectivity().checkConnectivity()) ==

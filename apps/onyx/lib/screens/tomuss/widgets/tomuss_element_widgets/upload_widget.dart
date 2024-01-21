@@ -9,6 +9,7 @@ import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UploadWidget extends StatelessWidget {
   final Upload upload;
@@ -73,7 +74,9 @@ class UploadWidget extends StatelessWidget {
                                 Platform.isMacOS)) {
                           FilePicker.platform
                               .saveFile(
-                            dialogTitle: 'Please select an output file:',
+                            // ignore: use_build_context_synchronously
+                            dialogTitle: AppLocalizations.of(context)!
+                                .pleaseSelectOutputFile,
                             fileName: path.split('/').last,
                           )
                               .then((outputFilePath) {

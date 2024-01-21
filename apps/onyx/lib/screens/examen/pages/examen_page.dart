@@ -63,7 +63,7 @@ class ExamenPage extends StatelessWidget {
           state: stateWidget,
           header: Center(
             child: Text(
-              'Colloscope',
+              AppLocalizations.of(context)!.exams,
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyLarge!.color,
                 fontSize: 15,

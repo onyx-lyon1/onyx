@@ -41,7 +41,7 @@ class _SettingsPageState extends State<SettingsPage> {
               color: Theme.of(context).cardTheme.color,
               child: Center(
                 child: Text(
-                  'Paramètres',
+                  AppLocalizations.of(context)!.settings,
                   style: TextStyle(
                     color: Theme.of(context).textTheme.bodyLarge!.color,
                     fontSize: 15,
@@ -54,7 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
               child: ListView(
                 children: [
                   SettingsCardWidget(
-                    name: 'Général',
+                    name: AppLocalizations.of(context)!.general,
                     widgets: [
                       DropdownButton(
                         value: context
@@ -125,7 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          'Changer les thèmes',
+                          AppLocalizations.of(context)!.changeTheme,
                           style: TextStyle(
                             fontSize: 17.sp,
                             color: Theme.of(context).textTheme.bodySmall?.color,
@@ -146,12 +146,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   const DraggableZoneWidget(),
                   SettingsCardWidget(
-                    name: 'Connexion',
+                    name: AppLocalizations.of(context)!.login,
                     widgets: [
                       MaterialButton(
                         color: const Color(0xffbf616a),
                         textColor: Colors.white70,
-                        child: Text('Déconnexion',
+                        child: Text(AppLocalizations.of(context)!.logout,
                             style: TextStyle(fontSize: 17.sp)),
                         onPressed: () => SettingsLogic.logout(context),
                       ),
@@ -166,7 +166,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         MaterialButton(
                           color: const Color(0xffbf616a),
                           textColor: Colors.white70,
-                          child: Text('Vider le cache des notes',
+                          child: Text(
+                              AppLocalizations.of(context)!.clearGradeCache,
                               style: TextStyle(fontSize: 17.sp)),
                           onPressed: () {
                             CacheService.reset<TeachingUnitList>();
@@ -186,7 +187,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         MaterialButton(
                           color: const Color(0xffbf616a),
                           textColor: Colors.white70,
-                          child: Text('Vider le cache de l\'agenda',
+                          child: Text(
+                              AppLocalizations.of(context)!.clearAgendaCache,
                               style: TextStyle(fontSize: 17.sp)),
                           onPressed: () {
                             CacheService.reset<Agenda>();
@@ -205,7 +207,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         MaterialButton(
                           color: const Color(0xffbf616a),
                           textColor: Colors.white70,
-                          child: Text('Vider le cache des mails',
+                          child: Text(
+                              AppLocalizations.of(context)!.clearEmailCache,
                               style: TextStyle(fontSize: 17.sp)),
                           onPressed: () {
                             CacheService.reset<MailBoxList>();

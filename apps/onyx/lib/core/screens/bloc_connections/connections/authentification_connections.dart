@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
@@ -24,9 +26,10 @@ class AuthentificationConnection
                       .biometricAuth)
                   .then((key) => CacheService.get<Credential>(secureKey: key)
                       .then((value) => context.read<EmailCubit>().connect(
-                          username: value!.username,
-                          password: value.password,
-                          appLocalizations: AppLocalizations.of(context)!,
+                            username: value!.username,
+                            password: value.password,
+                            appLocalizations: AppLocalizations.of(context) ??
+                                lookupAppLocalizations(const Locale("fr")),
                           )));
               if (context.read<SettingsCubit>().state.settings.firstLogin) {
                 context.read<SettingsCubit>().modify(

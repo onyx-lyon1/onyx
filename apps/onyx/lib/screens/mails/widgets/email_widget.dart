@@ -73,7 +73,6 @@ class MailWidget extends StatelessWidget {
         context.read<EmailCubit>().markAsRead(
               email: email,
               from: context.read<EmailCubit>().state.currentMailBox!,
-              appLocalizations: AppLocalizations.of(context)!,
             );
       },
       openBuilder: (context, closeContainer) => MailDetailsPage(
@@ -84,7 +83,6 @@ class MailWidget extends StatelessWidget {
           if (context.read<EmailCubit>().state.selectedMails.isNotEmpty) {
             context.read<EmailCubit>().toggleMailSelection(
                   emails: email,
-                  appLocalizations: AppLocalizations.of(context)!,
                 );
           } else {
             openContainer();
@@ -93,7 +91,6 @@ class MailWidget extends StatelessWidget {
         onLongPress: () {
           context.read<EmailCubit>().selectMail(
                 email: email,
-                appLocalizations: AppLocalizations.of(context)!,
               );
         },
         child: ListTile(
@@ -107,7 +104,6 @@ class MailWidget extends StatelessWidget {
                         onTap: () {
                           context.read<EmailCubit>().toggleMailSelection(
                                 emails: email,
-                                appLocalizations: AppLocalizations.of(context)!,
                               );
                         },
                         child: Icon(
@@ -135,7 +131,6 @@ class MailWidget extends StatelessWidget {
                         onTap: () {
                           context.read<EmailCubit>().selectMail(
                                 email: email,
-                                appLocalizations: AppLocalizations.of(context)!,
                               );
                         },
                         child: Padding(
@@ -211,7 +206,6 @@ class MailWidget extends StatelessWidget {
                           email: email,
                           from:
                               context.read<EmailCubit>().state.currentMailBox!,
-                          appLocalizations: AppLocalizations.of(context)!,
                         );
                   },
                   icon: Icon(

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/screens/bloc_connections/connections/agenda_connections.dart';
@@ -20,10 +22,10 @@ class SettingsConnection extends BlocListener<SettingsCubit, SettingsState> {
             if ((settingsState.status == SettingsStatus.ready ||
                 settingsState.status == SettingsStatus.error)) {
               if (authState.status == AuthentificationStatus.initial) {
-                context
-                    .read<AuthentificationCubit>()
-                    .login(settings: settingsState.settings,
-                    appLocalizations: AppLocalizations.of(context)!
+                context.read<AuthentificationCubit>().login(
+                      settings: settingsState.settings,
+                      appLocalizations: AppLocalizations.of(context) ??
+                          lookupAppLocalizations(const Locale("fr")),
                     );
               }
             }

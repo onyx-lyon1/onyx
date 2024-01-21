@@ -1,5 +1,6 @@
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnyxTheme {
   static ThemeData darkTheme = ThemeData(
@@ -225,22 +226,24 @@ class OnyxTheme {
     ),
   );
 
-  static List<ThemeModel> themesPreset = [
-    ThemeModel('Dark Default', OnyxTheme.darkTheme),
-    ThemeModel('Light Default', OnyxTheme.lightTheme),
-    ThemeModel('Nichi Hachi', OnyxTheme.nichihachiTheme),
-    ThemeModel('Blue Sky', OnyxTheme.blueSkyTheme),
-    ThemeModel('ULTRAKILL', OnyxTheme.ultrakillTheme),
-    ThemeModel('Stardew Valley', OnyxTheme.stardewValleyTheme),
-    ThemeModel('Bad Apple', OnyxTheme.badappleTheme),
-    ThemeModel('Moon Light', OnyxTheme.moonlightTheme),
-  ];
+  static List<ThemeModel> themesPreset(AppLocalizations localizations) => [
+        ThemeModel(localizations.darkDefault, OnyxTheme.darkTheme),
+        ThemeModel(localizations.lightDefault, OnyxTheme.lightTheme),
+        ThemeModel(localizations.nichiHachi, OnyxTheme.nichihachiTheme),
+        ThemeModel(localizations.blueSky, OnyxTheme.blueSkyTheme),
+        ThemeModel(localizations.ultrakill, OnyxTheme.ultrakillTheme),
+        ThemeModel(localizations.stardewValley, OnyxTheme.stardewValleyTheme),
+        ThemeModel(localizations.badApple, OnyxTheme.badappleTheme),
+        ThemeModel(localizations.moonLight, OnyxTheme.moonlightTheme),
+      ];
 
-  static List<ThemeModel> themesPresetDark = themesPreset
-      .where((themeInfo) => themeInfo.theme.brightness == Brightness.dark)
-      .toList();
+  static List<ThemeModel> themesPresetDark(AppLocalizations localizations) =>
+      themesPreset(localizations)
+          .where((themeInfo) => themeInfo.theme.brightness == Brightness.dark)
+          .toList();
 
-  static List<ThemeModel> themesPresetLight = themesPreset
-      .where((themeInfo) => themeInfo.theme.brightness == Brightness.light)
-      .toList();
+  static List<ThemeModel> themesPresetLight(AppLocalizations localizations) =>
+      themesPreset(localizations)
+          .where((themeInfo) => themeInfo.theme.brightness == Brightness.light)
+          .toList();
 }

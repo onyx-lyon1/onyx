@@ -54,8 +54,7 @@ class OnyxAppState extends State<OnyxApp> {
           BlocProvider<AuthentificationCubit>(
               create: (context) => AuthentificationCubit()),
           BlocProvider<SettingsCubit>(create: (context) => SettingsCubit()),
-          BlocProvider<EmailCubit>(
-              create: (context) => EmailCubit(AppLocalizations.of(context)!)),
+          BlocProvider<EmailCubit>(create: (context) => EmailCubit()),
           BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
           BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
           BlocProvider<MapCubit>(create: (context) => MapCubit()),
@@ -84,7 +83,8 @@ class OnyxAppState extends State<OnyxApp> {
                               settingsState.status == SettingsStatus.error) &&
                           (themeState.status != ThemeStateStatus.init)) {
                         return MaterialApp(
-                          title: 'Onyx',
+                          title:
+                              lookupAppLocalizations(const Locale("fr")).onyx,
                           navigatorKey: OnyxApp.navigatorKey,
                           scrollBehavior: const CustomScrollBehavior(),
                           debugShowCheckedModeBanner: false,

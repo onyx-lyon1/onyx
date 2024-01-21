@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/core/theme/theme.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'generated/theme_settings_model.g.dart';
 
@@ -11,27 +12,32 @@ part 'generated/theme_settings_model.g.dart';
 class ThemeSettingsModel {
   List<ThemeModel> themesCreated;
   @HiveField(1)
-  final String darkThemeSelected;
+  late final String darkThemeSelected;
   @HiveField(2)
-  final String lightThemeSelected;
+  late final String lightThemeSelected;
   List<ThemeModel> favoriteThemes;
   @HiveField(4)
   final ThemeModeEnum themeMode;
   @HiveField(5)
   final bool autoSwitchTheme;
-  List<ThemeModel> themesPreset =
-      OnyxTheme.themesPreset; //do not save it in hive
+  late List<ThemeModel> themesPreset; //do not save it in hive
 
   ThemeSettingsModel({
     this.themesCreated = const [],
-    this.darkThemeSelected = 'Dark Default',
-    this.lightThemeSelected = 'Light Default',
+    String? darkThemeSelected,
+    String? lightThemeSelected,
     this.favoriteThemes = const [],
     this.themeMode = ThemeModeEnum.system,
     this.autoSwitchTheme = true,
     String? themesCreatedString,
     String? favoriteThemesString,
+    AppLocalizations? appLocalizations,
   }) {
+    appLocalizations ??= lookupAppLocalizations(const Locale('fr'));
+    themesPreset = OnyxTheme.themesPreset(appLocalizations);
+    this.lightThemeSelected = lightThemeSelected ?? appLocalizations.light;
+    this.darkThemeSelected = darkThemeSelected ?? appLocalizations.dark;
+
     if (themesCreatedString != null) {
       themesCreated = jsonDecode(themesCreatedString)
           .map((e) => ThemeModel.fromJson(e))

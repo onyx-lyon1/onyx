@@ -93,7 +93,7 @@ class AgendaPage extends StatelessWidget {
                       )
                     : Center(
                         child: Text(
-                          'Agenda',
+                          AppLocalizations.of(context)!.agenda,
                           style: TextStyle(
                             color: Theme.of(context).textTheme.bodyLarge!.color,
                             fontSize: 15,

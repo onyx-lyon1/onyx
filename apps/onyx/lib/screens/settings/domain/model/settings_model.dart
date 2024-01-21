@@ -81,9 +81,6 @@ class SettingsModel extends Equatable {
   final bool shownAgendaPopup;
 
   // Colloscope
-
-  @HiveField(24, defaultValue: true)
-  final bool colloscopeAutoUpdateAgenda;
   @HiveField(25, defaultValue: 0)
   final int colloscopeOverrideStudentId;
   @HiveField(26, defaultValue: 0)
@@ -119,7 +116,6 @@ class SettingsModel extends Equatable {
     this.agendaDisabledDays = const [6, 7],
     this.agendaPageTopToBottom = false,
     this.agendaWeekRerenceAlignement = 0,
-    this.colloscopeAutoUpdateAgenda = true,
     this.colloscopeOverrideStudentId = -1,
     this.colloscopeOverrideYearId = 0,
     this.colloscopeEnabled,
@@ -152,7 +148,6 @@ class SettingsModel extends Equatable {
         agendaDisabledDays,
         agendaPageTopToBottom,
         agendaWeekRerenceAlignement,
-        colloscopeAutoUpdateAgenda,
         colloscopeOverrideStudentId,
         colloscopeOverrideYearId,
         colloscopeEnabled,

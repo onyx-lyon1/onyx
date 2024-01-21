@@ -72,7 +72,6 @@ class MailSendPage extends StatelessWidget {
                     reply: reply,
                     forward: forward,
                     from: context.read<EmailCubit>().state.currentMailBox!,
-                    appLocalizations: AppLocalizations.of(context)!,
                   );
               Navigator.pop(context);
             } else {

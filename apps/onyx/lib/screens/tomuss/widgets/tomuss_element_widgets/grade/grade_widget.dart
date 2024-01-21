@@ -167,7 +167,7 @@ class _GradeWidgetState extends State<GradeWidget> {
                       await screenshotController.captureAndSave(
                         tmpDir.path,
                         pixelRatio: 3.0,
-                        fileName: 'screenshot.png',
+                        fileName: 'screenshot_${widget.text1}.png',
                       );
                       Share.shareXFiles(
                         [XFile("${tmpDir.path}/screenshot.png")],

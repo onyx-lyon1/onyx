@@ -229,7 +229,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                         ),
                         child: Center(
                           child: Text(
-                            AppLocalizations.of(context)!.connexion,
+                            AppLocalizations.of(context)!.login,
                             style: TextStyle(
                               color:
                                   Theme.of(context).textTheme.bodySmall?.color,

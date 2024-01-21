@@ -3,6 +3,7 @@ import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class URLWidget extends StatelessWidget {
   final URL url;
@@ -22,12 +23,13 @@ class URLWidget extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                        title: const Text('Erreur'),
-                        content: const Text('Impossible d\'ouvrir le lien'),
+                        title: Text(AppLocalizations.of(context)!.error),
+                        content: Text(
+                            AppLocalizations.of(context)!.unableToOpenLink),
                         actions: [
                           TextButton(
                               onPressed: () => Navigator.pop(context),
-                              child: const Text('OK'))
+                              child: Text(AppLocalizations.of(context)!.ok))
                         ],
                       ));
             }

@@ -53,8 +53,6 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel agendaWeekRerenceAlignement(int agendaWeekRerenceAlignement);
 
-  SettingsModel colloscopeAutoUpdateAgenda(bool colloscopeAutoUpdateAgenda);
-
   SettingsModel colloscopeOverrideStudentId(int colloscopeOverrideStudentId);
 
   SettingsModel colloscopeOverrideYearId(int colloscopeOverrideYearId);
@@ -96,7 +94,6 @@ abstract class _$SettingsModelCWProxy {
     List<int>? agendaDisabledDays,
     bool? agendaPageTopToBottom,
     int? agendaWeekRerenceAlignement,
-    bool? colloscopeAutoUpdateAgenda,
     int? colloscopeOverrideStudentId,
     int? colloscopeOverrideYearId,
     bool? colloscopeEnabled,
@@ -199,10 +196,6 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
       this(agendaWeekRerenceAlignement: agendaWeekRerenceAlignement);
 
   @override
-  SettingsModel colloscopeAutoUpdateAgenda(bool colloscopeAutoUpdateAgenda) =>
-      this(colloscopeAutoUpdateAgenda: colloscopeAutoUpdateAgenda);
-
-  @override
   SettingsModel colloscopeOverrideStudentId(int colloscopeOverrideStudentId) =>
       this(colloscopeOverrideStudentId: colloscopeOverrideStudentId);
 
@@ -255,7 +248,6 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
     Object? agendaDisabledDays = const $CopyWithPlaceholder(),
     Object? agendaPageTopToBottom = const $CopyWithPlaceholder(),
     Object? agendaWeekRerenceAlignement = const $CopyWithPlaceholder(),
-    Object? colloscopeAutoUpdateAgenda = const $CopyWithPlaceholder(),
     Object? colloscopeOverrideStudentId = const $CopyWithPlaceholder(),
     Object? colloscopeOverrideYearId = const $CopyWithPlaceholder(),
     Object? colloscopeEnabled = const $CopyWithPlaceholder(),
@@ -381,12 +373,6 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
               ? _value.agendaWeekRerenceAlignement
               // ignore: cast_nullable_to_non_nullable
               : agendaWeekRerenceAlignement as int,
-      colloscopeAutoUpdateAgenda:
-          colloscopeAutoUpdateAgenda == const $CopyWithPlaceholder() ||
-                  colloscopeAutoUpdateAgenda == null
-              ? _value.colloscopeAutoUpdateAgenda
-              // ignore: cast_nullable_to_non_nullable
-              : colloscopeAutoUpdateAgenda as bool,
       colloscopeOverrideStudentId:
           colloscopeOverrideStudentId == const $CopyWithPlaceholder() ||
                   colloscopeOverrideStudentId == null
@@ -476,8 +462,6 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
           fields[21] == null ? [6, 7] : (fields[21] as List).cast<int>(),
       agendaPageTopToBottom: fields[22] == null ? false : fields[22] as bool,
       agendaWeekRerenceAlignement: fields[23] == null ? 0 : fields[23] as int,
-      colloscopeAutoUpdateAgenda:
-          fields[24] == null ? true : fields[24] as bool,
       colloscopeOverrideStudentId: fields[25] == null ? 0 : fields[25] as int,
       colloscopeOverrideYearId: fields[26] == null ? 0 : fields[26] as int,
       colloscopeEnabled: fields[28] as bool?,
@@ -490,7 +474,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(29)
+      ..writeByte(28)
       ..writeByte(15)
       ..write(obj.firstLogin)
       ..writeByte(16)
@@ -537,8 +521,6 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..write(obj.mock)
       ..writeByte(18)
       ..write(obj.shownAgendaPopup)
-      ..writeByte(24)
-      ..write(obj.colloscopeAutoUpdateAgenda)
       ..writeByte(25)
       ..write(obj.colloscopeOverrideStudentId)
       ..writeByte(26)

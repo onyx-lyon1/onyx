@@ -42,7 +42,7 @@ class _MailMailboxChooserWidgetState extends State<MailMailboxChooserWidget> {
           child: ExpansionTile(
             key: Key(_key.toString()),
             title: Text(
-              state.currentMailBox!.name,
+              state.currentMailBox?.name ?? "",
               textAlign: TextAlign.center,
             ),
             childrenPadding: EdgeInsets.symmetric(horizontal: 1.5.w),

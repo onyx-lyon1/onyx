@@ -34,15 +34,6 @@ class ExamenSettingsWidget extends StatelessWidget {
           },
         ),
         if (settings.colloscopeEnabled ?? false)
-          TextSwitchWidget(
-            text: 'Auto Update Agenda (WIP)',
-            value: settings.colloscopeAutoUpdateAgenda,
-            onChanged: (bool b) {
-              context.read<SettingsCubit>().modify(
-                  settings: settings.copyWith(colloscopeAutoUpdateAgenda: b));
-            },
-          ),
-        if (settings.colloscopeEnabled ?? false)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
