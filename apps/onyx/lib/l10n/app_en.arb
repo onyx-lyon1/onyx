@@ -1,0 +1,986 @@
+{
+    "@@locale": "en",
+    "onyx": "Onyx",
+    "@onyx": {
+        "description": "The Name of the app"
+    },
+    "initialization": "Initialization",
+    "@initialization": {
+        "description": "Initialization"
+    },
+    "yes": "Yes",
+    "@yes": {
+        "description": "Yes"
+    },
+    "onyxSubTitle": "For Lyon 1",
+    "@onyxSubTitle": {
+        "description": "The subtitle under the name Onyx"
+    },
+    "authentication": "Authentication",
+    "@authentication": {
+        "description": "Authentication"
+    },
+    "privacy": "Privacy",
+    "@privacy": {
+        "description": "Privacy"
+    },
+    "wrongIdFormat": "The id is not in the right format",
+    "@wrongIdFormat": {
+        "description": "The id is not in the right format"
+    },
+    "discoverApp": "Discover the app",
+    "@discoverApp": {
+        "description": "Discover the app"
+    },
+    "yourAuthentificated": "You are authenticated",
+    "@yourAuthentificated": {
+        "description": "You are authenticated"
+    },
+    "loginError": "Login error",
+    "@loginError": {
+        "description": "Login error"
+    },
+    "fatalError": "Fatal error",
+    "@fatalError": {
+        "description": "Fatal error"
+    },
+    "error": "Error",
+    "@error": {
+        "description": "Error"
+    },
+    "casConnexion": "CAS connection",
+    "@casConnexion": {
+        "description": "CAS connection"
+    },
+    "mockUsername": "Mock username",
+    "@mockUsername": {
+        "description": "Mock username"
+    },
+    "mockPassword": "Mock password",
+    "@mockPassword": {
+        "description": "Mock password"
+    },
+    "accessingExams": "Accessing exams",
+    "@accessingExams": {
+        "description": "Accessing exams"
+    },
+    "errorAccessingExams": "Error accessing exams",
+    "@errorAccessingExams": {
+        "description": "Error accessing exams"
+    },
+    "mockStudent": "Mock student",
+    "@mockStudent": {
+        "description": "Mock student"
+    },
+    "mockSchoolSubject": "Mock school subject",
+    "@mockSchoolSubject": {
+        "description": "Mock school subject"
+    },
+    "mockTutorialLeader": "Mock tutorial leader",
+    "@mockTutorialLeader": {
+        "description": "Mock tutorial leader"
+    },
+    "mockMessage": "Mock message",
+    "@mockMessage": {
+        "description": "Mock message"
+    },
+    "mockRoom": "Mock room",
+    "@mockRoom": {
+        "description": "Mock room"
+    },
+    "mockTitle": "Mock title",
+    "@mockTitle": {
+        "description": "Mock title"
+    },
+    "mockCodeName": "Mock code name",
+    "@mockCodeName": {
+        "description": "Mock code name"
+    },
+    "exams": "Exams",
+    "@exams": {
+        "description": "Exams"
+    },
+    "sit": "sit",
+    "@sit": {
+        "description": "Sit (in a room or amphitheater)"
+    },
+    "agendaSelection": "Select the agenda",
+    "@agendaSelection": {
+        "description": "Select the agenda"
+    },
+    "enabled": "Enabled",
+    "@enabled": {
+        "description": "Enabled"
+    },
+    "disabled": "Disabled",
+    "@disabled": {
+        "description": "Disabled"
+    },
+    "settings": "Settings",
+    "@settings": {
+        "description": "Settings"
+    },
+    "showMiniCalendar": "Show the mini calendar at the top of the page",
+    "@showMiniCalendar": {
+        "description": "Show the mini calendar at the top of the page"
+    },
+    "calendarUpdateNotification": "Notification in case of calendar update",
+    "@calendarUpdateNotification": {
+        "description": "Notification in case of calendar update"
+    },
+    "agendaPageBottomToTop": "Display the agendas from bottom to top",
+    "@agendaPageBottomToTop": {
+        "description": "Display the agendas from bottom to top"
+    },
+    "agendaWeekLength": "Number of days displayed in week mode",
+    "@agendaWeekLength": {
+        "description": "Number of days displayed in week mode"
+    },
+    "agendaWeekReference": "Reference day in week mode",
+    "@agendaWeekReference": {
+        "description": "Reference day in week mode"
+    },
+    "today": "Today",
+    "@today": {
+        "description": "Today"
+    },
+    "agendaWeekReferenceAlignement": "Reference day alignment",
+    "@agendaWeekReferenceAlignement": {
+        "description": "Reference day alignment"
+    },
+    "disabledDays": "Hidden days",
+    "@disabledDays": {
+        "description": "Hidden days"
+    },
+    "cantHideAllDays": "You can''t hide all the days",
+    "@cantHideAllDays": {
+        "description": "You can''t hide all the days"
+    },
+    "root": "Root",
+    "@root": {
+        "description": "Root"
+    },
+    "folder": "Folder",
+    "@folder": {
+        "description": "Folder"
+    },
+    "subFolder": "Sub folder",
+    "@subFolder": {
+        "description": "Sub folder"
+    },
+    "anotherRoot": "Another root",
+    "@anotherRoot": {
+        "description": "Another root"
+    },
+    "loadingAgendaList": "Loading agenda list",
+    "@loadingAgendaList": {
+        "description": "Loading agenda list"
+    },
+    "errorAppeared": "An error appeared",
+    "@errorAppeared": {
+        "description": "An error appeared"
+    },
+    "searchInCalendars": "Search in calendars",
+    "@searchInCalendars": {
+        "description": "Search in calendars"
+    },
+    "needCameraToScanQrCode": "We need the camera to scan the QR code",
+    "@needCameraToScanQrCode": {
+        "description": "We need the camera to scan the QR code"
+    },
+    "forLyon1": "For Lyon 1",
+    "@forLyon1": {
+        "description": "For Lyon 1"
+    },
+    "username": "Username",
+    "@username": {
+        "description": "Username"
+    },
+    "password": "Password",
+    "@password": {
+        "description": "Password"
+    },
+    "login": "Login",
+    "@login": {
+        "description": "Login"
+    },
+    "logout": "Logout",
+    "@logout": {
+        "description": "Logout"
+    },
+    "pleaseEnterUsername": "Please enter the username",
+    "@pleaseEnterUsername": {
+        "description": "Please enter the username"
+    },
+    "pleaseEnterAValidEmail": "Please enter a valid email",
+    "@pleaseEnterAValidEmail": {
+        "description": "Please enter a valid email"
+    },
+    "pleaseEnterPassword": "Please enter the password",
+    "@pleaseEnterPassword": {
+        "description": "Please enter the password"
+    },
+    "passwordShouldBeANumber": "The password should be a number",
+    "@passwordShouldBeANumber": {
+        "description": "The password should be a number"
+    },
+    "connecting": "Connecting",
+    "@connecting": {
+        "description": "Connecting"
+    },
+    "thereWasAnErrorWhileConnecting": "There was an error while connecting",
+    "@thereWasAnErrorWhileConnecting": {
+        "description": "There was an error while connecting"
+    },
+    "loading": "Loading...",
+    "@loading": {
+        "description": "Loading"
+    },
+    "available": "{count, plural, =0 {No QR Code available} =1 {1 Qr Code available} other {{count} Qr Codes available}}",
+    "@available": {
+        "description": "Available",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "qrCode": "QR Code",
+    "@qrCode": {
+        "description": "QR Code"
+    },
+    "offline": "Offline",
+    "@offline": {
+        "description": "Offline"
+    },
+    "izly": "Izly",
+    "@izly": {
+        "description": "Izly"
+    },
+    "youAreNotConnectedToIzly": "You are not connected to Izly",
+    "@youAreNotConnectedToIzly": {
+        "description": "You are not connected to Izly"
+    },
+    "paymentHistory": "Payment history",
+    "@paymentHistory": {
+        "description": "Payment history"
+    },
+    "refillWithBankCard": "Refill with bank card",
+    "@refillWithBankCard": {
+        "description": "Refill with bank card"
+    },
+    "refillWithBankTransfer": "Refill with bank transfer",
+    "@refillWithBankTransfer": {
+        "description": "Refill with bank transfer"
+    },
+    "pay": "Pay",
+    "@pay": {
+        "description": "Pay"
+    },
+    "pleaseSelectAnAmount": "Please enter an amount",
+    "@pleaseSelectAnAmount": {
+        "description": "Please enter an amount"
+    },
+    "minimumAmountIs": "The minimum amount is {countEuros}€",
+    "@minimumAmountIs": {
+        "description": "The minimum amount is {countEuros}€",
+        "placeholders": {
+            "countEuros": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "bankTransfer": "Bank transfer",
+    "@bankTransfer": {
+        "description": "Bank transfer"
+    },
+    "bankCard": "Bank card",
+    "@bankCard": {
+        "description": "Bank card"
+    },
+    "thirdParty": "Third party",
+    "@thirdParty": {
+        "description": "Third party"
+    },
+    "mail": "Mail",
+    "@mail": {
+        "description": "Mail"
+    },
+    "message": "Message",
+    "@message": {
+        "description": "Message"
+    },
+    "transfer": "Transfer",
+    "@transfer": {
+        "description": "Transfer"
+    },
+    "recharging": "Recharging",
+    "@recharging": {
+        "description": "Recharging"
+    },
+    "pleaseWait": "Please wait",
+    "@pleaseWait": {
+        "description": "Please wait"
+    },
+    "from": "From",
+    "@from": {
+        "description": "From"
+    },
+    "to": "To",
+    "@to": {
+        "description": "To"
+    },
+    "me": "Me",
+    "@me": {
+        "description": "Me"
+    },
+    "mailSendPageErrorTitle": "Please fill all the fields correctly",
+    "@mailSendPageErrorTitle": {
+        "description": "Please fill all the fields correctly"
+    },
+    "objects": "Objects",
+    "@objects": {
+        "description": "Objects"
+    },
+    "reply": "Reply",
+    "@reply": {
+        "description": "Reply"
+    },
+    "mailServerConnection": "Mail server connection",
+    "@mailServerConnection": {
+        "description": "Mail server connection"
+    },
+    "mailServerConnectionError": "Mail server connection error",
+    "@mailServerConnectionError": {
+        "description": "Mail server connection error"
+    },
+    "loadingMails": "Loading mails",
+    "@loadingMails": {
+        "description": "Loading mails"
+    },
+    "errorOccured": "An error occured",
+    "@errorOccured": {
+        "description": "An error occured"
+    },
+    "sendingEmail": "Sending email",
+    "@sendingEmail": {
+        "description": "Sending email"
+    },
+    "loadMoreMails": "Load 20 more mails",
+    "@loadMoreMails": {
+        "description": "Load 20 more mails"
+    },
+    "tomussConnection": "Tomuss connection",
+    "@tomussConnection": {
+        "description": "Tomuss connection"
+    },
+    "loadingGrades": "Loading grades",
+    "@loadingGrades": {
+        "description": "Loading grades"
+    },
+    "loadingGradesError": "Loading grades error",
+    "@loadingGradesError": {
+        "description": "Loading grades error"
+    },
+    "newEvent": "New event",
+    "@newEvent": {
+        "description": "New event"
+    },
+    "nDayModified": "{count, plural, =0 {You have no modified days} =1 {You have 1 modified day} other {You have {count} modified days}}",
+    "@nDayModified": {
+        "description": "You have {count} modified days",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "newEventAt": "You have a new event on: ${date}",
+    "@newEventAt": {
+        "description": "You have a new event at : ${date}",
+        "placeholders": {
+            "date": {
+                "type": "DateTime",
+                "format": "yMd"
+            }
+        }
+    },
+    "newEmail": "New email",
+    "@newEmail": {
+        "description": "New email"
+    },
+    "youHaveANewEmail": "You have a new email from {sender} \n\n {excerpt}",
+    "@youHaveANewEmail": {
+        "description": "You have a new email from {sender} \n\n {excerpt}",
+        "placeholders": {
+            "sender": {
+                "type": "String"
+            },
+            "excerpt": {
+                "type": "String"
+            }
+        }
+    },
+    "defaultSemester": "Default semester",
+    "@defaultSemester": {
+        "description": "Default semester"
+    },
+    "newGrade": "New grade",
+    "@newGrade": {
+        "description": "New grade"
+    },
+    "youHaveANewGrade": "You got ${numerator}/${denominator} (${title}) in: ${title}",
+    "@youHaveANewGrade": {
+        "description": "You have a new grade : ${numerator}/${denominator} (${title}) in : ${title}",
+        "placeholders": {
+            "numerator": {
+                "type": "double",
+                "format": "compact"
+            },
+            "denominator": {
+                "type": "double",
+                "format": "compact"
+            },
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "grades": "Grades",
+    "@grades": {
+        "description": "Grades"
+    },
+    "agenda": "Agenda",
+    "@agenda": {
+        "description": "Agenda"
+    },
+    "mails": "Mails",
+    "@mails": {
+        "description": "Mails"
+    },
+    "map": "Map",
+    "@map": {
+        "description": "Map"
+    },
+    "ok": "Ok",
+    "@ok": {
+        "description": "Ok"
+    },
+    "warningSelectShouldAgenda": "The agenda is automatically selected. This can be inaccurate,\nespecially for Polytech students.\nDon''t hesitate to select it manually in the settings.",
+    "@warningSelectShouldAgenda": {
+        "description": "The agenda is automatically selected. It can be wrong,\nespecially for Polytech students.\nDon''t hesitate to select it manually in the settings."
+    },
+    "privacyPolicy": "Privacy policy",
+    "@privacyPolicy": {
+        "description": "Privacy policy"
+    },
+    "dataCollection": "Data collection",
+    "@dataCollection": {
+        "description": "Data collection"
+    },
+    "dataSafety": "Data safety",
+    "@dataSafety": {
+        "description": "Data safety"
+    },
+    "contactUs": "Contact us",
+    "@contactUs": {
+        "description": "Contact us"
+    },
+    "weTakeCareOfYourData": "Our application is designed to provide online access to the services of the University of Lyon 1. We take the protection of your personal information seriously and we are committed to ensuring the confidentiality of your information.",
+    "@weTakeCareOfYourData": {
+        "description": "Our application is designed to provide online access to the services of the University of Lyon 1. We take the protection of your personal information seriously and we are committed to ensuring the confidentiality of your information."
+    },
+    "dataOnlyStoredOnYourDevice": "Our application does not collect any personal information. Login data is stored only on the user''s phone and is only communicated with the university''s servers, for which we are not responsible.",
+    "@dataOnlyStoredOnYourDevice": {
+        "description": "Our application does not collect any personal information. Login data is stored only on the user''s phone and is only communicated with the university''s servers, for which we are not responsible."
+    },
+    "ourSecurityMeasures": "We take reasonable security measures to protect your personal information against loss, misuse, unauthorized access, modification and disclosure. Nevertheless, no method of transmission over the Internet or electronic storage is 100% secure. Therefore, while we strive to protect your personal information, we cannot guarantee the absolute security of your information transmitted to our application and you do so at your own risk.",
+    "@ourSecurityMeasures": {
+        "description": "We take reasonable security measures to protect your personal information against loss, misuse, unauthorized access, modification and disclosure. Nevertheless, no method of transmission over the Internet or electronic storage is 100% secure. Therefore, while we strive to protect your personal information, we cannot guarantee the absolute security of your information transmitted to our application and you do so at your own risk."
+    },
+    "modificationOfThePrivacyPolicy": "Modification of this privacy policy",
+    "@modificationOfThePrivacyPolicy": {
+        "description": "Modification of the privacy policy"
+    },
+    "weCanModifyRules": "We reserve the right to modify this privacy policy from time to time. Any changes will be posted on this page and will take effect immediately upon posting. It is your responsibility to check this page regularly to keep up to date with any changes to our privacy policy.",
+    "@weCanModifyRules": {
+        "description": "We reserve the right to modify this privacy policy from time to time. Any changes will be posted on this page and will take effect immediately upon posting. It is your responsibility to check this page regularly to keep up to date with any changes to our privacy policy."
+    },
+    "ifQuestionThenGithub": "If you have any questions about this privacy policy, please contact us on github",
+    "@ifQuestionThenGithub": {
+        "description": "If you have any questions about this privacy policy, please contact us on github"
+    },
+    "kholleOf": "Kholle of {teacher}",
+    "@kholleFrom": {
+        "description": "Kholle of {teacher}",
+        "placeholders": {
+            "teacher": {
+                "type": "String"
+            }
+        }
+    },
+    "examOf": "Exam: {title}",
+    "@examOf": {
+        "description": "Exam: {title}",
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "examLocationPlace": "{location}, place: {place}",
+    "@examLocationPlace": {
+        "description": "{location}, place: {place}",
+        "placeholders": {
+            "location": {
+                "type": "String"
+            },
+            "place": {
+                "type": "num",
+                "format": "decimalPattern"
+            }
+        }
+    },
+    "warning": "Warning",
+    "@warning": {
+        "description": "Warning"
+    },
+    "loadingAgenda": "Loading agenda",
+    "@loadingAgenda": {
+        "description": "Loading agenda"
+    },
+    "agendaError": "Error while loading the agenda",
+    "@agendaError": {
+        "description": "Agenda error"
+    },
+    "monthViewSoon": "The month view is coming soon",
+    "@monthViewSoon": {
+        "description": "The month view is coming soon"
+    },
+    "eventDetails": "Event details",
+    "@eventDetails": {
+        "description": "Event details"
+    },
+    "loadingBuildings": "Loading buildings",
+    "@loadingBuildings": {
+        "description": "Loading buildings"
+    },
+    "route": "Route",
+    "@route": {
+        "description": "Route"
+    },
+    "weekNumberShort": "W: {weekNumber}",
+    "@weekNumberShort": {
+        "description": "W: {weekNumber} displayed in the minicalendar at the left",
+        "placeholders": {
+            "weekNumber": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "inbox": "Inbox",
+    "@inbox": {
+        "description": "Inbox"
+    },
+    "archive": "Archive",
+    "@archive": {
+        "description": "Archive"
+    },
+    "delete": "Delete",
+    "@delete": {
+        "description": "Delete"
+    },
+    "toArchive": "To archive",
+    "@toArchive": {
+        "description": "To archive"
+    },
+    "markAsReadUnread": "Mark as read/unread",
+    "@markAsReadUnread": {
+        "description": "Mark as read/unread"
+    },
+    "moveTo": "Move to",
+    "@moveTo": {
+        "description": "Move to"
+    },
+    "markAsImportant": "Mark as important",
+    "@markAsImportant": {
+        "description": "Mark as important"
+    },
+    "searchInTheNLastEmails": "Search in the last {count} emails",
+    "@searchInTheNLastEmails": {
+        "description": "Search in the last {count} emails",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "minuteCompact": "{minutes}min",
+    "@minuteCompact": {
+        "description": "{minutes}min",
+        "placeholders": {
+            "minutes": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "hourCompact": "{hours}h",
+    "@hourCompact": {
+        "description": "{hours}h",
+        "placeholders": {
+            "hours": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "dayCompact": "{days}d",
+    "@dayCompact": {
+        "description": "{days}d",
+        "placeholders": {
+            "days": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "now": "Now",
+    "@now": {
+        "description": "Now"
+    },
+    "flagedEmail": "Flagged email: {subject}",
+    "@flagedEmail": {
+        "description": "Flagged email: {subject}",
+        "placeholders": {
+            "subject": {
+                "type": "String"
+            }
+        }
+    },
+    "unflagedEmail": "Unflagged email: {subject}",
+    "@unflagedEmail": {
+        "description": "Unflagged email: {subject}",
+        "placeholders": {
+            "subject": {
+                "type": "String"
+            }
+        }
+    },
+    "addAttachment": "Add attachment",
+    "@addAttachment": {
+        "description": "Add attachment"
+    },
+    "deleteAttachmentConfirmation": "Delete the attachment?",
+    "@deleteAttachmentConfirmation": {
+        "description": "Delete attachment"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Cancel"
+    },
+    "emailAddressHint": "Recipient: PXXXXXXX, firstName.surname@status.univ-lyon1.fr",
+    "@emailAddressHint": {
+        "description": "Recipient: PXXXXXXX, firstName.surname@status.univ-lyon1.fr"
+    },
+    "building": "Building",
+    "@building": {
+        "description": "Building"
+    },
+    "menuOf": "Menu of {restaurant}",
+    "@menuOf": {
+        "description": "Menu of {restaurant}",
+        "placeholders": {
+            "restaurant": {
+                "type": "String"
+            }
+        }
+    },
+    "noMenuForThisRestaurant": "No menu for this restaurant",
+    "@noMenuForThisRestaurant": {
+        "description": "No menu for this restaurant"
+    },
+    "close": "Close",
+    "@close": {
+        "description": "Close"
+    },
+    "system": "System",
+    "@system": {
+        "description": "System"
+    },
+    "dark": "Dark",
+    "@dark": {
+        "description": "Dark"
+    },
+    "light": "Light",
+    "@light": {
+        "description": "Light"
+    },
+    "chooseTheme": "Choose the theme",
+    "@chooseTheme": {
+        "description": "Choose the theme"
+    },
+    "cache": "Cache",
+    "@cache": {
+        "description": "Cache"
+    },
+    "clearIzlyCache": "Clear Izly cache",
+    "@clearIzlyCache": {
+        "description": "Clear Izly cache"
+    },
+    "notifications": "Notifications",
+    "@notifications": {
+        "description": "Notifications"
+    },
+    "checkForNewNotifications": "Check for new notifications",
+    "@checkForNewNotifications": {
+        "description": "Check for new notifications"
+    },
+    "changeTheme": "Change theme",
+    "@changeTheme": {
+        "description": "Change theme"
+    },
+    "favoriteTheme": "Favorite theme",
+    "@favoriteTheme": {
+        "description": "Favorite theme"
+    },
+    "lightTheme": "Light theme",
+    "@lightTheme": {
+        "description": "Light theme"
+    },
+    "darkTheme": "Dark theme",
+    "@darkTheme": {
+        "description": "Dark theme"
+    },
+    "examenAddToAgenda": "Add exams to calendar",
+    "@examenAddToAgenda": {
+        "description": "Add exams to calendar"
+    },
+    "enableColloscope": "Enable Colloscope",
+    "@enableColloscope": {
+        "description": "Enable Colloscope"
+    },
+    "forceYear": "Force year",
+    "@forceYear": {
+        "description": "Force year"
+    },
+    "forceYearValue": "{count, plural, =0{Automatic} =1{1st year} other{{count}th year}}",
+    "@forceYearValue": {
+        "description": "{count, plural, =0{Automatic} =1{1st year} =2{2nd year}}",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "forceStudentId": "Force an ID",
+    "@forceStudentId": {
+        "description": "Force an ID"
+    },
+    "emptyToDisable": "(empty to disable)",
+    "@emptyToDisable": {
+        "description": "Leave empty to disable"
+    },
+    "yetNothingToConfigure": "Nothing to configure yet",
+    "@yetNothingToConfigure": {
+        "description": "Yet nothing to configure"
+    },
+    "enablebiometricAuth": "Enable fingerprint authentication",
+    "@enablebiometricAuth": {
+        "description": "Enable fingerprint authentication"
+    },
+    "unableToEnableBiometricAuth": "Unable to enable fingerprint authentication",
+    "@unableToEnableBiometricAuth": {
+        "description": "Unable to enable fingerprint authentication"
+    },
+    "enableBiometricAuthDisableNotifications": "Fingerprint authentication disables notifications",
+    "@enableBiometricAuthDisableNotifications": {
+        "description": "Fingerprint authentication disables notifications"
+    },
+    "autoChangeTheme": "Automatically change to the selected theme",
+    "@autoChangeTheme": {
+        "description": "Automatically change to the selected theme"
+    },
+    "recentGradeDuration": "Duration of a recent note",
+    "@recentGradeDuration": {
+        "description": "Duration of a recent note"
+    },
+    "nDays": "{count, plural, =0{0 day} =1{1 day} other{{count} days}}",
+    "@nDays": {
+        "description": "{count, plural, =0{0 day} =1{1 day} other{{count} days}}",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "selectSemester": "Select a semester",
+    "@selectSemester": {
+        "description": "Select a semester"
+    },
+    "noteDescription": "Average: {average} · Median: {mediane}\nRanking: {rank}/{groupeSize}\nTeacher: {author}",
+    "@noteDescription": {
+        "description": "Average: {average} · Median: {mediane}\nRanking: {rank}/{groupeSize}\nTeacher: {author}",
+        "placeholders": {
+            "average": {
+                "type": "double",
+                "format": "compact"
+            },
+            "mediane": {
+                "type": "double",
+                "format": "compact"
+            },
+            "rank": {
+                "type": "int",
+                "format": "compact"
+            },
+            "groupeSize": {
+                "type": "int",
+                "format": "compact"
+            },
+            "author": {
+                "type": "String"
+            }
+        }
+    },
+    "tomuss": "Tomuss",
+    "@tomuss": {
+        "description": "Tomuss"
+    },
+    "hereMyGrade": "Here is my grade in {title}",
+    "@hereMyGrade": {
+        "description": "Here is my grade in {title}",
+        "placeholders": {
+            "title": {
+                "type": "String"
+            }
+        }
+    },
+    "darkDefault": "Dark (default)",
+    "@darkDefault": {
+        "description": "Dark (default)"
+    },
+    "lightDefault": "Light (default)",
+    "@lightDefault": {
+        "description": "Light (default)"
+    },
+    "nichiHachi": "Nichi Hachi",
+    "@nichiHachi": {
+        "description": "Nichi Hachi"
+    },
+    "blueSky": "Blue sky",
+    "@blueSky": {
+        "description": "Blue sky"
+    },
+    "ultrakill": "ULTRAKILL",
+    "@ultrakill": {
+        "description": "ULTRAKILL"
+    },
+    "stardewValley": "Stardew Valley",
+    "@stardewValley": {
+        "description": "Stardew Valley"
+    },
+    "badApple": "Bad Apple",
+    "@badApple": {
+        "description": "Bad Apple"
+    },
+    "moonLight": "Moon Light",
+    "@moonLight": {
+        "description": "Moon Light"
+    },
+    "eventSubtitle": "{duration} · {location}",
+    "@eventSubtitle": {
+        "description": "{duration} · {location}",
+        "placeholders": {
+            "duration": {
+                "type": "String"
+            },
+            "location": {
+                "type": "String"
+            }
+        }
+    },
+    "pleaseEnterId": "Please enter an id",
+    "@pleaseEnterId": {
+        "description": "Please enter an id"
+    },
+    "general": "General",
+    "@general": {
+        "description": "General"
+    },
+    "changeThemes": "Change themes",
+    "@changeThemes": {
+        "description": "Change themes"
+    },
+    "clearGradeCache": "Clear grade cache",
+    "@clearGradeCache": {
+        "description": "Clear the grade cache"
+    },
+    "clearAgendaCache": "Clear agenda cache",
+    "@clearAgendaCache": {
+        "description": "Clear the agenda cache"
+    },
+    "clearEmailCache": "Clear email cache",
+    "@clearEmailCache": {
+        "description": "Clear the email cache"
+    },
+    "fetchAgendaAuto": "Automatically fetch the agenda",
+    "@fetchAgendaAuto": {
+        "description": "Automatically fetch the agenda"
+    },
+    "notifIfNewEmail": "Notification in case of new email",
+    "@notifIfNewEmail": {
+        "description": "Provide a notification in case of a new email"
+    },
+    "forceMailTheme": "Force the mail theme",
+    "@forceMailTheme": {
+        "description": "Force the mail theme"
+    },
+    "blockTrackers": "Block trackers",
+    "@blockTrackers": {
+        "description": "Block trackers"
+    },
+    "logoutIzly": "Log out of Izly",
+    "@logoutIzly": {
+        "description": "Log out of Izly"
+    },
+    "notifIfNewGrade": "Notification in case of new grade",
+    "@notifIfNewGrade": {
+        "description": "Provide a notification in case of a new grade"
+    },
+    "forceGreenGrade": "Forcibly set the grades to green",
+    "@forceGreenGrade": {
+        "description": "Forcibly set the grades to green"
+    },
+    "showHiddenUE": "Show hidden UEs",
+    "@showHiddenUE": {
+        "description": "Show hidden UEs"
+    },
+    "modify": "Modify",
+    "@modify": {
+        "description": "Modify"
+    },
+    "pleaseSelectOutputFile": "Please select an output file",
+    "@pleaseSelectOutputFile": {
+        "description": "Please select an output file"
+    },
+    "unableToOpenLink": "Unable to open the link",
+    "@unableToOpenLink": {
+        "description": "Unable to open the link"
+    },
+    "chooseLanguage": "Select the language",
+    "@chooseLanguage": {
+        "description": "Select the language"
+    },
+    "auto": "Automatic",
+    "@auto": {
+        "description": "Automatic"
+    }
+}

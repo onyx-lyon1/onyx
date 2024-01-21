@@ -1,986 +1,209 @@
 {
-    "@@locale": "fr",
     "onyx": "Onyx",
-    "@onyx": {
-        "description": "The Name of the app"
-    },
     "initialization": "Initialisation",
-    "@initialization": {
-        "description": "Initialisation"
-    },
     "yes": "Oui",
-    "@yes": {
-        "description": "Yes"
-    },
     "onyxSubTitle": "Pour Lyon 1",
-    "@onyxSubTitle": {
-        "description": "The subtitle under the name Onyx"
-    },
     "authentication": "Authentification",
-    "@authentication": {
-        "description": "Authentication"
-    },
     "privacy": "Confidentialité",
-    "@privacy": {
-        "description": "Privacy"
-    },
     "wrongIdFormat": "L'identifiant n'est pas dans le bon format",
-    "@wrongIdFormat": {
-        "description": "The id is not in the right format"
-    },
     "discoverApp": "Découvrir l''application",
-    "@discoverApp": {
-        "description": "Discover the app"
-    },
     "yourAuthentificated": "Vous êtes authentifié",
-    "@yourAuthentificated": {
-        "description": "You are authentificated"
-    },
     "loginError": "Erreur de connection",
-    "@loginError": {
-        "description": "Login error"
-    },
     "fatalError": "Erreur fatale",
-    "@fatalError": {
-        "description": "Fatal error"
-    },
     "error": "Erreur",
-    "@error": {
-        "description": "Error"
-    },
     "casConnexion": "Connexion à CAS",
-    "@casConnexion": {
-        "description": "CAS connexion"
-    },
     "mockUsername": "Nom d''utilisateur simulé",
-    "@mockUsername": {
-        "description": "Mock username"
-    },
     "mockPassword": "Mot de passe simulé",
-    "@mockPassword": {
-        "description": "Mock password"
-    },
     "accessingExams": "Accès aux examens",
-    "@accessingExams": {
-        "description": "Accessing accessingExamens"
-    },
     "errorAccessingExams": "Erreur lors de l''accès aux examens",
-    "@errorAccessingExams": {
-        "description": "Error accessing accessingExamens"
-    },
     "mockStudent": "Étudiant simulé",
-    "@mockStudent": {
-        "description": "Mock student"
-    },
     "mockSchoolSubject": "Matière simulée",
-    "@mockSchoolSubject": {
-        "description": "Mock school subject"
-    },
     "mockTutorialLeader": "Kholleur simulé",
-    "@mockTutorialLeader": {
-        "description": "Mock tutorial leader"
-    },
     "mockMessage": "Message simulé",
-    "@mockMessage": {
-        "description": "Mock message"
-    },
     "mockRoom": "Salle simulée",
-    "@mockRoom": {
-        "description": "Mock room"
-    },
     "mockTitle": "Titre simulé",
-    "@mockTitle": {
-        "description": "Mock title"
-    },
     "mockCodeName": "Nom de code simulé",
-    "@mockCodeName": {
-        "description": "Mock code name"
-    },
     "exams": "Examens",
-    "@exams": {
-        "description": "Exams"
-    },
     "sit": "place",
-    "@sit": {
-        "description": "Sit (in a room or amphitheater)"
-    },
     "agendaSelection": "Sélectionner l''agenda",
-    "@agendaSelection": {
-        "description": "Select the agenda"
-    },
     "enabled": "Activé",
-    "@enabled": {
-        "description": "Enabled"
-    },
     "disabled": "Désactivé",
-    "@disabled": {
-        "description": "Disabled"
-    },
     "settings": "Paramètres",
-    "@settings": {
-        "description": "Settings"
-    },
     "showMiniCalendar": "Afficher le mini calendrier en haut de page",
-    "@showMiniCalendar": {
-        "description": "Show the mini calendar at the top of the page"
-    },
     "calendarUpdateNotification": "Notification en cas de mise à jour de l''agenda",
-    "@calendarUpdateNotification": {
-        "description": "Notification in case of calendar update"
-    },
     "agendaPageBottomToTop": "Affichage des agendas de bas en haut",
-    "@agendaPageBottomToTop": {
-        "description": "Display the agendas from bottom to top"
-    },
     "agendaWeekLength": "Nombre de jours affichés en mode semaine",
-    "@agendaWeekLength": {
-        "description": "Number of days displayed in week mode"
-    },
     "agendaWeekReference": "Jour de référence en mode semaine",
-    "@agendaWeekReference": {
-        "description": "Reference day in week mode"
-    },
     "today": "Aujourd''hui",
-    "@today": {
-        "description": "Today"
-    },
     "agendaWeekReferenceAlignement": "Alignement du jour de référence",
-    "@agendaWeekReferenceAlignement": {
-        "description": "Reference day alignment"
-    },
     "disabledDays": "Jours cachés",
-    "@disabledDays": {
-        "description": "Hidden days"
-    },
     "cantHideAllDays": "Vous ne pouvez pas cacher tous les jours",
-    "@cantHideAllDays": {
-        "description": "You can't hide all the days"
-    },
     "root": "Racine",
-    "@root": {
-        "description": "Root"
-    },
     "folder": "Dossier",
-    "@dossier": {
-        "description": "Dossier"
-    },
     "subFolder": "Sous-dossier",
-    "@subFolder": {
-        "description": "Sub folder"
-    },
     "anotherRoot": "Autre racine",
-    "@anotherRoot": {
-        "description": "Another root"
-    },
     "loadingAgendaList": "Chargement de la liste des agendas",
-    "@loadingAgendaList": {
-        "description": "Loading agenda list"
-    },
     "errorAppeared": "Une erreur est survenue",
-    "@errorAppeared": {
-        "description": "An error appears"
-    },
     "searchInCalendars": "Rechercher dans les agendas",
-    "@searchInCalendars": {
-        "description": "Search in calendars"
-    },
     "needCameraToScanQrCode": "Nous avons besoin de la caméra pour scanner le QR code",
-    "@needCameraTOScanQrCode": {
-        "description": "We need camera to scan qr codes"
-    },
     "forLyon1": "Pour Lyon 1",
-    "@forLyon1": {
-        "description": "For Lyon 1"
-    },
     "username": "Nom d''utilisateur",
-    "@username": {
-        "description": "Username"
-    },
     "password": "Mot de passe",
-    "@password": {
-        "description": "Password"
-    },
     "login": "Connection",
-    "@login": {
-        "description": "login"
-    },
     "logout": "Déconnection",
-    "@logout": {
-        "description": "logout"
-    },
     "pleaseEnterUsername": "Veuillez entrer l''identitfiant",
-    "@pleaseEnterUsername": {
-        "description": "Please enter the username"
-    },
     "pleaseEnterAValidEmail": "Veuillez entrer un email valide",
-    "@pleaseEnterAValidEmail": {
-        "description": "Please enter a valid email"
-    },
     "pleaseEnterPassword": "Veuillez entrer le mot de passe",
-    "@pleaseEnterPassword": {
-        "description": "Please enter the password"
-    },
     "passwordShouldBeANumber": "Le mot de passe doit être un nombre",
-    "@passwordShouldBeANumber": {
-        "description": "The password should be a number"
-    },
     "connecting": "Connexion en cours",
-    "@connecting": {
-        "description": "Connecting"
-    },
     "thereWasAnErrorWhileConnecting": "Une erreur est survenue lors de la connexion",
-    "@thereWasAnErrorWhileConnecting": {
-        "description": "There was an error while connecting"
-    },
     "loading": "Chargement ...",
-    "@loading": {
-        "description": "Loading"
-    },
     "available": "{count, plural, =0 {Aucun QR Code disponible} =1 {1 Qr Code disponibles} other {{count} Qr Codes disponibles}}",
-    "@available": {
-        "description": "Available",
-        "placeholders": {
-            "count": {
-                "type": "int",
-                "format": "compact"
-            }
-        }
-    },
     "qrCode": "QR Code",
-    "@qrCode": {
-        "description": "QR Code"
-    },
     "offline": "hors connexion",
-    "@offline": {
-        "description": "Offline"
-    },
     "izly": "Izly",
-    "@izly": {
-        "description": "Izly"
-    },
     "youAreNotConnectedToIzly": "Vous n''êtes pas connecté à Izly",
-    "@youAreNotConnectedToIzly": {
-        "description": "You are not connected to Izly"
-    },
     "paymentHistory": "Historique des paiements",
-    "@paymentHistory": {
-        "description": "Payment history"
-    },
     "refillWithBankCard": "Recharger avec une carte bancaire",
-    "@refillWithBankCard": {
-        "description": "Refill with bank card"
-    },
     "refillWithBankTransfer": "Recharger par virement",
-    "@refillWithBankTransfer": {
-        "description": "Refill with bank transfer"
-    },
     "pay": "Payer",
-    "@pay": {
-        "description": "Pay"
-    },
     "pleaseSelectAnAmount": "Veuillez entrer un montant",
-    "@pleaseSelectAnAmount": {
-        "description": "Please enter an amount"
-    },
     "minimumAmountIs": "Le montant minimum est de {countEuros}€}",
-    "@minimumAmountIs": {
-        "description": "The minimum amount is {countEuros}€",
-        "placeholders": {
-            "countEuros": {
-                "type": "int",
-                "format": "compact"
-            }
-        }
-    },
     "bankTransfer": "Virement",
-    "@bankTransfer": {
-        "description": "Bank transfer"
-    },
     "bankCard": "Carte bancaire",
-    "@bankCard": {
-        "description": "Bank card"
-    },
     "thirdParty": "Rechargement par un tiers",
-    "@thirdParty": {
-        "description": "Third party"
-    },
     "mail": "Mail",
-    "@mail": {
-        "description": "Mail"
-    },
     "message": "Message",
-    "@message": {
-        "description": "Message"
-    },
     "transfer": "Transférer",
-    "@transfer": {
-        "description": "Transfer"
-    },
     "recharging": "En cours de rechargement",
-    "@recharging": {
-        "description": "Recharging"
-    },
     "pleaseWait": "Veuillez patienter",
-    "@pleaseWait": {
-        "description": "Please wait"
-    },
     "from": "De",
-    "@from": {
-        "description": "From"
-    },
     "to": "À",
-    "@to": {
-        "description": "To"
-    },
     "me": "Moi",
-    "@me": {
-        "description": "Me"
-    },
     "mailSendPageErrorTitle": "Veuillez remplir correctement tous les champs",
-    "@mailSendPageErrorTitle": {
-        "description": "Please fill all the fields correctly"
-    },
     "objects": "Objets",
-    "@objects": {
-        "description": "Objects"
-    },
     "reply": "Réponse",
-    "@reply": {
-        "description": "Answer"
-    },
     "mailServerConnection": "Connexion au serveur de mail",
-    "@mailServerConnection": {
-        "description": "Mail server connection"
-    },
     "mailServerConnectionError": "Erreur de chargement des mails",
-    "@mailServerConnectionError": {
-        "description": "Mail server connection error"
-    },
     "loadingMails": "Chargement des mails",
-    "@loadingMails": {
-        "description": "Loading mails"
-    },
     "errorOccured": "Une erreur est survenue",
-    "@errorOccured": {
-        "description": "An error occured"
-    },
     "sendingEmail": "Envoi du mail",
-    "@sendingEmail": {
-        "description": "Sending email"
-    },
     "loadMoreMails": "Charger 20 mails supplémentaires",
-    "@loadMoreMails": {
-        "description": "Load 20 more mails"
-    },
     "tomussConnection": "Connexion à Tomuss",
-    "@tomussConnection": {
-        "description": "Tomuss connection"
-    },
     "loadingGrades": "Chargement des notes",
-    "@loadingGrades": {
-        "description": "Loading grades"
-    },
     "loadingGradesError": "Erreur de chargement des notes",
-    "@loadingGradesError": {
-        "description": "Loading grades error"
-    },
     "newEvent": "Nouvel événement",
-    "@newEvent": {
-        "description": "New event"
-    },
     "nDayModified": "{count, plural, =0 {vous avez Aucun jour modifié} =1 {vous avez 1 jour modifié} other {vous avez {count} jours modifiés}}",
-    "@nDayModified": {
-        "description": "You have {count} modified days",
-        "placeholders": {
-            "count": {
-                "type": "int",
-                "format": "compact"
-            }
-        }
-    },
     "newEventAt": "Vous avez un nouvel évènement le : ${date}",
-    "@newEventAt": {
-        "description": "You have a new event at : ${date}",
-        "placeholders": {
-            "date": {
-                "type": "DateTime",
-                "format": "yMd"
-            }
-        }
-    },
     "newEmail": "Nouveau mail",
-    "@newEmail": {
-        "description": "New email"
-    },
     "youHaveANewEmail": "Vous avez un nouveau mail de {sender} \n\n {excerpt}",
-    "@youHaveANewEmail": {
-        "description": "You have a new email from {sender} \n\n {excerpt}",
-        "placeholders": {
-            "sender": {
-                "type": "String"
-            },
-            "excerpt": {
-                "type": "String"
-            }
-        }
-    },
     "defaultSemester": "Semestre par défaut",
-    "@defaultSemester": {
-        "description": "Default semester"
-    },
     "newGrade": "Nouvelle note",
-    "@newGrade": {
-        "description": "New grade"
-    },
     "youHaveANewGrade": "Vous avez eu ${numerator}/${denominator} (${title}) en : ${title}",
-    "@youHaveANewGrade": {
-        "description": "You have a new grade : ${numerator}/${denominator} (${title}) in : ${title}",
-        "placeholders": {
-            "numerator": {
-                "type": "double",
-                "format": "compact"
-            },
-            "denominator": {
-                "type": "double",
-                "format": "compact"
-            },
-            "title": {
-                "type": "String"
-            }
-        }
-    },
     "grades": "Notes",
-    "@grades": {
-        "description": "Grades"
-    },
     "agenda": "Agenda",
-    "@agenda": {
-        "description": "Agenda"
-    },
     "mails": "Mails",
-    "@mails": {
-        "description": "Mails"
-    },
     "map": "Carte",
-    "@map": {
-        "description": "Map"
-    },
     "ok": "Ok",
-    "@ok": {
-        "description": "Ok"
-    },
     "warningSelectShouldAgenda": "L''agenda est sélectionné automatiquement. Cela peut être inexact,\nsurtout pour les étudiants de Polytech.\nN''hésitez pas à le sélectionner manuellement dans les paramètres.",
-    "@warningSelectShouldAgenda": {
-        "description": "The agenda is automatically selected. It can be wrong,\nespecially for Polytech students.\nDon't hesitate to select it manually in the settings."
-    },
     "privacyPolicy": "Politique de confidentialité",
-    "@privacyPolicy": {
-        "description": "Privacy policy"
-    },
     "dataCollection": "Collecte de données",
-    "@dataCollection": {
-        "description": "Data collection"
-    },
     "dataSafety": "Sécurité des données",
-    "@dataSafety": {
-        "description": "Data safety"
-    },
     "contactUs": "Nous contacter",
-    "@contactUs": {
-        "description": "Contact us"
-    },
     "weTakeCareOfYourData": "Notre application est conçue pour fournir un accès en ligne aux services de l''université de Lyon 1. Nous prenons la protection de vos informations personnelles au sérieux et nous sommes déterminés à assurer la confidentialité de vos informations.",
-    "@weTakeCareOfYourData": {
-        "description": "Our application is designed to provide online access to the services of the University of Lyon 1. We take the protection of your personal information seriously and we are committed to ensuring the confidentiality of your information."
-    },
     "dataOnlyStoredOnYourDevice": "Notre application ne collecte aucune information personnelle. Les données de connexion sont stockées uniquement sur le téléphone de l''utilisateur et ne sont communiquées qu''avec les serveurs de l''université, pour lesquels nous ne sommes pas responsables.",
-    "@dataOnlyStoredOnYourDevice": {
-        "description": "Our application does not collect any personal information. Login data is stored only on the user''s phone and is only communicated with the university''s servers, for which we are not responsible."
-    },
     "ourSecurityMeasures": "Nous prenons des mesures de sécurité raisonnables pour protéger vos informations personnelles contre la perte, l''utilisation abusive, l''accès non autorisé, la modification et la divulgation. Néanmoins, aucune méthode de transmission sur Internet ou de stockage électronique n''est sûre à 100 %. Par conséquent, bien que nous nous efforcions de protéger vos informations personnelles, nous ne pouvons garantir la sécurité absolue de vos informations transmises à notre application et vous le faites à vos risques et périls.",
-    "@ourSecurityMeasures": {
-        "description": "We take reasonable security measures to protect your personal information against loss, misuse, unauthorized access, modification and disclosure. Nevertheless, no method of transmission over the Internet or electronic storage is 100% secure. Therefore, while we strive to protect your personal information, we cannot guarantee the absolute security of your information transmitted to our application and you do so at your own risk."
-    },
     "modificationOfThePrivacyPolicy": "Modification de cette politique de confidentialité",
-    "@modificationOfThePrivacyPolicy": {
-        "description": "Modification of the privacy policy"
-    },
     "weCanModifyRules": "Nous nous réservons le droit de modifier cette politique de confidentialité de temps à autre. Toute modification sera publiée sur cette page et prendra effet immédiatement après sa publication. Il est de votre responsabilité de consulter régulièrement cette page pour vous tenir informé des modifications apportées à notre politique de confidentialité.",
-    "@weCanModifyRules": {
-        "description": "We reserve the right to modify this privacy policy from time to time. Any changes will be posted on this page and will take effect immediately upon posting. It is your responsibility to check this page regularly to keep up to date with any changes to our privacy policy."
-    },
     "ifQuestionThenGithub": "Si vous avez des questions concernant cette politique de confidentialité, veuillez nous contacter sur github",
-    "@ifQuestionThenGithub": {
-        "description": "If you have any questions about this privacy policy, please contact us on github"
-    },
     "kholleOf": "Kholle de {teacher}",
-    "@kholleFrom": {
-        "description": "Kholle of {teacher}",
-        "placeholders": {
-            "teacher": {
-                "type": "String"
-            }
-        }
-    },
     "examOf": "Examen : {title}",
-    "@examOf": {
-        "description": "Exam : {title}",
-        "placeholders": {
-            "title": {
-                "type": "String"
-            }
-        }
-    },
     "examLocationPlace": "{location}, place : {place}",
-    "@examLocationPlace": {
-        "description": "{location}, place : {place}",
-        "placeholders": {
-            "location": {
-                "type": "String"
-            },
-            "place": {
-                "type": "num",
-                "format": "decimalPattern"
-            }
-        }
-    },
     "warning": "Attention",
-    "@warning": {
-        "description": "Warning"
-    },
     "loadingAgenda": "Chargement de l''agenda",
-    "@loadingAgenda": {
-        "description": "Loading agenda"
-    },
     "agendaError": "Erreur lors du chargement de l''agenda",
-    "@agendaError": {
-        "description": "Agenda error"
-    },
     "monthViewSoon": "La vue mensuelle arrive bientôt",
-    "@monthViewSoon": {
-        "description": "The month view is coming soon"
-    },
     "eventDetails": "Détails de l''évènement",
-    "@eventDetails": {
-        "description": "Event details"
-    },
     "loadingBuildings": "Chargement des bâtiments",
-    "@loadingBuildings": {
-        "description": "Loading buildings"
-    },
     "route": "Itinéraire",
-    "@route": {
-        "description": "Route"
-    },
     "weekNumberShort": "S: {weekNumber}",
-    "@weekNumberShort": {
-        "description": "S: {weekNumber} displayed in the minicalendar at the left",
-        "placeholders": {
-            "weekNumber": {
-                "type": "int",
-                "format": "compact"
-            }
-        }
-    },
     "inbox": "Boîte de réception",
-    "@inbox": {
-        "description": "Inbox"
-    },
     "archive": "Archives",
-    "@archive": {
-        "description": "Archive"
-    },
     "delete": "Supprimer",
-    "@delete": {
-        "description": "Delete"
-    },
     "toArchive": "Archiver",
-    "@toArchive": {
-        "description": "To archive"
-    },
     "markAsReadUnread": "Marquer comme lu/non lu",
-    "@markAsReadUnread": {
-        "description": "Mark as read/unread"
-    },
     "moveTo": "Déplacer vers",
-    "@moveTo": {
-        "description": "Move to"
-    },
     "markAsImportant": "Marquer comme important",
-    "@markAsImportant": {
-        "description": "Mark as important"
-    },
     "searchInTheNLastEmails": "Rechercher dans les {count} derniers mails",
-    "@searchInTheNLastEmails": {
-        "description": "Search in the {count} last emails",
-        "placeholders": {
-            "count": {
-                "type": "int",
-                "format": "compact"
-            }
-        }
-    },
     "minuteCompact": "{minutes}min",
-    "@minuteCompact": {
-        "description": "{minutes}min",
-        "placeholders": {
-            "minutes": {
-                "type": "int",
-                "format": "compact"
-            }
-        }
-    },
     "hourCompact": "{hours}h",
-    "@hourCompact": {
-        "description": "{hours}h",
-        "placeholders": {
-            "hours": {
-                "type": "int",
-                "format": "compact"
-            }
-        }
-    },
     "dayCompact": "{days}j",
-    "@dayCompact": {
-        "description": "{days}j",
-        "placeholders": {
-            "days": {
-                "type": "int",
-                "format": "compact"
-            }
-        }
-    },
     "now": "Maintenant",
-    "@now": {
-        "description": "Now"
-    },
     "flagedEmail": "Mail marqué : {subject}",
-    "@flagedEmail": {
-        "description": "Flagged email : {subject}",
-        "placeholders": {
-            "subject": {
-                "type": "String"
-            }
-        }
-    },
     "unflagedEmail": "Mail non marqué : {subject}",
-    "@unflagedEmail": {
-        "description": "Unflagged email : {subject}",
-        "placeholders": {
-            "subject": {
-                "type": "String"
-            }
-        }
-    },
     "addAttachment": "Ajouter une pièce jointe",
-    "@addAttachment": {
-        "description": "Add attachment"
-    },
     "deleteAttachmentConfirmation": "Supprimer la pièce jointe ?",
-    "@deleteAttachmentConfirmation": {
-        "description": "Delete attachment"
-    },
     "cancel": "Annuler",
-    "@cancel": {
-        "description": "Cancel"
-    },
     "emailAddressHint": "Destinataire : PXXXXXXX, prenom.nom@status.univ-lyon1.fr",
-    "@emailAddressHint": {
-        "description": "Recipient : PXXXXXXX, firstName.surname@status.univ-lyon.fr"
-    },
     "building": "Bâtiment",
-    "@building": {
-        "description": "Building"
-    },
     "menuOf": "Menu de {restaurant}",
-    "@menuOf": {
-        "description": "Menu of {restaurant}",
-        "placeholders": {
-            "restaurant": {
-                "type": "String"
-            }
-        }
-    },
     "noMenuForThisRestaurant": "Pas de menu pour ce restaurant",
-    "@noMenuForThisRestaurant": {
-        "description": "No menu for this restaurant"
-    },
     "close": "Fermer",
-    "@close": {
-        "description": "Close"
-    },
     "system": "Système",
-    "@system": {
-        "description": "System"
-    },
     "dark": "Sombre",
-    "@dark": {
-        "description": "Dark"
-    },
     "light": "Clair",
-    "@light": {
-        "description": "Light"
-    },
     "chooseTheme": "Choisir le thème",
-    "@chooseTheme": {
-        "description": "Choose the theme"
-    },
     "cache": "Cache",
-    "@cache": {
-        "description": "Cache"
-    },
     "clearIzlyCache": "Vider le cache d''Izly",
-    "@clearIzlyCache": {
-        "description": "Clear Izly cache"
-    },
     "notifications": "Notifications",
-    "@notifications": {
-        "description": "Notifications"
-    },
     "checkForNewNotifications": "Vérifier les nouvelles notifications",
-    "@checkForNewNotifications": {
-        "description": "Check for new notifications"
-    },
     "changeTheme": "Changer de thème",
-    "@changeTheme": {
-        "description": "Change theme"
-    },
     "favoriteTheme": "Thème favori",
-    "@favoriteTheme": {
-        "description": "Favorite theme"
-    },
     "lightTheme": "Thème clair",
-    "@lightTheme": {
-        "description": "Light theme"
-    },
     "darkTheme": "Thème sombre",
-    "@darkTheme": {
-        "description": "Dark theme"
-    },
     "examenAddToAgenda": "Ajouter les examens à l''agenda",
-    "@examenAddToAgenda": {
-        "description": "Add exams to calendar"
-    },
     "enableColloscope": "Activer Colloscope",
-    "@enableColloscope": {
-        "description": "Enable Colloscope"
-    },
     "forceYear": "Forcer l''année",
-    "@forceYear": {
-        "description": "Force year"
-    },
     "forceYearValue": "{count, plural, =0{Automatique} =1{1ère année} other{{count}e année}}",
-    "@forceYearValue": {
-        "description": "{count, plural, =0{Automatic} =1{1st year} =2{2nd year}}",
-        "placeholders": {
-            "count": {
-                "type": "int",
-                "format": "compact"
-            }
-        }
-    },
     "forceStudentId": "Forcer un ID",
-    "@forceStudentId": {
-        "description": "Force an ID"
-    },
     "emptyToDisable": "(vide pour désactiver)",
-    "@emptyToDisable": {
-        "description": "Leave empty to disable"
-    },
     "yetNothingToConfigure": "Rien à configurer pour le moment",
-    "@yetNothingToConfigure": {
-        "description": "Yet nothing to configure"
-    },
     "enablebiometricAuth": "Activer l''authentification par empreinte digitale",
-    "@enablebiometricAuth": {
-        "description": "Enable fingerprint authentication"
-    },
     "unableToEnableBiometricAuth": "Impossible d''activer l''authentification par empreinte digitale",
-    "@unableToEnableBiometricAuth": {
-        "description": "Unable to enable fingerprint authentication"
-    },
     "enableBiometricAuthDisableNotifications": "L''authentification par empreinte digitale désactive les notifications",
-    "@enableBiometricAuthDisableNotifications": {
-        "description": "Fingerprint authentication disables notifications"
-    },
     "autoChangeTheme": "Changer automatiquement au theme selectionné",
-    "@autoChangeTheme": {
-        "description": "Automatically change to the selected theme"
-    },
     "recentGradeDuration": "Durée d''une note récente",
-    "@recentGradeDuration": {
-        "description": "Duration of a recent note"
-    },
     "nDays": "{count, plural, =0{0 jour} =1{1 jour} other{{count} jours}}",
-    "@nDays": {
-        "description": "{count, plural, =0{0 day} =1{1 day} other{{count} days}}",
-        "placeholders": {
-            "count": {
-                "type": "int",
-                "format": "compact"
-            }
-        }
-    },
     "selectSemester": "Sélectionner un semestre",
-    "@selectSemester": {
-        "description": "Select a semester"
-    },
     "noteDescription": "Moyenne : {average} · Mediane : {mediane}\nClassement : {rank}/{groupeSize}\nProfesseur : {author}",
-    "@noteDescription": {
-        "description": "Average : {average} · Median : {mediane}\nRanking : {rank}/{groupeSize}\nTeacher : {author}",
-        "placeholders": {
-            "average": {
-                "type": "double",
-                "format": "compact"
-            },
-            "mediane": {
-                "type": "double",
-                "format": "compact"
-            },
-            "rank": {
-                "type": "int",
-                "format": "compact"
-            },
-            "groupeSize": {
-                "type": "int",
-                "format": "compact"
-            },
-            "author": {
-                "type": "String"
-            }
-        }
-    },
     "tomuss": "Tomuss",
-    "@tomuss": {
-        "description": "Tomuss"
-    },
     "hereMyGrade": "Voici ma note en {title}",
-    "@hereMyGrade": {
-        "description": "Here is my grade in {title}",
-        "placeholders": {
-            "title": {
-                "type": "String"
-            }
-        }
-    },
     "darkDefault": "Sombre (par défaut)",
-    "@darkDefault": {
-        "description": "Dark (default)"
-    },
     "lightDefault": "Clair (par défaut)",
-    "@lightDefault": {
-        "description": "Light (default)"
-    },
     "nichiHachi": "Nichi Hachi",
-    "@nichiHachi": {
-        "description": "Nichi Hachi"
-    },
     "blueSky": "Ciel bleu",
-    "@blueSky": {
-        "description": "Blue sky"
-    },
     "ultrakill": "ULTRAKILL",
-    "@ultrakill": {
-        "description": "ULTRAKILL"
-    },
     "stardewValley": "Stardew Valley",
-    "@stardewValley": {
-        "description": "Stardew Valley"
-    },
     "badApple": "Bad Apple",
-    "@badApple": {
-        "description": "Bad Apple"
-    },
     "moonLight": "Moon Light",
-    "@moonLight": {
-        "description": "Moon Light"
-    },
     "eventSubtitle": "{duration} • {location}",
-    "@eventSubtitle": {
-        "description": "{duration} • {location}",
-        "placeholders": {
-            "duration": {
-                "type": "String"
-            },
-            "location": {
-                "type": "String"
-            }
-        }
-    },
     "pleaseEnterId": "Veuillez entrer l''identifiant",
-    "@pleaseEnterId": {
-        "description": "Please enter an id"
-    },
     "general": "Général",
-    "@general": {
-        "description": "General"
-    },
     "changeThemes": "Changer les thèmes",
-    "@changeThemes": {
-        "description": "Change themes"
-    },
     "clearGradeCache": "Vider le cache des notes",
-    "@clearGradeCache": {
-        "description": "Clear grade cache"
-    },
     "clearAgendaCache": "Vider le cache de l''agenda",
-    "@clearAgendaCache": {
-        "description": "Clear agenda cache"
-    },
     "clearEmailCache": "Vider le cache des mails",
-    "@clearEmailCache": {
-        "description": "Clear email cache"
-    },
     "fetchAgendaAuto": "Récupérer automatiquement l''agenda",
-    "@fetchAgendaAuto": {
-        "description": "Automatically fetch the agenda"
-    },
     "notifIfNewEmail": "Notification en cas de nouveau mail",
-    "@notifIfNewEmail": {
-        "description": "Notification in case of new email"
-    },
     "forceMailTheme": "Forcer le thème des mails",
-    "@forceMailTheme": {
-        "description": "Force the mail theme"
-    },
     "blockTrackers": "Bloquer les trackers",
-    "@blockTrackers": {
-        "description": "Block trackers"
-    },
     "logoutIzly": "Déconnexion d''Izly",
-    "@logoutIzly": {
-        "description": "Logout Izly"
-    },
     "notifIfNewGrade": "Notification en cas de nouvelle note",
-    "@notifIfNewGrade": {
-        "description": "Notification in case of new grade"
-    },
     "forceGreenGrade": "Frocer les notes en vert",
-    "@forceGreenGrade": {
-        "description": "Force the grades in green"
-    },
     "showHiddenUE": "Afficher les UE cachées",
-    "@showHiddenUE": {
-        "description": "Show hidden UE"
-    },
     "modify": "Modifier",
-    "@modify": {
-        "description": "Modify"
-    },
     "pleaseSelectOutputFile": "Veuillez sélectionner un fichier de sortie",
-    "@pleaseSelectOutputFile": {
-        "description": "Please select an output file"
-    },
     "unableToOpenLink": "Impossible d''ouvrir le lien",
-    "@unableToOpenLink": {
-        "description": "Unable to open the link"
-    },
     "chooseLanguage": "Choisir la langue",
-    "@chooseLanguage": {
-        "description": "Choose the language"
-    },
-    "auto": "Automatique",
-    "@auto": {
-        "description": "Auto"
-    }
+    "auto": "Automatique"
 }
