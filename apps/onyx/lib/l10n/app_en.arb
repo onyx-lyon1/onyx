@@ -915,10 +915,6 @@
     "@general": {
         "description": "General"
     },
-    "changeThemes": "Change themes",
-    "@changeThemes": {
-        "description": "Change themes"
-    },
     "clearGradeCache": "Clear grade cache",
     "@clearGradeCache": {
         "description": "Clear the grade cache"

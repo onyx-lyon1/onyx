@@ -1,4 +1,5 @@
 {
+    "@@locale": "fr",
     "onyx": "Onyx",
     "initialization": "Initialisation",
     "yes": "Oui",
@@ -189,7 +190,6 @@
     "eventSubtitle": "{duration} • {location}",
     "pleaseEnterId": "Veuillez entrer l''identifiant",
     "general": "Général",
-    "changeThemes": "Changer les thèmes",
     "clearGradeCache": "Vider le cache des notes",
     "clearAgendaCache": "Vider le cache de l''agenda",
     "clearEmailCache": "Vider le cache des mails",
