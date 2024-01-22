@@ -136,7 +136,7 @@ class MailDetailsPage extends StatelessWidget {
                                                 emailNumber: state.emailNumber,
                                                 fileName:
                                                     mail.attachments[index],
-                                                folder: state.currentMailBox!
+                                                folder: state.currentMailBox!,
                                                 appLocalizations: AppLocalizations.of(context)!,
                                                 );
                                   }
