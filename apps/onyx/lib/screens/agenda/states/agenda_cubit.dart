@@ -37,14 +37,14 @@ class AgendaCubit extends Cubit<AgendaState> {
       bool fromUser = false}) async {
     emit(state.copyWith(status: AgendaStatus.loading, settingsModel: settings));
     if (cache && !Res.mock && !kIsWeb) {
-      state.realDays = await compute(
+      List<Day> realDays = await compute(
         AgendaLogic.getCache,
         (await getApplicationDocumentsDirectory()).path,
       );
       emit(state.copyWith(
           status: AgendaStatus.cacheReady,
-          realDays: state.realDays,
-          wantedDate: state.realDays
+          realDays: realDays,
+          wantedDate: realDays
               .indexWhere((element) => element.date.isSameDay(DateTime.now()))
               .clamp(0, state.realDays.length),
           settingsModel: settings));

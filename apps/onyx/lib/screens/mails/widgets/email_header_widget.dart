@@ -138,54 +138,44 @@ class MailHeaderWidget extends StatelessWidget {
             ],
           );
         } else {
-          return SizedBox(
-            height: Res.bottomNavBarHeight,
-            width: 100.w,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  width: 90.w,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 3.w),
-                    child: TextField(
-                      onChanged: (String query) {
-                        context.read<EmailCubit>().filter(
-                              filter: query,
-                            );
-                      },
-                      onSubmitted: (String query) {
-                        FocusScope.of(context).unfocus();
-                      },
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.labelLarge!.color,
-                      ),
-                      cursorColor: Theme.of(context).textTheme.bodyLarge!.color,
-                      decoration: InputDecoration(
+          return Container(
+            margin: const EdgeInsets.all(11),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.background,
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: TextField(
+              onChanged: (String query) {
+                context.read<EmailCubit>().filter(filter: query);
+              },
+              onSubmitted: (String query) {
+                FocusScope.of(context).unfocus();
+              },
+              style: TextStyle(
+                color: Theme.of(context).textTheme.labelLarge!.color,
+              ),
+              cursorColor: Theme.of(context).textTheme.bodyLarge!.color,
+              decoration: InputDecoration(
                         hintText: AppLocalizations.of(context)!
                             .searchInTheNLastEmails(
                                 context.read<EmailCubit>().emailNumber),
-                        prefixIcon: Icon(
-                          Icons.search_rounded,
-                          color: Theme.of(context)
-                              .bottomNavigationBarTheme
-                              .unselectedItemColor,
-                        ),
-                        contentPadding: EdgeInsets.only(bottom: 1.h),
-                        border: InputBorder.none,
-                      ),
-                      textAlignVertical: TextAlignVertical.center,
-                    ),
-                  ),
+                hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .color!
+                        .withOpacity(0.5)),
+                prefixIcon: Icon(
+                  Icons.search_rounded,
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .unselectedItemColor,
                 ),
-              ],
+                contentPadding: EdgeInsets.only(bottom: 1.h),
+                focusedBorder: InputBorder.none,
+                border: InputBorder.none,
+              ),
+              textAlignVertical: TextAlignVertical.center,
             ),
           );
         }

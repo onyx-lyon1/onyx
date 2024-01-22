@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -118,22 +119,26 @@ class MailDetailsPage extends StatelessWidget {
                                   //save data in a file and open it
                                   if (mail.attachmentsFiles
                                       .where((element) => element.path
-                                          .contains(mail.attachments[1]))
+                                          .contains(mail.attachments[index]))
                                       .isEmpty) {
-                                    mail.attachmentsFiles.insert(
-                                        index,
+                                    mail.attachmentsFiles.addAll(List.generate(
+                                        index -
+                                            mail.attachmentsFiles.length +
+                                            1,
+                                        (index) => File("")));
+                                    mail.attachmentsFiles[index] =
                                         await AttachmentLogic
                                             .getAttachmentLocalPath(
-                                          email: mail,
-                                          mailClient: context
-                                              .read<EmailCubit>()
-                                              .mailClient!,
-                                          emailNumber: state.emailNumber,
-                                          fileName: mail.attachments[index],
-                                          folder: state.currentMailBox!,
-                                          appLocalizations:
-                                              AppLocalizations.of(context)!,
-                                        ));
+                                                email: mail,
+                                                mailClient: context
+                                                    .read<EmailCubit>()
+                                                    .mailClient!,
+                                                emailNumber: state.emailNumber,
+                                                fileName:
+                                                    mail.attachments[index],
+                                                folder: state.currentMailBox!
+                                                appLocalizations: AppLocalizations.of(context)!,
+                                                );
                                   }
                                   // ignore: use_build_context_synchronously
                                   showDialog(

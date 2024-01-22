@@ -37,7 +37,7 @@ class Mail extends Equatable {
   @HiveField(9)
   late final List<String> attachments;
 
-  late final List<File> attachmentsFiles;
+  late List<File> attachmentsFiles;
 
   Mail.fromRaw(this.rawMail, {bool removeTrackingImages = false}) {
     subject = rawMail!.decodeSubject() ?? "";

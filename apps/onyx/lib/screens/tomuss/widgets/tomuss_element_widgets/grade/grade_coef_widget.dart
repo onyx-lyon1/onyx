@@ -35,7 +35,6 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
         key: Key('GradeCoefWidget${widget.grade.title}'),
         controller: _controller,
         keyboardType: TextInputType.number,
-        textAlign: TextAlign.center,
         style: TextStyle(
             fontSize: 15.sp,
             color: Theme.of(context).textTheme.bodyLarge!.color!),
