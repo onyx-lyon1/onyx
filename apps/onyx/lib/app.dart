@@ -84,7 +84,7 @@ class OnyxAppState extends State<OnyxApp> {
                       Locale? locale;
                       if (platformLocal.length > 1) {
                         locale = Locale(platformLocal[0], platformLocal[1]);
-                      } else if (platformLocal.length > 0) {
+                      } else if (platformLocal.isNotEmpty) {
                         locale = Locale(platformLocal[0]);
                       }
                       if ((settingsState.status == SettingsStatus.ready ||

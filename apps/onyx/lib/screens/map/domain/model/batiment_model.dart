@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 
 class BatimentModel {
   String name;
@@ -6,8 +8,11 @@ class BatimentModel {
 
   BatimentModel(this.name, this.position);
 
-  BatimentModel.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
+  BatimentModel.fromJson(Map<String, dynamic> json, SettingsState settings)
+      : name = settings.settings.language == 'fr' ||
+                settings.settings.language == null
+            ? json['nameFr']
+            : json['nameEn'],
         position = LatLng(json['coordinates'][1], json['coordinates'][0]);
 
   @override

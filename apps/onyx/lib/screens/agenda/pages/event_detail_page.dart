@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:intl/intl.dart';
 import 'package:izlyclient/izlyclient.dart';
@@ -8,6 +9,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -30,9 +32,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
     super.initState();
   }
 
-  Future<bool> loadBatimentAndRestaurants() async {
+  Future<bool> loadBatimentAndRestaurants(SettingsState settings) async {
     if (widget.event.menuCrous == null) {
-      List<BatimentModel> tmpBatiments = await BatimentsLogic.loadBatiments();
+      List<BatimentModel> tmpBatiments =
+          await BatimentsLogic.loadBatiments(settings);
       for (var i in tmpBatiments) {
         if (SearchService.isMatch(widget.event.location, i.name)) {
           batiments.add(i);
@@ -138,7 +141,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       height: 40.h,
                       width: 90.w,
                       child: FutureBuilder(
-                          future: loadBatimentAndRestaurants(),
+                          future:
+                              loadBatimentAndRestaurants(context.read().state),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
                               return Center(
