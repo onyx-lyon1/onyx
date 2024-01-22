@@ -67,6 +67,8 @@ We really appreciate any help. You can also chat with us on [Discord](https://di
 
 [![](https://contrib.rocks/image?repo=onyx-lyon1/onyx)](https://github.com/onyx-lyon1/onyx/graphs/contributors)
 
+Thanks to weblate for the translation platform !
+
 ## Build
 
 To build the app, follow these steps:
