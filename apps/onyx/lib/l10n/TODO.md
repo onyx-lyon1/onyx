@@ -1,4 +1,5 @@
 - [ ] PENSER A METTRE NULL PLUTOT QUE local("fr") DANS LE CHOIX DE LA LANGUE DANS APP.DART
+- [ ] Changer les langues dans l'app store
 
 core:
 

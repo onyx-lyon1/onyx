@@ -80,6 +80,13 @@ class OnyxAppState extends State<OnyxApp> {
                 builder: (context, themeState) {
                   return BlocBuilder<SettingsCubit, SettingsState>(
                     builder: (context, settingsState) {
+                      final platformLocal = Platform.localeName.split("_");
+                      Locale? locale;
+                      if (platformLocal.length > 1) {
+                        locale = Locale(platformLocal[0], platformLocal[1]);
+                      } else if (platformLocal.length > 0) {
+                        locale = Locale(platformLocal[0]);
+                      }
                       if ((settingsState.status == SettingsStatus.ready ||
                               settingsState.status == SettingsStatus.error) &&
                           (themeState.status != ThemeStateStatus.init)) {
@@ -93,8 +100,7 @@ class OnyxAppState extends State<OnyxApp> {
                               themeState.themesSettings!.themeMode.toThemeMode,
                           theme: themeState.lightTheme,
                           darkTheme: themeState.darkTheme,
-                          locale: Locale(Platform.localeName.split("_")[0],
-                              Platform.localeName.split("_")[1]),
+                          locale: locale,
                           localizationsDelegates: const [
                             LocaleNamesLocalizationsDelegate(),
                             ...AppLocalizations.localizationsDelegates
