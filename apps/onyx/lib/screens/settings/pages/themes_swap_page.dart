@@ -31,14 +31,12 @@ class _ThemesSwapState extends State<ThemesSwap> {
                 ),
                 ThemeListExpansionTile(
                   title: AppLocalizations.of(context)!.lightTheme,
-                  themesPreset: OnyxTheme.themesPresetLight(
-                      AppLocalizations.of(context)!),
+                  themesPreset: OnyxTheme.themesPresetLight,
                   themesCreated: themeState.themesSettings!.lightThemesCreated,
                 ),
                 ThemeListExpansionTile(
                   title: AppLocalizations.of(context)!.darkTheme,
-                  themesPreset:
-                      OnyxTheme.themesPresetDark(AppLocalizations.of(context)!),
+                  themesPreset: OnyxTheme.themesPresetDark,
                   themesCreated: themeState.themesSettings!.darkThemesCreated,
                 ),
               ],

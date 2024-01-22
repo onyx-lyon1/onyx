@@ -34,7 +34,7 @@ class ThemeSettingsModel {
     AppLocalizations? appLocalizations,
   }) {
     appLocalizations ??= lookupAppLocalizations(const Locale('fr'));
-    themesPreset = OnyxTheme.themesPreset(appLocalizations);
+    themesPreset = OnyxTheme.themesPreset;
     this.lightThemeSelected = lightThemeSelected ?? appLocalizations.light;
     this.darkThemeSelected = darkThemeSelected ?? appLocalizations.dark;
 

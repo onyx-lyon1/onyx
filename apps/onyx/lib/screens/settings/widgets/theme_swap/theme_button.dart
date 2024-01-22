@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/extensions/theme_extensions.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -63,7 +64,8 @@ class ThemeButton extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      listThemes[index].name.replaceAll('_', ' '),
+                      listThemes[index]
+                          .translate(AppLocalizations.of(context)!),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: ((listThemes[index].name ==
