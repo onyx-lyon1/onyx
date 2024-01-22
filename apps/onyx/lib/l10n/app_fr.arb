@@ -100,7 +100,7 @@
     "youHaveANewEmail": "Vous avez un nouveau mail de {sender} \n\n {excerpt}",
     "defaultSemester": "Semestre par défaut",
     "newGrade": "Nouvelle note",
-    "youHaveANewGrade": "Vous avez eu ${numerator}/${denominator} (${title}) en : ${title}",
+    "youHaveANewGrade": "Vous avez eu {numerator}/{denominator} en : {title}",
     "grades": "Notes",
     "agenda": "Agenda",
     "mails": "Mails",

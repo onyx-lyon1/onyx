@@ -432,9 +432,9 @@
     "@newGrade": {
         "description": "New grade"
     },
-    "youHaveANewGrade": "You got ${numerator}/${denominator} (${title}) in: ${title}",
+    "youHaveANewGrade": "You got {numerator}/{denominator} in: {title}",
     "@youHaveANewGrade": {
-        "description": "You have a new grade : ${numerator}/${denominator} (${title}) in : ${title}",
+        "description": "You have a new grade : {numerator}/{denominator} ({title}) in : ${title}",
         "placeholders": {
             "numerator": {
                 "type": "double",
