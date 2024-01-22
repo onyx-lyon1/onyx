@@ -514,7 +514,7 @@
         "description": "If you have any questions about this privacy policy, please contact us on github"
     },
     "kholleOf": "Kholle of {teacher}",
-    "@kholleFrom": {
+    "@kholleOf": {
         "description": "Kholle of {teacher}",
         "placeholders": {
             "teacher": {
