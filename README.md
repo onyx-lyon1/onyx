@@ -63,6 +63,10 @@ your phone.
 An application for students, by students. Feel free to contribute to this project by opening issues or pull requests.
 We really appreciate any help. You can also chat with us on [Discord](https://discord.gg/AtCc3pcaNm).
 
+## Thanks
+
+[![](https://contrib.rocks/image?repo=onyx-lyon1/onyx)](https://github.com/onyx-lyon1/onyx/graphs/contributors)
+
 ## Build
 
 To build the app, follow these steps:
