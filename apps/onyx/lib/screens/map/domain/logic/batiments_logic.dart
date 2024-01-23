@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';

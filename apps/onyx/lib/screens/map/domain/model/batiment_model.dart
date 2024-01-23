@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
