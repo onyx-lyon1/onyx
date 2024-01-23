@@ -22,8 +22,8 @@ class TomussText extends TeachingUnitElement {
       var id, var json, var stats, var line, var column, String user)
       : super.fromJson(id, json, stats, line, column, user) {
     comment = json['comment'] ?? "";
-
-    value = (line.length > 0 && id < line.length - 1 && line[id].length > 0)
+    
+    value = (line.length > 0 && id < line.length && line[id].length > 0)
         ? line[id][0].toString()
         : "";
     isValidText = value.isNotEmpty;
