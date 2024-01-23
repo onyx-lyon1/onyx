@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onyx/core/extensions/extensions_export.dart';
+import 'package:intl/intl.dart';
 import 'package:onyx/core/res.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'days_view_widget_res.dart';
 
@@ -23,7 +24,8 @@ class LeftHourIndicatorWidget extends StatelessWidget {
                 : 0.0,
             width: DaysViewRes.leftHourIndicatorWidth.w,
             child: Text(
-              "${i.inHours.toFixedLengthString(2)}h",
+              DateFormat.j(AppLocalizations.of(context).localeName)
+                  .format(DateTime(0, 0, 0, i.inHours)),
               textAlign: TextAlign.center,
             ),
           ),

@@ -9,6 +9,8 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class IzlyRechargeCBPage extends StatefulWidget {
   const IzlyRechargeCBPage({super.key});
 
@@ -39,8 +41,8 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
     return SafeArea(
       child: Material(
         child: CommonScreenWidget(
-          header: const IzlyRechargeHeaderWidget(
-              title: "Recharger par carte bancaire"),
+          header: IzlyRechargeHeaderWidget(
+              title: AppLocalizations.of(context).refillWithBankCard),
           body: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -82,7 +84,7 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
-                      "Payer",
+                      AppLocalizations.of(context).pay,
                       style: TextStyle(
                         color: Theme.of(context).textTheme.bodySmall?.color,
                       ),
@@ -101,13 +103,13 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
     if (controller.text.isEmpty || double.tryParse(controller.text) == null) {
       showDialog(
           context: context,
-          builder: (context) =>
-              const ErrorDialogWidget(message: "Veuillez saisir un montant"));
+          builder: (context) => ErrorDialogWidget(
+              message: AppLocalizations.of(context).pleaseSelectAnAmount));
     } else if (double.parse(controller.text) < 10) {
       showDialog(
           context: context,
-          builder: (context) => const ErrorDialogWidget(
-              message: "Le montant doit être supérieur à 10€"));
+          builder: (context) => ErrorDialogWidget(
+              message: AppLocalizations.of(context).minimumAmountIs(10)));
     } else {
       Navigator.push(
         context,

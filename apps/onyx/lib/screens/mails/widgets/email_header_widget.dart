@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MailHeaderWidget extends StatelessWidget {
   const MailHeaderWidget({
@@ -18,29 +18,35 @@ class MailHeaderWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
-                  onPressed: () {
-                    for (var email in state.selectedMails) {
-                      context.read<EmailCubit>().delete(
-                            email: email,
-                            from: state.currentMailBox!,
-                          );
-                    }
-                    context.read<EmailCubit>().unselectAllMails();
-                  },
-                  icon: const Icon(Icons.delete),
-                  tooltip: "Supprimer"),
+                onPressed: () {
+                  for (var email in state.selectedMails) {
+                    context.read<EmailCubit>().delete(
+                          email: email,
+                          from: state.currentMailBox!,
+                        );
+                  }
+                  context.read<EmailCubit>().unselectAllMails(
+                        AppLocalizations.of(context),
+                      );
+                },
+                icon: const Icon(Icons.delete),
+                tooltip: AppLocalizations.of(context).delete,
+              ),
               IconButton(
                 onPressed: () {
                   for (var email in state.selectedMails) {
                     context.read<EmailCubit>().archive(
                           email: email,
                           from: state.currentMailBox!,
+                          appLocalizations: AppLocalizations.of(context),
                         );
                   }
-                  context.read<EmailCubit>().unselectAllMails();
+                  context.read<EmailCubit>().unselectAllMails(
+                        AppLocalizations.of(context),
+                      );
                 },
                 icon: const Icon(Icons.archive),
-                tooltip: "Archiver",
+                tooltip: AppLocalizations.of(context).toArchive,
               ),
               IconButton(
                 onPressed: () {
@@ -66,10 +72,12 @@ class MailHeaderWidget extends StatelessWidget {
                           );
                     }
                   }
-                  context.read<EmailCubit>().unselectAllMails();
+                  context.read<EmailCubit>().unselectAllMails(
+                        AppLocalizations.of(context),
+                      );
                 },
                 icon: const Icon(Icons.mark_email_read_rounded),
-                tooltip: "marquer comme lus / non lus",
+                tooltip: AppLocalizations.of(context).markAsReadUnread,
               ),
               IconButton(
                 onPressed: () {
@@ -77,7 +85,7 @@ class MailHeaderWidget extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text("Déplacer vers"),
+                          title: Text(AppLocalizations.of(context).moveTo),
                           content: SizedBox(
                             height: 30.h,
                             width: 100.w,
@@ -103,11 +111,13 @@ class MailHeaderWidget extends StatelessWidget {
                             from: state.currentMailBox!,
                           );
                     }
-                    context.read<EmailCubit>().unselectAllMails();
+                    context
+                        .read<EmailCubit>()
+                        .unselectAllMails(AppLocalizations.of(context));
                   });
                 },
                 icon: const Icon(Icons.drive_file_move_rounded),
-                tooltip: "Déplacer vers",
+                tooltip: AppLocalizations.of(context).moveTo,
               ),
               IconButton(
                 onPressed: () {
@@ -117,10 +127,12 @@ class MailHeaderWidget extends StatelessWidget {
                           from: state.currentMailBox!,
                         );
                   }
-                  context.read<EmailCubit>().unselectAllMails();
+                  context.read<EmailCubit>().unselectAllMails(
+                        AppLocalizations.of(context),
+                      );
                 },
                 icon: const Icon(Icons.flag_rounded),
-                tooltip: "Marquer comme important",
+                tooltip: AppLocalizations.of(context).markAsImportant,
               ),
             ],
           );
@@ -143,8 +155,9 @@ class MailHeaderWidget extends StatelessWidget {
               ),
               cursorColor: Theme.of(context).textTheme.bodyLarge!.color,
               decoration: InputDecoration(
-                hintText:
-                    "Recherche dans les ${context.read<EmailCubit>().emailNumber} derniers mails",
+                        hintText: AppLocalizations.of(context)
+                            .searchInTheNLastEmails(
+                                context.read<EmailCubit>().emailNumber),
                 hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Theme.of(context)
                         .textTheme

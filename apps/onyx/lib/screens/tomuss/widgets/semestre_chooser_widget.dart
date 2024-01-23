@@ -5,6 +5,7 @@ import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SemesterChooserWidget extends StatelessWidget {
   const SemesterChooserWidget({super.key});
@@ -14,7 +15,7 @@ class SemesterChooserWidget extends StatelessWidget {
     return AlertDialog(
       backgroundColor: Theme.of(context).cardTheme.color,
       title: Text(
-        "Sélectionner un semestre",
+        AppLocalizations.of(context).selectSemester,
         style: TextStyle(
           color: Theme.of(context).textTheme.bodyLarge!.color,
           fontSize: 20.sp,

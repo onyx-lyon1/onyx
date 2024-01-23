@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TomussSettingsWidget extends StatelessWidget {
   const TomussSettingsWidget({super.key});
@@ -15,7 +16,7 @@ class TomussSettingsWidget extends StatelessWidget {
         if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
             !context.read<SettingsCubit>().state.settings.biometricAuth)
           TextSwitchWidget(
-            text: 'Notification en cas de nouvelle note',
+            text: AppLocalizations.of(context).notifIfNewGrade,
             value: context
                 .read<SettingsCubit>()
                 .state
@@ -31,7 +32,7 @@ class TomussSettingsWidget extends StatelessWidget {
             },
           ),
         TextSwitchWidget(
-          text: 'Forcer les notes en vert',
+          text: AppLocalizations.of(context).forceGreenGrade,
           value: context.read<SettingsCubit>().state.settings.forceGreen,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
@@ -47,7 +48,7 @@ class TomussSettingsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Durée d'une note récente",
+              AppLocalizations.of(context).recentGradeDuration,
               softWrap: true,
               overflow: TextOverflow.visible,
               style: TextStyle(
@@ -63,7 +64,10 @@ class TomussSettingsWidget extends StatelessWidget {
                   .recentGradeDuration,
               items: [
                 for (var i = 0; i <= 10; i++)
-                  DropdownMenuItem(value: i, child: Text("$i jours")),
+                  DropdownMenuItem(
+                    value: i,
+                    child: Text(AppLocalizations.of(context).nDays(i)),
+                  ),
               ],
               onChanged: (int? value) {
                 context.read<SettingsCubit>().modify(
@@ -77,7 +81,7 @@ class TomussSettingsWidget extends StatelessWidget {
           ],
         ),
         // TextSwitchWidget(
-        //   text: 'Montrer les UEs cachées',
+        //   text: AppLocalizations.of(context)!.showHiddenUE,
         //   value: context
         //       .read<SettingsCubit>()
         //       .state

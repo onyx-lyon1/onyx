@@ -13,6 +13,7 @@ part 'generated/mail.g.dart';
 
 @CopyWith()
 @HiveType(typeId: 5)
+// ignore: must_be_immutable
 class Mail extends Equatable {
   late final MimeMessage? rawMail;
 

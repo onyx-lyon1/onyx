@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:latlong2/latlong.dart';
 
 class BatimentModel {
@@ -6,8 +8,10 @@ class BatimentModel {
 
   BatimentModel(this.name, this.position);
 
-  BatimentModel.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
+  BatimentModel.fromJson(Map<String, dynamic> json, Locale locale)
+      : name = (json["name"].keys.contains(locale.languageCode))
+            ? json["name"][locale.languageCode]
+            : json["name"]["fr"],
         position = LatLng(json['coordinates'][1], json['coordinates'][0]);
 
   @override

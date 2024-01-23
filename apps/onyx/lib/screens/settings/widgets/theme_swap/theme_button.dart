@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/extensions/theme_extensions.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ThemeButton extends StatelessWidget {
   const ThemeButton({
@@ -62,7 +64,8 @@ class ThemeButton extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      listThemes[index].name.replaceAll('_', ' '),
+                      listThemes[index]
+                          .translate(AppLocalizations.of(context)),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: ((listThemes[index].name ==
@@ -111,21 +114,21 @@ class ThemeButton extends StatelessWidget {
         Offset.zero & context.size!,
       ),
       items: <PopupMenuEntry>[
-        const PopupMenuItem(
-          value: 'Modifier',
-          child: Text('Modifier'),
+        PopupMenuItem(
+          value: 0,
+          child: Text(AppLocalizations.of(context).modify),
         ),
-        const PopupMenuItem(
-          value: 'Supprimer',
-          child: Text('Supprimer'),
+        PopupMenuItem(
+          value: 1,
+          child: Text(AppLocalizations.of(context).delete),
         ),
       ],
     ).then((value) {
       if (value != null) {
         switch (value) {
-          case 'Modifier':
+          case 0:
             break;
-          case 'Supprimer':
+          case 1:
             context.read<ThemeCubit>().deleteTheme(theme);
             break;
         }

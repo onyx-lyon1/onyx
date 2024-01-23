@@ -24,7 +24,7 @@ class IzlyCubit extends Cubit<IzlyState> {
         state.copyWith(
             status: IzlyStatus.loaded,
             balance: 100.0,
-            qrCode: (await rootBundle.load('assets/izly_mock_qr-code.png'))
+            qrCode: (await rootBundle.load(Res.izlyMockQrCodePath))
                 .buffer
                 .asUint8List(),
             izlyClient: _izlyClient),
@@ -77,7 +77,7 @@ class IzlyCubit extends Cubit<IzlyState> {
       //Load qrcode
       await IzlyLogic.completeQrCodeCache(_izlyClient!);
       if (listEquals(qrCode,
-          (await rootBundle.load('assets/izly.png')).buffer.asUint8List())) {
+          (await rootBundle.load(Res.izlyLogoPath)).buffer.asUint8List())) {
         qrCode = await IzlyLogic.getQrCode();
         await IzlyLogic.completeQrCodeCache(_izlyClient!);
       }

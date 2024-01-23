@@ -8,6 +8,7 @@ import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:open_filex/open_filex.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UploadCompactWidget extends StatelessWidget {
   final Upload upload;
@@ -73,7 +74,9 @@ class UploadCompactWidget extends StatelessWidget {
                           Platform.isMacOS)) {
                     FilePicker.platform
                         .saveFile(
-                      dialogTitle: 'Please select an output file:',
+                      dialogTitle:
+                          // ignore: use_build_context_synchronously
+                          AppLocalizations.of(context).pleaseSelectOutputFile,
                       fileName: path.split('/').last,
                     )
                         .then((outputFilePath) {

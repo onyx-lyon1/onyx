@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/examen/states/examen_cubit.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExamenSettingsWidget extends StatelessWidget {
   const ExamenSettingsWidget({super.key});
@@ -13,7 +14,7 @@ class ExamenSettingsWidget extends StatelessWidget {
     return Column(
       children: [
         TextSwitchWidget(
-          text: "Ajouter les examens à l'agenda",
+          text: AppLocalizations.of(context).examenAddToAgenda,
           value: settings.examenAddToAgenda,
           onChanged: (value) {
             context
@@ -23,7 +24,7 @@ class ExamenSettingsWidget extends StatelessWidget {
           },
         ),
         TextSwitchWidget(
-          text: "Activer Colloscope",
+          text: AppLocalizations.of(context).enableColloscope,
           value: settings.colloscopeEnabled ?? false,
           onChanged: (value) {
             context
@@ -33,20 +34,11 @@ class ExamenSettingsWidget extends StatelessWidget {
           },
         ),
         if (settings.colloscopeEnabled ?? false)
-          TextSwitchWidget(
-            text: 'Auto Update Agenda (WIP)',
-            value: settings.colloscopeAutoUpdateAgenda,
-            onChanged: (bool b) {
-              context.read<SettingsCubit>().modify(
-                  settings: settings.copyWith(colloscopeAutoUpdateAgenda: b));
-            },
-          ),
-        if (settings.colloscopeEnabled ?? false)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Forcer l'année",
+                AppLocalizations.of(context).forceYear,
                 softWrap: true,
                 overflow: TextOverflow.visible,
                 style: TextStyle(
@@ -56,10 +48,12 @@ class ExamenSettingsWidget extends StatelessWidget {
               ),
               DropdownButton(
                 value: settings.colloscopeOverrideYearId,
-                items: const [
-                  DropdownMenuItem(value: 0, child: Text("Automatique")),
-                  DropdownMenuItem(value: 1, child: Text("1ère année")),
-                  DropdownMenuItem(value: 2, child: Text("2e année")),
+                items: [
+                  for (var i = 0; i < 3; i++)
+                    DropdownMenuItem(
+                        value: i,
+                        child: Text(
+                            AppLocalizations.of(context).forceYearValue(i))),
                 ],
                 onChanged: (int? value) {
                   context.read<SettingsCubit>().modify(
@@ -80,7 +74,7 @@ class ExamenSettingsWidget extends StatelessWidget {
                 flex: 3,
                 fit: FlexFit.tight,
                 child: Text(
-                  "Forcer un ID",
+                  AppLocalizations.of(context).forceStudentId,
                   softWrap: true,
                   overflow: TextOverflow.visible,
                   style: TextStyle(
@@ -98,7 +92,7 @@ class ExamenSettingsWidget extends StatelessWidget {
                     FilteringTextInputFormatter.digitsOnly,
                   ],
                   decoration: InputDecoration(
-                    hintText: "(vide pour désactiver)",
+                    hintText: AppLocalizations.of(context).emptyToDisable,
                     hintStyle: TextStyle(
                       color: Theme.of(context).textTheme.bodyLarge!.color,
                       fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,

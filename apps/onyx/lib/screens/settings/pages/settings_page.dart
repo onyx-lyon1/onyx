@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
@@ -11,6 +12,7 @@ import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
+import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/notifications/domain/logic/background_logic.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
@@ -18,6 +20,7 @@ import 'package:onyx/screens/settings/widgets/draggable_zone_widget.dart';
 import 'package:onyx/screens/settings/widgets/drop_down_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({
@@ -40,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
               color: Theme.of(context).cardTheme.color,
               child: Center(
                 child: Text(
-                  'Paramètres',
+                  AppLocalizations.of(context).settings,
                   style: TextStyle(
                     color: Theme.of(context).textTheme.bodyLarge!.color,
                     fontSize: 15,
@@ -53,8 +56,41 @@ class _SettingsPageState extends State<SettingsPage> {
               child: ListView(
                 children: [
                   SettingsCardWidget(
-                    name: 'Général',
+                    name: AppLocalizations.of(context).general,
                     widgets: [
+                      DropDownWidget(
+                        text: AppLocalizations.of(context).chooseLanguage,
+                        value: AppLocalizations.supportedLocales.indexWhere(
+                                (element) =>
+                                    element.languageCode ==
+                                    context
+                                        .read<SettingsCubit>()
+                                        .state
+                                        .settings
+                                        .language) +
+                            1, //little trick, if it does not found because null, it will return -1, so +1 to get 0
+                        // afterward we add in the list the auto option
+                        items: [
+                          AppLocalizations.of(context).auto,
+                          ...AppLocalizations.supportedLocales.map((e) =>
+                              LocaleNames.of(context)?.nameOf(e.languageCode) ??
+                              e.languageCode)
+                        ],
+                        onChanged: (value) {
+                          context.read<SettingsCubit>().modify(
+                              settings: context
+                                  .read<SettingsCubit>()
+                                  .state
+                                  .settings
+                                  .copyWith(
+                                      language: (value == 0)
+                                          ? null
+                                          : AppLocalizations
+                                              .supportedLocales[value - 1]
+                                              .languageCode));
+                          context.read<MapCubit>().resetCubit();
+                        },
+                      ),
                       BlocBuilder<ThemeCubit, ThemeState>(
                         buildWhen: (previous, current) {
                           return previous.themesSettings!.themeMode !=
@@ -62,14 +98,14 @@ class _SettingsPageState extends State<SettingsPage> {
                         },
                         builder: (context, themeState) {
                           return DropDownWidget(
-                              text: 'Choisir le thème',
-                              items: const [
-                                "Système",
-                                "Sombre",
-                                "Clair",
+                              text: AppLocalizations.of(context).chooseTheme,
+                              items: [
+                                AppLocalizations.of(context).system,
+                                AppLocalizations.of(context).dark,
+                                AppLocalizations.of(context).light,
                               ],
                               value: themeState.themesSettings!.themeMode.index,
-                              onChanged: (int choice) {
+                              onChanged: (choice) {
                                 switch (choice) {
                                   case 0:
                                     context
@@ -102,7 +138,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          'Changer les thèmes',
+                          AppLocalizations.of(context).changeTheme,
                           style: TextStyle(
                             fontSize: 17.sp,
                             color: Theme.of(context).textTheme.bodySmall?.color,
@@ -123,12 +159,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   const DraggableZoneWidget(),
                   SettingsCardWidget(
-                    name: 'Connexion',
+                    name: AppLocalizations.of(context).login,
                     widgets: [
                       MaterialButton(
                         color: const Color(0xffbf616a),
                         textColor: Colors.white70,
-                        child: Text('Déconnexion',
+                        child: Text(AppLocalizations.of(context).logout,
                             style: TextStyle(fontSize: 17.sp)),
                         onPressed: () => SettingsLogic.logout(context),
                       ),
@@ -137,93 +173,112 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ],
                   ),
-                  SettingsCardWidget(name: "Cache", widgets: [
-                    MaterialButton(
-                      color: const Color(0xffbf616a),
-                      textColor: Colors.white70,
-                      child: Text('Vider le cache des notes',
-                          style: TextStyle(fontSize: 17.sp)),
-                      onPressed: () {
-                        CacheService.reset<TeachingUnitList>();
-                        CacheService.reset<SemesterList>();
-                        context.read<TomussCubit>().load(
-                            lyon1Cas: context
-                                .read<AuthentificationCubit>()
-                                .state
-                                .lyon1Cas,
-                            cache: false,
-                            settings:
-                                context.read<SettingsCubit>().state.settings);
-                      },
-                    ),
-                    MaterialButton(
-                      color: const Color(0xffbf616a),
-                      textColor: Colors.white70,
-                      child: Text('Vider le cache de l\'agenda',
-                          style: TextStyle(fontSize: 17.sp)),
-                      onPressed: () {
-                        CacheService.reset<Agenda>();
-                        context.read<AgendaCubit>().load(
-                            lyon1Cas: context
-                                .read<AuthentificationCubit>()
-                                .state
-                                .lyon1Cas,
-                            settings:
-                                context.read<SettingsCubit>().state.settings,
-                            cache: false);
-                      },
-                    ),
-                    MaterialButton(
-                      color: const Color(0xffbf616a),
-                      textColor: Colors.white70,
-                      child: Text('Vider le cache des mails',
-                          style: TextStyle(fontSize: 17.sp)),
-                      onPressed: () {
-                        CacheService.reset<MailBoxList>();
-                        context.read<EmailCubit>().load(
-                            cache: false,
-                            blockTrackers: context
-                                .read<SettingsCubit>()
-                                .state
-                                .settings
-                                .blockTrackers);
-                      },
-                    ),
-                    MaterialButton(
-                      color: const Color(0xffbf616a),
-                      textColor: Colors.white70,
-                      child: Text('Vider le cache de Izly',
-                          style: TextStyle(fontSize: 17.sp)),
-                      onPressed: () {
-                        CacheService.reset<IzlyQrCodeList>();
-                        CacheService.reset<IzlyPaymentModelList>();
-                        CacheService.reset<IzlyCredential>();
-                        Hive.deleteBoxFromDisk("cached_qr_code");
-                        Hive.deleteBoxFromDisk("cached_izly_amount");
-                        context.read<IzlyCubit>().resetCubit();
-                        context.read<IzlyCubit>().connect(
-                            settings:
-                                context.read<SettingsCubit>().state.settings);
-                      },
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ]),
-                  SettingsCardWidget(name: "Notification", widgets: [
-                    MaterialButton(
-                      color: const Color(0xffbf616a),
-                      textColor: Colors.white70,
-                      child: Text('Tester les notifications',
-                          style: TextStyle(fontSize: 17.sp)),
-                      onPressed: () {
-                        backgroundLogic(init: false);
-                      },
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ]),
+                  SettingsCardWidget(
+                      name: AppLocalizations.of(context).cache,
+                      widgets: [
+                        MaterialButton(
+                          color: const Color(0xffbf616a),
+                          textColor: Colors.white70,
+                          child: Text(
+                              AppLocalizations.of(context).clearGradeCache,
+                              style: TextStyle(fontSize: 17.sp)),
+                          onPressed: () {
+                            CacheService.reset<TeachingUnitList>();
+                            CacheService.reset<SemesterList>();
+                            context.read<TomussCubit>().load(
+                                lyon1Cas: context
+                                    .read<AuthentificationCubit>()
+                                    .state
+                                    .lyon1Cas,
+                                cache: false,
+                                settings: context
+                                    .read<SettingsCubit>()
+                                    .state
+                                    .settings);
+                          },
+                        ),
+                        MaterialButton(
+                          color: const Color(0xffbf616a),
+                          textColor: Colors.white70,
+                          child: Text(
+                              AppLocalizations.of(context).clearAgendaCache,
+                              style: TextStyle(fontSize: 17.sp)),
+                          onPressed: () {
+                            CacheService.reset<Agenda>();
+                            context.read<AgendaCubit>().load(
+                                lyon1Cas: context
+                                    .read<AuthentificationCubit>()
+                                    .state
+                                    .lyon1Cas,
+                                settings: context
+                                    .read<SettingsCubit>()
+                                    .state
+                                    .settings,
+                                cache: false);
+                          },
+                        ),
+                        MaterialButton(
+                          color: const Color(0xffbf616a),
+                          textColor: Colors.white70,
+                          child: Text(
+                              AppLocalizations.of(context).clearEmailCache,
+                              style: TextStyle(fontSize: 17.sp)),
+                          onPressed: () {
+                            CacheService.reset<MailBoxList>();
+                            context.read<EmailCubit>().load(
+                                  cache: false,
+                                  blockTrackers: context
+                                      .read<SettingsCubit>()
+                                      .state
+                                      .settings
+                                      .blockTrackers,
+                                  appLocalizations:
+                                      AppLocalizations.of(context),
+                                );
+                          },
+                        ),
+                        MaterialButton(
+                          color: const Color(0xffbf616a),
+                          textColor: Colors.white70,
+                          child: Text(
+                              AppLocalizations.of(context).clearIzlyCache,
+                              style: TextStyle(fontSize: 17.sp)),
+                          onPressed: () {
+                            CacheService.reset<IzlyQrCodeList>();
+                            CacheService.reset<IzlyPaymentModelList>();
+                            CacheService.reset<IzlyCredential>();
+                            Hive.deleteBoxFromDisk("cached_qr_code");
+                            Hive.deleteBoxFromDisk("cached_izly_amount");
+                            context.read<IzlyCubit>().resetCubit();
+                            context.read<IzlyCubit>().connect(
+                                settings: context
+                                    .read<SettingsCubit>()
+                                    .state
+                                    .settings);
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ]),
+                  SettingsCardWidget(
+                      name: AppLocalizations.of(context).notifications,
+                      widgets: [
+                        MaterialButton(
+                          color: const Color(0xffbf616a),
+                          textColor: Colors.white70,
+                          child: Text(
+                              AppLocalizations.of(context)
+                                  .checkForNewNotifications,
+                              style: TextStyle(fontSize: 17.sp)),
+                          onPressed: () {
+                            backgroundLogic(init: false);
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ]),
                   const SettingsLinkWidget(),
                 ],
               ),

@@ -12,6 +12,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/domain/model/settings_model.dart';
 import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'examen_state.dart';
 
@@ -29,31 +30,54 @@ class ExamenCubit extends Cubit<ExamenState> {
           ),
         );
 
-  void load(String name, String surname, String username,
-      SettingsModel settings, Lyon1CasClient authentication) async {
+  void load(
+    String name,
+    String surname,
+    String username,
+    SettingsModel settings,
+    Lyon1CasClient authentication,
+    AppLocalizations appLocalization,
+  ) async {
     if (Res.mock) {
       emit(
         state.copyWith(
           status: ExamenStatus.ready,
           studentColloscope: (settings.colloscopeEnabled ?? false)
-              ? StudentColloscope(Student(Year.second, "Oui", 351), 10, [
-                  Kholle(DateTime.now(), "Oui Matiere", "Oui Kholleur",
-                      "Oui message", "Oui Room"),
-                  Kholle(DateTime.now(), "Oui Matiere", "Oui Kholleur",
-                      "Oui message", "Oui Room"),
-                  Kholle(DateTime.now(), "Oui Matiere", "Oui Kholleur",
-                      "Oui message", "Oui Room"),
-                  Kholle(DateTime.now(), "Oui Matiere", "Oui Kholleur",
-                      "Oui message", null),
+              ? StudentColloscope(
+                  Student(Year.second, appLocalization.mockStudent, 351), 10, [
+                  Kholle(
+                      DateTime.now(),
+                      appLocalization.mockSchoolSubject,
+                      appLocalization.mockTutorialLeader,
+                      appLocalization.mockMessage,
+                      appLocalization.mockRoom),
+                  Kholle(
+                      DateTime.now(),
+                      appLocalization.mockSchoolSubject,
+                      appLocalization.mockTutorialLeader,
+                      appLocalization.mockMessage,
+                      appLocalization.mockRoom),
+                  Kholle(
+                      DateTime.now(),
+                      appLocalization.mockSchoolSubject,
+                      appLocalization.mockTutorialLeader,
+                      appLocalization.mockMessage,
+                      appLocalization.mockRoom),
+                  Kholle(
+                      DateTime.now(),
+                      appLocalization.mockSchoolSubject,
+                      appLocalization.mockTutorialLeader,
+                      appLocalization.mockMessage,
+                      null),
                 ])
               : null,
           examens: [
             ExamenModel(
-              "mock title",
-              "mock codename",
+              appLocalization.mockTitle,
+              appLocalization.mockCodeName,
               DateTime.now(),
               const Duration(hours: 2),
-              "mock room",
+              appLocalization.mockRoom,
               42,
             ),
           ],

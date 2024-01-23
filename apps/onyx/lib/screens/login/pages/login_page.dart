@@ -8,6 +8,7 @@ import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/login/pages/waiting_biometric.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/widgets/states_displaying/state_displaying_widget_export.dart';
 
@@ -27,7 +28,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     switch (context.read<AuthentificationCubit>().state.status) {
       case AuthentificationStatus.initial:
-        return const StateDisplayingPage(message: "Initialisation");
+        return StateDisplayingPage(
+            message: AppLocalizations.of(context).initialization);
       case AuthentificationStatus.needCredential:
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
@@ -44,9 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Flexible(
-                          flex: 10,
-                          child: Image.asset("assets/icon_transparent.png")),
+                      Flexible(flex: 10, child: Image.asset(Res.iconPath)),
                       const Spacer(),
                       Flexible(
                         flex: 10,
@@ -54,14 +54,14 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("ONYX",
+                            Text(AppLocalizations.of(context).onyx,
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!
                                     .copyWith(
                                       fontSize: 20.sp,
                                     )),
-                            Text("Pour Lyon 1",
+                            Text(AppLocalizations.of(context).onyxSubTitle,
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium!
@@ -91,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Authentification",
+                                  AppLocalizations.of(context).authentication,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 3.w, vertical: 0.5.h),
                                         child: Text(
-                                          "Confidentialité",
+                                          AppLocalizations.of(context).privacy,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge!
@@ -137,7 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                                         : value.trim(),
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
-                                  labelText: 'Username',
+                                  labelText:
+                                      AppLocalizations.of(context).username,
                                   labelStyle: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
@@ -172,11 +173,13 @@ class _LoginPageState extends State<LoginPage> {
                                     return null;
                                   }
                                   if (value == null || value.isEmpty) {
-                                    return 'Veuillez entrer l\'identifiant';
+                                    return AppLocalizations.of(context)
+                                        .pleaseEnterId;
                                   } else if (!RegExp(
                                           r"(^([pP])\d{7}$)|(.{2,}\..{2,})")
                                       .hasMatch(value.trim())) {
-                                    return "L'identifiant n'est pas dans le bon format";
+                                    return AppLocalizations.of(context)
+                                        .wrongIdFormat;
                                   }
                                   return null;
                                 },
@@ -204,7 +207,8 @@ class _LoginPageState extends State<LoginPage> {
                                     return null;
                                   }
                                   if (value == null || value.isEmpty) {
-                                    return 'Veuillez entrer un mot de passe';
+                                    return AppLocalizations.of(context)
+                                        .pleaseEnterPassword;
                                   }
                                   return null;
                                 },
@@ -224,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    'Connexion',
+                                    AppLocalizations.of(context).login,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!
@@ -257,10 +261,12 @@ class _LoginPageState extends State<LoginPage> {
                                 mock: true,
                               ));
                       context.read<AuthentificationCubit>().login(
-                          settings:
-                              context.read<SettingsCubit>().state.settings);
+                            settings:
+                                context.read<SettingsCubit>().state.settings,
+                            appLocalizations: AppLocalizations.of(context),
+                          );
                     },
-                    child: const Text("Découvrir l'application"),
+                    child: Text(AppLocalizations.of(context).discoverApp),
                   ),
                 ),
               ],
@@ -268,29 +274,35 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       case AuthentificationStatus.authentificating:
-        return const StateDisplayingPage(message: "Authentification");
+        return StateDisplayingPage(
+            message: AppLocalizations.of(context).authentication);
       case AuthentificationStatus.authentificated:
-        return const StateDisplayingPage(message: "Vous êtes authentifié");
+        return StateDisplayingPage(
+            message: AppLocalizations.of(context).yourAuthentificated);
       case AuthentificationStatus.error:
         if (context.read<SettingsCubit>().state.settings.firstLogin) {
           Future.delayed(const Duration(seconds: 1), () {
             context.read<AuthentificationCubit>().logout();
           });
-          return const StateDisplayingPage(message: "Login error");
+          return StateDisplayingPage(
+              message: AppLocalizations.of(context).loginError);
         }
         break;
       case AuthentificationStatus.waitingBiometric:
         return const WaitingBiometric();
     }
-    return const StateDisplayingPage(message: "FATAL ERROR");
+    return StateDisplayingPage(
+        message: AppLocalizations.of(context).fatalError);
   }
 
   void send() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       context.read<AuthentificationCubit>().login(
-          creds: Credential(username, password),
-          settings: context.read<SettingsCubit>().state.settings);
+            creds: Credential(username, password),
+            settings: context.read<SettingsCubit>().state.settings,
+            appLocalizations: AppLocalizations.of(context),
+          );
     }
   }
 }
@@ -326,7 +338,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       textInputAction: TextInputAction.done,
       onFieldSubmitted: (String useless) => widget.onFieldSubmitted(),
       decoration: widget.decoration.copyWith(
-          labelText: 'Password',
+          labelText: AppLocalizations.of(context).password,
           labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context)
                     .textTheme

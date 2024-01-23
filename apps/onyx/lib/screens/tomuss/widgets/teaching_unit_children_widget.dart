@@ -7,6 +7,7 @@ import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:onyx/screens/tomuss/widgets/tomuss_element_widgets/enumeration_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TeachingUnitChildrenWidget extends StatelessWidget {
   const TeachingUnitChildrenWidget({super.key, required this.teachingUnit});
@@ -32,7 +33,8 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
                   ),
                 );
               } else {
-                widgets.addAll(constructGradeChildrenFullList(child));
+                widgets.addAll(constructGradeChildrenFullList(child,
+                    appLocalizations: AppLocalizations.of(context)));
               }
             } else if (child is Enumeration) {
               widgets.add(EnumerationWidget(enumeration: child));
@@ -67,22 +69,26 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
   }
 
   List<Widget> constructGradeChildrenFullList(Grade grade,
-      {int depth = 1, List<Widget>? widgets}) {
+      {int depth = 1,
+      List<Widget>? widgets,
+      required AppLocalizations appLocalizations}) {
     widgets ??= [];
     widgets.add(
       GradeWidget(
         grades: [grade],
         isSeen: true,
         text1: grade.title.replaceAll("_", " "),
-        text2:
-            "Moyenne : ${grade.average.toStringAsFixed(2)} · Mediane : ${grade.mediane.toStringAsFixed(2)}\nClassement : ${grade.rank + 1}/${grade.groupeSize}\nProfesseur : ${grade.author}",
+        text2: appLocalizations.noteDescription(grade.average, grade.mediane,
+            grade.rank + 1, grade.groupeSize, grade.author),
         depth: 1,
       ),
     );
     if (grade.children.isNotEmpty) {
       for (var child in grade.children) {
         constructGradeChildrenFullList(child,
-            depth: depth + 1, widgets: widgets);
+            depth: depth + 1,
+            widgets: widgets,
+            appLocalizations: appLocalizations);
       }
     }
     return widgets;

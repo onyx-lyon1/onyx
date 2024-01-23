@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExamenBottomNavBarIcon extends StatelessWidget {
   const ExamenBottomNavBarIcon({super.key, required this.selected});
@@ -21,7 +22,7 @@ class ExamenBottomNavBarIcon extends StatelessWidget {
                     .unselectedItemColor,
           ),
           Text(
-            "Examens",
+            AppLocalizations.of(context).exams,
             style: TextStyle(fontSize: 13.sp, overflow: TextOverflow.ellipsis),
           ),
         ],

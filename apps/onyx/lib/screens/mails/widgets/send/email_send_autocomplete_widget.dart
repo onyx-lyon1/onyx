@@ -6,6 +6,7 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MailSendAutocompleteWidget extends StatelessWidget {
   const MailSendAutocompleteWidget(
@@ -25,9 +26,12 @@ class MailSendAutocompleteWidget extends StatelessWidget {
                   context.read<SettingsCubit>().state.settings.biometricAuth));
           if (creds != null) {
             // ignore: use_build_context_synchronously
-            context
-                .read<EmailCubit>()
-                .connect(username: creds.username, password: creds.password);
+            context.read<EmailCubit>().connect(
+                  username: creds.username,
+                  password: creds.password,
+                  // ignore: use_build_context_synchronously
+                  appLocalizations: AppLocalizations.of(context),
+                );
           }
           return [];
         } else {
@@ -83,8 +87,7 @@ class MailSendAutocompleteWidget extends StatelessWidget {
               color: Theme.of(context).textTheme.labelLarge!.color!,
             ),
             decoration: InputDecoration(
-                hintText:
-                    "Destinataire : PXXXXXXX, prenom.nom@status.univ-lyon1.fr",
+                hintText: AppLocalizations.of(context).emailAddressHint,
                 hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Theme.of(context)
                         .textTheme

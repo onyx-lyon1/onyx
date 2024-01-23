@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WaitingBiometric extends StatelessWidget {
   const WaitingBiometric({super.key});
@@ -22,9 +24,7 @@ class WaitingBiometric extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Flexible(
-                      flex: 10,
-                      child: Image.asset("assets/icon_transparent.png")),
+                  Flexible(flex: 10, child: Image.asset(Res.iconPath)),
                   const Spacer(
                     flex: 1,
                   ),
@@ -35,7 +35,7 @@ class WaitingBiometric extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "ONYX",
+                          AppLocalizations.of(context).onyx,
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!
@@ -44,7 +44,7 @@ class WaitingBiometric extends StatelessWidget {
                               ),
                         ),
                         Text(
-                          "Pour Lyon 1",
+                          AppLocalizations.of(context).onyxSubTitle,
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!
@@ -71,7 +71,7 @@ class WaitingBiometric extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    'Déconnection',
+                    AppLocalizations.of(context).logout,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 17.sp,
                         ),
@@ -83,7 +83,9 @@ class WaitingBiometric extends StatelessWidget {
             InkWell(
               onTap: () {
                 context.read<AuthentificationCubit>().login(
-                    settings: context.read<SettingsCubit>().state.settings);
+                      settings: context.read<SettingsCubit>().state.settings,
+                      appLocalizations: AppLocalizations.of(context),
+                    );
               },
               borderRadius: BorderRadius.circular(500),
               child: Container(

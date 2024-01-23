@@ -5,6 +5,7 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/examen/states/examen_cubit.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void actionOnScreen(BuildContext context, int index) {
   int indexLocal = index %
@@ -47,14 +48,11 @@ void actionOnScreen(BuildContext context, int index) {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text("Attention"),
+            title: Text(AppLocalizations.of(context).warning),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text("""
-L'agenda est sélectionné automatiquement. Cela peut être inexact,
-surtout pour les étudiants de Polytech.
-N'hésitez pas à le sélectionner manuellement dans les paramètres."""),
+                Text(AppLocalizations.of(context).warningSelectShouldAgenda),
                 SizedBox(
                   height: 2.h,
                 ),
@@ -79,7 +77,7 @@ N'hésitez pas à le sélectionner manuellement dans les paramètres."""),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text("Ok"),
+                child:  Text(AppLocalizations.of(context).ok),
               ),
             ],
           ),

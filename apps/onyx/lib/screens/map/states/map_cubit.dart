@@ -33,11 +33,11 @@ class MapCubit extends Cubit<MapState> {
     }
   }
 
-  void loadBatiment() async {
+  void loadBatiment(Locale locale) async {
     emit(state.copyWith(status: MapStatus.loading));
     List<BatimentModel> batiments = [];
     if (state.batiments.isEmpty) {
-      batiments = await BatimentsLogic.loadBatiments();
+      batiments = await BatimentsLogic.loadBatiments(locale);
     }
     emit(state.copyWith(batiments: batiments));
     List<RestaurantModel> restaurant;

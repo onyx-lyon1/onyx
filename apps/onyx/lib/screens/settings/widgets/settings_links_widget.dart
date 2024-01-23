@@ -17,11 +17,11 @@ class SettingsLinkWidget extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              launchUrl(Uri.parse('https://discord.gg/ReUKtKU523'),
+              launchUrl(Uri.parse(Res.discordUrl),
                   mode: LaunchMode.externalApplication);
             },
             child: Image.asset(
-              'assets/discord_Logo.png',
+              Res.discordLogoPath,
               width: (!Res.isWide) ? 40.w : 20.h,
               height: (!Res.isWide) ? 40.w : 20.h,
             ),
@@ -29,7 +29,7 @@ class SettingsLinkWidget extends StatelessWidget {
           const SizedBox(width: 8),
           InkWell(
               onTap: () {
-                launchUrl(Uri.parse('https://onyx-lyon1.github.io/'),
+                launchUrl(Uri.parse(Res.websiteUrl),
                     mode: LaunchMode.externalApplication);
               },
               child: Icon(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lyon1examenclient/lyon1examenclient.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExamenWidget extends StatelessWidget {
   const ExamenWidget({
@@ -49,7 +50,9 @@ class ExamenWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          examen.date.toMonthName(short: true),
+                          examen.date.toMonthName(
+                              AppLocalizations.of(context).localeName,
+                              short: true),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17.sp,
@@ -63,7 +66,9 @@ class ExamenWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          examen.date.toWeekDayName(short: false),
+                          examen.date.toWeekDayName(
+                              AppLocalizations.of(context).localeName,
+                              short: false),
                         ),
                       ],
                     ),
@@ -86,7 +91,8 @@ class ExamenWidget extends StatelessWidget {
                             children: [
                               Center(
                                 child: Text(
-                                  examen.date.toHourMinuteString(),
+                                  examen.date.toHourMinuteString(
+                                      AppLocalizations.of(context).localeName),
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20.sp,
@@ -118,7 +124,10 @@ class ExamenWidget extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   Text(
-                                      "${examen.location}, place ${examen.place}"),
+                                    AppLocalizations.of(context)
+                                        .examLocationPlace(
+                                            examen.location, examen.place),
+                                  ),
                                 ],
                               ),
                             ))

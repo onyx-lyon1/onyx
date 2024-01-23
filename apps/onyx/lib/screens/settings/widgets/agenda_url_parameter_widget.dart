@@ -5,6 +5,8 @@ import 'package:onyx/screens/agenda_config/page/agenda_config_page.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class AgendaUrlParameterWidget extends StatelessWidget {
   const AgendaUrlParameterWidget({super.key});
 
@@ -20,7 +22,7 @@ class AgendaUrlParameterWidget extends StatelessWidget {
         return Column(
           children: [
             TextSwitchWidget(
-              text: 'Récupérer automatiquement les ressources de l\'agenda',
+              text: AppLocalizations.of(context).fetchAgendaAuto,
               value:
                   context.read<SettingsCubit>().state.settings.fetchAgendaAuto,
               onChanged: (bool b) {
@@ -108,7 +110,7 @@ class AgendaSelectionWidget extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(2.w),
               child: Text(
-                'Sélectionner l\'agenda',
+                AppLocalizations.of(context).agendaSelection,
                 maxLines: 1,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: (state.settings.fetchAgendaAuto && !forceClickable)

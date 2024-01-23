@@ -5,6 +5,7 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AgendaConfigPage extends StatelessWidget {
   const AgendaConfigPage(
@@ -24,17 +25,19 @@ class AgendaConfigPage extends StatelessWidget {
           Widget? body;
           switch (state.status) {
             case AgendaConfigStatus.initial:
-              context.read<AgendaConfigCubit>().loadDirs();
-              body = const StateDisplayingPage(
-                  message: "Chargement de la liste des agendas");
+              context
+                  .read<AgendaConfigCubit>()
+                  .loadDirs(AppLocalizations.of(context));
+              body = StateDisplayingPage(
+                  message: AppLocalizations.of(context).loadingAgendaList);
               break;
             case AgendaConfigStatus.loading:
-              body = const StateDisplayingPage(
-                  message: "Chargement de la liste des agendas");
+              body = StateDisplayingPage(
+                  message: AppLocalizations.of(context).loadingAgendaList);
               break;
             case AgendaConfigStatus.error:
-              body =
-                  const StateDisplayingPage(message: "Une erreur est survenue");
+              body = StateDisplayingPage(
+                  message: AppLocalizations.of(context).errorAppeared);
               break;
             default:
               body = BlocListener<AgendaConfigCubit, AgendaConfigState>(
@@ -68,7 +71,8 @@ class AgendaConfigPage extends StatelessWidget {
                               if (index == 0) {
                                 return DirWidget(
                                   dir: DirModel(
-                                    name: "Agendas",
+                                    name:
+                                        AppLocalizations.of(context).agenda,
                                     identifier: 0,
                                     children: state.dirs,
                                   ),
@@ -218,7 +222,8 @@ class AgendaConfigPage extends StatelessWidget {
                               Theme.of(context).textTheme.bodyLarge!.color,
                           decoration: InputDecoration(
                             // contentPadding: EdgeInsets.symmetric(vertical: 1.5.h),
-                            hintText: "Recherche dans les agendas",
+                            hintText:
+                                AppLocalizations.of(context).searchInCalendars,
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.only(left: 4.w),
                           ),

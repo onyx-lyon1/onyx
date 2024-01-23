@@ -10,24 +10,26 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/widgets/screen_settings/examen_settings_widget.dart';
 import 'package:onyx/screens/settings/widgets/screen_settings/email_settings_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 extension FunctionalitiesExtention on Functionalities {
-  String toCleanString() {
+  String toCleanString(AppLocalizations localizations) {
     switch (this) {
       case Functionalities.tomuss:
-        return "Notes";
+        return localizations.grades;
       case Functionalities.agenda:
-        return "Agenda";
+        return localizations.agenda;
       case Functionalities.mail:
-        return "Mail";
+        return localizations.mails;
       case Functionalities.map:
-        return "Carte";
+        return localizations.map;
       case Functionalities.izly:
-        return "Izly";
+        return localizations.izly;
       case Functionalities.settings:
-        return "Paramètres";
+        return localizations.settings;
       case Functionalities.examen:
-        return "Examens";
+        return localizations.exams;
     }
   }
 

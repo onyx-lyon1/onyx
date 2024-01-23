@@ -6,6 +6,8 @@ import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class IzlyPage extends StatelessWidget {
   const IzlyPage({
     super.key,
@@ -25,13 +27,13 @@ class IzlyPage extends StatelessWidget {
           case IzlyStatus.initial:
             context.read<IzlyCubit>().connect(
                 settings: context.read<SettingsCubit>().state.settings);
-            body = const StateDisplayingPage(
-              message: "Connexion en cours",
+            body = StateDisplayingPage(
+              message: AppLocalizations.of(context).connecting,
             );
             break;
           case IzlyStatus.connecting:
-            body = const StateDisplayingPage(
-              message: "Connexion en cours",
+            body = StateDisplayingPage(
+              message: AppLocalizations.of(context).connecting,
             );
             break;
           case IzlyStatus.error:
@@ -39,13 +41,15 @@ class IzlyPage extends StatelessWidget {
               context.read<IzlyCubit>().connect(
                   settings: context.read<SettingsCubit>().state.settings);
             });
-            stateWidget =
-                const StateDisplayingPage(message: "Il y a eu une erreur");
+            stateWidget = StateDisplayingPage(
+                message: AppLocalizations.of(context)
+                    .thereWasAnErrorWhileConnecting);
             break;
           case IzlyStatus.noCredentials:
             return const IzlyLoginPage();
           case IzlyStatus.loading:
-            stateWidget = const LoadingHeaderWidget(message: "Chargement...");
+            stateWidget = LoadingHeaderWidget(
+                message: AppLocalizations.of(context).loading);
             break;
           case IzlyStatus.connected:
             break;
@@ -67,7 +71,7 @@ class IzlyPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                          "${state.qrCodeAvailables} QRCode${(state.qrCodeAvailables > 1) ? "s" : ""} disponible${(state.qrCodeAvailables > 1) ? "s" : ""} hors connexion"),
+                          "${AppLocalizations.of(context).available(state.qrCodeAvailables)} ${AppLocalizations.of(context).offline}"),
                       SizedBox(
                         height: 60.w,
                         width: 60.w,
@@ -79,7 +83,9 @@ class IzlyPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Image.memory(state.qrCode!,
-                              scale: 0.6, semanticLabel: "QR Code"),
+                              scale: 0.6,
+                              semanticLabel:
+                                  AppLocalizations.of(context).qrCode),
                         ),
                       ),
                       Text(
@@ -123,7 +129,7 @@ class IzlyPage extends StatelessWidget {
           },
           header: Center(
             child: Text(
-              'Izly',
+              AppLocalizations.of(context).izly,
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyLarge!.color,
                 fontSize: 15,

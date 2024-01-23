@@ -4,6 +4,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/extensions/special_mail_box_extension.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MailLogic {
   static Future<Lyon1MailClient> connect(
@@ -19,11 +20,13 @@ class MailLogic {
     return mailClient;
   }
 
-  static Future<MailBox> load(
-      {required Lyon1MailClient mailClient,
-      required int emailNumber,
-      required bool blockTrackers,
-      MailBox? mailBox}) async {
+  static Future<MailBox> load({
+    required Lyon1MailClient mailClient,
+    required int emailNumber,
+    required bool blockTrackers,
+    MailBox? mailBox,
+    required AppLocalizations appLocalizations,
+  }) async {
     if (Res.mock) {
       return mailboxesMock.first;
     }
@@ -40,7 +43,7 @@ class MailLogic {
       removeTrackingImages: blockTrackers,
     );
     mailBox ??= MailBox(
-        name: "Boite de réception",
+        name: appLocalizations.inbox,
         specialMailBox: SpecialMailBox.inbox,
         emails: const []);
     if (emailOpt == null || emailOpt.isEmpty) {

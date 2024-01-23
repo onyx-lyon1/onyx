@@ -8,6 +8,7 @@ import 'package:onyx/screens/mails/states/email_cubit.dart';
 import 'package:onyx/screens/settings/domain/model/settings_model.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:onyx/screens/tomuss/states/tomuss_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthentificationConnection
     extends BlocListener<AuthentificationCubit, AuthentificationState> {
@@ -21,10 +22,15 @@ class AuthentificationConnection
                       .state
                       .settings
                       .biometricAuth)
-                  .then((key) => CacheService.get<Credential>(secureKey: key)
-                      .then((value) => context.read<EmailCubit>().connect(
-                          username: value!.username,
-                          password: value.password)));
+                  .then(
+                (key) => CacheService.get<Credential>(secureKey: key).then(
+                  (value) => context.read<EmailCubit>().connect(
+                        username: value!.username,
+                        password: value.password,
+                        appLocalizations: AppLocalizations.of(context),
+                      ),
+                ),
+              );
               if (context.read<SettingsCubit>().state.settings.firstLogin) {
                 context.read<SettingsCubit>().modify(
                     settings: context
@@ -55,6 +61,7 @@ class AuthentificationConnection
                       context.read<AuthentificationCubit>().state.username,
                       context.read<SettingsCubit>().state.settings,
                       context.read<AuthentificationCubit>().state.lyon1Cas,
+                      AppLocalizations.of(context),
                     );
               }
             }

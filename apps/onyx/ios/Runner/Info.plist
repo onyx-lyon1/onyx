@@ -77,5 +77,10 @@
         <string>Need the microphone to get camera working correctly</string>
         <key>ITSAppUsesNonExemptEncryption</key>
         <false/>
+        <key>CFBundleLocalizations</key>
+        <array>
+            <string>en</string>
+            <string>fr</string>
+        </array>
     </dict>
 </plist>

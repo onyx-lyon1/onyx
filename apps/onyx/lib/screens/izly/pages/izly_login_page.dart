@@ -7,6 +7,7 @@ import 'package:onyx/core/screens/privacy_policie_page.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IzlyLoginPage extends StatefulWidget {
   const IzlyLoginPage({super.key});
@@ -36,7 +37,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/izly.png",
+                  Res.izlyLogoPath,
                   width: 25.w,
                 ),
                 SizedBox(
@@ -46,12 +47,12 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("ONYX",
+                    Text(AppLocalizations.of(context).onyx,
                         style:
                             Theme.of(context).textTheme.displayLarge!.copyWith(
                                   fontSize: 20.sp,
                                 )),
-                    Text("Pour Lyon 1",
+                    Text(AppLocalizations.of(context).forLyon1,
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium!
@@ -78,7 +79,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "Authentification",
+                            AppLocalizations.of(context).authentication,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!
@@ -97,7 +98,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 2.w, vertical: 0.5.h),
                                   child: Text(
-                                    "Confidentialité",
+                                    AppLocalizations.of(context).privacy,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
@@ -121,7 +122,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                         onSaved: (String? value) => username = value!,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
-                          labelText: 'Username',
+                          labelText: AppLocalizations.of(context).username,
                           labelStyle:
                               Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     color: (Theme.of(context)
@@ -164,11 +165,13 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                             return null;
                           }
                           if (value == null || value.isEmpty) {
-                            return 'Veuillez entrer l\'identifiant';
+                            return AppLocalizations.of(context)
+                                .pleaseEnterUsername;
                           } else if (!(RegExp(
                                   r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
                               .hasMatch(value))) {
-                            return "Veuillez entrer un Mail valide";
+                            return AppLocalizations.of(context)
+                                .pleaseEnterAValidEmail;
                           }
                           return null;
                         },
@@ -201,10 +204,12 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                             return null;
                           }
                           if (value == null || value.isEmpty) {
-                            return 'Veuillez entrer un mot de passe';
+                            return AppLocalizations.of(context)
+                                .pleaseEnterPassword;
                           }
                           if (int.tryParse(value) == null) {
-                            return "Le mot de passe doit être un nombre";
+                            return AppLocalizations.of(context)
+                                .passwordShouldBeANumber;
                           }
                           return null;
                         },
@@ -224,7 +229,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                         ),
                         child: Center(
                           child: Text(
-                            'Connexion',
+                            AppLocalizations.of(context).login,
                             style: TextStyle(
                               color:
                                   Theme.of(context).textTheme.bodySmall?.color,
@@ -289,7 +294,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       keyboardType: TextInputType.number,
       onFieldSubmitted: (String useless) => widget.onFieldSubmitted(),
       decoration: widget.decoration.copyWith(
-          labelText: 'Password',
+          labelText: AppLocalizations.of(context).password,
           labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: (Theme.of(context).textTheme.bodySmall!.color ??
                         Theme.of(context).textTheme.bodyLarge!.color!)

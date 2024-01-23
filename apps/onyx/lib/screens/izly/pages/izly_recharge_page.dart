@@ -3,6 +3,8 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class IzlyRechargePage extends StatelessWidget {
   const IzlyRechargePage({super.key, required this.pageController});
   final PageController pageController;
@@ -38,25 +40,25 @@ class IzlyRechargePage extends StatelessWidget {
             children: [
               IzlayRechargeCardWidget(
                 icon: Icons.compare_arrows_rounded,
-                text: "Virement",
+                text: AppLocalizations.of(context).bankTransfer,
                 pageController: pageController,
                 child: const IzlyRechargeTranferPage(),
               ),
               IzlayRechargeCardWidget(
                 icon: Icons.credit_card_rounded,
-                text: "Carte Bancaire",
+                text: AppLocalizations.of(context).bankCard,
                 pageController: pageController,
                 child: const IzlyRechargeCBPage(),
               ),
               IzlayRechargeCardWidget(
                 icon: Icons.person_rounded,
-                text: "Rechargement par un tiers",
+                text: AppLocalizations.of(context).thirdParty,
                 pageController: pageController,
                 child: const IzlyRechargeTiersPage(),
               ),
               IzlayRechargeCardWidget(
                 icon: Icons.paid_rounded,
-                text: "Historique des paiements",
+                text: AppLocalizations.of(context).paymentHistory,
                 pageController: pageController,
                 child: const IzlyPaymentHistory(),
               ),

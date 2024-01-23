@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GradeListWidget extends StatelessWidget {
   const GradeListWidget(
@@ -36,7 +37,7 @@ class GradeListWidget extends StatelessWidget {
                   isSeen: true,
                   text1: grades.title.replaceAll("_", " "),
                   text2:
-                      "Moyenne : ${grades.average.toStringAsFixed(2)} · Mediane : ${grades.mediane.toStringAsFixed(2)}\nClassement : ${grades.rank + 1}/${grades.groupeSize}\nProfesseur : ${grades.author}",
+                  AppLocalizations.of(context).noteDescription(grades.average, grades.mediane, grades.rank + 1, grades.groupeSize, grades.author),
                   depth: depth,
                 ),
               ),

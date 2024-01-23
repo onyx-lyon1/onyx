@@ -1,10 +1,12 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MailWidget extends StatelessWidget {
   final Mail email;
@@ -43,20 +45,20 @@ class MailWidget extends StatelessWidget {
     return sender.isNotEmpty ? sender[0] : '-';
   }
 
-  String _toHumanDate(DateTime date) {
+  String _toHumanDate(DateTime date, AppLocalizations appLocalizations) {
     final int diffMin = DateTime.now().difference(date).inMinutes;
     final int diffH = DateTime.now().difference(date).inHours;
     final int diffDays = DateTime.now().difference(date).inDays;
     if (diffMin < 1) {
-      return "now";
+      return appLocalizations.now;
     } else if (diffH < 1) {
-      return "${diffMin.toString()}min";
+      return appLocalizations.minuteCompact(diffMin);
     } else if (diffH >= 1 && diffH < 24) {
-      return "${diffH.toString()}h";
+      return appLocalizations.hourCompact(diffH);
     } else if (diffH > 24) {
-      return "${diffDays.toString()}j";
+      return appLocalizations.dayCompact(diffDays);
     } else {
-      return date.toString().split(' ')[0].replaceAll('-', '/');
+      return DateFormat.yMd(appLocalizations.localeName).format(date);
     }
   }
 
@@ -79,13 +81,17 @@ class MailWidget extends StatelessWidget {
       closedBuilder: (context, openContainer) => InkWell(
         onTap: () {
           if (context.read<EmailCubit>().state.selectedMails.isNotEmpty) {
-            context.read<EmailCubit>().toggleMailSelection(emails: email);
+            context.read<EmailCubit>().toggleMailSelection(
+                  emails: email,
+                );
           } else {
             openContainer();
           }
         },
         onLongPress: () {
-          context.read<EmailCubit>().selectMail(email: email);
+          context.read<EmailCubit>().selectMail(
+                email: email,
+              );
         },
         child: ListTile(
             leading: (context.read<EmailCubit>().state.selectedMails.isNotEmpty)
@@ -96,9 +102,9 @@ class MailWidget extends StatelessWidget {
                     child: InkWell(
                         borderRadius: BorderRadius.circular(100),
                         onTap: () {
-                          context
-                              .read<EmailCubit>()
-                              .toggleMailSelection(emails: email);
+                          context.read<EmailCubit>().toggleMailSelection(
+                                emails: email,
+                              );
                         },
                         child: Icon(
                           context
@@ -123,7 +129,9 @@ class MailWidget extends StatelessWidget {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(100),
                         onTap: () {
-                          context.read<EmailCubit>().selectMail(email: email);
+                          context.read<EmailCubit>().selectMail(
+                                email: email,
+                              );
                         },
                         child: Padding(
                           padding: EdgeInsets.only(top: 1.5.w),
@@ -161,7 +169,7 @@ class MailWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 3.w, left: 2.w),
                   child: Text(
-                    _toHumanDate(email.date),
+                    _toHumanDate(email.date, AppLocalizations.of(context)),
                     maxLines: 1,
                     style: TextStyle(
                       color: email.isRead
@@ -205,8 +213,10 @@ class MailWidget extends StatelessWidget {
                         ? Icons.flag_rounded
                         : Icons.outlined_flag_rounded,
                     semanticLabel: email.isFlagged
-                        ? "Flagged email : ${email.subject}"
-                        : "UnFlaged email : ${email.subject}",
+                        ? AppLocalizations.of(context)
+                            .flagedEmail(email.subject)
+                        : AppLocalizations.of(context)
+                            .unflagedEmail(email.subject),
                     size: 20.sp,
                     color: email.isFlagged
                         ? Theme.of(context).primaryColor

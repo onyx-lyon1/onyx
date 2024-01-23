@@ -1,13 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/screens/bloc_connections/bloc_connection_screen.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
-import 'package:onyx/core/theme/theme_export.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/examen/states/examen_cubit.dart';
@@ -19,6 +21,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'core/widgets/states_displaying/state_displaying_widget_export.dart';
 
@@ -76,40 +79,63 @@ class OnyxAppState extends State<OnyxApp> {
                 builder: (context, themeState) {
                   return BlocBuilder<SettingsCubit, SettingsState>(
                     builder: (context, settingsState) {
+                      final platformLocal = Platform.localeName.split("_");
+                      Locale? locale;
+                      if (platformLocal.length > 1) {
+                        locale = Locale(platformLocal[0], platformLocal[1]);
+                      } else if (platformLocal.isNotEmpty) {
+                        locale = Locale(platformLocal[0]);
+                      }
+                      Widget home;
+
                       if ((settingsState.status == SettingsStatus.ready ||
                               settingsState.status == SettingsStatus.error) &&
                           (themeState.status != ThemeStateStatus.init)) {
-                        return MaterialApp(
-                          title: 'Onyx',
-                          navigatorKey: OnyxApp.navigatorKey,
-                          scrollBehavior: const CustomScrollBehavior(),
-                          debugShowCheckedModeBanner: false,
-                          themeMode:
-                              themeState.themesSettings!.themeMode.toThemeMode,
-                          theme: themeState.lightTheme,
-                          darkTheme: themeState.darkTheme,
-                          home: (authState.status ==
-                                      AuthentificationStatus.authentificated ||
-                                  authState.status ==
-                                      AuthentificationStatus.authentificating ||
-                                  (!settingsState.settings.firstLogin &&
-                                      !settingsState.settings.biometricAuth))
-                              ? const HomePage()
-                              : LoginPage(key: UniqueKey()),
-                        );
+                        if (authState.status ==
+                                AuthentificationStatus.authentificated ||
+                            authState.status ==
+                                AuthentificationStatus.authentificating ||
+                            (!settingsState.settings.firstLogin &&
+                                !settingsState.settings.biometricAuth)) {
+                          home = const HomePage();
+                        } else {
+                          home = LoginPage(key: UniqueKey());
+                        }
                       } else {
-                        return MaterialApp(
-                          debugShowCheckedModeBanner: false,
-                          themeMode: ThemeMode.system,
-                          theme: OnyxTheme.lightTheme,
-                          darkTheme: OnyxTheme.darkTheme,
-                          home: Scaffold(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.background,
-                              body:
-                                  const CustomCircularProgressIndicatorWidget()),
-                        );
+                        home = const CustomCircularProgressIndicatorWidget();
                       }
+                      return MaterialApp(
+                        title: lookupAppLocalizations(const Locale("fr")).onyx,
+                        navigatorKey: OnyxApp.navigatorKey,
+                        scrollBehavior: const CustomScrollBehavior(),
+                        debugShowCheckedModeBanner: false,
+                        themeMode:
+                            themeState.themesSettings?.themeMode.toThemeMode ?? ThemeMode.system,
+                        theme: themeState.lightTheme,
+                        darkTheme: themeState.darkTheme,
+                        locale: locale,
+                        localizationsDelegates: const [
+                          LocaleNamesLocalizationsDelegate(),
+                          ...AppLocalizations.localizationsDelegates
+                        ],
+                        supportedLocales: AppLocalizations.supportedLocales,
+                        localeListResolutionCallback:
+                            (locales, supportedLocales) {
+                          if (settingsState.settings.language != null) {
+                            return Locale(settingsState.settings.language!);
+                          } else {
+                            if (locales != null) {
+                              for (var locale in locales) {
+                                if (supportedLocales.contains(locale)) {
+                                  return locale;
+                                }
+                              }
+                            }
+                            return const Locale("fr");
+                          }
+                        },
+                        home: home,
+                      );
                     },
                   );
                 },

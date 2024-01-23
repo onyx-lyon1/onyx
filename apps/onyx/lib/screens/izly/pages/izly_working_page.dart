@@ -3,6 +3,8 @@ import 'package:onyx/core/widgets/common_screen_widget.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class IzlyWorkingPage extends StatelessWidget {
   const IzlyWorkingPage({super.key, required this.callback});
   final Future<dynamic> Function() callback;
@@ -13,8 +15,8 @@ class IzlyWorkingPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: CommonScreenWidget(
-          header:
-              const IzlyRechargeHeaderWidget(title: "En cours de rechargement"),
+          header: IzlyRechargeHeaderWidget(
+              title: AppLocalizations.of(context).recharging),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -24,7 +26,7 @@ class IzlyWorkingPage extends StatelessWidget {
                 ),
                 SizedBox(height: 5.h),
                 Text(
-                  "Veuillez patienter",
+                  AppLocalizations.of(context).pleaseWait,
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 20.sp,

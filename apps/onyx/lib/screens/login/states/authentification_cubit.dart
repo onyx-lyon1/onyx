@@ -9,6 +9,7 @@ import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'authentification_state.dart';
 
@@ -31,10 +32,13 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
   }
 
   Future<void> login(
-      {Credential? creds, required SettingsModel settings}) async {
+      {Credential? creds,
+      required SettingsModel settings,
+      required AppLocalizations appLocalizations}) async {
     if (Res.mock) {
       await CacheService.set<Credential>(
-        Credential("mockUsername", "mockPassword"),
+        Credential(
+            appLocalizations.mockUsername, appLocalizations.mockPassword),
         secureKey: await CacheService.getEncryptionKey(settings.biometricAuth),
       );
       _lyon1Cas.isAuthenticated = true;
@@ -82,7 +86,11 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
       Connectivity().onConnectivityChanged.listen((event) {
         if (event != ConnectivityResult.none) {
           Res.logger.d("retrieve connection");
-          login(creds: creds, settings: settings);
+          login(
+            creds: creds,
+            settings: settings,
+            appLocalizations: appLocalizations,
+          );
         }
       });
     }

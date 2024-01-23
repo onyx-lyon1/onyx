@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class KholleWidget extends StatelessWidget {
   const KholleWidget({
@@ -49,7 +50,9 @@ class KholleWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          kholle.date.toMonthName(short: true),
+                          kholle.date.toMonthName(
+                              AppLocalizations.of(context).localeName,
+                              short: true),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17.sp,
@@ -63,7 +66,9 @@ class KholleWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          kholle.date.toWeekDayName(short: false),
+                          kholle.date.toWeekDayName(
+                              AppLocalizations.of(context).localeName,
+                              short: false),
                         ),
                       ],
                     ),
@@ -83,7 +88,9 @@ class KholleWidget extends StatelessWidget {
                           fit: FlexFit.tight,
                           child: Center(
                             child: Text(
-                              kholle.date.toHourMinuteString(),
+                              kholle.date.toHourMinuteString(
+                                AppLocalizations.of(context).localeName,
+                              ),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.sp,

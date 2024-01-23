@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PrivacyPolicyPage extends StatelessWidget {
   const PrivacyPolicyPage({super.key});
@@ -7,7 +8,7 @@ class PrivacyPolicyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Politique de confidentialité"),
+        title: Text(AppLocalizations.of(context).privacyPolicy),
         backgroundColor: Theme.of(context).cardColor,
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -17,35 +18,30 @@ class PrivacyPolicyPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("Politique de confidentialité",
+              Text(AppLocalizations.of(context).privacyPolicy,
                   style: Theme.of(context).textTheme.headlineSmall),
               const SizedBox(height: 16),
-              const Text(
-                  "Notre application est conçue pour fournir un accès en ligne aux services de l'université de Lyon 1. Nous prenons la protection de vos informations personnelles au sérieux et nous sommes déterminés à assurer la confidentialité de vos informations."),
+              Text(AppLocalizations.of(context).weTakeCareOfYourData),
               const SizedBox(height: 16),
-              Text("Collecte de données",
+              Text(AppLocalizations.of(context).dataCollection,
                   style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
-              const Text(
-                  "Notre application ne collecte aucune information personnelle à part les données de crashlitics. Les données de connexion sont stockées uniquement sur le téléphone de l'utilisateur et ne sont communiquées qu'avec les serveurs de l'université, pour lesquels nous ne sommes pas responsables."),
+              Text(AppLocalizations.of(context).dataOnlyStoredOnYourDevice),
               const SizedBox(height: 16),
-              Text("Sécurité des données",
+              Text(AppLocalizations.of(context).dataSafety,
                   style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
-              const Text(
-                  "Nous prenons des mesures de sécurité raisonnables pour protéger vos informations personnelles contre la perte, l'utilisation abusive, l'accès non autorisé, la modification et la divulgation. Néanmoins, aucune méthode de transmission sur Internet ou de stockage électronique n'est sûre à 100 %. Par conséquent, bien que nous nous efforcions de protéger vos informations personnelles, nous ne pouvons garantir la sécurité absolue de vos informations transmises à notre application et vous le faites à vos risques et périls."),
+               Text(AppLocalizations.of(context).ourSecurityMeasures),
               const SizedBox(height: 16),
-              Text("Modifications de cette politique de confidentialité",
+              Text(AppLocalizations.of(context).modificationOfThePrivacyPolicy,
                   style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
-              const Text(
-                  "Nous nous réservons le droit de modifier cette politique de confidentialité de temps à autre. Toute modification sera publiée sur cette page et prendra effet immédiatement après sa publication. Il est de votre responsabilité de consulter régulièrement cette page pour vous tenir informé des modifications apportées à notre politique de confidentialité."),
+              Text(AppLocalizations.of(context).weCanModifyRules),
               const SizedBox(height: 16),
-              Text("Contactez-nous",
+              Text(AppLocalizations.of(context).contactUs,
                   style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
-              const Text(
-                  "Si vous avez des questions concernant cette politique de confidentialité, veuillez nous contacter sur github"),
+              Text(AppLocalizations.of(context).ifQuestionThenGithub),
             ],
           ),
         ),

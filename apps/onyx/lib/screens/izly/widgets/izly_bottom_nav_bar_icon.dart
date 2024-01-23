@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IzlyBottomNavBarIcon extends StatelessWidget {
   const IzlyBottomNavBarIcon({super.key, required this.selected});
@@ -20,7 +21,7 @@ class IzlyBottomNavBarIcon extends StatelessWidget {
                     .unselectedItemColor,
           ),
           Text(
-            "Izly",
+            AppLocalizations.of(context).izly,
             style: TextStyle(fontSize: 13.sp),
           ),
         ],

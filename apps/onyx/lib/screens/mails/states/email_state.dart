@@ -32,12 +32,7 @@ class EmailState {
     this.emailNumber = 20,
     this.connected = false,
     this.selectedMails = const [],
-  }) {
-    currentMailBox ??= MailBox(
-        name: "Boite de réception",
-        specialMailBox: SpecialMailBox.inbox,
-        emails: const []);
-  }
+  });
 
   EmailState copyWith({
     MailStatus? status,

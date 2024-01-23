@@ -6,6 +6,8 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class IzlyRechargeTranferPage extends StatelessWidget {
   const IzlyRechargeTranferPage({super.key});
 
@@ -15,8 +17,8 @@ class IzlyRechargeTranferPage extends StatelessWidget {
     return SafeArea(
       child: Material(
         child: CommonScreenWidget(
-          header: const IzlyRechargeHeaderWidget(
-              title: "Recharger par un virement"),
+          header: IzlyRechargeHeaderWidget(
+              title: AppLocalizations.of(context).refillWithBankTransfer),
           body: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -36,7 +38,7 @@ class IzlyRechargeTranferPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
-                      "Transferer",
+                      AppLocalizations.of(context).transfer,
                       style: TextStyle(
                         color: Theme.of(context).textTheme.bodySmall?.color,
                       ),
@@ -55,13 +57,13 @@ class IzlyRechargeTranferPage extends StatelessWidget {
     if (controller.text.isEmpty || double.tryParse(controller.text) == null) {
       showDialog(
           context: context,
-          builder: (context) =>
-              const ErrorDialogWidget(message: "Veuillez saisir un montant"));
+          builder: (context) => ErrorDialogWidget(
+              message: AppLocalizations.of(context).pleaseSelectAnAmount));
     } else if (double.parse(controller.text) < 5) {
       showDialog(
           context: context,
-          builder: (context) => const ErrorDialogWidget(
-              message: "Le montant doit être supérieur à 5€"));
+          builder: (context) => ErrorDialogWidget(
+              message: AppLocalizations.of(context).minimumAmountIs(5)));
     } else {
       Navigator.push(
         context,

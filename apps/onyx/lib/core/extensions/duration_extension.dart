@@ -1,15 +1,8 @@
+import 'package:intl/intl.dart';
+
 extension DateBeautifull on Duration {
   String durationBeautifull() {
-    int hour = inHours;
-    int minute = inMinutes - hour * 60;
-    String hourString = hour.toString();
-    String minuteString = minute.toString();
-    if (hour < 10) {
-      hourString = "0$hourString";
-    }
-    if (minute < 10) {
-      minuteString = "0$minuteString";
-    }
-    return "$hourString:$minuteString";
+    final dateTime = DateTime(0, 0, 0, inHours, inMinutes.remainder(60));
+    return DateFormat.Hm().format(dateTime);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MailBottomNavBarIcon extends StatelessWidget {
   const MailBottomNavBarIcon({super.key, required this.selected});
@@ -20,7 +21,7 @@ class MailBottomNavBarIcon extends StatelessWidget {
                     .unselectedItemColor,
           ),
           Text(
-            "Email",
+            AppLocalizations.of(context).mails,
             style: TextStyle(fontSize: 13.sp),
           ),
         ],

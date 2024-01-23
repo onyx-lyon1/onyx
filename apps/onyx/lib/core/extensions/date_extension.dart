@@ -1,53 +1,4 @@
-import 'package:onyx/core/extensions/extensions_export.dart';
-
-const List<String> weekDays = [
-  "Lundi",
-  "Mardi",
-  "Mercredi",
-  "Jeudi",
-  "Vendredi",
-  "Samedi",
-  "Dimanche"
-];
-const List<String> weekDaysShort = [
-  "Lun.",
-  "Mar.",
-  "Mer.",
-  "Jeu.",
-  "Ven.",
-  "Sam.",
-  "Dim."
-];
-
-const List<String> monthNames = [
-  "Janvier",
-  "Février",
-  "Mars",
-  "Avril",
-  "Mai",
-  "Juin",
-  "Juillet",
-  "Août",
-  "Septembre",
-  "Octobre",
-  "Novembre",
-  "Décembre"
-];
-
-const List<String> monthNamesShort = [
-  "Janv.",
-  "Févr.",
-  "Mars",
-  "Avr.",
-  "Mai",
-  "Juin",
-  "Juil.",
-  "Août",
-  "Sept.",
-  "Oct.",
-  "Nov.",
-  "Déc."
-];
+import 'package:intl/intl.dart';
 
 extension DateExtension on DateTime {
   DateTime shrink(int precision) {
@@ -78,19 +29,22 @@ extension DateExtension on DateTime {
     return shrink(3).isAtSameMomentAs(b.shrink(3));
   }
 
-  String dateBeautifull() {
-    return "${toWeekDayName(short: false)} ${day.toFixedLengthString(2)}/${month.toFixedLengthString(2)}/${year.toFixedLengthString(4)}";
+  String dateBeautifull(String locale) {
+    return DateFormat('EEEE dd/MM/yyyy', locale).format(this);
   }
 
-  String toWeekDayName({bool short = false}) =>
-      short ? weekDaysShort[weekday - 1] : weekDays[weekday - 1];
+  String toWeekDayName(String locale, {bool short = false}) => short
+      ? DateFormat('E', locale).format(this)
+      : DateFormat('EEEE', locale).format(this);
 
-  String toHourMinuteString() {
-    return "${hour.toFixedLengthString(2)}h${minute.toFixedLengthString(2)}";
+  String toHourMinuteString(String locale) {
+    return DateFormat('HH:mm', locale).format(this);
   }
 
-  String toMonthName({bool short = false}) {
-    return short ? monthNamesShort[month - 1] : monthNames[month - 1];
+  String toMonthName(String locale, {bool short = false}) {
+    return short
+        ? DateFormat('MMM', locale).format(this)
+        : DateFormat('MMMM', locale).format(this);
   }
 
   int toWeekNumber() {

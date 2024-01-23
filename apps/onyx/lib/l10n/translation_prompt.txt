@@ -1,0 +1,3 @@
+Here is my translation file in english 
+
+write the translated file for russian. be carefull you don't need to translate the field beggining with @. be carefuul the keys should not be translated
