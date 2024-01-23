@@ -22,7 +22,7 @@ class AgendaUrlParameterWidget extends StatelessWidget {
         return Column(
           children: [
             TextSwitchWidget(
-              text: AppLocalizations.of(context)!.fetchAgendaAuto,
+              text: AppLocalizations.of(context).fetchAgendaAuto,
               value:
                   context.read<SettingsCubit>().state.settings.fetchAgendaAuto,
               onChanged: (bool b) {
@@ -110,7 +110,7 @@ class AgendaSelectionWidget extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(2.w),
               child: Text(
-                AppLocalizations.of(context)!.agendaSelection,
+                AppLocalizations.of(context).agendaSelection,
                 maxLines: 1,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: (state.settings.fetchAgendaAuto && !forceClickable)

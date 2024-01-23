@@ -34,7 +34,7 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
                 );
               } else {
                 widgets.addAll(constructGradeChildrenFullList(child,
-                    appLocalizations: AppLocalizations.of(context)!));
+                    appLocalizations: AppLocalizations.of(context)));
               }
             } else if (child is Enumeration) {
               widgets.add(EnumerationWidget(enumeration: child));

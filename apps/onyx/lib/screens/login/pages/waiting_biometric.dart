@@ -35,7 +35,7 @@ class WaitingBiometric extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.onyx,
+                          AppLocalizations.of(context).onyx,
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!
@@ -44,7 +44,7 @@ class WaitingBiometric extends StatelessWidget {
                               ),
                         ),
                         Text(
-                          AppLocalizations.of(context)!.onyxSubTitle,
+                          AppLocalizations.of(context).onyxSubTitle,
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!
@@ -71,7 +71,7 @@ class WaitingBiometric extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    AppLocalizations.of(context)!.logout,
+                    AppLocalizations.of(context).logout,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 17.sp,
                         ),
@@ -84,7 +84,7 @@ class WaitingBiometric extends StatelessWidget {
               onTap: () {
                 context.read<AuthentificationCubit>().login(
                       settings: context.read<SettingsCubit>().state.settings,
-                      appLocalizations: AppLocalizations.of(context)!,
+                      appLocalizations: AppLocalizations.of(context),
                     );
               },
               borderRadius: BorderRadius.circular(500),

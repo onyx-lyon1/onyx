@@ -17,7 +17,7 @@ class TomussConnection extends BlocListener<TomussCubit, TomussState> {
                     context.read<AuthentificationCubit>().state.username,
                     context.read<SettingsCubit>().state.settings,
                     context.read<AuthentificationCubit>().state.lyon1Cas,
-                    AppLocalizations.of(context)!,
+                    AppLocalizations.of(context),
                   );
             }
           },

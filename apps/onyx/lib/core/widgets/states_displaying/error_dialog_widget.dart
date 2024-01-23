@@ -8,7 +8,7 @@ class ErrorDialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.error),
+      title: Text(AppLocalizations.of(context).error),
       content: Text(message),
       actions: [
         TextButton(
@@ -16,7 +16,7 @@ class ErrorDialogWidget extends StatelessWidget {
             Navigator.pop(context);
           },
           child: Text(
-            AppLocalizations.of(context)!.ok,
+            AppLocalizations.of(context).ok,
             style: TextStyle(color: Theme.of(context).primaryColor),
           ),
         )

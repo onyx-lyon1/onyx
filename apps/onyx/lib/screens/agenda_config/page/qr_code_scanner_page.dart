@@ -48,7 +48,7 @@ class QrCodeScannerPageState extends State<QrCodeScannerPage> {
               )
             : Center(
                 child: Text(
-                  AppLocalizations.of(context)!.needCameraToScanQrCode,
+                  AppLocalizations.of(context).needCameraToScanQrCode,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.white,

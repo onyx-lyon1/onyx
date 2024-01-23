@@ -78,7 +78,7 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
                         height: 2.9.h,
                         child: Text(
                           state.days[currentDateIndex].date.toMonthName(
-                              AppLocalizations.of(context)!.localeName,
+                              AppLocalizations.of(context).localeName,
                               short: true),
                           style: TextStyle(fontSize: 15.sp),
                         ),
@@ -94,7 +94,7 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
                         height: 3.h,
                         child: Text(
                           state.days[currentDateIndex].date.toWeekDayName(
-                              AppLocalizations.of(context)!.localeName,
+                              AppLocalizations.of(context).localeName,
                               short: true),
                           style: TextStyle(fontSize: 15.sp),
                         ),

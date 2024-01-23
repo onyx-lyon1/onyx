@@ -16,7 +16,7 @@ class IzlyWorkingPage extends StatelessWidget {
       child: Scaffold(
         body: CommonScreenWidget(
           header: IzlyRechargeHeaderWidget(
-              title: AppLocalizations.of(context)!.recharging),
+              title: AppLocalizations.of(context).recharging),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -26,7 +26,7 @@ class IzlyWorkingPage extends StatelessWidget {
                 ),
                 SizedBox(height: 5.h),
                 Text(
-                  AppLocalizations.of(context)!.pleaseWait,
+                  AppLocalizations.of(context).pleaseWait,
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 20.sp,

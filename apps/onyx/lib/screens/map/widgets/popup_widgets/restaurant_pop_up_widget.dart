@@ -117,7 +117,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
           Flexible(
             flex: 10,
             child: Text(
-              AppLocalizations.of(context)!.menuOf(widget.element.name),
+              AppLocalizations.of(context).menuOf(widget.element.name),
               maxLines: 3,
               softWrap: true,
             ),
@@ -149,7 +149,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
         ],
       ),
       content: (dates.isEmpty)
-          ? Text(AppLocalizations.of(context)!.noMenuForThisRestaurant)
+          ? Text(AppLocalizations.of(context).noMenuForThisRestaurant)
           : Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -200,7 +200,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
                           children: [
                             for (var d in dates)
                               Center(
-                                child: Text(d.dateBeautifull(AppLocalizations.of(context)!.localeName)),
+                                child: Text(d.dateBeautifull(AppLocalizations.of(context).localeName)),
                               ),
                           ],
                         ),
@@ -284,7 +284,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text(AppLocalizations.of(context)!.close),
+          child: Text(AppLocalizations.of(context).close),
         )
       ],
     );

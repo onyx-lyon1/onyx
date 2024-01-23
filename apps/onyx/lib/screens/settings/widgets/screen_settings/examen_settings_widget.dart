@@ -14,7 +14,7 @@ class ExamenSettingsWidget extends StatelessWidget {
     return Column(
       children: [
         TextSwitchWidget(
-          text: AppLocalizations.of(context)!.examenAddToAgenda,
+          text: AppLocalizations.of(context).examenAddToAgenda,
           value: settings.examenAddToAgenda,
           onChanged: (value) {
             context
@@ -24,7 +24,7 @@ class ExamenSettingsWidget extends StatelessWidget {
           },
         ),
         TextSwitchWidget(
-          text: AppLocalizations.of(context)!.enableColloscope,
+          text: AppLocalizations.of(context).enableColloscope,
           value: settings.colloscopeEnabled ?? false,
           onChanged: (value) {
             context
@@ -38,7 +38,7 @@ class ExamenSettingsWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppLocalizations.of(context)!.forceYear,
+                AppLocalizations.of(context).forceYear,
                 softWrap: true,
                 overflow: TextOverflow.visible,
                 style: TextStyle(
@@ -53,7 +53,7 @@ class ExamenSettingsWidget extends StatelessWidget {
                     DropdownMenuItem(
                         value: i,
                         child: Text(
-                            AppLocalizations.of(context)!.forceYearValue(i))),
+                            AppLocalizations.of(context).forceYearValue(i))),
                 ],
                 onChanged: (int? value) {
                   context.read<SettingsCubit>().modify(
@@ -74,7 +74,7 @@ class ExamenSettingsWidget extends StatelessWidget {
                 flex: 3,
                 fit: FlexFit.tight,
                 child: Text(
-                  AppLocalizations.of(context)!.forceStudentId,
+                  AppLocalizations.of(context).forceStudentId,
                   softWrap: true,
                   overflow: TextOverflow.visible,
                   style: TextStyle(
@@ -92,7 +92,7 @@ class ExamenSettingsWidget extends StatelessWidget {
                     FilteringTextInputFormatter.digitsOnly,
                   ],
                   decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.emptyToDisable,
+                    hintText: AppLocalizations.of(context).emptyToDisable,
                     hintStyle: TextStyle(
                       color: Theme.of(context).textTheme.bodyLarge!.color,
                       fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,

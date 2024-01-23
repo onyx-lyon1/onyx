@@ -22,7 +22,7 @@ class SettingsBottomNavBarIcon extends StatelessWidget {
                     .unselectedItemColor,
           ),
           Text(
-            AppLocalizations.of(context)!.settings,
+            AppLocalizations.of(context).settings,
             style: TextStyle(fontSize: 13.sp),
           ),
         ],

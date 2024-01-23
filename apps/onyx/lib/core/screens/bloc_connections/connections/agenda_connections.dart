@@ -41,7 +41,7 @@ class AgendaConnection extends BlocListener<AgendaCubit, AgendaState> {
             context.read<AuthentificationCubit>().state.username,
             context.read<SettingsCubit>().state.settings,
             context.read<AuthentificationCubit>().state.lyon1Cas,
-            AppLocalizations.of(context)!,
+            AppLocalizations.of(context),
           );
     } else if (agendaState.status == AgendaStatus.ready &&
         agendaState.agendaIds.isNotEmpty) {
@@ -57,7 +57,7 @@ class AgendaConnection extends BlocListener<AgendaCubit, AgendaState> {
             context.read<AuthentificationCubit>().state.username,
             context.read<SettingsCubit>().state.settings,
             context.read<AuthentificationCubit>().state.lyon1Cas,
-            AppLocalizations.of(context)!,
+            AppLocalizations.of(context),
           );
     }
   }

@@ -22,7 +22,7 @@ class MapBottomNavBarIcon extends StatelessWidget {
                     .unselectedItemColor,
           ),
           Text(
-            AppLocalizations.of(context)!.map,
+            AppLocalizations.of(context).map,
             style: TextStyle(fontSize: 13.sp),
           ),
         ],

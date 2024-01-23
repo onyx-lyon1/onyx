@@ -51,7 +51,7 @@ class KholleWidget extends StatelessWidget {
                       children: [
                         Text(
                           kholle.date.toMonthName(
-                              AppLocalizations.of(context)!.localeName,
+                              AppLocalizations.of(context).localeName,
                               short: true),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -67,7 +67,7 @@ class KholleWidget extends StatelessWidget {
                         ),
                         Text(
                           kholle.date.toWeekDayName(
-                              AppLocalizations.of(context)!.localeName,
+                              AppLocalizations.of(context).localeName,
                               short: false),
                         ),
                       ],
@@ -89,7 +89,7 @@ class KholleWidget extends StatelessWidget {
                           child: Center(
                             child: Text(
                               kholle.date.toHourMinuteString(
-                                AppLocalizations.of(context)!.localeName,
+                                AppLocalizations.of(context).localeName,
                               ),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,

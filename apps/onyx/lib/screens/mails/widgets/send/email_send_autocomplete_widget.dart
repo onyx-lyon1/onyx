@@ -30,7 +30,7 @@ class MailSendAutocompleteWidget extends StatelessWidget {
                   username: creds.username,
                   password: creds.password,
                   // ignore: use_build_context_synchronously
-                  appLocalizations: AppLocalizations.of(context)!,
+                  appLocalizations: AppLocalizations.of(context),
                 );
           }
           return [];
@@ -87,7 +87,7 @@ class MailSendAutocompleteWidget extends StatelessWidget {
               color: Theme.of(context).textTheme.labelLarge!.color!,
             ),
             decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.emailAddressHint,
+                hintText: AppLocalizations.of(context).emailAddressHint,
                 hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Theme.of(context)
                         .textTheme

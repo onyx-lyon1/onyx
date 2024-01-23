@@ -29,12 +29,12 @@ class ExamenPage extends StatelessWidget {
                   context.read<AuthentificationCubit>().state.username,
                   context.read<SettingsCubit>().state.settings,
                   context.read<AuthentificationCubit>().state.lyon1Cas,
-                  AppLocalizations.of(context)!,
+                  AppLocalizations.of(context),
                 );
             break;
           case ExamenStatus.loading:
             stateWidget = LoadingHeaderWidget(
-              message: AppLocalizations.of(context)!.accessingExams,
+              message: AppLocalizations.of(context).accessingExams,
             );
             body = buildExamen(context);
             break;
@@ -43,7 +43,7 @@ class ExamenPage extends StatelessWidget {
             break;
           case ExamenStatus.error:
             stateWidget = LoadingHeaderWidget(
-              message: AppLocalizations.of(context)!.errorAccessingExams,
+              message: AppLocalizations.of(context).errorAccessingExams,
             );
             body = buildExamen(context);
             break;
@@ -57,13 +57,13 @@ class ExamenPage extends StatelessWidget {
                   context.read<AuthentificationCubit>().state.username,
                   context.read<SettingsCubit>().state.settings,
                   context.read<AuthentificationCubit>().state.lyon1Cas,
-                  AppLocalizations.of(context)!,
+                  AppLocalizations.of(context),
                 );
           },
           state: stateWidget,
           header: Center(
             child: Text(
-              AppLocalizations.of(context)!.exams,
+              AppLocalizations.of(context).exams,
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyLarge!.color,
                 fontSize: 15,

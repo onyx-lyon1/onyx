@@ -21,7 +21,7 @@ class IzlyBottomNavBarIcon extends StatelessWidget {
                     .unselectedItemColor,
           ),
           Text(
-            AppLocalizations.of(context)!.izly,
+            AppLocalizations.of(context).izly,
             style: TextStyle(fontSize: 13.sp),
           ),
         ],

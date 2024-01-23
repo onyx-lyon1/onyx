@@ -27,17 +27,17 @@ class AgendaConfigPage extends StatelessWidget {
             case AgendaConfigStatus.initial:
               context
                   .read<AgendaConfigCubit>()
-                  .loadDirs(AppLocalizations.of(context)!);
+                  .loadDirs(AppLocalizations.of(context));
               body = StateDisplayingPage(
-                  message: AppLocalizations.of(context)!.loadingAgendaList);
+                  message: AppLocalizations.of(context).loadingAgendaList);
               break;
             case AgendaConfigStatus.loading:
               body = StateDisplayingPage(
-                  message: AppLocalizations.of(context)!.loadingAgendaList);
+                  message: AppLocalizations.of(context).loadingAgendaList);
               break;
             case AgendaConfigStatus.error:
               body = StateDisplayingPage(
-                  message: AppLocalizations.of(context)!.errorAppeared);
+                  message: AppLocalizations.of(context).errorAppeared);
               break;
             default:
               body = BlocListener<AgendaConfigCubit, AgendaConfigState>(
@@ -72,7 +72,7 @@ class AgendaConfigPage extends StatelessWidget {
                                 return DirWidget(
                                   dir: DirModel(
                                     name:
-                                        AppLocalizations.of(context)!.agenda,
+                                        AppLocalizations.of(context).agenda,
                                     identifier: 0,
                                     children: state.dirs,
                                   ),
@@ -223,7 +223,7 @@ class AgendaConfigPage extends StatelessWidget {
                           decoration: InputDecoration(
                             // contentPadding: EdgeInsets.symmetric(vertical: 1.5.h),
                             hintText:
-                                AppLocalizations.of(context)!.searchInCalendars,
+                                AppLocalizations.of(context).searchInCalendars,
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.only(left: 4.w),
                           ),

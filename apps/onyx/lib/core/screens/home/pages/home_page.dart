@@ -114,7 +114,7 @@ class HomePageState extends State<HomePage> {
                                 .status ==
                             AuthentificationStatus.authentificating)
                         ? LoadingHeaderWidget(
-                            message: AppLocalizations.of(context)!.casConnexion)
+                            message: AppLocalizations.of(context).casConnexion)
                         : null,
                     body: InfiniteScrollLoopWidget(
                       key: const Key("home"),

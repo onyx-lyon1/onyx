@@ -40,25 +40,25 @@ class IzlyRechargePage extends StatelessWidget {
             children: [
               IzlayRechargeCardWidget(
                 icon: Icons.compare_arrows_rounded,
-                text: AppLocalizations.of(context)!.bankTransfer,
+                text: AppLocalizations.of(context).bankTransfer,
                 pageController: pageController,
                 child: const IzlyRechargeTranferPage(),
               ),
               IzlayRechargeCardWidget(
                 icon: Icons.credit_card_rounded,
-                text: AppLocalizations.of(context)!.bankCard,
+                text: AppLocalizations.of(context).bankCard,
                 pageController: pageController,
                 child: const IzlyRechargeCBPage(),
               ),
               IzlayRechargeCardWidget(
                 icon: Icons.person_rounded,
-                text: AppLocalizations.of(context)!.thirdParty,
+                text: AppLocalizations.of(context).thirdParty,
                 pageController: pageController,
                 child: const IzlyRechargeTiersPage(),
               ),
               IzlayRechargeCardWidget(
                 icon: Icons.paid_rounded,
-                text: AppLocalizations.of(context)!.paymentHistory,
+                text: AppLocalizations.of(context).paymentHistory,
                 pageController: pageController,
                 child: const IzlyPaymentHistory(),
               ),

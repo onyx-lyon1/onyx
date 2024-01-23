@@ -20,7 +20,7 @@ class IzlyRechargeTiersPage extends StatelessWidget {
       child: Scaffold(
         body: CommonScreenWidget(
           header: IzlyRechargeHeaderWidget(
-              title: AppLocalizations.of(context)!.thirdParty),
+              title: AppLocalizations.of(context).thirdParty),
           body: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -38,7 +38,7 @@ class IzlyRechargeTiersPage extends StatelessWidget {
                     child: TextField(
                       controller: emailController,
                       decoration: InputDecoration(
-                        hintText: AppLocalizations.of(context)!.mail,
+                        hintText: AppLocalizations.of(context).mail,
                         focusedBorder: UnderlineInputBorder(
                           borderSide:
                               BorderSide(color: Theme.of(context).primaryColor),
@@ -52,7 +52,7 @@ class IzlyRechargeTiersPage extends StatelessWidget {
                     child: TextField(
                       controller: messageController,
                       decoration: InputDecoration(
-                        hintText: AppLocalizations.of(context)!.message,
+                        hintText: AppLocalizations.of(context).message,
                         focusedBorder: UnderlineInputBorder(
                           borderSide:
                               BorderSide(color: Theme.of(context).primaryColor),
@@ -70,7 +70,7 @@ class IzlyRechargeTiersPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
-                      AppLocalizations.of(context)!.transfer,
+                      AppLocalizations.of(context).transfer,
                       style: TextStyle(
                         color: Theme.of(context).textTheme.bodySmall!.color,
                       ),
@@ -95,19 +95,19 @@ void _pay(
     showDialog(
         context: context,
         builder: (context) => ErrorDialogWidget(
-            message: AppLocalizations.of(context)!.pleaseSelectAnAmount));
+            message: AppLocalizations.of(context).pleaseSelectAnAmount));
   } else if (double.parse(controller.text) < 10) {
     showDialog(
         context: context,
         builder: (context) => ErrorDialogWidget(
-            message: AppLocalizations.of(context)!.minimumAmountIs(10)));
+            message: AppLocalizations.of(context).minimumAmountIs(10)));
   } else if (!(RegExp(
           r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
       .hasMatch(mailController.text))) {
     showDialog(
         context: context,
         builder: (context) => ErrorDialogWidget(
-            message: AppLocalizations.of(context)!.pleaseEnterAValidEmail));
+            message: AppLocalizations.of(context).pleaseEnterAValidEmail));
   } else {
     Navigator.push(
       context,

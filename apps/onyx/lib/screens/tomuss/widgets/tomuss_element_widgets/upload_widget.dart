@@ -75,7 +75,7 @@ class UploadWidget extends StatelessWidget {
                           FilePicker.platform
                               .saveFile(
                             // ignore: use_build_context_synchronously
-                            dialogTitle: AppLocalizations.of(context)!
+                            dialogTitle: AppLocalizations.of(context)
                                 .pleaseSelectOutputFile,
                             fileName: path.split('/').last,
                           )

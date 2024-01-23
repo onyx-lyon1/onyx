@@ -48,11 +48,11 @@ class AgendaPage extends StatelessWidget {
                 case AgendaStatus.loading:
                 case AgendaStatus.cacheReady:
                   headerState = LoadingHeaderWidget(
-                      message: AppLocalizations.of(context)!.loadingAgenda);
+                      message: AppLocalizations.of(context).loadingAgenda);
                   break;
                 case AgendaStatus.error:
                   headerState = LoadingHeaderWidget(
-                      message: AppLocalizations.of(context)!.agendaError);
+                      message: AppLocalizations.of(context).agendaError);
                   break;
                 case AgendaStatus.haveToChooseManualy:
                   return AgendaConfigPage(
@@ -93,7 +93,7 @@ class AgendaPage extends StatelessWidget {
                       )
                     : Center(
                         child: Text(
-                          AppLocalizations.of(context)!.agenda,
+                          AppLocalizations.of(context).agenda,
                           style: TextStyle(
                             color: Theme.of(context).textTheme.bodyLarge!.color,
                             fontSize: 15,
@@ -158,7 +158,7 @@ class AgendaPage extends StatelessWidget {
                               .horizontalScrollController[1]),
                       Center(
                         child:
-                            Text(AppLocalizations.of(context)!.monthViewSoon),
+                            Text(AppLocalizations.of(context).monthViewSoon),
                       )
                     ],
                   ),

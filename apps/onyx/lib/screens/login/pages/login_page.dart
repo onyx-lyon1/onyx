@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     switch (context.read<AuthentificationCubit>().state.status) {
       case AuthentificationStatus.initial:
         return StateDisplayingPage(
-            message: AppLocalizations.of(context)!.initialization);
+            message: AppLocalizations.of(context).initialization);
       case AuthentificationStatus.needCredential:
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.background,
@@ -54,14 +54,14 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(AppLocalizations.of(context)!.onyx,
+                            Text(AppLocalizations.of(context).onyx,
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayLarge!
                                     .copyWith(
                                       fontSize: 20.sp,
                                     )),
-                            Text(AppLocalizations.of(context)!.onyxSubTitle,
+                            Text(AppLocalizations.of(context).onyxSubTitle,
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium!
@@ -91,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context)!.authentication,
+                                  AppLocalizations.of(context).authentication,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 3.w, vertical: 0.5.h),
                                         child: Text(
-                                          AppLocalizations.of(context)!.privacy,
+                                          AppLocalizations.of(context).privacy,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge!
@@ -138,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                   labelText:
-                                      AppLocalizations.of(context)!.username,
+                                      AppLocalizations.of(context).username,
                                   labelStyle: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
@@ -173,12 +173,12 @@ class _LoginPageState extends State<LoginPage> {
                                     return null;
                                   }
                                   if (value == null || value.isEmpty) {
-                                    return AppLocalizations.of(context)!
+                                    return AppLocalizations.of(context)
                                         .pleaseEnterId;
                                   } else if (!RegExp(
                                           r"(^([pP])\d{7}$)|(.{2,}\..{2,})")
                                       .hasMatch(value.trim())) {
-                                    return AppLocalizations.of(context)!
+                                    return AppLocalizations.of(context)
                                         .wrongIdFormat;
                                   }
                                   return null;
@@ -207,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                                     return null;
                                   }
                                   if (value == null || value.isEmpty) {
-                                    return AppLocalizations.of(context)!
+                                    return AppLocalizations.of(context)
                                         .pleaseEnterPassword;
                                   }
                                   return null;
@@ -228,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    AppLocalizations.of(context)!.login,
+                                    AppLocalizations.of(context).login,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!
@@ -263,10 +263,10 @@ class _LoginPageState extends State<LoginPage> {
                       context.read<AuthentificationCubit>().login(
                             settings:
                                 context.read<SettingsCubit>().state.settings,
-                            appLocalizations: AppLocalizations.of(context)!,
+                            appLocalizations: AppLocalizations.of(context),
                           );
                     },
-                    child: Text(AppLocalizations.of(context)!.discoverApp),
+                    child: Text(AppLocalizations.of(context).discoverApp),
                   ),
                 ),
               ],
@@ -275,24 +275,24 @@ class _LoginPageState extends State<LoginPage> {
         );
       case AuthentificationStatus.authentificating:
         return StateDisplayingPage(
-            message: AppLocalizations.of(context)!.authentication);
+            message: AppLocalizations.of(context).authentication);
       case AuthentificationStatus.authentificated:
         return StateDisplayingPage(
-            message: AppLocalizations.of(context)!.yourAuthentificated);
+            message: AppLocalizations.of(context).yourAuthentificated);
       case AuthentificationStatus.error:
         if (context.read<SettingsCubit>().state.settings.firstLogin) {
           Future.delayed(const Duration(seconds: 1), () {
             context.read<AuthentificationCubit>().logout();
           });
           return StateDisplayingPage(
-              message: AppLocalizations.of(context)!.loginError);
+              message: AppLocalizations.of(context).loginError);
         }
         break;
       case AuthentificationStatus.waitingBiometric:
         return const WaitingBiometric();
     }
     return StateDisplayingPage(
-        message: AppLocalizations.of(context)!.fatalError);
+        message: AppLocalizations.of(context).fatalError);
   }
 
   void send() {
@@ -301,7 +301,7 @@ class _LoginPageState extends State<LoginPage> {
       context.read<AuthentificationCubit>().login(
             creds: Credential(username, password),
             settings: context.read<SettingsCubit>().state.settings,
-            appLocalizations: AppLocalizations.of(context)!,
+            appLocalizations: AppLocalizations.of(context),
           );
     }
   }
@@ -338,7 +338,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       textInputAction: TextInputAction.done,
       onFieldSubmitted: (String useless) => widget.onFieldSubmitted(),
       decoration: widget.decoration.copyWith(
-          labelText: AppLocalizations.of(context)!.password,
+          labelText: AppLocalizations.of(context).password,
           labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context)
                     .textTheme

@@ -37,7 +37,7 @@ class GradeListWidget extends StatelessWidget {
                   isSeen: true,
                   text1: grades.title.replaceAll("_", " "),
                   text2:
-                  AppLocalizations.of(context)!.noteDescription(grades.average, grades.mediane, grades.rank + 1, grades.groupeSize, grades.author),
+                  AppLocalizations.of(context).noteDescription(grades.average, grades.mediane, grades.rank + 1, grades.groupeSize, grades.author),
                   depth: depth,
                 ),
               ),

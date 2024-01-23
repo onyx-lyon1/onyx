@@ -74,7 +74,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     onPressed: () => Navigator.pop(context),
                     icon: const Icon(Icons.arrow_back_rounded)),
                 Text(
-                  AppLocalizations.of(context)!.eventDetails,
+                  AppLocalizations.of(context).eventDetails,
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 20.sp,
                       ),
@@ -98,12 +98,12 @@ class _EventDetailPageState extends State<EventDetailPage> {
                 EventDetailText(
                   icon: Icons.access_time_rounded,
                   text:
-                      "${DateFormat.jm(AppLocalizations.of(context)!.localeName).format(widget.event.start)} ${DateFormat.jm(AppLocalizations.of(context)!.localeName).format(widget.event.end)}",
+                      "${DateFormat.jm(AppLocalizations.of(context).localeName).format(widget.event.start)} ${DateFormat.jm(AppLocalizations.of(context).localeName).format(widget.event.end)}",
                 ),
                 EventDetailText(
                   icon: Icons.calendar_month_rounded,
                   text: DateFormat('yMMMMEEEEd',
-                          AppLocalizations.of(context)!.localeName)
+                          AppLocalizations.of(context).localeName)
                       .format(widget.event.start),
                 ),
                 if (widget.event.teacher.isNotEmpty)
@@ -146,7 +146,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             if (!snapshot.hasData) {
                               return Center(
                                 child: StateDisplayingPage(
-                                    message: AppLocalizations.of(context)!
+                                    message: AppLocalizations.of(context)
                                         .loadingBuildings),
                               );
                             }
@@ -216,7 +216,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         borderRadius: BorderRadius.circular(10),
                         child: Center(
                           child: Text(
-                            AppLocalizations.of(context)!.route,
+                            AppLocalizations.of(context).route,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!

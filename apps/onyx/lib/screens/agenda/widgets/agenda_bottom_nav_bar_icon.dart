@@ -52,7 +52,7 @@ class AgendaBottomNavBarIcon extends StatelessWidget {
             );
           }),
           Text(
-            AppLocalizations.of(context)!.agenda,
+            AppLocalizations.of(context).agenda,
             style: TextStyle(fontSize: 13.sp),
           ),
         ],

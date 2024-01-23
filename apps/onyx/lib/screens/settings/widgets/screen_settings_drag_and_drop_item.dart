@@ -51,7 +51,7 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
           title: Row(
             children: [
               Icon(functionality.toIcon()),
-              Text(functionality.toCleanString(AppLocalizations.of(context)!))
+              Text(functionality.toCleanString(AppLocalizations.of(context)))
             ],
           ),
           childrenPadding: const EdgeInsets.all(15),

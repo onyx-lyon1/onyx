@@ -22,7 +22,7 @@ class ExamenBottomNavBarIcon extends StatelessWidget {
                     .unselectedItemColor,
           ),
           Text(
-            AppLocalizations.of(context)!.exams,
+            AppLocalizations.of(context).exams,
             style: TextStyle(fontSize: 13.sp, overflow: TextOverflow.ellipsis),
           ),
         ],

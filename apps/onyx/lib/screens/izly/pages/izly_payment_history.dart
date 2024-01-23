@@ -21,7 +21,7 @@ class IzlyPaymentHistory extends StatelessWidget {
         Widget body;
         if (state.izlyClient == null) {
           body = StateDisplayingPage(
-            message: AppLocalizations.of(context)!.youAreNotConnectedToIzly,
+            message: AppLocalizations.of(context).youAreNotConnectedToIzly,
           );
         } else if (state.paymentList.isEmpty) {
           body = CircularProgressIndicator(
@@ -67,10 +67,10 @@ class IzlyPaymentHistory extends StatelessWidget {
             child: CommonScreenWidget(
               state: (IzlyStatus.loading == state.status)
                   ? LoadingHeaderWidget(
-                      message: AppLocalizations.of(context)!.loading)
+                      message: AppLocalizations.of(context).loading)
                   : null,
               header: IzlyRechargeHeaderWidget(
-                  title: AppLocalizations.of(context)!.paymentHistory),
+                  title: AppLocalizations.of(context).paymentHistory),
               body: Center(
                 child: body,
               ),

@@ -76,7 +76,7 @@ class UploadCompactWidget extends StatelessWidget {
                         .saveFile(
                       dialogTitle:
                           // ignore: use_build_context_synchronously
-                          AppLocalizations.of(context)!.pleaseSelectOutputFile,
+                          AppLocalizations.of(context).pleaseSelectOutputFile,
                       fileName: path.split('/').last,
                     )
                         .then((outputFilePath) {

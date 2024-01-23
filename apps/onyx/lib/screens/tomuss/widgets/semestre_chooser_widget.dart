@@ -15,7 +15,7 @@ class SemesterChooserWidget extends StatelessWidget {
     return AlertDialog(
       backgroundColor: Theme.of(context).cardTheme.color,
       title: Text(
-        AppLocalizations.of(context)!.selectSemester,
+        AppLocalizations.of(context).selectSemester,
         style: TextStyle(
           color: Theme.of(context).textTheme.bodyLarge!.color,
           fontSize: 20.sp,

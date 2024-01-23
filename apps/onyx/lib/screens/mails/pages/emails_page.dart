@@ -28,14 +28,14 @@ class MailsPage extends StatelessWidget {
         context.read<EmailCubit>().doQueuedAction(
             blockTrackers:
                 context.read<SettingsCubit>().state.settings.blockTrackers,
-            appLocalizations: AppLocalizations.of(context)!);
+            appLocalizations: AppLocalizations.of(context));
       },
       builder: (context, state) {
         Widget? loadingHeader;
         switch (state.status) {
           case MailStatus.connecting:
             loadingHeader = LoadingHeaderWidget(
-              message: AppLocalizations.of(context)!.mailServerConnection,
+              message: AppLocalizations.of(context).mailServerConnection,
             );
             break;
           case MailStatus.loading:
@@ -43,16 +43,16 @@ class MailsPage extends StatelessWidget {
           case MailStatus.cacheSorted:
           case MailStatus.mailboxesLoaded:
             loadingHeader = LoadingHeaderWidget(
-                message: AppLocalizations.of(context)!.loadingMails);
+                message: AppLocalizations.of(context).loadingMails);
             break;
           case MailStatus.error:
             loadingHeader = LoadingHeaderWidget(
-              message: AppLocalizations.of(context)!.mailServerConnectionError,
+              message: AppLocalizations.of(context).mailServerConnectionError,
             );
             break;
           case MailStatus.nonFatalError:
             loadingHeader = LoadingHeaderWidget(
-              message: AppLocalizations.of(context)!.errorOccured,
+              message: AppLocalizations.of(context).errorOccured,
             );
             break;
           case MailStatus.initial:
@@ -62,7 +62,7 @@ class MailsPage extends StatelessWidget {
                 .then((value) => context.read<EmailCubit>().connect(
                       username: value!.username,
                       password: value.password,
-                      appLocalizations: AppLocalizations.of(context)!,
+                      appLocalizations: AppLocalizations.of(context),
                     ));
 
             break;
@@ -73,13 +73,13 @@ class MailsPage extends StatelessWidget {
                       .state
                       .settings
                       .blockTrackers,
-                  appLocalizations: AppLocalizations.of(context)!,
+                  appLocalizations: AppLocalizations.of(context),
                 );
 
             break;
           case MailStatus.sending:
             loadingHeader = LoadingHeaderWidget(
-                message: AppLocalizations.of(context)!.sendingEmail);
+                message: AppLocalizations.of(context).sendingEmail);
             break;
           case MailStatus.loaded:
             break;
@@ -94,7 +94,7 @@ class MailsPage extends StatelessWidget {
           onPopInvoked: (_) {
             context
                 .read<EmailCubit>()
-                .unselectAllMails(AppLocalizations.of(context)!);
+                .unselectAllMails(AppLocalizations.of(context));
           },
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
@@ -160,13 +160,13 @@ class MailsPage extends StatelessWidget {
                                               .settings
                                               .blockTrackers,
                                           appLocalizations:
-                                              AppLocalizations.of(context)!,
+                                              AppLocalizations.of(context),
                                         ),
                                     child: Center(
                                       child: Padding(
                                         padding: EdgeInsets.all(8.w),
                                         child: Text(
-                                            AppLocalizations.of(context)!
+                                            AppLocalizations.of(context)
                                                 .loadMoreMails),
                                       ),
                                     ),
@@ -187,7 +187,7 @@ class MailsPage extends StatelessWidget {
                           .state
                           .settings
                           .blockTrackers,
-                      appLocalizations: AppLocalizations.of(context)!,
+                      appLocalizations: AppLocalizations.of(context),
                     );
                 return;
               },

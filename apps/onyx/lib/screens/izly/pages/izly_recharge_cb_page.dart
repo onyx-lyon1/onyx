@@ -42,7 +42,7 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
       child: Material(
         child: CommonScreenWidget(
           header: IzlyRechargeHeaderWidget(
-              title: AppLocalizations.of(context)!.refillWithBankCard),
+              title: AppLocalizations.of(context).refillWithBankCard),
           body: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -84,7 +84,7 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
-                      AppLocalizations.of(context)!.pay,
+                      AppLocalizations.of(context).pay,
                       style: TextStyle(
                         color: Theme.of(context).textTheme.bodySmall?.color,
                       ),
@@ -104,12 +104,12 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
       showDialog(
           context: context,
           builder: (context) => ErrorDialogWidget(
-              message: AppLocalizations.of(context)!.pleaseSelectAnAmount));
+              message: AppLocalizations.of(context).pleaseSelectAnAmount));
     } else if (double.parse(controller.text) < 10) {
       showDialog(
           context: context,
           builder: (context) => ErrorDialogWidget(
-              message: AppLocalizations.of(context)!.minimumAmountIs(10)));
+              message: AppLocalizations.of(context).minimumAmountIs(10)));
     } else {
       Navigator.push(
         context,

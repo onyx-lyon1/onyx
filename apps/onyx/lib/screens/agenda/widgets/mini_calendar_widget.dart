@@ -39,7 +39,7 @@ class MiniCalendarWidget extends StatelessWidget {
                 width: DaysViewRes.leftHourIndicatorWidth.w,
                 child: Center(
                   child: Text(
-                    AppLocalizations.of(context)!.weekNumberShort(
+                    AppLocalizations.of(context).weekNumberShort(
                       context
                           .read<AgendaCubit>()
                           .state

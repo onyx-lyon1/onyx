@@ -22,7 +22,7 @@ class TomussBottomNavBarIcon extends StatelessWidget {
                     .unselectedItemColor,
           ),
           Text(
-            AppLocalizations.of(context)!.tomuss,
+            AppLocalizations.of(context).tomuss,
             style: TextStyle(fontSize: 13.sp),
           ),
         ],

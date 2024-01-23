@@ -63,13 +63,13 @@ class _TomussPageState extends State<TomussPage> {
                   settings: context.read<SettingsCubit>().state.settings,
                 );
             loadingHeader = LoadingHeaderWidget(
-              message: AppLocalizations.of(context)!.tomussConnection,
+              message: AppLocalizations.of(context).tomussConnection,
             );
             break;
           case TomussStatus.loading:
           case TomussStatus.cacheReady:
             loadingHeader = LoadingHeaderWidget(
-              message: AppLocalizations.of(context)!.loadingGrades,
+              message: AppLocalizations.of(context).loadingGrades,
             );
             break;
 
@@ -84,14 +84,14 @@ class _TomussPageState extends State<TomussPage> {
                   );
             });
             loadingHeader = LoadingHeaderWidget(
-              message: AppLocalizations.of(context)!.loadingGradesError,
+              message: AppLocalizations.of(context).loadingGradesError,
             );
             break;
           case TomussStatus.updated:
             break;
           case TomussStatus.timeout:
             loadingHeader = LoadingHeaderWidget(
-                message: AppLocalizations.of(context)!.loadingGrades,
+                message: AppLocalizations.of(context).loadingGrades,
                 timeout: state.timeout,
                 timeoutCallBack: () {
                   context.read<TomussCubit>().load(

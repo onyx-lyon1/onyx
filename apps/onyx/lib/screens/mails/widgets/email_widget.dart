@@ -169,7 +169,7 @@ class MailWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 3.w, left: 2.w),
                   child: Text(
-                    _toHumanDate(email.date, AppLocalizations.of(context)!),
+                    _toHumanDate(email.date, AppLocalizations.of(context)),
                     maxLines: 1,
                     style: TextStyle(
                       color: email.isRead
@@ -213,9 +213,9 @@ class MailWidget extends StatelessWidget {
                         ? Icons.flag_rounded
                         : Icons.outlined_flag_rounded,
                     semanticLabel: email.isFlagged
-                        ? AppLocalizations.of(context)!
+                        ? AppLocalizations.of(context)
                             .flagedEmail(email.subject)
-                        : AppLocalizations.of(context)!
+                        : AppLocalizations.of(context)
                             .unflagedEmail(email.subject),
                     size: 20.sp,
                     color: email.isFlagged

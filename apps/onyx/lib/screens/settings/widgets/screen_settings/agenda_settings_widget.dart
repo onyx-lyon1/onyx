@@ -17,7 +17,7 @@ class AgendaSettingsWidget extends StatelessWidget {
     return Column(
       children: [
         TextSwitchWidget(
-          text: AppLocalizations.of(context)!.showMiniCalendar,
+          text: AppLocalizations.of(context).showMiniCalendar,
           value: settings.showMiniCalendar,
           onChanged: (bool b) {
             context
@@ -28,7 +28,7 @@ class AgendaSettingsWidget extends StatelessWidget {
         if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
             !settings.biometricAuth)
           TextSwitchWidget(
-            text: AppLocalizations.of(context)!.calendarUpdateNotification,
+            text: AppLocalizations.of(context).calendarUpdateNotification,
             value: settings.calendarUpdateNotification,
             onChanged: (bool b) {
               context.read<SettingsCubit>().modify(
@@ -36,7 +36,7 @@ class AgendaSettingsWidget extends StatelessWidget {
             },
           ),
         TextSwitchWidget(
-          text: AppLocalizations.of(context)!.agendaPageBottomToTop,
+          text: AppLocalizations.of(context).agendaPageBottomToTop,
           value: settings.agendaPageTopToBottom,
           onChanged: (bool b) {
             context
@@ -48,7 +48,7 @@ class AgendaSettingsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Column(
             children: [
-              Text(AppLocalizations.of(context)!.agendaWeekLength),
+              Text(AppLocalizations.of(context).agendaWeekLength),
               Slider(
                 value: settings.agendaWeekLength.toDouble(),
                 onChanged: (double d) {
@@ -75,12 +75,12 @@ class AgendaSettingsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Column(
             children: [
-              Text(AppLocalizations.of(context)!.agendaWeekReference),
+              Text(AppLocalizations.of(context).agendaWeekReference),
               SizedBox(
                 height: 1.h,
               ),
               AgendaWeekDaySelector(
-                elements: DateFormat.E(AppLocalizations.of(context)!.localeName)
+                elements: DateFormat.E(AppLocalizations.of(context).localeName)
                     .dateSymbols
                     .SHORTWEEKDAYS,
                 colorCondition: (i) => i == settings.agendaWeekReference,
@@ -100,7 +100,7 @@ class AgendaSettingsWidget extends StatelessWidget {
                     onTap: () => context.read<SettingsCubit>().modify(
                         settings: settings.copyWith(agendaWeekReference: 8)),
                     child: Center(
-                        child: Text(AppLocalizations.of(context)!.today)),
+                        child: Text(AppLocalizations.of(context).today)),
                   ),
                 ),
               ),
@@ -111,7 +111,7 @@ class AgendaSettingsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Column(
             children: [
-              Text(AppLocalizations.of(context)!.agendaWeekReferenceAlignement),
+              Text(AppLocalizations.of(context).agendaWeekReferenceAlignement),
               SizedBox(
                 height: 1.h,
               ),
@@ -130,12 +130,12 @@ class AgendaSettingsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Column(
             children: [
-              Text(AppLocalizations.of(context)!.disabledDays),
+              Text(AppLocalizations.of(context).disabledDays),
               SizedBox(
                 height: 1.h,
               ),
               AgendaWeekDaySelector(
-                elements: DateFormat.E(AppLocalizations.of(context)!.localeName)
+                elements: DateFormat.E(AppLocalizations.of(context).localeName)
                     .dateSymbols
                     .SHORTWEEKDAYS,
                 colorCondition: (i) =>
@@ -152,7 +152,7 @@ class AgendaSettingsWidget extends StatelessWidget {
                     if (settings.agendaDisabledDays.length == 6) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content:
-                            Text(AppLocalizations.of(context)!.cantHideAllDays),
+                            Text(AppLocalizations.of(context).cantHideAllDays),
                         backgroundColor: Theme.of(context).primaryColor,
                       ));
 

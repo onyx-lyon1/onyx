@@ -54,7 +54,7 @@ class MailSendPage extends StatelessWidget {
                 (originalMessage != null && bodyHtml(controller).isNotEmpty)) {
               Mail email = Mail(
                 subject: subjectEditor.text,
-                sender: AppLocalizations.of(context)!.me,
+                sender: AppLocalizations.of(context).me,
                 excerpt: "",
                 isRead: false,
                 date: DateTime.now(),
@@ -80,7 +80,7 @@ class MailSendPage extends StatelessWidget {
                 builder: (context) => AlertDialog(
                   backgroundColor: Theme.of(context).colorScheme.background,
                   title: Text(
-                      AppLocalizations.of(context)!.mailSendPageErrorTitle),
+                      AppLocalizations.of(context).mailSendPageErrorTitle),
                 ),
               );
             }
@@ -139,7 +139,7 @@ class MailSendPage extends StatelessWidget {
                                   ),
                                   decoration: InputDecoration(
                                       hintText:
-                                          AppLocalizations.of(context)!.objects,
+                                          AppLocalizations.of(context).objects,
                                       hintStyle: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!
@@ -173,7 +173,7 @@ class MailSendPage extends StatelessWidget {
                               width: 70.w,
                               child: Center(
                                 child: Text(
-                                  AppLocalizations.of(context)!.reply,
+                                  AppLocalizations.of(context).reply,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),

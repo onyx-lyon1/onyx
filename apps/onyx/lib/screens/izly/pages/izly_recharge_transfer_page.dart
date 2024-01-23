@@ -18,7 +18,7 @@ class IzlyRechargeTranferPage extends StatelessWidget {
       child: Material(
         child: CommonScreenWidget(
           header: IzlyRechargeHeaderWidget(
-              title: AppLocalizations.of(context)!.refillWithBankTransfer),
+              title: AppLocalizations.of(context).refillWithBankTransfer),
           body: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -38,7 +38,7 @@ class IzlyRechargeTranferPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
-                      AppLocalizations.of(context)!.transfer,
+                      AppLocalizations.of(context).transfer,
                       style: TextStyle(
                         color: Theme.of(context).textTheme.bodySmall?.color,
                       ),
@@ -58,12 +58,12 @@ class IzlyRechargeTranferPage extends StatelessWidget {
       showDialog(
           context: context,
           builder: (context) => ErrorDialogWidget(
-              message: AppLocalizations.of(context)!.pleaseSelectAnAmount));
+              message: AppLocalizations.of(context).pleaseSelectAnAmount));
     } else if (double.parse(controller.text) < 5) {
       showDialog(
           context: context,
           builder: (context) => ErrorDialogWidget(
-              message: AppLocalizations.of(context)!.minimumAmountIs(5)));
+              message: AppLocalizations.of(context).minimumAmountIs(5)));
     } else {
       Navigator.push(
         context,

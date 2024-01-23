@@ -48,11 +48,11 @@ void actionOnScreen(BuildContext context, int index) {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text(AppLocalizations.of(context)!.warning),
+            title: Text(AppLocalizations.of(context).warning),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(AppLocalizations.of(context)!.warningSelectShouldAgenda),
+                Text(AppLocalizations.of(context).warningSelectShouldAgenda),
                 SizedBox(
                   height: 2.h,
                 ),
@@ -77,7 +77,7 @@ void actionOnScreen(BuildContext context, int index) {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child:  Text(AppLocalizations.of(context)!.ok),
+                child:  Text(AppLocalizations.of(context).ok),
               ),
             ],
           ),

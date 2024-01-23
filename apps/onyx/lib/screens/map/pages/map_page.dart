@@ -18,7 +18,7 @@ class MapPage extends StatelessWidget {
         if (state.status == MapStatus.initial) {
           context
               .read<MapCubit>()
-              .loadBatiment(Locale(AppLocalizations.of(context)!.localeName));
+              .loadBatiment(Locale(AppLocalizations.of(context).localeName));
         }
         if (state.status == MapStatus.batimentsUpdated &&
             state.path.isNotEmpty) {

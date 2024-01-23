@@ -61,7 +61,7 @@ class _MailMailboxChooserWidgetState extends State<MailMailboxChooserWidget> {
                                     .settings
                                     .blockTrackers,
                                 mailbox: e,
-                                appLocalizations: AppLocalizations.of(context)!,
+                                appLocalizations: AppLocalizations.of(context),
                               );
                           _collapse();
                         },

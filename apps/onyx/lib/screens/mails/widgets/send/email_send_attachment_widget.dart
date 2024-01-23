@@ -31,7 +31,7 @@ class _MailSendAttachmentWidgetState extends State<MailSendAttachmentWidget> {
           if (index == 0) {
             return MailAttachmentWidget(
               icon: Icons.add_rounded,
-              fileName: AppLocalizations.of(context)!.addAttachment,
+              fileName: AppLocalizations.of(context).addAttachment,
               onTap: () async {
                 FilePickerResult? result =
                     await FilePicker.platform.pickFiles(allowMultiple: true);
@@ -66,7 +66,7 @@ class _MailSendAttachmentWidgetState extends State<MailSendAttachmentWidget> {
                 showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                          title: Text(AppLocalizations.of(context)!
+                          title: Text(AppLocalizations.of(context)
                               .deleteAttachmentConfirmation),
                           actions: [
                             TextButton(
@@ -76,7 +76,7 @@ class _MailSendAttachmentWidgetState extends State<MailSendAttachmentWidget> {
                               style: TextButton.styleFrom(
                                   backgroundColor:
                                       Theme.of(context).primaryColor),
-                              child: Text(AppLocalizations.of(context)!.cancel,
+                              child: Text(AppLocalizations.of(context).cancel,
                                   style: const TextStyle(color: Colors.white)),
                             ),
                             TextButton(
@@ -90,7 +90,7 @@ class _MailSendAttachmentWidgetState extends State<MailSendAttachmentWidget> {
                                   backgroundColor:
                                       Theme.of(context).primaryColor),
                               child: Text(
-                                AppLocalizations.of(context)!.delete,
+                                AppLocalizations.of(context).delete,
                                 style: const TextStyle(color: Colors.white),
                               ),
                             ),

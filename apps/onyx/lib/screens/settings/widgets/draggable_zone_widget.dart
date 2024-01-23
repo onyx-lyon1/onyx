@@ -32,7 +32,7 @@ class DraggableZoneWidget extends StatelessWidget {
                   bottom: 0.8.h,
                 ),
                 child: Text(
-                  AppLocalizations.of(context)!.enabled,
+                  AppLocalizations.of(context).enabled,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 16),
                 ),
@@ -59,7 +59,7 @@ class DraggableZoneWidget extends StatelessWidget {
                   bottom: 0.8.h,
                 ),
                 child: Text(
-                  AppLocalizations.of(context)!.disabled,
+                  AppLocalizations.of(context).disabled,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 16),
                 ),

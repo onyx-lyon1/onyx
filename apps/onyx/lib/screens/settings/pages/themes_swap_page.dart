@@ -17,7 +17,7 @@ class _ThemesSwapState extends State<ThemesSwap> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.changeTheme),
+        title: Text(AppLocalizations.of(context).changeTheme),
       ),
       body: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, themeState) {
@@ -25,17 +25,17 @@ class _ThemesSwapState extends State<ThemesSwap> {
             child: Column(
               children: [
                 ThemeListExpansionTile(
-                  title: AppLocalizations.of(context)!.favoriteTheme,
+                  title: AppLocalizations.of(context).favoriteTheme,
                   themesPreset: themeState.themesSettings!.favoriteThemes,
                   themesCreated: const [],
                 ),
                 ThemeListExpansionTile(
-                  title: AppLocalizations.of(context)!.lightTheme,
+                  title: AppLocalizations.of(context).lightTheme,
                   themesPreset: OnyxTheme.themesPresetLight,
                   themesCreated: themeState.themesSettings!.lightThemesCreated,
                 ),
                 ThemeListExpansionTile(
-                  title: AppLocalizations.of(context)!.darkTheme,
+                  title: AppLocalizations.of(context).darkTheme,
                   themesPreset: OnyxTheme.themesPresetDark,
                   themesCreated: themeState.themesSettings!.darkThemesCreated,
                 ),

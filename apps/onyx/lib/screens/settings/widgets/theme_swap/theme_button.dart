@@ -65,7 +65,7 @@ class ThemeButton extends StatelessWidget {
                   child: Center(
                     child: Text(
                       listThemes[index]
-                          .translate(AppLocalizations.of(context)!),
+                          .translate(AppLocalizations.of(context)),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: ((listThemes[index].name ==
@@ -116,11 +116,11 @@ class ThemeButton extends StatelessWidget {
       items: <PopupMenuEntry>[
         PopupMenuItem(
           value: 0,
-          child: Text(AppLocalizations.of(context)!.modify),
+          child: Text(AppLocalizations.of(context).modify),
         ),
         PopupMenuItem(
           value: 1,
-          child: Text(AppLocalizations.of(context)!.delete),
+          child: Text(AppLocalizations.of(context).delete),
         ),
       ],
     ).then((value) {

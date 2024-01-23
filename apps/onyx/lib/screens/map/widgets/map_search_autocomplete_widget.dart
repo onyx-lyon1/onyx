@@ -107,7 +107,7 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
                     .bottomNavigationBarTheme
                     .unselectedItemColor,
               ),
-              hintText: AppLocalizations.of(context)!.building,
+              hintText: AppLocalizations.of(context).building,
               hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Theme.of(context)
                       .textTheme

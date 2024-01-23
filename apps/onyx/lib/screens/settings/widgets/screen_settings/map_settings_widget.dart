@@ -6,6 +6,6 @@ class MapSettingsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(AppLocalizations.of(context)!.yetNothingToConfigure);
+    return Text(AppLocalizations.of(context).yetNothingToConfigure);
   }
 }

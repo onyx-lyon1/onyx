@@ -28,12 +28,12 @@ class IzlyPage extends StatelessWidget {
             context.read<IzlyCubit>().connect(
                 settings: context.read<SettingsCubit>().state.settings);
             body = StateDisplayingPage(
-              message: AppLocalizations.of(context)!.connecting,
+              message: AppLocalizations.of(context).connecting,
             );
             break;
           case IzlyStatus.connecting:
             body = StateDisplayingPage(
-              message: AppLocalizations.of(context)!.connecting,
+              message: AppLocalizations.of(context).connecting,
             );
             break;
           case IzlyStatus.error:
@@ -42,14 +42,14 @@ class IzlyPage extends StatelessWidget {
                   settings: context.read<SettingsCubit>().state.settings);
             });
             stateWidget = StateDisplayingPage(
-                message: AppLocalizations.of(context)!
+                message: AppLocalizations.of(context)
                     .thereWasAnErrorWhileConnecting);
             break;
           case IzlyStatus.noCredentials:
             return const IzlyLoginPage();
           case IzlyStatus.loading:
             stateWidget = LoadingHeaderWidget(
-                message: AppLocalizations.of(context)!.loading);
+                message: AppLocalizations.of(context).loading);
             break;
           case IzlyStatus.connected:
             break;
@@ -71,7 +71,7 @@ class IzlyPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                          "${AppLocalizations.of(context)!.available(state.qrCodeAvailables)} ${AppLocalizations.of(context)!.offline}"),
+                          "${AppLocalizations.of(context).available(state.qrCodeAvailables)} ${AppLocalizations.of(context).offline}"),
                       SizedBox(
                         height: 60.w,
                         width: 60.w,
@@ -85,7 +85,7 @@ class IzlyPage extends StatelessWidget {
                           child: Image.memory(state.qrCode!,
                               scale: 0.6,
                               semanticLabel:
-                                  AppLocalizations.of(context)!.qrCode),
+                                  AppLocalizations.of(context).qrCode),
                         ),
                       ),
                       Text(
@@ -129,7 +129,7 @@ class IzlyPage extends StatelessWidget {
           },
           header: Center(
             child: Text(
-              AppLocalizations.of(context)!.izly,
+              AppLocalizations.of(context).izly,
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyLarge!.color,
                 fontSize: 15,

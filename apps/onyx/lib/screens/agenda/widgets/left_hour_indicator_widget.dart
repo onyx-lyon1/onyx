@@ -24,7 +24,7 @@ class LeftHourIndicatorWidget extends StatelessWidget {
                 : 0.0,
             width: DaysViewRes.leftHourIndicatorWidth.w,
             child: Text(
-              DateFormat.j(AppLocalizations.of(context)!.localeName)
+              DateFormat.j(AppLocalizations.of(context).localeName)
                   .format(DateTime(0, 0, 0, i.inHours)),
               textAlign: TextAlign.center,
             ),

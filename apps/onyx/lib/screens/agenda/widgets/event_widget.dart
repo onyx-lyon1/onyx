@@ -56,7 +56,7 @@ class EventWidget extends StatelessWidget {
                   if (!compact)
                     AutoSizeText(
                       (!compact)
-                          ? AppLocalizations.of(context)!.eventSubtitle(
+                          ? AppLocalizations.of(context).eventSubtitle(
                               event.end
                                   .difference(event.start)
                                   .durationBeautifull(),

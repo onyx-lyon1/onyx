@@ -43,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
               color: Theme.of(context).cardTheme.color,
               child: Center(
                 child: Text(
-                  AppLocalizations.of(context)!.settings,
+                  AppLocalizations.of(context).settings,
                   style: TextStyle(
                     color: Theme.of(context).textTheme.bodyLarge!.color,
                     fontSize: 15,
@@ -56,10 +56,10 @@ class _SettingsPageState extends State<SettingsPage> {
               child: ListView(
                 children: [
                   SettingsCardWidget(
-                    name: AppLocalizations.of(context)!.general,
+                    name: AppLocalizations.of(context).general,
                     widgets: [
                       DropDownWidget(
-                        text: AppLocalizations.of(context)!.chooseLanguage,
+                        text: AppLocalizations.of(context).chooseLanguage,
                         value: AppLocalizations.supportedLocales.indexWhere(
                                 (element) =>
                                     element.languageCode ==
@@ -71,7 +71,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             1, //little trick, if it does not found because null, it will return -1, so +1 to get 0
                         // afterward we add in the list the auto option
                         items: [
-                          AppLocalizations.of(context)!.auto,
+                          AppLocalizations.of(context).auto,
                           ...AppLocalizations.supportedLocales.map((e) =>
                               LocaleNames.of(context)?.nameOf(e.languageCode) ??
                               e.languageCode)
@@ -98,11 +98,11 @@ class _SettingsPageState extends State<SettingsPage> {
                         },
                         builder: (context, themeState) {
                           return DropDownWidget(
-                              text: AppLocalizations.of(context)!.chooseTheme,
+                              text: AppLocalizations.of(context).chooseTheme,
                               items: [
-                                AppLocalizations.of(context)!.system,
-                                AppLocalizations.of(context)!.dark,
-                                AppLocalizations.of(context)!.light,
+                                AppLocalizations.of(context).system,
+                                AppLocalizations.of(context).dark,
+                                AppLocalizations.of(context).light,
                               ],
                               value: themeState.themesSettings!.themeMode.index,
                               onChanged: (choice) {
@@ -138,7 +138,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          AppLocalizations.of(context)!.changeTheme,
+                          AppLocalizations.of(context).changeTheme,
                           style: TextStyle(
                             fontSize: 17.sp,
                             color: Theme.of(context).textTheme.bodySmall?.color,
@@ -159,12 +159,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   const DraggableZoneWidget(),
                   SettingsCardWidget(
-                    name: AppLocalizations.of(context)!.login,
+                    name: AppLocalizations.of(context).login,
                     widgets: [
                       MaterialButton(
                         color: const Color(0xffbf616a),
                         textColor: Colors.white70,
-                        child: Text(AppLocalizations.of(context)!.logout,
+                        child: Text(AppLocalizations.of(context).logout,
                             style: TextStyle(fontSize: 17.sp)),
                         onPressed: () => SettingsLogic.logout(context),
                       ),
@@ -174,13 +174,13 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
                   SettingsCardWidget(
-                      name: AppLocalizations.of(context)!.cache,
+                      name: AppLocalizations.of(context).cache,
                       widgets: [
                         MaterialButton(
                           color: const Color(0xffbf616a),
                           textColor: Colors.white70,
                           child: Text(
-                              AppLocalizations.of(context)!.clearGradeCache,
+                              AppLocalizations.of(context).clearGradeCache,
                               style: TextStyle(fontSize: 17.sp)),
                           onPressed: () {
                             CacheService.reset<TeachingUnitList>();
@@ -201,7 +201,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           color: const Color(0xffbf616a),
                           textColor: Colors.white70,
                           child: Text(
-                              AppLocalizations.of(context)!.clearAgendaCache,
+                              AppLocalizations.of(context).clearAgendaCache,
                               style: TextStyle(fontSize: 17.sp)),
                           onPressed: () {
                             CacheService.reset<Agenda>();
@@ -221,7 +221,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           color: const Color(0xffbf616a),
                           textColor: Colors.white70,
                           child: Text(
-                              AppLocalizations.of(context)!.clearEmailCache,
+                              AppLocalizations.of(context).clearEmailCache,
                               style: TextStyle(fontSize: 17.sp)),
                           onPressed: () {
                             CacheService.reset<MailBoxList>();
@@ -233,7 +233,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                       .settings
                                       .blockTrackers,
                                   appLocalizations:
-                                      AppLocalizations.of(context)!,
+                                      AppLocalizations.of(context),
                                 );
                           },
                         ),
@@ -241,7 +241,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           color: const Color(0xffbf616a),
                           textColor: Colors.white70,
                           child: Text(
-                              AppLocalizations.of(context)!.clearIzlyCache,
+                              AppLocalizations.of(context).clearIzlyCache,
                               style: TextStyle(fontSize: 17.sp)),
                           onPressed: () {
                             CacheService.reset<IzlyQrCodeList>();
@@ -262,13 +262,13 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
                       ]),
                   SettingsCardWidget(
-                      name: AppLocalizations.of(context)!.notifications,
+                      name: AppLocalizations.of(context).notifications,
                       widgets: [
                         MaterialButton(
                           color: const Color(0xffbf616a),
                           textColor: Colors.white70,
                           child: Text(
-                              AppLocalizations.of(context)!
+                              AppLocalizations.of(context)
                                   .checkForNewNotifications,
                               style: TextStyle(fontSize: 17.sp)),
                           onPressed: () {

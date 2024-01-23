@@ -26,11 +26,11 @@ class MailHeaderWidget extends StatelessWidget {
                         );
                   }
                   context.read<EmailCubit>().unselectAllMails(
-                        AppLocalizations.of(context)!,
+                        AppLocalizations.of(context),
                       );
                 },
                 icon: const Icon(Icons.delete),
-                tooltip: AppLocalizations.of(context)!.delete,
+                tooltip: AppLocalizations.of(context).delete,
               ),
               IconButton(
                 onPressed: () {
@@ -38,15 +38,15 @@ class MailHeaderWidget extends StatelessWidget {
                     context.read<EmailCubit>().archive(
                           email: email,
                           from: state.currentMailBox!,
-                          appLocalizations: AppLocalizations.of(context)!,
+                          appLocalizations: AppLocalizations.of(context),
                         );
                   }
                   context.read<EmailCubit>().unselectAllMails(
-                        AppLocalizations.of(context)!,
+                        AppLocalizations.of(context),
                       );
                 },
                 icon: const Icon(Icons.archive),
-                tooltip: AppLocalizations.of(context)!.toArchive,
+                tooltip: AppLocalizations.of(context).toArchive,
               ),
               IconButton(
                 onPressed: () {
@@ -73,11 +73,11 @@ class MailHeaderWidget extends StatelessWidget {
                     }
                   }
                   context.read<EmailCubit>().unselectAllMails(
-                        AppLocalizations.of(context)!,
+                        AppLocalizations.of(context),
                       );
                 },
                 icon: const Icon(Icons.mark_email_read_rounded),
-                tooltip: AppLocalizations.of(context)!.markAsReadUnread,
+                tooltip: AppLocalizations.of(context).markAsReadUnread,
               ),
               IconButton(
                 onPressed: () {
@@ -85,7 +85,7 @@ class MailHeaderWidget extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text(AppLocalizations.of(context)!.moveTo),
+                          title: Text(AppLocalizations.of(context).moveTo),
                           content: SizedBox(
                             height: 30.h,
                             width: 100.w,
@@ -113,11 +113,11 @@ class MailHeaderWidget extends StatelessWidget {
                     }
                     context
                         .read<EmailCubit>()
-                        .unselectAllMails(AppLocalizations.of(context)!);
+                        .unselectAllMails(AppLocalizations.of(context));
                   });
                 },
                 icon: const Icon(Icons.drive_file_move_rounded),
-                tooltip: AppLocalizations.of(context)!.moveTo,
+                tooltip: AppLocalizations.of(context).moveTo,
               ),
               IconButton(
                 onPressed: () {
@@ -128,11 +128,11 @@ class MailHeaderWidget extends StatelessWidget {
                         );
                   }
                   context.read<EmailCubit>().unselectAllMails(
-                        AppLocalizations.of(context)!,
+                        AppLocalizations.of(context),
                       );
                 },
                 icon: const Icon(Icons.flag_rounded),
-                tooltip: AppLocalizations.of(context)!.markAsImportant,
+                tooltip: AppLocalizations.of(context).markAsImportant,
               ),
             ],
           );
@@ -155,7 +155,7 @@ class MailHeaderWidget extends StatelessWidget {
               ),
               cursorColor: Theme.of(context).textTheme.bodyLarge!.color,
               decoration: InputDecoration(
-                        hintText: AppLocalizations.of(context)!
+                        hintText: AppLocalizations.of(context)
                             .searchInTheNLastEmails(
                                 context.read<EmailCubit>().emailNumber),
                 hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(

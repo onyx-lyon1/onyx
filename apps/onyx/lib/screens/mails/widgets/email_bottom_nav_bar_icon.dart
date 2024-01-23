@@ -21,7 +21,7 @@ class MailBottomNavBarIcon extends StatelessWidget {
                     .unselectedItemColor,
           ),
           Text(
-            AppLocalizations.of(context)!.mails,
+            AppLocalizations.of(context).mails,
             style: TextStyle(fontSize: 13.sp),
           ),
         ],

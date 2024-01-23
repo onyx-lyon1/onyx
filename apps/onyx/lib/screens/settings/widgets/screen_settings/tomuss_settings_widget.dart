@@ -16,7 +16,7 @@ class TomussSettingsWidget extends StatelessWidget {
         if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
             !context.read<SettingsCubit>().state.settings.biometricAuth)
           TextSwitchWidget(
-            text: AppLocalizations.of(context)!.notifIfNewGrade,
+            text: AppLocalizations.of(context).notifIfNewGrade,
             value: context
                 .read<SettingsCubit>()
                 .state
@@ -32,7 +32,7 @@ class TomussSettingsWidget extends StatelessWidget {
             },
           ),
         TextSwitchWidget(
-          text: AppLocalizations.of(context)!.forceGreenGrade,
+          text: AppLocalizations.of(context).forceGreenGrade,
           value: context.read<SettingsCubit>().state.settings.forceGreen,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
@@ -48,7 +48,7 @@ class TomussSettingsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              AppLocalizations.of(context)!.recentGradeDuration,
+              AppLocalizations.of(context).recentGradeDuration,
               softWrap: true,
               overflow: TextOverflow.visible,
               style: TextStyle(
@@ -66,7 +66,7 @@ class TomussSettingsWidget extends StatelessWidget {
                 for (var i = 0; i <= 10; i++)
                   DropdownMenuItem(
                     value: i,
-                    child: Text(AppLocalizations.of(context)!.nDays(i)),
+                    child: Text(AppLocalizations.of(context).nDays(i)),
                   ),
               ],
               onChanged: (int? value) {

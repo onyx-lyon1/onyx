@@ -23,13 +23,13 @@ class URLWidget extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                        title: Text(AppLocalizations.of(context)!.error),
+                        title: Text(AppLocalizations.of(context).error),
                         content: Text(
-                            AppLocalizations.of(context)!.unableToOpenLink),
+                            AppLocalizations.of(context).unableToOpenLink),
                         actions: [
                           TextButton(
                               onPressed: () => Navigator.pop(context),
-                              child: Text(AppLocalizations.of(context)!.ok))
+                              child: Text(AppLocalizations.of(context).ok))
                         ],
                       ));
             }

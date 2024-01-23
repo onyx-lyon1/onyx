@@ -20,7 +20,7 @@ class ExamensConnection extends BlocListener<ExamenCubit, ExamenState> {
               context.read<AgendaCubit>().addExternalEvent([
                 ...state.studentColloscope?.kholles.map(
                       (e) => Event(
-                          name: AppLocalizations.of(context)!
+                          name: AppLocalizations.of(context)
                               .kholleOf(e.kholleur),
                           teacher: e.kholleur,
                           location: e.room?.trim() ?? "",
@@ -31,9 +31,9 @@ class ExamensConnection extends BlocListener<ExamenCubit, ExamenState> {
                     [],
                 ...state.examens.map(
                   (e) => Event(
-                      name: AppLocalizations.of(context)!.examOf(e.codeName),
+                      name: AppLocalizations.of(context).examOf(e.codeName),
                       teacher: "",
-                      location: AppLocalizations.of(context)!.examLocationPlace(e.location, e.place),
+                      location: AppLocalizations.of(context).examLocationPlace(e.location, e.place),
                       start: e.date,
                       end: e.date.add(e.duration),
                       description: e.codeName),
