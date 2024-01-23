@@ -12,6 +12,7 @@ import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
+import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/notifications/domain/logic/background_logic.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
@@ -87,6 +88,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                           : AppLocalizations
                                               .supportedLocales[value - 1]
                                               .languageCode));
+                          context.read<MapCubit>().resetCubit();
                         },
                       ),
                       BlocBuilder<ThemeCubit, ThemeState>(

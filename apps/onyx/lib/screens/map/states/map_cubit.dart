@@ -8,7 +8,6 @@ import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/map/map_export.dart';
-import 'package:onyx/screens/settings/settings_export.dart';
 
 part 'map_state.dart';
 
@@ -34,11 +33,11 @@ class MapCubit extends Cubit<MapState> {
     }
   }
 
-  void loadBatiment(SettingsState settings) async {
+  void loadBatiment(Locale locale) async {
     emit(state.copyWith(status: MapStatus.loading));
     List<BatimentModel> batiments = [];
     if (state.batiments.isEmpty) {
-      batiments = await BatimentsLogic.loadBatiments(settings);
+      batiments = await BatimentsLogic.loadBatiments(locale);
     }
     emit(state.copyWith(batiments: batiments));
     List<RestaurantModel> restaurant;

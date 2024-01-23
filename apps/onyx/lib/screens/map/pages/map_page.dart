@@ -4,7 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
-import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
@@ -18,7 +18,7 @@ class MapPage extends StatelessWidget {
         if (state.status == MapStatus.initial) {
           context
               .read<MapCubit>()
-              .loadBatiment(context.read<SettingsCubit>().state);
+              .loadBatiment(Locale(AppLocalizations.of(context)!.localeName));
         }
         if (state.status == MapStatus.batimentsUpdated &&
             state.path.isNotEmpty) {

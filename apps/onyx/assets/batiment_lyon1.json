@@ -1,342 +1,818 @@
 [
-  {
-    "nameFr": "Amphitéâtre Gaston Berger",
-    "nameEn": "Amphitheater Gaston Berger",
-    "coordinates": [4.872051, 45.782475]
-  },
-  {
-    "nameFr": "Amphitéâtre Ampère",
-    "nameEn": "Amphitheater Ampère",
-    "coordinates": [4.868364, 45.781796]
-  },
-  {
-    "nameFr": "Amphitéâtre Gouy",
-    "nameEn": "Amphitheater Gouy",
-    "coordinates": [4.868364, 45.781796]
-  },
-  {
-    "nameFr": "Amphitéâtre Caullery",
-    "nameEn": "Amphitheater Caullery",
-    "coordinates": [4.867074, 45.780756]
-  },
-  {
-    "nameFr": "Alfred Kastler",
-    "nameEn": "Alfred Kastler",
-    "coordinates": [4.867254, 45.782474]
-  },
-  {
-    "nameFr": "Alphonse Forel",
-    "nameEn": "Alphonse Forel",
-    "coordinates": [4.86734, 45.780312]
-  },
-  {
-    "nameFr": "Amphitéâtre Jordan",
-    "nameEn": "Amphitheater Jordan",
-    "coordinates": [4.86726, 45.781565]
-  },
-  {
-    "nameFr": "Amphithéâtre Deperet",
-    "nameEn": "Amphitheater Deperet",
-    "coordinates": [4.865758, 45.780428]
-  },
-  {
-    "nameFr": "Amphithéâtre Jussieu",
-    "nameEn": "Amphitheater Jussieu",
-    "coordinates": [4.868510600181253, 45.781049947575205]
-  },
-  {
-    "nameFr": "Amphithéâtre Marie Curie",
-    "nameEn": "Amphitheater Marie Curie",
-    "coordinates": [4.869813, 45.780245]
-  },
-  {
-    "nameFr": "André Lwoff",
-    "nameEn": "André Lwoff",
-    "coordinates": [4.868504, 45.780596]
-  },
-  {
-    "nameFr": "Atlas",
-    "nameEn": "Atlas",
-    "coordinates": [4.865559, 45.779923]
-  },
-  {
-    "nameFr": "Atrium",
-    "nameEn": "Atrium",
-    "coordinates": [4.86572, 45.779421]
-  },
-  {
-    "nameFr": "Axel One",
-    "nameEn": "Axel One",
-    "coordinates": [4.870859, 45.784038]
-  },
-  {
-    "nameFr": "Bâtiment Ariane",
-    "nameEn": "Ariane Building",
-    "coordinates": [4.869223, 45.779941]
-  },
-  {
-    "nameFr": "Bâtiment Astrée",
-    "nameEn": "Astrée Building",
-    "coordinates": [4.870591, 45.783372]
-  },
-  {
-    "nameFr": "Bâtiment principal Rockefeller",
-    "nameEn": "Main Rockefeller Building",
-    "coordinates": [4.880424, 45.741566]
-  },
-  {
-    "nameFr": "Berthollet",
-    "nameEn": "Berthollet",
-    "coordinates": [4.87105, 45.781306]
-  },
-  {
-    "nameFr": "Bibliothèque BU Sciences",
-    "nameEn": "Library BU Sciences",
-    "coordinates": [4.87042, 45.782037]
-  },
-  {
-    "nameFr": "Braconnier",
-    "nameEn": "Braconnier",
-    "coordinates": [4.867131, 45.781344]
-  },
-  {
-    "nameFr": "Brillouin",
-    "nameEn": "Brillouin",
-    "coordinates": [4.867662, 45.782444]
-  },
-  {
-    "nameFr": "Carbone 14",
-    "nameEn": "Carbone 14",
-    "coordinates": [4.868301, 45.784262]
-  },
-  {
-    "nameFr": "Charles Darwin",
-    "nameEn": "Charles Darwin",
-    "coordinates": [4.866884, 45.780708]
-  },
-  {
-    "nameFr": "Club des sports",
-    "nameEn": "Club des sports",
-    "coordinates": [4.869674, 45.779216]
-  },
-  {
-    "nameFr": "Complexe sportif Colette Besson",
-    "nameEn": "Colette Besson Sports Complex",
-    "coordinates": [4.873225, 45.784955]
-  },
-  {
-    "nameFr": "Complexe sportif de l'UFR STAPS",
-    "nameEn": "UFR STAPS Sports Complex",
-    "coordinates": [4.862786, 45.781199]
-  },
-  {
-    "nameFr": "Condorcet",
-    "nameEn": "Condorcet",
-    "coordinates": [4.867496, 45.779291]
-  },
-  {
-    "nameFr": "CPE",
-    "nameEn": "CPE",
-    "coordinates": [4.868917, 45.783903]
-  },
-  {
-    "nameFr": "Cryo",
-    "nameEn": "Cryo",
-    "coordinates": [4.867373, 45.782175]
-  },
-  {
-    "nameFr": "Curien",
-    "nameEn": "Curien",
-    "coordinates": [4.869647, 45.784083]
-  },
-  {
-    "nameFr": "Déambulatoire",
-    "nameEn": "Déambulatoire",
-    "coordinates": [4.870194, 45.780895]
-  },
-  {
-    "nameFr": "Domus",
-    "nameEn": "Domus",
-    "coordinates": [4.86542, 45.781135]
-  },
-  {
-    "nameFr": "Edgar LEDERER",
-    "nameEn": "Edgar LEDERER",
-    "coordinates": [4.86792, 45.783877]
-  },
-  {
-    "nameFr": "Emile Haefely",
-    "nameEn": "Emile Haefely",
-    "coordinates": [4.866364, 45.783986]
-  },
-  {
-    "nameFr": "Espace conseil du SOIE",
-    "nameEn": "SOIE advice space",
-    "coordinates": [4.87146, 45.780566]
-  },
-  {
-    "nameFr": "Eugène Chevreul",
-    "nameEn": "Eugène Chevreul",
-    "coordinates": [4.869218, 45.783357]
-  },
-  {
-    "nameFr": "Gabriel Lippmann",
-    "nameEn": "Gabriel Lippmann",
-    "coordinates": [4.868124, 45.782149]
-  },
-  {
-    "nameFr": "Géode",
-    "nameEn": "Géode",
-    "coordinates": [4.866182, 45.780054]
-  },
-  {
-    "nameFr": "Grégoire Mendel",
-    "nameEn": "Grégoire Mendel",
-    "coordinates": [4.870189, 45.78121]
-  },
-  {
-    "nameFr": "Herbier",
-    "nameEn": "Herbier",
-    "coordinates": [4.868853, 45.780899]
-  },
-  {
-    "nameFr": "ISFA",
-    "nameEn": "ISFA",
-    "coordinates": [4.826544, 45.726218]
-  },
-  {
-    "nameFr": "Jean-François Cier",
-    "nameEn": "Jean-François Cier",
-    "coordinates": [4.882243, 45.74072]
-  },
-  {
-    "nameFr": "Jules Raulin",
-    "nameEn": "Jules Raulin",
-    "coordinates": [4.868671, 45.783256]
-  },
-  {
-    "nameFr": "Julie Victoire Daubié",
-    "nameEn": "Julie Victoire Daubié",
-    "coordinates": [4.869132, 45.781318]
-  },
-  {
-    "nameFr": "La Pagode",
-    "nameEn": "La Pagode",
-    "coordinates": [4.867839, 45.7843]
-  },
-  {
-    "nameFr": "Laennec",
-    "nameEn": "Laennec",
-    "coordinates": [4.886733, 45.739128]
-  },
-  {
-    "nameFr": "Lyon Sud",
-    "nameEn": "Lyon Sud",
-    "coordinates": [4.809179, 45.703755]
-  },
-  {
-    "nameFr": "Maison d'Hôtes",
-    "nameEn": "Maison d'Hôtes",
-    "coordinates": [4.867533, 45.783054]
-  },
-  {
-    "nameFr": "Maison de l'Université Domitien Debouzie",
-    "nameEn": "Domitien Debouzie University House",
-    "coordinates": [4.865157, 45.779627]
-  },
-  {
-    "nameFr": "Maison du projet",
-    "nameEn": "Maison du projet",
-    "coordinates": [4.87131, 45.781086]
-  },
-  {
-    "nameFr": "Médiathèque Paul Zech",
-    "nameEn": "Paul Zech Media Library",
-    "coordinates": [4.882725, 45.740836]
-  },
-  {
-    "nameFr": "Nautibus",
-    "nameEn": "Nautibus",
-    "coordinates": [4.865956, 45.782276]
-  },
-  {
-    "nameFr": "Omega",
-    "nameEn": "Omega",
-    "coordinates": [4.870988, 45.780495]
-  },
-  {
-    "nameFr": "Orion",
-    "nameEn": "Orion",
-    "coordinates": [4.86645, 45.782882]
-  },
-  {
-    "nameFr": "Paul Dirac",
-    "nameEn": "Paul Dirac",
-    "coordinates": [4.867265, 45.783675]
-  },
-  {
-    "nameFr": "Pavillon Nétien",
-    "nameEn": "Pavillon Nétien",
-    "coordinates": [4.879367, 45.741742]
-  },
-  {
-    "nameFr": "Piscine universitaire",
-    "nameEn": "University swimming pool",
-    "coordinates": [4.877608, 45.783971]
-  },
-  {
-    "nameFr": "Polytech ISTIL",
-    "nameEn": "Polytech ISTIL",
-    "coordinates": [4.868113, 45.779317]
-  },
-  {
-    "nameFr": "Préfabriqués",
-    "nameEn": "Préfabriqués",
-    "coordinates": [4.87124, 45.77962]
-  },
-  {
-    "nameFr": "Quai 43",
-    "nameEn": "Quai 43",
-    "coordinates": [4.871578, 45.780259]
-  },
-  {
-    "nameFr": "Raphaël Dubois",
-    "nameEn": "Raphaël Dubois",
-    "coordinates": [4.86793, 45.780432]
-  },
-  {
-    "nameFr": "Robert Van De Graaff",
-    "nameEn": "Robert Van De Graaff",
-    "coordinates": [4.866756, 45.782979]
-  },
-  {
-    "nameFr": "Sapin",
-    "nameEn": "Sapin",
-    "coordinates": [4.863875, 45.781105]
-  },
-  {
-    "nameFr": "Serre",
-    "nameEn": "Serre",
-    "coordinates": [4.869089, 45.78051]
-  },
-  {
-    "nameFr": "SIUAPS - SUAPS",
-    "nameEn": "SIUAPS - SUAPS",
-    "coordinates": [4.86918, 45.779586]
-  },
-  {
-    "nameFr": "Thémis",
-    "nameEn": "Thémis",
-    "coordinates": [4.871525, 45.783335]
-  },
-  {
-    "nameFr": "Victor Grignard",
-    "nameEn": "Victor Grignard",
-    "coordinates": [4.869894, 45.783118]
-  },
-  {
-    "nameFr": "Virgo",
-    "nameEn": "Virgo",
-    "coordinates": [4.865613, 45.783338]
-  }
+    {
+        "name": {
+            "fr": "Amphitéâtre Gaston Berger",
+            "en": "Gaston Berger amphitheater",
+            "ar": "غاستون بيرغر مدرج",
+            "ru": "Гастон Бергер Амфитеатр"
+        },
+        "coordinates": [
+            4.872051,
+            45.782475
+        ]
+    },
+    {
+        "name": {
+            "fr": "Amphitéâtre Ampère",
+            "en": "Amphitheater Ampère",
+            "ar": "المدرج أمبير",
+            "ru": "Амфитеатр Ампер"
+        },
+        "coordinates": [
+            4.868364,
+            45.781796
+        ]
+    },
+    {
+        "name": {
+            "fr": "Amphitéâtre Gouy",
+            "en": "Gouy amphitheater",
+            "ar": "جوي مدرج",
+            "ru": "Гуи амфитеатр"
+        },
+        "coordinates": [
+            4.868364,
+            45.781796
+        ]
+    },
+    {
+        "name": {
+            "fr": "Amphitéâtre Caullery",
+            "en": "CAULLERY AMPHITY",
+            "ar": "كوليري أمسيتي",
+            "ru": "Amphity Caullery"
+        },
+        "coordinates": [
+            4.867074,
+            45.780756
+        ]
+    },
+    {
+        "name": {
+            "fr": "Alfred Kastler",
+            "en": "Alfred Kastler",
+            "ar": "ألفريد كاستلر",
+            "ru": "Альфред Кастлер"
+        },
+        "coordinates": [
+            4.867254,
+            45.782474
+        ]
+    },
+    {
+        "name": {
+            "fr": "Alphonse Forel",
+            "en": "Alphonse Forel",
+            "ar": "alphonse forel",
+            "ru": "Альфонс Форел"
+        },
+        "coordinates": [
+            4.86734,
+            45.780312
+        ]
+    },
+    {
+        "name": {
+            "fr": "Amphitéâtre Jordan",
+            "en": "Jordan amphitheater",
+            "ar": "مدرج الأردن",
+            "ru": "Джордан Амфитеатр"
+        },
+        "coordinates": [
+            4.86726,
+            45.781565
+        ]
+    },
+    {
+        "name": {
+            "fr": "Amphithéâtre Deperet",
+            "en": "Deperet amphitheater",
+            "ar": "Deperet Amphithater",
+            "ru": "Deperet Amphitheater"
+        },
+        "coordinates": [
+            4.865758,
+            45.780428
+        ]
+    },
+    {
+        "name": {
+            "fr": "Amphithéâtre Jussieu",
+            "en": "Jussieu amphitheater",
+            "ar": "جوسيو مدرج",
+            "ru": "Амфитеатр Jussieu"
+        },
+        "coordinates": [
+            4.868510600181253,
+            45.781049947575205
+        ]
+    },
+    {
+        "name": {
+            "fr": "Amphithéâtre Marie Curie",
+            "en": "Amphitheater Marie Curie",
+            "ar": "المدرج ماري كوري",
+            "ru": "Амфитеатр Мари Кюри"
+        },
+        "coordinates": [
+            4.869813,
+            45.780245
+        ]
+    },
+    {
+        "name": {
+            "fr": "André Lwoff",
+            "en": "André LWOFF",
+            "ar": "أندريه لوف",
+            "ru": "Андре Луфф"
+        },
+        "coordinates": [
+            4.868504,
+            45.780596
+        ]
+    },
+    {
+        "name": {
+            "fr": "Atlas",
+            "en": "Atlas",
+            "ar": "أطلس",
+            "ru": "Атлас"
+        },
+        "coordinates": [
+            4.865559,
+            45.779923
+        ]
+    },
+    {
+        "name": {
+            "fr": "Atrium",
+            "en": "Atrium",
+            "ar": "الأذين",
+            "ru": "Атриум"
+        },
+        "coordinates": [
+            4.86572,
+            45.779421
+        ]
+    },
+    {
+        "name": {
+            "fr": "Axel One",
+            "en": "Axel One",
+            "ar": "أكسل واحد",
+            "ru": "Аксель один"
+        },
+        "coordinates": [
+            4.870859,
+            45.784038
+        ]
+    },
+    {
+        "name": {
+            "fr": "Bâtiment Ariane",
+            "en": "Ariane building",
+            "ar": "مبنى أريان",
+            "ru": "Ариан здание"
+        },
+        "coordinates": [
+            4.869223,
+            45.779941
+        ]
+    },
+    {
+        "name": {
+            "fr": "Bâtiment Astrée",
+            "en": "Astrée Building",
+            "ar": "مبنى Astrée",
+            "ru": "Astrée Building"
+        },
+        "coordinates": [
+            4.870591,
+            45.783372
+        ]
+    },
+    {
+        "name": {
+            "fr": "Bâtiment principal Rockefeller",
+            "en": "Rockefeller's main building",
+            "ar": "المبنى الرئيسي لروكفلر",
+            "ru": "Основное здание Рокфеллера"
+        },
+        "coordinates": [
+            4.880424,
+            45.741566
+        ]
+    },
+    {
+        "name": {
+            "fr": "Berthollet",
+            "en": "Berthollet",
+            "ar": "بيرثوليت",
+            "ru": "Бертолет"
+        },
+        "coordinates": [
+            4.87105,
+            45.781306
+        ]
+    },
+    {
+        "name": {
+            "fr": "Bibliothèque BU Sciences",
+            "en": "BU Sciences library",
+            "ar": "مكتبة علوم بو",
+            "ru": "BU SCIENCES Библиотека"
+        },
+        "coordinates": [
+            4.87042,
+            45.782037
+        ]
+    },
+    {
+        "name": {
+            "fr": "Braconnier",
+            "en": "Poacher",
+            "ar": "مبيضة",
+            "ru": "Браконьерство"
+        },
+        "coordinates": [
+            4.867131,
+            45.781344
+        ]
+    },
+    {
+        "name": {
+            "fr": "Brillouin",
+            "en": "Brillouin",
+            "ar": "بريلوين",
+            "ru": "Брилуин"
+        },
+        "coordinates": [
+            4.867662,
+            45.782444
+        ]
+    },
+    {
+        "name": {
+            "fr": "Carbone 14",
+            "en": "Carbon 14",
+            "ar": "الكربون 14",
+            "ru": "Углерод 14"
+        },
+        "coordinates": [
+            4.868301,
+            45.784262
+        ]
+    },
+    {
+        "name": {
+            "fr": "Charles Darwin",
+            "en": "Charles Darwin",
+            "ar": "تشارلز داروين",
+            "ru": "Чарльз Дарвин"
+        },
+        "coordinates": [
+            4.866884,
+            45.780708
+        ]
+    },
+    {
+        "name": {
+            "fr": "Club des sports",
+            "en": "Sports club",
+            "ar": "نادي رياضي",
+            "ru": "Спортивный клуб"
+        },
+        "coordinates": [
+            4.869674,
+            45.779216
+        ]
+    },
+    {
+        "name": {
+            "fr": "Complexe sportif Colette Besson",
+            "en": "Colette Besson sports complex",
+            "ar": "مجمع كوليت بيسون الرياضي",
+            "ru": "Колетт Бессон Спортивный комплекс"
+        },
+        "coordinates": [
+            4.873225,
+            45.784955
+        ]
+    },
+    {
+        "name": {
+            "fr": "Complexe sportif de l'UFR STAPS",
+            "en": "UFR Staps sports complex",
+            "ar": "مجمع UFR STAPS الرياضي",
+            "ru": "Спортивный комплекс UFR STAPS"
+        },
+        "coordinates": [
+            4.862786,
+            45.781199
+        ]
+    },
+    {
+        "name": {
+            "fr": "Condorcet",
+            "en": "Condocet",
+            "ar": "كوندوت",
+            "ru": "Кондоцет"
+        },
+        "coordinates": [
+            4.867496,
+            45.779291
+        ]
+    },
+    {
+        "name": {
+            "fr": "CPE",
+            "en": "Cpe",
+            "ar": "CPE",
+            "ru": "CPE"
+        },
+        "coordinates": [
+            4.868917,
+            45.783903
+        ]
+    },
+    {
+        "name": {
+            "fr": "Cryo",
+            "en": "Cryo",
+            "ar": "Cryo",
+            "ru": "Крио"
+        },
+        "coordinates": [
+            4.867373,
+            45.782175
+        ]
+    },
+    {
+        "name": {
+            "fr": "Curien",
+            "en": "Curian",
+            "ar": "كوريان",
+            "ru": "Кюриан"
+        },
+        "coordinates": [
+            4.869647,
+            45.784083
+        ]
+    },
+    {
+        "name": {
+            "fr": "Déambulatoire",
+            "en": "Ambulatory",
+            "ar": "متجول",
+            "ru": "Амбулаторный"
+        },
+        "coordinates": [
+            4.870194,
+            45.780895
+        ]
+    },
+    {
+        "name": {
+            "fr": "Domus",
+            "en": "Domus",
+            "ar": "دوموس",
+            "ru": "Domus"
+        },
+        "coordinates": [
+            4.86542,
+            45.781135
+        ]
+    },
+    {
+        "name": {
+            "fr": "Edgar LEDERER",
+            "en": "Edgar Lederer",
+            "ar": "إدغار ليدرر",
+            "ru": "Эдгар Ледерер"
+        },
+        "coordinates": [
+            4.86792,
+            45.783877
+        ]
+    },
+    {
+        "name": {
+            "fr": "Emile Haefely",
+            "en": "Emile Haefely",
+            "ar": "إميل هافلي",
+            "ru": "Эмиль Хафели"
+        },
+        "coordinates": [
+            4.866364,
+            45.783986
+        ]
+    },
+    {
+        "name": {
+            "fr": "Espace conseil du SOIE",
+            "en": "Silk consulting area",
+            "ar": "منطقة الاستشارات الحرير",
+            "ru": "Шелковая зона консалтинга"
+        },
+        "coordinates": [
+            4.87146,
+            45.780566
+        ]
+    },
+    {
+        "name": {
+            "fr": "Eugène Chevreul",
+            "en": "Eugène Chevreul",
+            "ar": "يوجين شيفرول",
+            "ru": "Южен Чеврол"
+        },
+        "coordinates": [
+            4.869218,
+            45.783357
+        ]
+    },
+    {
+        "name": {
+            "fr": "Gabriel Lippmann",
+            "en": "Gabriel Lippmann",
+            "ar": "غابرييل ليبمان",
+            "ru": "Габриэль Липпманн"
+        },
+        "coordinates": [
+            4.868124,
+            45.782149
+        ]
+    },
+    {
+        "name": {
+            "fr": "Géode",
+            "en": "Geode",
+            "ar": "الجيود",
+            "ru": "Геод"
+        },
+        "coordinates": [
+            4.866182,
+            45.780054
+        ]
+    },
+    {
+        "name": {
+            "fr": "Grégoire Mendel",
+            "en": "Grégoire Mendel",
+            "ar": "Grégoire مندل",
+            "ru": "Грегуар Мендель"
+        },
+        "coordinates": [
+            4.870189,
+            45.78121
+        ]
+    },
+    {
+        "name": {
+            "fr": "Herbier",
+            "en": "Herbarium",
+            "ar": "الأعشاب",
+            "ru": "Гербарий"
+        },
+        "coordinates": [
+            4.868853,
+            45.780899
+        ]
+    },
+    {
+        "name": {
+            "fr": "ISFA",
+            "en": "Isfa",
+            "ar": "ISFA",
+            "ru": "ISFA"
+        },
+        "coordinates": [
+            4.826544,
+            45.726218
+        ]
+    },
+    {
+        "name": {
+            "fr": "Jean-François Cier",
+            "en": "Jean-François CIER",
+            "ar": "جان فرانسوا سير",
+            "ru": "Жан-Франсуа Сьер"
+        },
+        "coordinates": [
+            4.882243,
+            45.74072
+        ]
+    },
+    {
+        "name": {
+            "fr": "Jules Raulin",
+            "en": "Jules Raulin",
+            "ar": "جول راوولين",
+            "ru": "Жюль Раулин"
+        },
+        "coordinates": [
+            4.868671,
+            45.783256
+        ]
+    },
+    {
+        "name": {
+            "fr": "Julie Victoire Daubié",
+            "en": "Julie Victoire Daubié",
+            "ar": "جولي فيكتواير داوبي",
+            "ru": "Джули Виктуар Дауби"
+        },
+        "coordinates": [
+            4.869132,
+            45.781318
+        ]
+    },
+    {
+        "name": {
+            "fr": "La Pagode",
+            "en": "The pagoda",
+            "ar": "المعبد",
+            "ru": "Пагода"
+        },
+        "coordinates": [
+            4.867839,
+            45.7843
+        ]
+    },
+    {
+        "name": {
+            "fr": "Laennec",
+            "en": "Laennec",
+            "ar": "لينيك",
+            "ru": "LANENCE"
+        },
+        "coordinates": [
+            4.886733,
+            45.739128
+        ]
+    },
+    {
+        "name": {
+            "fr": "Lyon Sud",
+            "en": "South Lyon",
+            "ar": "جنوب ليون",
+            "ru": "Южный Лион"
+        },
+        "coordinates": [
+            4.809179,
+            45.703755
+        ]
+    },
+    {
+        "name": {
+            "fr": "Maison d'Hôtes",
+            "en": "Guest House",
+            "ar": "دار الضيافة",
+            "ru": "Гостевой дом"
+        },
+        "coordinates": [
+            4.867533,
+            45.783054
+        ]
+    },
+    {
+        "name": {
+            "fr": "Maison de l'Université Domitien Debouzie",
+            "en": "House of the Domitian University Debouzie",
+            "ar": "دار جامعة دوميتيان ديبوزي",
+            "ru": "Дом Домитианского университета Дебюзи"
+        },
+        "coordinates": [
+            4.865157,
+            45.779627
+        ]
+    },
+    {
+        "name": {
+            "fr": "Maison du projet",
+            "en": "Project house",
+            "ar": "دار المشروع",
+            "ru": "Дом проекта"
+        },
+        "coordinates": [
+            4.87131,
+            45.781086
+        ]
+    },
+    {
+        "name": {
+            "fr": "Médiathèque Paul Zech",
+            "en": "Paul Zech media library",
+            "ar": "مكتبة بول زيك الإعلامية",
+            "ru": "Медиа -библиотека Пола Зеха"
+        },
+        "coordinates": [
+            4.882725,
+            45.740836
+        ]
+    },
+    {
+        "name": {
+            "fr": "Nautibus",
+            "en": "Nautibus",
+            "ar": "Nautibus",
+            "ru": "Наутибус"
+        },
+        "coordinates": [
+            4.865956,
+            45.782276
+        ]
+    },
+    {
+        "name": {
+            "fr": "Omega",
+            "en": "Omega",
+            "ar": "أوميغا",
+            "ru": "Омега"
+        },
+        "coordinates": [
+            4.870988,
+            45.780495
+        ]
+    },
+    {
+        "name": {
+            "fr": "Orion",
+            "en": "Oron",
+            "ar": "أورون",
+            "ru": "Орон"
+        },
+        "coordinates": [
+            4.86645,
+            45.782882
+        ]
+    },
+    {
+        "name": {
+            "fr": "Paul Dirac",
+            "en": "Paul Dirac",
+            "ar": "بول ديراك",
+            "ru": "Пол Дирак"
+        },
+        "coordinates": [
+            4.867265,
+            45.783675
+        ]
+    },
+    {
+        "name": {
+            "fr": "Pavillon Nétien",
+            "en": "Netian pavilion",
+            "ar": "جناح نيتيان",
+            "ru": "Сетевой павильон"
+        },
+        "coordinates": [
+            4.879367,
+            45.741742
+        ]
+    },
+    {
+        "name": {
+            "fr": "Piscine universitaire",
+            "en": "University pool",
+            "ar": "حمام السباحة الجامعي",
+            "ru": "Университетский бассейн"
+        },
+        "coordinates": [
+            4.877608,
+            45.783971
+        ]
+    },
+    {
+        "name": {
+            "fr": "Polytech ISTIL",
+            "en": "Polytech istil",
+            "ar": "polytech istil",
+            "ru": "Политехно -истиль"
+        },
+        "coordinates": [
+            4.868113,
+            45.779317
+        ]
+    },
+    {
+        "name": {
+            "fr": "Préfabriqués",
+            "en": "Prefabricated",
+            "ar": "مسبق",
+            "ru": "Сборник"
+        },
+        "coordinates": [
+            4.87124,
+            45.77962
+        ]
+    },
+    {
+        "name": {
+            "fr": "Quai 43",
+            "en": "Quai 43",
+            "ar": "Quai 43",
+            "ru": "Quai 43"
+        },
+        "coordinates": [
+            4.871578,
+            45.780259
+        ]
+    },
+    {
+        "name": {
+            "fr": "Raphaël Dubois",
+            "en": "Raphaël Dubois",
+            "ar": "Raphaël Dubois",
+            "ru": "Рафаэль Дюбуа"
+        },
+        "coordinates": [
+            4.86793,
+            45.780432
+        ]
+    },
+    {
+        "name": {
+            "fr": "Robert Van De Graaff",
+            "en": "Robert Van de Graaff",
+            "ar": "روبرت فان دي جراف",
+            "ru": "Роберт Ван де Граафф"
+        },
+        "coordinates": [
+            4.866756,
+            45.782979
+        ]
+    },
+    {
+        "name": {
+            "fr": "Sapin",
+            "en": "Fir tree",
+            "ar": "شجرة التنوب",
+            "ru": "Ель"
+        },
+        "coordinates": [
+            4.863875,
+            45.781105
+        ]
+    },
+    {
+        "name": {
+            "fr": "Serre",
+            "en": "Tight",
+            "ar": "ضيق",
+            "ru": "Тугой"
+        },
+        "coordinates": [
+            4.869089,
+            45.78051
+        ]
+    },
+    {
+        "name": {
+            "fr": "SIUAPS - SUAPS",
+            "en": "Siuaps - Suaps",
+            "ar": "siuaps - suaps",
+            "ru": "SIUAPS - SUAPS"
+        },
+        "coordinates": [
+            4.86918,
+            45.779586
+        ]
+    },
+    {
+        "name": {
+            "fr": "Thémis",
+            "en": "Themis",
+            "ar": "ثيميس",
+            "ru": "ТЕМИС"
+        },
+        "coordinates": [
+            4.871525,
+            45.783335
+        ]
+    },
+    {
+        "name": {
+            "fr": "Victor Grignard",
+            "en": "Victor Grignard",
+            "ar": "فيكتور غرينارد",
+            "ru": "Виктор Григнор"
+        },
+        "coordinates": [
+            4.869894,
+            45.783118
+        ]
+    },
+    {
+        "name": {
+            "fr": "Virgo",
+            "en": "Virgo",
+            "ar": "بُرْجُ العَذْراء",
+            "ru": "Дева"
+        },
+        "coordinates": [
+            4.865613,
+            45.783338
+        ]
+    }
 ]

@@ -9,7 +9,6 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
-import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -32,10 +31,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
     super.initState();
   }
 
-  Future<bool> loadBatimentAndRestaurants(SettingsState settings) async {
+  Future<bool> loadBatimentAndRestaurants(Locale locale) async {
     if (widget.event.menuCrous == null) {
       List<BatimentModel> tmpBatiments =
-          await BatimentsLogic.loadBatiments(settings);
+          await BatimentsLogic.loadBatiments(locale);
       for (var i in tmpBatiments) {
         if (SearchService.isMatch(widget.event.location, i.name)) {
           batiments.add(i);
