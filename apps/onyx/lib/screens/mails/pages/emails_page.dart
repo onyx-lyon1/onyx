@@ -25,7 +25,11 @@ class MailsPage extends StatelessWidget {
               current.status == MailStatus.loaded) &&
           current.status != previous.status,
       listener: (context, state) {
-        context.read<EmailCubit>().doQueuedAction();
+        context.read<EmailCubit>().doQueuedAction(
+              blockTrackers:
+                  context.read<SettingsCubit>().state.settings.blockTrackers,
+              appLocalizations: AppLocalizations.of(context),
+            );
       },
       builder: (context, state) {
         Widget? loadingHeader;
@@ -170,9 +174,8 @@ class MailsPage extends StatelessWidget {
                                     child: Center(
                                       child: Padding(
                                         padding: EdgeInsets.all(8.w),
-                                        child: Text(
-                                            AppLocalizations.of(context)
-                                                .loadMoreMails),
+                                        child: Text(AppLocalizations.of(context)
+                                            .loadMoreMails),
                                       ),
                                     ),
                                   ),

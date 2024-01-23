@@ -197,7 +197,6 @@ class MailSendPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // MailSendAttachmentWidget(attachments: attachments),
                     ],
                   ),
                 ),

@@ -484,10 +484,85 @@ class EmailCubit extends Cubit<EmailState> {
     emit(EmailState(status: MailStatus.initial));
   }
 
-  void doQueuedAction() async {
-    if (mailClient != null && state.connected) {
-      await mailClient!.doActions();
-      emit(state.copyWith(status: MailStatus.updated));
+  void doQueuedAction({
+    required bool blockTrackers,
+    required AppLocalizations appLocalizations,
+  }) async {
+    final List<Action> actions = await mailClient!.getActions();
+    if (actions.isEmpty || !state.connected) return;
+    for (Action action in actions) {
+      Res.logger.d("action: $action");
+      currentMailBoxIndex = emailsBoxesComplete
+          .indexWhere((element) => element.name == action.fromMailBox!.name);
+      switch (action.type) {
+        case ActionType.archive:
+          archive(
+            email: action.mail,
+            from: action.fromMailBox!,
+            appLocalizations: appLocalizations,
+          );
+          break;
+        case ActionType.move:
+          move(
+            email: action.mail,
+            folder: action.destinationMailBox!,
+            from: action.fromMailBox!,
+          );
+          break;
+        case ActionType.markAsUnread:
+          markAsUnread(
+            email: action.mail,
+            from: action.fromMailBox!,
+          );
+          break;
+        case ActionType.send:
+          send(
+            email: action.mail,
+            from: action.fromMailBox!,
+          );
+          break;
+        case ActionType.markAsRead:
+          markAsRead(
+            email: action.mail,
+            from: action.fromMailBox!,
+          );
+          break;
+        case ActionType.reply:
+          send(
+            email: action.mail,
+            replyOriginalMessageId: action.originalMessageId!,
+            replyAll: action.replyAll,
+            reply: true,
+            from: action.fromMailBox!,
+          );
+          break;
+        case ActionType.forward:
+          send(
+            email: action.mail,
+            replyOriginalMessageId: action.originalMessageId!,
+            forward: true,
+            from: action.fromMailBox!,
+          );
+          break;
+        case ActionType.delete:
+          delete(
+            email: action.mail,
+            from: action.fromMailBox!,
+          );
+          break;
+        case ActionType.flag:
+          flag(
+            email: action.mail,
+            from: action.fromMailBox!,
+          );
+          break;
+        case ActionType.unflag:
+          unflag(
+            email: action.mail,
+            from: action.fromMailBox!,
+          );
+          break;
+      }
     }
   }
 }
