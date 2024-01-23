@@ -205,5 +205,6 @@
     "pleaseSelectOutputFile": "الرجاء تحديد ملف الإخراج",
     "unableToOpenLink": "من المستحيل فتح الرابط",
     "chooseLanguage": "اختر اللغة",
-    "auto": "تلقائي"
+    "auto": "تلقائي",
+    "realyQuit": "حقيقة تريد الاستقالة؟"
 }

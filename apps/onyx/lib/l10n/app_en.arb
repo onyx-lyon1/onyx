@@ -978,5 +978,9 @@
     "auto": "Automatic",
     "@auto": {
         "description": "Automatic"
+    },
+    "realyQuit": "Do you really want to quit?",
+    "@realyQuit": {
+        "description": "Do you really want to quit?"
     }
 }

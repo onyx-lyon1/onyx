@@ -205,5 +205,6 @@
     "pleaseSelectOutputFile": "Veuillez sélectionner un fichier de sortie",
     "unableToOpenLink": "Impossible d''ouvrir le lien",
     "chooseLanguage": "Choisir la langue",
-    "auto": "Automatique"
+    "auto": "Automatique",
+    "realyQuit": "Voulez-vous vraiment quitter ?"
 }

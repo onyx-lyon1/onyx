@@ -206,5 +206,6 @@
   "unableToOpenLink": "Не удалось открыть ссылку",
   "chooseLanguage": "Выберите язык",
   "auto": "Автоматически",
-  "unflagedEmail": "Неотмеченное письмо: {subject}"
+  "unflagedEmail": "Неотмеченное письмо: {subject}",
+  "realyQuit": "Вы действительно хотите бросить курить?"
 }
