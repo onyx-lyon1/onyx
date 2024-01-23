@@ -35,8 +35,8 @@ class MailSendPage extends StatelessWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                   backgroundColor: Theme.of(context).colorScheme.background,
-                  title: const Text(
-                      "Veuillez remplir correctement tous les champs"),
+                  title:
+                      Text(AppLocalizations.of(context).mailSendPageErrorTitle),
                 ),
               );
               break;

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -126,7 +125,10 @@ class MailDetailsPage extends StatelessWidget {
                                                   .mailClient!,
                                               emailNumber: state.emailNumber,
                                               fileName: mail.attachments[index],
-                                              folder: state.currentMailBox!));
+                                              folder: state.currentMailBox!,
+                                              appLocalizations:
+                                                  AppLocalizations.of(context)
+                                              ));
                                 }
                                 // ignore: use_build_context_synchronously
                                 showDialog(
