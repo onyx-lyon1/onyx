@@ -263,7 +263,6 @@ class _LoginPageState extends State<LoginPage> {
                       context.read<AuthentificationCubit>().login(
                             settings:
                                 context.read<SettingsCubit>().state.settings,
-                            appLocalizations: AppLocalizations.of(context),
                           );
                     },
                     child: Text(AppLocalizations.of(context).discoverApp),
@@ -301,7 +300,6 @@ class _LoginPageState extends State<LoginPage> {
       context.read<AuthentificationCubit>().login(
             creds: Credential(username, password),
             settings: context.read<SettingsCubit>().state.settings,
-            appLocalizations: AppLocalizations.of(context),
           );
     }
   }

@@ -84,7 +84,6 @@ class WaitingBiometric extends StatelessWidget {
               onTap: () {
                 context.read<AuthentificationCubit>().login(
                       settings: context.read<SettingsCubit>().state.settings,
-                      appLocalizations: AppLocalizations.of(context),
                     );
               },
               borderRadius: BorderRadius.circular(500),

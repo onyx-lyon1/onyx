@@ -9,12 +9,13 @@ import 'package:onyx/screens/settings/settings_export.dart';
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit() : super(const ThemeState()) {
+  ThemeCubit({ThemeSettingsModel? themeSettings})
+      : super(ThemeState(themesSettings: themeSettings)) {
     init();
   }
 
   /// This function initilize the Hive of ThemeUserData and load the themes selected.
-  Future<void> init() async {
+  Future<ThemeSettingsModel> init() async {
     emit(state.copyWith(status: ThemeStateStatus.init));
     ThemeSettingsModel themesUserData;
 
@@ -27,6 +28,7 @@ class ThemeCubit extends Cubit<ThemeState> {
 
     emit(state.copyWith(
         status: ThemeStateStatus.loaded, themesSettings: themesUserData));
+    return themesUserData;
   }
 
   /// Add a new theme to the themesCreated list in the Hive.

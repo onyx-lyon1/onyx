@@ -11,6 +11,8 @@ import 'package:onyx/app.dart';
 import 'package:onyx/core/bloc_logger.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/screens/settings/states/theme_cubit.dart';
 import 'package:workmanager/workmanager.dart';
 
 void main() async {
@@ -46,5 +48,9 @@ void main() async {
 
   Bloc.observer = BlocLogger();
 
-  runApp(const OnyxApp());
+  //Load theme and settings
+  ThemeSettingsModel theme = await ThemeCubit().init();
+  SettingsModel settings = await SettingsCubit().load();
+
+  runApp(OnyxApp(theme: theme, settings: settings));
 }

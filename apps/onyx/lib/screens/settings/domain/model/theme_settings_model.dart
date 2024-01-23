@@ -20,24 +20,19 @@ class ThemeSettingsModel {
   final ThemeModeEnum themeMode;
   @HiveField(5)
   final bool autoSwitchTheme;
-  late List<ThemeModel> themesPreset; //do not save it in hive
+  List<ThemeModel> themesPreset =
+      OnyxTheme.themesPreset; //do not save it in hive
 
   ThemeSettingsModel({
     this.themesCreated = const [],
-    String? darkThemeSelected,
-    String? lightThemeSelected,
+    this.darkThemeSelected = 'Dark Default',
+    this.lightThemeSelected = 'Light Default',
     this.favoriteThemes = const [],
     this.themeMode = ThemeModeEnum.system,
     this.autoSwitchTheme = true,
     String? themesCreatedString,
     String? favoriteThemesString,
-    AppLocalizations? appLocalizations,
   }) {
-    appLocalizations ??= lookupAppLocalizations(const Locale('fr'));
-    themesPreset = OnyxTheme.themesPreset;
-    this.lightThemeSelected = lightThemeSelected ?? appLocalizations.light;
-    this.darkThemeSelected = darkThemeSelected ?? appLocalizations.dark;
-
     if (themesCreatedString != null) {
       themesCreated = jsonDecode(themesCreatedString)
           .map((e) => ThemeModel.fromJson(e))

@@ -5,7 +5,6 @@ import 'package:onyx/screens/agenda/states/agenda_cubit.dart';
 import 'package:onyx/screens/login/states/authentification_cubit.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsConnection extends BlocListener<SettingsCubit, SettingsState> {
   static SettingsState? previous;
@@ -22,7 +21,6 @@ class SettingsConnection extends BlocListener<SettingsCubit, SettingsState> {
               if (authState.status == AuthentificationStatus.initial) {
                 context.read<AuthentificationCubit>().login(
                       settings: settingsState.settings,
-                      appLocalizations: AppLocalizations.of(context),
                     );
               }
             }

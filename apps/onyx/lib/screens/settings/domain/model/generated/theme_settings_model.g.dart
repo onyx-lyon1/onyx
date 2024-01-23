@@ -17,8 +17,8 @@ class ThemeSettingsModelAdapter extends TypeAdapter<ThemeSettingsModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ThemeSettingsModel(
-      darkThemeSelected: fields[1] as String?,
-      lightThemeSelected: fields[2] as String?,
+      darkThemeSelected: fields[1] as String,
+      lightThemeSelected: fields[2] as String,
       themeMode: fields[4] as ThemeModeEnum,
       autoSwitchTheme: fields[5] as bool,
       themesCreatedString: fields[0] as String?,

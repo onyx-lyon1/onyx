@@ -27,8 +27,10 @@ import 'core/widgets/states_displaying/state_displaying_widget_export.dart';
 
 class OnyxApp extends StatefulWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
+  final ThemeSettingsModel theme;
+  final SettingsModel settings;
 
-  const OnyxApp({super.key});
+  const OnyxApp({super.key, required this.theme, required this.settings});
 
   @override
   State<StatefulWidget> createState() {
@@ -37,10 +39,6 @@ class OnyxApp extends StatefulWidget {
 }
 
 class OnyxAppState extends State<OnyxApp> {
-  final List<TeachingUnit> teachingUnits = [];
-  final List<Day> days = [];
-  final List<Mail> emails = [];
-
   @override
   void initState() {
     super.initState();
@@ -48,100 +46,108 @@ class OnyxAppState extends State<OnyxApp> {
 
   @override
   Widget build(BuildContext context) {
+    final platformLocal = Platform.localeName.split("_");
+    Locale? locale;
+    if (platformLocal.length > 1) {
+      locale = Locale(platformLocal[0], platformLocal[1]);
+    } else if (platformLocal.isNotEmpty) {
+      locale = Locale(platformLocal[0]);
+    }
+
     return ResponsiveSizer(
       builder: (context, orientation, deviceType) => MultiBlocProvider(
         providers: [
           BlocProvider<AuthentificationCubit>(
               create: (context) => AuthentificationCubit()),
-          BlocProvider<SettingsCubit>(create: (context) => SettingsCubit()),
+          BlocProvider<SettingsCubit>(
+              create: (context) => SettingsCubit(settings: widget.settings)),
           BlocProvider<EmailCubit>(create: (context) => EmailCubit()),
           BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
           BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
           BlocProvider<MapCubit>(create: (context) => MapCubit()),
           BlocProvider<IzlyCubit>(create: (context) => IzlyCubit()),
           BlocProvider<ExamenCubit>(create: (context) => ExamenCubit()),
-          BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+          BlocProvider<ThemeCubit>(
+              create: (context) => ThemeCubit(themeSettings: widget.theme)),
         ],
-        child: BlocConnectionScreen(
-          child: BlocBuilder<AuthentificationCubit, AuthentificationState>(
-            builder: (context, authState) {
-              if (kDebugMode) {
-                print("Device.orientation : ${Device.orientation}");
-                print("Device.deviceType : ${Device.deviceType}");
-                print("Device.screenType : ${Device.screenType}");
-                print("Device.width : ${Device.width}");
-                print("Device.height : ${Device.height}");
-                print("Device.boxConstraints : ${Device.boxConstraints}");
-                print("Device.aspectRatio : ${Device.aspectRatio}");
-                print("Device.pixelRatio : ${Device.pixelRatio}");
-              }
-              return BlocBuilder<ThemeCubit, ThemeState>(
-                builder: (context, themeState) {
-                  return BlocBuilder<SettingsCubit, SettingsState>(
-                    builder: (context, settingsState) {
-                      final platformLocal = Platform.localeName.split("_");
-                      Locale? locale;
-                      if (platformLocal.length > 1) {
-                        locale = Locale(platformLocal[0], platformLocal[1]);
-                      } else if (platformLocal.isNotEmpty) {
-                        locale = Locale(platformLocal[0]);
-                      }
-                      Widget home;
-
-                      if ((settingsState.status == SettingsStatus.ready ||
-                              settingsState.status == SettingsStatus.error) &&
-                          (themeState.status != ThemeStateStatus.init)) {
-                        if (authState.status ==
-                                AuthentificationStatus.authentificated ||
-                            authState.status ==
-                                AuthentificationStatus.authentificating ||
-                            (!settingsState.settings.firstLogin &&
-                                !settingsState.settings.biometricAuth)) {
-                          home = const HomePage();
-                        } else {
-                          home = LoginPage(key: UniqueKey());
-                        }
-                      } else {
-                        home = const CustomCircularProgressIndicatorWidget();
-                      }
-                      return MaterialApp(
-                        title: lookupAppLocalizations(const Locale("fr")).onyx,
-                        navigatorKey: OnyxApp.navigatorKey,
-                        scrollBehavior: const CustomScrollBehavior(),
-                        debugShowCheckedModeBanner: false,
-                        themeMode:
-                            themeState.themesSettings?.themeMode.toThemeMode ?? ThemeMode.system,
-                        theme: themeState.lightTheme,
-                        darkTheme: themeState.darkTheme,
-                        locale: locale,
-                        localizationsDelegates: const [
-                          LocaleNamesLocalizationsDelegate(),
-                          ...AppLocalizations.localizationsDelegates
-                        ],
-                        supportedLocales: AppLocalizations.supportedLocales,
-                        localeListResolutionCallback:
-                            (locales, supportedLocales) {
-                          if (settingsState.settings.language != null) {
-                            return Locale(settingsState.settings.language!);
-                          } else {
-                            if (locales != null) {
-                              for (var locale in locales) {
-                                if (supportedLocales.contains(locale)) {
-                                  return locale;
-                                }
-                              }
-                            }
-                            return const Locale("fr");
+        child: BlocBuilder<SettingsCubit, SettingsState>(
+          builder: (context, settingsState) {
+            return BlocBuilder<ThemeCubit, ThemeState>(
+              builder: (context, themeState) {
+                return MaterialApp(
+                  title: lookupAppLocalizations(const Locale("fr")).onyx,
+                  navigatorKey: OnyxApp.navigatorKey,
+                  scrollBehavior: const CustomScrollBehavior(),
+                  debugShowCheckedModeBanner: false,
+                  themeMode: themeState.themesSettings!.themeMode.toThemeMode,
+                  theme: themeState.lightTheme,
+                  darkTheme: themeState.darkTheme,
+                  locale: locale,
+                  localizationsDelegates: const [
+                    LocaleNamesLocalizationsDelegate(),
+                    ...AppLocalizations.localizationsDelegates
+                  ],
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  localeListResolutionCallback: (locales, supportedLocales) {
+                    if (context.read<SettingsCubit>().state.settings.language !=
+                        null) {
+                      return Locale(context
+                          .read<SettingsCubit>()
+                          .state
+                          .settings
+                          .language!);
+                    } else {
+                      if (locales != null) {
+                        for (var locale in locales) {
+                          if (supportedLocales.contains(locale)) {
+                            return locale;
                           }
-                        },
-                        home: home,
-                      );
-                    },
-                  );
-                },
-              );
-            },
-          ),
+                        }
+                      }
+                      return const Locale("fr");
+                    }
+                  },
+                  home: BlocConnectionScreen(
+                    child: BlocBuilder<AuthentificationCubit,
+                        AuthentificationState>(
+                      builder: (context, authState) {
+                        if (kDebugMode) {
+                          print("Device.orientation : ${Device.orientation}");
+                          print("Device.deviceType : ${Device.deviceType}");
+                          print("Device.screenType : ${Device.screenType}");
+                          print("Device.width : ${Device.width}");
+                          print("Device.height : ${Device.height}");
+                          print(
+                              "Device.boxConstraints : ${Device.boxConstraints}");
+                          print("Device.aspectRatio : ${Device.aspectRatio}");
+                          print("Device.pixelRatio : ${Device.pixelRatio}");
+                        }
+                        Widget home;
+
+                        if ((settingsState.status == SettingsStatus.ready ||
+                                settingsState.status == SettingsStatus.error) &&
+                            (themeState.status != ThemeStateStatus.init)) {
+                          if (authState.status ==
+                                  AuthentificationStatus.authentificated ||
+                              authState.status ==
+                                  AuthentificationStatus.authentificating ||
+                              (!settingsState.settings.firstLogin &&
+                                  !settingsState.settings.biometricAuth)) {
+                            home = const HomePage();
+                          } else {
+                            home = LoginPage(key: UniqueKey());
+                          }
+                        } else {
+                          home = const CustomCircularProgressIndicatorWidget();
+                        }
+                        return home;
+                      },
+                    ),
+                  ),
+                );
+              },
+            );
+          },
         ),
       ),
     );

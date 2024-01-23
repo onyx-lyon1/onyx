@@ -9,9 +9,9 @@ import 'package:workmanager/workmanager.dart';
 part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
-  SettingsCubit()
+  SettingsCubit({SettingsModel? settings})
       : super(SettingsState(
-            settings: const SettingsModel(), status: SettingsStatus.initial)) {
+            settings: settings ?? const SettingsModel(), status: SettingsStatus.initial)) {
     load();
   }
 
@@ -21,7 +21,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         status: SettingsStatus.ready, settings: const SettingsModel()));
   }
 
-  Future<void> load() async {
+  Future<SettingsModel> load() async {
     emit(state.copyWith(status: SettingsStatus.loading));
     try {
       emit(state.copyWith(
@@ -63,6 +63,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         Workmanager().cancelByUniqueName("updateChecking");
       }
     }
+    return settings;
   }
 
   Future<void> modify({required SettingsModel settings}) async {
