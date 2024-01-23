@@ -31,7 +31,8 @@ screen:
 - [x] izly
 - [x] login
 - [x] mails
-- [ ] map (faut translate les amphis)
+- [ ] map (faut translate les amphis) 
+- [ ] map URL openstreetmap
 - [x] notifications (on a pas de contexte, rip)
 - [x] settings
 - [x] tomuss
