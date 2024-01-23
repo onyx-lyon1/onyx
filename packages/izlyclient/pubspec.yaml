@@ -4,7 +4,7 @@ version: 1.0.7
 repository: https://github.com/onyx-lyon1/onyx/tree/main/packages/izlyclient
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 # dependencies:
 #   path: ^1.8.0
@@ -24,3 +24,4 @@ dependencies:
   equatable: ^2.0.5
   copy_with_extension: ^5.0.4
   beautiful_soup_dart: ^0.3.0
+  intl: ^0.18.1

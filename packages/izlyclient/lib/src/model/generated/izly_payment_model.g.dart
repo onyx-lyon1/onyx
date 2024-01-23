@@ -17,8 +17,8 @@ class IzlyPaymentModelAdapter extends TypeAdapter<IzlyPaymentModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return IzlyPaymentModel(
-      paymentTime: fields[0] as String,
-      amountSpent: fields[1] as String,
+      paymentTime: fields[3] as DateTime,
+      amountSpent: fields[4] as double,
       isSucess: fields[2] as bool,
     );
   }
@@ -27,9 +27,9 @@ class IzlyPaymentModelAdapter extends TypeAdapter<IzlyPaymentModel> {
   void write(BinaryWriter writer, IzlyPaymentModel obj) {
     writer
       ..writeByte(3)
-      ..writeByte(0)
+      ..writeByte(3)
       ..write(obj.paymentTime)
-      ..writeByte(1)
+      ..writeByte(4)
       ..write(obj.amountSpent)
       ..writeByte(2)
       ..write(obj.isSucess);

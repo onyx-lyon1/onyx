@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:hive/hive.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
+import 'package:intl/intl.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:requests_plus/requests_plus.dart';
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
@@ -259,8 +260,10 @@ class IzlyClient {
 
     for (var i = 0; i < paymentTime.length; i++) {
       paymentsList.add(IzlyPaymentModel(
-        paymentTime: paymentTime[i].element!.nodes.first.data,
-        amountSpent: amountSpent[i].element!.nodes.first.data,
+        paymentTime: DateFormat('dd/MM/yyyy HH:mm')
+            .parse(paymentTime[i].element!.nodes.first.data),
+        amountSpent: double.parse(
+            amountSpent[i].element!.nodes.first.data.replaceFirst(",", ".")),
         isSucess: isSucess[i].element!.nodes.first.data == " Succès ",
       ));
     }

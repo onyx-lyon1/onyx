@@ -141,43 +141,43 @@ class IzlyLogic {
 
   static final List<IzlyPaymentModel> paymentModelListMock = [
     IzlyPaymentModel(
-      paymentTime: "12/12/2020",
-      amountSpent: "12€",
+      paymentTime: DateTime(12, 12, 2020),
+      amountSpent: 12,
       isSucess: true,
     ),
     IzlyPaymentModel(
-      paymentTime: "12/12/2020",
-      amountSpent: "12€",
+      paymentTime: DateTime(12, 12, 2020),
+      amountSpent: 12,
       isSucess: false,
     ),
     IzlyPaymentModel(
-      paymentTime: "12/12/2020",
-      amountSpent: "12€",
+      paymentTime: DateTime(12, 12, 2020),
+      amountSpent: 12,
       isSucess: true,
     ),
     IzlyPaymentModel(
-      paymentTime: "12/12/2020",
-      amountSpent: "12€",
+      paymentTime: DateTime(12, 12, 2020),
+      amountSpent: 12,
       isSucess: false,
     ),
     IzlyPaymentModel(
-      paymentTime: "12/12/2020",
-      amountSpent: "12€",
+      paymentTime: DateTime(12, 12, 2020),
+      amountSpent: 12,
       isSucess: true,
     ),
     IzlyPaymentModel(
-      paymentTime: "12/12/2020",
-      amountSpent: "12€",
+      paymentTime: DateTime(12, 12, 2020),
+      amountSpent: 12,
       isSucess: true,
     ),
     IzlyPaymentModel(
-      paymentTime: "12/12/2020",
-      amountSpent: "12€",
+      paymentTime: DateTime(12, 12, 2020),
+      amountSpent: 12,
       isSucess: true,
     ),
     IzlyPaymentModel(
-      paymentTime: "12/12/2020",
-      amountSpent: "12€",
+      paymentTime: DateTime(12, 12, 2020),
+      amountSpent: 12,
       isSucess: true,
     ),
   ];

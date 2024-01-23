@@ -5,10 +5,10 @@ part 'generated/izly_payment_model.g.dart';
 
 @HiveType(typeId: 40)
 class IzlyPaymentModel extends Equatable {
-  @HiveField(0)
-  final String paymentTime;
-  @HiveField(1)
-  final String amountSpent;
+  @HiveField(3)
+  final DateTime paymentTime;
+  @HiveField(4)
+  final double amountSpent;
   @HiveField(2)
   final bool isSucess;
 

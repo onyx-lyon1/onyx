@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -43,14 +44,15 @@ class IzlyPaymentHistory extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        i.paymentTime,
+                        DateFormat.yMd(AppLocalizations.of(context).localeName)
+                            .format(i.paymentTime),
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        i.amountSpent,
+                        "${i.amountSpent}€",
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
