@@ -3,6 +3,7 @@
     "onyx": "Onyx",
     "initialization": "Initialisation",
     "yes": "Oui",
+    "no": "Non",
     "onyxSubTitle": "Pour Lyon 1",
     "authentication": "Authentification",
     "privacy": "Confidentialité",
@@ -82,7 +83,7 @@
     "to": "À",
     "me": "Moi",
     "mailSendPageErrorTitle": "Veuillez remplir correctement tous les champs",
-    "objects": "Objets",
+    "subject": "Objets",
     "reply": "Réponse",
     "mailServerConnection": "Connexion au serveur de mail",
     "mailServerConnectionError": "Erreur de chargement des mails",
@@ -206,5 +207,6 @@
     "unableToOpenLink": "Impossible d''ouvrir le lien",
     "chooseLanguage": "Choisir la langue",
     "auto": "Automatique",
-    "realyQuit": "Voulez-vous vraiment quitter ?"
+    "realyQuit": "Voulez-vous vraiment quitter ?",
+    "response": "Réponse"
 }

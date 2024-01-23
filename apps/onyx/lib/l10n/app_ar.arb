@@ -3,6 +3,7 @@
     "onyx": "الجزع",
     "initialization": "التهيئة",
     "yes": "نعم",
+    "no": "لا",
     "onyxSubTitle": "ل ليون 1",
     "authentication": "المصادقة",
     "privacy": "سرية",
@@ -82,7 +83,7 @@
     "to": "الى",
     "me": "موي",
     "mailSendPageErrorTitle": "يرجى ملء جميع الحقول بشكل صحيح",
-    "objects": "أشياء",
+    "subject": "موضوع",
     "reply": "إجابة",
     "mailServerConnection": "اتصال بخادم البريد",
     "mailServerConnectionError": "خطأ في تحميل البريد الإلكتروني",
@@ -206,5 +207,6 @@
     "unableToOpenLink": "من المستحيل فتح الرابط",
     "chooseLanguage": "اختر اللغة",
     "auto": "تلقائي",
-    "realyQuit": "حقيقة تريد الاستقالة؟"
+    "realyQuit": "حقيقة تريد الاستقالة؟",
+    "response": "استجابة"
 }

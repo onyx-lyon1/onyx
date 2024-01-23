@@ -37,11 +37,11 @@ class _MailContentWidgetState extends State<MailContentWidget> {
       bool isDark = Theme.of(context).brightness == Brightness.dark;
       html = widget.mail.getThemedBody(
         isDarkMode: isDark,
-        bgColor: Theme.of(context).colorScheme.background.toHex(),
+        bgColor: Theme.of(context).cardTheme.color!.toHex(),
         textColor: Theme.of(context).textTheme.bodyMedium!.color!.toHex(),
       );
     }
-
+    
     if (((widget.mail.body.contains("<html") ||
             widget.mail.body.contains("text/html")) &&
         (!kIsWeb && (Platform.isAndroid || Platform.isIOS)))) {

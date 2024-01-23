@@ -26,9 +26,10 @@ class MailsPage extends StatelessWidget {
           current.status != previous.status,
       listener: (context, state) {
         context.read<EmailCubit>().doQueuedAction(
-            blockTrackers:
-                context.read<SettingsCubit>().state.settings.blockTrackers,
-            appLocalizations: AppLocalizations.of(context));
+              blockTrackers:
+                  context.read<SettingsCubit>().state.settings.blockTrackers,
+              appLocalizations: AppLocalizations.of(context),
+            );
       },
       builder: (context, state) {
         Widget? loadingHeader;
@@ -84,6 +85,14 @@ class MailsPage extends StatelessWidget {
           case MailStatus.loaded:
             break;
           case MailStatus.sended:
+            WidgetsBinding.instance.addPostFrameCallback(
+              (_) => ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text("Mail envoyé"),
+                  duration: Res.animationDuration,
+                ),
+              ),
+            );
             break;
           case MailStatus.updated:
             break;
@@ -165,9 +174,8 @@ class MailsPage extends StatelessWidget {
                                     child: Center(
                                       child: Padding(
                                         padding: EdgeInsets.all(8.w),
-                                        child: Text(
-                                            AppLocalizations.of(context)
-                                                .loadMoreMails),
+                                        child: Text(AppLocalizations.of(context)
+                                            .loadMoreMails),
                                       ),
                                     ),
                                   ),

@@ -3,6 +3,7 @@
   "onyx": "Оникс",
   "initialization": "Инициализация",
   "yes": "Да",
+  "no": "Нет",
   "onyxSubTitle": "Для Лиона 1",
   "authentication": "Аутентификация",
   "privacy": "Конфиденциальность",
@@ -82,7 +83,7 @@
   "to": "Кому",
   "me": "Мне",
   "mailSendPageErrorTitle": "Пожалуйста, заполните все поля правильно",
-  "objects": "Объекты",
+  "subject": "Тема",
   "reply": "Ответить",
   "mailServerConnection": "Подключение к почтовому серверу",
   "mailServerConnectionError": "Ошибка подключения к почтовому серверу",
@@ -207,5 +208,6 @@
   "chooseLanguage": "Выберите язык",
   "auto": "Автоматически",
   "unflagedEmail": "Неотмеченное письмо: {subject}",
-  "realyQuit": "Вы действительно хотите бросить курить?"
+  "realyQuit": "Вы действительно хотите бросить курить?",
+  "response": "Ответ"
 }

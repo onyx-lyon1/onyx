@@ -26,6 +26,7 @@ dependencies:
     sdk: flutter
   intl: any
   flutter_localized_locales: ^2.0.5
+  keyboard_attachable: ^2.2.0
 
   #agenda
   lyon1agendaclient: ^1.0.8
