@@ -87,6 +87,10 @@ class DraggableZoneWidget extends StatelessWidget {
           lastListTargetSize: 0.0,
           itemDragHandle: DragHandle(
             verticalAlignment: DragHandleVerticalAlignment.top,
+            onLeft:
+                context.read<SettingsCubit>().state.settings.language == 'ar'
+                    ? true
+                    : false,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
               child: Icon(
