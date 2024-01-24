@@ -994,5 +994,19 @@
     "enableIzlyNotif": "Enable Izly notifications",
     "@enableIzlyNotif": {
         "description": "Enable Izly notifications"
+    },
+    "izlyNotEnoughMoneyTitle": "Your Izly balance is low",
+    "@izlyNotEnoughMoneyTitle": {
+        "description": "Your Izly balance is low"
+    },
+    "izlyNotEnoughMoneyBody": "There is ${money}€ left on your Izly account",
+    "@izlyNotEnoughMoneyBody": {
+        "description": "There is ${money}€ left on your Izly account",
+        "placeholders": {
+            "money": {
+                "type": "double",
+                "format": "compact"
+            }
+        }
     }
 }

@@ -209,5 +209,7 @@
     "auto": "Automatique",
     "realyQuit": "Voulez-vous vraiment quitter ?",
     "response": "Réponse",
-    "enableIzlyNotif": "Activer les notifications Izly"
+    "enableIzlyNotif": "Activer les notifications Izly",
+    "izlyNotEnoughMoneyTitle" : "Solde bas du compte Izly",
+    "izlyNotEnoughMoneyBody" : "Il ne vous reste que {money}€ sur votre compte Izly"
 }

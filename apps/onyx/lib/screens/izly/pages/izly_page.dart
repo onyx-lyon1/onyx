@@ -5,6 +5,7 @@ import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:onyx/core/cache_service.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
