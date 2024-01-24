@@ -208,7 +208,6 @@
     "chooseLanguage": "Choisir la langue",
     "auto": "Automatique",
     "realyQuit": "Voulez-vous vraiment quitter ?",
-    "response": "Réponse"
     "response": "Réponse",
-    "enableIzlyNotif": "Activer les notifications Izly",
+    "enableIzlyNotif": "Activer les notifications Izly"
 }

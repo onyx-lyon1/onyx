@@ -994,6 +994,5 @@
     "enableIzlyNotif": "Enable Izly notifications",
     "@enableIzlyNotif": {
         "description": "Enable Izly notifications"
-    },
     }
 }
