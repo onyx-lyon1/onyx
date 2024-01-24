@@ -209,5 +209,6 @@
   "auto": "Автоматически",
   "unflagedEmail": "Неотмеченное письмо: {subject}",
   "realyQuit": "Вы действительно хотите бросить курить?",
-  "response": "Ответ"
+  "response": "Ответ",
+  "enableIzlyNotif": "Включить уведомления Izly",
 }

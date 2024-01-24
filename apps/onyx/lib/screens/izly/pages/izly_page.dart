@@ -17,6 +17,28 @@ class IzlyPage extends StatelessWidget {
     return (15.w) * (index);
   }
 
+  Color calculateWarningColor(BuildContext context) {
+    if (context.read<IzlyCubit>().state.paymentList.isEmpty) {
+      context.read<IzlyCubit>().loadPaymentHistory();
+      return Colors.transparent;
+    }
+
+    double average = context
+            .read<IzlyCubit>()
+            .state
+            .paymentList
+            .map((e) => e.amountSpent)
+            .reduce((value, element) => value + element) /
+        context.read<IzlyCubit>().state.paymentList.length;
+    final green = 5 * average; //5 times the average should display green
+    final red = 1 * average; //1 times the average should display red
+    //do a linear interpolation between green and red
+    double interpolation =
+        (context.read<IzlyCubit>().state.balance - red) / (green - red);
+    return HSVColor.fromAHSV(1, (120 * interpolation).clamp(0, 120), 1, 1)
+        .toColor();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<IzlyCubit, IzlyState>(
@@ -72,9 +94,14 @@ class IzlyPage extends StatelessWidget {
                     children: [
                       Text(
                           "${AppLocalizations.of(context).available(state.qrCodeAvailables)} ${AppLocalizations.of(context).offline}"),
-                      SizedBox(
-                        height: 60.w,
-                        width: 60.w,
+                      Container(
+                        height: 62.w,
+                        width: 62.w,
+                        decoration: BoxDecoration(
+                          color: calculateWarningColor(context),
+                          borderRadius: BorderRadius.circular(15 + 2.w),
+                        ),
+                        padding: EdgeInsets.all(2.w),
                         child: Card(
                           color: Colors.white,
                           elevation: 10,
