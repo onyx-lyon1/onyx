@@ -209,5 +209,7 @@
     "auto": "تلقائي",
     "realyQuit": "حقيقة تريد الاستقالة؟",
     "response": "استجابة",
-    "enableIzlyNotif": "تمكين إخطارات Izly"
+    "enableIzlyNotif": "تمكين إخطارات Izly",
+    "izlyNotEnoughMoneyTitle" : "رصيد حساب إيزلي منخفض",
+    "izlyNotEnoughMoneyBody" : "لديك فقط {money}€ متبقية في حساب إيزلي الخاص بك"
 }

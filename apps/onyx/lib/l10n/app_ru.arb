@@ -210,5 +210,7 @@
   "unflagedEmail": "Неотмеченное письмо: {subject}",
   "realyQuit": "Вы действительно хотите бросить курить?",
   "response": "Ответ",
-  "enableIzlyNotif": "Включить уведомления Izly"
+  "enableIzlyNotif": "Включить уведомления Izly",
+  "izlyNotEnoughMoneyTitle" : "Недостаточно средств на счете Izly",
+  "izlyNotEnoughMoneyBody" : "У вас осталось всего {money}€ на вашем счете Izly"
 }
