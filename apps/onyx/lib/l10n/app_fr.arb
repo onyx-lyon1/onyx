@@ -209,4 +209,6 @@
     "auto": "Automatique",
     "realyQuit": "Voulez-vous vraiment quitter ?",
     "response": "Réponse"
+    "response": "Réponse",
+    "enableIzlyNotif": "Activer les notifications Izly",
 }

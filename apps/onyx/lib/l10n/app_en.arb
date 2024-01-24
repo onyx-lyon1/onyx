@@ -990,5 +990,10 @@
     "response": "Response",
     "@response": {
         "description": "Response"
+    },
+    "enableIzlyNotif": "Enable Izly notifications",
+    "@enableIzlyNotif": {
+        "description": "Enable Izly notifications"
+    },
     }
 }

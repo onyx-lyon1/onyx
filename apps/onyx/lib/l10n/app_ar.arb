@@ -208,5 +208,6 @@
     "chooseLanguage": "اختر اللغة",
     "auto": "تلقائي",
     "realyQuit": "حقيقة تريد الاستقالة؟",
-    "response": "استجابة"
+    "response": "استجابة",
+    "enableIzlyNotif": "تمكين إخطارات Izly",
 }

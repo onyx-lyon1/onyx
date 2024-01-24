@@ -65,6 +65,8 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel language(String? language);
 
+  SettingsModel izlyNotification(bool izlyNotification);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -100,6 +102,7 @@ abstract class _$SettingsModelCWProxy {
     int? agendaId,
     bool? examenAddToAgenda,
     String? language,
+    bool? izlyNotification,
   });
 }
 
@@ -218,6 +221,10 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
   SettingsModel language(String? language) => this(language: language);
 
   @override
+  SettingsModel izlyNotification(bool izlyNotification) =>
+      this(izlyNotification: izlyNotification);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -254,6 +261,7 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
     Object? agendaId = const $CopyWithPlaceholder(),
     Object? examenAddToAgenda = const $CopyWithPlaceholder(),
     Object? language = const $CopyWithPlaceholder(),
+    Object? izlyNotification = const $CopyWithPlaceholder(),
   }) {
     return SettingsModel(
       biometricAuth:
@@ -402,6 +410,11 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
           ? _value.language
           // ignore: cast_nullable_to_non_nullable
           : language as String?,
+      izlyNotification: izlyNotification == const $CopyWithPlaceholder() ||
+              izlyNotification == null
+          ? _value.izlyNotification
+          // ignore: cast_nullable_to_non_nullable
+          : izlyNotification as bool,
     );
   }
 }
@@ -468,13 +481,14 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       agendaId: fields[8] as int?,
       examenAddToAgenda: fields[29] == null ? true : fields[29] as bool,
       language: fields[30] as String?,
+      izlyNotification: fields[31] == null ? false : fields[31] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(28)
+      ..writeByte(29)
       ..writeByte(15)
       ..write(obj.firstLogin)
       ..writeByte(16)
@@ -530,7 +544,9 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(29)
       ..write(obj.examenAddToAgenda)
       ..writeByte(30)
-      ..write(obj.language);
+      ..write(obj.language)
+      ..writeByte(31)
+      ..write(obj.izlyNotification);
   }
 
   @override

@@ -93,6 +93,9 @@ class SettingsModel extends Equatable {
   @HiveField(30, defaultValue: null)
   final String? language;
 
+  @HiveField(31, defaultValue: false)
+  final bool izlyNotification;
+
   const SettingsModel({
     this.biometricAuth = false,
     this.forceGreen = false,
@@ -122,6 +125,7 @@ class SettingsModel extends Equatable {
     this.agendaId,
     this.examenAddToAgenda = true,
     this.language,
+    this.izlyNotification = true,
   });
 
   @override
@@ -153,6 +157,7 @@ class SettingsModel extends Equatable {
         colloscopeEnabled,
         agendaId,
         language,
+        izlyNotification,
       ];
 
   @override

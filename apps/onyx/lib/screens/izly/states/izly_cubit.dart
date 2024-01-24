@@ -92,6 +92,7 @@ class IzlyCubit extends Cubit<IzlyState> {
           balance: balance,
           qrCode: qrCode,
           qrCodeAvailables: qrCodeCount));
+      loadPaymentHistory();
     } catch (e) {
       emit(state.copyWith(status: IzlyStatus.error));
     }
