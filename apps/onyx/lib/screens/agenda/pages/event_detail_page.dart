@@ -8,6 +8,7 @@ import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -102,8 +103,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                 ),
                 EventDetailText(
                   icon: Icons.calendar_month_rounded,
-                  text: DateFormat('yMMMMEEEEd',
-                          AppLocalizations.of(context).localeName)
+                  text: DateFormat(
+                          'yMMMMEEEEd', AppLocalizations.of(context).localeName)
                       .format(widget.event.start),
                 ),
                 if (widget.event.teacher.isNotEmpty)
@@ -140,8 +141,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       height: 40.h,
                       width: 90.w,
                       child: FutureBuilder(
-                          future:
-                              loadBatimentAndRestaurants(context.read().state),
+                          future: loadBatimentAndRestaurants(
+                              Locale(AppLocalizations.of(context).localeName)),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
                               return Center(

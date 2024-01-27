@@ -58,7 +58,7 @@ class OnyxAppState extends State<OnyxApp> {
       builder: (context, orientation, deviceType) => MultiBlocProvider(
         providers: [
           BlocProvider<AuthentificationCubit>(
-              create: (context) => AuthentificationCubit()),
+              create: (context) => AuthentificationCubit(widget.settings)),
           BlocProvider<SettingsCubit>(
               create: (context) => SettingsCubit(settings: widget.settings)),
           BlocProvider<EmailCubit>(create: (context) => EmailCubit()),

@@ -16,10 +16,12 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
   Lyon1CasClient _lyon1Cas =
       Lyon1CasClient(corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
 
-  AuthentificationCubit()
+  AuthentificationCubit(SettingsModel settings)
       : super(AuthentificationState(
             status: AuthentificationStatus.initial,
-            lyon1Cas: Lyon1CasClient()));
+            lyon1Cas: Lyon1CasClient())) {
+    login(settings: settings);
+  }
 
   Future<void> checkIfLoggedIn() async {
     bool ok = (await _lyon1Cas.checkAuthentificated());
@@ -31,12 +33,10 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
   }
 
   Future<void> login(
-      {Credential? creds,
-      required SettingsModel settings}) async {
+      {Credential? creds, required SettingsModel settings}) async {
     if (Res.mock) {
       await CacheService.set<Credential>(
-        Credential(
-            "mockUsername", "mockPassword"),
+        Credential("mockUsername", "mockPassword"),
         secureKey: await CacheService.getEncryptionKey(settings.biometricAuth),
       );
       _lyon1Cas.isAuthenticated = true;
