@@ -1,5 +1,6 @@
-class Round {
-  static double round(final double? n, {int precision = 3}) {
-    return double.tryParse(n?.toStringAsFixed(precision) ?? "") ?? double.nan;
+extension Round on double? {
+  double roundToPrecision({int precision = 3}) {
+    return double.tryParse(this?.toStringAsFixed(precision) ?? "") ??
+        double.nan;
   }
 }

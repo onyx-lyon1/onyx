@@ -1,5 +1,5 @@
-class Capitalize {
-  static String to(String s) {
-    return s.isEmpty ? '' : s[0].toUpperCase() + s.substring(1).toLowerCase();
+extension Capitalize on String {
+  String get capitalize {
+    return isEmpty ? '' : this[0].toUpperCase() + substring(1).toLowerCase();
   }
 }
