@@ -158,8 +158,9 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                     builder: (context, markers) {
                       return Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Theme.of(context).primaryColor),
+                          borderRadius: BorderRadius.circular(20),
+                          color: Theme.of(context).colorScheme.background,
+                        ),
                         child: Center(
                           child: Text(
                             markers.length.toString(),
@@ -199,11 +200,12 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                       },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).primaryColor),
+                            Theme.of(context).colorScheme.background),
                       ),
                       icon: Icon(
                         Icons.location_searching_rounded,
                         size: 25.sp,
+                        color: Theme.of(context).primaryColor,
                       )),
                 ),
               Padding(
@@ -214,11 +216,12 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                          Theme.of(context).primaryColor),
+                          Theme.of(context).colorScheme.background),
                     ),
                     icon: Icon(
                       Icons.location_city_rounded,
                       size: 25.sp,
+                      color: Theme.of(context).primaryColor,
                     )),
               ),
             ],
