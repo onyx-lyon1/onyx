@@ -13,7 +13,8 @@ class Teacher extends Equatable {
   @HiveField(1, defaultValue: "")
   late final String email;
   Teacher.fromJSON(var json) {
-    name = "${json[0].capitalize} ${json[1] ?? ''}"; // Firstname LASTNAME
+    name =
+        "${json[0].toString().capitalize} ${json[1] ?? ''}"; // Firstname LASTNAME
     email = json[2] ?? ""; // firstname.lastname@domain.ext
   }
 
