@@ -1008,5 +1008,14 @@
                 "format": "compact"
             }
         }
-    }
+    },
+    "mailSendPageDiscardTitle": "Discard the email?",
+    "@mailSendPageDiscardTitle": {
+        "description": "Discard the email?"
+    },
+    "mailSendPageDiscardContent": "Do you really want to discard the email?",
+    "@mailSendPageDiscardContent": {
+        "description": "Do you really want to discard the email?"
+    },
+    "discard": "Discard"
 }

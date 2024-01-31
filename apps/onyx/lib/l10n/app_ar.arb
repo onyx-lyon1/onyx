@@ -210,6 +210,9 @@
     "realyQuit": "حقيقة تريد الاستقالة؟",
     "response": "استجابة",
     "enableIzlyNotif": "تمكين إخطارات Izly",
-    "izlyNotEnoughMoneyTitle" : "رصيد حساب إيزلي منخفض",
-    "izlyNotEnoughMoneyBody" : "لديك فقط {money}€ متبقية في حساب إيزلي الخاص بك"
+    "izlyNotEnoughMoneyTitle": "رصيد حساب إيزلي منخفض",
+    "izlyNotEnoughMoneyBody": "لديك فقط {money}€ متبقية في حساب إيزلي الخاص بك",
+    "mailSendPageDiscardTitle": "تجاهل التغييرات؟",
+    "mailSendPageDiscardContent": "هل تريد بالتأكيد تجاهل التغييرات التي أدخلتها؟",
+    "discard": "تجاهل"
 }

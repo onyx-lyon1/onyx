@@ -65,7 +65,44 @@ class MailSendPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               InkWell(
-                                onTap: () => Navigator.pop(context),
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      title: Text(
+                                        AppLocalizations.of(context)
+                                            .mailSendPageDiscardTitle,
+                                      ),
+                                      content: Text(
+                                        AppLocalizations.of(context)
+                                            .mailSendPageDiscardContent,
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text(
+                                            AppLocalizations.of(context).cancel,
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text(
+                                            AppLocalizations.of(context)
+                                                .discard,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
                                 child: Icon(
                                   Icons.arrow_back_rounded,
                                   color: Theme.of(context)
@@ -156,7 +193,6 @@ class MailSendPage extends StatelessWidget {
                           padding: EdgeInsets.all(1.h),
                           child: const MailSendAttachmentWidget(),
                         ),
-
                       if (state.attachments.isNotEmpty) SizedBox(height: 1.h),
                       Container(
                         color: Theme.of(context).cardTheme.color,

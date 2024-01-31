@@ -210,6 +210,9 @@
     "realyQuit": "Voulez-vous vraiment quitter ?",
     "response": "Réponse",
     "enableIzlyNotif": "Activer les notifications Izly",
-    "izlyNotEnoughMoneyTitle" : "Solde bas du compte Izly",
-    "izlyNotEnoughMoneyBody" : "Il ne vous reste que {money}€ sur votre compte Izly"
+    "izlyNotEnoughMoneyTitle": "Solde bas du compte Izly",
+    "izlyNotEnoughMoneyBody": "Il ne vous reste que {money}€ sur votre compte Izly",
+    "mailSendPageDiscardTitle": "Voulez-vous vraiment quitter la page ?",
+    "mailSendPageDiscardContent": "Vous allez perdre votre mail",
+    "discard": "Quitter"
 }
