@@ -35,6 +35,15 @@ class ExamenState extends Equatable {
     );
   }
 
+  ExamenState resetColloscope() {
+    return ExamenState(
+      status: status,
+      studentColloscope: null,
+      reloadScheduled: reloadScheduled,
+      examens: examens,
+    );
+  }
+
   @override
   List<Object?> get props =>
       [status, studentColloscope, reloadScheduled, examens];

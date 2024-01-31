@@ -95,6 +95,8 @@ class ExamenCubit extends Cubit<ExamenState> {
         status: ExamenStatus.loading,
         studentColloscope: cachedColloscope,
       ));
+    } else {
+      emit(state.resetColloscope());
     }
 
     ExamenListModel cachedExamens =
