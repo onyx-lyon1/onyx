@@ -170,7 +170,9 @@ class _GradeWidgetState extends State<GradeWidget> {
                         fileName: 'screenshot_${widget.text1}.png',
                       );
                       Share.shareXFiles(
-                        [XFile("${tmpDir.path}/screenshot.png")],
+                        [
+                          XFile("${tmpDir.path}/screenshot_${widget.text1}.png")
+                        ],
                         // ignore: use_build_context_synchronously
                         text: AppLocalizations.of(context)
                             .hereMyGrade(widget.text1),
