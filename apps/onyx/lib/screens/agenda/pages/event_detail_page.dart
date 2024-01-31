@@ -53,6 +53,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
       for (var i in tmpRestaurants) {
         if (SearchService.isMatch(widget.event.location, i.name)) {
           restaurants.add(i);
+          restaurants = restaurants.toSet().toList();
           break;
         }
       }
@@ -170,16 +171,24 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                       : null,
                               onTapNavigate: (position) async {
                                 // ignore: use_build_context_synchronously
+                                List<LatLng> dest;
+                                if (batiments.isNotEmpty) {
+                                  dest =
+                                      batiments.map((e) => e.position).toList();
+                                } else {
+                                  dest = restaurants
+                                      .map((e) => LatLng(e.lat, e.lon))
+                                      .toList();
+                                }
+                                // ignore: use_build_context_synchronously
                                 if (!NavigationLogic.calculating) {
                                   NavigationLogic.calculating = true;
+
                                   routingPaths = (await NavigationLogic
                                       .navigateToBatimentFromLocation(
-                                          context,
-                                          batiments
-                                              .map((e) => e.position)
-                                              .toList()));
-                                  NavigationLogic.calculating = false;
+                                          context, dest));
                                   setState(() {});
+                                  NavigationLogic.calculating = false;
                                 }
                               },
                             );
