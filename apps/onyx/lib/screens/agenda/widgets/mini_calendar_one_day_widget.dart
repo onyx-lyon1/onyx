@@ -25,10 +25,9 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
         if (previous.days.length > previous.wantedDate &&
             current.days.length > current.wantedDate) {
           return (previous.days[previous.wantedDate].date
-                      .isSameDay(current.days[currentDateIndex].date) ||
-                  current.days[current.wantedDate].date
-                      .isSameDay(current.days[currentDateIndex].date)) &&
-              (!context.read<AgendaCubit>().blockMiniCalendar);
+                  .isSameDay(current.days[currentDateIndex].date) ||
+              current.days[current.wantedDate].date
+                  .isSameDay(current.days[currentDateIndex].date));
         }
         return true;
       },
