@@ -99,7 +99,7 @@ class IzlyCubit extends Cubit<IzlyState> {
   }
 
   Future<void> loadPaymentHistory({bool cache = true}) async {
-    if (state.izlyClient != null) {
+    if (_izlyClient != null) {
       emit(state.copyWith(status: IzlyStatus.loading));
       if (cache && await CacheService.exist<IzlyPaymentModelList>()) {
         emit(state.copyWith(

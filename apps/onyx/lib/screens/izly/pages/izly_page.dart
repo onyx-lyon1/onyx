@@ -20,19 +20,22 @@ class IzlyPage extends StatelessWidget {
 
   Color calculateWarningColor(BuildContext context) {
     if (context.read<IzlyCubit>().state.paymentList.isEmpty) {
-      context.read<IzlyCubit>().loadPaymentHistory();
+      if (context.read<IzlyCubit>().state.izlyClient != null) {
+        context.read<IzlyCubit>().loadPaymentHistory();
+      }
       return Colors.transparent;
     }
 
-    double average = context
-            .read<IzlyCubit>()
-            .state
-            .paymentList
-            .map((e) => e.amountSpent)
-            .reduce((value, element) => value + element) /
-        context.read<IzlyCubit>().state.paymentList.length;
+    double average = 0.0;
+    for (var i in context.read<IzlyCubit>().state.paymentList) {
+      if (i.amountSpent < 0) {
+        average += -i.amountSpent;
+      }
+    }
+    average /= context.read<IzlyCubit>().state.paymentList.length;
+
     final green = 5 * average; //5 times the average should display green
-    final red = 1 * average; //1 times the average should display red
+    final red = 2 * average; //2 times the average should display red
     //do a linear interpolation between green and red
     double interpolation =
         (context.read<IzlyCubit>().state.balance - red) / (green - red);
