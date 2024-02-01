@@ -71,8 +71,7 @@ class AgendaConfigPage extends StatelessWidget {
                               if (index == 0) {
                                 return DirWidget(
                                   dir: DirModel(
-                                    name:
-                                        AppLocalizations.of(context).agenda,
+                                    name: AppLocalizations.of(context).agenda,
                                     identifier: 0,
                                     children: state.dirs,
                                   ),
@@ -211,7 +210,10 @@ class AgendaConfigPage extends StatelessWidget {
                         child: TextField(
                           onChanged: (String query) {},
                           onSubmitted: (String query) {
-                            context.read<AgendaConfigCubit>().search(query);
+                            context.read<AgendaConfigCubit>().search(
+                                query,
+                                Locale(
+                                    AppLocalizations.of(context).localeName));
                             FocusScope.of(context).unfocus();
                           },
                           style: TextStyle(

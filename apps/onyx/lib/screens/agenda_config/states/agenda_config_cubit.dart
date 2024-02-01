@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,17 +59,17 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
         status: AgendaConfigStatus.loaded, dirs: dirs, expandedDirs: []));
   }
 
-  void search(String query) {
+  void search(String query, Locale locale) async {
     if (query.isEmpty) {
       unSearch();
       return;
     }
     List<DirModel> foundedDirs = [];
     for (var dir = 0; dir < dirs.length; dir++) {
-      if (SearchService.isMatch(query, dirs[dir].name)) {
+      if (await SearchService.isMatch(query, dirs[dir].name, locale)) {
         foundedDirs.add(dirs[dir]);
       } else {
-        subSearch(dirs[dir], query, foundedDirs);
+        subSearch(dirs[dir], query, foundedDirs, locale);
       }
     }
     foundedDirs = foundedDirs.reversed.toList();
@@ -77,14 +79,14 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
         status: AgendaConfigStatus.searchResult));
   }
 
-  void subSearch(DirModel dir, String query, List<DirModel> dirs) {
+  void subSearch(DirModel dir, String query, List<DirModel> dirs, Locale locale) async {
     if (dir.children != null) {
       for (int directory = 0; directory < dir.children!.length; directory++) {
-        if (SearchService.isMatch(query,
-            dir.children![directory].name.replaceAll("${dir.name}.", ""))) {
+        if (await SearchService.isMatch(query,
+            dir.children![directory].name.replaceAll("${dir.name}.", ""), locale)) {
           dirs.add(dir.children![directory]);
         }
-        subSearch(dir.children![directory], query, dirs);
+        subSearch(dir.children![directory], query, dirs, locale);
       }
     }
   }

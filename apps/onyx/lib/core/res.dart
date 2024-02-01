@@ -41,6 +41,9 @@ class Res {
 
   static const String colloscopeIdsPath = "assets/colloscope_ids.enc";
 
+  static String stopWordsPath(Locale locale) =>
+      "assets/stop_words/sw-${locale.languageCode}.json";
+
   static const String iconPath = "assets/icon_transparent.png";
   static const String izlyLogoPath = "assets/izly.png";
   static const String izlyMockQrCodePath = "assets/izly_mock_qr-code.png";

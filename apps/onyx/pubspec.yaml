@@ -133,6 +133,7 @@ flutter:
     - assets/key.txt
     - assets/graph.json.gz
     - assets/colloscope_ids.enc
+    - assets/stop_words/
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

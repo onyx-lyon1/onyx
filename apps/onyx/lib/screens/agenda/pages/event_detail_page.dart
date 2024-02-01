@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:intl/intl.dart';
 import 'package:izlyclient/izlyclient.dart';
@@ -8,7 +7,6 @@ import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
-import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,7 +22,7 @@ class EventDetailPage extends StatefulWidget {
 
 class _EventDetailPageState extends State<EventDetailPage> {
   List<BatimentModel> batiments = [];
-  List<RestaurantModel> restaurants = [];
+  RestaurantModel? restaurant;
   List<List<LatLng>> routingPaths = [];
 
   @override
@@ -37,7 +35,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
       List<BatimentModel> tmpBatiments =
           await BatimentsLogic.loadBatiments(locale);
       for (var i in tmpBatiments) {
-        if (SearchService.isMatch(widget.event.location, i.name)) {
+        if (await SearchService.isMatch(
+            widget.event.location, i.name, locale)) {
           batiments.add(i);
           break;
         }
@@ -50,13 +49,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
       } else {
         tmpRestaurants = await IzlyClient.getRestaurantCrous();
       }
-      for (var i in tmpRestaurants) {
-        if (SearchService.isMatch(widget.event.location, i.name)) {
-          restaurants.add(i);
-          restaurants = restaurants.toSet().toList();
-          break;
-        }
-      }
+      restaurant = tmpRestaurants
+          .firstWhere((element) => element.name == widget.event.location);
     }
     return true;
   }
@@ -154,7 +148,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             }
                             return MapWidget(
                               batiments: batiments,
-                              restaurant: restaurants,
+                              restaurant: [
+                                if (restaurant != null) restaurant!
+                              ],
                               polylines: [
                                 for (var i in routingPaths)
                                   Polyline(
@@ -165,9 +161,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                               ],
                               center: (batiments.isNotEmpty)
                                   ? batiments.first.position
-                                  : (restaurants.isNotEmpty)
-                                      ? LatLng(restaurants.first.lat,
-                                          restaurants.first.lon)
+                                  : (restaurant != null)
+                                      ? LatLng(
+                                          restaurant!.lat, restaurant!.lon)
                                       : null,
                               onTapNavigate: (position) async {
                                 // ignore: use_build_context_synchronously
@@ -176,9 +172,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                   dest =
                                       batiments.map((e) => e.position).toList();
                                 } else {
-                                  dest = restaurants
-                                      .map((e) => LatLng(e.lat, e.lon))
-                                      .toList();
+                                  dest = [
+                                    LatLng(restaurant!.lat, restaurant!.lon)
+                                  ];
                                 }
                                 // ignore: use_build_context_synchronously
                                 if (!NavigationLogic.calculating) {
@@ -209,9 +205,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           if (batiments.isNotEmpty) {
                             dest = batiments.map((e) => e.position).toList();
                           } else {
-                            dest = restaurants
-                                .map((e) => LatLng(e.lat, e.lon))
-                                .toList();
+                            dest = [LatLng(restaurant!.lat, restaurant!.lon)];
                           }
                           // ignore: use_build_context_synchronously
                           if (!NavigationLogic.calculating) {

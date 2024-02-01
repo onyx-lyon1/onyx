@@ -1,29 +1,21 @@
+import 'dart:ui';
+
 import 'package:diacritic/diacritic.dart';
+import 'package:flutter/services.dart';
+import 'dart:convert';
+
+import 'package:onyx/core/res.dart';
 
 class SearchService {
-  static bool isMatch(String a, String b) {
-    final stopWords = [
-      "le",
-      "la",
-      "un",
-      "une",
-      "des",
-      "d'un",
-      "d'une",
-      "en",
-      "a",
-      "de",
-      "cafeteria",
-      "restaurant"
-    ];
+  static Future<bool> isMatch(String a, String b, Locale locale) async {
+    final stopWords =
+        (json.decode(await rootBundle.loadString(Res.stopWordsPath(locale)))
+                as List<dynamic>)
+            .cast<String>();
 
     List<String> aTerms = a.toLowerCase().split(" ");
     aTerms = aTerms.where((term) => term.length > 1).toList();
     aTerms = aTerms.map((e) => removeDiacritics(e)).toList();
-
-    //remove special characters
-    aTerms = aTerms.map((e) => e.replaceAll(RegExp(r"[^\w\s]"), '')).toList();
-    aTerms = aTerms.where((term) => !term.contains("amphi")).toList();
 
     //remove stop words
     aTerms = aTerms.where((term) => !stopWords.contains(term)).toList();
