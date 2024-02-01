@@ -85,6 +85,13 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
         }
       });
     }
+
+    if (widget.polylines.isNotEmpty) {
+      mapController.animatedFitCamera(
+          cameraFit: CameraFit.bounds(
+              bounds: LatLngBounds.fromPoints(widget.polylines.first.points),
+              padding: const EdgeInsets.all(25)));
+    }
     return Stack(
       children: [
         PopupScope(
