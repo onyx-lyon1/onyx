@@ -12,7 +12,6 @@ import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class RestaurantPopUpWidget extends StatelessWidget {
   const RestaurantPopUpWidget(
       {required this.element,
@@ -32,6 +31,9 @@ class RestaurantPopUpWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
         color: Theme.of(context).colorScheme.background,
       ),
+      constraints: BoxConstraints(
+        maxWidth: 60.w,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -43,7 +45,9 @@ class RestaurantPopUpWidget extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(element.name, style: Theme.of(context).textTheme.bodyLarge),
+              Flexible(
+                  child: Text(element.name,
+                      style: Theme.of(context).textTheme.bodyLarge)),
               IconButton(
                 onPressed: () {
                   onTap(LatLng(element.lat, element.lon));
@@ -200,7 +204,8 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
                           children: [
                             for (var d in dates)
                               Center(
-                                child: Text(d.dateBeautifull(AppLocalizations.of(context).localeName)),
+                                child: Text(d.dateBeautifull(
+                                    AppLocalizations.of(context).localeName)),
                               ),
                           ],
                         ),
