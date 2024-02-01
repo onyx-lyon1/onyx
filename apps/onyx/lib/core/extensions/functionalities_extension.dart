@@ -12,12 +12,11 @@ import 'package:onyx/screens/settings/widgets/screen_settings/email_settings_wid
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 extension FunctionalitiesExtention on Functionalities {
   String toCleanString(AppLocalizations localizations) {
     switch (this) {
       case Functionalities.tomuss:
-        return localizations.grades;
+        return localizations.tomuss;
       case Functionalities.agenda:
         return localizations.agenda;
       case Functionalities.mail:
