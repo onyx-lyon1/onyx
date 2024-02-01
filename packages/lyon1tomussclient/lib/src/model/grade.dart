@@ -37,8 +37,10 @@ class Grade extends TeachingUnitElement {
     if (!isValid) {
       return;
     }
-    average = stats[json['the_id']]['average'].roundToPrecision();
-    mediane = stats[json['the_id']]['mediane'].roundToPrecision();
+    average = double.tryParse(stats[json['the_id']]['average'].toString())
+        .roundToPrecision();
+    mediane = double.tryParse(stats[json['the_id']]['mediane'].toString())
+        .roundToPrecision();
 
     numerator = (line.length > 0 && id < line.length && line[id].length > 0)
         ? double.tryParse(line[id][0].toString()).roundToPrecision()
