@@ -4,8 +4,6 @@ import 'dart:ui';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onyx/core/theme/theme.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 part 'generated/theme_settings_model.g.dart';
 
 @HiveType(typeId: 42)

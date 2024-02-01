@@ -26,7 +26,6 @@ dependencies:
     sdk: flutter
   intl: any
   flutter_localized_locales: ^2.0.5
-  keyboard_attachable: ^2.2.0
 
   #agenda
   lyon1agendaclient: ^1.0.8
@@ -48,6 +47,7 @@ dependencies:
   flutter_quill: ^9.0.5
   vsc_quill_delta_to_html: ^1.0.3
   enough_mail: ^2.1.3
+  keyboard_attachable: ^2.2.0
 
   #cas
   lyon1casclient: ^1.0.7
