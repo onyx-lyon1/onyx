@@ -66,8 +66,7 @@ class UploadCompactWidget extends StatelessWidget {
                   );
                   if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
                     FlutterFileDialog.saveFile(
-                            params: SaveFileDialogParams(sourceFilePath: path))
-                        .then((value) => Navigator.pop(context));
+                        params: SaveFileDialogParams(sourceFilePath: path));
                   } else if (!kIsWeb &&
                       (Platform.isWindows ||
                           Platform.isLinux ||
