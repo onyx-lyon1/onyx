@@ -19,7 +19,8 @@ class IzlyPage extends StatelessWidget {
 
   Color calculateWarningColor(BuildContext context) {
     if (context.read<IzlyCubit>().state.paymentList.isEmpty) {
-      if (context.read<IzlyCubit>().state.izlyClient != null) {
+      if (context.read<IzlyCubit>().state.izlyClient != null &&
+          context.read<IzlyCubit>().state.status == IzlyStatus.loaded) {
         context.read<IzlyCubit>().loadPaymentHistory();
       }
       return Colors.transparent;

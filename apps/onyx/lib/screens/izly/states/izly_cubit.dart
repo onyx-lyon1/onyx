@@ -109,7 +109,7 @@ class IzlyCubit extends Cubit<IzlyState> {
       }
       try {
         List<IzlyPaymentModel> paymentList =
-            await IzlyLogic.getUserPayments(state.izlyClient!);
+            await IzlyLogic.getUserPayments(_izlyClient!);
         emit(state.copyWith(
             status: IzlyStatus.loaded, paymentList: paymentList));
         await CacheService.set<IzlyPaymentModelList>(
