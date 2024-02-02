@@ -27,12 +27,12 @@ class Lyon1AgendaClient {
     _corsProxyUrl = authentication.corsProxyUrl;
   }
 
-  Future<List<int>> get getAgendaIds async =>
-      (await _agendaURL.getUserAgendaIds())
-          .resources
-          .split(",")
-          .map((e) => int.parse(e))
-          .toList();
+  Future<List<int>> get getAgendaIds async {
+    String resources = (await _agendaURL.getUserAgendaIds()).resources;
+    List<int?> ids = resources.split(",").map((e) => int.tryParse(e)).toList();
+    ids.removeWhere((element) => element == null);
+    return ids.map((e) => e!).toList();
+  }
 
   Future<Agenda?> getAgenda({required List<int> ids}) async {
     assert(ids.isNotEmpty);
