@@ -88,7 +88,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                           : AppLocalizations
                                               .supportedLocales[value - 1]
                                               .languageCode));
-                          context.read<MapCubit>().resetCubit();
+                          context.read<MapCubit>().loadBatiment((value == 0)
+                              ? const Locale("fr")
+                              : Locale(AppLocalizations
+                                  .supportedLocales[value - 1].languageCode));
                         },
                       ),
                       BlocBuilder<ThemeCubit, ThemeState>(
