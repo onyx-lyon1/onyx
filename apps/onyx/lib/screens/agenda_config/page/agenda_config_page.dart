@@ -211,9 +211,8 @@ class AgendaConfigPage extends StatelessWidget {
                           onChanged: (String query) {},
                           onSubmitted: (String query) {
                             context.read<AgendaConfigCubit>().search(
-                                query,
-                                Locale(
-                                    AppLocalizations.of(context).localeName));
+                                  query,
+                                );
                             FocusScope.of(context).unfocus();
                           },
                           style: TextStyle(

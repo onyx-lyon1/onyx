@@ -59,17 +59,17 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
         status: AgendaConfigStatus.loaded, dirs: dirs, expandedDirs: []));
   }
 
-  void search(String query, Locale locale) async {
+  void search(String query) async {
     if (query.isEmpty) {
       unSearch();
       return;
     }
     List<DirModel> foundedDirs = [];
     for (var dir = 0; dir < dirs.length; dir++) {
-      if (await SearchService.isMatch(query, dirs[dir].name, locale)) {
+      if (dirs[dir].name.toLowerCase().contains(query.toLowerCase())) {
         foundedDirs.add(dirs[dir]);
       } else {
-        subSearch(dirs[dir], query, foundedDirs, locale);
+        subSearch(dirs[dir], query, foundedDirs);
       }
     }
     foundedDirs = foundedDirs.reversed.toList();
@@ -79,14 +79,16 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
         status: AgendaConfigStatus.searchResult));
   }
 
-  void subSearch(DirModel dir, String query, List<DirModel> dirs, Locale locale) async {
+  void subSearch(DirModel dir, String query, List<DirModel> dirs) async {
     if (dir.children != null) {
       for (int directory = 0; directory < dir.children!.length; directory++) {
-        if (await SearchService.isMatch(query,
-            dir.children![directory].name.replaceAll("${dir.name}.", ""), locale)) {
+        if (dir.children![directory].name
+            .replaceAll("${dir.name}.", "")
+            .toLowerCase()
+            .contains(query.toLowerCase())) {
           dirs.add(dir.children![directory]);
         }
-        subSearch(dir.children![directory], query, dirs, locale);
+        subSearch(dir.children![directory], query, dirs);
       }
     }
   }
