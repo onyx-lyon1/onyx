@@ -15,11 +15,12 @@ class AgendaConnection extends BlocListener<AgendaCubit, AgendaState> {
   }) : super(
           listener: (context, state) {
             if (context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .colloscopeEnabled ==
-                null) {
+                        .read<SettingsCubit>()
+                        .state
+                        .settings
+                        .colloscopeEnabled ==
+                    null &&
+                !context.read<SettingsCubit>().state.settings.fetchAgendaAuto) {
               updateColloscopeEnabled(context);
             }
           },
@@ -27,7 +28,6 @@ class AgendaConnection extends BlocListener<AgendaCubit, AgendaState> {
 
   static void updateColloscopeEnabled(BuildContext context) {
     SettingsState settingsState = context.read<SettingsCubit>().state;
-    AgendaState agendaState = context.read<AgendaCubit>().state;
     if (!settingsState.settings.fetchAgendaAuto &&
         settingsState.settings.agendaIds.isNotEmpty) {
       context.read<SettingsCubit>().modify(
@@ -35,22 +35,6 @@ class AgendaConnection extends BlocListener<AgendaCubit, AgendaState> {
             colloscopeEnabled: settingsState.settings.agendaIds
                 .any((element) => Res.peipStudentsAgendaIds.contains(element)),
           ));
-      context.read<ExamenCubit>().load(
-            context.read<TomussCubit>().state.name,
-            context.read<TomussCubit>().state.surname,
-            context.read<AuthentificationCubit>().state.username,
-            context.read<SettingsCubit>().state.settings,
-            context.read<AuthentificationCubit>().state.lyon1Cas,
-            AppLocalizations.of(context),
-          );
-    } else if (agendaState.status == AgendaStatus.ready &&
-        agendaState.agendaIds.isNotEmpty) {
-      context.read<SettingsCubit>().modify(
-            settings: settingsState.settings.copyWith(
-              colloscopeEnabled: agendaState.agendaIds.any(
-                  (element) => Res.peipStudentsAgendaIds.contains(element)),
-            ),
-          );
       context.read<ExamenCubit>().load(
             context.read<TomussCubit>().state.name,
             context.read<TomussCubit>().state.surname,

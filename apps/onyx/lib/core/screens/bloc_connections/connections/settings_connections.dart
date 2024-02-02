@@ -40,7 +40,8 @@ class SettingsConnection extends BlocListener<SettingsCubit, SettingsState> {
                       context.read<AuthentificationCubit>().state.lyon1Cas,
                   settings: settingsState.settings,
                   cache: false);
-              if (settingsState.settings.colloscopeEnabled == null) {
+              if (settingsState.settings.colloscopeEnabled == null &&
+                  !settingsState.settings.fetchAgendaAuto) {
                 AgendaConnection.updateColloscopeEnabled(context);
               }
             }
