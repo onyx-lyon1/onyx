@@ -119,7 +119,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                       width: 70.w,
                       child: TextFormField(
                         autofillHints: const [AutofillHints.username],
-                        onSaved: (String? value) => username = value!,
+                        onSaved: (String? value) => username = value!.trim(),
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context).username,
@@ -169,7 +169,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                                 .pleaseEnterUsername;
                           } else if (!(RegExp(
                                   r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-                              .hasMatch(value))) {
+                              .hasMatch(value.trim()))) {
                             return AppLocalizations.of(context)
                                 .pleaseEnterAValidEmail;
                           }
