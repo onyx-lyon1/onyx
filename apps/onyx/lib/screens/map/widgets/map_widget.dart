@@ -87,10 +87,15 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
     }
 
     if (widget.polylines.isNotEmpty) {
-      mapController.animatedFitCamera(
+      List<LatLng> points = widget.polylines.expand((e) => e.points).toList();
+      if (points.isNotEmpty) {
+        mapController.animatedFitCamera(
           cameraFit: CameraFit.bounds(
-              bounds: LatLngBounds.fromPoints(widget.polylines.first.points),
-              padding: const EdgeInsets.all(25)));
+            bounds: LatLngBounds.fromPoints(widget.polylines.first.points),
+            padding: const EdgeInsets.all(25),
+          ),
+        );
+      }
     }
     return Stack(
       children: [
