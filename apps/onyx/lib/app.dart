@@ -124,12 +124,14 @@ class OnyxAppState extends State<OnyxApp> {
                         if ((settingsState.status == SettingsStatus.ready ||
                                 settingsState.status == SettingsStatus.error) &&
                             (themeState.status != ThemeStateStatus.init)) {
-                          if (authState.status ==
-                                  AuthentificationStatus.authentificated ||
-                              authState.status ==
-                                  AuthentificationStatus.authentificating ||
-                              (!settingsState.settings.firstLogin &&
-                                  !settingsState.settings.biometricAuth)) {
+                          if ((authState.status ==
+                                      AuthentificationStatus.authentificated ||
+                                  authState.status ==
+                                      AuthentificationStatus.authentificating ||
+                                  (!settingsState.settings.firstLogin &&
+                                      !settingsState.settings.biometricAuth)) &&
+                              authState.status !=
+                                  AuthentificationStatus.needCredential) {
                             home = const HomePage();
                           } else {
                             home = LoginPage(key: UniqueKey());

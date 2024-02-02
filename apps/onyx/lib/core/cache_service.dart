@@ -33,6 +33,7 @@ class CacheService {
         crashRecovery: false,
       );
       await box.put("cache$index", data);
+      if (secureKey != null) await box.close();
     } catch (e) {
       Res.logger.e("error while setting cache for $E: $e");
       await reset<E>();
