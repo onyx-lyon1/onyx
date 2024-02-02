@@ -30,9 +30,9 @@ class _MultiScrollableWidgetState extends State<MultiScrollableWidget> {
 
   @override
   void dispose() {
-    widget.pageController.dispose();
+    widget.pageController.hasClients ? widget.pageController.dispose() : null;
     for (var scrollController in widget.listScrollController) {
-      scrollController.dispose();
+      scrollController.hasClients ? scrollController.dispose() : null;
     }
     super.dispose();
   }
