@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
@@ -89,12 +90,14 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
     if (widget.polylines.isNotEmpty) {
       List<LatLng> points = widget.polylines.expand((e) => e.points).toList();
       if (points.isNotEmpty) {
-        mapController.animatedFitCamera(
-          cameraFit: CameraFit.bounds(
-            bounds: LatLngBounds.fromPoints(widget.polylines.first.points),
-            padding: const EdgeInsets.all(25),
-          ),
-        );
+        SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+          mapController.animatedFitCamera(
+            cameraFit: CameraFit.bounds(
+              bounds: LatLngBounds.fromPoints(widget.polylines.first.points),
+              padding: const EdgeInsets.all(25),
+            ),
+          );
+        });
       }
     }
     return Stack(
