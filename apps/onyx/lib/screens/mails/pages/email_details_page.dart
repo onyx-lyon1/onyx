@@ -145,7 +145,7 @@ class MailDetailsPage extends StatelessWidget {
                     ),
                   Container(
                     color: Theme.of(context).cardTheme.color,
-                    height: (mail.attachments.isNotEmpty) ? 57.h : 70.h,
+                    height: (mail.attachments.isNotEmpty) ? 57.h : 69.h,
                     width: 100.w,
                     padding: EdgeInsets.all(1.h),
                     child: MailContentWidget(mail: mail),

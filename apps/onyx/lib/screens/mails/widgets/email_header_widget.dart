@@ -138,7 +138,7 @@ class MailHeaderWidget extends StatelessWidget {
           );
         } else {
           return Container(
-            margin: const EdgeInsets.all(11),
+            margin: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.background,
               borderRadius: BorderRadius.circular(100),
@@ -155,9 +155,8 @@ class MailHeaderWidget extends StatelessWidget {
               ),
               cursorColor: Theme.of(context).textTheme.bodyLarge!.color,
               decoration: InputDecoration(
-                        hintText: AppLocalizations.of(context)
-                            .searchInTheNLastEmails(
-                                context.read<EmailCubit>().emailNumber),
+                hintText: AppLocalizations.of(context).searchInTheNLastEmails(
+                    context.read<EmailCubit>().emailNumber),
                 hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Theme.of(context)
                         .textTheme
@@ -175,6 +174,7 @@ class MailHeaderWidget extends StatelessWidget {
                 border: InputBorder.none,
               ),
               textAlignVertical: TextAlignVertical.center,
+              
             ),
           );
         }
