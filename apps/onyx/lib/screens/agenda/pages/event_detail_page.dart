@@ -31,12 +31,13 @@ class _EventDetailPageState extends State<EventDetailPage> {
   }
 
   Future<bool> loadBatimentAndRestaurants(Locale locale) async {
+    String search = widget.event.location;
+    search = search.toLowerCase().replaceAll("amphi", "");
     if (widget.event.menuCrous == null) {
       List<BatimentModel> tmpBatiments =
           await BatimentsLogic.loadBatiments(locale);
       for (var i in tmpBatiments) {
-        if (await SearchService.isMatch(
-            widget.event.location, i.name, locale)) {
+        if (await SearchService.isMatch(search, i.name, locale)) {
           batiments.add(i);
           break;
         }
@@ -148,9 +149,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             }
                             return MapWidget(
                               batiments: batiments,
-                              restaurant: [
-                                if (restaurant != null) restaurant!
-                              ],
+                              restaurant: [if (restaurant != null) restaurant!],
                               polylines: [
                                 for (var i in routingPaths)
                                   Polyline(
@@ -162,8 +161,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                               center: (batiments.isNotEmpty)
                                   ? batiments.first.position
                                   : (restaurant != null)
-                                      ? LatLng(
-                                          restaurant!.lat, restaurant!.lon)
+                                      ? LatLng(restaurant!.lat, restaurant!.lon)
                                       : null,
                               onTapNavigate: (position) async {
                                 // ignore: use_build_context_synchronously
