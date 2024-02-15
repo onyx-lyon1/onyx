@@ -21,19 +21,37 @@ class NavigationLogic {
     List<List<LatLng>> paths = [];
     LatLng position =
         (await GeolocationLogic.getCurrentLocation(context: context))!;
+    int state = 0; //0: unknow, 1: found local path, 2: found osrm path
     for (var latLng in latLngs) {
       if (position.inside(MapRes.minBound, MapRes.maxBound) &&
           latLng.inside(MapRes.minBound, MapRes.maxBound)) {
         // ignore: use_build_context_synchronously
         await _loadGraph(context);
-        List<Node> path = await compute(_findPathFromLocalGraph,
-            (graph: graph!, start: position, vertig: latLng));
-        if (path.isNotEmpty) {
-          paths.add(path.map((e) => e.position).toList());
-        } else {
+        compute(_findPathFromLocalGraph, (
+          graph: graph!,
+          start: position,
+          vertig: latLng
+        )).then((value) async {
+          if (state != 2) {
+            if (value.isNotEmpty) {
+              state = 1;
+              paths.add(value.map((e) => e.position).toList());
+            } else {
+              state = 2;
+              paths.add(await _getOsrmRouteFromApi(position, latLng));
+            }
+          }
+        });
+        for (var i = 0; i < 10; i++) {
+          if (state == 1) break;
+          await Future.delayed(const Duration(milliseconds: 100));
+        }
+        if (state != 1) {
+          state = 2;
           paths.add(await _getOsrmRouteFromApi(position, latLng));
         }
       } else {
+        state = 2;
         paths.add(await _getOsrmRouteFromApi(position, latLng));
       }
     }
@@ -42,8 +60,7 @@ class NavigationLogic {
 
   static Future<void> _loadGraph(BuildContext context) async {
     if (graph == null) {
-      ByteData data =
-          await DefaultAssetBundle.of(context).load(Res.graphPath);
+      ByteData data = await DefaultAssetBundle.of(context).load(Res.graphPath);
       final bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       final decodedData = jsonDecode(String.fromCharCodes(gzip.decode(bytes)));
