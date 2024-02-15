@@ -1,10 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
-import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

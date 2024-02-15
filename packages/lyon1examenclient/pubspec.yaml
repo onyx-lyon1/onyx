@@ -1,6 +1,6 @@
 name: lyon1examenclient
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
+description: A client for the Lyon1 exams
+version: 1.0.8
 repository: https://github.com/onyx-lyon1/onyx/tree/main/packages/lyon1examenclient
 
 environment:

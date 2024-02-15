@@ -19,7 +19,7 @@ dependencies:
   animations: ^2.0.8
   auto_size_text: ^3.0.0
   copy_with_extension: ^5.0.4
-  responsive_sizer: 3.2.0
+  responsive_sizer: ^3.3.0+1
   desktop_window: ^0.4.0
   # internationalization
   flutter_localizations:
