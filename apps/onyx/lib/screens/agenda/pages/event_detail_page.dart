@@ -14,7 +14,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class EventDetailPage extends StatefulWidget {
   final Event event;
 
-  const EventDetailPage({super.key, required this.event});
+  const EventDetailPage({super.key, required this.event, required this.locale});
+
+  final Locale locale;
 
   @override
   State<EventDetailPage> createState() => _EventDetailPageState();
@@ -27,10 +29,11 @@ class _EventDetailPageState extends State<EventDetailPage> {
 
   @override
   void initState() {
+    loadBatimentAndRestaurants(widget.locale);
     super.initState();
   }
 
-  Future<bool> loadBatimentAndRestaurants(Locale locale) async {
+  Future loadBatimentAndRestaurants(Locale locale) async {
     String search = widget.event.location;
     search = search.toLowerCase().replaceAll("amphi", "");
     if (widget.event.menuCrous == null) {
@@ -53,7 +56,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
       restaurant = tmpRestaurants
           .firstWhere((element) => element.name == widget.event.location);
     }
-    return true;
   }
 
   @override
@@ -136,18 +138,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     child: SizedBox(
                       height: 40.h,
                       width: 90.w,
-                      child: FutureBuilder(
-                          future: loadBatimentAndRestaurants(
-                              Locale(AppLocalizations.of(context).localeName)),
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: StateDisplayingPage(
-                                    message: AppLocalizations.of(context)
-                                        .loadingBuildings),
-                              );
-                            }
-                            return MapWidget(
+                      child: (batiments.isNotEmpty || restaurant != null)
+                          ? MapWidget(
                               batiments: batiments,
                               restaurant: [if (restaurant != null) restaurant!],
                               polylines: [
@@ -185,8 +177,12 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                   NavigationLogic.calculating = false;
                                 }
                               },
-                            );
-                          }),
+                            )
+                          : Center(
+                              child: StateDisplayingPage(
+                                  message: AppLocalizations.of(context)
+                                      .loadingBuildings),
+                            ),
                     ),
                   ),
                 ),

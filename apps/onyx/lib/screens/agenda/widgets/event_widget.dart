@@ -30,7 +30,9 @@ class EventWidget extends StatelessWidget {
       closedShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      openBuilder: (context, _) => EventDetailPage(event: event),
+      openBuilder: (context, _) => EventDetailPage(
+          event: event,
+          locale: Locale(AppLocalizations.of(context).localeName)),
       closedBuilder: (context, _) {
         return Card(
           color: Theme.of(context).cardTheme.color,
