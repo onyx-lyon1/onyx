@@ -99,13 +99,13 @@ class IzlyPage extends StatelessWidget {
                       Text(
                           "${AppLocalizations.of(context).available(state.qrCodeAvailables)} ${AppLocalizations.of(context).offline}"),
                       Container(
-                        height: 62.w,
-                        width: 62.w,
+                        height: 60.5.w, // 60 + the padding 6 lines below
+                        width: 60.5.w, // 60 + the padding 5 lines below
                         decoration: BoxDecoration(
                           color: calculateWarningColor(context),
                           borderRadius: BorderRadius.circular(15 + 2.w),
                         ),
-                        padding: EdgeInsets.all(2.w),
+                        padding: EdgeInsets.all(0.5.w),
                         child: Card(
                           color: Colors.white,
                           elevation: 10,
