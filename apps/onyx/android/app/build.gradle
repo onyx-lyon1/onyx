@@ -33,7 +33,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace 'fr.onyx.lyon1'
-    compileSdkVersion 33
+    compileSdkVersion 34
     ndkVersion "21.1.6352462"
 
     compileOptions {
