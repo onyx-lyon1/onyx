@@ -119,15 +119,17 @@ class URLAdapter extends TypeAdapter<URL> {
       date: fields[102] as DateTime?,
       position: fields[103] == null ? 0 : fields[103] as double,
       value: fields[2] == null ? '' : fields[2] as String,
-    );
+    )..isModifiable = fields[3] == null ? false : fields[3] as bool;
   }
 
   @override
   void write(BinaryWriter writer, URL obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(2)
       ..write(obj.value)
+      ..writeByte(3)
+      ..write(obj.isModifiable)
       ..writeByte(100)
       ..write(obj.title)
       ..writeByte(101)

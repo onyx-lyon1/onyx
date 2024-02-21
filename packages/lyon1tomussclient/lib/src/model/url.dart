@@ -9,14 +9,19 @@ part 'generated/url.g.dart';
 class URL extends TeachingUnitElement {
   @HiveField(2, defaultValue: "")
   late final String value;
+  @HiveField(3, defaultValue: false)
+  late final bool isModifiable;
 
   URL.fromJSON(var id, Map json, var stats, var line, var column, String user)
       : super.fromJson(id, json, stats, line, column, user) {
     var props = line[id];
+    isModifiable = false;
     if (props is List && props.isNotEmpty) {
       value = props[0].toString();
     } else if (json.containsKey("empty_is")) {
       value = json["empty_is"];
+    } else if (json.containsKey("modifiable")) {
+      isModifiable = json["modifiable"] != 0;
     } else {
       throw ("Couldn't find url in URL object...");
     }
