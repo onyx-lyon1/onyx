@@ -15,17 +15,19 @@ class URL extends TeachingUnitElement {
   URL.fromJSON(var id, Map json, var stats, var line, var column, String user)
       : super.fromJson(id, json, stats, line, column, user) {
     var props = line[id];
+    if (json.containsKey("modifiable")) {
+      isModifiable = json["modifiable"] != 0;
+    } else {
+      isModifiable = false;
+    }
     if (props is List && props.isNotEmpty) {
       isModifiable = false;
       value = props[0].toString();
     } else if (json.containsKey("empty_is")) {
       isModifiable = false;
       value = json["empty_is"];
-    } else if (json.containsKey("modifiable")) {
-      isModifiable = json["modifiable"] != 0;
-      value = "";
     } else {
-      throw ("Couldn't find url in URL object...");
+      value = "";
     }
   }
 
