@@ -104,13 +104,12 @@ class IzlyClient {
     assert(n < 4);
     var r = await RequestsPlus.post("$_baseUrl/Home/CreateQrCodeImg",
         body: {
-          'nbrOfQrCode': n.toString(),
+          'numberOfQrCodes': n.toString(),
         },
         corsProxyUrl: _corsProxyUrl);
-    List<Uint8List> result = [];
-    for (var i in jsonDecode(r.body)) {
-      result.add(base64Decode(i['Src'].split("base64,").last));
-    }
+    List<Uint8List> result = jsonDecode(r.body).map<Uint8List>((e) {
+      return base64Decode(e);
+    }).toList();
     return result;
   }
 
