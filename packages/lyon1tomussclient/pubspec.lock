@@ -435,9 +435,10 @@ packages:
   requests_plus:
     dependency: "direct main"
     description:
-      path: "/home/eymeric/tmp/requests_plus"
-      relative: false
-    source: path
+      name: requests_plus
+      sha256: b1d6e2c4fbe47643c46d3d27a773dbe9c1592464a8b7ed4d4ea20a3b1ea1bd3c
+      url: "https://pub.dev"
+    source: hosted
     version: "4.8.6"
   shelf:
     dependency: transitive

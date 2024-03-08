@@ -10,3 +10,5 @@ build/
 pubspec.lock
 
 .env
+.idea
+melos_izlyclient.iml
