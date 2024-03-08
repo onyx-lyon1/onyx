@@ -15,6 +15,7 @@ class URL extends TeachingUnitElement {
   URL.fromJSON(var id, Map json, var stats, var line, var column, String user)
       : super.fromJson(id, json, stats, line, column, user) {
     var props = line[id];
+    bool isModifiable;
     if (json.containsKey("modifiable")) {
       isModifiable = json["modifiable"] != 0;
     } else {
@@ -29,6 +30,7 @@ class URL extends TeachingUnitElement {
     } else {
       value = "";
     }
+    this.isModifiable = isModifiable;
   }
 
   URL({
