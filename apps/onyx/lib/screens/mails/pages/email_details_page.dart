@@ -127,11 +127,11 @@ class MailDetailsPage extends StatelessWidget {
                                               fileName: mail.attachments[index],
                                               folder: state.currentMailBox!,
                                               appLocalizations:
-                                                  AppLocalizations.of(context)
-                                              ));
+                                                  AppLocalizations.of(
+                                                      context)));
                                 }
-                                // ignore: use_build_context_synchronously
                                 showDialog(
+                                    // ignore: use_build_context_synchronously
                                     context: context,
                                     builder: (_) => SaveOrOpenDialogWidget(
                                           filePath:

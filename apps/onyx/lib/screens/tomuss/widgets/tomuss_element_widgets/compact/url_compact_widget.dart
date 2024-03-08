@@ -26,13 +26,13 @@ class URLCompactWidget extends StatelessWidget {
               await launchUrl(Uri.parse(url.value),
                   mode: LaunchMode.externalApplication);
             } else {
-              // ignore: use_build_context_synchronously
               showDialog(
+                  // ignore: use_build_context_synchronously
                   context: context,
                   builder: (context) => AlertDialog(
                         title: Text(AppLocalizations.of(context).error),
-                        content: Text(
-                            AppLocalizations.of(context).unableToOpenLink),
+                        content:
+                            Text(AppLocalizations.of(context).unableToOpenLink),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context),
