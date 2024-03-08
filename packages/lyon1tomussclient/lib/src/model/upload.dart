@@ -24,7 +24,7 @@ class Upload extends TeachingUnitElement {
     //https://tomuss.univ-lyon1.fr/2023/Printemps/codeUE/upload_get/theId/lineId/codeUE_uploadName_filename?unsafe=1&ticket=ST-6037266-YbrFlIZeqewEEE1TjBgy-cas.univ-lyon1.fr
     if (line[id].isNotEmpty) {
       fileUrl =
-          "${Constants.tomuss}/${column['year']}/${column['semester']}/${column['ue']}/upload_get/${json["the_id"]}/${column['line_id']}/${column['ue']}_${title}_${line[id].elementAtOrNull(3)?.toString().split(" ").last}";
+          "${Constants.tomuss}/${column['year']}/${column['semester']}/${column['ue']}/upload_get/${json["the_id"]}/${column['line_id']}/${column['ue']}_${title}_${(line[id] as List).elementAtOrNull(3)?.toString().split(" ").last}";
     } else {
       fileUrl = "";
     }
