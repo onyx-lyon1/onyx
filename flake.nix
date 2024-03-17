@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-  
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -30,12 +30,12 @@
               android_sdk.accept_license = true;
             };
           };
-          melos = pkgs.callPackage ./nix/melos { };
+          melos = pkgs.callPackage ./nix/melos {};
           buildToolsVersionForAapt2 = "34.0.0-rc4";
           androidComposition = pkgs.androidenv.composeAndroidPackages {
             # Installing both version for aapt2 and version that flutter wants
             buildToolsVersions = [buildToolsVersionForAapt2 "30.0.3"];
-            platformVersions = ["34" "33" "31" "30"];
+            platformVersions = ["34" "33" "31" "30" "29"];
             abiVersions = ["armeabi-v7a" "arm64-v8a" "x86" "x86_64"];
             includeEmulator = true;
             emulatorVersion = "34.1.9";
@@ -104,7 +104,7 @@
               libgpg-error
               apksigner
               gnome.zenity
-              ];
+            ];
           };
         formatter = pkgs.alejandra;
       };
