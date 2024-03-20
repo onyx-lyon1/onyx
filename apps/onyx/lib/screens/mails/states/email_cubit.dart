@@ -149,6 +149,13 @@ class EmailCubit extends Cubit<EmailState> {
         mailBox: mailbox,
         appLocalizations: appLocalizations,
       ));
+      //put the important mail in firts position
+      loadedMail.emails.sort((a, b) => (b.isFlagged)
+          ? 1
+          : (a.isFlagged)
+              ? -1
+              : 0);
+
       int index = emailsBoxesComplete.indexWhere((element) =>
           element.name == loadedMail.name ||
           element.specialMailBox == loadedMail.specialMailBox);
