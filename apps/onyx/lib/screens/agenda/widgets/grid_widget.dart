@@ -50,12 +50,7 @@ class GridPainter extends CustomPainter {
       );
     }
     //draw vertical lines
-    canvas.drawLine(
-      Offset(DaysViewRes.leftHourIndicatorWidth.w, 0),
-      Offset(DaysViewRes.leftHourIndicatorWidth.w, 100.h),
-      paint,
-    );
-    for (var i = 1; i < dayCount; i++) {
+    for (var i = 0; i < dayCount; i++) {
       canvas.drawLine(
         Offset((columnWidth * i) + (DaysViewRes.leftHourIndicatorWidth.w), 0),
         Offset(
