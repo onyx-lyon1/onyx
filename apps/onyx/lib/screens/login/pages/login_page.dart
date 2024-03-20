@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
@@ -90,32 +91,38 @@ class _LoginPageState extends State<LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  AppLocalizations.of(context).authentication,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(fontSize: 17.sp),
+                                Flexible(
+                                  child: AutoSizeText(
+                                    AppLocalizations.of(context).authentication,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(fontSize: 17.sp),
+                                    maxLines: 1,
+                                  ),
                                 ),
-                                Material(
-                                  borderRadius: BorderRadius.circular(5),
-                                  child: OpenContainer(
-                                    closedColor:
-                                        Theme.of(context).secondaryHeaderColor,
-                                    openBuilder: (context, closewidget) =>
-                                        const PrivacyPolicyPage(),
-                                    closedBuilder: (context, openwidget) =>
-                                        InkWell(
-                                      onTap: openwidget,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 3.w, vertical: 0.5.h),
-                                        child: Text(
-                                          AppLocalizations.of(context).privacy,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(fontSize: 16.sp),
+                                Flexible(
+                                  child: Material(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: OpenContainer(
+                                      closedColor:
+                                          Theme.of(context).secondaryHeaderColor,
+                                      openBuilder: (context, closewidget) =>
+                                          const PrivacyPolicyPage(),
+                                      closedBuilder: (context, openwidget) =>
+                                          InkWell(
+                                        onTap: openwidget,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 3.w, vertical: 0.5.h),
+                                          child: AutoSizeText(
+                                            AppLocalizations.of(context).privacy,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge!
+                                                .copyWith(fontSize: 16.sp),
+                                            maxLines: 1,
+                                          ),
                                         ),
                                       ),
                                     ),
