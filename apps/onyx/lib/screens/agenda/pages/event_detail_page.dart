@@ -140,6 +140,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       width: 90.w,
                       child: (batiments.isNotEmpty || restaurant != null)
                           ? MapWidget(
+                              enableFullscreenButton: true,
                               batiments: batiments,
                               restaurant: [if (restaurant != null) restaurant!],
                               polylines: [

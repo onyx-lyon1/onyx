@@ -7,8 +7,9 @@ import 'package:onyx/screens/map/map_export.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MapPage extends StatelessWidget {
-  const MapPage({super.key});
+  const MapPage({super.key, this.enableBackButton = false});
 
+  final bool enableBackButton;
   @override
   Widget build(BuildContext context) {
     final textEditingController = TextEditingController();
@@ -25,10 +26,21 @@ class MapPage extends StatelessWidget {
           center = state.path.first;
         }
         return CommonScreenWidget(
-          header: Center(
-            child: MapSearchAutocompleteWidget(
-              controller: textEditingController,
-            ),
+          header: Row(
+            children: [
+              if (enableBackButton)
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              Flexible(
+                child: MapSearchAutocompleteWidget(
+                  controller: textEditingController,
+                ),
+              ),
+            ],
           ),
           body: MapWidget(
             batiments: state.batiments,
