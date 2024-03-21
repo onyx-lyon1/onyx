@@ -75,9 +75,6 @@ class AgendaCubit extends Cubit<AgendaState> {
           state.copyWith(
             status: AgendaStatus.ready,
             realDays: realDays,
-            wantedDate: realDays
-                .indexWhere((element) => element.date.isSameDay(DateTime.now()))
-                .clamp(0, state.realDays.length),
             agendaIds: ids,
             settingsModel: settings,
           ),

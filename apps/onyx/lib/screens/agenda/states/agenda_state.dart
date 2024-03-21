@@ -103,7 +103,32 @@ class AgendaState {
       }
     }
 
-    this.realDays = realDays;
+    //add examEvents
+    for (var i in examEvents) {
+      int index =
+          realDays.indexWhere((element) => element.date.isSameDay(i.start));
+      if (index != -1) {
+        realDays[index] = realDays[index].copyWith(events: [
+          ...realDays[index].events,
+          i,
+        ]);
+      } else {
+        realDays.add(Day(i.start.shrink(3), [i]));
+      }
+    }
+    this.realDays = [
+      ...List.generate(
+        paddingBefore,
+        (index) =>
+            Day(realDays[0].date.subtract(Duration(days: index + 1)), const []),
+      ),
+      ...realDays,
+      ...List.generate(
+        paddingAfter,
+        (index) =>
+            Day(realDays.last.date.add(Duration(days: index + 1)), const []),
+      ),
+    ];
   }
 
   AgendaState copyWith({
@@ -124,11 +149,8 @@ class AgendaState {
     );
   }
 
-  int getDayIndex(
-      {required DateTime date,
-      required SettingsModel settings,
-      bool useRealDays = false}) {
-    List<Day> tmpDays = (useRealDays) ? realDays : days;
+  int getDayIndex({required DateTime date, required SettingsModel settings}) {
+    List<Day> tmpDays = realDays;
     int distance = tmpDays.length;
     int index = -1;
 
@@ -141,36 +163,5 @@ class AgendaState {
     return index;
   }
 
-  List<Day> get days {
-    List<Day> realDays = List.from(this.realDays);
-    //add examEvents
-    for (var i in examEvents) {
-      int index =
-          realDays.indexWhere((element) => element.date.isSameDay(i.start));
-      if (index != -1) {
-        realDays[index] = realDays[index].copyWith(events: [
-          ...realDays[index].events,
-          i,
-        ]);
-      } else {
-        realDays.add(Day(i.start.shrink(3), [i]));
-      }
-    }
-    return [
-      ...List.generate(
-        paddingBefore,
-        (index) =>
-            Day(realDays[0].date.subtract(Duration(days: index + 1)), const []),
-      ),
-      ...realDays,
-      ...List.generate(
-        paddingAfter,
-        (index) =>
-            Day(realDays[0].date.subtract(Duration(days: index + 1)), const []),
-      ),
-    ];
-  }
-
-  // Si aucune correspondance n'est trouvée pour aujourd'hui, retourner simplement les jours réels.
-  // return realDays;
+  List<Day> get days => realDays;
 }
