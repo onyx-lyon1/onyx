@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/extensions/date_extension.dart';
@@ -24,7 +25,7 @@ class MonthViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var agendaState = context.read<AgendaCubit>().state;
 
-    double columnWidth = (100 / dayCount).w;
+    double columnWidth = (4 * 100 / dayCount).w;
 
     return Stack(
       children: [
@@ -37,7 +38,7 @@ class MonthViewWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              width: (100 - DaysViewRes.leftHourIndicatorWidth).w,
+              width: (100).w,
               height:
                   (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor).h *
                       (Res.agendaDayDuration.inHours - 1),
@@ -58,23 +59,28 @@ class MonthViewWidget extends StatelessWidget {
                 itemBuilder: (context, rawJ) {
                   int j = rawJ * dayCount;
                   if (j + dayCount < agendaState.days.length) {
-                    return Row(
+                    return Column(
                       children: [
-                        for (var i = 0; i < dayCount; i++)
-                          Stack(
-                            children: [
-                              Row(
-                                children: [
-                                  ...buildEventWidgetList(
-                                    agendaState.days[j + i].events,
-                                    columnWidth,
-                                  )
-                                ],
-                              ),
-                              if (DateTime.now()
-                                  .isSameDay(agendaState.days[j + i].date))
-                                CurrentDateIndicator(columnWidth: columnWidth),
-                            ],
+                        for (var i = 0; i < dayCount ~/ 4; i++)
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: Stack(
+                              children: [
+                                Row(
+                                  children: [
+                                    ...buildWeekWidgetList(
+                                        agendaState.days.getRange(
+                                            j + i, j + i + (dayCount ~/ 4)),
+                                        columnWidth,
+                                        context)
+                                  ],
+                                ),
+                                if (DateTime.now()
+                                    .isSameDay(agendaState.days[j + i].date))
+                                  CurrentDateIndicator(
+                                      columnWidth: columnWidth),
+                              ],
+                            ),
                           ),
                       ],
                     );
@@ -89,97 +95,119 @@ class MonthViewWidget extends StatelessWidget {
     );
   }
 
-  List<Widget> buildEventWidgetList(List<Event> events, double columnWidth) {
+  List<Widget> buildWeekWidgetList(
+      Iterable<Day> days, double columnWidth, BuildContext context) {
     List<Widget> result = [];
-    if (events.isEmpty) {
-      result.add(SizedBox(
-        width: columnWidth,
-      ));
-      return result;
-    }
-
-    Map<int, List<int>> superposition = {};
-
-    //construct superposition map
-    for (int index = 0; index < events.length - 1; index++) {
-      if (events[index].end.isAfter(events[index + 1].start)) {
-        //there is one superposition
-        bool found = false;
-        for (var sup in superposition.keys) {
-          if (superposition[sup]!.contains(index)) {
-            superposition[sup]!.add(index + 1);
-            found = true;
-          }
-        }
-        if (!found) {
-          superposition[index] = [index, index + 1];
-        }
-      }
-    }
-
-    for (int index = 0; index < events.length; index++) {
-      double diff = 0.0;
-      Map<int, double> diffMap = {};
-      bool superposed = superposition.keys.contains(index);
-      if (superposed) {
-        for (int j = 0; j < superposition[index]!.length; j++) {
-          diffMap[superposition[index]![j]] = getDiff(
-              events[superposition[index]![j]],
-              //if we have to compare to the previous event in the calendar
-              (j == 0)
-                  //if there is a previous one
-                  ? ((index > 0) ? events[index - 1] : null)
-                  : events[superposition[index]![j - 1]]);
-        }
-        diff = diffMap[superposition[index]!.first]!;
-      } else {
-        diff = getDiff(events[index], (index > 0) ? events[index - 1] : null);
-      }
+    for (var day in days) {
       result.add(
-        Padding(
-          padding: EdgeInsets.only(
-            top: (diff *
-                    (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor)
-                        .h)
-                .clamp(0, double.infinity),
+        SizedBox(
+          width: columnWidth,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: DaysViewRes.leftHourIndicatorWidth.h,
+                child: Text(
+                  day.date.day.toString(),
+                ),
+              ),
+              // ...buildDayWidgetList(day.events, columnWidth),
+            ],
           ),
-          child: (superposed)
-              ? Row(
-                  children: [
-                    for (var i in superposition[index]!)
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: (superposition[index]!.first != i)
-                              ? (diffMap[i]! *
-                                      (Res.agendaDayDuration.inHours /
-                                              DaysViewRes.heightFactor)
-                                          .h)
-                                  .clamp(0, double.infinity)
-                              : 0.0,
-                        ),
-                        child: SizedEventWidget(
-                            heightFactor: DaysViewRes.heightFactor,
-                            numberPerColumn:
-                                (superposition[index]?.length) ?? 1,
-                            columnWidth: columnWidth,
-                            event: events[i]),
-                      ),
-                  ],
-                )
-              : SizedEventWidget(
-                  heightFactor: DaysViewRes.heightFactor,
-                  numberPerColumn: 1,
-                  columnWidth: columnWidth,
-                  event: events[index]),
         ),
       );
-      if (superposed) {
-//-1 because the for loop will add it
-        index += superposition[index]!.length - 1;
-      }
     }
-
     return result;
+//     if (events.isEmpty) {
+//       result.add(SizedBox(
+//         width: columnWidth,
+//       ));
+//       return result;
+//     }
+//
+//     Map<int, List<int>> superposition = {};
+//
+//     //construct superposition map
+//     for (int index = 0; index < events.length - 1; index++) {
+//       if (events[index].end.isAfter(events[index + 1].start)) {
+//         //there is one superposition
+//         bool found = false;
+//         for (var sup in superposition.keys) {
+//           if (superposition[sup]!.contains(index)) {
+//             superposition[sup]!.add(index + 1);
+//             found = true;
+//           }
+//         }
+//         if (!found) {
+//           superposition[index] = [index, index + 1];
+//         }
+//       }
+//     }
+//
+//     for (int index = 0; index < events.length; index++) {
+//       double diff = 0.0;
+//       Map<int, double> diffMap = {};
+//       bool superposed = superposition.keys.contains(index);
+//       if (superposed) {
+//         for (int j = 0; j < superposition[index]!.length; j++) {
+//           diffMap[superposition[index]![j]] = getDiff(
+//               events[superposition[index]![j]],
+//               //if we have to compare to the previous event in the calendar
+//               (j == 0)
+//                   //if there is a previous one
+//                   ? ((index > 0) ? events[index - 1] : null)
+//                   : events[superposition[index]![j - 1]]);
+//         }
+//         diff = diffMap[superposition[index]!.first]!;
+//       } else {
+//         diff = getDiff(events[index], (index > 0) ? events[index - 1] : null);
+//       }
+//       result.add(
+//         Padding(
+//           padding: EdgeInsets.only(
+//             top: (diff *
+//                     (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor)
+//                         .h)
+//                 .clamp(0, double.infinity),
+//           ),
+//           child: (superposed)
+//               ? Row(
+//                   children: [
+//                     for (var i in superposition[index]!)
+//                       Padding(
+//                         padding: EdgeInsets.only(
+//                           top: (superposition[index]!.first != i)
+//                               ? (diffMap[i]! *
+//                                       (Res.agendaDayDuration.inHours /
+//                                               DaysViewRes.heightFactor)
+//                                           .h)
+//                                   .clamp(0, double.infinity)
+//                               : 0.0,
+//                         ),
+//                         child: SizedEventWidget(
+//                             heightFactor: DaysViewRes.heightFactor,
+//                             numberPerColumn:
+//                                 (superposition[index]?.length) ?? 1,
+//                             columnWidth: columnWidth,
+//                             event: events[i]),
+//                       ),
+//                   ],
+//                 )
+//               : SizedEventWidget(
+//                   heightFactor: DaysViewRes.heightFactor,
+//                   numberPerColumn: 1,
+//                   columnWidth: columnWidth,
+//                   event: events[index]),
+//         ),
+//       );
+//       if (superposed) {
+// //-1 because the for loop will add it
+//         index += superposition[index]!.length - 1;
+//       }
+//     }
+//
+//     return result;
   }
 
   double getDiff(Event a, Event? b) {

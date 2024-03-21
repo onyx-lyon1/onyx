@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda/widgets/days_view_widget.dart';
@@ -8,6 +8,7 @@ import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AgendaPage extends StatelessWidget {
   const AgendaPage({
@@ -20,6 +21,7 @@ class AgendaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PageController verticalScrollController = PageController(initialPage: 0);
     int wantedDate = context.read<AgendaCubit>().state.wantedDate;
     int weekLength =
         context.read<SettingsCubit>().state.settings.agendaWeekLength;
@@ -100,12 +102,13 @@ class AgendaPage extends StatelessWidget {
                         .state
                         .settings
                         .showMiniCalendar)
-                      SizedBox(
+                    SizedBox(
                         width: 90.w,
                         child: MiniCalendarWidget(
-                          scrollController: context
+                          horizontalScrollController: context
                               .read<AgendaCubit>()
                               .miniCalendarScrollController,
+                          verticalScrollController: verticalScrollController,
                         ),
                       )
                     else
@@ -132,6 +135,15 @@ class AgendaPage extends StatelessWidget {
                     reverse: settingsState.settings.agendaPageTopToBottom,
                     physics: const NeverScrollableScrollPhysics(),
                     onPageChanged: (index) {
+                      if (index == 0 || index == 1) {
+                        verticalScrollController.animateToPage(0,
+                            duration: Res.animationDuration,
+                            curve: Curves.easeInOut);
+                      } else {
+                        verticalScrollController.animateToPage(1,
+                            duration: Res.animationDuration,
+                            curve: Curves.easeInOut);
+                      }
                       if (index == 0) {
                         if (context
                             .read<AgendaCubit>()
@@ -176,9 +188,12 @@ class AgendaPage extends StatelessWidget {
                           horizontalController: context
                               .read<AgendaCubit>()
                               .horizontalScrollController[1]),
-                      Center(
-                        child: Text(AppLocalizations.of(context).monthViewSoon),
-                      )
+                      MonthViewWidget(
+                          dayCount: settingsState.settings.agendaWeekLength * 4,
+                          verticalController: verticalController[1],
+                          horizontalController: context
+                              .read<AgendaCubit>()
+                              .horizontalScrollController[1]),
                     ],
                   ),
                 ),

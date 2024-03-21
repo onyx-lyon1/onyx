@@ -10,6 +10,7 @@ class MapPage extends StatelessWidget {
   const MapPage({super.key, this.enableBackButton = false});
 
   final bool enableBackButton;
+
   @override
   Widget build(BuildContext context) {
     final textEditingController = TextEditingController();
