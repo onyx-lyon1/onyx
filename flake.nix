@@ -2,11 +2,13 @@
   inputs = {
     #nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     nixpkgs.url = "github:hatch01/nixpkgs";
-  
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
+    android-nixpkgs.url = "github:tadfisher/android-nixpkgs";
   };
 
   outputs = {
@@ -32,36 +34,19 @@
             };
           };
           melos = pkgs.callPackage ./nix/melos {};
-          buildToolsVersionForAapt2 = "34.0.0-rc4";
-          androidComposition = pkgs.androidenv.composeAndroidPackages {
-            # Installing both version for aapt2 and version that flutter wants
-            buildToolsVersions = [buildToolsVersionForAapt2 "30.0.3"];
-            platformVersions = ["34" "33" "31" "30" "29"];
-            abiVersions = ["armeabi-v7a" "arm64-v8a" "x86" "x86_64"];
-            includeEmulator = true;
-            emulatorVersion = "34.1.9";
-            toolsVersion = "26.1.1";
-            platformToolsVersion = "33.0.3";
-            includeSources = false;
-            includeSystemImages = false;
-            systemImageTypes = ["google_apis_playstore"];
-            # cmakeVersions = [ "3.10.2" ];
-            includeNDK = true;
-            # ndkVersions = [ "22.0.7026061" ];
-            useGoogleAPIs = false;
-            useGoogleTVAddOns = false;
-            extraLicenses = [
-              "android-googletv-license"
-              "android-sdk-arm-dbt-license"
-              "android-sdk-license"
-              "android-sdk-preview-license"
-              "google-gdk-license"
-              "intel-android-extra-license"
-              "intel-android-sysimage-license"
-              "mips-android-sysimage-license"
-            ];
-          };
-          androidSdk = androidComposition.androidsdk;
+          android-nixpkgs = pkgs.callPackage inputs.android-nixpkgs {};
+          androidSdk = android-nixpkgs.sdk (sdkPkgs:
+            with sdkPkgs; [
+              cmdline-tools-latest
+              build-tools-34-0-0
+              build-tools-30-0-3
+              platform-tools
+              platforms-android-34
+              platforms-android-33
+              platforms-android-31
+              platforms-android-30
+              emulator
+            ]);
           PWD = builtins.getEnv "PWD";
         in
           pkgs.mkShell {
@@ -71,7 +56,7 @@
             ANDROID_AVD_HOME = "${PWD}/.android/avd";
             ANDROID_HOME = "${androidSdk}/libexec/android-sdk";
             FLUTTER_SDK = "${pkgs.flutter}";
-            GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/libexec/android-sdk/build-tools/${buildToolsVersionForAapt2}/aapt2";
+            GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/share/android-sdk/build-tools/34.0.0/aapt2";
             LD_LIBRARY_PATH = "${PWD}/apps/onyx/build/linux/x64/debug/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/release/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/profile/bundle/lib/";
             buildInputs = with pkgs; [
               chromium
