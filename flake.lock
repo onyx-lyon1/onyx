@@ -100,6 +100,7 @@
     },
     "nixpkgs": {
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1709237383,
         "narHash": "sha256-cy6ArO4k5qTx+l5o+0mL9f5fa86tYUX3ozE1S+Txlds=",
         "owner": "NixOS",
@@ -119,14 +120,23 @@
         "lastModified": 1711274483,
         "narHash": "sha256-DW0QdV+pYlwXqlZre937q+FaUW8+6PedZuKMouR70ls=",
         "owner": "hatch01",
+||||||| 4aa7e6d5 (temporarly use personnal nixpkgs waiting for pr to be merged)
+        "lastModified": 1711274483,
+        "narHash": "sha256-DW0QdV+pYlwXqlZre937q+FaUW8+6PedZuKMouR70ls=",
+        "owner": "hatch01",
+=======
+        "lastModified": 1710669607,
+        "narHash": "sha256-kNj0Ka1/rkQRcigYTa1c5B6IcFuxDgM3s9jYuKUhxyM=",
+        "owner": "NixOS",
+>>>>>>> parent of 4aa7e6d5 (temporarly use personnal nixpkgs waiting for pr to be merged)
         "repo": "nixpkgs",
-        "rev": "2d213ca5778268b3290b5dbf329e4262fe95b581",
+        "rev": "6af7e814afb3b62171eee1edc31989ee61528d25",
         "type": "github"
       },
       "original": {
-        "owner": "hatch01",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "ref": "nixpkgs-unstable",
+        "type": "indirect"
       }
     },
     "root": {
