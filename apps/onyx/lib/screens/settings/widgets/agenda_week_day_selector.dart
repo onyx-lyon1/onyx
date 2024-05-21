@@ -30,7 +30,7 @@ class AgendaWeekDaySelector extends StatelessWidget {
                 color: colorCondition(i)
                     ? Theme.of(context).primaryColor
                     : (disabledCondition?.call(i) ?? false
-                        ? Theme.of(context).colorScheme.background
+                        ? Theme.of(context).colorScheme.surface
                         : Theme.of(context).cardColor),
                 child: InkWell(
                   onTap: disabledCondition?.call(i) ?? false

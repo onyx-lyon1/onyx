@@ -18,7 +18,7 @@ class LoadingHeaderWidget extends StatelessWidget {
         duration: const Duration(milliseconds: 1000),
         height: 5.h,
         width: 100.w,
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -31,7 +31,7 @@ class LoadingHeaderWidget extends StatelessWidget {
                     return LinearProgressIndicator(
                       value: value,
                       color: Theme.of(context).primaryColor.withOpacity(0.5),
-                      backgroundColor: Theme.of(context).colorScheme.background,
+                      backgroundColor: Theme.of(context).colorScheme.surface,
                       minHeight: 5.h,
                     );
                   }),

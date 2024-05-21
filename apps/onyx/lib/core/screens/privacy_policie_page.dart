@@ -11,7 +11,7 @@ class PrivacyPolicyPage extends StatelessWidget {
         title: Text(AppLocalizations.of(context).privacyPolicy),
         backgroundColor: Theme.of(context).cardColor,
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

@@ -25,7 +25,7 @@ class OnyxTheme {
       bodySmall: TextStyle(color: Colors.black),
     ),
     colorScheme: const ColorScheme.dark(
-      background: Color(0xff434c5e),
+      surface: Color(0xff434c5e),
       primary: Color(0xffd08770),
     ),
   );
@@ -53,7 +53,7 @@ class OnyxTheme {
       bodySmall: TextStyle(color: Colors.white),
     ),
     colorScheme: const ColorScheme.light(
-      background: Color(0xffd8dee9),
+      surface: Color(0xffd8dee9),
       primary: Color(0xffd08770),
     ),
   );
@@ -81,7 +81,7 @@ class OnyxTheme {
       bodySmall: TextStyle(color: Colors.black),
     ),
     colorScheme: const ColorScheme.dark(
-      background: Color.fromARGB(255, 20, 20, 30),
+      surface: Color.fromARGB(255, 20, 20, 30),
       primary: Color.fromARGB(255, 80, 120, 255),
     ),
   );
@@ -108,7 +108,7 @@ class OnyxTheme {
       bodySmall: TextStyle(color: Colors.white),
     ),
     colorScheme: const ColorScheme.light(
-      background: Color.fromARGB(255, 204, 226, 255),
+      surface: Color.fromARGB(255, 204, 226, 255),
       primary: Color.fromARGB(255, 74, 166, 236),
     ),
   );
@@ -136,7 +136,7 @@ class OnyxTheme {
       bodySmall: TextStyle(color: Colors.black),
     ),
     colorScheme: const ColorScheme.dark(
-      background: Color.fromARGB(255, 20, 20, 20),
+      surface: Color.fromARGB(255, 20, 20, 20),
       primary: Color.fromARGB(255, 255, 87, 34),
     ),
   );
@@ -164,7 +164,7 @@ class OnyxTheme {
       bodySmall: TextStyle(color: Colors.black),
     ),
     colorScheme: const ColorScheme.dark(
-      background: Color.fromARGB(255, 10, 10, 10),
+      surface: Color.fromARGB(255, 10, 10, 10),
       primary: Color.fromARGB(255, 200, 200, 200),
     ),
   );
@@ -192,7 +192,7 @@ class OnyxTheme {
       bodySmall: TextStyle(color: Colors.black),
     ),
     colorScheme: const ColorScheme.dark(
-      background: Color.fromARGB(255, 20, 25, 30),
+      surface: Color.fromARGB(255, 20, 25, 30),
       primary: Color.fromARGB(255, 140, 180, 200),
     ),
   );
@@ -220,7 +220,7 @@ class OnyxTheme {
       bodySmall: TextStyle(color: Colors.white),
     ),
     colorScheme: const ColorScheme.light(
-      background: Color.fromARGB(255, 198, 226, 143),
+      surface: Color.fromARGB(255, 198, 226, 143),
       primary: Color.fromARGB(255, 34, 139, 34),
     ),
   );

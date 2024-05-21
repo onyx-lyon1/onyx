@@ -203,7 +203,7 @@ class AgendaConfigPage extends StatelessWidget {
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
+                          color: Theme.of(context).colorScheme.surface,
                           borderRadius: BorderRadius.circular(100),
                         ),
                         margin: const EdgeInsets.all(8.0),

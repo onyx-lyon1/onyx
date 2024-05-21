@@ -56,7 +56,7 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
                   SizedBox(height: 5.h),
                   if (cbs.isNotEmpty)
                     DropdownButton(
-                      dropdownColor: Theme.of(context).colorScheme.background,
+                      dropdownColor: Theme.of(context).colorScheme.surface,
                       value: dropDownValue,
                       items: [
                         for (var i = 0; i < cbs.length; i++)

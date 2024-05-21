@@ -34,7 +34,7 @@ class MailSendPage extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  backgroundColor: Theme.of(context).colorScheme.background,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
                   title:
                       Text(AppLocalizations.of(context).mailSendPageErrorTitle),
                 ),
@@ -47,7 +47,7 @@ class MailSendPage extends StatelessWidget {
           if (state.status != EmailSendStatus.initial) {
             return SafeArea(
               child: Scaffold(
-                backgroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 bottomSheet: const EmailSendBottomBarWidget(),
                 body: Padding(
                   padding: EdgeInsets.only(bottom: 5.h),
@@ -71,7 +71,7 @@ class MailSendPage extends StatelessWidget {
                                     builder: (context) => AlertDialog(
                                       backgroundColor: Theme.of(context)
                                           .colorScheme
-                                          .background,
+                                          .surface,
                                       title: Text(
                                         AppLocalizations.of(context)
                                             .mailSendPageDiscardTitle,
@@ -156,7 +156,7 @@ class MailSendPage extends StatelessWidget {
                                               borderSide: BorderSide(
                                                 color: Theme.of(context)
                                                     .colorScheme
-                                                    .background,
+                                                    .surface,
                                                 width: 1,
                                               ),
                                             )),

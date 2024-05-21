@@ -66,7 +66,7 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Material(
             elevation: 4.0,
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             child: ListView(
               padding: EdgeInsets.all(1.h),
               shrinkWrap: true,
@@ -91,7 +91,7 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
           VoidCallback onFieldSubmitted) {
         return Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(100),
           ),
           margin: const EdgeInsets.all(10),

@@ -14,7 +14,7 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       title: Text(
         'Enregistrer ou ouvrir le fichier',
         style: TextStyle(fontSize: 20.sp),

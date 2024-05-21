@@ -31,7 +31,7 @@ class MonthViewWidget extends StatelessWidget {
         GridWidget(
           columnWidth: columnWidth,
           dayCount: dayCount,
-          month: true,
+          // month: true,
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,

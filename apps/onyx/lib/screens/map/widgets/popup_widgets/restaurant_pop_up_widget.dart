@@ -29,7 +29,7 @@ class RestaurantPopUpWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
       ),
       constraints: BoxConstraints(
         maxWidth: 60.w,

@@ -25,7 +25,7 @@ class _TomussPageState extends State<TomussPage> {
       context: context,
       expand: false,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       builder: (context) => SafeArea(
         child: SingleChildScrollView(
           controller: ModalScrollController.of(context),

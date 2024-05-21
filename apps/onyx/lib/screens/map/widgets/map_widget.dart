@@ -131,8 +131,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                     });
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        Theme.of(context).colorScheme.background),
+                    backgroundColor: WidgetStateProperty.all(
+                        Theme.of(context).colorScheme.surface),
                   ),
                   icon: Icon(
                     Icons.location_searching_rounded,
@@ -147,8 +147,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                   mapController.centerOnPoint(MapRes.center, zoom: 16.5);
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      Theme.of(context).colorScheme.background),
+                  backgroundColor: WidgetStateProperty.all(
+                      Theme.of(context).colorScheme.surface),
                 ),
                 icon: Icon(
                   Icons.location_city_rounded,
@@ -173,12 +173,12 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
         mapController: mapController.mapController,
         children: [
           TileLayer(
-            tileProvider: FMTC.instance("mapStore").getTileProvider(
-                  settings: FMTCTileProviderSettings(
-                    cachedValidDuration: const Duration(days: 999999),
-                    behavior: CacheBehavior.cacheFirst,
-                  ),
-                ),
+            tileProvider: const FMTCStore("mapStore").getTileProvider(
+              settings: FMTCTileProviderSettings(
+                cachedValidDuration: const Duration(days: 999999),
+                behavior: CacheBehavior.cacheFirst,
+              ),
+            ),
             urlTemplate: "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
             userAgentPackageName: 'fr.onyx.lyon1',
           ),
@@ -232,7 +232,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                   return Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.surface,
                     ),
                     child: Center(
                       child: Text(
@@ -263,8 +263,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                       callback();
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          Theme.of(context).colorScheme.background),
+                      backgroundColor: WidgetStateProperty.all(
+                          Theme.of(context).colorScheme.surface),
                     ),
                     icon: Icon(
                       Icons.zoom_in_map_rounded,
@@ -289,8 +289,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                       callback();
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          Theme.of(context).colorScheme.background),
+                      backgroundColor: WidgetStateProperty.all(
+                          Theme.of(context).colorScheme.surface),
                     ),
                     icon: Icon(
                       Icons.zoom_out_map_rounded,

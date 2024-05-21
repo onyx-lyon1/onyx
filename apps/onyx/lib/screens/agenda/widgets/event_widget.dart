@@ -24,8 +24,8 @@ class EventWidget extends StatelessWidget {
       //Theme.of(context).cardTheme.color!,
       closedElevation: 0.0,
       openElevation: 0.0,
-      openColor: Theme.of(context).colorScheme.background,
-      middleColor: Theme.of(context).colorScheme.background,
+      openColor: Theme.of(context).colorScheme.surface,
+      middleColor: Theme.of(context).colorScheme.surface,
       transitionType: ContainerTransitionType.fadeThrough,
       closedShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),

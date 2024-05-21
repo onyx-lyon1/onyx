@@ -41,7 +41,7 @@ class DropDownWidget extends StatelessWidget {
           onChanged: (value) => onChanged(value as int),
           value: value,
           borderRadius: BorderRadius.circular(10),
-          dropdownColor: Theme.of(context).colorScheme.background,
+          dropdownColor: Theme.of(context).colorScheme.surface,
           focusColor: Theme.of(context).cardTheme.color,
           alignment: AlignmentDirectional.centerEnd,
         ),

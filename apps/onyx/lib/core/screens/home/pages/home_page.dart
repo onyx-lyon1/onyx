@@ -70,9 +70,10 @@ class HomePageState extends State<HomePage> {
       if (mainPageController.offset == index * 100.w) {
         bottomBarController
             .animateTo(pageOffsetToBottomBarOffset(mainPageController.offset),
-                duration: Res.animationDuration, curve: Curves.easeInOut)
-            .then((value) => setState(
-                () {})); //setState needed to get the right color at animation end
+            duration: Res.animationDuration, curve: Curves.easeInOut)
+            .then((value) =>
+            setState(
+                    () {})); //setState needed to get the right color at animation end
       }
       mainPageController.animateTo(index * 100.w,
           duration: Res.animationDuration, curve: Curves.easeInOut);
@@ -100,7 +101,10 @@ class HomePageState extends State<HomePage> {
     return BlocBuilder<AuthentificationCubit, AuthentificationState>(
       builder: (context, authState) {
         return Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme
+              .of(context)
+              .colorScheme
+              .surface,
           resizeToAvoidBottomInset: false,
           body: SafeArea(
             child: Column(
@@ -109,12 +113,14 @@ class HomePageState extends State<HomePage> {
                   child: CommonScreenWidget(
                     onRefresh: () async {},
                     state: (context
-                                .read<AuthentificationCubit>()
-                                .state
-                                .status ==
-                            AuthentificationStatus.authentificating)
+                        .read<AuthentificationCubit>()
+                        .state
+                        .status ==
+                        AuthentificationStatus.authentificating)
                         ? LoadingHeaderWidget(
-                            message: AppLocalizations.of(context).casConnexion)
+                        message: AppLocalizations
+                            .of(context)
+                            .casConnexion)
                         : null,
                     body: InfiniteScrollLoopWidget(
                       key: const Key("home"),
@@ -127,12 +133,12 @@ class HomePageState extends State<HomePage> {
                               .state
                               .settings
                               .enabledFunctionalities[index %
-                                  context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .settings
-                                      .enabledFunctionalities
-                                      .length]
+                              context
+                                  .read<SettingsCubit>()
+                                  .state
+                                  .settings
+                                  .enabledFunctionalities
+                                  .length]
                               .toPage(),
                         );
                       },
@@ -154,11 +160,11 @@ class HomePageState extends State<HomePage> {
                     scrollController: bottomBarController,
                     currentIndex: bottomBarController.hasClients
                         ? (((bottomBarController.offset +
-                                    ((bottomBarController.offset > 0)
-                                        ? Res.bottomNavBarItemWidth / 2
-                                        : -Res.bottomNavBarItemWidth / 2)) ~/
-                                Res.bottomNavBarItemWidth) +
-                            2)
+                        ((bottomBarController.offset > 0)
+                            ? Res.bottomNavBarItemWidth / 2
+                            : -Res.bottomNavBarItemWidth / 2)) ~/
+                        Res.bottomNavBarItemWidth) +
+                        2)
                         : 0,
                     onTap: (realIndex) {
                       actionOnTap(context, realIndex, mainPageController);

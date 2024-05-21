@@ -40,7 +40,7 @@ class SemesterChooserWidget extends StatelessWidget {
                                   .semesters
                                   .indexOf(semester))
                           ? Theme.of(context).primaryColor
-                          : Theme.of(context).colorScheme.background,
+                          : Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(10),
                   child: InkWell(
                     onTap: () {

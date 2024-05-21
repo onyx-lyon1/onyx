@@ -32,9 +32,9 @@ class QrCodeScannerPageState extends State<QrCodeScannerPage> {
         backgroundColor: Theme.of(context).cardTheme.color,
         elevation: 2,
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Container(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         child: cameraGranted
             ? QRCodeDartScanView(
                 scanInvertedQRCode: true,

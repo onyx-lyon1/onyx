@@ -20,11 +20,11 @@ class CommonScreenWidget extends StatelessWidget {
           duration: Res.animationDuration,
           margin: EdgeInsets.only(top: (state != null) ? 5.h : 0),
           width: 100.w,
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           child: (onRefresh != null)
               ? RefreshIndicator(
                   onRefresh: onRefresh!,
-                  backgroundColor: Theme.of(context).colorScheme.background,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
                   color: Theme.of(context).primaryColor,
                   child: Column(
                     children: [

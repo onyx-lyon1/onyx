@@ -52,7 +52,7 @@ class MailSendAutocompleteWidget extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Material(
             elevation: 4.0,
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             child: SizedBox(
               height: 20.h,
               child: ListView(
@@ -102,7 +102,7 @@ class MailSendAutocompleteWidget extends StatelessWidget {
                 ),
                 border: UnderlineInputBorder(
                   borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                     width: 1,
                   ),
                 )),

@@ -30,7 +30,7 @@ class MapPage extends StatelessWidget {
             children: [
               if (enableBackButton)
                 IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

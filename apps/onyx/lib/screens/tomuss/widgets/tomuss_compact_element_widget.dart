@@ -40,7 +40,7 @@ class TomussCompactElementWidget extends StatelessWidget {
           : Res.bottomNavBarHeight * 3,
       child: Material(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: color ?? Theme.of(context).colorScheme.background,
+        color: color ?? Theme.of(context).colorScheme.surface,
         child: InkWell(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             onTap: onTap,
@@ -62,15 +62,15 @@ class TomussCompactElementWidget extends StatelessWidget {
                               style: TextStyle(
                                 overflow: TextOverflow.clip,
                                 color:
-                                    (Theme.of(context).colorScheme.background ==
+                                    (Theme.of(context).colorScheme.surface ==
                                             OnyxTheme.darkTheme.colorScheme
-                                                .background)
+                                                .surface)
                                         ? Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
                                             .color
                                         : OnyxTheme
-                                            .darkTheme.colorScheme.background,
+                                            .darkTheme.colorScheme.surface,
                               ),
                             ),
                     ),
@@ -93,15 +93,15 @@ class TomussCompactElementWidget extends StatelessWidget {
                                   color:
                                       (Theme.of(context)
                                                   .colorScheme
-                                                  .background ==
+                                                  .surface ==
                                               OnyxTheme.darkTheme.colorScheme
-                                                  .background)
+                                                  .surface)
                                           ? Theme.of(context)
                                               .textTheme
                                               .bodyMedium!
                                               .color
                                           : OnyxTheme
-                                              .darkTheme.colorScheme.background,
+                                              .darkTheme.colorScheme.surface,
                                 ),
                               ),
                             ),
@@ -122,15 +122,15 @@ class TomussCompactElementWidget extends StatelessWidget {
                               style: TextStyle(
                                 overflow: TextOverflow.clip,
                                 color:
-                                    (Theme.of(context).colorScheme.background ==
+                                    (Theme.of(context).colorScheme.surface ==
                                             OnyxTheme.darkTheme.colorScheme
-                                                .background)
+                                                .surface)
                                         ? Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
                                             .color
                                         : OnyxTheme
-                                            .darkTheme.colorScheme.background,
+                                            .darkTheme.colorScheme.surface,
                               ),
                             ),
                     ),

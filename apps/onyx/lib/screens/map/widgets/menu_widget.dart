@@ -24,7 +24,7 @@ class MenuWidget extends StatelessWidget {
         ),
         Container(
           height: 0.2.h,
-          color: Theme.of(context).colorScheme.onBackground,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         for (PlatCrous platCrous in menuCrous.plats)
           Column(

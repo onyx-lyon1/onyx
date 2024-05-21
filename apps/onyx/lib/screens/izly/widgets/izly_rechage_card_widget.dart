@@ -25,7 +25,7 @@ class IzlayRechargeCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       closedColor: Theme.of(context).primaryColor,
-      openColor: Theme.of(context).colorScheme.background,
+      openColor: Theme.of(context).colorScheme.surface,
       transitionDuration: Res.animationDuration,
       onClosed: (value) {
         Future.delayed(Res.animationDuration, () {

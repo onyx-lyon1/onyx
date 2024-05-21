@@ -61,7 +61,7 @@ class _MailContentWidgetState extends State<MailContentWidget> {
       );
 
       webViewController!
-          .setBackgroundColor(Theme.of(context).colorScheme.background);
+          .setBackgroundColor(Theme.of(context).colorScheme.surface);
       webViewController!.loadHtmlString(
         html,
       );

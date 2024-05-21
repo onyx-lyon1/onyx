@@ -26,8 +26,8 @@ void main() async {
     await NotificationLogic.init();
   }
 
-  await FlutterMapTileCaching.initialise();
-  await FMTC.instance('mapStore').manage.createAsync();
+  await FMTCObjectBoxBackend().initialise();
+  await const FMTCStore('mapStore').manage.create();
   await hiveInit();
 
   SystemChrome.setPreferredOrientations([

@@ -14,7 +14,7 @@ class EnumerationWidget extends StatelessWidget {
     return TomussElementWidget(
       left: (enumeration.modifiable)
           ? PopupMenuButton(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               initialValue: enumeration.value,
               itemBuilder: (BuildContext context) {
                 return enumeration.values.map((String value) {

@@ -19,7 +19,7 @@ class MailDetailsPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body: Container(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             child: SafeArea(
               child: Column(
                 mainAxisSize: MainAxisSize.max,

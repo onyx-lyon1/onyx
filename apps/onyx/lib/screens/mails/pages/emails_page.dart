@@ -106,9 +106,9 @@ class MailsPage extends StatelessWidget {
                 .unselectAllMails(AppLocalizations.of(context));
           },
           child: Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             floatingActionButton: OpenContainer(
-              openColor: Theme.of(context).colorScheme.background,
+              openColor: Theme.of(context).colorScheme.surface,
               closedColor: (!state.connected)
                   ? Theme.of(context).disabledColor
                   : Theme.of(context).primaryColor,
@@ -149,7 +149,7 @@ class MailsPage extends StatelessWidget {
                             (state.currentMailBox?.emails.isNotEmpty ??
                                 false)) {
                           return Material(
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).colorScheme.surface,
                             child: (state.status == MailStatus.loading)
                                 ? Center(
                                     child: Padding(

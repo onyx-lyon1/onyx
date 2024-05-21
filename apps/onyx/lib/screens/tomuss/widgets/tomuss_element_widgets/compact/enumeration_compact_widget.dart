@@ -23,7 +23,7 @@ class EnumerationCompactWidget extends StatelessWidget {
       text3: teachingUnitTitle,
       child2: (enumeration.modifiable)
           ? PopupMenuButton(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               initialValue: enumeration.value,
               itemBuilder: (BuildContext context) {
                 return enumeration.values.map((String value) {

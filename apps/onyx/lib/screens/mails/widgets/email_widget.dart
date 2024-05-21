@@ -20,7 +20,7 @@ class MailWidget extends StatelessWidget {
   }
 
   Color unreadBgColor(BuildContext c) {
-    return Theme.of(c).colorScheme.background;
+    return Theme.of(c).colorScheme.surface;
   }
 
   Color readText1Color(BuildContext c) {
@@ -68,7 +68,7 @@ class MailWidget extends StatelessWidget {
       useRootNavigator: true,
       transitionDuration: Res.animationDuration,
       closedColor: email.isRead ? readBgColor(context) : unreadBgColor(context),
-      openColor: Theme.of(context).colorScheme.background,
+      openColor: Theme.of(context).colorScheme.surface,
       onClosed: (value) {
         context.read<EmailCubit>().markAsRead(
               email: email,

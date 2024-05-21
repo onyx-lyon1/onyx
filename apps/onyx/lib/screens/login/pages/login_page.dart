@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
             message: AppLocalizations.of(context).initialization);
       case AuthentificationStatus.needCredential:
         return Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           resizeToAvoidBottomInset: false,
           body: Center(
             child: Column(

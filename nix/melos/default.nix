@@ -4,12 +4,12 @@
   buildDartApplication,
 }: let
   pname = "melos";
-  version = "3.4.0";
+  version = "6.0.0";
   repo = fetchFromGitHub {
     owner = "invertase";
     repo = pname;
     rev = "melos-v${version}";
-    hash = "sha256-8G0pARg6jeYzV6XhjvrauazCKDp/G54uZ0o7o9UtLq4=";
+    hash = "sha256-mbkaCO+MUpqYep4Z7eDSiQ6Okcg6vY3L9SkkI2L14A0=";
   };
 in
   buildDartApplication {
@@ -20,8 +20,6 @@ in
     patches = [./add-generic-main.patch];
 
     pubspecLock = lib.importJSON ./pubspec.lock.json;
-    depsListFile = ./deps.json;
-    vendorHash = "sha256-h8HfXJOQcfaBlh54/2ODUgswa5vCGgb/5YthutDvOEI=";
 
     meta = with lib; {
       homepage = "https://github.com/invertase/melos";
