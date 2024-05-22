@@ -40,7 +40,7 @@ class Lyon1ExamenClient {
       final rawDate =
           dateElements.map((e) => e.text).toList().sublist(0, 2).join(" ");
       final splitedDate =
-          RegExp(r'(\w+) (\d{2})/(\d{2})/(\d{4}) (\d{2})h(\d{2})$')
+          RegExp(r'(\w+) (\d{2})/(\d{2})/(\d{4}) (\d{1,2})h(\d{1,2})$')
               .firstMatch(rawDate)!;
       final date = DateTime(
           int.parse(splitedDate.group(4)!),
