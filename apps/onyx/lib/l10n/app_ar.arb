@@ -214,5 +214,6 @@
     "izlyNotEnoughMoneyBody": "لديك فقط {money}€ متبقية في حساب إيزلي الخاص بك",
     "mailSendPageDiscardTitle": "تجاهل التغييرات؟",
     "mailSendPageDiscardContent": "هل تريد بالتأكيد تجاهل التغييرات التي أدخلتها؟",
-    "discard": "غادر"
+    "discard": "غادر",
+    "more": "أكثر"
 }

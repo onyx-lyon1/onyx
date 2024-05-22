@@ -215,5 +215,6 @@
   "izlyNotEnoughMoneyBody": "У вас осталось всего {money}€ на вашем счете Izly",
   "mailSendPageDiscardTitle": "Отменить отправку письма?",
   "mailSendPageDiscardContent": "Вы уверены, что хотите отменить отправку письма?",
-  "discard": "Отменить"
+  "discard": "Отменить",
+  "more": "Еще"
 }
