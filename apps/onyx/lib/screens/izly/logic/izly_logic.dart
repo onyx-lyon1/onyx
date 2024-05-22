@@ -24,8 +24,8 @@ class IzlyLogic {
         return (await rootBundle.load(Res.izlyLogoPath)).buffer.asUint8List();
       } else {
         //if there is no internet it may be better not to delete the last qrcode
-        if ((await Connectivity().checkConnectivity()) ==
-                ConnectivityResult.none &&
+        if ((await Connectivity().checkConnectivity())
+                .contains(ConnectivityResult.none) &&
             qrCodeModels.length == 1) {
           return qrCodeModels[0].qrCode;
         }

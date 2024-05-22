@@ -58,8 +58,8 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     emit(state.copyWith(status: AuthentificationStatus.authentificating));
 
     //login
-    if ((await (Connectivity().checkConnectivity())) !=
-        ConnectivityResult.none) {
+    if (!(await (Connectivity().checkConnectivity()))
+        .contains(ConnectivityResult.none)) {
       try {
         ({bool authResult, Credential credential}) auth =
             await _lyon1Cas.authenticate(creds);
@@ -82,7 +82,7 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
       }
     } else {
       Connectivity().onConnectivityChanged.listen((event) {
-        if (event != ConnectivityResult.none) {
+        if (!event.contains(ConnectivityResult.none)) {
           Res.logger.d("retrieve connection");
           login(
             creds: creds,

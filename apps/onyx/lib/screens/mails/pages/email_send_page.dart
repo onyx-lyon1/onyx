@@ -69,9 +69,8 @@ class MailSendPage extends StatelessWidget {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .surface,
+                                      backgroundColor:
+                                          Theme.of(context).colorScheme.surface,
                                       title: Text(
                                         AppLocalizations.of(context)
                                             .mailSendPageDiscardTitle,
@@ -203,7 +202,6 @@ class MailSendPage extends StatelessWidget {
                               child: QuillEditor.basic(
                                 configurations: QuillEditorConfigurations(
                                   controller: state.controller!,
-                                  readOnly: false, // true for view only mode
                                   minHeight: (100 -
                                           (8 +
                                               1 +

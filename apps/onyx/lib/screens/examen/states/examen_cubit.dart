@@ -174,9 +174,10 @@ class ExamenCubit extends Cubit<ExamenState> {
     } catch (e) {
       Res.logger.e(e);
       emit(state.copyWith(status: ExamenStatus.error));
-      if (await Connectivity().checkConnectivity() == ConnectivityResult.none) {
+      if ((await Connectivity().checkConnectivity())
+          .contains(ConnectivityResult.none)) {
         Connectivity().onConnectivityChanged.listen((event) async {
-          if (event != ConnectivityResult.none) {
+          if (!event.contains(ConnectivityResult.none)) {
             resetCubit();
           }
         });
