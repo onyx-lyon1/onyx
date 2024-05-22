@@ -397,10 +397,10 @@ packages:
     dependency: transitive
     description:
       name: dart_quill_delta
-      sha256: e2f0be62c733a1f2ba51f70a8b544acd5a19ea726e409dd341e5f4a35582cfe0
+      sha256: e302834747f0ce555d82d337f5a55dfd271231f03800ad8131fe9445c676c215
       url: "https://pub.dev"
     source: hosted
-    version: "9.3.18"
+    version: "9.3.19"
   dart_style:
     dependency: transitive
     description:
@@ -470,7 +470,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "7478471d0a3e1926375de7d46d8bd781976acfb7"
+      resolved-ref: "746286eec26806187aac4f34a70aa8a2d51ddc09"
       url: "https://github.com/onyx-lyon1/DragAndDropLists.git"
     source: git
     version: "0.3.3"
@@ -776,10 +776,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: "94922fbb84f9ac4949f355bfb0337da1fb61f1110a0069d8b5d65746379a8dc0"
+      sha256: da6f19abda6662dd3a4da7e16f17492e3205b20d09f68ffd8c0b19ec0688a343
       url: "https://pub.dev"
     source: hosted
-    version: "9.3.18"
+    version: "9.3.19"
   flutter_test:
     dependency: "direct dev"
     description: flutter
