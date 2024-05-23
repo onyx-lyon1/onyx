@@ -29,47 +29,37 @@ class BottomNavBarWidget extends StatelessWidget {
                 curve: Curves.easeInOut,
                 //80 is the default height of the navigation bar
                 padding: EdgeInsets.only(
-                    bottom: state.showSecondaryScreens ? 50 : 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (state.showSecondaryScreens)
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10, top: 10),
-                        child: InkWell(
-                            onTap: () {
-                              // Navigator.of(context).pushNamed(SettingsPage.routeName);
-                            },
-                            child: Text("coucou")),
-                      ),
-                    NavigationBar(
-                      selectedIndex: ((state.disabledSelectedIndex ?? 0) -
-                              enabledDestinations.length +
-                              1)
-                          .clamp(0, disabledDestinations.length - 1),
-                      indicatorColor: (state.disabledSelectedIndex == null)
-                          ? Colors.transparent
-                          : Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.5),
-                      onDestinationSelected: (int index) {
-                        context.read<HomeCubit>().updateSelectedIndex(
-                            enabledDestinations.length - 1 + index, true);
-                      },
-                      destinations: disabledDestinations
-                          .map((page) => NavigationDestination(
-                              icon: Icon(
-                                page.icon,
-                                color: (state.disabledSelectedIndex == null)
-                                    ? Theme.of(context).iconTheme.color
-                                    : null,
-                              ),
-                              label: page.title))
-                          .toList(),
-                    ),
-                  ],
+                    bottom: state.showSecondaryScreens ? 67 : 0),
+                child: Container(
+                  height: 80,
+                  color: Theme.of(context).colorScheme.surface,
+                  child: NavigationBar(
+                    selectedIndex: ((state.disabledSelectedIndex ?? 0) -
+                            enabledDestinations.length +
+                            1)
+                        .clamp(0, disabledDestinations.length - 1),
+                    height: 80,
+                    indicatorColor: (state.disabledSelectedIndex == null)
+                        ? Colors.transparent
+                        : Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withOpacity(0.5),
+                    onDestinationSelected: (int index) {
+                      context.read<HomeCubit>().updateSelectedIndex(
+                          enabledDestinations.length - 1 + index, true);
+                    },
+                    destinations: disabledDestinations
+                        .map((page) => NavigationDestination(
+                            icon: Icon(
+                              page.icon,
+                              color: (state.disabledSelectedIndex == null)
+                                  ? Theme.of(context).iconTheme.color
+                                  : null,
+                            ),
+                            label: page.title))
+                        .toList(),
+                  ),
                 ),
               ),
             ),
@@ -80,8 +70,10 @@ class BottomNavBarWidget extends StatelessWidget {
                   ? Colors.transparent
                   : Theme.of(context).colorScheme.primary.withOpacity(0.5),
               onDestinationSelected: (int index) {
+                Res.logger.e(enabledDestinations.length - 1);
+                Res.logger.e(index);
                 if (index == enabledDestinations.length - 1) {
-                  context.read<HomeCubit>().showSecondaryScreens();
+                  context.read<HomeCubit>().toggleSecondaryScreens();
                 } else {
                   context.read<HomeCubit>().updateSelectedIndex(index, false);
                 }
