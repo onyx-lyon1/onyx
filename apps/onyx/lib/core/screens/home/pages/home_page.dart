@@ -80,11 +80,6 @@ class HomePageState extends State<HomePage> {
                       ...disabledFunctionalities
                     ][index]
                         .toPage();
-                    Res.logger.e("index : $index");
-                    Res.logger.e("view : ${[
-                      ...enabledFunctionalities,
-                      ...disabledFunctionalities
-                    ]}");
                     if (index ==
                         (disabledSelectedIndex ?? enabledSelectedIndex)) {
                       return Offstage(offstage: false, child: view);
