@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/screens/bloc_connections/bloc_connection_screen.dart';
@@ -18,7 +19,6 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'core/widgets/states_displaying/state_displaying_widget_export.dart';
 
@@ -54,6 +54,7 @@ class OnyxAppState extends State<OnyxApp> {
     return ResponsiveSizer(
       builder: (context, orientation, deviceType) => MultiBlocProvider(
         providers: [
+          BlocProvider<HomeCubit>(create: (context) => HomeCubit()),
           BlocProvider<AuthentificationCubit>(
               create: (context) => AuthentificationCubit(widget.settings)),
           BlocProvider<SettingsCubit>(

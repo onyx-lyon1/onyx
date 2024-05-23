@@ -33,14 +33,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.11"
+  ansicolor:
+    dependency: transitive
+    description:
+      name: ansicolor
+      sha256: "8bf17a8ff6ea17499e40a2d2542c2f481cd7615760c6d34065cb22bfd22e6880"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   archive:
     dependency: transitive
     description:
       name: archive
-      sha256: ecf4273855368121b1caed0d10d4513c7241dfc813f7d3c8933b36622ae9b265
+      sha256: "6bd38d335f0954f5fad9c79e614604fbf03a0e5b975923dd001b6ea965ef5b4b"
       url: "https://pub.dev"
     source: hosted
-    version: "3.5.1"
+    version: "3.6.0"
   args:
     dependency: transitive
     description:
@@ -386,13 +394,21 @@ packages:
     source: hosted
     version: "1.1.0"
   dart_mappable:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: dart_mappable
       sha256: "47269caf2060533c29b823ff7fa9706502355ffcb61e7f2a374e3a0fb2f2c3f0"
       url: "https://pub.dev"
     source: hosted
     version: "4.2.2"
+  dart_mappable_builder:
+    dependency: "direct dev"
+    description:
+      name: dart_mappable_builder
+      sha256: ab5cf9086862d3fceb9773e945b5f95cc5471a28c782a4fc451bd400a4e0c64e
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.3"
   dart_quill_delta:
     dependency: transitive
     description:
@@ -954,10 +970,10 @@ packages:
     dependency: transitive
     description:
       name: image
-      sha256: "4c68bfd5ae83e700b5204c1e74451e7bf3cf750e6843c6e158289cf56bda018e"
+      sha256: "2237616a36c0d69aef7549ab439b833fb7f9fb9fc861af2cc9ac3eedddd69ca8"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.7"
+    version: "4.2.0"
   intl:
     dependency: "direct main"
     description:
@@ -1921,10 +1937,10 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter_android
-      sha256: dad3313c9ead95517bb1cae5e1c9d20ba83729d5a59e5e83c0a2d66203f27f91
+      sha256: "2282ba2320af34b2bd5320156c664d73f3f022341ed78847bc87723bf88c142f"
       url: "https://pub.dev"
     source: hosted
-    version: "3.16.1"
+    version: "3.16.2"
   webview_flutter_platform_interface:
     dependency: transitive
     description:
