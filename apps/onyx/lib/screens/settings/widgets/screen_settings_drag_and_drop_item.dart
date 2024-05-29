@@ -3,12 +3,11 @@ import 'dart:async';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:onyx/core/extensions/functionalities_extension.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 DragAndDropItem screenSettingsDragAndDropItem(Functionalities functionality) {
   return DragAndDropItem(
@@ -26,53 +25,62 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final StreamController<bool> isExpandedController =
         StreamController<bool>(); //only used for the rotating arrow
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 2.w),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).colorScheme.surface,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minHeight: 50,
       ),
-      child: Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-        child: ExpansionTile(
-          onExpansionChanged: (bool b) => isExpandedController.add(b),
-          initiallyExpanded: false,
-          trailing: const SizedBox.shrink(),
-          leading: StreamBuilder(
-              stream: isExpandedController.stream,
-              builder: (context, snap) {
-                return AnimatedRotation(
-                    turns: (snap.data ?? false) ? .5 : 0,
-                    duration: Res.animationDuration,
-                    child: const Icon(Icons
-                        .keyboard_arrow_down_outlined) // your svgImage here
-                    );
-              }),
-          title: Row(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 2.w),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Theme.of(context).colorScheme.surface,
+        ),
+        child: Theme(
+          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+          child: ExpansionTile(
+            onExpansionChanged: (bool b) => isExpandedController.add(b),
+            initiallyExpanded: false,
+            trailing: const SizedBox.shrink(),
+            leading: StreamBuilder(
+                stream: isExpandedController.stream,
+                builder: (context, snap) {
+                  return AnimatedRotation(
+                      turns: (snap.data ?? false) ? .5 : 0,
+                      duration: Res.animationDuration,
+                      child: const Icon(Icons
+                          .keyboard_arrow_down_outlined) // your svgImage here
+                      );
+                }),
+            title: SizedBox(
+              // height: 50,
+              child: Row(
+                children: [
+                  Icon(functionality.toIcon()),
+                  Text(
+                      functionality.toCleanString(AppLocalizations.of(context)))
+                ],
+              ),
+            ),
+            childrenPadding: const EdgeInsets.all(15),
+            expandedCrossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(functionality.toIcon()),
-              Text(functionality.toCleanString(AppLocalizations.of(context)))
+              BlocListener<SettingsCubit, SettingsState>(
+                //bloc listener handling the collapsing when draging an item
+                listenWhen: (previous, current) {
+                  return current.collapseAll;
+                },
+                listener: (context, state) {
+                  if (state.collapseAll) {
+                    if (ExpansionTileController.maybeOf(context)?.isExpanded ??
+                        false) {
+                      ExpansionTileController.maybeOf(context)?.collapse();
+                    }
+                  }
+                },
+                child: functionality.toSettings(),
+              )
             ],
           ),
-          childrenPadding: const EdgeInsets.all(15),
-          expandedCrossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            BlocListener<SettingsCubit, SettingsState>(
-              //bloc listener handling the collapsing when draging an item
-              listenWhen: (previous, current) {
-                return current.collapseAll;
-              },
-              listener: (context, state) {
-                if (state.collapseAll) {
-                  if (ExpansionTileController.maybeOf(context)?.isExpanded ??
-                      false) {
-                    ExpansionTileController.maybeOf(context)?.collapse();
-                  }
-                }
-              },
-              child: functionality.toSettings(),
-            )
-          ],
         ),
       ),
     );

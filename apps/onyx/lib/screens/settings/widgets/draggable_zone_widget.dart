@@ -1,11 +1,10 @@
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DraggableZoneWidget extends StatelessWidget {
   const DraggableZoneWidget({super.key});
@@ -92,7 +91,14 @@ class DraggableZoneWidget extends StatelessWidget {
                     ? true
                     : false,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+              padding: EdgeInsets.only(
+                left: 5.w,
+                right: 5.w,
+                // 50 is the height of the item
+                // 30 is the size of the icon
+                // so just centering vertically the icon
+                top: (50 / 2 - 30 / 2),
+              ),
               child: Icon(
                 Icons.drag_indicator_rounded,
                 size: 30,
