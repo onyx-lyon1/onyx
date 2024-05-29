@@ -33,34 +33,18 @@ class HomePageState extends State<HomePage> {
                         current.settings.disabledFunctionalities)) {
                   //the page order has changer so we need to adapt the current page to avoir jump
 
-                  final previousIndex = homeState.disabledSelectedIndex ??
-                      homeState.enabledSelectedIndex!;
+                  final previousIndex = homeState.enabledSelectedIndex;
                   final functionalityName = [
                     ...previous.settings.enabledFunctionalities,
-                    ...previous.settings.disabledFunctionalities
                   ][previousIndex]
                       .name;
                   final newEnabledIndex =
                       current.settings.enabledFunctionalities.indexWhere(
                           (element) => element.name == functionalityName);
-                  final newDisabledIndex =
-                      current.settings.disabledFunctionalities.indexWhere(
-                          (element) => element.name == functionalityName);
                   if (newEnabledIndex != -1) {
-                    if (newEnabledIndex > 3) {
-                      context
-                          .read<HomeCubit>()
-                          .updateSelectedIndex(newEnabledIndex, true);
-                    } else {
-                      context
-                          .read<HomeCubit>()
-                          .updateSelectedIndex(newEnabledIndex, false);
-                    }
-                  } else if (newDisabledIndex != -1) {
-                    context.read<HomeCubit>().updateSelectedIndex(
-                        current.settings.enabledFunctionalities.length +
-                            newDisabledIndex,
-                        true);
+                    context
+                        .read<HomeCubit>()
+                        .updateSelectedIndex(newEnabledIndex);
                   }
                   return true;
                 }
@@ -69,8 +53,6 @@ class HomePageState extends State<HomePage> {
               builder: (context, settingState) {
                 final enabledFunctionalities =
                     settingState.settings.enabledFunctionalities;
-                final disabledFunctionalities =
-                    settingState.settings.disabledFunctionalities;
 
                 List<Destination> enabledDestinations = [];
                 for (var i = 0; i < enabledFunctionalities.length; i++) {
@@ -80,34 +62,15 @@ class HomePageState extends State<HomePage> {
                       enabledFunctionalities[i].toIcon()));
                 }
 
-                List<Destination> disabledDestinations =
-                    []; // the destinations for the secondary navigation bar
-                for (var i = enabledFunctionalities.length;
-                    i <
-                        disabledFunctionalities.length +
-                            enabledFunctionalities.length;
-                    i++) {
-                  disabledDestinations.add(Destination(
-                      i,
-                      disabledFunctionalities[i - enabledFunctionalities.length]
-                          .name,
-                      disabledFunctionalities[i - enabledFunctionalities.length]
-                          .toIcon()));
-                }
-
-                //if there is more than 4 enabled functionalities, move the last one to the secondary navigation bar
-                while (enabledDestinations.length > 3) {
-                  disabledDestinations.insert(
-                      0,
-                      enabledDestinations
-                          .removeLast()); //remove the last element
-                }
-
                 // add the more button
-                enabledDestinations.add(Destination(
-                    enabledFunctionalities.length,
-                    AppLocalizations.of(context).more,
-                    Icons.more_horiz_rounded));
+                if (enabledDestinations.length > 4) {
+                  enabledDestinations.insert(
+                      3,
+                      Destination(
+                          enabledFunctionalities.length,
+                          AppLocalizations.of(context).more,
+                          Icons.more_horiz_rounded));
+                }
                 return Scaffold(
                   backgroundColor: Theme.of(context).colorScheme.surface,
                   resizeToAvoidBottomInset: false,
@@ -129,33 +92,32 @@ class HomePageState extends State<HomePage> {
                               height: 100.h - 80,
                               child: Stack(
                                 fit: StackFit.expand,
-                                children: [
-                                  // we delete the last element because it is the more button
-                                  ...enabledDestinations.getRange(
-                                      0, enabledDestinations.length - 1),
-                                  ...disabledDestinations
-                                ].map((page) {
-                                  final index = page.index;
-                                  final view = [
-                                    ...enabledFunctionalities,
-                                    ...disabledFunctionalities
-                                  ][index]
-                                      .toPage();
-                                  if (index ==
-                                      (homeState.disabledSelectedIndex ??
-                                          homeState.enabledSelectedIndex)) {
-                                    return Offstage(
-                                        offstage: false, child: view);
-                                  } else {
-                                    return Offstage(child: view);
-                                  }
-                                }).toList(),
+                                children: enabledDestinations
+                                    .map((page) {
+                                      var index = page.index;
+                                      if (index >=
+                                          enabledFunctionalities.length) {
+                                        return null;
+                                      }
+                                      final view = enabledFunctionalities[index]
+                                          .toPage();
+                                      //Using offstage to avoid the hidden pages to rebuild
+                                      if (index ==
+                                          homeState.enabledSelectedIndex) {
+                                        return Offstage(
+                                            offstage: false, child: view);
+                                      } else {
+                                        return Offstage(child: view);
+                                      }
+                                    })
+                                    .whereType<
+                                        Widget>() //little hack to drop null values
+                                    .toList(),
                               ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: BottomNavBarWidget(
-                                disabledDestinations: disabledDestinations,
                                 enabledDestinations: enabledDestinations,
                               ),
                             )
