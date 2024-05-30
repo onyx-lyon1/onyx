@@ -33,7 +33,7 @@ class HomePageState extends State<HomePage> {
                         current.settings.disabledFunctionalities)) {
                   //the page order has changer so we need to adapt the current page to avoir jump
 
-                  final previousIndex = homeState.enabledSelectedIndex;
+                  final previousIndex = homeState.selectedIndex;
                   final functionalityName = [
                     ...previous.settings.enabledFunctionalities,
                   ][previousIndex]
@@ -102,8 +102,7 @@ class HomePageState extends State<HomePage> {
                                       final view = enabledFunctionalities[index]
                                           .toPage();
                                       //Using offstage to avoid the hidden pages to rebuild
-                                      if (index ==
-                                          homeState.enabledSelectedIndex) {
+                                      if (index == homeState.selectedIndex) {
                                         return Offstage(
                                             offstage: false, child: view);
                                       } else {

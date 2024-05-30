@@ -33,10 +33,10 @@ class BottomNavBarWidget extends StatelessWidget {
                     height: 80,
                     color: Theme.of(context).colorScheme.surface,
                     child: NavigationBar(
-                      selectedIndex: (state.enabledSelectedIndex - 3)
+                      selectedIndex: (state.selectedIndex - 3)
                           .clamp(0, enabledDestinations.length - 5),
                       height: 80,
-                      indicatorColor: (state.enabledSelectedIndex < 3)
+                      indicatorColor: (state.selectedIndex < 3)
                           ? Colors.transparent
                           : Theme.of(context)
                               .colorScheme
@@ -52,7 +52,7 @@ class BottomNavBarWidget extends StatelessWidget {
                           .map((page) => NavigationDestination(
                               icon: Icon(
                                 page.icon,
-                                color: (state.enabledSelectedIndex < 4)
+                                color: (state.selectedIndex < 4)
                                     ? Theme.of(context).iconTheme.color
                                     : null,
                               ),
@@ -63,7 +63,7 @@ class BottomNavBarWidget extends StatelessWidget {
                 ),
               ),
             NavigationBar(
-              selectedIndex: state.enabledSelectedIndex.clamp(0, 3),
+              selectedIndex: state.selectedIndex.clamp(0, 3),
               indicatorColor:
                   Theme.of(context).colorScheme.primary.withOpacity(0.5),
               onDestinationSelected: (int index) {
