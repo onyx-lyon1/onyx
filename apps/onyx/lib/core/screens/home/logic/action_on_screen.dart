@@ -1,42 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/examen/states/examen_cubit.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void actionOnScreen(BuildContext context, int index) {
-  int indexLocal = index %
-      context
-          .read<SettingsCubit>()
-          .state
-          .settings
-          .enabledFunctionalities
-          .length;
-
-  int agendaIndex = context
+  final agendaIndex = context
       .read<SettingsCubit>()
       .state
       .settings
       .enabledFunctionalities
       .indexOf(Functionalities.agenda);
 
-  int colloscopeIndex = context
+  final colloscopeIndex = context
       .read<SettingsCubit>()
       .state
       .settings
       .enabledFunctionalities
       .indexOf(Functionalities.examen);
 
-  if (indexLocal == colloscopeIndex) {
+  if (index == colloscopeIndex) {
     if (context.read<ExamenCubit>().state.reloadScheduled) {
       context.read<ExamenCubit>().resetCubit();
     }
   }
 
-  if (indexLocal == agendaIndex) {
+  if (index == agendaIndex) {
     if (!context.read<SettingsCubit>().state.settings.shownAgendaPopup) {
       context.read<SettingsCubit>().modify(
           settings: context
@@ -77,7 +69,7 @@ void actionOnScreen(BuildContext context, int index) {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child:  Text(AppLocalizations.of(context).ok),
+                child: Text(AppLocalizations.of(context).ok),
               ),
             ],
           ),

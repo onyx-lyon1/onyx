@@ -21,7 +21,10 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {
+        actionOnScreen(context, state.selectedIndex);
+      },
       builder: (context, homeState) {
         return BlocBuilder<AuthentificationCubit, AuthentificationState>(
           builder: (context, authState) {
