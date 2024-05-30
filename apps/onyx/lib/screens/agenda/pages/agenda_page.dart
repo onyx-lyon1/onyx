@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda/widgets/days_view_widget.dart';
@@ -7,8 +8,6 @@ import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 class AgendaPage extends StatelessWidget {
   const AgendaPage({
@@ -81,17 +80,38 @@ class AgendaPage extends StatelessWidget {
 
               return CommonScreenWidget(
                 state: headerState,
-                header: context
+                header: Stack(
+                  alignment: Alignment.centerRight,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Flexible(
+                        child: IconButton(
+                            onPressed: () {
+                              context.read<AgendaCubit>().goToday(
+                                    fromMiniCalendar: false,
+                                    settings: settingsState.settings,
+                                    fromHorizontalScroll: false,
+                                  );
+                            },
+                            icon: const Icon(Icons.calendar_today_rounded)),
+                      ),
+                    ),
+                    if (context
                         .read<SettingsCubit>()
                         .state
                         .settings
-                        .showMiniCalendar
-                    ? MiniCalendarWidget(
-                        scrollController: context
-                            .read<AgendaCubit>()
-                            .miniCalendarScrollController,
+                        .showMiniCalendar)
+                      SizedBox(
+                        width: 90.w,
+                        child: MiniCalendarWidget(
+                          scrollController: context
+                              .read<AgendaCubit>()
+                              .miniCalendarScrollController,
+                        ),
                       )
-                    : Center(
+                    else
+                      Center(
                         child: Text(
                           AppLocalizations.of(context).agenda,
                           style: TextStyle(
@@ -101,6 +121,8 @@ class AgendaPage extends StatelessWidget {
                           ),
                         ),
                       ),
+                  ],
+                ),
                 body: MultiScrollableWidget(
                   listScrollController: verticalController,
                   pageController:
@@ -157,8 +179,7 @@ class AgendaPage extends StatelessWidget {
                               .read<AgendaCubit>()
                               .horizontalScrollController[1]),
                       Center(
-                        child:
-                            Text(AppLocalizations.of(context).monthViewSoon),
+                        child: Text(AppLocalizations.of(context).monthViewSoon),
                       )
                     ],
                   ),
