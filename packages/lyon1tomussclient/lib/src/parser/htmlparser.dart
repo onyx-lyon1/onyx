@@ -25,7 +25,9 @@ class HTMLparser {
   }
 
   String? toJSONready(String? extractedContent) {
-    extractedContent = extractedContent?.replaceAll("\\x3E", ">") ?? "";
+    if (extractedContent == null) return null;
+    extractedContent =
+        Uri.decodeComponent(extractedContent.replaceAll("\\x", "%"));
     return extractedContent.replaceAll("NaN", "-1");
   }
 
