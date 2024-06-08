@@ -31,7 +31,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace 'fr.onyx.lyon1'
     compileSdkVersion 34
-    ndkVersion "21.1.6352462"
+    ndkVersion flutter.ndkVersion
 
     compileOptions {
         coreLibraryDesugaringEnabled true
@@ -48,12 +48,12 @@ android {
     }
 
     defaultConfig {
-        applicationId "fr.onyx.lyon1"
-        minSdkVersion 23
-        multiDexEnabled true
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        applicationId = "fr.onyx.lyon1"
+        minSdk = 23
+        multiDexEnabled = true
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
     }
 
     signingConfigs {

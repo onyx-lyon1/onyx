@@ -61,6 +61,7 @@ dependencies:
   #map
   latlong2: ^0.9.0
   geolocator: ^11.1.0
+  geolocator_android: 4.5.5
   cached_network_image: ^3.3.0
   flutter_map: ^6.1.0
   flutter_map_location_marker: ^8.0.2
