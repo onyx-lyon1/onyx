@@ -120,7 +120,6 @@ class OnyxAppState extends State<OnyxApp> {
                           print("Device.aspectRatio : ${Device.aspectRatio}");
                           print("Device.pixelRatio : ${Device.pixelRatio}");
                         }
-                        Widget home;
 
                         if ((settingsState.status == SettingsStatus.ready ||
                                 settingsState.status == SettingsStatus.error) &&
@@ -133,14 +132,13 @@ class OnyxAppState extends State<OnyxApp> {
                                       !settingsState.settings.biometricAuth)) &&
                               authState.status !=
                                   AuthentificationStatus.needCredential) {
-                            home = const HomePage();
+                            return const HomePage();
                           } else {
-                            home = LoginPage(key: UniqueKey());
+                            return const LoginPage();
                           }
                         } else {
-                          home = const CustomCircularProgressIndicatorWidget();
+                          return const CustomCircularProgressIndicatorWidget();
                         }
-                        return home;
                       },
                     ),
                   ),
