@@ -1,13 +1,13 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/privacy_policie_page.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IzlyLoginPage extends StatefulWidget {
   const IzlyLoginPage({super.key});
@@ -83,7 +83,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!
-                                .copyWith(fontSize: 18.sp),
+                                .copyWith(fontSize: 16.sp),
                           ),
                           Material(
                             borderRadius: BorderRadius.circular(5),
@@ -102,7 +102,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
-                                        .copyWith(fontSize: 17.sp),
+                                        .copyWith(fontSize: 15.sp),
                                   ),
                                 ),
                               ),
