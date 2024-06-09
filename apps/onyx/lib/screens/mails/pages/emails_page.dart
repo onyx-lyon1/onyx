@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
@@ -8,8 +9,6 @@ import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MailsPage extends StatelessWidget {
   const MailsPage({
@@ -60,11 +59,17 @@ class MailsPage extends StatelessWidget {
             CacheService.getEncryptionKey(
                     context.read<SettingsCubit>().state.settings.biometricAuth)
                 .then((key) => CacheService.get<Credential>(secureKey: key))
-                .then((value) => context.read<EmailCubit>().connect(
-                      username: value!.username,
-                      password: value.password,
-                      appLocalizations: AppLocalizations.of(context),
-                    ));
+                .then(
+              (value) {
+                if (value != null) {
+                  context.read<EmailCubit>().connect(
+                        username: value.username,
+                        password: value.password,
+                        appLocalizations: AppLocalizations.of(context),
+                      );
+                }
+              },
+            );
 
             break;
           case MailStatus.connected:
