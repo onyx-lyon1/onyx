@@ -77,59 +77,56 @@ class HomePageState extends State<HomePage> {
                   return Scaffold(
                     backgroundColor: Theme.of(context).colorScheme.surface,
                     resizeToAvoidBottomInset: false,
-                    body: Expanded(
-                      child: CommonScreenWidget(
-                          onRefresh: () async {},
-                          state: (context
-                                      .read<AuthentificationCubit>()
-                                      .state
-                                      .status ==
-                                  AuthentificationStatus.authentificating)
-                              ? LoadingHeaderWidget(
-                                  message:
-                                      AppLocalizations.of(context).casConnexion)
-                              : null,
-                          body: LayoutBuilder(builder: (context, constraints) {
-                            return Stack(
-                              children: [
-                                SizedBox(
-                                  height: constraints.maxHeight - 80,
-                                  child: Stack(
-                                    fit: StackFit.expand,
-                                    children: enabledDestinations
-                                        .map((page) {
-                                          var index = page.index;
-                                          if (index >=
-                                              enabledFunctionalities.length) {
-                                            return null;
-                                          }
-                                          final view =
-                                              enabledFunctionalities[index]
-                                                  .toPage();
-                                          //Using offstage to avoid the hidden pages to rebuild
-                                          if (index ==
-                                              homeState.selectedIndex) {
-                                            return Offstage(
-                                                offstage: false, child: view);
-                                          } else {
-                                            return Offstage(child: view);
-                                          }
-                                        })
-                                        .whereType<
-                                            Widget>() //little hack to drop null values
-                                        .toList(),
-                                  ),
+                    body: CommonScreenWidget(
+                        onRefresh: () async {},
+                        state: (context
+                                    .read<AuthentificationCubit>()
+                                    .state
+                                    .status ==
+                                AuthentificationStatus.authentificating)
+                            ? LoadingHeaderWidget(
+                                message:
+                                    AppLocalizations.of(context).casConnexion)
+                            : null,
+                        body: LayoutBuilder(builder: (context, constraints) {
+                          return Stack(
+                            children: [
+                              SizedBox(
+                                height: constraints.maxHeight - 80,
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: enabledDestinations
+                                      .map((page) {
+                                        var index = page.index;
+                                        if (index >=
+                                            enabledFunctionalities.length) {
+                                          return null;
+                                        }
+                                        final view =
+                                            enabledFunctionalities[index]
+                                                .toPage();
+                                        //Using offstage to avoid the hidden pages to rebuild
+                                        if (index == homeState.selectedIndex) {
+                                          return Offstage(
+                                              offstage: false, child: view);
+                                        } else {
+                                          return Offstage(child: view);
+                                        }
+                                      })
+                                      .whereType<
+                                          Widget>() //little hack to drop null values
+                                      .toList(),
                                 ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: BottomNavBarWidget(
-                                    enabledDestinations: enabledDestinations,
-                                  ),
-                                )
-                              ],
-                            );
-                          })),
-                    ),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: BottomNavBarWidget(
+                                  enabledDestinations: enabledDestinations,
+                                ),
+                              )
+                            ],
+                          );
+                        })),
                   );
                 },
               );
