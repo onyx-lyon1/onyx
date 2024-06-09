@@ -85,17 +85,15 @@ class AgendaPage extends StatelessWidget {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Flexible(
-                        child: IconButton(
-                            onPressed: () {
-                              context.read<AgendaCubit>().goToday(
-                                    fromMiniCalendar: false,
-                                    settings: settingsState.settings,
-                                    fromHorizontalScroll: false,
-                                  );
-                            },
-                            icon: const Icon(Icons.calendar_today_rounded)),
-                      ),
+                      child: IconButton(
+                          onPressed: () {
+                            context.read<AgendaCubit>().goToday(
+                                  fromMiniCalendar: false,
+                                  settings: settingsState.settings,
+                                  fromHorizontalScroll: false,
+                                );
+                          },
+                          icon: const Icon(Icons.calendar_today_rounded)),
                     ),
                     if (context
                         .read<SettingsCubit>()
