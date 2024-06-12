@@ -20,8 +20,8 @@ class ExamensConnection extends BlocListener<ExamenCubit, ExamenState> {
               context.read<AgendaCubit>().addExternalEvent([
                 ...state.studentColloscope?.kholles.map(
                       (e) => Event(
-                          name: AppLocalizations.of(context)
-                              .kholleOf(e.kholleur),
+                          name:
+                              AppLocalizations.of(context).kholleOf(e.kholleur),
                           teacher: e.kholleur,
                           location: e.room?.trim() ?? "",
                           start: e.date,
@@ -29,15 +29,27 @@ class ExamensConnection extends BlocListener<ExamenCubit, ExamenState> {
                           description: e.message ?? ""),
                     ) ??
                     [],
-                ...state.examens.map(
-                  (e) => Event(
-                      name: AppLocalizations.of(context).examOf(e.codeName),
-                      teacher: "",
-                      location: AppLocalizations.of(context).examLocationPlace(e.location, e.place),
-                      start: e.date,
-                      end: e.date.add(e.duration),
-                      description: e.codeName),
-                )
+                ...state.examens
+                    .map(
+                      (e) {
+                        if (e.date != null && e.duration != null) {
+                          return Event(
+                              name: AppLocalizations.of(context)
+                                  .examOf(e.codeName),
+                              teacher: "",
+                              location: AppLocalizations.of(context)
+                                  .examLocationPlace(
+                                      e.location ?? "", e.place ?? -1),
+                              start: e.date!,
+                              end: e.date!.add(e.duration!),
+                              description: e.codeName);
+                        }
+                        return null;
+                      },
+                      //clean null values
+                    )
+                    .toList()
+                    .whereType<Event>()
               ]);
             }
           },

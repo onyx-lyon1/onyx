@@ -17,12 +17,12 @@ class ExamenModelAdapter extends TypeAdapter<ExamenModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ExamenModel(
-      fields[0] == null ? '' : fields[0] as String,
+      fields[0] == null ? '' : fields[0] as String?,
       fields[1] == null ? '' : fields[1] as String,
-      fields[2] as DateTime,
-      fields[3] == null ? const Duration(hours: 2) : fields[3] as Duration,
-      fields[4] == null ? '' : fields[4] as String,
-      fields[5] == null ? 0 : fields[5] as int,
+      fields[2] as DateTime?,
+      fields[3] == null ? const Duration(hours: 2) : fields[3] as Duration?,
+      fields[4] == null ? '' : fields[4] as String?,
+      fields[5] == null ? 0 : fields[5] as int?,
     );
   }
 

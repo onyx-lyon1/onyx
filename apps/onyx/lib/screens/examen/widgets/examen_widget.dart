@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lyon1examenclient/lyon1examenclient.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExamenWidget extends StatelessWidget {
   const ExamenWidget({
@@ -14,7 +14,7 @@ class ExamenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isToday = examen.date.isSameDay(DateTime.now());
+    var isToday = examen.date?.isSameDay(DateTime.now()) ?? false;
 
     return Container(
       height: 13.h,
@@ -50,25 +50,27 @@ class ExamenWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          examen.date.toMonthName(
-                              AppLocalizations.of(context).localeName,
-                              short: true),
+                          examen.date?.toMonthName(
+                                  AppLocalizations.of(context).localeName,
+                                  short: true) ??
+                              "",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17.sp,
                           ),
                         ),
                         Text(
-                          examen.date.day.toString(),
+                          examen.date?.day.toString() ?? "",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20.sp,
                           ),
                         ),
                         Text(
-                          examen.date.toWeekDayName(
-                              AppLocalizations.of(context).localeName,
-                              short: false),
+                          examen.date?.toWeekDayName(
+                                  AppLocalizations.of(context).localeName,
+                                  short: false) ??
+                              "",
                         ),
                       ],
                     ),
@@ -91,15 +93,17 @@ class ExamenWidget extends StatelessWidget {
                             children: [
                               Center(
                                 child: Text(
-                                  examen.date.toHourMinuteString(
-                                      AppLocalizations.of(context).localeName),
+                                  examen.date?.toHourMinuteString(
+                                          AppLocalizations.of(context)
+                                              .localeName) ??
+                                      "",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20.sp,
                                   ),
                                 ),
                               ),
-                              Text(examen.duration.durationBeautifull()),
+                              Text(examen.duration?.durationBeautifull() ?? ""),
                             ],
                           ),
                         ),
@@ -119,14 +123,17 @@ class ExamenWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    examen.title,
+                                    examen.title ?? "",
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   Text(
-                                    AppLocalizations.of(context)
-                                        .examLocationPlace(
-                                            examen.location, examen.place),
+                                    (examen.location != null &&
+                                            examen.place != null)
+                                        ? AppLocalizations.of(context)
+                                            .examLocationPlace(
+                                                examen.location!, examen.place!)
+                                        : "",
                                   ),
                                 ],
                               ),

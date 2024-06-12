@@ -34,28 +34,51 @@ class Lyon1ExamenClient {
         .toList();
     List<ExamenModel> retour = [];
     for (var i in spanList) {
-      final title = i.findPreviousElement("b")!.text;
+      final title = i.findPreviousElement("b")?.text;
       final codeName = i.text;
       final dateElements = i.findAllNextElements("u");
-      final rawDate =
-          dateElements.map((e) => e.text).toList().sublist(0, 2).join(" ");
+      final rawDate = dateElements.map((e) => e.text).toList().join(" ");
       final splitedDate =
-          RegExp(r'(\w+) (\d{2})/(\d{2})/(\d{4}) (\d{1,2})h(\d{1,2})$')
+          RegExp(r'.*(\w+) (\d{1,2})/(\d{1,2})/(\d{2,4}) (\d{1,2})h(\d{1,2}).*')
               .firstMatch(rawDate)!;
-      final date = DateTime(
-          int.parse(splitedDate.group(4)!),
-          int.parse(splitedDate.group(3)!),
-          int.parse(splitedDate.group(2)!),
-          int.parse(splitedDate.group(5)!),
-          int.parse(splitedDate.group(6)!));
+      final year = splitedDate.group(4) != null
+          ? int.parse(splitedDate.group(4)!)
+          : null;
+      final month = splitedDate.group(3) != null
+          ? int.parse(splitedDate.group(3)!)
+          : null;
+      final day = splitedDate.group(2) != null
+          ? int.parse(splitedDate.group(2)!)
+          : null;
+      final hour = splitedDate.group(5) != null
+          ? int.parse(splitedDate.group(5)!)
+          : null;
+      final minute = splitedDate.group(6) != null
+          ? int.parse(splitedDate.group(6)!)
+          : null;
+      final date = (year != null &&
+              month != null &&
+              day != null &&
+              hour != null &&
+              minute != null)
+          ? DateTime(year, month, day, hour, minute)
+          : null;
+
       //assume the duration is everytime in minute and entire
-      final duration = Duration(
-          minutes: int.parse(RegExp(r'\d+')
-              .stringMatch(dateElements.last.nextParsedAll[1].text!)!));
-      final locationAndPlace = RegExp(r'Lieu : (.+) - Place n. (.+)$')
-          .firstMatch(dateElements.last.nextParsedAll[3].text!);
-      final location = locationAndPlace!.group(1)!;
-      final place = int.parse(locationAndPlace.group(2)!);
+      final durationMatch = dateElements.last.nextParsedAll[1].text != null
+          ? RegExp(r'\d+').stringMatch(dateElements.last.nextParsedAll[1].text!)
+          : null;
+      final duration = (durationMatch != null)
+          ? Duration(minutes: int.parse(durationMatch))
+          : null;
+      final locationAndPlace = dateElements.last.nextParsedAll[3].text != null
+          ? RegExp(r'Lieu : (.+)? - Place n. (\d+)?')
+              .firstMatch(dateElements.last.nextParsedAll[3].text ?? "")
+          : null;
+      final location = locationAndPlace?.group(1);
+      final place = locationAndPlace?.group(2) != null
+          ? int.parse(locationAndPlace!.group(2)!)
+          : null;
       retour.add(ExamenModel(title, codeName, date, duration, location, place));
     }
 
