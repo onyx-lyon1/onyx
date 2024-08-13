@@ -89,6 +89,7 @@ flake-parts = {
               libgpg-error
               apksigner
               gnome.zenity
+              lerc
             ];
           };
         formatter = pkgs.alejandra;
