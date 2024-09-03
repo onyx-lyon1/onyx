@@ -70,6 +70,7 @@ class Lyon1CasClient {
     bool wrapUrl = true,
     bool followRedirects = true,
     int maxRetry = 5,
+    Map<String, dynamic>? queryParameters,
   }) async {
     if (wrapUrl) {
       url = "${Constants.casLogin}?service=$url${(unsafe ? '/?unsafe=1' : '')}";
@@ -92,6 +93,7 @@ class Lyon1CasClient {
         },
         followRedirects: followRedirects,
         withCredentials: true,
+        queryParameters: queryParameters,
       );
     }
     if ((response!.statusCode) >= 400) {
