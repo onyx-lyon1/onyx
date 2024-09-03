@@ -44,6 +44,10 @@ class AgendaPage extends StatelessWidget {
                           context.read<AuthentificationCubit>().state.lyon1Cas,
                       settings: settingsState.settings);
                   break;
+                case AgendaStatus.connecting:
+                  headerState = LoadingHeaderWidget(
+                      message: AppLocalizations.of(context).connecting);
+                  break;
                 case AgendaStatus.loading:
                 case AgendaStatus.cacheReady:
                   headerState = LoadingHeaderWidget(

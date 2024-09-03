@@ -135,7 +135,6 @@ flutter:
     - assets/izly.png
     - assets/izly_mock_qr-code.png
     - assets/key.txt
-    - assets/graph.json.gz
     - assets/colloscope_ids.enc
     - assets/stop_words/
 

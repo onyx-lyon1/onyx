@@ -6,43 +6,44 @@ enum AgendaConfigStatus {
   loaded,
   choosed,
   searchResult,
+  connecting,
   error
 }
 
 class AgendaConfigState {
   final AgendaConfigStatus status;
-  final List<DirModel> dirs;
+  final List<AgendaResource> categories;
   final String error;
-  final List<DirModel> expandedDirs;
+  final List<AgendaResource> expandedResources;
   final List<int> choosedIds;
 
   AgendaConfigState({
     required this.status,
-    required this.dirs,
+    required this.categories,
     required this.error,
     this.choosedIds = const [],
-    this.expandedDirs = const [],
+    this.expandedResources = const [],
   });
 
   AgendaConfigState copyWith({
     AgendaConfigStatus? status,
-    List<DirModel>? dirs,
+    List<AgendaResource>? categories,
     String? error,
     List<int>? choosedIds,
-    List<DirModel>? expandedDirs,
+    List<AgendaResource>? expandedResources,
   }) {
     return AgendaConfigState(
       status: status ?? this.status,
-      dirs: dirs ?? this.dirs,
+      categories: categories ?? this.categories,
       error: error ?? this.error,
       choosedIds: choosedIds ?? this.choosedIds,
-      expandedDirs: expandedDirs ?? this.expandedDirs,
+      expandedResources: expandedResources ?? this.expandedResources,
     );
   }
 
   @override
   String toString() {
-    return 'AgendaConfigState{status: $status, dirs: $dirs, error: $error, expandedIds: $expandedDirs, choosedId: $choosedIds}';
+    return 'AgendaConfigState{status: $status, categories: $categories, error: $error, expandedResources: $expandedResources, choosedIds: $choosedIds}';
   }
 
   @override
@@ -51,16 +52,16 @@ class AgendaConfigState {
       other is AgendaConfigState &&
           runtimeType == other.runtimeType &&
           status == other.status &&
-          dirs == other.dirs &&
+          categories == other.categories &&
           error == other.error &&
-          expandedDirs == other.expandedDirs &&
+          expandedResources == other.expandedResources &&
           choosedIds == other.choosedIds;
 
   @override
   int get hashCode =>
       status.hashCode ^
-      dirs.hashCode ^
+      categories.hashCode ^
       error.hashCode ^
-      expandedDirs.hashCode ^
+      expandedResources.hashCode ^
       choosedIds.hashCode;
 }

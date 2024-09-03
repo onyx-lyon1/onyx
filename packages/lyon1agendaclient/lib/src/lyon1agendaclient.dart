@@ -59,9 +59,6 @@ class Lyon1AgendaClient {
 
   Map<String, String> buildAuthHeaders(
       {Map<String, String> headers = const {}}) {
-    if (_token.isEmpty) {
-      throw Exception("token is empty");
-    }
     final Map<String, String> resultHeaders = Map.from(headers);
     resultHeaders["Authorization"] = "Bearer $_token";
     return resultHeaders;
@@ -102,14 +99,16 @@ class Lyon1AgendaClient {
         : await _parser.parseICS(response.body);
   }
 
-  Future<List<ResourceCategory>> get getResources async {
+  Future<List<AgendaResource>> get getResources async {
     final resp = await RequestsPlus.get(Constants.adeResourcesUrl,
         queryParameters: {"idProject": Constants.idProject},
-        headers: buildAuthHeaders());
-    final data = jsonDecode(resp.body);
-    List<ResourceCategory> resource = [];
+        headers: buildAuthHeaders(headers: {
+          "charset": "utf-8",
+        }));
+    final data = jsonDecode(utf8.decode(resp.bodyBytes));
+    List<AgendaResource> resource = [];
     for (var i in data["data"]["category"]) {
-      resource.add(ResourceCategory.fromJson(i));
+      resource.add(AgendaResource.fromJson(i));
     }
     return resource;
   }

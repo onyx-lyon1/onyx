@@ -1,11 +1,13 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AgendaConfigPage extends StatelessWidget {
   const AgendaConfigPage(
@@ -19,15 +21,14 @@ class AgendaConfigPage extends StatelessWidget {
     final PageController pageController = PageController();
     final ScrollController listScrollController = ScrollController();
     return BlocProvider(
-      create: (context) => AgendaConfigCubit(onBack: onBack),
+      create: (context) => AgendaConfigCubit(
+          onBack: onBack, client: context.read<AgendaCubit>().agendaClient),
       child: BlocBuilder<AgendaConfigCubit, AgendaConfigState>(
         builder: (context, state) {
           Widget? body;
           switch (state.status) {
             case AgendaConfigStatus.initial:
-              context
-                  .read<AgendaConfigCubit>()
-                  .loadDirs(AppLocalizations.of(context));
+              context.read<AgendaConfigCubit>().loadResources();
               body = StateDisplayingPage(
                   message: AppLocalizations.of(context).loadingAgendaList);
               break;
@@ -44,7 +45,7 @@ class AgendaConfigPage extends StatelessWidget {
                 listener: (context, state) {
                   if (pageController.hasClients) {
                     pageController.animateToPage(
-                        (state.expandedDirs.length).toInt(),
+                        (state.expandedResources.length).toInt(),
                         duration: Res.animationDuration,
                         curve: Curves.easeInOut);
                   }
@@ -69,19 +70,20 @@ class AgendaConfigPage extends StatelessWidget {
                           childrenDelegate: SliverChildBuilderDelegate(
                             (context, index) {
                               if (index == 0) {
-                                return DirWidget(
-                                  dir: DirModel(
-                                    name: AppLocalizations.of(context).agenda,
-                                    identifier: 0,
-                                    children: state.dirs,
+                                return DirListWidget(
+                                  dir: AgendaResource(
+                                    0,
+                                    AppLocalizations.of(context).agenda,
+                                    state.categories,
                                   ),
                                   scrollController: listScrollController,
                                 );
                               } else {
-                                if (state.dirs.isNotEmpty &&
-                                    index - 1 < state.expandedDirs.length) {
-                                  return DirWidget(
-                                    dir: state.expandedDirs[index - 1],
+                                if (state.categories.isNotEmpty &&
+                                    index - 1 <
+                                        state.expandedResources.length) {
+                                  return DirListWidget(
+                                    dir: state.expandedResources[index - 1],
                                     scrollController: listScrollController,
                                   );
                                 }
@@ -148,10 +150,12 @@ class AgendaConfigPage extends StatelessWidget {
                 openBuilder: (context, closechild) => const QrCodeScannerPage(),
                 onClosed: (result) {
                   if (result != null) {
-                    List<int> indexs = AgendaConfigLogic.urlToIndexs(result);
+                    List<int> indexs = AgendaConfigLogic.urlToIndexes(result);
                     for (var index in indexs) {
-                      context.read<AgendaConfigCubit>().toggleChooseDir(
-                          context.read<AgendaConfigCubit>().state.dirs[index]);
+                      context.read<AgendaConfigCubit>().toggleChooseDir(context
+                          .read<AgendaConfigCubit>()
+                          .state
+                          .categories[index]);
                     }
                   }
                 },

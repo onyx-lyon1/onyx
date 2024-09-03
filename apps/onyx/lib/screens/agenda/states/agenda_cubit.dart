@@ -14,7 +14,7 @@ import 'package:path_provider/path_provider.dart';
 part 'agenda_state.dart';
 
 class AgendaCubit extends Cubit<AgendaState> {
-  Lyon1AgendaClient? _agendaClient;
+  late final Lyon1AgendaClient agendaClient;
 
   PageController miniCalendarScrollController = PageController();
   List<PageController> horizontalScrollController =
@@ -29,6 +29,11 @@ class AgendaCubit extends Cubit<AgendaState> {
             wantedDate: 0,
             realDays: [],
             settingsModel: const SettingsModel()));
+
+  void login(SettingsModel settings) {
+    emit(state.copyWith(
+        status: AgendaStatus.connecting, settingsModel: settings));
+  }
 
   void load(
       {required Lyon1CasClient? lyon1Cas,
@@ -61,14 +66,13 @@ class AgendaCubit extends Cubit<AgendaState> {
       return;
     }
     if (lyon1Cas != null && lyon1Cas.isAuthenticated) {
-      _agendaClient = Lyon1AgendaClient.useLyon1Cas(lyon1Cas);
       List<int> ids = settings.agendaIds;
       try {
         if (settings.fetchAgendaAuto) {
-          ids = (await _agendaClient!.getAgendaIds);
+          ids = (await agendaClient.getAgendaIds);
         }
         List<Day> realDays = await AgendaLogic.load(
-            agendaClient: _agendaClient!, settings: settings, ids: ids);
+            agendaClient: agendaClient, settings: settings, ids: ids);
 
         CacheService.set<Agenda>(Agenda(realDays));
         emit(

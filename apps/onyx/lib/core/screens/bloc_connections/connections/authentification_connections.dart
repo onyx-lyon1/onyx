@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/agenda/states/agenda_cubit.dart';
@@ -8,7 +10,6 @@ import 'package:onyx/screens/mails/states/email_cubit.dart';
 import 'package:onyx/screens/settings/domain/model/settings_model.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:onyx/screens/tomuss/states/tomuss_cubit.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthentificationConnection
     extends BlocListener<AuthentificationCubit, AuthentificationState> {
@@ -64,6 +65,11 @@ class AuthentificationConnection
                       AppLocalizations.of(context),
                     );
               }
+              context.read<AgendaCubit>().agendaClient =
+                  Lyon1AgendaClient.useLyon1Cas(authState.lyon1Cas);
+              context
+                  .read<AgendaCubit>()
+                  .login(context.read<SettingsCubit>().state.settings);
             }
           },
         );

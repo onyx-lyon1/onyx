@@ -12,6 +12,7 @@ enum AgendaStatus {
   haveToChooseManualy,
   updateDayCount,
   updateAnimating,
+  connecting,
 }
 
 class AgendaState {
