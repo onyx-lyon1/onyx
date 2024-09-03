@@ -10,7 +10,6 @@ class ExamenModelMapper extends ClassMapperBase<ExamenModel> {
   ExamenModelMapper._();
 
   static ExamenModelMapper? _instance;
-
   static ExamenModelMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = ExamenModelMapper._());
@@ -23,22 +22,17 @@ class ExamenModelMapper extends ClassMapperBase<ExamenModel> {
 
   static String? _$title(ExamenModel v) => v.title;
   static const Field<ExamenModel, String> _f$title = Field('title', _$title);
-
   static String _$codeName(ExamenModel v) => v.codeName;
   static const Field<ExamenModel, String> _f$codeName =
       Field('codeName', _$codeName);
-
   static DateTime? _$date(ExamenModel v) => v.date;
   static const Field<ExamenModel, DateTime> _f$date = Field('date', _$date);
-
   static Duration? _$duration(ExamenModel v) => v.duration;
   static const Field<ExamenModel, Duration> _f$duration =
       Field('duration', _$duration);
-
   static String? _$location(ExamenModel v) => v.location;
   static const Field<ExamenModel, String> _f$location =
       Field('location', _$location);
-
   static int? _$place(ExamenModel v) => v.place;
   static const Field<ExamenModel, int> _f$place = Field('place', _$place);
 
@@ -87,7 +81,6 @@ mixin ExamenModelMappable {
 
   ExamenModelCopyWith<ExamenModel, ExamenModel, ExamenModel> get copyWith =>
       _ExamenModelCopyWithImpl(this as ExamenModel, $identity, $identity);
-
   @override
   String toString() {
     return ExamenModelMapper.ensureInitialized()
@@ -121,7 +114,6 @@ abstract class ExamenModelCopyWith<$R, $In extends ExamenModel, $Out>
       Duration? duration,
       String? location,
       int? place});
-
   ExamenModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -133,7 +125,6 @@ class _ExamenModelCopyWithImpl<$R, $Out>
   @override
   late final ClassMapperBase<ExamenModel> $mapper =
       ExamenModelMapper.ensureInitialized();
-
   @override
   $R call(
           {Object? title = $none,
@@ -150,7 +141,6 @@ class _ExamenModelCopyWithImpl<$R, $Out>
         if (location != $none) #location: location,
         if (place != $none) #place: place
       }));
-
   @override
   ExamenModel $make(CopyWithData data) => ExamenModel(
       data.get(#title, or: $value.title),
