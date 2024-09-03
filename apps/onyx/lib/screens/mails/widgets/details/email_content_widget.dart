@@ -41,7 +41,7 @@ class _MailContentWidgetState extends State<MailContentWidget> {
         textColor: Theme.of(context).textTheme.bodyMedium!.color!.toHex(),
       );
     }
-    
+
     if (((widget.mail.body.contains("<html") ||
             widget.mail.body.contains("text/html")) &&
         (!kIsWeb && (Platform.isAndroid || Platform.isIOS)))) {

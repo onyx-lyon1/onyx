@@ -11,7 +11,8 @@ part 'settings_state.dart';
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit({SettingsModel? settings})
       : super(SettingsState(
-            settings: settings ?? const SettingsModel(), status: SettingsStatus.initial)) {
+            settings: settings ?? const SettingsModel(),
+            status: SettingsStatus.initial)) {
     load();
   }
 

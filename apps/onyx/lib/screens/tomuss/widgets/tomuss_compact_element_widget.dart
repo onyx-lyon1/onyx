@@ -61,16 +61,13 @@ class TomussCompactElementWidget extends StatelessWidget {
                               maxLines: 1,
                               style: TextStyle(
                                 overflow: TextOverflow.clip,
-                                color:
-                                    (Theme.of(context).colorScheme.surface ==
-                                            OnyxTheme.darkTheme.colorScheme
-                                                .surface)
-                                        ? Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .color
-                                        : OnyxTheme
-                                            .darkTheme.colorScheme.surface,
+                                color: (Theme.of(context).colorScheme.surface ==
+                                        OnyxTheme.darkTheme.colorScheme.surface)
+                                    ? Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .color
+                                    : OnyxTheme.darkTheme.colorScheme.surface,
                               ),
                             ),
                     ),
@@ -90,18 +87,16 @@ class TomussCompactElementWidget extends StatelessWidget {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   overflow: TextOverflow.clip,
-                                  color:
-                                      (Theme.of(context)
-                                                  .colorScheme
-                                                  .surface ==
-                                              OnyxTheme.darkTheme.colorScheme
-                                                  .surface)
-                                          ? Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .color
-                                          : OnyxTheme
-                                              .darkTheme.colorScheme.surface,
+                                  color: (Theme.of(context)
+                                              .colorScheme
+                                              .surface ==
+                                          OnyxTheme
+                                              .darkTheme.colorScheme.surface)
+                                      ? Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .color
+                                      : OnyxTheme.darkTheme.colorScheme.surface,
                                 ),
                               ),
                             ),
@@ -121,16 +116,13 @@ class TomussCompactElementWidget extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 overflow: TextOverflow.clip,
-                                color:
-                                    (Theme.of(context).colorScheme.surface ==
-                                            OnyxTheme.darkTheme.colorScheme
-                                                .surface)
-                                        ? Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .color
-                                        : OnyxTheme
-                                            .darkTheme.colorScheme.surface,
+                                color: (Theme.of(context).colorScheme.surface ==
+                                        OnyxTheme.darkTheme.colorScheme.surface)
+                                    ? Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .color
+                                    : OnyxTheme.darkTheme.colorScheme.surface,
                               ),
                             ),
                     ),

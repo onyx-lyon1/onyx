@@ -76,8 +76,8 @@ class DaysViewWidget extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                if (DateTime.now().isSameDay(
-                                    agendaState.days[j + i].date))
+                                if (DateTime.now()
+                                    .isSameDay(agendaState.days[j + i].date))
                                   CurrentDateIndicator(
                                       columnWidth: columnWidth),
                               ],

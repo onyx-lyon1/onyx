@@ -1,6 +1,6 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 import 'package:hive/hive.dart';
+import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 
 part 'generated/tomuss_text.g.dart';
 
@@ -22,7 +22,7 @@ class TomussText extends TeachingUnitElement {
       var id, var json, var stats, var line, var column, String user)
       : super.fromJson(id, json, stats, line, column, user) {
     comment = json['comment'] ?? "";
-    
+
     value = (line.length > 0 && id < line.length && line[id].length > 0)
         ? line[id][0].toString()
         : "";

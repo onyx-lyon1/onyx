@@ -31,7 +31,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               Text(AppLocalizations.of(context).dataSafety,
                   style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
-               Text(AppLocalizations.of(context).ourSecurityMeasures),
+              Text(AppLocalizations.of(context).ourSecurityMeasures),
               const SizedBox(height: 16),
               Text(AppLocalizations.of(context).modificationOfThePrivacyPolicy,
                   style: Theme.of(context).textTheme.titleLarge),

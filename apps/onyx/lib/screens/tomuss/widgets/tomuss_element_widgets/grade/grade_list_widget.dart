@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GradeListWidget extends StatelessWidget {
   const GradeListWidget(
@@ -10,6 +10,7 @@ class GradeListWidget extends StatelessWidget {
       required this.grades,
       this.depth = 1,
       this.lastElement = true});
+
   final Grade grades;
   final int depth;
   final bool lastElement;
@@ -36,8 +37,12 @@ class GradeListWidget extends StatelessWidget {
                   grades: [grades],
                   isSeen: true,
                   text1: grades.title.replaceAll("_", " "),
-                  text2:
-                  AppLocalizations.of(context).noteDescription(grades.average, grades.mediane, grades.rank + 1, grades.groupeSize, grades.author),
+                  text2: AppLocalizations.of(context).noteDescription(
+                      grades.average,
+                      grades.mediane,
+                      grades.rank + 1,
+                      grades.groupeSize,
+                      grades.author),
                   depth: depth,
                 ),
               ),
