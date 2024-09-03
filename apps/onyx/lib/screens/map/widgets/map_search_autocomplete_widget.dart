@@ -54,8 +54,10 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
           for (RestaurantModel restau
               // ignore: use_build_context_synchronously
               in context.read<MapCubit>().state.restaurant)
-            // ignore: use_build_context_synchronously
-            if (await SearchService.isMatch(textEditingValue.text, restau.name,
+            if (await SearchService.isMatch(
+                textEditingValue.text,
+                restau.name,
+                // ignore: use_build_context_synchronously
                 Locale(AppLocalizations.of(context).localeName)))
               restau.name,
         ];
