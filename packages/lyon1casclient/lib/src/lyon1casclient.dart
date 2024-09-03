@@ -50,7 +50,7 @@ class Lyon1CasClient {
     } else {
       isAuthenticated = true;
     }
-    credential = credential.copyWith.tgcToken((await getTgcToken()) ?? "");
+    credential = credential.copyWith.tgcToken((await getTgcToken()));
     return (credential: credential, authResult: isAuthenticated);
   }
 
@@ -148,32 +148,17 @@ class Lyon1CasClient {
       return false;
     }
 
-    String casCookies = await getCasCookies();
-    return casCookies.isNotEmpty && casCookies.contains("TGC=");
+    try {
+      await getTgcToken(); // getCasCookie throw a null error if theres no auth cookie
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
-  Future<String?> getTgcToken() async {
-    final String casCookies = await getCasCookies();
-    if (casCookies.isNotEmpty && casCookies.contains("TGC=")) {
-      return casCookies.split("TGC=")[1].split(";")[0];
-    }
-    return null;
-  }
-
-  Future<String> getCasCookies() async {
-    String cookiesString = "";
-    final List<Cookie> cookies =
-        (await RequestsPlus.getStoredCookies(Constants.casLogin))
-            .values
-            .toList();
-
-    for (final Cookie cookie in cookies) {
-      cookiesString += "${cookie.name}=${cookie.value}; ";
-    }
-
-    return cookiesString.length > 2
-        ? cookiesString.substring(0, cookiesString.length - 2)
-        : "";
+  Future<String> getTgcToken() async {
+    final data = (await RequestsPlus.getStoredCookies(Constants.casLogin));
+    return data.delegate["TGC-CAS"]!.value;
   }
 
   Future<bool> checkAuthentificated() async {
@@ -188,10 +173,7 @@ class Lyon1CasClient {
       },
       withCredentials: true,
     );
-    if (response.statusCode == 200 &&
-        response.body.contains("Connexion réussie")) {
-      return true;
-    }
-    return false;
+    return response.statusCode == 200 &&
+        response.body.contains("Log In Successful");
   }
 }

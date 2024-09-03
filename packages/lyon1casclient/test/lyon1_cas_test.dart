@@ -1,6 +1,6 @@
+import 'package:dotenv/dotenv.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:test/test.dart';
-import 'package:dotenv/dotenv.dart';
 
 void main() async {
   late Lyon1CasClient authOK;
@@ -50,7 +50,7 @@ void main() async {
             .authenticate(Credential("p1234567", "not_valid_password")))
         .authResult;
 
-    final String cookies = await authOK.getCasCookies();
+    final String cookies = await authOK.getTgcToken();
 
     expect(isAuthenticated, equals(false));
     expect(cookies, isNot(contains("TGC=")));
