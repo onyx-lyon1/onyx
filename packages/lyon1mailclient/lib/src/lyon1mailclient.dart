@@ -266,7 +266,8 @@ class Lyon1MailClient {
       quoteOriginalText: true,
       replyToSimplifyReferences: true,
     );
-    final textPlain = messageBuilder.getTextPlainPart()!;
+    final textPlain =
+        messageBuilder.getTextPlainPart() ?? messageBuilder.getTextHtmlPart()!;
     textPlain.text = '$body\r\n${textPlain.text}';
     if (messageBuilder.getTextHtmlPart() != null) {
       final textHtml = messageBuilder.getTextHtmlPart()!;
@@ -318,7 +319,8 @@ class Lyon1MailClient {
       forwardAttachments: true,
     );
     if (body != null) {
-      final textPlain = messageBuilder.getTextPlainPart()!;
+      final textPlain = messageBuilder.getTextPlainPart() ??
+          messageBuilder.getTextHtmlPart()!;
       textPlain.text = '$body\r\n${textPlain.text}';
       if (messageBuilder.getTextHtmlPart() != null) {
         final textHtml = messageBuilder.getTextHtmlPart()!;
