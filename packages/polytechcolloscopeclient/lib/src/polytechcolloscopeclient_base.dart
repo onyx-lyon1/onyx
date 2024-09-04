@@ -48,7 +48,8 @@ class PolytechColloscopeClient {
         "${name.substring(0, 1).toUpperCase()}. ${surname.toUpperCase()}";
 
     var students = await fetchStudents(year);
-    return students.firstWhereOrNull((s) => removeDiacritics(s.name) == match);
+    return students.firstWhereOrNull(
+        (s) => removeDiacritics(s.name) == removeDiacritics(match));
   }
 
   Future<StudentColloscope> getColloscope(Student student) async {
