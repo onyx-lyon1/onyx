@@ -50,7 +50,10 @@ class Lyon1CasClient {
     } else {
       isAuthenticated = true;
     }
-    credential = credential.copyWith.tgcToken((await getTgcToken()));
+
+    if (isAuthenticated) {
+      credential = credential.copyWith.tgcToken((await getTgcToken()));
+    }
     return (credential: credential, authResult: isAuthenticated);
   }
 
@@ -160,7 +163,11 @@ class Lyon1CasClient {
 
   Future<String> getTgcToken() async {
     final data = (await RequestsPlus.getStoredCookies(Constants.casLogin));
-    return data.delegate["TGC-CAS"]!.value;
+    try {
+      return data.delegate["TGC-CAS"]!.value;
+    } catch (e) {
+      throw Exception("No TGC-CAS cookie found");
+    }
   }
 
   Future<bool> checkAuthentificated() async {

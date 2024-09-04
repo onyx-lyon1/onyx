@@ -50,9 +50,14 @@ void main() async {
             .authenticate(Credential("p1234567", "not_valid_password")))
         .authResult;
 
-    final String cookies = await authOK.getTgcToken();
-
     expect(isAuthenticated, equals(false));
-    expect(cookies, isNot(contains("TGC-CAS=")));
+
+    try {
+      await authOK.getTgcToken();
+    } on Exception catch (e) {
+      expect(e.toString(), equals("Exception: No TGC-CAS cookie found"));
+      return;
+    }
+    throw Exception("No exception was thrown");
   });
 }
