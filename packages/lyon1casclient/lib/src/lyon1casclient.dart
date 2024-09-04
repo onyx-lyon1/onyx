@@ -37,7 +37,7 @@ class Lyon1CasClient {
     if (credential.tgcToken.isNotEmpty) {
       CookieJar cookieJar =
           await RequestsPlus.getStoredCookies(Constants.casLogin);
-      cookieJar["TGC"] = Cookie("TGC", credential.tgcToken);
+      cookieJar["TGC-CAS"] = Cookie("TGC-CAS", credential.tgcToken);
       await RequestsPlus.setStoredCookies(Constants.casLogin, cookieJar);
     }
     if (cookieOnly) {

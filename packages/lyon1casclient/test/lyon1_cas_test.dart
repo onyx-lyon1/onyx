@@ -53,6 +53,6 @@ void main() async {
     final String cookies = await authOK.getTgcToken();
 
     expect(isAuthenticated, equals(false));
-    expect(cookies, isNot(contains("TGC=")));
+    expect(cookies, isNot(contains("TGC-CAS=")));
   });
 }
