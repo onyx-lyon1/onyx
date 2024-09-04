@@ -1,0 +1,11 @@
+New Features
+
+    Full screen map in calendar
+    Flagged email now at the top of the email list
+    Goodbye infinite scroll, welcome tapbar
+
+Bug fixes
+
+    Mise a jour de cas pour pouvoir de nouveau ce connecter
+    Mise a jour de l'agenda
+    Optimisation de l'agenda    

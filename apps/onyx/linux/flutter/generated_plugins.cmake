@@ -5,9 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   biometric_storage
   desktop_window
-  irondash_engine_context
   objectbox_flutter_libs
-  super_native_extensions
   url_launcher_linux
 )
 
