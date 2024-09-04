@@ -25,7 +25,7 @@ void main() async {
     tomussOK = Lyon1TomussClient(lyon1Cas);
   });
 
-  test('Dartus.getPage', () async {
+  test('TomussClient.getPage', () async {
     final ParsedPage? parsedPageOpt =
         await tomussOK.getParsedPage(URLCreator.basic());
 

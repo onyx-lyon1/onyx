@@ -13,7 +13,7 @@ import '../../settings/settings_export.dart';
 part 'tomuss_state.dart';
 
 class TomussCubit extends Cubit<TomussState> {
-  Lyon1TomussClient? _dartus;
+  Lyon1TomussClient? _tomussClient;
   bool _loading = false;
 
   TomussCubit() : super(const TomussState(status: TomussStatus.initial));
@@ -31,7 +31,7 @@ class TomussCubit extends Cubit<TomussState> {
     _loading = true;
     emit(state.copyWith(
         status: TomussStatus.loading, currentSemesterIndex: semestreIndex));
-    _dartus = Lyon1TomussClient(lyon1Cas);
+    _tomussClient = Lyon1TomussClient(lyon1Cas);
     Student? student;
     List<TeachingUnit> teachingUnits = [];
     List<Semester> semesters = [];
@@ -60,10 +60,10 @@ class TomussCubit extends Cubit<TomussState> {
         newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
       ));
     }
-    if (_dartus != null && _dartus!.lyon1Cas.isAuthenticated) {
+    if (_tomussClient != null && _tomussClient!.lyon1Cas.isAuthenticated) {
       try {
         final result = await TomussLogic.getNameAndSemestersAndNotes(
-            dartus: _dartus!,
+            tomussClient: _tomussClient!,
             semesterIndex: semestreIndex,
             autoRefresh: false,
             semester: (semesters.length > (semestreIndex ?? 0))

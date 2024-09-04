@@ -26,7 +26,7 @@ Future<void> tomussNotificationLogic(SettingsModel settings,
               .teachingUnitModels;
       List<TeachingUnit> newTeachingUnits =
           (await TomussLogic.getNameAndSemestersAndNotes(
-                  dartus: tomussClient,
+                  tomussClient: tomussClient,
                   autoRefresh: true,
                   semester: semestreModel ??
                       Semester(localizations.defaultSemester,

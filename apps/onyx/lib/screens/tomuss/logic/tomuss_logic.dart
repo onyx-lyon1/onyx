@@ -26,13 +26,15 @@ class TomussLogic {
             Duration? timeout,
           })>
       getNameAndSemestersAndNotes(
-          {required Lyon1TomussClient dartus,
+          {required Lyon1TomussClient tomussClient,
           Semester? semester,
           int? semesterIndex,
           bool autoRefresh = true}) async {
     if (!Res.mock) {
       ParsedPage? parsedPage = await getParsedPage(
-          dartus: dartus, semestre: semester, autoRefresh: autoRefresh);
+          tomussClient: tomussClient,
+          semestre: semester,
+          autoRefresh: autoRefresh);
       if (parsedPage == null) {
         throw "Impossible de récuperer la page de tomuss";
       }
@@ -88,10 +90,10 @@ class TomussLogic {
   }
 
   static Future<ParsedPage?> getParsedPage(
-      {required Lyon1TomussClient dartus,
+      {required Lyon1TomussClient tomussClient,
       Semester? semestre,
       bool autoRefresh = true}) async {
-    return await dartus.getParsedPage(
+    return await tomussClient.getParsedPage(
         semestre?.url ?? Lyon1TomussClient.currentSemester(),
         autoRefresh: autoRefresh);
   }
