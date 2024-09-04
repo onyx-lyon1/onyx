@@ -242,7 +242,6 @@ void main() {
     await sendDummyMail(emailAddress);
     expect(await mailClient.getActions(), []);
 
-    await mailClient.login();
     final List<Mail> mailsBeforeDeletion =
         (await mailClient.fetchMessages(1)) ?? [];
     expect(mailsBeforeDeletion.isNotEmpty, true);
