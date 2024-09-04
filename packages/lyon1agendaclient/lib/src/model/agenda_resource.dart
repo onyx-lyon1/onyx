@@ -20,6 +20,8 @@ class AgendaResource extends Equatable {
       for (var i in json[key] as List) {
         branch.add(AgendaResource.fromJson(i));
       }
+
+      branch.sort((a, b) => a.name.compareTo(b.name));
     }
     return AgendaResource(json['id'] as int?,
         (json['name'] ?? json['category'] ?? "") as String, branch);

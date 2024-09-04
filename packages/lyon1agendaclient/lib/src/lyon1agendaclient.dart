@@ -110,6 +110,7 @@ class Lyon1AgendaClient {
     for (var i in data["data"]["category"]) {
       resource.add(AgendaResource.fromJson(i));
     }
+    resource.sort((a, b) => a.name.compareTo(b.name));
     return resource;
   }
 }

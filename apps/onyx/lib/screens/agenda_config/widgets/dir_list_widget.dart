@@ -22,7 +22,6 @@ class DirListWidget extends StatelessWidget {
         children: [DirWidget(dir: dir)],
       );
     } else {
-      dir.children!.sort((a, b) => a.name.compareTo(b.name));
       return SizedBox(
         height: 100.h - Res.bottomNavBarHeight,
         child: ListView(
