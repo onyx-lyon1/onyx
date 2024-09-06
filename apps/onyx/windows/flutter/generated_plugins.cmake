@@ -6,7 +6,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   desktop_window
   geolocator_windows
-  objectbox_flutter_libs
   permission_handler_windows
   share_plus
   url_launcher_windows
