@@ -7,7 +7,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
-import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter_map_cache/flutter_map_cache.dart';
+import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/res.dart';
@@ -42,6 +44,11 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
   late AnimatedMapController mapController;
+
+  Future<String> getPath() async {
+    final cacheDirectory = await getTemporaryDirectory();
+    return cacheDirectory.path;
+  }
 
   @override
   void initState() {
@@ -160,92 +167,103 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
       ),
     );
 
-    Widget map = PopupScope(
-      popupController: popupLayerController,
-      child: FlutterMap(
-        options: MapOptions(
-          initialCenter: widget.center ?? MapRes.center,
-          initialZoom: 16.5,
-          maxZoom: MapRes.maxZoom,
-          minZoom: 0,
-          onTap: (_, __) => popupLayerController.hideAllPopups(),
-        ),
-        mapController: mapController.mapController,
-        children: [
-          TileLayer(
-            tileProvider: const FMTCStore("mapStore").getTileProvider(
-              settings: FMTCTileProviderSettings(
-                cachedValidDuration: const Duration(days: 999999),
-                behavior: CacheBehavior.cacheFirst,
-              ),
+    Widget map = FutureBuilder<String>(
+      future: getPath(),
+      builder: (context, snap) {
+        if (!snap.hasData) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return PopupScope(
+          popupController: popupLayerController,
+          child: FlutterMap(
+            options: MapOptions(
+              initialCenter: widget.center ?? MapRes.center,
+              initialZoom: 16.5,
+              maxZoom: MapRes.maxZoom,
+              minZoom: 0,
+              onTap: (_, __) => popupLayerController.hideAllPopups(),
             ),
-            urlTemplate: "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            userAgentPackageName: 'fr.onyx.lyon1',
-          ),
-          if (widget.polylines.isNotEmpty &&
-              !widget.polylines.any((element) => element.points.isEmpty))
-            PolylineLayer(
-              polylines: widget.polylines,
-              polylineCulling: true,
-            ),
-          if (!kIsWeb &&
-              !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
-            const CustomCurrentLocationLayerWidget(),
-          if (markers.isNotEmpty)
-            MarkerClusterLayerWidget(
-              options: MarkerClusterLayerOptions(
-                maxClusterRadius: 120,
-                rotate: false,
-                size: const Size(40, 40),
-                spiderfyCluster: false,
-                disableClusteringAtZoom: 15,
-                zoomToBoundsOnClick: false,
-                alignment: Alignment.center,
-                maxZoom: 15,
-                padding: const EdgeInsets.all(50),
-                markers: markers,
-                popupOptions: PopupOptions(
-                  popupSnap: PopupSnap.markerTop,
-                  popupController: popupLayerController,
-                  popupBuilder: (context, marker) {
-                    int index = widget.batiments.indexWhere(
-                        (element) => element.position == marker.point);
-                    if (index != -1) {
-                      return BatimentPopupWidget(
-                        element: widget.batiments[index],
-                        onTap: widget.onTapNavigate,
-                        popupController: popupLayerController,
-                      );
-                    } else {
-                      index = widget.restaurant.indexWhere((element) =>
-                          element.lat == marker.point.latitude &&
-                          element.lon == marker.point.longitude);
-                      return RestaurantPopUpWidget(
-                        element: widget.restaurant[index],
-                        onTap: widget.onTapNavigate,
-                        popupController: popupLayerController,
-                      );
-                    }
-                  },
+            mapController: mapController.mapController,
+            children: [
+              TileLayer(
+                tileProvider: CachedTileProvider(
+                  maxStale: const Duration(days: 30),
+                  store: HiveCacheStore(
+                    snap.data!,
+                    hiveBoxName: 'HiveCacheStore',
+                  ),
                 ),
-                builder: (context, markers) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Theme.of(context).colorScheme.surface,
-                    ),
-                    child: Center(
-                      child: Text(
-                        markers.length.toString(),
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  );
-                },
+                urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                userAgentPackageName: 'fr.onyx.lyon1',
               ),
-            ),
-        ],
-      ),
+              if (widget.polylines.isNotEmpty &&
+                  !widget.polylines.any((element) => element.points.isEmpty))
+                PolylineLayer(
+                  polylines: widget.polylines,
+                  polylineCulling: true,
+                ),
+              if (!kIsWeb &&
+                  !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
+                const CustomCurrentLocationLayerWidget(),
+              if (markers.isNotEmpty)
+                MarkerClusterLayerWidget(
+                  options: MarkerClusterLayerOptions(
+                    maxClusterRadius: 120,
+                    rotate: false,
+                    size: const Size(40, 40),
+                    spiderfyCluster: false,
+                    disableClusteringAtZoom: 15,
+                    zoomToBoundsOnClick: false,
+                    alignment: Alignment.center,
+                    maxZoom: 15,
+                    padding: const EdgeInsets.all(50),
+                    markers: markers,
+                    popupOptions: PopupOptions(
+                      popupSnap: PopupSnap.markerTop,
+                      popupController: popupLayerController,
+                      popupBuilder: (context, marker) {
+                        int index = widget.batiments.indexWhere(
+                            (element) => element.position == marker.point);
+                        if (index != -1) {
+                          return BatimentPopupWidget(
+                            element: widget.batiments[index],
+                            onTap: widget.onTapNavigate,
+                            popupController: popupLayerController,
+                          );
+                        } else {
+                          index = widget.restaurant.indexWhere((element) =>
+                              element.lat == marker.point.latitude &&
+                              element.lon == marker.point.longitude);
+                          return RestaurantPopUpWidget(
+                            element: widget.restaurant[index],
+                            onTap: widget.onTapNavigate,
+                            popupController: popupLayerController,
+                          );
+                        }
+                      },
+                    ),
+                    builder: (context, markers) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                        child: Center(
+                          child: Text(
+                            markers.length.toString(),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
     );
 
     return OpenContainer(
