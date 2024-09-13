@@ -36,8 +36,7 @@
             overlays = [
               (final: prev: let
                 flutterOverlayPkgs = import flutterOverlay {
-                  system = prev.system;
-                  config = prev.config;
+                  inherit (prev) system config;
                 };
               in {
                 flutter = flutterOverlayPkgs.flutter;
