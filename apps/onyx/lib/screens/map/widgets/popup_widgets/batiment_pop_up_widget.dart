@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/screens/map/map_export.dart';
-import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:flutter_map_marker_cluster_2/flutter_map_marker_cluster.dart';
+import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 
 class BatimentPopupWidget extends StatelessWidget {
   const BatimentPopupWidget(
