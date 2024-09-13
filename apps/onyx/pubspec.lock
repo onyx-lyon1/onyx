@@ -385,6 +385,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  dart_earcut:
+    dependency: transitive
+    description:
+      name: dart_earcut
+      sha256: "41b493147e30a051efb2da1e3acb7f38fe0db60afba24ac1ea5684cee272721e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   dart_mappable:
     dependency: "direct main"
     description:
@@ -632,13 +640,14 @@ packages:
     source: hosted
     version: "1.1.0"
   flutter_compass:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: flutter_compass
-      sha256: be642484f9f6975c1c6edff568281b001f2f1e604de27ecea18d97eebbdef22f
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.0"
+      path: "."
+      ref: HEAD
+      resolved-ref: baec67a346740cb1296a87298a1c7e5037cafc31
+      url: "https://github.com/PikPakPik/flutter_compass.git"
+    source: git
+    version: "0.8.1"
   flutter_file_dialog:
     dependency: "direct main"
     description:
@@ -752,18 +761,18 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_map
-      sha256: "87cc8349b8fa5dccda5af50018c7374b6645334a0d680931c1fe11bce88fa5bb"
+      sha256: "2ecb34619a4be19df6f40c2f8dce1591675b4eff7a6857bd8f533706977385da"
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.1"
+    version: "7.0.2"
   flutter_map_animations:
     dependency: "direct main"
     description:
       name: flutter_map_animations
-      sha256: e4b929632b43a7939ce07a7cdb05613abb25e1996c9767c16469d0cbb9e1c4a9
+      sha256: a2135cd3cf36c07d821efeabb0be31aca380449528af80913c77b158e142eae9
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.0"
+    version: "0.7.1"
   flutter_map_cache:
     dependency: "direct main"
     description:
@@ -776,26 +785,26 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_map_location_marker
-      sha256: "630e02118b84453e67c4737dadefc87ee8eb54c67bf62800ef757421a770c727"
+      sha256: "1971d9ad7c8bedb15cb6a03598c0a3ad66ac6f7f165ad90d801bd5f636120f38"
       url: "https://pub.dev"
     source: hosted
-    version: "8.1.0"
-  flutter_map_marker_cluster:
+    version: "9.1.1"
+  flutter_map_marker_cluster_2:
     dependency: "direct main"
     description:
-      name: flutter_map_marker_cluster
-      sha256: a324f48da5ee83a3f29fd8d08b4b1e6e3114ff5c6cab910124d6a2e1f06f08cc
+      name: flutter_map_marker_cluster_2
+      sha256: "16dea922529a1db18994bb14546ab4c80d473753e5fbc5c32768dfb5311be304"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.6"
+    version: "1.0.4"
   flutter_map_marker_popup:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_map_marker_popup
-      sha256: ec563bcbae24a18ac16815fb75ac5ab33ccba609e14db70e252a67de19c6639c
+      sha256: a7540538114b5d1627ab67b498273d66bc36090385412ae49ef215af4a2861c5
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.2"
+    version: "7.0.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -842,18 +851,19 @@ packages:
     dependency: "direct main"
     description:
       name: geolocator
-      sha256: "6cb9fb6e5928b58b9a84bdf85012d757fd07aab8215c5205337021c4999bad27"
+      sha256: "0ec58b731776bc43097fcf751f79681b6a8f6d3bc737c94779fe9f1ad73c1a81"
       url: "https://pub.dev"
     source: hosted
-    version: "11.1.0"
+    version: "13.0.1"
   geolocator_android:
     dependency: "direct main"
     description:
-      name: geolocator_android
-      sha256: "80cd39a94100957431a6dd37cebd686f6d446bbc9a884d90c9a07b34fd28b923"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.5.5"
+      path: geolocator_android
+      ref: floss
+      resolved-ref: "9ce78b74d57764f6478bc9e3d68471236f079d10"
+      url: "https://github.com/onyx-lyon1/flutter-geolocator.git"
+    source: git
+    version: "4.6.1"
   geolocator_apple:
     dependency: transitive
     description:
@@ -874,10 +884,10 @@ packages:
     dependency: transitive
     description:
       name: geolocator_web
-      sha256: "49d8f846ebeb5e2b6641fe477a7e97e5dd73f03cbfef3fd5c42177b7300fb0ed"
+      sha256: "2ed69328e05cd94e7eb48bb0535f5fc0c0c44d1c4fa1e9737267484d05c29b5e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "4.1.1"
   geolocator_windows:
     dependency: transitive
     description:
@@ -1009,9 +1019,10 @@ packages:
   izlyclient:
     dependency: "direct main"
     description:
-      path: "../../packages/izlyclient"
-      relative: true
-    source: path
+      name: izlyclient
+      sha256: ee250433adcf91d8a2cb8512eb63d7bb0c1c9f62dcc05f609e3159f50dc0f27a
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.10"
   js:
     dependency: transitive
@@ -1049,10 +1060,10 @@ packages:
     dependency: "direct main"
     description:
       name: json_theme
-      sha256: "5e70afe87fbe8519abaa4e4131a1405b567353e1b9074d97a62043e5fced018e"
+      sha256: ca0976a27b19896de057cee7e7385cc52a43cb3668c33d74a39d706b288cf1c1
       url: "https://pub.dev"
     source: hosted
-    version: "6.5.0+1"
+    version: "6.5.3"
   json_theme_annotation:
     dependency: transitive
     description:
@@ -1082,18 +1093,18 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker
-      sha256: "7f0df31977cb2c0b88585095d168e689669a2cc9b97c309665e3386f3e9d341a"
+      sha256: "3f87a60e8c63aecc975dda1ceedbc8f24de75f09e4856ea27daf8958f2f0ce05"
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.4"
+    version: "10.0.5"
   leak_tracker_flutter_testing:
     dependency: transitive
     description:
       name: leak_tracker_flutter_testing
-      sha256: "06e98f569d004c1315b991ded39924b21af84cf14cc94791b8aea337d25b57f8"
+      sha256: "932549fb305594d82d7183ecd9fa93463e9914e1b67cacc34bc40906594a1806"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.3"
+    version: "3.0.5"
   leak_tracker_testing:
     dependency: transitive
     description:
@@ -1137,37 +1148,42 @@ packages:
   lyon1agendaclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1agendaclient"
-      relative: true
-    source: path
+      name: lyon1agendaclient
+      sha256: "26441745cdd5621485b5e9456a4587583ad1281b8519ed1996428a61f0b41317"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.10"
   lyon1casclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1casclient"
-      relative: true
-    source: path
+      name: lyon1casclient
+      sha256: "21290d9bd6696ca7d2c9c155aa7098ae76eed2c1587b6d6d701fe5cebbc0aee9"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.9"
   lyon1examenclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1examenclient"
-      relative: true
-    source: path
+      name: lyon1examenclient
+      sha256: "85f4de022305f2bf65d8b2bd5b421424047f5b315dd28ee10e1eefd033f81a4f"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.9"
   lyon1mailclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1mailclient"
-      relative: true
-    source: path
-    version: "1.0.10"
+      name: lyon1mailclient
+      sha256: c0089d3532c8eb287690052c6df4578e76319b66f5b6f58087f93462f111c2e5
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.9"
   lyon1tomussclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1tomussclient"
-      relative: true
-    source: path
+      name: lyon1tomussclient
+      sha256: "2aaaa955438ffabff7c2641d75c311cd8aa8df4566baa4bc095a2751858ca8af"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.12"
   markdown:
     dependency: transitive
@@ -1189,18 +1205,18 @@ packages:
     dependency: transitive
     description:
       name: material_color_utilities
-      sha256: "0e0a020085b65b6083975e499759762399b4475f766c21668c4ecca34ea74e5a"
+      sha256: f7142bb1154231d7ea5f96bc7bde4bda2a0945d2806bb11670e30b850d56bdec
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.0"
+    version: "0.11.1"
   meta:
     dependency: transitive
     description:
       name: meta
-      sha256: "7687075e408b093f36e6bbf6c91878cc0d4cd10f409506f7bc996f68220b9136"
+      sha256: bdb68674043280c3428e9ec998512fb681678676b3c54e773629ffe74419f8c7
       url: "https://pub.dev"
     source: hosted
-    version: "1.12.0"
+    version: "1.15.0"
   mgrs_dart:
     dependency: transitive
     description:
@@ -1420,9 +1436,10 @@ packages:
   polytechcolloscopeclient:
     dependency: "direct main"
     description:
-      path: "../../packages/polytechcolloscopeclient"
-      relative: true
-    source: path
+      name: polytechcolloscopeclient
+      sha256: b799d972e5935f0fc66b3766805489022e8eda08c37a2c2386e98b7e6e41ec6e
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.11"
   pool:
     dependency: transitive
@@ -1689,26 +1706,26 @@ packages:
     dependency: "direct dev"
     description:
       name: test
-      sha256: "7ee446762c2c50b3bd4ea96fe13ffac69919352bd3b4b17bac3f3465edc58073"
+      sha256: "7ee44229615f8f642b68120165ae4c2a75fe77ae2065b1e55ae4711f6cf0899e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.25.2"
+    version: "1.25.7"
   test_api:
     dependency: transitive
     description:
       name: test_api
-      sha256: "9955ae474176f7ac8ee4e989dadfb411a58c30415bcfb648fa04b2b8a03afa7f"
+      sha256: "5b8a98dafc4d5c4c9c72d8b31ab2b23fc13422348d2997120294d3bac86b4ddb"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.0"
+    version: "0.7.2"
   test_core:
     dependency: transitive
     description:
       name: test_core
-      sha256: "2bc4b4ecddd75309300d8096f781c0e3280ca1ef85beda558d33fcbedc2eead4"
+      sha256: "55ea5a652e38a1dfb32943a7973f3681a60f872f8c3a05a14664ad54ef9c6696"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.0"
+    version: "0.6.4"
   timezone:
     dependency: transitive
     description:
@@ -1841,10 +1858,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: "3923c89304b715fb1eb6423f017651664a03bf5f4b29983627c4da791f74a4ec"
+      sha256: "5c5f338a667b4c644744b661f309fb8080bb94b18a7e91ef1dbd343bed00ed6d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.2.1"
+    version: "14.2.5"
   vsc_quill_delta_to_html:
     dependency: "direct main"
     description:

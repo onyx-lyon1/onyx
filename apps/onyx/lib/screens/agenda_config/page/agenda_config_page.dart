@@ -51,7 +51,7 @@ class AgendaConfigPage extends StatelessWidget {
                   }
                 },
                 child: PopScope(
-                  onPopInvoked: (_) async {
+                  onPopInvokedWithResult: (_, __) async {
                     pageController.animateToPage(
                         pageController.page!.toInt() - 1,
                         duration: Res.animationDuration,

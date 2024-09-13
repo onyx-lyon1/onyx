@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
-import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:flutter_map_marker_cluster_2/flutter_map_marker_cluster.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_map_cache/flutter_map_cache.dart';
 import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
@@ -202,7 +202,6 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                   !widget.polylines.any((element) => element.points.isEmpty))
                 PolylineLayer(
                   polylines: widget.polylines,
-                  polylineCulling: true,
                 ),
               if (!kIsWeb &&
                   !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
