@@ -200,8 +200,8 @@ class MailSendPage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(10),
                               child: QuillEditor.basic(
+                                controller: state.controller!,
                                 configurations: QuillEditorConfigurations(
-                                  controller: state.controller!,
                                   minHeight: (100 -
                                           (8 +
                                               1 +

@@ -105,7 +105,7 @@ class MailsPage extends StatelessWidget {
             break;
         }
         return PopScope(
-          onPopInvoked: (_) {
+          onPopInvokedWithResult: (_, __) {
             context
                 .read<EmailCubit>()
                 .unselectAllMails(AppLocalizations.of(context));

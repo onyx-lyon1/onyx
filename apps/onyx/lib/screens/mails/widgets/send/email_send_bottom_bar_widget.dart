@@ -50,8 +50,8 @@ class EmailSendBottomBarWidget extends StatelessWidget {
                 child: SizedBox(
                   height: double.infinity,
                   child: QuillSimpleToolbar(
-                    configurations: QuillSimpleToolbarConfigurations(
-                      controller: state.controller!,
+                    controller: state.controller!,
+                    configurations: const QuillSimpleToolbarConfigurations(
                       multiRowsDisplay: false,
                     ),
                   ),
