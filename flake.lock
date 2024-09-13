@@ -98,6 +98,22 @@
         "type": "github"
       }
     },
+    "flutterOverlay": {
+      "locked": {
+        "lastModified": 1726018657,
+        "narHash": "sha256-QADaZKUx3KiGoaB5vPOnsdwMcaYGgkYd8QnFQ7D5ulk=",
+        "owner": "phlip9",
+        "repo": "nixpkgs",
+        "rev": "f8891ec8de90423de53adbef9e85508bb1a6c3dc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "phlip9",
+        "repo": "nixpkgs",
+        "rev": "f8891ec8de90423de53adbef9e85508bb1a6c3dc",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1720768451,
@@ -133,6 +149,7 @@
       "inputs": {
         "android-nixpkgs": "android-nixpkgs",
         "flake-parts": "flake-parts",
+        "flutterOverlay": "flutterOverlay",
         "nixpkgs": "nixpkgs_2"
       }
     },

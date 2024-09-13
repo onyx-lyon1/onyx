@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    flutterOverlay.url = "github:phlip9/nixpkgs/f8891ec8de90423de53adbef9e85508bb1a6c3dc";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -14,6 +15,7 @@
     self,
     nixpkgs,
     flake-parts,
+    flutterOverlay,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
@@ -31,6 +33,16 @@
               allowUnfree = true;
               android_sdk.accept_license = true;
             };
+            overlays = [
+              (final: prev: let
+                flutterOverlayPkgs = import flutterOverlay {
+                  system = prev.system;
+                  config = prev.config;
+                };
+              in {
+                flutter = flutterOverlayPkgs.flutter;
+              })
+            ];
           };
           melos = pkgs.callPackage ./nix/melos {};
           android-nixpkgs = pkgs.callPackage inputs.android-nixpkgs {};
