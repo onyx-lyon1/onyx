@@ -49,11 +49,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722555600,
-        "narHash": "sha256-XOQkdLafnb/p9ij77byFQjDf5m5QYl9b2REiVClC+x4=",
+        "lastModified": 1726153070,
+        "narHash": "sha256-HO4zgY0ekfwO5bX0QH/3kJ/h4KvUDFZg8YpkNwIbg1U=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "8471fe90ad337a8074e957b69ca4d0089218391d",
+        "rev": "bcef6817a8b2aa20a5a6dbb19b43e63c5bf8619a",
         "type": "github"
       },
       "original": {
@@ -98,22 +98,6 @@
         "type": "github"
       }
     },
-    "flutterOverlay": {
-      "locked": {
-        "lastModified": 1726018657,
-        "narHash": "sha256-QADaZKUx3KiGoaB5vPOnsdwMcaYGgkYd8QnFQ7D5ulk=",
-        "owner": "phlip9",
-        "repo": "nixpkgs",
-        "rev": "f8891ec8de90423de53adbef9e85508bb1a6c3dc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "phlip9",
-        "repo": "nixpkgs",
-        "rev": "f8891ec8de90423de53adbef9e85508bb1a6c3dc",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1720768451,
@@ -132,11 +116,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1723541349,
-        "narHash": "sha256-LrmeqqHdPgAJsVKIJja8jGgRG/CA2y6SGT2TjX5Do68=",
+        "lastModified": 1726365531,
+        "narHash": "sha256-luAKNxWZ+ZN0kaHchx1OdLQ71n81Y31ryNPWP1YRDZc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4877ea239f4d02410c3516101faf35a81af0c30e",
+        "rev": "9299cdf978e15f448cf82667b0ffdd480b44ee48",
         "type": "github"
       },
       "original": {
@@ -149,7 +133,6 @@
       "inputs": {
         "android-nixpkgs": "android-nixpkgs",
         "flake-parts": "flake-parts",
-        "flutterOverlay": "flutterOverlay",
         "nixpkgs": "nixpkgs_2"
       }
     },
