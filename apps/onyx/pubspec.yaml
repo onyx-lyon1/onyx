@@ -28,7 +28,7 @@ dependencies:
   flutter_localized_locales: ^2.0.5
 
   #agenda
-  lyon1agendaclient: ^1.0.8
+  lyon1agendaclient: ^1.0.11
 
   #agenda_config
   qr_code_dart_scan: ^0.9.1
@@ -51,10 +51,10 @@ dependencies:
     git: https://github.com/hatch01/keyboard_attachable.git
 
   #cas
-  lyon1casclient: ^1.0.7
+  lyon1casclient: ^1.0.10
 
   #tomuss
-  lyon1tomussclient: ^1.0.10
+  lyon1tomussclient: ^1.0.13
   screenshot: ^3.0.0
   share_plus: ^10.0.2
 
@@ -92,7 +92,7 @@ dependencies:
   diacritic: ^0.1.5
 
   #examen
-  lyon1examenclient: ^1.0.0
+  lyon1examenclient: ^1.0.10
   dart_mappable: ^4.2.2
 
 dev_dependencies:
