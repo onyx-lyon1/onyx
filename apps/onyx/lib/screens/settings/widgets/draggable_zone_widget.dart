@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,13 +39,15 @@ class DraggableZoneWidget extends StatelessWidget {
                 ),
               ),
               horizontalAlignment: MainAxisAlignment.center,
-              children: context
-                  .read<SettingsCubit>()
-                  .state
-                  .settings
-                  .enabledFunctionalities
-                  .map((e) => screenSettingsDragAndDropItem(e))
-                  .toList()),
+              children: [
+                for (var i in context
+                    .read<SettingsCubit>()
+                    .state
+                    .settings
+                    .enabledFunctionalities)
+                  if (!(Platform.isIOS && i == Functionalities.izly))
+                    screenSettingsDragAndDropItem(i)
+              ]),
           DragAndDropList(
               canDrag: false,
               contentsWhenEmpty: const SizedBox.shrink(),
@@ -63,13 +67,15 @@ class DraggableZoneWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
-              children: context
-                  .read<SettingsCubit>()
-                  .state
-                  .settings
-                  .disabledFunctionalities
-                  .map((e) => screenSettingsDragAndDropItem(e))
-                  .toList())
+              children: [
+                for (var i in context
+                    .read<SettingsCubit>()
+                    .state
+                    .settings
+                    .disabledFunctionalities)
+                  if (!(Platform.isIOS && i == Functionalities.izly))
+                    screenSettingsDragAndDropItem(i)
+              ]),
         ];
         return DragAndDropLists(
           listPadding: EdgeInsets.symmetric(horizontal: 4.w),

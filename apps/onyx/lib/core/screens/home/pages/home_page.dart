@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:onyx/core/extensions/functionalities_extension.dart';
+import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
@@ -59,10 +62,13 @@ class HomePageState extends State<HomePage> {
 
                   List<Destination> enabledDestinations = [];
                   for (var i = 0; i < enabledFunctionalities.length; i++) {
-                    enabledDestinations.add(Destination(
-                        i,
-                        enabledFunctionalities[i].name,
-                        enabledFunctionalities[i].toIcon()));
+                    if (!(Platform.isIOS &&
+                        enabledFunctionalities[i] == Functionalities.izly)) {
+                      enabledDestinations.add(Destination(
+                          i,
+                          enabledFunctionalities[i].name,
+                          enabledFunctionalities[i].toIcon()));
+                    }
                   }
 
                   // add the more button

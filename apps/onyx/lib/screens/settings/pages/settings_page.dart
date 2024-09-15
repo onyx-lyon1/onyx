@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
@@ -20,7 +23,6 @@ import 'package:onyx/screens/settings/widgets/draggable_zone_widget.dart';
 import 'package:onyx/screens/settings/widgets/drop_down_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({
@@ -68,7 +70,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                         .state
                                         .settings
                                         .language) +
-                            1, //little trick, if it does not found because null, it will return -1, so +1 to get 0
+                            1,
+                        //little trick, if it does not found because null, it will return -1, so +1 to get 0
                         // afterward we add in the list the auto option
                         items: [
                           AppLocalizations.of(context).auto,
@@ -240,26 +243,27 @@ class _SettingsPageState extends State<SettingsPage> {
                                 );
                           },
                         ),
-                        MaterialButton(
-                          color: const Color(0xffbf616a),
-                          textColor: Colors.white70,
-                          child: Text(
-                              AppLocalizations.of(context).clearIzlyCache,
-                              style: TextStyle(fontSize: 17.sp)),
-                          onPressed: () {
-                            CacheService.reset<IzlyQrCodeList>();
-                            CacheService.reset<IzlyPaymentModelList>();
-                            CacheService.reset<IzlyCredential>();
-                            Hive.deleteBoxFromDisk("cached_qr_code");
-                            Hive.deleteBoxFromDisk("cached_izly_amount");
-                            context.read<IzlyCubit>().resetCubit();
-                            context.read<IzlyCubit>().connect(
-                                settings: context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .settings);
-                          },
-                        ),
+                        if (!Platform.isIOS)
+                          MaterialButton(
+                            color: const Color(0xffbf616a),
+                            textColor: Colors.white70,
+                            child: Text(
+                                AppLocalizations.of(context).clearIzlyCache,
+                                style: TextStyle(fontSize: 17.sp)),
+                            onPressed: () {
+                              CacheService.reset<IzlyQrCodeList>();
+                              CacheService.reset<IzlyPaymentModelList>();
+                              CacheService.reset<IzlyCredential>();
+                              Hive.deleteBoxFromDisk("cached_qr_code");
+                              Hive.deleteBoxFromDisk("cached_izly_amount");
+                              context.read<IzlyCubit>().resetCubit();
+                              context.read<IzlyCubit>().connect(
+                                  settings: context
+                                      .read<SettingsCubit>()
+                                      .state
+                                      .settings);
+                            },
+                          ),
                         const SizedBox(
                           height: 10,
                         ),
