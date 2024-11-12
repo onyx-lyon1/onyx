@@ -18,6 +18,7 @@ class IzlyState {
   Uint8List? qrCode;
   int qrCodeAvailables;
   List<IzlyPaymentModel> paymentList;
+  bool showQrCode;
 
   IzlyState({
     this.izlyClient,
@@ -26,6 +27,7 @@ class IzlyState {
     this.qrCode,
     this.qrCodeAvailables = 0,
     this.paymentList = const [],
+    this.showQrCode = false,
   });
 
   IzlyState copyWith({
@@ -35,6 +37,7 @@ class IzlyState {
     IzlyClient? izlyClient,
     int? qrCodeAvailables,
     List<IzlyPaymentModel>? paymentList,
+    bool? showQrCode,
   }) {
     return IzlyState(
       status: status ?? this.status,
@@ -43,6 +46,7 @@ class IzlyState {
       izlyClient: izlyClient ?? this.izlyClient,
       qrCodeAvailables: qrCodeAvailables ?? this.qrCodeAvailables,
       paymentList: paymentList ?? this.paymentList,
+      showQrCode: showQrCode ?? this.showQrCode,
     );
   }
 }

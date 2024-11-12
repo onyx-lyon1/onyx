@@ -216,5 +216,6 @@
   "mailSendPageDiscardTitle": "Отменить отправку письма?",
   "mailSendPageDiscardContent": "Вы уверены, что хотите отменить отправку письма?",
   "discard": "Отменить",
-  "more": "Еще"
+  "more": "Еще",
+  "unHideQrCode": "Показать QR-код"
 }

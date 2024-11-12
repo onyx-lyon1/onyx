@@ -12,3 +12,4 @@ export 'widgets/izly_bottom_nav_bar_icon.dart';
 export 'widgets/izly_rechage_card_widget.dart';
 export 'widgets/izly_recharge_amount_widget.dart';
 export 'widgets/izly_recharge_header_widget.dart';
+export 'widgets/izly_qrcode_widget.dart';

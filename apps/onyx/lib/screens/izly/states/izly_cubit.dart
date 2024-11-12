@@ -122,6 +122,14 @@ class IzlyCubit extends Cubit<IzlyState> {
     }
   }
 
+  void toggleShowQrCode() {
+    emit(state.copyWith(showQrCode: !state.showQrCode));
+  }
+
+  void hideQrCode() {
+    emit(state.copyWith(showQrCode: false));
+  }
+
   void disconnect() async {
     if (_izlyClient != null) {
       await _izlyClient!.logout();
