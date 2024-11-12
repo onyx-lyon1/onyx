@@ -33,7 +33,6 @@
             };
             overlays = [ ];
           };
-          melos = pkgs.callPackage ./nix/melos {};
           android-nixpkgs = pkgs.callPackage inputs.android-nixpkgs {};
           androidSdk = android-nixpkgs.sdk (sdkPkgs:
             with sdkPkgs; [
