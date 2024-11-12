@@ -88,7 +88,7 @@
               libgcrypt
               libgpg-error
               apksigner
-              gnome.zenity
+              zenity
               lerc
             ];
           };
