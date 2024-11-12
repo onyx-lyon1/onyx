@@ -215,5 +215,6 @@
     "mailSendPageDiscardTitle": "تجاهل التغييرات؟",
     "mailSendPageDiscardContent": "هل تريد بالتأكيد تجاهل التغييرات التي أدخلتها؟",
     "discard": "غادر",
-    "more": "أكثر"
+    "more": "أكثر",
+    "unHideQrCode": "إظهار رمز الاستجابة السريعة"
 }

@@ -1018,5 +1018,6 @@
         "description": "Do you really want to discard the email?"
     },
     "discard": "Discard",
-    "more": "More"
+    "more": "More",
+    "unHideQrCode": "Click to\nunhide the QR code"
 }

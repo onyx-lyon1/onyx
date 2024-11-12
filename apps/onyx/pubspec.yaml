@@ -37,6 +37,7 @@ dependencies:
 
   #izly
   izlyclient: ^1.0.9
+  screen_brightness: ^2.0.0+2
 
   #mail
   lyon1mailclient: ^1.0.10

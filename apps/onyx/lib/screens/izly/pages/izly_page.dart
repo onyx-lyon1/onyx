@@ -17,35 +17,10 @@ class IzlyPage extends StatelessWidget {
     return (15.w) * (index);
   }
 
-  Color calculateWarningColor(BuildContext context) {
-    if (context.read<IzlyCubit>().state.paymentList.isEmpty) {
-      if (context.read<IzlyCubit>().state.izlyClient != null &&
-          context.read<IzlyCubit>().state.status == IzlyStatus.loaded) {
-        context.read<IzlyCubit>().loadPaymentHistory();
-      }
-      return Colors.transparent;
-    }
-
-    double average = 0.0;
-    for (var i in context.read<IzlyCubit>().state.paymentList) {
-      if (i.amountSpent < 0) {
-        average += -i.amountSpent;
-      }
-    }
-    average /= context.read<IzlyCubit>().state.paymentList.length;
-
-    final green = 5 * average; //5 times the average should display green
-    final red = 2 * average; //2 times the average should display red
-    //do a linear interpolation between green and red
-    double interpolation =
-        (context.read<IzlyCubit>().state.balance - red) / (green - red);
-    return HSVColor.fromAHSV(1, (120 * interpolation).clamp(0, 120), 1, 1)
-        .toColor();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<IzlyCubit, IzlyState>(
+      buildWhen: (prevState, newState) => prevState.status != newState.status,
       builder: (context, state) {
         Widget? stateWidget;
         Widget body = Container();
@@ -98,27 +73,7 @@ class IzlyPage extends StatelessWidget {
                     children: [
                       Text(
                           "${AppLocalizations.of(context).available(state.qrCodeAvailables)} ${AppLocalizations.of(context).offline}"),
-                      Container(
-                        height: 60.5.w, // 60 + the padding 6 lines below
-                        width: 60.5.w, // 60 + the padding 5 lines below
-                        decoration: BoxDecoration(
-                          color: calculateWarningColor(context),
-                          borderRadius: BorderRadius.circular(15 + 2.w),
-                        ),
-                        padding: EdgeInsets.all(0.5.w),
-                        child: Card(
-                          color: Colors.white,
-                          elevation: 10,
-                          clipBehavior: Clip.hardEdge,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Image.memory(state.qrCode!,
-                              scale: 0.6,
-                              semanticLabel:
-                                  AppLocalizations.of(context).qrCode),
-                        ),
-                      ),
+                      IzlyQrcodeWidget(),
                       Text(
                         "${state.balance.toStringAsFixed(2)}€",
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(

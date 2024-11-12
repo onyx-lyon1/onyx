@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/examen/states/examen_cubit.dart';
+import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:screen_brightness/screen_brightness.dart';
+
+int lastIndex = 0;
 
 void actionOnScreen(BuildContext context, int index) {
   final agendaIndex = context
@@ -21,6 +27,20 @@ void actionOnScreen(BuildContext context, int index) {
       .settings
       .enabledFunctionalities
       .indexOf(Functionalities.examen);
+
+  final izlyIndex = context
+      .read<SettingsCubit>()
+      .state
+      .settings
+      .enabledFunctionalities
+      .indexOf(Functionalities.izly);
+
+  if (index != izlyIndex) {
+    if (Platform.isAndroid || Platform.isIOS) {
+      ScreenBrightness.instance.resetApplicationScreenBrightness();
+      context.read<IzlyCubit>().hideQrCode();
+    }
+  }
 
   if (index == colloscopeIndex) {
     if (context.read<ExamenCubit>().state.reloadScheduled) {
@@ -77,4 +97,5 @@ void actionOnScreen(BuildContext context, int index) {
       });
     }
   }
+  lastIndex = index;
 }
