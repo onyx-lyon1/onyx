@@ -10,6 +10,17 @@
     android-nixpkgs.url = "github:tadfisher/android-nixpkgs";
   };
 
+  nixConfig = {
+    substituters = [
+      "https://cache.nixos.org"
+      "https://cache.onyx.ovh"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "cache.onyx.ovh:2wUG6wsx5slbKUgkHT6GJuQ5k2StuUc8ysZQ2W+fbxA="
+    ];
+  };
+
   outputs = {
     self,
     nixpkgs,
@@ -31,8 +42,9 @@
               allowUnfree = true;
               android_sdk.accept_license = true;
             };
-            overlays = [ ];
+            overlays = [];
           };
+          flutter_rust_bridge_codegen = pkgs.callPackage nix/flutter_rust_bridge_codegen/package.nix {};
           android-nixpkgs = pkgs.callPackage inputs.android-nixpkgs {};
           androidSdk = android-nixpkgs.sdk (sdkPkgs:
             with sdkPkgs; [
@@ -58,6 +70,7 @@
             GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/share/android-sdk/build-tools/34.0.0/aapt2";
             LD_LIBRARY_PATH = "${PWD}/apps/onyx/build/linux/x64/debug/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/release/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/profile/bundle/lib/";
             buildInputs = with pkgs; [
+              flutter_rust_bridge_codegen
               chromium
               flutter
               melos
