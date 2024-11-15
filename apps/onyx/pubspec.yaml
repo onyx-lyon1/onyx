@@ -95,6 +95,9 @@ dependencies:
   #examen
   lyon1examenclient: ^1.0.0
   dart_mappable: ^4.2.2
+  rust_lib_onyx:
+    path: rust_builder
+  flutter_rust_bridge: 2.6.0
 
 dev_dependencies:
   flutter_test:

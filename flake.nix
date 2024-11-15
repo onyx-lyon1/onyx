@@ -7,6 +7,11 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     android-nixpkgs.url = "github:tadfisher/android-nixpkgs";
   };
 
@@ -25,6 +30,7 @@
     self,
     nixpkgs,
     flake-parts,
+    rust-overlay,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
@@ -42,7 +48,7 @@
               allowUnfree = true;
               android_sdk.accept_license = true;
             };
-            overlays = [];
+            overlays = [(import rust-overlay)];
           };
           flutter_rust_bridge_codegen = pkgs.callPackage nix/flutter_rust_bridge_codegen/package.nix {};
           android-nixpkgs = pkgs.callPackage inputs.android-nixpkgs {};
@@ -70,6 +76,10 @@
             GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/share/android-sdk/build-tools/34.0.0/aapt2";
             LD_LIBRARY_PATH = "${PWD}/apps/onyx/build/linux/x64/debug/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/release/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/profile/bundle/lib/";
             buildInputs = with pkgs; [
+              (rust-bin.nightly.latest.default.override {
+                extensions = ["rust-analyzer" "rust-src" "rustfmt" "clippy"];
+              })
+              rustup
               flutter_rust_bridge_codegen
               chromium
               flutter
@@ -103,6 +113,7 @@
               apksigner
               zenity
               lerc
+              libsysprof-capture
             ];
           };
         formatter = pkgs.alejandra;
