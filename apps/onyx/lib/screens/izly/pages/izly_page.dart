@@ -73,7 +73,7 @@ class IzlyPage extends StatelessWidget {
                     children: [
                       Text(
                           "${AppLocalizations.of(context).available(state.qrCodeAvailables)} ${AppLocalizations.of(context).offline}"),
-                      IzlyQrcodeWidget(),
+                      const IzlyQrcodeWidget(),
                       Text(
                         "${state.balance.toStringAsFixed(2)}€",
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(

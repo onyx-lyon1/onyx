@@ -13,47 +13,27 @@ class IzlyQrcodeWidget extends StatelessWidget {
   const IzlyQrcodeWidget({super.key});
 
   Color calculateWarningColor(BuildContext context) {
-    if (context
-        .read<IzlyCubit>()
-        .state
-        .paymentList
-        .isEmpty) {
-      if (context
-          .read<IzlyCubit>()
-          .state
-          .izlyClient != null &&
-          context
-              .read<IzlyCubit>()
-              .state
-              .status == IzlyStatus.loaded) {
+    if (context.read<IzlyCubit>().state.paymentList.isEmpty) {
+      if (context.read<IzlyCubit>().state.izlyClient != null &&
+          context.read<IzlyCubit>().state.status == IzlyStatus.loaded) {
         context.read<IzlyCubit>().loadPaymentHistory();
       }
       return Colors.transparent;
     }
 
     double average = 0.0;
-    for (var i in context
-        .read<IzlyCubit>()
-        .state
-        .paymentList) {
+    for (var i in context.read<IzlyCubit>().state.paymentList) {
       if (i.amountSpent < 0) {
         average += -i.amountSpent;
       }
     }
-    average /= context
-        .read<IzlyCubit>()
-        .state
-        .paymentList
-        .length;
+    average /= context.read<IzlyCubit>().state.paymentList.length;
 
     final green = 5 * average; //5 times the average should display green
     final red = 2 * average; //2 times the average should display red
     //do a linear interpolation between green and red
     double interpolation =
-        (context
-            .read<IzlyCubit>()
-            .state
-            .balance - red) / (green - red);
+        (context.read<IzlyCubit>().state.balance - red) / (green - red);
     return HSVColor.fromAHSV(1, (120 * interpolation).clamp(0, 120), 1, 1)
         .toColor();
   }
@@ -118,9 +98,7 @@ class IzlyQrcodeWidget extends StatelessWidget {
                           color: Colors.white,
                         ),
                         Text(
-                          AppLocalizations
-                              .of(context)
-                              .unHideQrCode,
+                          AppLocalizations.of(context).unHideQrCode,
                           textAlign: TextAlign.center,
                           style: const TextStyle(color: Colors.white),
                         ),
