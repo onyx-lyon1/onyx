@@ -1,17 +1,17 @@
 import 'package:dotenv/dotenv.dart';
-import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
+import 'package:lyon1tomussclient/src/rust/cas.dart';
+import 'package:lyon1tomussclient/src/rust/frb_generated.dart';
 import 'package:lyon1tomussclient/src/utils/urlcreator.dart';
 import 'package:test/test.dart';
 
 void main() async {
   late Lyon1TomussClient tomussOK;
-  late Credential credsOK;
 
   DotEnv env = DotEnv(includePlatformEnvironment: true);
   setUpAll(() async {
+    await RustLib.init();
     Lyon1TomussClient.registerAdapters();
-    Lyon1CasClient.registerAdapters();
     env.load();
     final String username = env['USERNAME'] ?? "";
     final String password = env['PASSWORD'] ?? "";
@@ -19,9 +19,9 @@ void main() async {
     if (username.isEmpty || password.isEmpty) {
       fail("username or password were empty. check your envt variables");
     }
-    credsOK = Credential(username, password);
+
     Lyon1CasClient lyon1Cas = Lyon1CasClient();
-    await lyon1Cas.authenticate(credsOK);
+    await lyon1Cas.authenticateUser(username: username, password: password);
     tomussOK = Lyon1TomussClient(lyon1Cas);
   });
 

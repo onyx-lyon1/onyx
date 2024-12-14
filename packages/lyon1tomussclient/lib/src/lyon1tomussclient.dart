@@ -1,8 +1,8 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:hive/hive.dart';
-import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:lyon1tomussclient/src/parser/htmlparser.dart';
+import 'package:lyon1tomussclient/src/rust/cas.dart';
 import 'package:lyon1tomussclient/src/utils/urlcreator.dart';
 
 class Lyon1TomussClient {
@@ -32,10 +32,10 @@ class Lyon1TomussClient {
 
   Future<ParsedPage?> getParsedPage(final String url,
       {bool autoRefresh = true}) async {
-    if (!_authentication.isAuthenticated) return null;
+    if (!_authentication.authenticated()) return null;
 
-    String content =
-        (await _authentication.serviceRequest(url, wrapUrl: false)).body;
+    String content = (await _authentication.serviceRequest(
+        service: url, unsafeReq: false, wrap: false));
     final HTMLparser parser = HTMLparser();
 
     if (content.length < 1000) {
