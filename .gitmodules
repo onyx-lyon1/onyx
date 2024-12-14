@@ -2,3 +2,6 @@
 	path = apps/.flutter
 	url = https://github.com/flutter/flutter.git
 	branch = stable
+[submodule "packages/lyon1_cas_client_rs"]
+	path = packages/lyon1_cas_client_rs
+	url = git@github.com:FlashOnFire/lyon1_cas_client.git
