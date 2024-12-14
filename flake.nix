@@ -71,6 +71,7 @@
             buildInputs = with pkgs; [
               flutter_rust_bridge_codegen
               rustup
+              cargo
               chromium
               flutter
               melos
