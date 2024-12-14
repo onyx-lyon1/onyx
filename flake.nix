@@ -44,7 +44,6 @@
             };
             overlays = [];
           };
-          flutter_rust_bridge_codegen = pkgs.callPackage nix/flutter_rust_bridge_codegen/package.nix {};
           android-nixpkgs = pkgs.callPackage inputs.android-nixpkgs {};
           androidSdk = android-nixpkgs.sdk (sdkPkgs:
             with sdkPkgs; [
@@ -71,6 +70,7 @@
             LD_LIBRARY_PATH = "${PWD}/apps/onyx/build/linux/x64/debug/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/release/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/profile/bundle/lib/";
             buildInputs = with pkgs; [
               flutter_rust_bridge_codegen
+              rustup
               chromium
               flutter
               melos
