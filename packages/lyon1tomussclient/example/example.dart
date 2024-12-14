@@ -1,11 +1,10 @@
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
-import 'package:lyon1casclient/lyon1casclient.dart';
+import 'package:lyon1tomussclient/src/rust/cas.dart';
 
 void main() async {
   Lyon1CasClient lyon1Cas = Lyon1CasClient();
-  final bool isAuthenticated =
-      (await lyon1Cas.authenticate(Credential("p1234567", "a_valid_password")))
-          .authResult;
+  final bool isAuthenticated = (await lyon1Cas.authenticateUser(
+      username: "p1234567", password: "a_valid_password"));
   if (!isAuthenticated) {
     print("You are not authenticated. Please check your username and password");
     return;
