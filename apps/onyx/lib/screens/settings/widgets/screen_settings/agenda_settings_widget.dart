@@ -14,6 +14,14 @@ class AgendaSettingsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.read<SettingsCubit>().state.settings;
+    final weekDays = DateFormat.E(AppLocalizations.of(context).localeName)
+        .dateSymbols
+        .SHORTWEEKDAYS
+        .sublist(1)
+      ..add(DateFormat.E(AppLocalizations.of(context).localeName)
+          .dateSymbols
+          .SHORTWEEKDAYS
+          .first);
     return Column(
       children: [
         TextSwitchWidget(
@@ -80,9 +88,7 @@ class AgendaSettingsWidget extends StatelessWidget {
                 height: 1.h,
               ),
               AgendaWeekDaySelector(
-                elements: DateFormat.E(AppLocalizations.of(context).localeName)
-                    .dateSymbols
-                    .SHORTWEEKDAYS,
+                elements: weekDays,
                 colorCondition: (i) => i == settings.agendaWeekReference,
                 disabledCondition: (i) =>
                     settings.agendaDisabledDays.contains(i + 1),
@@ -135,9 +141,7 @@ class AgendaSettingsWidget extends StatelessWidget {
                 height: 1.h,
               ),
               AgendaWeekDaySelector(
-                elements: DateFormat.E(AppLocalizations.of(context).localeName)
-                    .dateSymbols
-                    .SHORTWEEKDAYS,
+                elements: weekDays,
                 colorCondition: (i) =>
                     settings.agendaDisabledDays.contains(i + 1),
                 onTap: (int rawI) {
