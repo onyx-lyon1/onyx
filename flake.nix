@@ -44,7 +44,6 @@
             };
             overlays = [];
           };
-          flutter_rust_bridge_codegen = pkgs.callPackage nix/flutter_rust_bridge_codegen/package.nix {};
           android-nixpkgs = pkgs.callPackage inputs.android-nixpkgs {};
           androidSdk = android-nixpkgs.sdk (sdkPkgs:
             with sdkPkgs; [
