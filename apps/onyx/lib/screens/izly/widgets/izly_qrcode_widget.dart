@@ -70,6 +70,7 @@ class IzlyQrcodeWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             child: Stack(
+              alignment: Alignment.center,
               children: [
                 Image.memory(
                   state.qrCode!,
