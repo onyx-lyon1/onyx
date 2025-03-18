@@ -2,7 +2,7 @@ dependency_overrides:
   geolocator_android:
     git:
       url: https://github.com/onyx-lyon1/flutter-geolocator.git
-      ref: floss
+      ref: 13.0.1
       path: geolocator_android
   flutter_compass:
     git: https://github.com/PikPakPik/flutter_compass.git
