@@ -19,10 +19,6 @@ class NotificationLogic {
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
-      onDidReceiveLocalNotification:
-          (int id, String? title, String? body, String? payload) async {
-        // handle action
-      },
     ),
     linux: LinuxInitializationSettings(
       defaultIcon: AssetsLinuxIcon('assets/icon_transparent.png'),

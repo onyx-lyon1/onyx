@@ -103,6 +103,7 @@
               apksigner
               zenity
               lerc
+              libsysprof-capture
             ];
           };
         formatter = pkgs.alejandra;
