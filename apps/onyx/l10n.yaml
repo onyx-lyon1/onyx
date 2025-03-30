@@ -4,3 +4,4 @@ output-localization-file: app_localizations.dart
 use-escaping: true
 preferred-supported-locales: ["fr"]
 nullable-getter: false
+synthetic-package: false
