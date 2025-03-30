@@ -18,7 +18,7 @@ dependencies:
   path_provider: ^2.1.1
   animations: ^2.0.8
   auto_size_text: ^3.0.0
-  copy_with_extension: ^5.0.4
+  copy_with_extension: ^6.0.1
   responsive_sizer: ^3.3.1
   desktop_window: ^0.4.0
   # internationalization
@@ -89,7 +89,7 @@ dependencies:
   equatable: ^2.0.5
   biometric_storage: ^5.0.0+4
   logger: ^2.0.2+1
-  json_theme: ^7.0.0+3
+  json_theme: ^8.0.0+2
 
   #colloscope
   polytechcolloscopeclient: ^1.0.9
@@ -105,7 +105,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   build_runner: ^2.4.10
   hive_generator: ^2.0.1
-  copy_with_extension_gen: ^5.0.4
+  copy_with_extension_gen: ^6.0.0
   flutter_launcher_icons: ^0.14.3
   test: ^1.24.9
   dart_mappable_builder: ^4.2.3
