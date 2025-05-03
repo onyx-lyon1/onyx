@@ -7,11 +7,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1742329191,
-        "narHash": "sha256-e0H+vW5vSZCSYtzRDgEB1zsE4Y2Qczv1BHbuVZt8cGg=",
+        "lastModified": 1746217332,
+        "narHash": "sha256-bWdEWRlh51jjPlKPSlUfzBQcsH+KeLfo/H1EiOGF8qM=",
         "owner": "tadfisher",
         "repo": "android-nixpkgs",
-        "rev": "cbd5734f199133aa63f8581a581fe613551d31a8",
+        "rev": "bb034c996d715c34140dbc7fd71a7de2dfc9ab95",
         "type": "github"
       },
       "original": {
@@ -48,11 +48,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741352980,
-        "narHash": "sha256-+u2UunDA4Cl5Fci3m7S643HzKmIDAe+fiXrLqYsR2fs=",
+        "lastModified": 1743550720,
+        "narHash": "sha256-hIshGgKZCgWh6AYJpJmRgFdR3WUbkY04o82X05xqQiY=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "f4330d22f1c5d2ba72d3d22df5597d123fdb60a9",
+        "rev": "c621e8422220273271f52058f618c94e405bb0f5",
         "type": "github"
       },
       "original": {
@@ -81,11 +81,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1742069588,
-        "narHash": "sha256-C7jVfohcGzdZRF6DO+ybyG/sqpo1h6bZi9T56sxLy+k=",
+        "lastModified": 1746141548,
+        "narHash": "sha256-IgBWhX7A2oJmZFIrpRuMnw5RAufVnfvOgHWgIdds+hc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c80f6a7e10b39afcc1894e02ef785b1ad0b0d7e5",
+        "rev": "f02fddb8acef29a8b32f10a335d44828d7825b78",
         "type": "github"
       },
       "original": {
@@ -97,17 +97,14 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1743259260,
-        "narHash": "sha256-ArWLUgRm1tKHiqlhnymyVqi5kLNCK5ghvm06mfCl4QY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "eb0e0f21f15c559d2ac7633dc81d079d1caf5f5f",
-        "type": "github"
+        "lastModified": 1745956253,
+        "narHash": "sha256-s2s+eFGGw3hph1KiX8kd2gIna5W1fb85oYRY3FkGQjQ=",
+        "path": "/home/eymeric/tmp/nixpkgs",
+        "type": "path"
       },
       "original": {
-        "id": "nixpkgs",
-        "ref": "nixpkgs-unstable",
-        "type": "indirect"
+        "path": "/home/eymeric/tmp/nixpkgs",
+        "type": "path"
       }
     },
     "root": {
