@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/search/search_service.dart';
@@ -120,7 +120,7 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
                       .textTheme
                       .bodyLarge!
                       .color!
-                      .withOpacity(0.5)),
+                      .withValues(alpha: 0.5)),
               focusedBorder: InputBorder.none,
               border: InputBorder.none,
             ),

@@ -10,7 +10,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/widgets/screen_settings/examen_settings_widget.dart';
 import 'package:onyx/screens/settings/widgets/screen_settings/email_settings_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 extension FunctionalitiesExtention on Functionalities {
   String toCleanString(AppLocalizations localizations) {

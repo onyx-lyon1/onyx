@@ -38,7 +38,7 @@ class SettingsCardWidget extends StatelessWidget {
                       .textTheme
                       .bodyLarge!
                       .color!
-                      .withOpacity(0.8),
+                      .withValues(alpha: 0.8),
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),

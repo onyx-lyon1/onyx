@@ -5,7 +5,7 @@ import 'package:onyx/screens/agenda_config/page/agenda_config_page.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class AgendaUrlParameterWidget extends StatelessWidget {
   const AgendaUrlParameterWidget({super.key});
@@ -45,7 +45,7 @@ class AgendaUrlParameterWidget extends StatelessWidget {
                         .settings
                         .fetchAgendaAuto)
                     ? Theme.of(context).primaryColor
-                    : Theme.of(context).primaryColor.withOpacity(0.3),
+                    : Theme.of(context).primaryColor.withValues(alpha: 0.3),
               ),
               child: const AgendaSelectionWidget(),
             ),

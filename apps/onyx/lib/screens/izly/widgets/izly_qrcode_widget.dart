@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/izly/states/izly_cubit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 
 class IzlyQrcodeWidget extends StatelessWidget {
@@ -83,7 +83,7 @@ class IzlyQrcodeWidget extends StatelessWidget {
                   curve: Curves.easeInOut,
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                    child: Container(color: Colors.black.withOpacity(0.4)),
+                    child: Container(color: Colors.black.withValues(alpha: 0.4)),
                   ),
                 ),
                 AnimatedOpacity(
@@ -115,7 +115,7 @@ class IzlyQrcodeWidget extends StatelessWidget {
                         context.read<IzlyCubit>().toggleShowQrCode();
                       },
                       splashColor: Colors.white
-                          .withOpacity(0.3), // Customize splash color
+                          .withValues(alpha: 0.3), // Customize splash color
                     ),
                   ),
                 ),

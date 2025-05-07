@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/core/extensions/functionalities_extension.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/home/home_export.dart';

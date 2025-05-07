@@ -4,7 +4,7 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class WaitingBiometric extends StatelessWidget {
   const WaitingBiometric({super.key});

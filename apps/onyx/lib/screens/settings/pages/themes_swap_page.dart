@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
 import 'package:onyx/core/theme/theme_export.dart';
 import 'package:onyx/screens/settings/widgets/theme_swap/theme_list_expansion_tile.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class ThemesSwap extends StatefulWidget {
   const ThemesSwap({super.key});

@@ -1,5 +1,5 @@
 import 'package:onyx/screens/settings/domain/model/theme_model.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 extension ThemeExtensions on ThemeModel {
   String translate(AppLocalizations appLocalizations) {

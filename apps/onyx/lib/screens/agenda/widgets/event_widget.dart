@@ -5,7 +5,7 @@ import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class EventWidget extends StatelessWidget {
   final Event event;
@@ -72,7 +72,7 @@ class EventWidget extends StatelessWidget {
                             .textTheme
                             .bodyLarge!
                             .color!
-                            .withOpacity(0.7),
+                            .withValues(alpha: 0.7),
                         fontSize: 12,
                       ),
                     ),

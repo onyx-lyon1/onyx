@@ -7,7 +7,7 @@ import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:onyx/screens/tomuss/states/tomuss_cubit.dart';
 import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class ExamenPage extends StatelessWidget {
   const ExamenPage({

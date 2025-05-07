@@ -4,7 +4,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class MailSendPage extends StatelessWidget {
   final int? originalMessage;
@@ -141,7 +141,7 @@ class MailSendPage extends StatelessWidget {
                                                         .textTheme
                                                         .bodyLarge!
                                                         .color!
-                                                        .withOpacity(0.5)),
+                                                        .withValues(alpha: 0.5)),
                                             isDense: true,
                                             focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(

@@ -2,11 +2,11 @@
 
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:hive/hive.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:requests_plus/requests_plus.dart';
-import 'package:collection/collection.dart';
 
 import 'config/config.dart';
 
@@ -387,7 +387,7 @@ class Lyon1MailClient {
       for (var item in response.json()['Body']['ResultSet']) {
         addresses.add(Address(
           (item['EmailAddress'] ?? {})['EmailAddress'] ?? "",
-          (item['GivenName'] ?? "") + " " + (item['Surname'] ?? ""),
+          "${(item['GivenName'] ?? "")} ${(item['Surname'] ?? "")}",
         ));
       }
       return addresses;

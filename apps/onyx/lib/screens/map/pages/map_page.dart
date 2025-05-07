@@ -4,12 +4,13 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/map/map_export.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({super.key, this.enableBackButton = false});
 
   final bool enableBackButton;
+
   @override
   Widget build(BuildContext context) {
     final textEditingController = TextEditingController();

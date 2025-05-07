@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/privacy_policie_page.dart';
@@ -133,7 +133,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                                                 .textTheme
                                                 .bodyLarge!
                                                 .color!)
-                                        .withOpacity(0.7),
+                                        .withValues(alpha: 0.7),
                                   ),
                           prefixIcon: Icon(
                             Icons.school_rounded,
@@ -144,7 +144,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                                             .textTheme
                                             .bodyLarge!
                                             .color!)
-                                    .withOpacity(0.7),
+                                    .withValues(alpha: 0.7),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -298,14 +298,14 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
           labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: (Theme.of(context).textTheme.bodySmall!.color ??
                         Theme.of(context).textTheme.bodyLarge!.color!)
-                    .withOpacity(0.5),
+                    .withValues(alpha: 0.5),
               ),
           prefixIcon: Icon(
             Icons.lock_rounded,
             size: 18.sp,
             color: (Theme.of(context).textTheme.bodySmall!.color ??
                     Theme.of(context).textTheme.bodyLarge!.color!)
-                .withOpacity(0.5),
+                .withValues(alpha: 0.5),
           ),
           suffixIcon: IconButton(
               icon: Icon(

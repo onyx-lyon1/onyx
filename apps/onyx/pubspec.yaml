@@ -48,7 +48,6 @@ dependencies:
   flutter_quill: ^11.1.0
   vsc_quill_delta_to_html: ^1.0.3
   enough_mail: ^2.1.3
-  keyboard_attachable: ^2.2.0
 
   #cas
   lyon1casclient: ^1.0.7

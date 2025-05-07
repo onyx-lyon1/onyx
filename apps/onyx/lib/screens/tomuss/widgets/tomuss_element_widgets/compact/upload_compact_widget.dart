@@ -8,7 +8,7 @@ import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:open_filex/open_filex.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class UploadCompactWidget extends StatelessWidget {
   final Upload upload;
