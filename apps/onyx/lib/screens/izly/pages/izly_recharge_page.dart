@@ -3,10 +3,11 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class IzlyRechargePage extends StatelessWidget {
   const IzlyRechargePage({super.key, required this.pageController});
+
   final PageController pageController;
 
   @override

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class KholleWidget extends StatelessWidget {
   const KholleWidget({

@@ -19,7 +19,7 @@ class DirWidget extends StatelessWidget {
       return Container(
         color:
             context.read<AgendaConfigCubit>().state.choosedIds.contains(dir.id)
-                ? Theme.of(context).primaryColor.withOpacity(0.3)
+                ? Theme.of(context).primaryColor.withValues(alpha: 0.3)
                 : null,
         child: ListTile(
           title: Text(Uri.decodeFull(
@@ -37,7 +37,7 @@ class DirWidget extends StatelessWidget {
       return Material(
         color:
             context.read<AgendaConfigCubit>().state.choosedIds.contains(dir.id)
-                ? Theme.of(context).primaryColor.withOpacity(0.3)
+                ? Theme.of(context).primaryColor.withValues(alpha: 0.3)
                 : null,
         child: InkWell(
           onTap: () =>

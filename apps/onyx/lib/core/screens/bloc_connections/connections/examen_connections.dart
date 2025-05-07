@@ -3,7 +3,7 @@ import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/screens/agenda/states/agenda_cubit.dart';
 import 'package:onyx/screens/examen/states/examen_cubit.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class ExamensConnection extends BlocListener<ExamenCubit, ExamenState> {
   ExamensConnection({

@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';

@@ -4,7 +4,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 Future<void> agendaNotificationLogic(SettingsModel settings,
     Lyon1CasClient lyon1Cas, AppLocalizations localizations) async {

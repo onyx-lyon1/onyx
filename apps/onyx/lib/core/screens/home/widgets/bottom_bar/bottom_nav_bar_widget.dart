@@ -41,7 +41,7 @@ class BottomNavBarWidget extends StatelessWidget {
                           : Theme.of(context)
                               .colorScheme
                               .primary
-                              .withOpacity(0.5),
+                              .withValues(alpha: 0.5),
                       onDestinationSelected: (int index) {
                         context
                             .read<HomeCubit>()
@@ -65,7 +65,7 @@ class BottomNavBarWidget extends StatelessWidget {
             NavigationBar(
               selectedIndex: state.selectedIndex.clamp(0, 3),
               indicatorColor:
-                  Theme.of(context).colorScheme.primary.withOpacity(0.5),
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
               onDestinationSelected: (int index) {
                 if (index ==
                         ((enabledDestinations.length < 4)

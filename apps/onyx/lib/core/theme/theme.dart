@@ -10,7 +10,7 @@ class OnyxTheme {
     primaryColor: const Color(0xffd08770),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color(0xffd08770),
-      selectionColor: const Color(0xffd08770).withOpacity(0.7),
+      selectionColor: const Color(0xffd08770).withValues(alpha: 0.7),
     ),
     brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -38,7 +38,7 @@ class OnyxTheme {
     secondaryHeaderColor: const Color(0xffe5e9f0),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color(0xffd08770),
-      selectionColor: const Color(0xffd08770).withOpacity(0.7),
+      selectionColor: const Color(0xffd08770).withValues(alpha: 0.7),
     ),
     brightness: Brightness.light,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -66,7 +66,7 @@ class OnyxTheme {
     primaryColor: const Color.fromARGB(255, 80, 120, 255),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color.fromARGB(255, 140, 251, 255),
-      selectionColor: const Color.fromARGB(255, 140, 251, 255).withOpacity(0.7),
+      selectionColor: const Color.fromARGB(255, 140, 251, 255).withValues(alpha: 0.7),
     ),
     brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -94,7 +94,7 @@ class OnyxTheme {
     primaryColor: const Color.fromARGB(255, 122, 198, 255),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color.fromARGB(255, 255, 123, 98),
-      selectionColor: const Color.fromARGB(255, 255, 123, 98).withOpacity(0.7),
+      selectionColor: const Color.fromARGB(255, 255, 123, 98).withValues(alpha: 0.7),
     ),
     brightness: Brightness.light,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -121,7 +121,7 @@ class OnyxTheme {
     primaryColor: const Color.fromARGB(255, 255, 87, 34),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color.fromARGB(255, 255, 87, 34),
-      selectionColor: const Color.fromARGB(255, 255, 87, 34).withOpacity(0.7),
+      selectionColor: const Color.fromARGB(255, 255, 87, 34).withValues(alpha: 0.7),
     ),
     brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -149,7 +149,7 @@ class OnyxTheme {
     secondaryHeaderColor: const Color.fromARGB(255, 255, 255, 255),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color.fromARGB(255, 255, 255, 255),
-      selectionColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.7),
+      selectionColor: const Color.fromARGB(255, 255, 255, 255).withValues(alpha: 0.7),
     ),
     brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -177,7 +177,7 @@ class OnyxTheme {
     secondaryHeaderColor: const Color.fromARGB(40, 255, 255, 255),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color.fromARGB(255, 140, 180, 200),
-      selectionColor: const Color.fromARGB(255, 140, 180, 200).withOpacity(0.7),
+      selectionColor: const Color.fromARGB(255, 140, 180, 200).withValues(alpha: 0.7),
     ),
     brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -205,7 +205,7 @@ class OnyxTheme {
     secondaryHeaderColor: const Color.fromARGB(255, 253, 248, 201),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color.fromARGB(255, 255, 200, 50),
-      selectionColor: const Color.fromARGB(255, 255, 200, 50).withOpacity(0.7),
+      selectionColor: const Color.fromARGB(255, 255, 200, 50).withValues(alpha: 0.7),
     ),
     brightness: Brightness.light,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(

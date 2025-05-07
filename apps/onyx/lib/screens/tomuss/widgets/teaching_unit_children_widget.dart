@@ -7,10 +7,11 @@ import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:onyx/screens/tomuss/widgets/tomuss_element_widgets/enumeration_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class TeachingUnitChildrenWidget extends StatelessWidget {
   const TeachingUnitChildrenWidget({super.key, required this.teachingUnit});
+
   final TeachingUnit teachingUnit;
 
   @override

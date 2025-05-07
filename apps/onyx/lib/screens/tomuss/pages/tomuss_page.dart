@@ -10,7 +10,7 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:onyx/screens/tomuss/widgets/teaching_unit_children_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class TomussPage extends StatefulWidget {
   const TomussPage({super.key});

@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/privacy_policie_page.dart';
@@ -160,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                                               .textTheme
                                               .bodyLarge!
                                               .color!
-                                              .withOpacity(0.5),
+                                              .withValues(alpha: 0.5),
                                         ),
                                     prefixIcon: Icon(
                                       Icons.school_rounded,
@@ -169,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                                           .textTheme
                                           .bodyLarge!
                                           .color!
-                                          .withOpacity(0.5),
+                                          .withValues(alpha: 0.5),
                                     ),
                                     focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
@@ -356,13 +356,13 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
                     .textTheme
                     .bodyLarge!
                     .color!
-                    .withOpacity(0.5),
+                    .withValues(alpha: 0.5),
               ),
           prefixIcon: Icon(
             Icons.lock_rounded,
             size: 18.sp,
             color:
-                Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.5),
+                Theme.of(context).textTheme.bodyLarge!.color!.withValues(alpha: 0.5),
           ),
           suffixIcon: IconButton(
               icon: Icon(

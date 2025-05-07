@@ -21,7 +21,7 @@ class TeachingUnitChildrenTitleWidget extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 10),
           decoration: BoxDecoration(
             color:
-                Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.3),
+                Theme.of(context).textTheme.bodyLarge!.color!.withValues(alpha: 0.3),
             borderRadius: BorderRadius.circular(5),
           ),
         ),

@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
@@ -109,7 +109,7 @@ class AgendaConfigPage extends StatelessWidget {
                                   BoxShadow(
                                     color: Theme.of(context)
                                         .primaryColor
-                                        .withOpacity(0.5),
+                                        .withValues(alpha: 0.5),
                                     blurRadius: 8,
                                     offset:
                                         const Offset(4, 4), // Shadow position

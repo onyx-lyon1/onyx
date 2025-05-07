@@ -192,10 +192,10 @@ class TomussLogic {
         for (var i in grades) {
           Color tmpColor =
               _getGradeColor(grade: i, forceGreen: forceGreen, isSeen: isSeen);
-          a += tmpColor.alpha * (i.coef);
-          r += tmpColor.red * (i.coef);
-          g += tmpColor.green * (i.coef);
-          b += tmpColor.blue * (i.coef);
+          a += tmpColor.a * (i.coef);
+          r += tmpColor.r * (i.coef);
+          g += tmpColor.g * (i.coef);
+          b += tmpColor.b * (i.coef);
           coefSum += i.coef;
         }
         if (coefSum == 0) {

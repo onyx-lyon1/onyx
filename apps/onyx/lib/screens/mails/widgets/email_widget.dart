@@ -6,7 +6,7 @@ import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class MailWidget extends StatelessWidget {
   final Mail email;
@@ -24,11 +24,11 @@ class MailWidget extends StatelessWidget {
   }
 
   Color readText1Color(BuildContext c) {
-    return Theme.of(c).textTheme.bodyLarge!.color!.withOpacity(0.3);
+    return Theme.of(c).textTheme.bodyLarge!.color!.withValues(alpha: 0.3);
   }
 
   Color readText2Color(BuildContext c) {
-    return Theme.of(c).textTheme.bodyLarge!.color!.withOpacity(0.3);
+    return Theme.of(c).textTheme.bodyLarge!.color!.withValues(alpha: 0.3);
   }
 
   Color readBgColor(BuildContext c) {
@@ -36,7 +36,7 @@ class MailWidget extends StatelessWidget {
   }
 
   Color unreadAccent(BuildContext c) {
-    return Theme.of(c).primaryColor.withOpacity(0.7);
+    return Theme.of(c).primaryColor.withValues(alpha: 0.7);
   }
 
   const MailWidget({super.key, required this.email});
@@ -284,7 +284,7 @@ class MailWidget extends StatelessWidget {
 //                   .textTheme
 //                   .bodyLarge!
 //                   .color!
-//                   .withOpacity(0.1),
+//                   .withValues(alpha: 0.1),
 //             )
 //           ],
 //         ),

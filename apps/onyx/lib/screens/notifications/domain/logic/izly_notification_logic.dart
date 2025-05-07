@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:onyx/screens/settings/domain/model/settings_model.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/core/cache_service.dart';

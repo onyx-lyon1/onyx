@@ -7,7 +7,7 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:workmanager/workmanager.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 @pragma('vm:entry-point')
 void workmanagerHandler() {

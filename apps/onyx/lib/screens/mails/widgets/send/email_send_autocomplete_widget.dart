@@ -6,11 +6,12 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class MailSendAutocompleteWidget extends StatelessWidget {
   const MailSendAutocompleteWidget(
       {super.key, required this.destinationEditor});
+
   final TextEditingController destinationEditor;
 
   @override
@@ -93,7 +94,7 @@ class MailSendAutocompleteWidget extends StatelessWidget {
                         .textTheme
                         .bodyLarge!
                         .color!
-                        .withOpacity(0.5)),
+                        .withValues(alpha: 0.5)),
                 isDense: true,
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(

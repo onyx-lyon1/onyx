@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -162,7 +162,7 @@ class MailHeaderWidget extends StatelessWidget {
                         .textTheme
                         .bodyLarge!
                         .color!
-                        .withOpacity(0.5)),
+                        .withValues(alpha: 0.5)),
                 prefixIcon: Icon(
                   Icons.search_rounded,
                   color: Theme.of(context)

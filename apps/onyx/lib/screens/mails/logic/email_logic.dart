@@ -4,7 +4,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/extensions/special_mail_box_extension.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 
 class MailLogic {
   static Future<Lyon1MailClient> connect(
