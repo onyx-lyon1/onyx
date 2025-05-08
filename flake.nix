@@ -61,7 +61,7 @@
               cmake-3-22-1
             ]);
           PWD = builtins.getEnv "PWD";
-          patchedFlutter = pkgs.flutter.override (prev: rec {
+          patchedFlutter = pkgs.flutter332.override (prev: rec {
             flutter = prev.flutter.overrideAttrs (prevAttrs: {
               patches = prevAttrs.patches ++ [
                 # This patch is needed to avoid the Kotlin Gradle plugin writing to the store.
