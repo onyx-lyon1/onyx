@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import 'package:onyx/l10n/app_localizations.dart';
 
 class IzlyPage extends StatelessWidget {
   const IzlyPage({
@@ -71,8 +70,6 @@ class IzlyPage extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                          "${AppLocalizations.of(context).available(state.qrCodeAvailables)} ${AppLocalizations.of(context).offline}"),
                       const IzlyQrcodeWidget(),
                       Text(
                         "${state.balance.toStringAsFixed(2)}€",
