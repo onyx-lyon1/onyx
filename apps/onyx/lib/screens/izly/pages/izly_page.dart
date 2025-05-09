@@ -37,10 +37,10 @@ class IzlyPage extends StatelessWidget {
             );
             break;
           case IzlyStatus.error:
-            Future.delayed(const Duration(seconds: 5), () {
-              context.read<IzlyCubit>().connect(
-                  settings: context.read<SettingsCubit>().state.settings);
-            });
+            final izlyCubit = context.read<IzlyCubit>();
+            final settings = context.read<SettingsCubit>().state.settings;
+            Future.delayed(const Duration(seconds: 5),
+                () => izlyCubit.connect(settings: settings));
             stateWidget = StateDisplayingPage(
                 message: AppLocalizations.of(context)
                     .thereWasAnErrorWhileConnecting);

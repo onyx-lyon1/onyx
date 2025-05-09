@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
-import 'package:onyx/l10n/app_localizations.dart';
 
 class IzlyRechargeCBPage extends StatefulWidget {
   const IzlyRechargeCBPage({super.key});
@@ -151,6 +150,9 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
           method: LoadRequestMethod.post,
           body: body,
         );
+        if (!context.mounted) return;
+        final izlyCubit = context.read<IzlyCubit>();
+        final settings = context.read<SettingsCubit>().state.settings;
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -161,9 +163,8 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
             ),
           ),
         ).then((value) {
-          context
-              .read<IzlyCubit>()
-              .connect(settings: context.read<SettingsCubit>().state.settings);
+          if (!context.mounted) return;
+          izlyCubit.connect(settings: settings);
           Navigator.pop(context);
         });
       });

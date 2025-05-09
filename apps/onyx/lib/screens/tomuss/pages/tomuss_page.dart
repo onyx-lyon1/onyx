@@ -4,13 +4,12 @@ import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:onyx/screens/tomuss/widgets/teaching_unit_children_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import 'package:onyx/l10n/app_localizations.dart';
 
 class TomussPage extends StatefulWidget {
   const TomussPage({super.key});
@@ -76,13 +75,12 @@ class _TomussPageState extends State<TomussPage> {
           case TomussStatus.ready:
             break;
           case TomussStatus.error:
-            Future.delayed(const Duration(seconds: 3), () {
-              context.read<TomussCubit>().load(
-                    lyon1Cas:
-                        context.read<AuthentificationCubit>().state.lyon1Cas,
-                    settings: context.read<SettingsCubit>().state.settings,
-                  );
-            });
+            final tomussCubit = context.read<TomussCubit>();
+            final lyon1Cas =
+                context.read<AuthentificationCubit>().state.lyon1Cas;
+            final settings = context.read<SettingsCubit>().state.settings;
+            Future.delayed(const Duration(seconds: 3),
+                () => tomussCubit.load(lyon1Cas: lyon1Cas, settings: settings));
             loadingHeader = LoadingHeaderWidget(
               message: AppLocalizations.of(context).loadingGradesError,
             );
@@ -180,18 +178,15 @@ class _TomussPageState extends State<TomussPage> {
             ],
           ),
           onRefresh: () async {
-            context.read<TomussCubit>().load(
-                  lyon1Cas:
-                      context.read<AuthentificationCubit>().state.lyon1Cas,
-                  settings: context.read<SettingsCubit>().state.settings,
-                  force: true,
-                );
-            // ignore: use_build_context_synchronously
-            while (context.read<TomussCubit>().state.status !=
-                    TomussStatus.ready &&
-                // ignore: use_build_context_synchronously
-                context.read<TomussCubit>().state.status !=
-                    TomussStatus.error) {
+            final tomussCubit = context.read<TomussCubit>();
+            tomussCubit.load(
+              lyon1Cas: context.read<AuthentificationCubit>().state.lyon1Cas,
+              settings: context.read<SettingsCubit>().state.settings,
+              force: true,
+            );
+
+            while (tomussCubit.state.status != TomussStatus.ready &&
+                tomussCubit.state.status != TomussStatus.error) {
               await Future.delayed(const Duration(milliseconds: 100));
             }
             return;

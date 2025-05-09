@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class UploadWidget extends StatelessWidget {
   final Upload upload;
@@ -51,6 +51,7 @@ class UploadWidget extends StatelessWidget {
                   color: Colors.transparent,
                   child: InkWell(
                       onTap: () async {
+                        final localization = AppLocalizations.of(context);
                         final String path =
                             await TomussLogic.getDownloadLocalPath(
                           upload: upload,
@@ -67,16 +68,17 @@ class UploadWidget extends StatelessWidget {
                           FlutterFileDialog.saveFile(
                                   params: SaveFileDialogParams(
                                       sourceFilePath: path))
-                              .then((value) => Navigator.pop(context));
+                              .then((value) {
+                            if (!context.mounted) return;
+                            Navigator.pop(context);
+                          });
                         } else if (!kIsWeb &&
                             (Platform.isWindows ||
                                 Platform.isLinux ||
                                 Platform.isMacOS)) {
                           FilePicker.platform
                               .saveFile(
-                            // ignore: use_build_context_synchronously
-                            dialogTitle: AppLocalizations.of(context)
-                                .pleaseSelectOutputFile,
+                            dialogTitle: localization.pleaseSelectOutputFile,
                             fileName: path.split('/').last,
                           )
                               .then((outputFilePath) {

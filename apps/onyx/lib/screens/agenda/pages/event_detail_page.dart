@@ -7,9 +7,9 @@ import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/search/search_service.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class EventDetailPage extends StatefulWidget {
   final Event event;
@@ -157,7 +157,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                       ? LatLng(restaurant!.lat, restaurant!.lon)
                                       : null,
                               onTapNavigate: (position) async {
-                                // ignore: use_build_context_synchronously
                                 List<LatLng> dest;
                                 if (batiments.isNotEmpty) {
                                   dest =
@@ -167,7 +166,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                     LatLng(restaurant!.lat, restaurant!.lon)
                                   ];
                                 }
-                                // ignore: use_build_context_synchronously
+
                                 if (!NavigationLogic.calculating) {
                                   NavigationLogic.calculating = true;
 
@@ -202,7 +201,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           } else {
                             dest = [LatLng(restaurant!.lat, restaurant!.lon)];
                           }
-                          // ignore: use_build_context_synchronously
+
                           if (!NavigationLogic.calculating) {
                             NavigationLogic.calculating = true;
 

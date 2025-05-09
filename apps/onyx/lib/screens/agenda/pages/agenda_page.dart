@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda/widgets/days_view_widget.dart';
 import 'package:onyx/screens/agenda_config/agenda_config_export.dart';
@@ -196,9 +196,8 @@ class AgendaPage extends StatelessWidget {
                         fromUser: true,
                         cache: false,
                       );
-                  // ignore: use_build_context_synchronously
+
                   while (state.status != AgendaStatus.ready &&
-                      // ignore: use_build_context_synchronously
                       state.status != AgendaStatus.error) {
                     await Future.delayed(const Duration(milliseconds: 100));
                   }

@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/agenda/states/agenda_cubit.dart';
 import 'package:onyx/screens/examen/states/examen_cubit.dart';
 import 'package:onyx/screens/login/states/authentification_cubit.dart';
@@ -18,6 +18,8 @@ class AuthentificationConnection
   }) : super(
           listener: (context, authState) {
             if (authState.status == AuthentificationStatus.authentificated) {
+              final emailCubit = context.read<EmailCubit>();
+              final localization = AppLocalizations.of(context);
               CacheService.getEncryptionKey(context
                       .read<SettingsCubit>()
                       .state
@@ -25,11 +27,11 @@ class AuthentificationConnection
                       .biometricAuth)
                   .then(
                 (key) => CacheService.get<Credential>(secureKey: key).then(
-                  (value) => context.read<EmailCubit>().connect(
-                        username: value!.username,
-                        password: value.password,
-                        appLocalizations: AppLocalizations.of(context),
-                      ),
+                  (value) => emailCubit.connect(
+                    username: value!.username,
+                    password: value.password,
+                    appLocalizations: localization,
+                  ),
                 ),
               );
               if (context.read<SettingsCubit>().state.settings.firstLogin) {

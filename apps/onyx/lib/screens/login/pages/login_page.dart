@@ -2,10 +2,10 @@ import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/privacy_policie_page.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/login/pages/waiting_biometric.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
@@ -293,9 +293,9 @@ class _LoginPageState extends State<LoginPage> {
               message: AppLocalizations.of(context).yourAuthentificated);
         case AuthentificationStatus.error:
           if (context.read<SettingsCubit>().state.settings.firstLogin) {
-            Future.delayed(const Duration(seconds: 1), () {
-              context.read<AuthentificationCubit>().logout();
-            });
+            final authCubit = context.read<AuthentificationCubit>();
+            Future.delayed(
+                const Duration(seconds: 1), () => authCubit.logout());
             return StateDisplayingPage(
                 message: AppLocalizations.of(context).loginError);
           }
@@ -361,8 +361,11 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
           prefixIcon: Icon(
             Icons.lock_rounded,
             size: 18.sp,
-            color:
-                Theme.of(context).textTheme.bodyLarge!.color!.withValues(alpha: 0.5),
+            color: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .color!
+                .withValues(alpha: 0.5),
           ),
           suffixIcon: IconButton(
               icon: Icon(

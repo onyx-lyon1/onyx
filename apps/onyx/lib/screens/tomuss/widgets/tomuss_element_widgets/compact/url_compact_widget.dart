@@ -1,8 +1,8 @@
-import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:flutter/material.dart';
+import 'package:lyon1tomussclient/lyon1tomussclient.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class URLCompactWidget extends StatelessWidget {
   final URL url;
@@ -26,8 +26,8 @@ class URLCompactWidget extends StatelessWidget {
               await launchUrl(Uri.parse(url.value),
                   mode: LaunchMode.externalApplication);
             } else {
+              if (!context.mounted) return;
               showDialog(
-                  // ignore: use_build_context_synchronously
                   context: context,
                   builder: (context) => AlertDialog(
                         title: Text(AppLocalizations.of(context).error),

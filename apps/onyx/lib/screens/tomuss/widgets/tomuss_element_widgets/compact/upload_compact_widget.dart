@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:open_filex/open_filex.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class UploadCompactWidget extends StatelessWidget {
   final Upload upload;
@@ -53,6 +53,7 @@ class UploadCompactWidget extends StatelessWidget {
           Flexible(
             child: IconButton(
                 onPressed: () async {
+                  final localization = AppLocalizations.of(context);
                   final String path = await TomussLogic.getDownloadLocalPath(
                     upload: upload,
                     ticket: context
@@ -73,9 +74,7 @@ class UploadCompactWidget extends StatelessWidget {
                           Platform.isMacOS)) {
                     FilePicker.platform
                         .saveFile(
-                      dialogTitle:
-                          // ignore: use_build_context_synchronously
-                          AppLocalizations.of(context).pleaseSelectOutputFile,
+                      dialogTitle: localization.pleaseSelectOutputFile,
                       fileName: path.split('/').last,
                     )
                         .then((outputFilePath) {

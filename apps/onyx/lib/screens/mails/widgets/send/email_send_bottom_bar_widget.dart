@@ -26,17 +26,20 @@ class EmailSendBottomBarWidget extends StatelessWidget {
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: () async {
-                      FilePickerResult? result = await FilePicker.platform
-                          .pickFiles(allowMultiple: true);
-                      if (result != null) {
-                        List<File> files =
-                            result.paths.map((path) => File(path!)).toList();
-                        // ignore: use_build_context_synchronously
-                        context.read<EmailSendCubit>().addAttachments(files);
-                      } else {
-                        Res.logger.d("cancelled attachment");
-                      }
+                    onTap: () {
+                      final emailSendCubit = context.read<EmailSendCubit>();
+                      FilePicker.platform.pickFiles(allowMultiple: true).then(
+                        (result) {
+                          if (result != null) {
+                            List<File> files = result.paths
+                                .map((path) => File(path!))
+                                .toList();
+                            emailSendCubit.addAttachments(files);
+                          } else {
+                            Res.logger.d("cancelled attachment");
+                          }
+                        },
+                      );
                     },
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 1.5.w),
