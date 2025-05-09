@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/theme/theme_export.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class GradeWidget extends StatefulWidget {
   final List<Grade> grades;
@@ -169,13 +169,17 @@ class _GradeWidgetState extends State<GradeWidget> {
                         pixelRatio: 3.0,
                         fileName: 'screenshot_${widget.text1}.png',
                       );
-                      Share.shareXFiles(
-                        [
-                          XFile("${tmpDir.path}/screenshot_${widget.text1}.png")
-                        ],
-                        // ignore: use_build_context_synchronously
-                        text: AppLocalizations.of(context)
-                            .hereMyGrade(widget.text1),
+
+                      if (!context.mounted) return;
+                      final localization = AppLocalizations.of(context);
+                      SharePlus.instance.share(
+                        ShareParams(
+                          files: [
+                            XFile(
+                                "${tmpDir.path}/screenshot_${widget.text1}.png")
+                          ],
+                          text: localization.hereMyGrade(widget.text1),
+                        ),
                       );
                     },
                     icon: Icon(
