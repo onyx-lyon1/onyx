@@ -16,7 +16,6 @@ class IzlyState {
   IzlyClient? izlyClient;
   double balance;
   Uint8List? qrCode;
-  int qrCodeAvailables;
   List<IzlyPaymentModel> paymentList;
   bool showQrCode;
 
@@ -25,7 +24,6 @@ class IzlyState {
     this.status = IzlyStatus.initial,
     this.balance = 0.0,
     this.qrCode,
-    this.qrCodeAvailables = 0,
     this.paymentList = const [],
     this.showQrCode = false,
   });
@@ -35,7 +33,6 @@ class IzlyState {
     double? balance,
     Uint8List? qrCode,
     IzlyClient? izlyClient,
-    int? qrCodeAvailables,
     List<IzlyPaymentModel>? paymentList,
     bool? showQrCode,
   }) {
@@ -44,7 +41,6 @@ class IzlyState {
       balance: balance ?? this.balance,
       qrCode: qrCode ?? this.qrCode,
       izlyClient: izlyClient ?? this.izlyClient,
-      qrCodeAvailables: qrCodeAvailables ?? this.qrCodeAvailables,
       paymentList: paymentList ?? this.paymentList,
       showQrCode: showQrCode ?? this.showQrCode,
     );

@@ -2,11 +2,12 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/izly/states/izly_cubit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 
 class IzlyQrcodeWidget extends StatelessWidget {
@@ -72,10 +73,22 @@ class IzlyQrcodeWidget extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Image.memory(
-                  state.qrCode!,
-                  scale: 0.6,
-                  fit: BoxFit.cover,
+                FutureBuilder(
+                  future: state.qrCode != null
+                      ? Future.value(state.qrCode!)
+                      : rootBundle
+                          .load(Res.izlyLogoPath)
+                          .then((data) => data.buffer.asUint8List()),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const CircularProgressIndicator();
+                    }
+                    return Image.memory(
+                      snapshot.data!,
+                      scale: 0.6,
+                      fit: BoxFit.cover,
+                    );
+                  },
                 ),
                 AnimatedOpacity(
                   duration: Res.animationDuration,
@@ -83,7 +96,8 @@ class IzlyQrcodeWidget extends StatelessWidget {
                   curve: Curves.easeInOut,
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                    child: Container(color: Colors.black.withValues(alpha: 0.4)),
+                    child:
+                        Container(color: Colors.black.withValues(alpha: 0.4)),
                   ),
                 ),
                 AnimatedOpacity(

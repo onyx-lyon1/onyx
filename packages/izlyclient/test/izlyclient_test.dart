@@ -1,7 +1,6 @@
-import 'package:test/test.dart';
 import 'package:dotenv/dotenv.dart';
-
 import 'package:izlyclient/izlyclient.dart';
+import 'package:test/test.dart';
 
 void main() {
   late IzlyClient izlyClient;
@@ -32,7 +31,7 @@ void main() {
   test('Get QRCode test', () async {
     await izlyClient.login();
     expect(await izlyClient.isLogged(), true);
-    var qrCode = await izlyClient.getNQRCode(3);
+    var qrCode = await izlyClient.getQRCode();
     expect(qrCode, isNotNull);
     await izlyClient.logout();
     expect(await izlyClient.isLogged(), false);

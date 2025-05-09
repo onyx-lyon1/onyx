@@ -100,17 +100,14 @@ class IzlyClient {
     return double.parse(balance.replaceAll(",", "."));
   }
 
-  Future<List<Uint8List>> getNQRCode(int n) async {
+  Future<Uint8List> getQRCode() async {
     assert(_isLogged);
-    assert(n < 4);
     var r = await RequestsPlus.post("$_baseUrl/Home/CreateQrCodeImg",
         body: {
-          'numberOfQrCodes': n.toString(),
+          'numberOfQrCodes': "1",
         },
         corsProxyUrl: _corsProxyUrl);
-    List<Uint8List> result = jsonDecode(r.body)["images"].map<Uint8List>((e) {
-      return base64Decode(e);
-    }).toList();
+    Uint8List result = base64Decode(jsonDecode(r.body)["images"][0]);
     return result;
   }
 

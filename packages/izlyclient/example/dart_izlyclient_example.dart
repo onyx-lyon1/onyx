@@ -1,7 +1,7 @@
 // ignore_for_file: unused_local_variable
 
-import 'dart:typed_data';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:izlyclient/izlyclient.dart';
 
@@ -13,11 +13,9 @@ void main() async {
   //get the balance
   double balance = await izlyClient.getBalance();
   //get 3 QRCode
-  List<Uint8List> qrCodes = await izlyClient.getNQRCode(3);
+  Uint8List qrCode = await izlyClient.getQRCode();
   //save the QRCode
-  for (int i = 0; i < qrCodes.length; i++) {
-    await File("qrCode$i.png").writeAsBytes(qrCodes[i]);
-  }
+  await File("qrCode.png").writeAsBytes(qrCode);
   //get the url to recharge with a account transfer
   var transferRequest = await izlyClient.getTransferPaymentUrl(10.0);
   //do a get request to transferRequest.url

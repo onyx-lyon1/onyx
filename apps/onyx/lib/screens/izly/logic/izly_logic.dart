@@ -1,66 +1,16 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
-import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 
 class IzlyLogic {
-  static Future<Uint8List> getQrCode() async {
+  static Future<Uint8List> getQrCode(IzlyClient izlyClient) async {
     if (Res.mock) {
       return (await rootBundle.load(Res.izlyMockQrCodePath))
           .buffer
           .asUint8List();
     }
-    if (!(await CacheService.exist<IzlyQrCodeList>())) {
-      return (await rootBundle.load(Res.izlyLogoPath)).buffer.asUint8List();
-    } else {
-      List<IzlyQrCode> qrCodeModels =
-          (await CacheService.get<IzlyQrCodeList>())!.qrCodes;
-      qrCodeModels.removeWhere(
-          (element) => element.expirationDate.isBefore(DateTime.now()));
-
-      if (qrCodeModels.isEmpty) {
-        return (await rootBundle.load(Res.izlyLogoPath)).buffer.asUint8List();
-      } else {
-        //if there is no internet it may be better not to delete the last qrcode
-        if ((await Connectivity().checkConnectivity())
-                .contains(ConnectivityResult.none) &&
-            qrCodeModels.length == 1) {
-          return qrCodeModels[0].qrCode;
-        }
-        IzlyQrCode qrCodeModel = qrCodeModels.removeAt(0);
-        await CacheService.set<IzlyQrCodeList>(
-            IzlyQrCodeList(qrCodes: qrCodeModels));
-        return qrCodeModel.qrCode;
-      }
-    }
-  }
-
-  static Future<bool> completeQrCodeCache(IzlyClient izlyClient) async {
-    if (Res.mock) {
-      return true;
-    }
-    List<IzlyQrCode> qrCodes =
-        ((await CacheService.get<IzlyQrCodeList>())?.qrCodes) ?? [];
-    try {
-      qrCodes.addAll((await izlyClient.getNQRCode((3 - qrCodes.length)))
-          .map((e) => IzlyQrCode(
-              qrCode: e,
-              expirationDate: DateTime(DateTime.now().year,
-                  DateTime.now().month, DateTime.now().day + 1, 14)))
-          .toList());
-      await CacheService.set<IzlyQrCodeList>(IzlyQrCodeList(qrCodes: qrCodes));
-    } catch (e) {
-      return false;
-    }
-    return true;
-  }
-
-  static Future<int> getAvailableQrCodeCount() async {
-    List<IzlyQrCode> qrCodes =
-        ((await CacheService.get<IzlyQrCodeList>())?.qrCodes) ?? [];
-    return qrCodes.length;
+    return await izlyClient.getQRCode();
   }
 
   static Future<void> reloginIfNeeded(IzlyClient izlyClient) async {
