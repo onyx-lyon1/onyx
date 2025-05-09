@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/core/extensions/theme_extensions.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
 
@@ -33,12 +33,10 @@ class ThemeButton extends StatelessWidget {
           itemCount: listThemes.length,
           itemBuilder: (context, index) => GestureDetector(
             onTap: () {
-              context
-                  .read<ThemeCubit>()
-                  .chooseTheme(listThemes[index])
-                  .then((value) {
+              final themeCubit = context.read<ThemeCubit>();
+              themeCubit.chooseTheme(listThemes[index]).then((value) {
                 if (state.themesSettings!.autoSwitchTheme) {
-                  context.read<ThemeCubit>().updateThemeMode(
+                  themeCubit.updateThemeMode(
                       listThemes[index].theme.brightness.toThemeModeEnum);
                 }
               });
@@ -107,6 +105,7 @@ class ThemeButton extends StatelessWidget {
   void popupMenuThemeCreated(BuildContext context, ThemeModel theme) {
     final RenderBox renderBox = context.findRenderObject()! as RenderBox;
     final Offset position = renderBox.localToGlobal(Offset.zero);
+    final themeCubit = context.read<ThemeCubit>();
     showMenu(
       context: context,
       position: RelativeRect.fromRect(
@@ -129,7 +128,7 @@ class ThemeButton extends StatelessWidget {
           case 0:
             break;
           case 1:
-            context.read<ThemeCubit>().deleteTheme(theme);
+            themeCubit.deleteTheme(theme);
             break;
         }
       }

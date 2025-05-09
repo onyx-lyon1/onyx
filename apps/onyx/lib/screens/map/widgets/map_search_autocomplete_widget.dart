@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/search/search_service.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -44,21 +44,16 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
 
     return RawAutocomplete<String>(
       optionsBuilder: (TextEditingValue textEditingValue) async {
+        final mapCubit = context.read<MapCubit>();
+        final localization = AppLocalizations.of(context);
         return [
-          for (BatimentModel batiment
-              // ignore: use_build_context_synchronously
-              in context.read<MapCubit>().state.batiments)
+          for (BatimentModel batiment in mapCubit.state.batiments)
             if (await SearchService.isMatch(textEditingValue.text,
                 batiment.name, Locale(AppLocalizations.of(context).localeName)))
               batiment.name,
-          for (RestaurantModel restau
-              // ignore: use_build_context_synchronously
-              in context.read<MapCubit>().state.restaurant)
-            if (await SearchService.isMatch(
-                textEditingValue.text,
-                restau.name,
-                // ignore: use_build_context_synchronously
-                Locale(AppLocalizations.of(context).localeName)))
+          for (RestaurantModel restau in mapCubit.state.restaurant)
+            if (await SearchService.isMatch(textEditingValue.text, restau.name,
+                Locale(localization.localeName)))
               restau.name,
         ];
       },

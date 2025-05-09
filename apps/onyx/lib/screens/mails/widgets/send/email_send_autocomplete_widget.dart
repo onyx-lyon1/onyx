@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class MailSendAutocompleteWidget extends StatelessWidget {
   const MailSendAutocompleteWidget(
@@ -17,31 +17,36 @@ class MailSendAutocompleteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RawAutocomplete<String>(
-      optionsBuilder: (TextEditingValue textEditingValue) async {
+      optionsBuilder: (TextEditingValue textEditingValue) {
         if (Res.mock) {
           return MailLogic.mockAddresses;
         }
+        final emailCubit = context.read<EmailCubit>();
+        final localization = AppLocalizations.of(context);
         if (!context.read<EmailCubit>().mailClient!.isAuthenticated) {
-          Credential? creds = await CacheService.get<Credential>(
-              secureKey: await CacheService.getEncryptionKey(
-                  context.read<SettingsCubit>().state.settings.biometricAuth));
-          if (creds != null) {
-            // ignore: use_build_context_synchronously
-            context.read<EmailCubit>().connect(
-                  username: creds.username,
-                  password: creds.password,
-                  // ignore: use_build_context_synchronously
-                  appLocalizations: AppLocalizations.of(context),
+          CacheService.getEncryptionKey(
+                  context.read<SettingsCubit>().state.settings.biometricAuth)
+              .then((encryptionKey) =>
+                  CacheService.get<Credential>(secureKey: encryptionKey))
+              .then(
+            (credentials) {
+              if (credentials != null) {
+                emailCubit.connect(
+                  username: credentials.username,
+                  password: credentials.password,
+                  appLocalizations: localization,
                 );
-          }
+              }
+            },
+          );
+
           return [];
         } else {
-          return (await context
-                  .read<EmailCubit>()
-                  .mailClient!
-                  .resolveContact(textEditingValue.text))
-              .map((e) => e.email.toString())
-              .toList();
+          return context
+              .read<EmailCubit>()
+              .mailClient!
+              .resolveContact(textEditingValue.text)
+              .then((e) => e.map((e) => e.email.toString()).toList());
         }
       },
       displayStringForOption: (String option) => option,

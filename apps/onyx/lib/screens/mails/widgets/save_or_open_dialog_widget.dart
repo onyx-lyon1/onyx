@@ -9,6 +9,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SaveOrOpenDialogWidget extends StatelessWidget {
   const SaveOrOpenDialogWidget({super.key, required this.filePath});
+
   final String filePath;
 
   @override
@@ -45,7 +46,10 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
               if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
                 FlutterFileDialog.saveFile(
                         params: SaveFileDialogParams(sourceFilePath: filePath))
-                    .then((value) => Navigator.pop(context));
+                    .then((value) {
+                  if (!context.mounted) return;
+                  Navigator.pop(context);
+                });
               } else if (!kIsWeb &&
                   (Platform.isWindows ||
                       Platform.isLinux ||
@@ -61,6 +65,7 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
                     File inputFile = File(filePath);
                     outputFile.writeAsBytesSync(inputFile.readAsBytesSync());
                   }
+                  if (!context.mounted) return;
                   Navigator.pop(context);
                 });
               }

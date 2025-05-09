@@ -18,6 +18,7 @@ class NavigationLogic {
   static Future<List<List<LatLng>>> navigateToBatimentFromLocation(
       BuildContext context, List<LatLng> latLngs,
       {bool useLastLocation = false}) async {
+    final assetBundle = DefaultAssetBundle.of(context);
     List<List<LatLng>> paths = [];
     LatLng position =
         (await GeolocationLogic.getCurrentLocation(context: context))!;
@@ -25,8 +26,7 @@ class NavigationLogic {
     for (var latLng in latLngs) {
       if (position.inside(MapRes.minBound, MapRes.maxBound) &&
           latLng.inside(MapRes.minBound, MapRes.maxBound)) {
-        // ignore: use_build_context_synchronously
-        await _loadGraph(context);
+        await _loadGraph(assetBundle);
         compute(_findPathFromLocalGraph, (
           graph: graph!,
           start: position,
@@ -58,9 +58,9 @@ class NavigationLogic {
     return paths;
   }
 
-  static Future<void> _loadGraph(BuildContext context) async {
+  static Future<void> _loadGraph(AssetBundle assetBundle) async {
     if (graph == null) {
-      ByteData data = await DefaultAssetBundle.of(context).load(Res.graphPath);
+      ByteData data = await assetBundle.load(Res.graphPath);
       final bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       final decodedData = jsonDecode(String.fromCharCodes(gzip.decode(bytes)));

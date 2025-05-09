@@ -81,6 +81,8 @@ class MailHeaderWidget extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
+                  final emailCubit = context.read<EmailCubit>();
+                  final localization = AppLocalizations.of(context);
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -105,15 +107,13 @@ class MailHeaderWidget extends StatelessWidget {
                         );
                       }).then((folder) {
                     for (var email in state.selectedMails) {
-                      context.read<EmailCubit>().move(
-                            email: email,
-                            folder: folder,
-                            from: state.currentMailBox!,
-                          );
+                      emailCubit.move(
+                        email: email,
+                        folder: folder,
+                        from: state.currentMailBox!,
+                      );
                     }
-                    context
-                        .read<EmailCubit>()
-                        .unselectAllMails(AppLocalizations.of(context));
+                    emailCubit.unselectAllMails(localization);
                   });
                 },
                 icon: const Icon(Icons.drive_file_move_rounded),
