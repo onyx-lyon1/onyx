@@ -86,9 +86,10 @@ dependencies:
   drag_and_drop_lists:
     git: https://github.com/onyx-lyon1/DragAndDropLists.git
   equatable: ^2.0.5
-  biometric_storage: ^5.0.0+4
+  biometric_storage: ^5.0.1
   logger: ^2.0.2+1
-  json_theme: ^8.0.0+2
+  json_theme: #^8.0.0+2
+    git: https://github.com/hatch01/json_theme.git
 
   #colloscope
   polytechcolloscopeclient: ^1.0.9

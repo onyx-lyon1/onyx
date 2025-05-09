@@ -82,6 +82,10 @@
               passthru = prevAttrs.passthru // {
                 sdk = flutter;
               };
+              postInstall = (prevAttrs.postInstall or "") + ''
+                mkdir -p $out/bin/cache
+                touch $out/bin/cache/engine.realm
+              '';
             });
           });
         in

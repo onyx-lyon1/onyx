@@ -24,7 +24,7 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final StreamController<bool> isExpandedController =
-        StreamController<bool>(); //only used for the rotating arrow
+    StreamController<bool>(); //only used for the rotating arrow
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: 50,
@@ -33,7 +33,10 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 2.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme
+              .of(context)
+              .colorScheme
+              .surface,
         ),
         child: Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
@@ -49,7 +52,7 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
                       duration: Res.animationDuration,
                       child: const Icon(Icons
                           .keyboard_arrow_down_outlined) // your svgImage here
-                      );
+                  );
                 }),
             title: SizedBox(
               // height: 50,
@@ -71,9 +74,11 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
                 },
                 listener: (context, state) {
                   if (state.collapseAll) {
-                    if (ExpansionTileController.maybeOf(context)?.isExpanded ??
+                    if (ExpansibleController
+                        .maybeOf(context)
+                        ?.isExpanded ??
                         false) {
-                      ExpansionTileController.maybeOf(context)?.collapse();
+                      ExpansibleController.maybeOf(context)?.collapse();
                     }
                   }
                 },
