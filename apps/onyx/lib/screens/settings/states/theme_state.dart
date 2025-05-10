@@ -1,13 +1,13 @@
 part of 'theme_cubit.dart';
 
-enum ThemeStateStatus { init, loaded, updated, error }
+enum ThemeStateStatus { initial, ready, updated }
 
 class ThemeState extends Equatable {
   final ThemeStateStatus status;
   final ThemeSettingsModel? themesSettings;
 
   const ThemeState({
-    this.status = ThemeStateStatus.init,
+    this.status = ThemeStateStatus.initial,
     this.themesSettings,
   });
 

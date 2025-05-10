@@ -26,8 +26,8 @@ abstract class _$ActionCWProxy {
   /// Action(...).copyWith(id: 12, name: "My name")
   /// ````
   Action call({
-    ActionType? type,
-    Mail? mail,
+    ActionType type,
+    Mail mail,
     MailBox? fromMailBox,
     int? originalMessageId,
     bool? replyAll,
@@ -78,11 +78,11 @@ class _$ActionCWProxyImpl implements _$ActionCWProxy {
     Object? destinationMailBox = const $CopyWithPlaceholder(),
   }) {
     return Action(
-      type: type == const $CopyWithPlaceholder() || type == null
+      type: type == const $CopyWithPlaceholder()
           ? _value.type
           // ignore: cast_nullable_to_non_nullable
           : type as ActionType,
-      mail: mail == const $CopyWithPlaceholder() || mail == null
+      mail: mail == const $CopyWithPlaceholder()
           ? _value.mail
           // ignore: cast_nullable_to_non_nullable
           : mail as Mail,

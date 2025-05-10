@@ -152,7 +152,7 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
         );
         if (!context.mounted) return;
         final izlyCubit = context.read<IzlyCubit>();
-        final settings = context.read<SettingsCubit>().state.settings;
+        final settings = context.read<SettingsCubit>().settings;
         Navigator.push(
           context,
           MaterialPageRoute(

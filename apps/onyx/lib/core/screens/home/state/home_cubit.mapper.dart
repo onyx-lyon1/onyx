@@ -10,7 +10,6 @@ class HomeStatusMapper extends EnumMapper<HomeStatus> {
   HomeStatusMapper._();
 
   static HomeStatusMapper? _instance;
-
   static HomeStatusMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = HomeStatusMapper._());
@@ -57,7 +56,6 @@ class HomeStateMapper extends ClassMapperBase<HomeState> {
   HomeStateMapper._();
 
   static HomeStateMapper? _instance;
-
   static HomeStateMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = HomeStateMapper._());
@@ -72,11 +70,9 @@ class HomeStateMapper extends ClassMapperBase<HomeState> {
   static HomeStatus _$status(HomeState v) => v.status;
   static const Field<HomeState, HomeStatus> _f$status =
       Field('status', _$status);
-
   static int _$selectedIndex(HomeState v) => v.selectedIndex;
   static const Field<HomeState, int> _f$selectedIndex =
       Field('selectedIndex', _$selectedIndex, opt: true, def: 0);
-
   static bool _$showSecondaryScreens(HomeState v) => v.showSecondaryScreens;
   static const Field<HomeState, bool> _f$showSecondaryScreens = Field(
       'showSecondaryScreens', _$showSecondaryScreens,
@@ -121,7 +117,6 @@ mixin HomeStateMappable {
 
   HomeStateCopyWith<HomeState, HomeState, HomeState> get copyWith =>
       _HomeStateCopyWithImpl(this as HomeState, $identity, $identity);
-
   @override
   String toString() {
     return HomeStateMapper.ensureInitialized()
@@ -148,7 +143,6 @@ extension HomeStateValueCopy<$R, $Out> on ObjectCopyWith<$R, HomeState, $Out> {
 abstract class HomeStateCopyWith<$R, $In extends HomeState, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call({HomeStatus? status, int? selectedIndex, bool? showSecondaryScreens});
-
   HomeStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -160,7 +154,6 @@ class _HomeStateCopyWithImpl<$R, $Out>
   @override
   late final ClassMapperBase<HomeState> $mapper =
       HomeStateMapper.ensureInitialized();
-
   @override
   $R call(
           {HomeStatus? status,
@@ -172,7 +165,6 @@ class _HomeStateCopyWithImpl<$R, $Out>
         if (showSecondaryScreens != null)
           #showSecondaryScreens: showSecondaryScreens
       }));
-
   @override
   HomeState $make(CopyWithData data) => HomeState(
       status: data.get(#status, or: $value.status),

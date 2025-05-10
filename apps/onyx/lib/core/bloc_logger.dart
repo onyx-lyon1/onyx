@@ -1,11 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 
 class BlocLogger extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    Res.logger.d(("${bloc.runtimeType}: ${change.nextState.status}"));
+    if (bloc is SettingsCubit) {
+      Res.logger.d(("${bloc.runtimeType}: ${change.nextState.runtimeType}"));
+    } else {
+      Res.logger.d(("${bloc.runtimeType}: ${change.nextState.status}"));
+    }
   }
 
   @override

@@ -36,14 +36,14 @@ class SettingsLogic {
     await box.put('settings', const SettingsModel());
   }
 
-  static Future<void> modify({required SettingsModel settings}) async {
+  static Future<void> set({required SettingsModel settings}) async {
     Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');
     await box.put('settings', settings);
   }
 
   static void logout(BuildContext context) async {
     Res.mock = false;
-    await context.read<AuthentificationCubit>().logout();
+    await context.read<AuthCubit>().logout();
     CacheService.reset<IzlyCredential>();
     context.read<IzlyCubit>().disconnect();
     Hive.deleteBoxFromDisk("cached_qr_code");

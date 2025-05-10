@@ -16,7 +16,7 @@ abstract class _$ActionListCWProxy {
   /// ActionList(...).copyWith(id: 12, name: "My name")
   /// ````
   ActionList call({
-    List<Action>? action,
+    List<Action> action,
   });
 }
 
@@ -41,7 +41,7 @@ class _$ActionListCWProxyImpl implements _$ActionListCWProxy {
     Object? action = const $CopyWithPlaceholder(),
   }) {
     return ActionList(
-      action: action == const $CopyWithPlaceholder() || action == null
+      action: action == const $CopyWithPlaceholder()
           ? _value.action
           // ignore: cast_nullable_to_non_nullable
           : action as List<Action>,

@@ -74,8 +74,7 @@ class _GradeWidgetState extends State<GradeWidget> {
           controller: screenshotController,
           child: TomussElementWidget(
             color: TomussLogic.getMainGradeColor(
-                forceGreen:
-                    context.read<SettingsCubit>().state.settings.forceGreen,
+                forceGreen: context.read<SettingsCubit>().settings.forceGreen,
                 isSeen: widget.isSeen,
                 grades: widget.grades),
             left: Column(

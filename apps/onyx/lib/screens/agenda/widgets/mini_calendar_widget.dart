@@ -13,8 +13,8 @@ class MiniCalendarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int dayCount =
-        context.read<SettingsCubit>().state.settings.agendaWeekLength;
+    final settings = context.read<SettingsCubit>().settings;
+    final int dayCount = settings.agendaWeekLength;
     return PageView.builder(
       scrollDirection: Axis.horizontal,
       controller: scrollController,
@@ -23,7 +23,7 @@ class MiniCalendarWidget extends StatelessWidget {
             wantedDate: index * dayCount +
                 context.read<AgendaCubit>().state.wantedDate % dayCount,
             fromMiniCalendar: true,
-            settings: context.read<SettingsCubit>().state.settings,
+            settings: settings,
             fromHorizontalScroll: false);
       },
       itemBuilder: (context, rawIndex) {

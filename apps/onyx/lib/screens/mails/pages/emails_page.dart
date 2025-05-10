@@ -26,7 +26,7 @@ class MailsPage extends StatelessWidget {
       listener: (context, state) {
         context.read<EmailCubit>().doQueuedAction(
               blockTrackers:
-                  context.read<SettingsCubit>().state.settings.blockTrackers,
+                  context.read<SettingsCubit>().settings.blockTrackers,
               appLocalizations: AppLocalizations.of(context),
             );
       },
@@ -59,7 +59,7 @@ class MailsPage extends StatelessWidget {
             final emailCubit = context.read<EmailCubit>();
             final localization = AppLocalizations.of(context);
             CacheService.getEncryptionKey(
-                    context.read<SettingsCubit>().state.settings.biometricAuth)
+                    context.read<SettingsCubit>().settings.biometricAuth)
                 .then((key) => CacheService.get<Credential>(secureKey: key))
                 .then(
               (value) {
@@ -76,11 +76,8 @@ class MailsPage extends StatelessWidget {
             break;
           case MailStatus.connected:
             context.read<EmailCubit>().load(
-                  blockTrackers: context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .blockTrackers,
+                  blockTrackers:
+                      context.read<SettingsCubit>().settings.blockTrackers,
                   appLocalizations: AppLocalizations.of(context),
                 );
 
@@ -172,7 +169,6 @@ class MailsPage extends StatelessWidget {
                                         .increaseNumber(
                                           blockTrackers: context
                                               .read<SettingsCubit>()
-                                              .state
                                               .settings
                                               .blockTrackers,
                                           appLocalizations:
@@ -197,11 +193,8 @@ class MailsPage extends StatelessWidget {
               ),
               onRefresh: () async {
                 context.read<EmailCubit>().load(
-                      blockTrackers: context
-                          .read<SettingsCubit>()
-                          .state
-                          .settings
-                          .blockTrackers,
+                      blockTrackers:
+                          context.read<SettingsCubit>().settings.blockTrackers,
                       appLocalizations: AppLocalizations.of(context),
                     );
                 return;

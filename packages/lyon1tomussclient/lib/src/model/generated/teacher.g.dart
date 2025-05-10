@@ -18,8 +18,8 @@ abstract class _$TeacherCWProxy {
   /// Teacher(...).copyWith(id: 12, name: "My name")
   /// ````
   Teacher call({
-    String? name,
-    String? email,
+    String name,
+    String email,
   });
 }
 
@@ -48,11 +48,11 @@ class _$TeacherCWProxyImpl implements _$TeacherCWProxy {
     Object? email = const $CopyWithPlaceholder(),
   }) {
     return Teacher(
-      name == const $CopyWithPlaceholder() || name == null
+      name == const $CopyWithPlaceholder()
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
           : name as String,
-      email == const $CopyWithPlaceholder() || email == null
+      email == const $CopyWithPlaceholder()
           ? _value.email
           // ignore: cast_nullable_to_non_nullable
           : email as String,

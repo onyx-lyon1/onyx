@@ -16,7 +16,7 @@ abstract class _$IzlyPaymentModelListCWProxy {
   /// IzlyPaymentModelList(...).copyWith(id: 12, name: "My name")
   /// ````
   IzlyPaymentModelList call({
-    List<IzlyPaymentModel>? payments,
+    List<IzlyPaymentModel> payments,
   });
 }
 
@@ -43,7 +43,7 @@ class _$IzlyPaymentModelListCWProxyImpl
     Object? payments = const $CopyWithPlaceholder(),
   }) {
     return IzlyPaymentModelList(
-      payments: payments == const $CopyWithPlaceholder() || payments == null
+      payments: payments == const $CopyWithPlaceholder()
           ? _value.payments
           // ignore: cast_nullable_to_non_nullable
           : payments as List<IzlyPaymentModel>,

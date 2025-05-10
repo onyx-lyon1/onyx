@@ -20,9 +20,9 @@ abstract class _$CredentialCWProxy {
   /// Credential(...).copyWith(id: 12, name: "My name")
   /// ````
   Credential call({
-    String? username,
-    String? password,
-    String? tgcToken,
+    String username,
+    String password,
+    String tgcToken,
   });
 }
 
@@ -55,15 +55,15 @@ class _$CredentialCWProxyImpl implements _$CredentialCWProxy {
     Object? tgcToken = const $CopyWithPlaceholder(),
   }) {
     return Credential(
-      username == const $CopyWithPlaceholder() || username == null
+      username == const $CopyWithPlaceholder()
           ? _value.username
           // ignore: cast_nullable_to_non_nullable
           : username as String,
-      password == const $CopyWithPlaceholder() || password == null
+      password == const $CopyWithPlaceholder()
           ? _value.password
           // ignore: cast_nullable_to_non_nullable
           : password as String,
-      tgcToken: tgcToken == const $CopyWithPlaceholder() || tgcToken == null
+      tgcToken: tgcToken == const $CopyWithPlaceholder()
           ? _value.tgcToken
           // ignore: cast_nullable_to_non_nullable
           : tgcToken as String,

@@ -9,20 +9,20 @@ enum AuthentificationStatus {
   waitingBiometric
 }
 
-class AuthentificationState extends Equatable {
+class AuthState extends Equatable {
   final AuthentificationStatus status;
   final Lyon1CasClient lyon1Cas;
 
   final String username;
 
-  const AuthentificationState(
+  const AuthState(
       {required this.status, required this.lyon1Cas, this.username = ""});
 
-  AuthentificationState copyWith(
+  AuthState copyWith(
       {AuthentificationStatus? status,
       Lyon1CasClient? lyon1Cas,
       String? username}) {
-    return AuthentificationState(
+    return AuthState(
         status: status ?? this.status,
         lyon1Cas: lyon1Cas ?? this.lyon1Cas,
         username: username ?? this.username);
