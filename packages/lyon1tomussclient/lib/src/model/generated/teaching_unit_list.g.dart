@@ -18,8 +18,8 @@ abstract class _$TeachingUnitListCWProxy {
   /// TeachingUnitList(...).copyWith(id: 12, name: "My name")
   /// ````
   TeachingUnitList call({
-    List<TeachingUnit>? teachingUnitModels,
-    int? semesterIndex,
+    List<TeachingUnit> teachingUnitModels,
+    int semesterIndex,
   });
 }
 
@@ -50,12 +50,11 @@ class _$TeachingUnitListCWProxyImpl implements _$TeachingUnitListCWProxy {
     Object? semesterIndex = const $CopyWithPlaceholder(),
   }) {
     return TeachingUnitList(
-      teachingUnitModels == const $CopyWithPlaceholder() ||
-              teachingUnitModels == null
+      teachingUnitModels == const $CopyWithPlaceholder()
           ? _value.teachingUnitModels
           // ignore: cast_nullable_to_non_nullable
           : teachingUnitModels as List<TeachingUnit>,
-      semesterIndex == const $CopyWithPlaceholder() || semesterIndex == null
+      semesterIndex == const $CopyWithPlaceholder()
           ? _value.semesterIndex
           // ignore: cast_nullable_to_non_nullable
           : semesterIndex as int,

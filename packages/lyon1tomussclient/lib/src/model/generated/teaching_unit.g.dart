@@ -36,17 +36,17 @@ abstract class _$TeachingUnitCWProxy {
   /// TeachingUnit(...).copyWith(id: 12, name: "My name")
   /// ````
   TeachingUnit call({
-    String? title,
-    List<Teacher>? masters,
-    List<Grade>? grades,
-    List<TomussText>? textValues,
-    List<Enumeration>? enumerations,
-    List<Presence>? presences,
-    List<StageCode>? stageCodes,
-    List<Upload>? uploads,
-    List<URL>? urls,
-    String? ticket,
-    String? ue,
+    String title,
+    List<Teacher> masters,
+    List<Grade> grades,
+    List<TomussText> textValues,
+    List<Enumeration> enumerations,
+    List<Presence> presences,
+    List<StageCode> stageCodes,
+    List<Upload> uploads,
+    List<URL> urls,
+    String ticket,
+    String ue,
   });
 }
 
@@ -115,47 +115,47 @@ class _$TeachingUnitCWProxyImpl implements _$TeachingUnitCWProxy {
     Object? ue = const $CopyWithPlaceholder(),
   }) {
     return TeachingUnit(
-      title == const $CopyWithPlaceholder() || title == null
+      title == const $CopyWithPlaceholder()
           ? _value.title
           // ignore: cast_nullable_to_non_nullable
           : title as String,
-      masters == const $CopyWithPlaceholder() || masters == null
+      masters == const $CopyWithPlaceholder()
           ? _value.masters
           // ignore: cast_nullable_to_non_nullable
           : masters as List<Teacher>,
-      grades == const $CopyWithPlaceholder() || grades == null
+      grades == const $CopyWithPlaceholder()
           ? _value.grades
           // ignore: cast_nullable_to_non_nullable
           : grades as List<Grade>,
-      textValues == const $CopyWithPlaceholder() || textValues == null
+      textValues == const $CopyWithPlaceholder()
           ? _value.textValues
           // ignore: cast_nullable_to_non_nullable
           : textValues as List<TomussText>,
-      enumerations == const $CopyWithPlaceholder() || enumerations == null
+      enumerations == const $CopyWithPlaceholder()
           ? _value.enumerations
           // ignore: cast_nullable_to_non_nullable
           : enumerations as List<Enumeration>,
-      presences == const $CopyWithPlaceholder() || presences == null
+      presences == const $CopyWithPlaceholder()
           ? _value.presences
           // ignore: cast_nullable_to_non_nullable
           : presences as List<Presence>,
-      stageCodes == const $CopyWithPlaceholder() || stageCodes == null
+      stageCodes == const $CopyWithPlaceholder()
           ? _value.stageCodes
           // ignore: cast_nullable_to_non_nullable
           : stageCodes as List<StageCode>,
-      uploads == const $CopyWithPlaceholder() || uploads == null
+      uploads == const $CopyWithPlaceholder()
           ? _value.uploads
           // ignore: cast_nullable_to_non_nullable
           : uploads as List<Upload>,
-      urls == const $CopyWithPlaceholder() || urls == null
+      urls == const $CopyWithPlaceholder()
           ? _value.urls
           // ignore: cast_nullable_to_non_nullable
           : urls as List<URL>,
-      ticket == const $CopyWithPlaceholder() || ticket == null
+      ticket == const $CopyWithPlaceholder()
           ? _value.ticket
           // ignore: cast_nullable_to_non_nullable
           : ticket as String,
-      ue == const $CopyWithPlaceholder() || ue == null
+      ue == const $CopyWithPlaceholder()
           ? _value.ue
           // ignore: cast_nullable_to_non_nullable
           : ue as String,

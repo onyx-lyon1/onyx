@@ -24,9 +24,9 @@ abstract class _$KholleCWProxy {
   /// Kholle(...).copyWith(id: 12, name: "My name")
   /// ````
   Kholle call({
-    DateTime? date,
-    String? subject,
-    String? kholleur,
+    DateTime date,
+    String subject,
+    String kholleur,
     String? message,
     String? room,
   });
@@ -69,15 +69,15 @@ class _$KholleCWProxyImpl implements _$KholleCWProxy {
     Object? room = const $CopyWithPlaceholder(),
   }) {
     return Kholle(
-      date == const $CopyWithPlaceholder() || date == null
+      date == const $CopyWithPlaceholder()
           ? _value.date
           // ignore: cast_nullable_to_non_nullable
           : date as DateTime,
-      subject == const $CopyWithPlaceholder() || subject == null
+      subject == const $CopyWithPlaceholder()
           ? _value.subject
           // ignore: cast_nullable_to_non_nullable
           : subject as String,
-      kholleur == const $CopyWithPlaceholder() || kholleur == null
+      kholleur == const $CopyWithPlaceholder()
           ? _value.kholleur
           // ignore: cast_nullable_to_non_nullable
           : kholleur as String,

@@ -24,11 +24,11 @@ abstract class _$URLCWProxy {
   /// URL(...).copyWith(id: 12, name: "My name")
   /// ````
   URL call({
-    String? title,
-    String? author,
+    String title,
+    String author,
     DateTime? date,
-    double? position,
-    String? value,
+    double position,
+    String value,
   });
 }
 
@@ -69,11 +69,11 @@ class _$URLCWProxyImpl implements _$URLCWProxy {
     Object? value = const $CopyWithPlaceholder(),
   }) {
     return URL(
-      title: title == const $CopyWithPlaceholder() || title == null
+      title: title == const $CopyWithPlaceholder()
           ? _value.title
           // ignore: cast_nullable_to_non_nullable
           : title as String,
-      author: author == const $CopyWithPlaceholder() || author == null
+      author: author == const $CopyWithPlaceholder()
           ? _value.author
           // ignore: cast_nullable_to_non_nullable
           : author as String,
@@ -81,11 +81,11 @@ class _$URLCWProxyImpl implements _$URLCWProxy {
           ? _value.date
           // ignore: cast_nullable_to_non_nullable
           : date as DateTime?,
-      position: position == const $CopyWithPlaceholder() || position == null
+      position: position == const $CopyWithPlaceholder()
           ? _value.position
           // ignore: cast_nullable_to_non_nullable
           : position as double,
-      value: value == const $CopyWithPlaceholder() || value == null
+      value: value == const $CopyWithPlaceholder()
           ? _value.value
           // ignore: cast_nullable_to_non_nullable
           : value as String,

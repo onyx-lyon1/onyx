@@ -20,8 +20,8 @@ abstract class _$MailBoxCWProxy {
   /// MailBox(...).copyWith(id: 12, name: "My name")
   /// ````
   MailBox call({
-    String? name,
-    List<Mail>? emails,
+    String name,
+    List<Mail> emails,
     SpecialMailBox? specialMailBox,
   });
 }
@@ -56,11 +56,11 @@ class _$MailBoxCWProxyImpl implements _$MailBoxCWProxy {
     Object? specialMailBox = const $CopyWithPlaceholder(),
   }) {
     return MailBox(
-      name: name == const $CopyWithPlaceholder() || name == null
+      name: name == const $CopyWithPlaceholder()
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
           : name as String,
-      emails: emails == const $CopyWithPlaceholder() || emails == null
+      emails: emails == const $CopyWithPlaceholder()
           ? _value.emails
           // ignore: cast_nullable_to_non_nullable
           : emails as List<Mail>,

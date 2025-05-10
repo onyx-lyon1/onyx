@@ -7,9 +7,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/settings/states/theme_cubit.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class SettingsSettingsWidget extends StatelessWidget {
   const SettingsSettingsWidget({super.key});
@@ -21,7 +21,7 @@ class SettingsSettingsWidget extends StatelessWidget {
         if (!kIsWeb && (Platform.isIOS || Platform.isAndroid))
           TextSwitchWidget(
             text: AppLocalizations.of(context).enablebiometricAuth,
-            value: context.read<SettingsCubit>().state.settings.biometricAuth,
+            value: context.read<SettingsCubit>().settings.biometricAuth,
             onChanged: (value) async {
               if (value) {
                 final canAuthenticate =
@@ -76,7 +76,6 @@ class SettingsSettingsWidget extends StatelessWidget {
               context.read<SettingsCubit>().modify(
                   settings: context
                       .read<SettingsCubit>()
-                      .state
                       .settings
                       .copyWith(biometricAuth: value));
             },

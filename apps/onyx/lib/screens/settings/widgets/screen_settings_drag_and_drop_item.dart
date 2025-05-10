@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/core/extensions/functionalities_extension.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -67,9 +67,13 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
               BlocListener<SettingsCubit, SettingsState>(
                 //bloc listener handling the collapsing when draging an item
                 listenWhen: (previous, current) {
+                  if (previous is! SettingsReady || current is! SettingsReady) {
+                    return false;
+                  }
                   return current.collapseAll;
                 },
                 listener: (context, state) {
+                  if (state is! SettingsReady) return;
                   if (state.collapseAll) {
                     if (ExpansionTileController.maybeOf(context)?.isExpanded ??
                         false) {

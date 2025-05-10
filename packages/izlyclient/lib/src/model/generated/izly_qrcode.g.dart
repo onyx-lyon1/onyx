@@ -18,8 +18,8 @@ abstract class _$IzlyQrCodeCWProxy {
   /// IzlyQrCode(...).copyWith(id: 12, name: "My name")
   /// ````
   IzlyQrCode call({
-    Uint8List? qrCode,
-    DateTime? expirationDate,
+    Uint8List qrCode,
+    DateTime expirationDate,
   });
 }
 
@@ -49,12 +49,11 @@ class _$IzlyQrCodeCWProxyImpl implements _$IzlyQrCodeCWProxy {
     Object? expirationDate = const $CopyWithPlaceholder(),
   }) {
     return IzlyQrCode(
-      qrCode: qrCode == const $CopyWithPlaceholder() || qrCode == null
+      qrCode: qrCode == const $CopyWithPlaceholder()
           ? _value.qrCode
           // ignore: cast_nullable_to_non_nullable
           : qrCode as Uint8List,
-      expirationDate: expirationDate == const $CopyWithPlaceholder() ||
-              expirationDate == null
+      expirationDate: expirationDate == const $CopyWithPlaceholder()
           ? _value.expirationDate
           // ignore: cast_nullable_to_non_nullable
           : expirationDate as DateTime,

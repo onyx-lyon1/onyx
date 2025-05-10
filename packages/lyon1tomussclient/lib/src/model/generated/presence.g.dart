@@ -32,13 +32,13 @@ abstract class _$PresenceCWProxy {
   /// Presence(...).copyWith(id: 12, name: "My name")
   /// ````
   Presence call({
-    String? title,
-    String? author,
+    String title,
+    String author,
     DateTime? date,
-    double? position,
-    String? value,
+    double position,
+    String value,
     String? emptyIs,
-    PresenceColor? color,
+    PresenceColor color,
     DateTime? visibilityDate,
     bool? visible,
   });
@@ -98,11 +98,11 @@ class _$PresenceCWProxyImpl implements _$PresenceCWProxy {
     Object? visible = const $CopyWithPlaceholder(),
   }) {
     return Presence(
-      title: title == const $CopyWithPlaceholder() || title == null
+      title: title == const $CopyWithPlaceholder()
           ? _value.title
           // ignore: cast_nullable_to_non_nullable
           : title as String,
-      author: author == const $CopyWithPlaceholder() || author == null
+      author: author == const $CopyWithPlaceholder()
           ? _value.author
           // ignore: cast_nullable_to_non_nullable
           : author as String,
@@ -110,11 +110,11 @@ class _$PresenceCWProxyImpl implements _$PresenceCWProxy {
           ? _value.date
           // ignore: cast_nullable_to_non_nullable
           : date as DateTime?,
-      position: position == const $CopyWithPlaceholder() || position == null
+      position: position == const $CopyWithPlaceholder()
           ? _value.position
           // ignore: cast_nullable_to_non_nullable
           : position as double,
-      value: value == const $CopyWithPlaceholder() || value == null
+      value: value == const $CopyWithPlaceholder()
           ? _value.value
           // ignore: cast_nullable_to_non_nullable
           : value as String,
@@ -122,7 +122,7 @@ class _$PresenceCWProxyImpl implements _$PresenceCWProxy {
           ? _value.emptyIs
           // ignore: cast_nullable_to_non_nullable
           : emptyIs as String?,
-      color: color == const $CopyWithPlaceholder() || color == null
+      color: color == const $CopyWithPlaceholder()
           ? _value.color
           // ignore: cast_nullable_to_non_nullable
           : color as PresenceColor,

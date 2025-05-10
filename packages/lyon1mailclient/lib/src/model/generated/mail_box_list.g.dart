@@ -16,7 +16,7 @@ abstract class _$MailBoxListCWProxy {
   /// MailBoxList(...).copyWith(id: 12, name: "My name")
   /// ````
   MailBoxList call({
-    List<MailBox>? mailBoxes,
+    List<MailBox> mailBoxes,
   });
 }
 
@@ -41,7 +41,7 @@ class _$MailBoxListCWProxyImpl implements _$MailBoxListCWProxy {
     Object? mailBoxes = const $CopyWithPlaceholder(),
   }) {
     return MailBoxList(
-      mailBoxes: mailBoxes == const $CopyWithPlaceholder() || mailBoxes == null
+      mailBoxes: mailBoxes == const $CopyWithPlaceholder()
           ? _value.mailBoxes
           // ignore: cast_nullable_to_non_nullable
           : mailBoxes as List<MailBox>,

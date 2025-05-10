@@ -20,9 +20,9 @@ abstract class _$MenuCrousCWProxy {
   /// MenuCrous(...).copyWith(id: 12, name: "My name")
   /// ````
   MenuCrous call({
-    DateTime? date,
-    MenuType? type,
-    List<PlatCrous>? plats,
+    DateTime date,
+    MenuType type,
+    List<PlatCrous> plats,
   });
 }
 
@@ -55,15 +55,15 @@ class _$MenuCrousCWProxyImpl implements _$MenuCrousCWProxy {
     Object? plats = const $CopyWithPlaceholder(),
   }) {
     return MenuCrous(
-      date: date == const $CopyWithPlaceholder() || date == null
+      date: date == const $CopyWithPlaceholder()
           ? _value.date
           // ignore: cast_nullable_to_non_nullable
           : date as DateTime,
-      type: type == const $CopyWithPlaceholder() || type == null
+      type: type == const $CopyWithPlaceholder()
           ? _value.type
           // ignore: cast_nullable_to_non_nullable
           : type as MenuType,
-      plats: plats == const $CopyWithPlaceholder() || plats == null
+      plats: plats == const $CopyWithPlaceholder()
           ? _value.plats
           // ignore: cast_nullable_to_non_nullable
           : plats as List<PlatCrous>,
@@ -89,8 +89,8 @@ abstract class _$PlatCrousCWProxy {
   /// PlatCrous(...).copyWith(id: 12, name: "My name")
   /// ````
   PlatCrous call({
-    String? name,
-    List<String>? variants,
+    String name,
+    List<String> variants,
   });
 }
 
@@ -119,11 +119,11 @@ class _$PlatCrousCWProxyImpl implements _$PlatCrousCWProxy {
     Object? variants = const $CopyWithPlaceholder(),
   }) {
     return PlatCrous(
-      name: name == const $CopyWithPlaceholder() || name == null
+      name: name == const $CopyWithPlaceholder()
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
           : name as String,
-      variants: variants == const $CopyWithPlaceholder() || variants == null
+      variants: variants == const $CopyWithPlaceholder()
           ? _value.variants
           // ignore: cast_nullable_to_non_nullable
           : variants as List<String>,

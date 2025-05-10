@@ -16,7 +16,7 @@ abstract class _$IzlyQrCodeListCWProxy {
   /// IzlyQrCodeList(...).copyWith(id: 12, name: "My name")
   /// ````
   IzlyQrCodeList call({
-    List<IzlyQrCode>? qrCodes,
+    List<IzlyQrCode> qrCodes,
   });
 }
 
@@ -41,7 +41,7 @@ class _$IzlyQrCodeListCWProxyImpl implements _$IzlyQrCodeListCWProxy {
     Object? qrCodes = const $CopyWithPlaceholder(),
   }) {
     return IzlyQrCodeList(
-      qrCodes: qrCodes == const $CopyWithPlaceholder() || qrCodes == null
+      qrCodes: qrCodes == const $CopyWithPlaceholder()
           ? _value.qrCodes
           // ignore: cast_nullable_to_non_nullable
           : qrCodes as List<IzlyQrCode>,

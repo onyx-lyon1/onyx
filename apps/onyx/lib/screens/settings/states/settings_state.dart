@@ -1,32 +1,29 @@
 part of 'settings_cubit.dart';
 
-enum SettingsStatus { initial, loading, ready, error }
+sealed class SettingsState {
+  const SettingsState();
+}
 
-class SettingsState {
-  final SettingsStatus status;
+final class SettingsInitial extends SettingsState {
+  const SettingsInitial();
+}
+
+final class SettingsReady extends SettingsState with EquatableMixin {
+  const SettingsReady({required this.settings, this.collapseAll = false});
+
   final SettingsModel settings;
   final bool collapseAll;
 
-  SettingsState({
-    this.status = SettingsStatus.initial,
-    this.collapseAll = false,
-    required this.settings,
-  });
-
-  SettingsState copyWith({
-    SettingsStatus? status,
-    SettingsModel? settings,
-    bool? collapseAll,
-  }) {
-    return SettingsState(
-      status: status ?? this.status,
+  SettingsReady copyWith({SettingsModel? settings, bool? collapseAll}) {
+    return SettingsReady(
       settings: settings ?? this.settings,
-      collapseAll: collapseAll ?? false,
+      collapseAll: collapseAll ?? this.collapseAll,
     );
   }
 
   @override
-  String toString() {
-    return 'SettingsState{status: $status, settings: $settings, collapseAll: $collapseAll}';
-  }
+  List<Object?> get props => [settings, collapseAll];
+
+  @override
+  bool? get stringify => true;
 }

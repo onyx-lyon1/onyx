@@ -21,12 +21,12 @@ class IzlyPage extends StatelessWidget {
     return BlocBuilder<IzlyCubit, IzlyState>(
       buildWhen: (prevState, newState) => prevState.status != newState.status,
       builder: (context, state) {
+        final settings = context.read<SettingsCubit>().settings;
         Widget? stateWidget;
         Widget body = Container();
         switch (state.status) {
           case IzlyStatus.initial:
-            context.read<IzlyCubit>().connect(
-                settings: context.read<SettingsCubit>().state.settings);
+            context.read<IzlyCubit>().connect(settings: settings);
             body = StateDisplayingPage(
               message: AppLocalizations.of(context).connecting,
             );
@@ -38,7 +38,6 @@ class IzlyPage extends StatelessWidget {
             break;
           case IzlyStatus.error:
             final izlyCubit = context.read<IzlyCubit>();
-            final settings = context.read<SettingsCubit>().state.settings;
             Future.delayed(const Duration(seconds: 5),
                 () => izlyCubit.connect(settings: settings));
             stateWidget = StateDisplayingPage(
@@ -102,8 +101,7 @@ class IzlyPage extends StatelessWidget {
         return CommonScreenWidget(
           state: stateWidget,
           onRefresh: () async {
-            context.read<IzlyCubit>().connect(
-                settings: context.read<SettingsCubit>().state.settings);
+            context.read<IzlyCubit>().connect(settings: settings);
             while (state.status != IzlyStatus.loaded &&
                 state.status != IzlyStatus.error) {
               await Future.delayed(const Duration(milliseconds: 100));

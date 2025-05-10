@@ -21,7 +21,7 @@ class DaysViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var agendaState = context.read<AgendaCubit>().state;
+    final agendaState = context.read<AgendaCubit>().state;
 
     double columnWidth = DaysViewRes.columnWidth(dayCount);
 
@@ -55,8 +55,7 @@ class DaysViewWidget extends StatelessWidget {
                                       0) %
                                   dayCount),
                           fromMiniCalendar: false,
-                          settings:
-                              context.read<SettingsCubit>().state.settings,
+                          settings: context.read<SettingsCubit>().settings,
                           fromHorizontalScroll: true,
                         );
                   },

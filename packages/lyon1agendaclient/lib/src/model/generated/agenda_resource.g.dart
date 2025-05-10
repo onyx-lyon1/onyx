@@ -21,7 +21,7 @@ abstract class _$AgendaResourceCWProxy {
   /// ````
   AgendaResource call({
     int? id,
-    String? name,
+    String name,
     List<AgendaResource>? children,
   });
 }
@@ -60,7 +60,7 @@ class _$AgendaResourceCWProxyImpl implements _$AgendaResourceCWProxy {
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
           : id as int?,
-      name == const $CopyWithPlaceholder() || name == null
+      name == const $CopyWithPlaceholder()
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
           : name as String,

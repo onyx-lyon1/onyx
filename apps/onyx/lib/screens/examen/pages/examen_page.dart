@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1examenclient/lyon1examenclient.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/examen/examen_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:onyx/screens/tomuss/states/tomuss_cubit.dart';
 import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class ExamenPage extends StatelessWidget {
   const ExamenPage({
@@ -18,6 +18,7 @@ class ExamenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ExamenCubit, ExamenState>(
       builder: (context, state) {
+        final settings = context.read<SettingsCubit>().settings;
         Widget body = const SizedBox.shrink();
         Widget? stateWidget;
 
@@ -26,9 +27,9 @@ class ExamenPage extends StatelessWidget {
             context.read<ExamenCubit>().load(
                   context.read<TomussCubit>().state.name,
                   context.read<TomussCubit>().state.surname,
-                  context.read<AuthentificationCubit>().state.username,
-                  context.read<SettingsCubit>().state.settings,
-                  context.read<AuthentificationCubit>().state.lyon1Cas,
+                  context.read<AuthCubit>().state.username,
+                  settings,
+                  context.read<AuthCubit>().state.lyon1Cas,
                   AppLocalizations.of(context),
                 );
             break;
@@ -54,9 +55,9 @@ class ExamenPage extends StatelessWidget {
             context.read<ExamenCubit>().load(
                   context.read<TomussCubit>().state.name,
                   context.read<TomussCubit>().state.surname,
-                  context.read<AuthentificationCubit>().state.username,
-                  context.read<SettingsCubit>().state.settings,
-                  context.read<AuthentificationCubit>().state.lyon1Cas,
+                  context.read<AuthCubit>().state.username,
+                  settings,
+                  context.read<AuthCubit>().state.lyon1Cas,
                   AppLocalizations.of(context),
                 );
           },

@@ -32,7 +32,7 @@ abstract class _$EmailSendStateCWProxy {
   /// EmailSendState(...).copyWith(id: 12, name: "My name")
   /// ````
   EmailSendState call({
-    EmailSendStatus? status,
+    EmailSendStatus status,
     QuillController? controller,
     TextEditingController? subjectEditor,
     TextEditingController? destinationEditor,
@@ -40,7 +40,7 @@ abstract class _$EmailSendStateCWProxy {
     bool? replyAll,
     bool? reply,
     bool? forward,
-    List<File>? attachments,
+    List<File> attachments,
   });
 }
 
@@ -102,7 +102,7 @@ class _$EmailSendStateCWProxyImpl implements _$EmailSendStateCWProxy {
     Object? attachments = const $CopyWithPlaceholder(),
   }) {
     return EmailSendState(
-      status: status == const $CopyWithPlaceholder() || status == null
+      status: status == const $CopyWithPlaceholder()
           ? _value.status
           // ignore: cast_nullable_to_non_nullable
           : status as EmailSendStatus,
@@ -134,11 +134,10 @@ class _$EmailSendStateCWProxyImpl implements _$EmailSendStateCWProxy {
           ? _value.forward
           // ignore: cast_nullable_to_non_nullable
           : forward as bool?,
-      attachments:
-          attachments == const $CopyWithPlaceholder() || attachments == null
-              ? _value.attachments
-              // ignore: cast_nullable_to_non_nullable
-              : attachments as List<File>,
+      attachments: attachments == const $CopyWithPlaceholder()
+          ? _value.attachments
+          // ignore: cast_nullable_to_non_nullable
+          : attachments as List<File>,
     );
   }
 }

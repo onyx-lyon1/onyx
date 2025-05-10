@@ -59,8 +59,6 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel colloscopeEnabled(bool? colloscopeEnabled);
 
-  SettingsModel agendaId(int? agendaId);
-
   SettingsModel examenAddToAgenda(bool examenAddToAgenda);
 
   SettingsModel language(String? language);
@@ -74,35 +72,34 @@ abstract class _$SettingsModelCWProxy {
   /// SettingsModel(...).copyWith(id: 12, name: "My name")
   /// ````
   SettingsModel call({
-    bool? biometricAuth,
-    bool? forceGreen,
-    bool? newGradeNotification,
-    bool? showHiddenUE,
-    bool? fetchAgendaAuto,
-    bool? showMiniCalendar,
-    bool? calendarUpdateNotification,
-    List<int>? agendaIds,
-    bool? newMailNotification,
-    bool? blockTrackers,
-    bool? forcedMailTheme,
-    bool? shownAgendaPopup,
-    List<Functionalities>? enabledFunctionalities,
-    List<Functionalities>? disabledFunctionalities,
-    int? recentGradeDuration,
-    bool? firstLogin,
-    bool? mock,
-    int? agendaWeekLength,
-    int? agendaWeekReference,
-    List<int>? agendaDisabledDays,
-    bool? agendaPageTopToBottom,
-    int? agendaWeekRerenceAlignement,
-    int? colloscopeOverrideStudentId,
-    int? colloscopeOverrideYearId,
+    bool biometricAuth,
+    bool forceGreen,
+    bool newGradeNotification,
+    bool showHiddenUE,
+    bool fetchAgendaAuto,
+    bool showMiniCalendar,
+    bool calendarUpdateNotification,
+    List<int> agendaIds,
+    bool newMailNotification,
+    bool blockTrackers,
+    bool forcedMailTheme,
+    bool shownAgendaPopup,
+    List<Functionalities> enabledFunctionalities,
+    List<Functionalities> disabledFunctionalities,
+    int recentGradeDuration,
+    bool firstLogin,
+    bool mock,
+    int agendaWeekLength,
+    int agendaWeekReference,
+    List<int> agendaDisabledDays,
+    bool agendaPageTopToBottom,
+    int agendaWeekRerenceAlignement,
+    int colloscopeOverrideStudentId,
+    int colloscopeOverrideYearId,
     bool? colloscopeEnabled,
-    int? agendaId,
-    bool? examenAddToAgenda,
+    bool examenAddToAgenda,
     String? language,
-    bool? izlyNotification,
+    bool izlyNotification,
   });
 }
 
@@ -211,9 +208,6 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
       this(colloscopeEnabled: colloscopeEnabled);
 
   @override
-  SettingsModel agendaId(int? agendaId) => this(agendaId: agendaId);
-
-  @override
   SettingsModel examenAddToAgenda(bool examenAddToAgenda) =>
       this(examenAddToAgenda: examenAddToAgenda);
 
@@ -258,138 +252,111 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
     Object? colloscopeOverrideStudentId = const $CopyWithPlaceholder(),
     Object? colloscopeOverrideYearId = const $CopyWithPlaceholder(),
     Object? colloscopeEnabled = const $CopyWithPlaceholder(),
-    Object? agendaId = const $CopyWithPlaceholder(),
     Object? examenAddToAgenda = const $CopyWithPlaceholder(),
     Object? language = const $CopyWithPlaceholder(),
     Object? izlyNotification = const $CopyWithPlaceholder(),
   }) {
     return SettingsModel(
-      biometricAuth:
-          biometricAuth == const $CopyWithPlaceholder() || biometricAuth == null
-              ? _value.biometricAuth
-              // ignore: cast_nullable_to_non_nullable
-              : biometricAuth as bool,
-      forceGreen:
-          forceGreen == const $CopyWithPlaceholder() || forceGreen == null
-              ? _value.forceGreen
-              // ignore: cast_nullable_to_non_nullable
-              : forceGreen as bool,
-      newGradeNotification:
-          newGradeNotification == const $CopyWithPlaceholder() ||
-                  newGradeNotification == null
-              ? _value.newGradeNotification
-              // ignore: cast_nullable_to_non_nullable
-              : newGradeNotification as bool,
-      showHiddenUE:
-          showHiddenUE == const $CopyWithPlaceholder() || showHiddenUE == null
-              ? _value.showHiddenUE
-              // ignore: cast_nullable_to_non_nullable
-              : showHiddenUE as bool,
-      fetchAgendaAuto: fetchAgendaAuto == const $CopyWithPlaceholder() ||
-              fetchAgendaAuto == null
+      biometricAuth: biometricAuth == const $CopyWithPlaceholder()
+          ? _value.biometricAuth
+          // ignore: cast_nullable_to_non_nullable
+          : biometricAuth as bool,
+      forceGreen: forceGreen == const $CopyWithPlaceholder()
+          ? _value.forceGreen
+          // ignore: cast_nullable_to_non_nullable
+          : forceGreen as bool,
+      newGradeNotification: newGradeNotification == const $CopyWithPlaceholder()
+          ? _value.newGradeNotification
+          // ignore: cast_nullable_to_non_nullable
+          : newGradeNotification as bool,
+      showHiddenUE: showHiddenUE == const $CopyWithPlaceholder()
+          ? _value.showHiddenUE
+          // ignore: cast_nullable_to_non_nullable
+          : showHiddenUE as bool,
+      fetchAgendaAuto: fetchAgendaAuto == const $CopyWithPlaceholder()
           ? _value.fetchAgendaAuto
           // ignore: cast_nullable_to_non_nullable
           : fetchAgendaAuto as bool,
-      showMiniCalendar: showMiniCalendar == const $CopyWithPlaceholder() ||
-              showMiniCalendar == null
+      showMiniCalendar: showMiniCalendar == const $CopyWithPlaceholder()
           ? _value.showMiniCalendar
           // ignore: cast_nullable_to_non_nullable
           : showMiniCalendar as bool,
       calendarUpdateNotification:
-          calendarUpdateNotification == const $CopyWithPlaceholder() ||
-                  calendarUpdateNotification == null
+          calendarUpdateNotification == const $CopyWithPlaceholder()
               ? _value.calendarUpdateNotification
               // ignore: cast_nullable_to_non_nullable
               : calendarUpdateNotification as bool,
-      agendaIds: agendaIds == const $CopyWithPlaceholder() || agendaIds == null
+      agendaIds: agendaIds == const $CopyWithPlaceholder()
           ? _value.agendaIds
           // ignore: cast_nullable_to_non_nullable
           : agendaIds as List<int>,
-      newMailNotification:
-          newMailNotification == const $CopyWithPlaceholder() ||
-                  newMailNotification == null
-              ? _value.newMailNotification
-              // ignore: cast_nullable_to_non_nullable
-              : newMailNotification as bool,
-      blockTrackers:
-          blockTrackers == const $CopyWithPlaceholder() || blockTrackers == null
-              ? _value.blockTrackers
-              // ignore: cast_nullable_to_non_nullable
-              : blockTrackers as bool,
-      forcedMailTheme: forcedMailTheme == const $CopyWithPlaceholder() ||
-              forcedMailTheme == null
+      newMailNotification: newMailNotification == const $CopyWithPlaceholder()
+          ? _value.newMailNotification
+          // ignore: cast_nullable_to_non_nullable
+          : newMailNotification as bool,
+      blockTrackers: blockTrackers == const $CopyWithPlaceholder()
+          ? _value.blockTrackers
+          // ignore: cast_nullable_to_non_nullable
+          : blockTrackers as bool,
+      forcedMailTheme: forcedMailTheme == const $CopyWithPlaceholder()
           ? _value.forcedMailTheme
           // ignore: cast_nullable_to_non_nullable
           : forcedMailTheme as bool,
-      shownAgendaPopup: shownAgendaPopup == const $CopyWithPlaceholder() ||
-              shownAgendaPopup == null
+      shownAgendaPopup: shownAgendaPopup == const $CopyWithPlaceholder()
           ? _value.shownAgendaPopup
           // ignore: cast_nullable_to_non_nullable
           : shownAgendaPopup as bool,
       enabledFunctionalities:
-          enabledFunctionalities == const $CopyWithPlaceholder() ||
-                  enabledFunctionalities == null
+          enabledFunctionalities == const $CopyWithPlaceholder()
               ? _value.enabledFunctionalities
               // ignore: cast_nullable_to_non_nullable
               : enabledFunctionalities as List<Functionalities>,
       disabledFunctionalities:
-          disabledFunctionalities == const $CopyWithPlaceholder() ||
-                  disabledFunctionalities == null
+          disabledFunctionalities == const $CopyWithPlaceholder()
               ? _value.disabledFunctionalities
               // ignore: cast_nullable_to_non_nullable
               : disabledFunctionalities as List<Functionalities>,
-      recentGradeDuration:
-          recentGradeDuration == const $CopyWithPlaceholder() ||
-                  recentGradeDuration == null
-              ? _value.recentGradeDuration
-              // ignore: cast_nullable_to_non_nullable
-              : recentGradeDuration as int,
-      firstLogin:
-          firstLogin == const $CopyWithPlaceholder() || firstLogin == null
-              ? _value.firstLogin
-              // ignore: cast_nullable_to_non_nullable
-              : firstLogin as bool,
-      mock: mock == const $CopyWithPlaceholder() || mock == null
+      recentGradeDuration: recentGradeDuration == const $CopyWithPlaceholder()
+          ? _value.recentGradeDuration
+          // ignore: cast_nullable_to_non_nullable
+          : recentGradeDuration as int,
+      firstLogin: firstLogin == const $CopyWithPlaceholder()
+          ? _value.firstLogin
+          // ignore: cast_nullable_to_non_nullable
+          : firstLogin as bool,
+      mock: mock == const $CopyWithPlaceholder()
           ? _value.mock
           // ignore: cast_nullable_to_non_nullable
           : mock as bool,
-      agendaWeekLength: agendaWeekLength == const $CopyWithPlaceholder() ||
-              agendaWeekLength == null
+      agendaWeekLength: agendaWeekLength == const $CopyWithPlaceholder()
           ? _value.agendaWeekLength
           // ignore: cast_nullable_to_non_nullable
           : agendaWeekLength as int,
-      agendaWeekReference:
-          agendaWeekReference == const $CopyWithPlaceholder() ||
-                  agendaWeekReference == null
-              ? _value.agendaWeekReference
-              // ignore: cast_nullable_to_non_nullable
-              : agendaWeekReference as int,
-      agendaDisabledDays: agendaDisabledDays == const $CopyWithPlaceholder() ||
-              agendaDisabledDays == null
+      agendaWeekReference: agendaWeekReference == const $CopyWithPlaceholder()
+          ? _value.agendaWeekReference
+          // ignore: cast_nullable_to_non_nullable
+          : agendaWeekReference as int,
+      agendaDisabledDays: agendaDisabledDays == const $CopyWithPlaceholder()
           ? _value.agendaDisabledDays
           // ignore: cast_nullable_to_non_nullable
           : agendaDisabledDays as List<int>,
       agendaPageTopToBottom:
-          agendaPageTopToBottom == const $CopyWithPlaceholder() ||
-                  agendaPageTopToBottom == null
+          agendaPageTopToBottom == const $CopyWithPlaceholder()
               ? _value.agendaPageTopToBottom
               // ignore: cast_nullable_to_non_nullable
               : agendaPageTopToBottom as bool,
       agendaWeekRerenceAlignement:
-          agendaWeekRerenceAlignement == const $CopyWithPlaceholder() ||
-                  agendaWeekRerenceAlignement == null
+          agendaWeekRerenceAlignement == const $CopyWithPlaceholder()
               ? _value.agendaWeekRerenceAlignement
               // ignore: cast_nullable_to_non_nullable
               : agendaWeekRerenceAlignement as int,
       colloscopeOverrideStudentId:
-          colloscopeOverrideStudentId == const $CopyWithPlaceholder() ||
-                  colloscopeOverrideStudentId == null
+          colloscopeOverrideStudentId == const $CopyWithPlaceholder()
               ? _value.colloscopeOverrideStudentId
               // ignore: cast_nullable_to_non_nullable
               : colloscopeOverrideStudentId as int,
       colloscopeOverrideYearId:
-          colloscopeOverrideYearId == const $CopyWithPlaceholder() ||
-                  colloscopeOverrideYearId == null
+          colloscopeOverrideYearId == const $CopyWithPlaceholder()
               ? _value.colloscopeOverrideYearId
               // ignore: cast_nullable_to_non_nullable
               : colloscopeOverrideYearId as int,
@@ -397,12 +364,7 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
           ? _value.colloscopeEnabled
           // ignore: cast_nullable_to_non_nullable
           : colloscopeEnabled as bool?,
-      agendaId: agendaId == const $CopyWithPlaceholder()
-          ? _value.agendaId
-          // ignore: cast_nullable_to_non_nullable
-          : agendaId as int?,
-      examenAddToAgenda: examenAddToAgenda == const $CopyWithPlaceholder() ||
-              examenAddToAgenda == null
+      examenAddToAgenda: examenAddToAgenda == const $CopyWithPlaceholder()
           ? _value.examenAddToAgenda
           // ignore: cast_nullable_to_non_nullable
           : examenAddToAgenda as bool,
@@ -410,8 +372,7 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
           ? _value.language
           // ignore: cast_nullable_to_non_nullable
           : language as String?,
-      izlyNotification: izlyNotification == const $CopyWithPlaceholder() ||
-              izlyNotification == null
+      izlyNotification: izlyNotification == const $CopyWithPlaceholder()
           ? _value.izlyNotification
           // ignore: cast_nullable_to_non_nullable
           : izlyNotification as bool,
@@ -478,7 +439,6 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       colloscopeOverrideStudentId: fields[25] == null ? 0 : fields[25] as int,
       colloscopeOverrideYearId: fields[26] == null ? 0 : fields[26] as int,
       colloscopeEnabled: fields[28] as bool?,
-      agendaId: fields[8] as int?,
       examenAddToAgenda: fields[29] == null ? true : fields[29] as bool,
       language: fields[30] as String?,
       izlyNotification: fields[31] == null ? false : fields[31] as bool,
@@ -488,7 +448,7 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(29)
+      ..writeByte(28)
       ..writeByte(15)
       ..write(obj.firstLogin)
       ..writeByte(16)
@@ -507,8 +467,6 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..write(obj.showMiniCalendar)
       ..writeByte(7)
       ..write(obj.calendarUpdateNotification)
-      ..writeByte(8)
-      ..write(obj.agendaId)
       ..writeByte(27)
       ..write(obj.agendaIds)
       ..writeByte(19)

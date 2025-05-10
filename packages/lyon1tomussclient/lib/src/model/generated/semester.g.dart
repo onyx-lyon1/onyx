@@ -18,8 +18,8 @@ abstract class _$SemesterCWProxy {
   /// Semester(...).copyWith(id: 12, name: "My name")
   /// ````
   Semester call({
-    String? title,
-    String? url,
+    String title,
+    String url,
   });
 }
 
@@ -48,11 +48,11 @@ class _$SemesterCWProxyImpl implements _$SemesterCWProxy {
     Object? url = const $CopyWithPlaceholder(),
   }) {
     return Semester(
-      title == const $CopyWithPlaceholder() || title == null
+      title == const $CopyWithPlaceholder()
           ? _value.title
           // ignore: cast_nullable_to_non_nullable
           : title as String,
-      url == const $CopyWithPlaceholder() || url == null
+      url == const $CopyWithPlaceholder()
           ? _value.url
           // ignore: cast_nullable_to_non_nullable
           : url as String,
