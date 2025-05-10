@@ -14,35 +14,37 @@ class SettingsConnection extends BlocListener<SettingsCubit, SettingsState> {
   }) : super(
           listener: (context, settingsState) {
             ThemeState themeState = context.read<ThemeCubit>().state;
-            AuthentificationState authState =
-                context.read<AuthentificationCubit>().state;
-            if ((settingsState.status == SettingsStatus.ready ||
-                settingsState.status == SettingsStatus.error)) {
+            AuthState authState = context.read<AuthCubit>().state;
+
+            if (settingsState is SettingsReady) {
               if (authState.status == AuthentificationStatus.initial) {
-                context.read<AuthentificationCubit>().login(
+                context.read<AuthCubit>().login(
                       settings: settingsState.settings,
                     );
               }
             }
 
-            if (themeState.status != ThemeStateStatus.init) {
+            if (themeState.status != ThemeStateStatus.initial) {
               context.read<ThemeCubit>().init();
             }
 
             //update agenda if the ids are changed
             if (previous != null &&
-                (!listEquals(previous!.settings.agendaIds,
-                        settingsState.settings.agendaIds) ||
-                    previous!.settings.fetchAgendaAuto !=
-                        settingsState.settings.fetchAgendaAuto)) {
-              context.read<AgendaCubit>().load(
-                  lyon1Cas:
-                      context.read<AuthentificationCubit>().state.lyon1Cas,
-                  settings: settingsState.settings,
-                  cache: false);
-              if (settingsState.settings.colloscopeEnabled == null &&
-                  !settingsState.settings.fetchAgendaAuto) {
-                AgendaConnection.updateColloscopeEnabled(context);
+                previous is SettingsReady &&
+                settingsState is SettingsReady) {
+              final previousReady = previous as SettingsReady;
+              if ((!listEquals(previousReady.settings.agendaIds,
+                      settingsState.settings.agendaIds) ||
+                  previousReady.settings.fetchAgendaAuto !=
+                      settingsState.settings.fetchAgendaAuto)) {
+                context.read<AgendaCubit>().load(
+                    lyon1Cas: context.read<AuthCubit>().state.lyon1Cas,
+                    settings: settingsState.settings,
+                    cache: false);
+                if (settingsState.settings.colloscopeEnabled == null &&
+                    !settingsState.settings.fetchAgendaAuto) {
+                  AgendaConnection.updateColloscopeEnabled(context);
+                }
               }
             }
             previous = settingsState;

@@ -128,11 +128,11 @@ class _$EnumerationCWProxyImpl implements _$EnumerationCWProxy {
     Object? modifiable = const $CopyWithPlaceholder(),
   }) {
     return Enumeration(
-      title: title == const $CopyWithPlaceholder() || title == null
+      title: title == const $CopyWithPlaceholder()
           ? _value.title
           // ignore: cast_nullable_to_non_nullable
           : title as String,
-      author: author == const $CopyWithPlaceholder() || author == null
+      author: author == const $CopyWithPlaceholder()
           ? _value.author
           // ignore: cast_nullable_to_non_nullable
           : author as String,
@@ -140,7 +140,7 @@ class _$EnumerationCWProxyImpl implements _$EnumerationCWProxy {
           ? _value.date
           // ignore: cast_nullable_to_non_nullable
           : date as DateTime?,
-      position: position == const $CopyWithPlaceholder() || position == null
+      position: position == const $CopyWithPlaceholder()
           ? _value.position
           // ignore: cast_nullable_to_non_nullable
           : position as double,
@@ -148,39 +148,38 @@ class _$EnumerationCWProxyImpl implements _$EnumerationCWProxy {
           ? _value.value
           // ignore: cast_nullable_to_non_nullable
           : value as String?,
-      values: values == const $CopyWithPlaceholder() || values == null
+      values: values == const $CopyWithPlaceholder()
           ? _value.values
           // ignore: cast_nullable_to_non_nullable
           : values as List<String>,
-      comment: comment == const $CopyWithPlaceholder() || comment == null
+      comment: comment == const $CopyWithPlaceholder()
           ? _value.comment
           // ignore: cast_nullable_to_non_nullable
           : comment as String,
-      theId: theId == const $CopyWithPlaceholder() || theId == null
+      theId: theId == const $CopyWithPlaceholder()
           ? _value.theId
           // ignore: cast_nullable_to_non_nullable
           : theId as String,
-      lineId: lineId == const $CopyWithPlaceholder() || lineId == null
+      lineId: lineId == const $CopyWithPlaceholder()
           ? _value.lineId
           // ignore: cast_nullable_to_non_nullable
           : lineId as String,
-      ue: ue == const $CopyWithPlaceholder() || ue == null
+      ue: ue == const $CopyWithPlaceholder()
           ? _value.ue
           // ignore: cast_nullable_to_non_nullable
           : ue as String,
-      semester: semester == const $CopyWithPlaceholder() || semester == null
+      semester: semester == const $CopyWithPlaceholder()
           ? _value.semester
           // ignore: cast_nullable_to_non_nullable
           : semester as String,
-      year: year == const $CopyWithPlaceholder() || year == null
+      year: year == const $CopyWithPlaceholder()
           ? _value.year
           // ignore: cast_nullable_to_non_nullable
           : year as String,
-      modifiable:
-          modifiable == const $CopyWithPlaceholder() || modifiable == null
-              ? _value.modifiable
-              // ignore: cast_nullable_to_non_nullable
-              : modifiable as bool,
+      modifiable: modifiable == const $CopyWithPlaceholder()
+          ? _value.modifiable
+          // ignore: cast_nullable_to_non_nullable
+          : modifiable as bool,
     );
   }
 }

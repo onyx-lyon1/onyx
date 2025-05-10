@@ -27,8 +27,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthentificationCubit, AuthentificationState>(
-        builder: (context, state) {
+    final settings = context.read<SettingsCubit>().settings;
+    return BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
       switch (state.status) {
         case AuthentificationStatus.initial:
           return StateDisplayingPage(
@@ -266,16 +266,11 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {
                         Res.mock = true;
                         context.read<SettingsCubit>().modify(
-                            settings: context
-                                .read<SettingsCubit>()
-                                .state
-                                .settings
-                                .copyWith(
-                                  mock: true,
-                                ));
-                        context.read<AuthentificationCubit>().login(
-                              settings:
-                                  context.read<SettingsCubit>().state.settings,
+                                settings: settings.copyWith(
+                              mock: true,
+                            ));
+                        context.read<AuthCubit>().login(
+                              settings: settings,
                             );
                       },
                       child: Text(AppLocalizations.of(context).discoverApp),
@@ -292,8 +287,8 @@ class _LoginPageState extends State<LoginPage> {
           return StateDisplayingPage(
               message: AppLocalizations.of(context).yourAuthentificated);
         case AuthentificationStatus.error:
-          if (context.read<SettingsCubit>().state.settings.firstLogin) {
-            final authCubit = context.read<AuthentificationCubit>();
+          if (settings.firstLogin) {
+            final authCubit = context.read<AuthCubit>();
             Future.delayed(
                 const Duration(seconds: 1), () => authCubit.logout());
             return StateDisplayingPage(
@@ -311,9 +306,9 @@ class _LoginPageState extends State<LoginPage> {
   void send() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      context.read<AuthentificationCubit>().login(
+      context.read<AuthCubit>().login(
             creds: Credential(username, password),
-            settings: context.read<SettingsCubit>().state.settings,
+            settings: context.read<SettingsCubit>().settings,
           );
     }
   }

@@ -109,45 +109,43 @@ class _$RestaurantModelCWProxyImpl implements _$RestaurantModelCWProxy {
     Object? imageUrl = const $CopyWithPlaceholder(),
   }) {
     return RestaurantModel(
-      id: id == const $CopyWithPlaceholder() || id == null
+      id: id == const $CopyWithPlaceholder()
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
           : id as int,
-      name: name == const $CopyWithPlaceholder() || name == null
+      name: name == const $CopyWithPlaceholder()
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
           : name as String,
-      description:
-          description == const $CopyWithPlaceholder() || description == null
-              ? _value.description
-              // ignore: cast_nullable_to_non_nullable
-              : description as String,
-      shortDescription: shortDescription == const $CopyWithPlaceholder() ||
-              shortDescription == null
+      description: description == const $CopyWithPlaceholder()
+          ? _value.description
+          // ignore: cast_nullable_to_non_nullable
+          : description as String,
+      shortDescription: shortDescription == const $CopyWithPlaceholder()
           ? _value.shortDescription
           // ignore: cast_nullable_to_non_nullable
           : shortDescription as String,
-      type: type == const $CopyWithPlaceholder() || type == null
+      type: type == const $CopyWithPlaceholder()
           ? _value.type
           // ignore: cast_nullable_to_non_nullable
           : type as CrousType,
-      lat: lat == const $CopyWithPlaceholder() || lat == null
+      lat: lat == const $CopyWithPlaceholder()
           ? _value.lat
           // ignore: cast_nullable_to_non_nullable
           : lat as double,
-      lon: lon == const $CopyWithPlaceholder() || lon == null
+      lon: lon == const $CopyWithPlaceholder()
           ? _value.lon
           // ignore: cast_nullable_to_non_nullable
           : lon as double,
-      opening: opening == const $CopyWithPlaceholder() || opening == null
+      opening: opening == const $CopyWithPlaceholder()
           ? _value.opening
           // ignore: cast_nullable_to_non_nullable
           : opening as String,
-      menus: menus == const $CopyWithPlaceholder() || menus == null
+      menus: menus == const $CopyWithPlaceholder()
           ? _value.menus
           // ignore: cast_nullable_to_non_nullable
           : menus as List<MenuCrous>,
-      imageUrl: imageUrl == const $CopyWithPlaceholder() || imageUrl == null
+      imageUrl: imageUrl == const $CopyWithPlaceholder()
           ? _value.imageUrl
           // ignore: cast_nullable_to_non_nullable
           : imageUrl as String,

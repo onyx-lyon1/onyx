@@ -122,27 +122,27 @@ class _$MailCWProxyImpl implements _$MailCWProxy {
     Object? rawMail = const $CopyWithPlaceholder(),
   }) {
     return Mail(
-      subject: subject == const $CopyWithPlaceholder() || subject == null
+      subject: subject == const $CopyWithPlaceholder()
           ? _value.subject
           // ignore: cast_nullable_to_non_nullable
           : subject as String,
-      sender: sender == const $CopyWithPlaceholder() || sender == null
+      sender: sender == const $CopyWithPlaceholder()
           ? _value.sender
           // ignore: cast_nullable_to_non_nullable
           : sender as String,
-      excerpt: excerpt == const $CopyWithPlaceholder() || excerpt == null
+      excerpt: excerpt == const $CopyWithPlaceholder()
           ? _value.excerpt
           // ignore: cast_nullable_to_non_nullable
           : excerpt as String,
-      isRead: isRead == const $CopyWithPlaceholder() || isRead == null
+      isRead: isRead == const $CopyWithPlaceholder()
           ? _value.isRead
           // ignore: cast_nullable_to_non_nullable
           : isRead as bool,
-      date: date == const $CopyWithPlaceholder() || date == null
+      date: date == const $CopyWithPlaceholder()
           ? _value.date
           // ignore: cast_nullable_to_non_nullable
           : date as DateTime,
-      body: body == const $CopyWithPlaceholder() || body == null
+      body: body == const $CopyWithPlaceholder()
           ? _value.body
           // ignore: cast_nullable_to_non_nullable
           : body as String,
@@ -150,21 +150,19 @@ class _$MailCWProxyImpl implements _$MailCWProxy {
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
           : id as int?,
-      receiver: receiver == const $CopyWithPlaceholder() || receiver == null
+      receiver: receiver == const $CopyWithPlaceholder()
           ? _value.receiver
           // ignore: cast_nullable_to_non_nullable
           : receiver as String,
-      attachments:
-          attachments == const $CopyWithPlaceholder() || attachments == null
-              ? _value.attachments
-              // ignore: cast_nullable_to_non_nullable
-              : attachments as List<String>,
-      isFlagged: isFlagged == const $CopyWithPlaceholder() || isFlagged == null
+      attachments: attachments == const $CopyWithPlaceholder()
+          ? _value.attachments
+          // ignore: cast_nullable_to_non_nullable
+          : attachments as List<String>,
+      isFlagged: isFlagged == const $CopyWithPlaceholder()
           ? _value.isFlagged
           // ignore: cast_nullable_to_non_nullable
           : isFlagged as bool,
-      attachmentsFiles: attachmentsFiles == const $CopyWithPlaceholder() ||
-              attachmentsFiles == null
+      attachmentsFiles: attachmentsFiles == const $CopyWithPlaceholder()
           ? _value.attachmentsFiles
           // ignore: cast_nullable_to_non_nullable
           : attachmentsFiles as List<File>,

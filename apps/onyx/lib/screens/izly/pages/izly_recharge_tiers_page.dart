@@ -109,7 +109,7 @@ void _pay(
             message: AppLocalizations.of(context).pleaseEnterAValidEmail));
   } else {
     final izlyCubit = context.read<IzlyCubit>();
-    final settings = context.read<SettingsCubit>().state.settings;
+    final settings = context.read<SettingsCubit>().settings;
     Navigator.push(
       context,
       MaterialPageRoute(

@@ -100,11 +100,11 @@ class _$TomussTextCWProxyImpl implements _$TomussTextCWProxy {
     Object? theId = const $CopyWithPlaceholder(),
   }) {
     return TomussText(
-      title: title == const $CopyWithPlaceholder() || title == null
+      title: title == const $CopyWithPlaceholder()
           ? _value.title
           // ignore: cast_nullable_to_non_nullable
           : title as String,
-      author: author == const $CopyWithPlaceholder() || author == null
+      author: author == const $CopyWithPlaceholder()
           ? _value.author
           // ignore: cast_nullable_to_non_nullable
           : author as String,
@@ -112,28 +112,27 @@ class _$TomussTextCWProxyImpl implements _$TomussTextCWProxy {
           ? _value.date
           // ignore: cast_nullable_to_non_nullable
           : date as DateTime?,
-      position: position == const $CopyWithPlaceholder() || position == null
+      position: position == const $CopyWithPlaceholder()
           ? _value.position
           // ignore: cast_nullable_to_non_nullable
           : position as double,
-      value: value == const $CopyWithPlaceholder() || value == null
+      value: value == const $CopyWithPlaceholder()
           ? _value.value
           // ignore: cast_nullable_to_non_nullable
           : value as String,
-      comment: comment == const $CopyWithPlaceholder() || comment == null
+      comment: comment == const $CopyWithPlaceholder()
           ? _value.comment
           // ignore: cast_nullable_to_non_nullable
           : comment as String,
-      isValidText:
-          isValidText == const $CopyWithPlaceholder() || isValidText == null
-              ? _value.isValidText
-              // ignore: cast_nullable_to_non_nullable
-              : isValidText as bool,
-      isHidden: isHidden == const $CopyWithPlaceholder() || isHidden == null
+      isValidText: isValidText == const $CopyWithPlaceholder()
+          ? _value.isValidText
+          // ignore: cast_nullable_to_non_nullable
+          : isValidText as bool,
+      isHidden: isHidden == const $CopyWithPlaceholder()
           ? _value.isHidden
           // ignore: cast_nullable_to_non_nullable
           : isHidden as bool,
-      theId: theId == const $CopyWithPlaceholder() || theId == null
+      theId: theId == const $CopyWithPlaceholder()
           ? _value.theId
           // ignore: cast_nullable_to_non_nullable
           : theId as String,

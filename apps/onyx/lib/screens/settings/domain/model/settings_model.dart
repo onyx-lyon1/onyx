@@ -91,7 +91,6 @@ class SettingsModel extends Equatable {
     this.colloscopeOverrideStudentId = -1,
     this.colloscopeOverrideYearId = 0,
     this.colloscopeEnabled,
-    this.agendaId,
     this.examenAddToAgenda = true,
     this.language,
     this.izlyNotification = true,
@@ -124,7 +123,6 @@ class SettingsModel extends Equatable {
         colloscopeOverrideStudentId,
         colloscopeOverrideYearId,
         colloscopeEnabled,
-        agendaId,
         language,
         izlyNotification,
       ];

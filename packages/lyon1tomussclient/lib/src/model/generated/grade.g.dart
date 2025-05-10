@@ -128,11 +128,11 @@ class _$GradeCWProxyImpl implements _$GradeCWProxy {
     Object? coef = const $CopyWithPlaceholder(),
   }) {
     return Grade(
-      title: title == const $CopyWithPlaceholder() || title == null
+      title: title == const $CopyWithPlaceholder()
           ? _value.title
           // ignore: cast_nullable_to_non_nullable
           : title as String,
-      author: author == const $CopyWithPlaceholder() || author == null
+      author: author == const $CopyWithPlaceholder()
           ? _value.author
           // ignore: cast_nullable_to_non_nullable
           : author as String,
@@ -140,45 +140,43 @@ class _$GradeCWProxyImpl implements _$GradeCWProxy {
           ? _value.date
           // ignore: cast_nullable_to_non_nullable
           : date as DateTime?,
-      position: position == const $CopyWithPlaceholder() || position == null
+      position: position == const $CopyWithPlaceholder()
           ? _value.position
           // ignore: cast_nullable_to_non_nullable
           : position as double,
-      numerator: numerator == const $CopyWithPlaceholder() || numerator == null
+      numerator: numerator == const $CopyWithPlaceholder()
           ? _value.numerator
           // ignore: cast_nullable_to_non_nullable
           : numerator as double,
-      denominator:
-          denominator == const $CopyWithPlaceholder() || denominator == null
-              ? _value.denominator
-              // ignore: cast_nullable_to_non_nullable
-              : denominator as double,
-      rank: rank == const $CopyWithPlaceholder() || rank == null
+      denominator: denominator == const $CopyWithPlaceholder()
+          ? _value.denominator
+          // ignore: cast_nullable_to_non_nullable
+          : denominator as double,
+      rank: rank == const $CopyWithPlaceholder()
           ? _value.rank
           // ignore: cast_nullable_to_non_nullable
           : rank as int,
-      average: average == const $CopyWithPlaceholder() || average == null
+      average: average == const $CopyWithPlaceholder()
           ? _value.average
           // ignore: cast_nullable_to_non_nullable
           : average as double,
-      mediane: mediane == const $CopyWithPlaceholder() || mediane == null
+      mediane: mediane == const $CopyWithPlaceholder()
           ? _value.mediane
           // ignore: cast_nullable_to_non_nullable
           : mediane as double,
-      isValid: isValid == const $CopyWithPlaceholder() || isValid == null
+      isValid: isValid == const $CopyWithPlaceholder()
           ? _value.isValid
           // ignore: cast_nullable_to_non_nullable
           : isValid as bool,
-      groupeSize:
-          groupeSize == const $CopyWithPlaceholder() || groupeSize == null
-              ? _value.groupeSize
-              // ignore: cast_nullable_to_non_nullable
-              : groupeSize as int,
-      children: children == const $CopyWithPlaceholder() || children == null
+      groupeSize: groupeSize == const $CopyWithPlaceholder()
+          ? _value.groupeSize
+          // ignore: cast_nullable_to_non_nullable
+          : groupeSize as int,
+      children: children == const $CopyWithPlaceholder()
           ? _value.children
           // ignore: cast_nullable_to_non_nullable
           : children as List<Grade>,
-      coef: coef == const $CopyWithPlaceholder() || coef == null
+      coef: coef == const $CopyWithPlaceholder()
           ? _value.coef
           // ignore: cast_nullable_to_non_nullable
           : coef as double,

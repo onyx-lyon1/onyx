@@ -12,16 +12,14 @@ import 'package:onyx/screens/settings/settings_export.dart';
 
 part 'authentification_state.dart';
 
-class AuthentificationCubit extends Cubit<AuthentificationState> {
+class AuthCubit extends Cubit<AuthState> {
   Lyon1CasClient _lyon1Cas =
       Lyon1CasClient(corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
 
-  AuthentificationCubit(SettingsModel settings)
-      : super(AuthentificationState(
+  AuthCubit()
+      : super(AuthState(
             status: AuthentificationStatus.initial,
-            lyon1Cas: Lyon1CasClient())) {
-    login(settings: settings);
-  }
+            lyon1Cas: Lyon1CasClient()));
 
   Future<void> checkIfLoggedIn() async {
     bool ok = (await _lyon1Cas.checkAuthentificated());

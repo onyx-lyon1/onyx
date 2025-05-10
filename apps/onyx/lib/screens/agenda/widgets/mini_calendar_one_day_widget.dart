@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/agenda/widgets/days_view_widget_res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class MiniCalendarOneDayWidget extends StatelessWidget {
   const MiniCalendarOneDayWidget({
@@ -32,11 +32,12 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
         return true;
       },
       builder: (context, state) {
+        final settings = context.read<SettingsCubit>().settings;
         return SizedBox(
           key: Key(state.days[currentDateIndex].date.shrink(3).toString()),
           height: Res.bottomNavBarHeight,
           width: (100 - DaysViewRes.leftHourIndicatorWidth).w /
-              context.read<SettingsCubit>().state.settings.agendaWeekLength,
+              settings.agendaWeekLength,
           child: Padding(
             padding: EdgeInsets.all(0.5.w),
             child: Material(
@@ -66,7 +67,7 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
                     context.read<AgendaCubit>().updateDisplayedDate(
                         wantedDate: currentDateIndex,
                         fromMiniCalendar: true,
-                        settings: context.read<SettingsCubit>().state.settings,
+                        settings: settings,
                         fromHorizontalScroll: false);
                   },
                   child: Column(

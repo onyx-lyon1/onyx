@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -13,7 +13,7 @@ class AgendaSettingsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settings = context.read<SettingsCubit>().state.settings;
+    final settings = context.read<SettingsCubit>().settings;
     final weekDays = DateFormat.E(AppLocalizations.of(context).localeName)
         .dateSymbols
         .SHORTWEEKDAYS

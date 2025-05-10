@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/l10n/app_localizations.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 
 class TomussSettingsWidget extends StatelessWidget {
   const TomussSettingsWidget({super.key});
@@ -14,31 +14,25 @@ class TomussSettingsWidget extends StatelessWidget {
     return Column(
       children: [
         if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
-            !context.read<SettingsCubit>().state.settings.biometricAuth)
+            !context.read<SettingsCubit>().settings.biometricAuth)
           TextSwitchWidget(
             text: AppLocalizations.of(context).notifIfNewGrade,
-            value: context
-                .read<SettingsCubit>()
-                .state
-                .settings
-                .newGradeNotification,
+            value: context.read<SettingsCubit>().settings.newGradeNotification,
             onChanged: (bool b) {
               context.read<SettingsCubit>().modify(
                   settings: context
                       .read<SettingsCubit>()
-                      .state
                       .settings
                       .copyWith(newGradeNotification: b));
             },
           ),
         TextSwitchWidget(
           text: AppLocalizations.of(context).forceGreenGrade,
-          value: context.read<SettingsCubit>().state.settings.forceGreen,
+          value: context.read<SettingsCubit>().settings.forceGreen,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
                 settings: context
                     .read<SettingsCubit>()
-                    .state
                     .settings
                     .copyWith(forceGreen: b));
           },
@@ -57,11 +51,7 @@ class TomussSettingsWidget extends StatelessWidget {
               ),
             ),
             DropdownButton(
-              value: context
-                  .read<SettingsCubit>()
-                  .state
-                  .settings
-                  .recentGradeDuration,
+              value: context.read<SettingsCubit>().settings.recentGradeDuration,
               items: [
                 for (var i = 0; i <= 10; i++)
                   DropdownMenuItem(

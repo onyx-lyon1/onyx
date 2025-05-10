@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/agenda/states/agenda_cubit.dart';
 import 'package:onyx/screens/examen/states/examen_cubit.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class ExamensConnection extends BlocListener<ExamenCubit, ExamenState> {
   ExamensConnection({
@@ -11,11 +11,7 @@ class ExamensConnection extends BlocListener<ExamenCubit, ExamenState> {
   }) : super(
           listener: (context, state) {
             if (state.status == ExamenStatus.ready &&
-                context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .examenAddToAgenda) {
+                context.read<SettingsCubit>().settings.examenAddToAgenda) {
               context.read<AgendaCubit>().clearExternalEvent();
               context.read<AgendaCubit>().addExternalEvent([
                 ...state.studentColloscope?.kholles.map(

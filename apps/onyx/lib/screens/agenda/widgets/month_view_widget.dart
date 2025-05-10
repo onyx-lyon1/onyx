@@ -51,7 +51,7 @@ class MonthViewWidget extends StatelessWidget {
                                     0) %
                                 dayCount),
                         fromMiniCalendar: false,
-                        settings: context.read<SettingsCubit>().state.settings,
+                        settings: context.read<SettingsCubit>().settings,
                         fromHorizontalScroll: true,
                       );
                 },

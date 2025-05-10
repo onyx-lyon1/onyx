@@ -17,12 +17,11 @@ class IzlySettingsWidget extends StatelessWidget {
       children: [
         TextSwitchWidget(
           text: AppLocalizations.of(context).enableIzlyNotif,
-          value: context.read<SettingsCubit>().state.settings.izlyNotification,
+          value: context.read<SettingsCubit>().settings.izlyNotification,
           onChanged: (value) {
             context.read<SettingsCubit>().modify(
                   settings: context
                       .read<SettingsCubit>()
-                      .state
                       .settings
                       .copyWith(izlyNotification: value),
                 );

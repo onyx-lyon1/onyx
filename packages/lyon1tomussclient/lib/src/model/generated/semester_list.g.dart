@@ -53,16 +53,14 @@ class _$SemesterListCWProxyImpl implements _$SemesterListCWProxy {
     Object? currentSemesterIndex = const $CopyWithPlaceholder(),
   }) {
     return SemesterList(
-      semestres == const $CopyWithPlaceholder() || semestres == null
+      semestres == const $CopyWithPlaceholder()
           ? _value.semestres
           // ignore: cast_nullable_to_non_nullable
           : semestres as List<Semester>,
-      currentSemesterIndex:
-          currentSemesterIndex == const $CopyWithPlaceholder() ||
-                  currentSemesterIndex == null
-              ? _value.currentSemesterIndex
-              // ignore: cast_nullable_to_non_nullable
-              : currentSemesterIndex as int,
+      currentSemesterIndex: currentSemesterIndex == const $CopyWithPlaceholder()
+          ? _value.currentSemesterIndex
+          // ignore: cast_nullable_to_non_nullable
+          : currentSemesterIndex as int,
     );
   }
 }

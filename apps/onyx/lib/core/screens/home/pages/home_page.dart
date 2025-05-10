@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
-import 'package:onyx/core/extensions/functionalities_extension.dart';
+import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
 import 'package:onyx/core/widgets/core_widget_export.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
@@ -29,36 +29,41 @@ class HomePageState extends State<HomePage> {
           actionOnScreen(context, state.selectedIndex);
         },
         builder: (context, homeState) {
-          return BlocBuilder<AuthentificationCubit, AuthentificationState>(
+          return BlocBuilder<AuthCubit, AuthState>(
             builder: (context, authState) {
               return BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (previous, current) {
-                  if (!listEquals(previous.settings.enabledFunctionalities,
-                          current.settings.enabledFunctionalities) ||
-                      !listEquals(previous.settings.disabledFunctionalities,
-                          current.settings.disabledFunctionalities)) {
-                    //the page order has changer so we need to adapt the current page to avoir jump
+                  if (previous is SettingsReady && current is SettingsReady) {
+                    if (!listEquals(previous.settings.enabledFunctionalities,
+                            current.settings.enabledFunctionalities) ||
+                        !listEquals(previous.settings.disabledFunctionalities,
+                            current.settings.disabledFunctionalities)) {
+                      //the page order has changer so we need to adapt the current page to avoir jump
 
-                    final previousIndex = homeState.selectedIndex;
-                    final functionalityName = [
-                      ...previous.settings.enabledFunctionalities,
-                    ][previousIndex]
-                        .name;
-                    final newEnabledIndex =
-                        current.settings.enabledFunctionalities.indexWhere(
-                            (element) => element.name == functionalityName);
-                    if (newEnabledIndex != -1) {
-                      context
-                          .read<HomeCubit>()
-                          .updateSelectedIndex(newEnabledIndex);
+                      final previousIndex = homeState.selectedIndex;
+                      final functionalityName = [
+                        ...previous.settings.enabledFunctionalities,
+                      ][previousIndex]
+                          .name;
+                      final newEnabledIndex =
+                          current.settings.enabledFunctionalities.indexWhere(
+                              (element) => element.name == functionalityName);
+                      if (newEnabledIndex != -1) {
+                        context
+                            .read<HomeCubit>()
+                            .updateSelectedIndex(newEnabledIndex);
+                      }
+                      return true;
                     }
-                    return true;
                   }
                   return false;
                 },
-                builder: (context, settingState) {
+                builder: (context, settingsState) {
+                  if (settingsState is! SettingsReady) {
+                    throw Exception("Settings not ready");
+                  }
                   final enabledFunctionalities =
-                      settingState.settings.enabledFunctionalities;
+                      settingsState.settings.enabledFunctionalities;
 
                   List<Destination> enabledDestinations = [];
                   for (var i = 0; i < enabledFunctionalities.length; i++) {
@@ -85,10 +90,7 @@ class HomePageState extends State<HomePage> {
                     resizeToAvoidBottomInset: false,
                     body: CommonScreenWidget(
                         onRefresh: () async {},
-                        state: (context
-                                    .read<AuthentificationCubit>()
-                                    .state
-                                    .status ==
+                        state: (context.read<AuthCubit>().state.status ==
                                 AuthentificationStatus.authentificating)
                             ? LoadingHeaderWidget(
                                 message:

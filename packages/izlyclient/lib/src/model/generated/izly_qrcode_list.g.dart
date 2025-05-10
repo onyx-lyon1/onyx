@@ -44,7 +44,7 @@ class _$IzlyQrCodeListCWProxyImpl implements _$IzlyQrCodeListCWProxy {
     Object? qrCodes = const $CopyWithPlaceholder(),
   }) {
     return IzlyQrCodeList(
-      qrCodes: qrCodes == const $CopyWithPlaceholder() || qrCodes == null
+      qrCodes: qrCodes == const $CopyWithPlaceholder()
           ? _value.qrCodes
           // ignore: cast_nullable_to_non_nullable
           : qrCodes as List<IzlyQrCode>,

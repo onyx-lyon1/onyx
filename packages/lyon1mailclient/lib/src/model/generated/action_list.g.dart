@@ -44,7 +44,7 @@ class _$ActionListCWProxyImpl implements _$ActionListCWProxy {
     Object? action = const $CopyWithPlaceholder(),
   }) {
     return ActionList(
-      action: action == const $CopyWithPlaceholder() || action == null
+      action: action == const $CopyWithPlaceholder()
           ? _value.action
           // ignore: cast_nullable_to_non_nullable
           : action as List<Action>,

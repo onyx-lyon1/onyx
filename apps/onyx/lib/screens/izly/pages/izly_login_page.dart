@@ -1,10 +1,10 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/privacy_policie_page.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -255,9 +255,10 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
   void send() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+
       context.read<IzlyCubit>().connect(
           credential: IzlyCredential(username: username, password: password),
-          settings: context.read<SettingsCubit>().state.settings);
+          settings: context.read<SettingsCubit>().settings);
     }
   }
 }
