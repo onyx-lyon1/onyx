@@ -18,8 +18,10 @@ jobs:
 
     - name: Prepare
       working-directory: apps/onyx
-      run: flutter pub get
-    
+      run: |
+        dart pub global activate melos
+        melos bootstrap
+
     - name: Build
       working-directory: apps/onyx
       run: flutter build ios --release --no-codesign --no-tree-shake-icons
