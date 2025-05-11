@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.onyx"
+    namespace = "fr.onyx.lyon1"
     compileSdk = 35
     ndkVersion = flutter.ndkVersion
 
