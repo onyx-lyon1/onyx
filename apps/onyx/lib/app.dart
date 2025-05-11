@@ -6,7 +6,7 @@ import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/screens/bloc_connections/bloc_connection_screen.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
-import 'package:onyx/core/widgets/states_displaying/custom_circular_progress_indicator_widget.dart';
+import 'package:onyx/core/widgets/core_widget_export.dart';
 import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/examen/states/examen_cubit.dart';
@@ -100,7 +100,7 @@ class OnyxAppState extends State<OnyxApp> {
   Widget home(SettingsState settingsState, ThemeState themeState) {
     if (settingsState is! SettingsReady ||
         themeState.status == ThemeStateStatus.initial) {
-      return const CustomCircularProgressIndicatorWidget();
+      return SplashScreen();
     } else if (!settingsState.settings.firstLogin) {
       return const HomePage();
     } else {
