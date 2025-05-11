@@ -21,7 +21,9 @@ jobs:
 
     - name: Prepare
       working-directory: apps/onyx
-      run: flutter pub get
+      run: |
+        dart pub global activate melos
+        melos bootstrap
 
     - name: Build APK
       working-directory: apps/onyx
