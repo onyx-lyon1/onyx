@@ -33,6 +33,8 @@ class _LoginPageState extends State<LoginPage> {
         return switch (state.status) {
           AuthentificationStatus.authentificating => StateDisplayingPage(
               message: AppLocalizations.of(context).authentication),
+          AuthentificationStatus.authentificated => StateDisplayingPage(
+              message: AppLocalizations.of(context).yourAuthentificated),
           AuthentificationStatus.error => StateDisplayingPage(
               message: AppLocalizations.of(context).loginError),
           AuthentificationStatus.waitingBiometric => const WaitingBiometric(),
