@@ -95,6 +95,15 @@ class SettingsSettingsWidget extends StatelessWidget {
                 );
               },
             ),
+            MaterialButton(
+              minWidth: MediaQuery.of(context).size.width,
+              color: const Color(0xffbf616a),
+              textColor: Colors.white70,
+              child: Text(AppLocalizations.of(context).resetSettings),
+              onPressed: () {
+                context.read<SettingsCubit>().reset();
+              },
+            )
           ],
         );
       },
