@@ -16,82 +16,88 @@ class SettingsSettingsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (!kIsWeb && (Platform.isIOS || Platform.isAndroid))
-          TextSwitchWidget(
-            text: AppLocalizations.of(context).enablebiometricAuth,
-            value: context.read<SettingsCubit>().settings.biometricAuth,
-            onChanged: (value) async {
-              if (value) {
-                final canAuthenticate =
-                    await BiometricStorage().canAuthenticate();
-                if (canAuthenticate != CanAuthenticateResponse.success) {
-                  //show alert dialog
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: Text(AppLocalizations.of(context).error),
-                            content: Text(AppLocalizations.of(context)
-                                .unableToEnableBiometricAuth),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text(AppLocalizations.of(context).ok))
-                            ],
-                          ));
-                  return;
-                }
-                bool undo = false;
-                await showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          title: Text(AppLocalizations.of(context).warning),
-                          content: Text(AppLocalizations.of(context)
-                              .enableBiometricAuthDisableNotifications),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  undo = true;
-                                  Navigator.of(context).pop();
-                                },
-                                child:
-                                    Text(AppLocalizations.of(context).cancel)),
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text(AppLocalizations.of(context).ok))
-                          ],
-                        ));
-                if (undo) {
-                  value = !value;
-                  return;
-                }
-              }
+    return BlocBuilder<SettingsCubit, SettingsState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            if (!kIsWeb && (Platform.isIOS || Platform.isAndroid))
+              TextSwitchWidget(
+                text: AppLocalizations.of(context).enablebiometricAuth,
+                value: context.read<SettingsCubit>().settings.biometricAuth,
+                onChanged: (value) async {
+                  if (value) {
+                    final canAuthenticate =
+                        await BiometricStorage().canAuthenticate();
+                    if (canAuthenticate != CanAuthenticateResponse.success) {
+                      //show alert dialog
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text(AppLocalizations.of(context).error),
+                                content: Text(AppLocalizations.of(context)
+                                    .unableToEnableBiometricAuth),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child:
+                                          Text(AppLocalizations.of(context).ok))
+                                ],
+                              ));
+                      return;
+                    }
+                    bool undo = false;
+                    await showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text(AppLocalizations.of(context).warning),
+                              content: Text(AppLocalizations.of(context)
+                                  .enableBiometricAuthDisableNotifications),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      undo = true;
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text(
+                                        AppLocalizations.of(context).cancel)),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child:
+                                        Text(AppLocalizations.of(context).ok))
+                              ],
+                            ));
+                    if (undo) {
+                      value = !value;
+                      return;
+                    }
+                  }
 
-              await CacheService.toggleBiometricAuth(value);
-              context.read<SettingsCubit>().modify(
-                  settings: context
-                      .read<SettingsCubit>()
-                      .settings
-                      .copyWith(biometricAuth: value));
-            },
-          ),
-        BlocBuilder<ThemeCubit, ThemeState>(
-          builder: (context, themeState) {
-            return TextSwitchWidget(
-              text: AppLocalizations.of(context).autoChangeTheme,
-              value: themeState.themesSettings!.autoSwitchTheme,
-              onChanged: (bool value) {
-                context.read<ThemeCubit>().updateAutoSwitchTheme(value);
+                  await CacheService.toggleBiometricAuth(value);
+                  context.read<SettingsCubit>().modify(
+                      settings: context
+                          .read<SettingsCubit>()
+                          .settings
+                          .copyWith(biometricAuth: value));
+                },
+              ),
+            BlocBuilder<ThemeCubit, ThemeState>(
+              builder: (context, themeState) {
+                return TextSwitchWidget(
+                  text: AppLocalizations.of(context).autoChangeTheme,
+                  value: themeState.themesSettings!.autoSwitchTheme,
+                  onChanged: (bool value) {
+                    context.read<ThemeCubit>().updateAutoSwitchTheme(value);
+                  },
+                );
               },
-            );
-          },
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 }
