@@ -102,7 +102,6 @@ class AuthCubit extends Cubit<AuthState> {
     CacheService.reset<Agenda>();
     CacheService.reset<MailBoxList>();
     CacheService.reset<Credential>();
-    SettingsLogic.reset();
     await lyon1Cas.logout();
     emit(state.copyWith(
       status: AuthentificationStatus.initial,

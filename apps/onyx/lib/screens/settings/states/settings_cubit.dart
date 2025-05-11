@@ -15,13 +15,13 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   Future<void> reset() async {
-    await SettingsLogic.reset();
     final currentState = state;
     if (currentState is SettingsReady) {
       emit(currentState.copyWith(settings: const SettingsModel()));
     } else {
       emit(const SettingsReady(settings: SettingsModel()));
     }
+    await SettingsLogic.set(settings: const SettingsModel());
   }
 
   Future<SettingsModel> load() async {

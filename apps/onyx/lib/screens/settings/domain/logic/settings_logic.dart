@@ -31,11 +31,6 @@ class SettingsLogic {
     }
   }
 
-  static Future<void> reset() async {
-    Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');
-    await box.put('settings', const SettingsModel());
-  }
-
   static Future<void> set({required SettingsModel settings}) async {
     Box<SettingsModel> box = await Hive.openBox<SettingsModel>('settings');
     await box.put('settings', settings);
@@ -57,7 +52,6 @@ class SettingsLogic {
     context.read<IzlyCubit>().resetCubit();
     context.read<EmailCubit>().resetCubit();
     context.read<MapCubit>().resetCubit();
-    reset();
     context.read<SettingsCubit>().resetCubit();
     context.read<SettingsCubit>().load();
     context.read<TomussCubit>().resetCubit();
