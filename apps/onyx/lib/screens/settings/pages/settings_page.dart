@@ -190,8 +190,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             CacheService.reset<TeachingUnitList>();
                             CacheService.reset<SemesterList>();
                             context.read<TomussCubit>().load(
-                                lyon1Cas:
-                                    context.read<AuthCubit>().state.lyon1Cas,
+                                lyon1Cas: context.read<AuthCubit>().lyon1Cas,
                                 cache: false,
                                 settings:
                                     context.read<SettingsCubit>().settings);
@@ -206,8 +205,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           onPressed: () {
                             CacheService.reset<Agenda>();
                             context.read<AgendaCubit>().load(
-                                lyon1Cas:
-                                    context.read<AuthCubit>().state.lyon1Cas,
+                                lyon1Cas: context.read<AuthCubit>().lyon1Cas,
                                 settings:
                                     context.read<SettingsCubit>().settings,
                                 cache: false);

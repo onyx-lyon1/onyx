@@ -5,7 +5,7 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/agenda/states/agenda_cubit.dart';
 import 'package:onyx/screens/examen/states/examen_cubit.dart';
-import 'package:onyx/screens/login/states/authentification_cubit.dart';
+import 'package:onyx/screens/login/states/auth_cubit.dart';
 import 'package:onyx/screens/mails/states/email_cubit.dart';
 import 'package:onyx/screens/settings/domain/model/settings_model.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
@@ -37,14 +37,14 @@ class AuthentificationConnection extends BlocListener<AuthCubit, AuthState> {
               }
               if (AgendaStatus.ready !=
                   context.read<AgendaCubit>().state.status) {
-                context
-                    .read<AgendaCubit>()
-                    .load(lyon1Cas: authState.lyon1Cas, settings: settings);
+                context.read<AgendaCubit>().load(
+                    lyon1Cas: context.read<AuthCubit>().lyon1Cas,
+                    settings: settings);
               }
               if (TomussStatus.ready !=
                   context.read<TomussCubit>().state.status) {
                 context.read<TomussCubit>().load(
-                      lyon1Cas: authState.lyon1Cas,
+                      lyon1Cas: context.read<AuthCubit>().lyon1Cas,
                       settings: settings,
                       force: true,
                     );
@@ -56,12 +56,13 @@ class AuthentificationConnection extends BlocListener<AuthCubit, AuthState> {
                       context.read<TomussCubit>().state.surname,
                       context.read<AuthCubit>().state.username,
                       settings,
-                      context.read<AuthCubit>().state.lyon1Cas,
+                      context.read<AuthCubit>().lyon1Cas,
                       AppLocalizations.of(context),
                     );
               }
               context.read<AgendaCubit>().agendaClient =
-                  Lyon1AgendaClient.useLyon1Cas(authState.lyon1Cas);
+                  Lyon1AgendaClient.useLyon1Cas(
+                      context.read<AuthCubit>().lyon1Cas);
               context.read<AgendaCubit>().login(settings);
             }
           },

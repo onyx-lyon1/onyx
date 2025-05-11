@@ -27,28 +27,16 @@ void main() async {
   });
 
   test('authenticate.ok', () async {
-    final bool isAuthenticated =
-        (await authOK.authenticate(credential)).authResult;
+    final bool isAuthenticated = (await authOK.authenticate(credential));
     expect(isAuthenticated, equals(true));
     expect((await authOK.checkAuthentificated()), true);
-  });
-
-  test("authentificate with cookies", () async {
-    var authReturn = await authOK.authenticate(credential);
-    await authOK.logout();
-    expect(
-        (await authOK.authenticate(
-                authReturn.credential.copyWith(username: "", password: "")))
-            .authResult,
-        true);
   });
 
   test('authenticate.fail', () async {
     await authOK.logout();
     Lyon1CasClient authBAD = Lyon1CasClient();
     final bool isAuthenticated = (await authBAD
-            .authenticate(Credential("p1234567", "not_valid_password")))
-        .authResult;
+        .authenticate(Credential("p1234567", "not_valid_password")));
 
     expect(isAuthenticated, equals(false));
 

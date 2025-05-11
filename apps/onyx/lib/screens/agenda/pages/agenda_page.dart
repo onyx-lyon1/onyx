@@ -39,7 +39,7 @@ class AgendaPage extends StatelessWidget {
         switch (state.status) {
           case AgendaStatus.initial:
             context.read<AgendaCubit>().load(
-                lyon1Cas: context.read<AuthCubit>().state.lyon1Cas,
+                lyon1Cas: context.read<AuthCubit>().lyon1Cas,
                 settings: settings);
             break;
           case AgendaStatus.connecting:
@@ -179,7 +179,7 @@ class AgendaPage extends StatelessWidget {
           ),
           onRefresh: () async {
             context.read<AgendaCubit>().load(
-                  lyon1Cas: context.read<AuthCubit>().state.lyon1Cas,
+                  lyon1Cas: context.read<AuthCubit>().lyon1Cas,
                   settings: settings,
                   fromUser: true,
                   cache: false,

@@ -29,7 +29,7 @@ class ExamenPage extends StatelessWidget {
                   context.read<TomussCubit>().state.surname,
                   context.read<AuthCubit>().state.username,
                   settings,
-                  context.read<AuthCubit>().state.lyon1Cas,
+                  context.read<AuthCubit>().lyon1Cas,
                   AppLocalizations.of(context),
                 );
             break;
@@ -57,7 +57,7 @@ class ExamenPage extends StatelessWidget {
                   context.read<TomussCubit>().state.surname,
                   context.read<AuthCubit>().state.username,
                   settings,
-                  context.read<AuthCubit>().state.lyon1Cas,
+                  context.read<AuthCubit>().lyon1Cas,
                   AppLocalizations.of(context),
                 );
           },

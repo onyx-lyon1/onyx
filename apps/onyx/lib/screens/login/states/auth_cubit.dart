@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -10,37 +12,35 @@ import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
-part 'authentification_state.dart';
+part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  Lyon1CasClient _lyon1Cas =
+  Lyon1CasClient lyon1Cas =
       Lyon1CasClient(corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
 
-  AuthCubit()
-      : super(AuthState(
-            status: AuthentificationStatus.initial,
-            lyon1Cas: Lyon1CasClient()));
+  AuthCubit() : super(AuthState(status: AuthentificationStatus.initial));
 
-  Future<void> checkIfLoggedIn() async {
-    bool ok = (await _lyon1Cas.checkAuthentificated());
+  Future<bool> checkIfLoggedIn() async {
+    bool ok = (await lyon1Cas.checkAuthentificated());
     if (ok) {
       emit(state.copyWith(status: AuthentificationStatus.authentificated));
     } else {
-      emit(state.copyWith(status: AuthentificationStatus.needCredential));
+      emit(state.copyWith(status: AuthentificationStatus.initial));
     }
+    return ok;
   }
 
-  Future<void> login(
+  Future<bool> login(
       {Credential? creds, required SettingsModel settings}) async {
     if (Res.mock) {
       await CacheService.set<Credential>(
         Credential("mockUsername", "mockPassword"),
         secureKey: await CacheService.getEncryptionKey(settings.biometricAuth),
       );
-      _lyon1Cas.isAuthenticated = true;
+      lyon1Cas.isAuthenticated = true;
       emit(state.copyWith(
-          status: AuthentificationStatus.authentificated, lyon1Cas: _lyon1Cas));
-      return;
+          status: AuthentificationStatus.authentificated, lyon1Cas: lyon1Cas));
+      return true;
     }
 
     if (settings.biometricAuth) {
@@ -49,39 +49,38 @@ class AuthCubit extends Cubit<AuthState> {
     List<int> key = await CacheService.getEncryptionKey(settings.biometricAuth);
     creds ??= await CacheService.get<Credential>(secureKey: key);
     if (creds == null) {
-      emit(state.copyWith(status: AuthentificationStatus.needCredential));
-      return;
+      emit(state.copyWith(status: AuthentificationStatus.initial));
+      return false;
     }
-    //fetch username and password
     emit(state.copyWith(status: AuthentificationStatus.authentificating));
 
     //login
     if (!(await (Connectivity().checkConnectivity()))
         .contains(ConnectivityResult.none)) {
       try {
-        ({bool authResult, Credential credential}) auth =
-            await _lyon1Cas.authenticate(creds);
+        bool authenticated = await lyon1Cas.authenticate(creds);
         emit(state.copyWith(
-            status: auth.authResult
+            status: authenticated
                 ? AuthentificationStatus.authentificated
                 : AuthentificationStatus.error,
-            lyon1Cas: _lyon1Cas,
-            username: auth.credential.username));
-        await CacheService.set<Credential>(
-          auth.credential,
-          secureKey: key,
-        );
+            username: creds.username));
+        await CacheService.set<Credential>(creds, secureKey: key);
+        return authenticated;
       } catch (e) {
         Res.logger.e(e);
         emit(
           state.copyWith(status: AuthentificationStatus.error),
         );
-        return;
+        return false;
       }
     } else {
-      Connectivity().onConnectivityChanged.listen((event) {
+      StreamSubscription? connectivitySubscription;
+
+      connectivitySubscription =
+          Connectivity().onConnectivityChanged.listen((event) {
         if (!event.contains(ConnectivityResult.none)) {
           Res.logger.d("retrieve connection");
+          connectivitySubscription?.cancel();
           login(
             creds: creds,
             settings: settings,
@@ -89,6 +88,7 @@ class AuthCubit extends Cubit<AuthState> {
         }
       });
     }
+    return false;
   }
 
   Future<void> forget() async {
@@ -103,18 +103,18 @@ class AuthCubit extends Cubit<AuthState> {
     CacheService.reset<MailBoxList>();
     CacheService.reset<Credential>();
     SettingsLogic.reset();
-    await _lyon1Cas.logout();
+    await lyon1Cas.logout();
     emit(state.copyWith(
-      status: AuthentificationStatus.needCredential,
-      lyon1Cas: _lyon1Cas,
+      status: AuthentificationStatus.initial,
+      lyon1Cas: lyon1Cas,
     ));
   }
 
   void resetCubit() {
-    _lyon1Cas = Lyon1CasClient(corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
+    lyon1Cas = Lyon1CasClient(corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
     emit(state.copyWith(
       status: AuthentificationStatus.initial,
-      lyon1Cas: _lyon1Cas,
+      lyon1Cas: lyon1Cas,
     ));
   }
 }
