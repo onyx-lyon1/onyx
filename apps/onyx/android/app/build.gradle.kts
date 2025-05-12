@@ -60,7 +60,7 @@ android {
             versionNameSuffix = "-debug"
         }
         getByName("profile") {
-            resValue("string", "app_name", "Onyx debug")
+            resValue("string", "app_name", "Onyx profile")
             applicationIdSuffix = ".profile"
             versionNameSuffix = "-profile"
         }
