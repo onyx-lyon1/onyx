@@ -14,7 +14,7 @@ class NotificationLogic {
   }
 
   static final initializationSettings = InitializationSettings(
-    android: const AndroidInitializationSettings('@mipmap/launcher_icon'),
+    android: const AndroidInitializationSettings('@mipmap/ic_launcher'),
     iOS: DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
