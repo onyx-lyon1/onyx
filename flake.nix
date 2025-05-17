@@ -61,29 +61,6 @@
               cmake-3-22-1
             ]);
           PWD = builtins.getEnv "PWD";
-          patchedFlutter = pkgs.flutter.override (prev: rec {
-            flutter = prev.flutter.overrideAttrs (prevAttrs: {
-              patches = prevAttrs.patches ++ [
-                # This patch is needed to avoid the Kotlin Gradle plugin writing to the store.
-                (pkgs.writeText "kotlin-fix.patch" ''
-                  --- a/packages/flutter_tools/gradle/build.gradle.kts
-                  +++ b/packages/flutter_tools/gradle/build.gradle.kts
-                  @@ -4,6 +4,8 @@
-
-                   import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
-                  +gradle.startParameter.projectCacheDir = layout.buildDirectory.dir("cache").get().asFile
-                  +
-                   plugins {
-                       `java-gradle-plugin`
-                       groovy
-                '')
-              ];
-              passthru = prevAttrs.passthru // {
-                sdk = flutter;
-              };
-            });
-          });
         in
           pkgs.mkShell {
             CHROME_EXECUTABLE = lib.getExe pkgs.chromium;
@@ -91,13 +68,13 @@
             ANDROID_NDK_ROOT = "${androidSdk}/libexec/android-sdk/ndk-bundle";
             ANDROID_AVD_HOME = "${PWD}/.android/avd";
             ANDROID_HOME = "${androidSdk}/libexec/android-sdk";
-            FLUTTER_SDK = "${patchedFlutter}";
+            FLUTTER_SDK = "${pkgs.flutter}";
             GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/share/android-sdk/build-tools/34.0.0/aapt2";
             LD_LIBRARY_PATH = "${PWD}/apps/onyx/build/linux/x64/debug/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/release/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/profile/bundle/lib/";
             buildInputs = with pkgs; [
               flutter_rust_bridge_codegen
               chromium
-              patchedFlutter
+              flutter
               melos
               jdk17
               androidSdk
