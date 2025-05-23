@@ -56,7 +56,6 @@
               platforms-android-33
               platforms-android-31
               platforms-android-30
-              emulator
               ndk-26-3-11579264
               cmake-3-22-1
             ]);
