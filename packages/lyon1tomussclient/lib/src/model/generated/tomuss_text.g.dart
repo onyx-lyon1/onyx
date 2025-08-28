@@ -25,66 +25,69 @@ abstract class _$TomussTextCWProxy {
 
   TomussText theId(String theId);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `TomussText(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `TomussText(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// TomussText(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   TomussText call({
-    String? title,
-    String? author,
+    String title,
+    String author,
     DateTime? date,
-    double? position,
-    String? value,
-    String? comment,
-    bool? isValidText,
-    bool? isHidden,
-    String? theId,
+    double position,
+    String value,
+    String comment,
+    bool isValidText,
+    bool isHidden,
+    String theId,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfTomussText.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfTomussText.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfTomussText.copyWith(...)` or call `instanceOfTomussText.copyWith.fieldName(value)` for a single field.
 class _$TomussTextCWProxyImpl implements _$TomussTextCWProxy {
   const _$TomussTextCWProxyImpl(this._value);
 
   final TomussText _value;
 
   @override
-  TomussText title(String title) => this(title: title);
+  TomussText title(String title) => call(title: title);
 
   @override
-  TomussText author(String author) => this(author: author);
+  TomussText author(String author) => call(author: author);
 
   @override
-  TomussText date(DateTime? date) => this(date: date);
+  TomussText date(DateTime? date) => call(date: date);
 
   @override
-  TomussText position(double position) => this(position: position);
+  TomussText position(double position) => call(position: position);
 
   @override
-  TomussText value(String value) => this(value: value);
+  TomussText value(String value) => call(value: value);
 
   @override
-  TomussText comment(String comment) => this(comment: comment);
+  TomussText comment(String comment) => call(comment: comment);
 
   @override
-  TomussText isValidText(bool isValidText) => this(isValidText: isValidText);
+  TomussText isValidText(bool isValidText) => call(isValidText: isValidText);
 
   @override
-  TomussText isHidden(bool isHidden) => this(isHidden: isHidden);
+  TomussText isHidden(bool isHidden) => call(isHidden: isHidden);
 
   @override
-  TomussText theId(String theId) => this(theId: theId);
+  TomussText theId(String theId) => call(theId: theId);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `TomussText(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `TomussText(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// TomussText(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   TomussText call({
     Object? title = const $CopyWithPlaceholder(),
     Object? author = const $CopyWithPlaceholder(),
@@ -139,69 +142,8 @@ class _$TomussTextCWProxyImpl implements _$TomussTextCWProxy {
 }
 
 extension $TomussTextCopyWith on TomussText {
-  /// Returns a callable class that can be used as follows: `instanceOfTomussText.copyWith(...)` or like so:`instanceOfTomussText.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfTomussText.copyWith(...)` or `instanceOfTomussText.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$TomussTextCWProxy get copyWith => _$TomussTextCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class TomussTextAdapter extends TypeAdapter<TomussText> {
-  @override
-  final int typeId = 29;
-
-  @override
-  TomussText read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return TomussText(
-      title: fields[100] == null ? '' : fields[100] as String,
-      author: fields[101] == null ? '' : fields[101] as String,
-      date: fields[102] as DateTime?,
-      position: fields[103] == null ? 0 : fields[103] as double,
-      value: fields[1] == null ? '' : fields[1] as String,
-      comment: fields[3] == null ? '' : fields[3] as String,
-      isValidText: fields[4] == null ? false : fields[4] as bool,
-      isHidden: fields[6] == null ? false : fields[6] as bool,
-      theId: fields[7] == null ? '' : fields[7] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, TomussText obj) {
-    writer
-      ..writeByte(9)
-      ..writeByte(1)
-      ..write(obj.value)
-      ..writeByte(3)
-      ..write(obj.comment)
-      ..writeByte(4)
-      ..write(obj.isValidText)
-      ..writeByte(6)
-      ..write(obj.isHidden)
-      ..writeByte(7)
-      ..write(obj.theId)
-      ..writeByte(100)
-      ..write(obj.title)
-      ..writeByte(101)
-      ..write(obj.author)
-      ..writeByte(102)
-      ..write(obj.date)
-      ..writeByte(103)
-      ..write(obj.position);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TomussTextAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

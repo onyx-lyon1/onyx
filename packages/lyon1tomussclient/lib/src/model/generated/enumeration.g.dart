@@ -33,82 +33,85 @@ abstract class _$EnumerationCWProxy {
 
   Enumeration modifiable(bool modifiable);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Enumeration(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Enumeration(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Enumeration(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Enumeration call({
-    String? title,
-    String? author,
+    String title,
+    String author,
     DateTime? date,
-    double? position,
+    double position,
     String? value,
-    List<String>? values,
-    String? comment,
-    String? theId,
-    String? lineId,
-    String? ue,
-    String? semester,
-    String? year,
-    bool? modifiable,
+    List<String> values,
+    String comment,
+    String theId,
+    String lineId,
+    String ue,
+    String semester,
+    String year,
+    bool modifiable,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfEnumeration.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfEnumeration.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfEnumeration.copyWith(...)` or call `instanceOfEnumeration.copyWith.fieldName(value)` for a single field.
 class _$EnumerationCWProxyImpl implements _$EnumerationCWProxy {
   const _$EnumerationCWProxyImpl(this._value);
 
   final Enumeration _value;
 
   @override
-  Enumeration title(String title) => this(title: title);
+  Enumeration title(String title) => call(title: title);
 
   @override
-  Enumeration author(String author) => this(author: author);
+  Enumeration author(String author) => call(author: author);
 
   @override
-  Enumeration date(DateTime? date) => this(date: date);
+  Enumeration date(DateTime? date) => call(date: date);
 
   @override
-  Enumeration position(double position) => this(position: position);
+  Enumeration position(double position) => call(position: position);
 
   @override
-  Enumeration value(String? value) => this(value: value);
+  Enumeration value(String? value) => call(value: value);
 
   @override
-  Enumeration values(List<String> values) => this(values: values);
+  Enumeration values(List<String> values) => call(values: values);
 
   @override
-  Enumeration comment(String comment) => this(comment: comment);
+  Enumeration comment(String comment) => call(comment: comment);
 
   @override
-  Enumeration theId(String theId) => this(theId: theId);
+  Enumeration theId(String theId) => call(theId: theId);
 
   @override
-  Enumeration lineId(String lineId) => this(lineId: lineId);
+  Enumeration lineId(String lineId) => call(lineId: lineId);
 
   @override
-  Enumeration ue(String ue) => this(ue: ue);
+  Enumeration ue(String ue) => call(ue: ue);
 
   @override
-  Enumeration semester(String semester) => this(semester: semester);
+  Enumeration semester(String semester) => call(semester: semester);
 
   @override
-  Enumeration year(String year) => this(year: year);
+  Enumeration year(String year) => call(year: year);
 
   @override
-  Enumeration modifiable(bool modifiable) => this(modifiable: modifiable);
+  Enumeration modifiable(bool modifiable) => call(modifiable: modifiable);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Enumeration(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Enumeration(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Enumeration(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Enumeration call({
     Object? title = const $CopyWithPlaceholder(),
     Object? author = const $CopyWithPlaceholder(),
@@ -183,81 +186,8 @@ class _$EnumerationCWProxyImpl implements _$EnumerationCWProxy {
 }
 
 extension $EnumerationCopyWith on Enumeration {
-  /// Returns a callable class that can be used as follows: `instanceOfEnumeration.copyWith(...)` or like so:`instanceOfEnumeration.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfEnumeration.copyWith(...)` or `instanceOfEnumeration.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$EnumerationCWProxy get copyWith => _$EnumerationCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class EnumerationAdapter extends TypeAdapter<Enumeration> {
-  @override
-  final int typeId = 25;
-
-  @override
-  Enumeration read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Enumeration(
-      title: fields[100] == null ? '' : fields[100] as String,
-      author: fields[101] == null ? '' : fields[101] as String,
-      date: fields[102] as DateTime?,
-      position: fields[103] == null ? 0 : fields[103] as double,
-      value: fields[1] as String?,
-      values: fields[2] == null ? [] : (fields[2] as List).cast<String>(),
-      comment: fields[4] == null ? '' : fields[4] as String,
-      theId: fields[6] == null ? '' : fields[6] as String,
-      lineId: fields[7] == null ? '' : fields[7] as String,
-      ue: fields[8] == null ? '' : fields[8] as String,
-      semester: fields[9] == null ? '' : fields[9] as String,
-      year: fields[10] == null ? '' : fields[10] as String,
-      modifiable: fields[12] == null ? true : fields[12] as bool,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Enumeration obj) {
-    writer
-      ..writeByte(13)
-      ..writeByte(1)
-      ..write(obj.value)
-      ..writeByte(2)
-      ..write(obj.values)
-      ..writeByte(4)
-      ..write(obj.comment)
-      ..writeByte(6)
-      ..write(obj.theId)
-      ..writeByte(7)
-      ..write(obj.lineId)
-      ..writeByte(8)
-      ..write(obj.ue)
-      ..writeByte(9)
-      ..write(obj.semester)
-      ..writeByte(10)
-      ..write(obj.year)
-      ..writeByte(12)
-      ..write(obj.modifiable)
-      ..writeByte(100)
-      ..write(obj.title)
-      ..writeByte(101)
-      ..write(obj.author)
-      ..writeByte(102)
-      ..write(obj.date)
-      ..writeByte(103)
-      ..write(obj.position);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is EnumerationAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

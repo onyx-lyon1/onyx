@@ -1,6 +1,5 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive_ce/hive.dart';
 
 part 'generated/menu_crous.g.dart';
 
@@ -8,13 +7,9 @@ part 'generated/menu_crous.g.dart';
 //   String toString() {}
 // }
 
-@HiveType(typeId: 34)
 enum MenuType {
-  @HiveField(0)
   matin,
-  @HiveField(1)
   midi,
-  @HiveField(2)
   soir;
 
   @override
@@ -22,13 +17,9 @@ enum MenuType {
 }
 
 @CopyWith()
-@HiveType(typeId: 32)
 class MenuCrous extends Equatable {
-  @HiveField(0)
   final DateTime date;
-  @HiveField(1)
   final MenuType type;
-  @HiveField(3)
   final List<PlatCrous> plats;
 
   MenuCrous({
@@ -62,11 +53,8 @@ class MenuCrous extends Equatable {
 }
 
 @CopyWith()
-@HiveType(typeId: 36)
 class PlatCrous extends Equatable {
-  @HiveField(0)
   final String name;
-  @HiveField(1)
   final List<String> variants;
 
   PlatCrous({

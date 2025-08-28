@@ -33,82 +33,85 @@ abstract class _$GradeCWProxy {
 
   Grade coef(double coef);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Grade(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Grade(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Grade(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Grade call({
-    String? title,
-    String? author,
+    String title,
+    String author,
     DateTime? date,
-    double? position,
-    double? numerator,
-    double? denominator,
-    int? rank,
-    double? average,
-    double? mediane,
-    bool? isValid,
-    int? groupeSize,
-    List<Grade>? children,
-    double? coef,
+    double position,
+    double numerator,
+    double denominator,
+    int rank,
+    double average,
+    double mediane,
+    bool isValid,
+    int groupeSize,
+    List<Grade> children,
+    double coef,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfGrade.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfGrade.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfGrade.copyWith(...)` or call `instanceOfGrade.copyWith.fieldName(value)` for a single field.
 class _$GradeCWProxyImpl implements _$GradeCWProxy {
   const _$GradeCWProxyImpl(this._value);
 
   final Grade _value;
 
   @override
-  Grade title(String title) => this(title: title);
+  Grade title(String title) => call(title: title);
 
   @override
-  Grade author(String author) => this(author: author);
+  Grade author(String author) => call(author: author);
 
   @override
-  Grade date(DateTime? date) => this(date: date);
+  Grade date(DateTime? date) => call(date: date);
 
   @override
-  Grade position(double position) => this(position: position);
+  Grade position(double position) => call(position: position);
 
   @override
-  Grade numerator(double numerator) => this(numerator: numerator);
+  Grade numerator(double numerator) => call(numerator: numerator);
 
   @override
-  Grade denominator(double denominator) => this(denominator: denominator);
+  Grade denominator(double denominator) => call(denominator: denominator);
 
   @override
-  Grade rank(int rank) => this(rank: rank);
+  Grade rank(int rank) => call(rank: rank);
 
   @override
-  Grade average(double average) => this(average: average);
+  Grade average(double average) => call(average: average);
 
   @override
-  Grade mediane(double mediane) => this(mediane: mediane);
+  Grade mediane(double mediane) => call(mediane: mediane);
 
   @override
-  Grade isValid(bool isValid) => this(isValid: isValid);
+  Grade isValid(bool isValid) => call(isValid: isValid);
 
   @override
-  Grade groupeSize(int groupeSize) => this(groupeSize: groupeSize);
+  Grade groupeSize(int groupeSize) => call(groupeSize: groupeSize);
 
   @override
-  Grade children(List<Grade> children) => this(children: children);
+  Grade children(List<Grade> children) => call(children: children);
 
   @override
-  Grade coef(double coef) => this(coef: coef);
+  Grade coef(double coef) => call(coef: coef);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Grade(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Grade(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Grade(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Grade call({
     Object? title = const $CopyWithPlaceholder(),
     Object? author = const $CopyWithPlaceholder(),
@@ -184,81 +187,8 @@ class _$GradeCWProxyImpl implements _$GradeCWProxy {
 }
 
 extension $GradeCopyWith on Grade {
-  /// Returns a callable class that can be used as follows: `instanceOfGrade.copyWith(...)` or like so:`instanceOfGrade.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfGrade.copyWith(...)` or `instanceOfGrade.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$GradeCWProxy get copyWith => _$GradeCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class GradeAdapter extends TypeAdapter<Grade> {
-  @override
-  final int typeId = 9;
-
-  @override
-  Grade read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Grade(
-      title: fields[100] == null ? '' : fields[100] as String,
-      author: fields[101] == null ? '' : fields[101] as String,
-      date: fields[102] as DateTime?,
-      position: fields[103] == null ? 0 : fields[103] as double,
-      numerator: fields[2] == null ? 0.0 : fields[2] as double,
-      denominator: fields[3] == null ? 20.0 : fields[3] as double,
-      rank: fields[4] == null ? -1 : fields[4] as int,
-      average: fields[5] == null ? 10.0 : fields[5] as double,
-      mediane: fields[6] == null ? 10.0 : fields[6] as double,
-      isValid: fields[8] == null ? false : fields[8] as bool,
-      groupeSize: fields[7] == null ? -1 : fields[7] as int,
-      children: fields[9] == null ? [] : (fields[9] as List).cast<Grade>(),
-      coef: fields[10] == null ? 1.0 : fields[10] as double,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Grade obj) {
-    writer
-      ..writeByte(13)
-      ..writeByte(2)
-      ..write(obj.numerator)
-      ..writeByte(3)
-      ..write(obj.denominator)
-      ..writeByte(4)
-      ..write(obj.rank)
-      ..writeByte(5)
-      ..write(obj.average)
-      ..writeByte(6)
-      ..write(obj.mediane)
-      ..writeByte(7)
-      ..write(obj.groupeSize)
-      ..writeByte(8)
-      ..write(obj.isValid)
-      ..writeByte(10)
-      ..write(obj.coef)
-      ..writeByte(9)
-      ..write(obj.children)
-      ..writeByte(100)
-      ..write(obj.title)
-      ..writeByte(101)
-      ..write(obj.author)
-      ..writeByte(102)
-      ..write(obj.date)
-      ..writeByte(103)
-      ..write(obj.position);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is GradeAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

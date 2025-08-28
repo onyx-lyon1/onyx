@@ -1,21 +1,14 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 
 part 'generated/tomuss_text.g.dart';
 
 @CopyWith()
-@HiveType(typeId: 29)
 class TomussText extends TeachingUnitElement {
-  @HiveField(1, defaultValue: "")
   late final String value;
-  @HiveField(3, defaultValue: "")
   late final String comment;
-  @HiveField(4, defaultValue: false)
   late final bool isValidText;
-  @HiveField(6, defaultValue: false)
   late final bool isHidden;
-  @HiveField(7, defaultValue: "")
   late final String theId;
 
   TomussText.fromJSON(
@@ -36,11 +29,11 @@ class TomussText extends TeachingUnitElement {
     required super.author,
     required super.date,
     required super.position,
-    required this.value,
-    required this.comment,
-    required this.isValidText,
-    required this.isHidden,
-    required this.theId,
+    this.value = "",
+    this.comment = "",
+    this.isValidText = false,
+    this.isHidden = false,
+    this.theId = "",
   });
 
   @override

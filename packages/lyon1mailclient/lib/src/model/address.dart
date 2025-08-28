@@ -6,9 +6,9 @@ class Address extends Equatable {
 
   Address(this._email, this._name);
 
-  get email => _email;
+  String get email => _email;
 
-  get name => _name;
+  String get name => _name;
 
   @override
   List<Object?> get props => [_email, _name];

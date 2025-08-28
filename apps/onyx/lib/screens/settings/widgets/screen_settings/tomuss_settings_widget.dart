@@ -70,6 +70,7 @@ class TomussSettingsWidget extends StatelessWidget {
                   ),
               ],
               onChanged: (int? value) {
+                if (value == null) return;
                 context.read<SettingsCubit>().modify(
                     settings: context
                         .read<SettingsCubit>()

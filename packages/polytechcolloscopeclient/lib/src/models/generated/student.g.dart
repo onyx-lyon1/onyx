@@ -13,42 +13,45 @@ abstract class _$StudentCWProxy {
 
   Student id(int id);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Student(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Student(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Student(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Student call({
-    Year? year,
-    String? name,
-    int? id,
+    Year year,
+    String name,
+    int id,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfStudent.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfStudent.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfStudent.copyWith(...)` or call `instanceOfStudent.copyWith.fieldName(value)` for a single field.
 class _$StudentCWProxyImpl implements _$StudentCWProxy {
   const _$StudentCWProxyImpl(this._value);
 
   final Student _value;
 
   @override
-  Student year(Year year) => this(year: year);
+  Student year(Year year) => call(year: year);
 
   @override
-  Student name(String name) => this(name: name);
+  Student name(String name) => call(name: name);
 
   @override
-  Student id(int id) => this(id: id);
+  Student id(int id) => call(id: id);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Student(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Student(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Student(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Student call({
     Object? year = const $CopyWithPlaceholder(),
     Object? name = const $CopyWithPlaceholder(),
@@ -72,51 +75,8 @@ class _$StudentCWProxyImpl implements _$StudentCWProxy {
 }
 
 extension $StudentCopyWith on Student {
-  /// Returns a callable class that can be used as follows: `instanceOfStudent.copyWith(...)` or like so:`instanceOfStudent.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfStudent.copyWith(...)` or `instanceOfStudent.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$StudentCWProxy get copyWith => _$StudentCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class StudentAdapter extends TypeAdapter<Student> {
-  @override
-  final int typeId = 44;
-
-  @override
-  Student read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Student(
-      fields[0] as Year,
-      fields[1] as String,
-      fields[2] as int,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Student obj) {
-    writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.year)
-      ..writeByte(1)
-      ..write(obj.name)
-      ..writeByte(2)
-      ..write(obj.id);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is StudentAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

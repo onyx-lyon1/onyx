@@ -1,16 +1,12 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 
 part 'generated/day.g.dart';
 
 @CopyWith()
-@HiveType(typeId: 1)
 class Day extends Equatable {
-  @HiveField(0)
   final List<Event> events;
-  @HiveField(1)
   final DateTime date;
 
   Day(this.date, this.events);

@@ -26,7 +26,7 @@ class _MailMailboxChooserWidgetState extends State<MailMailboxChooserWidget> {
     super.initState();
   }
 
-  _collapse() {
+  void _collapse() {
     int newKey = 0;
     do {
       _key = Random().nextInt(10000);

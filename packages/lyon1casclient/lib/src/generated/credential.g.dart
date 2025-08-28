@@ -13,42 +13,45 @@ abstract class _$CredentialCWProxy {
 
   Credential tgcToken(String tgcToken);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Credential(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Credential(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Credential(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Credential call({
-    String? username,
-    String? password,
-    String? tgcToken,
+    String username,
+    String password,
+    String tgcToken,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfCredential.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfCredential.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfCredential.copyWith(...)` or call `instanceOfCredential.copyWith.fieldName(value)` for a single field.
 class _$CredentialCWProxyImpl implements _$CredentialCWProxy {
   const _$CredentialCWProxyImpl(this._value);
 
   final Credential _value;
 
   @override
-  Credential username(String username) => this(username: username);
+  Credential username(String username) => call(username: username);
 
   @override
-  Credential password(String password) => this(password: password);
+  Credential password(String password) => call(password: password);
 
   @override
-  Credential tgcToken(String tgcToken) => this(tgcToken: tgcToken);
+  Credential tgcToken(String tgcToken) => call(tgcToken: tgcToken);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Credential(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Credential(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Credential(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Credential call({
     Object? username = const $CopyWithPlaceholder(),
     Object? password = const $CopyWithPlaceholder(),
@@ -72,51 +75,8 @@ class _$CredentialCWProxyImpl implements _$CredentialCWProxy {
 }
 
 extension $CredentialCopyWith on Credential {
-  /// Returns a callable class that can be used as follows: `instanceOfCredential.copyWith(...)` or like so:`instanceOfCredential.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfCredential.copyWith(...)` or `instanceOfCredential.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$CredentialCWProxy get copyWith => _$CredentialCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class CredentialAdapter extends TypeAdapter<Credential> {
-  @override
-  final int typeId = 4;
-
-  @override
-  Credential read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Credential(
-      fields[0] as String,
-      fields[1] as String,
-      tgcToken: fields[2] == null ? '' : fields[2] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Credential obj) {
-    writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.username)
-      ..writeByte(1)
-      ..write(obj.password)
-      ..writeByte(2)
-      ..write(obj.tgcToken);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is CredentialAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

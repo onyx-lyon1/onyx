@@ -1,24 +1,16 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive_ce/hive.dart';
 
 part 'generated/event.g.dart';
 
 @CopyWith()
-@HiveType(typeId: 3)
 class Event extends Equatable {
-  @HiveField(0)
   late final String location;
-  @HiveField(1)
   late final String description;
-  @HiveField(2)
   late final String teacher;
-  @HiveField(3)
   late final String name;
 
-  @HiveField(4)
   late final DateTime start;
-  @HiveField(5)
   late final DateTime end;
 
   final dynamic menuCrous;

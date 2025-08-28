@@ -11,39 +11,42 @@ abstract class _$IzlyQrCodeCWProxy {
 
   IzlyQrCode expirationDate(DateTime expirationDate);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `IzlyQrCode(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `IzlyQrCode(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// IzlyQrCode(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   IzlyQrCode call({
-    Uint8List? qrCode,
-    DateTime? expirationDate,
+    Uint8List qrCode,
+    DateTime expirationDate,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfIzlyQrCode.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfIzlyQrCode.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfIzlyQrCode.copyWith(...)` or call `instanceOfIzlyQrCode.copyWith.fieldName(value)` for a single field.
 class _$IzlyQrCodeCWProxyImpl implements _$IzlyQrCodeCWProxy {
   const _$IzlyQrCodeCWProxyImpl(this._value);
 
   final IzlyQrCode _value;
 
   @override
-  IzlyQrCode qrCode(Uint8List qrCode) => this(qrCode: qrCode);
+  IzlyQrCode qrCode(Uint8List qrCode) => call(qrCode: qrCode);
 
   @override
   IzlyQrCode expirationDate(DateTime expirationDate) =>
-      this(expirationDate: expirationDate);
+      call(expirationDate: expirationDate);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `IzlyQrCode(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `IzlyQrCode(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// IzlyQrCode(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   IzlyQrCode call({
     Object? qrCode = const $CopyWithPlaceholder(),
     Object? expirationDate = const $CopyWithPlaceholder(),
@@ -63,48 +66,8 @@ class _$IzlyQrCodeCWProxyImpl implements _$IzlyQrCodeCWProxy {
 }
 
 extension $IzlyQrCodeCopyWith on IzlyQrCode {
-  /// Returns a callable class that can be used as follows: `instanceOfIzlyQrCode.copyWith(...)` or like so:`instanceOfIzlyQrCode.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfIzlyQrCode.copyWith(...)` or `instanceOfIzlyQrCode.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$IzlyQrCodeCWProxy get copyWith => _$IzlyQrCodeCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class IzlyQrCodeAdapter extends TypeAdapter<IzlyQrCode> {
-  @override
-  final int typeId = 16;
-
-  @override
-  IzlyQrCode read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return IzlyQrCode(
-      qrCode: fields[0] as Uint8List,
-      expirationDate: fields[1] as DateTime,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, IzlyQrCode obj) {
-    writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.qrCode)
-      ..writeByte(1)
-      ..write(obj.expirationDate);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is IzlyQrCodeAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

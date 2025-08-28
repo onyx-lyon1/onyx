@@ -1,40 +1,26 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive_ce/hive.dart';
+
 import 'package:izlyclient/izlyclient.dart';
 
 part 'generated/restaurant.g.dart';
 
-@HiveType(typeId: 38)
 enum CrousType {
-  @HiveField(0)
   restaurant,
-  @HiveField(1)
   cafet,
 }
 
 @CopyWith()
-@HiveType(typeId: 33)
 class RestaurantModel extends Equatable {
-  @HiveField(0)
   final int id;
-  @HiveField(1)
   final String name;
-  @HiveField(2)
   final String description;
-  @HiveField(3)
   final String shortDescription;
-  @HiveField(4)
   final CrousType type;
-  @HiveField(5)
   final double lat;
-  @HiveField(6)
   final double lon;
-  @HiveField(7)
   final String opening;
-  @HiveField(8)
   final List<MenuCrous> menus;
-  @HiveField(9)
   final String imageUrl;
 
   RestaurantModel({

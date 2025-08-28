@@ -1,6 +1,7 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
+import 'package:lyon1tomussclient/hive/hive_registrar.g.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:lyon1tomussclient/src/parser/htmlparser.dart';
 import 'package:lyon1tomussclient/src/utils/urlcreator.dart';
@@ -14,20 +15,7 @@ class Lyon1TomussClient {
   Lyon1CasClient get lyon1Cas => _authentication;
 
   static void registerAdapters() {
-    Hive.registerAdapter(EnumerationAdapter());
-    Hive.registerAdapter(GradeAdapter());
-    Hive.registerAdapter(PresenceAdapter());
-    Hive.registerAdapter(PresenceColorAdapter());
-    Hive.registerAdapter(SemesterAdapter());
-    Hive.registerAdapter(SemesterListAdapter());
-    Hive.registerAdapter(StageCodeAdapter());
-    Hive.registerAdapter(TeacherAdapter());
-    Hive.registerAdapter(TeachingUnitAdapter());
-    Hive.registerAdapter(TeachingUnitListAdapter());
-    Hive.registerAdapter(TomussTextAdapter());
-    Hive.registerAdapter(UploadAdapter());
-    Hive.registerAdapter(URLAdapter());
-    Hive.registerAdapter(StudentAdapter());
+    Hive.registerAdapters();
   }
 
   Future<ParsedPage?> getParsedPage(final String url,

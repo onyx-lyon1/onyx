@@ -73,12 +73,12 @@ class ExamenCubit extends Cubit<ExamenState> {
               : null,
           examens: [
             ExamenModel(
-              appLocalization.mockTitle,
-              appLocalization.mockCodeName,
-              DateTime.now(),
-              const Duration(hours: 2),
-              appLocalization.mockRoom,
-              42,
+              title: appLocalization.mockTitle,
+              codeName: appLocalization.mockCodeName,
+              date: DateTime.now(),
+              duration: const Duration(hours: 2),
+              location: appLocalization.mockRoom,
+              place: 42,
             ),
           ],
         ),

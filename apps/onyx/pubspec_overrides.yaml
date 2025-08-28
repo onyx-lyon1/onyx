@@ -1,6 +1,26 @@
+# melos_managed_dependency_overrides: izlyclient,lyon1agendaclient,lyon1casclient,lyon1examenclient,lyon1mailclient,lyon1tomussclient,polytechcolloscopeclient
 dependency_overrides:
   geolocator_android:
     git:
       url: https://github.com/onyx-lyon1/flutter-geolocator.git
       ref: 13.0.1
       path: geolocator_android
+  json_theme:
+    git:
+      url: https://github.com/wardbj93/json_theme
+      path: packages/json_theme
+  intl: ^0.20.2
+  izlyclient:
+    path: ../../packages/izlyclient
+  lyon1agendaclient:
+    path: ../../packages/lyon1agendaclient
+  lyon1casclient:
+    path: ../../packages/lyon1casclient
+  lyon1examenclient:
+    path: ../../packages/lyon1examenclient
+  lyon1mailclient:
+    path: ../../packages/lyon1mailclient
+  lyon1tomussclient:
+    path: ../../packages/lyon1tomussclient
+  polytechcolloscopeclient:
+    path: ../../packages/polytechcolloscopeclient

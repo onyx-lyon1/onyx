@@ -118,17 +118,17 @@ class HTMLparser {
       String ticket =
           RegExp(r'ticket="([^\s";]+)').firstMatch(_rawContent)?.group(1) ?? "";
       units.add(TeachingUnit(
-          unit['table_title'] ?? unit['ue'],
-          masters,
-          grades,
-          texts,
-          enumerations,
-          presences,
-          stageCodes,
-          uploads,
-          urls,
-          ticket,
-          unit['ue']));
+      title:          unit['table_title'] ?? unit['ue'],
+        masters:  masters,
+          grades:grades,
+          textValues:texts,
+          enumerations:enumerations,
+          presences:presences,
+          stageCodes:stageCodes,
+          uploads:uploads,
+          urls:urls,
+          ticket:ticket,
+          ue:unit['ue']));
     }
     return units;
   }
@@ -139,7 +139,7 @@ class HTMLparser {
 
     final List<Semester> semesters = [];
     for (var item in json[key][1].keys) {
-      semesters.add(Semester(item, json[key][1][item]));
+      semesters.add(Semester(title: item,url: json[key][1][item]));
     }
     return semesters;
   }
@@ -150,7 +150,7 @@ class HTMLparser {
 
   Student extractStudent() {
     final int? key = getIndexForKey('Names');
-    if (key == null) return Student("", "", "");
+    if (key == null) return Student(name:"",surname:  "",email:"");
 
     return Student.fromJSON(json[key][1]);
   }

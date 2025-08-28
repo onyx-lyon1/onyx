@@ -6,6 +6,7 @@ import 'package:hive_ce/hive.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
+import 'package:izlyclient/hive/hive_registrar.g.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:requests_plus/requests_plus.dart';
 
@@ -18,17 +19,7 @@ class IzlyClient {
   late final String _corsProxyUrl;
 
   static void registerAdapters() {
-    Hive.registerAdapter(IzlyCredentialAdapter());
-    Hive.registerAdapter(IzlyQrCodeAdapter());
-    Hive.registerAdapter(IzlyQrCodeListAdapter());
-    Hive.registerAdapter(MenuTypeAdapter());
-    Hive.registerAdapter(PlatCrousAdapter());
-    Hive.registerAdapter(MenuCrousAdapter());
-    Hive.registerAdapter(CrousTypeAdapter());
-    Hive.registerAdapter(RestaurantModelAdapter());
-    Hive.registerAdapter(RestaurantListModelAdapter());
-    Hive.registerAdapter(IzlyPaymentModelAdapter());
-    Hive.registerAdapter(IzlyPaymentModelListAdapter());
+    Hive.registerAdapters();
   }
 
   final String _username;

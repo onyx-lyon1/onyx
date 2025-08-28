@@ -25,14 +25,15 @@ abstract class _$EmailSendStateCWProxy {
 
   EmailSendState attachments(List<File> attachments);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `EmailSendState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `EmailSendState(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// EmailSendState(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   EmailSendState call({
-    EmailSendStatus? status,
+    EmailSendStatus status,
     QuillController? controller,
     TextEditingController? subjectEditor,
     TextEditingController? destinationEditor,
@@ -40,56 +41,58 @@ abstract class _$EmailSendStateCWProxy {
     bool? replyAll,
     bool? reply,
     bool? forward,
-    List<File>? attachments,
+    List<File> attachments,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfEmailSendState.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfEmailSendState.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfEmailSendState.copyWith(...)` or call `instanceOfEmailSendState.copyWith.fieldName(value)` for a single field.
 class _$EmailSendStateCWProxyImpl implements _$EmailSendStateCWProxy {
   const _$EmailSendStateCWProxyImpl(this._value);
 
   final EmailSendState _value;
 
   @override
-  EmailSendState status(EmailSendStatus status) => this(status: status);
+  EmailSendState status(EmailSendStatus status) => call(status: status);
 
   @override
   EmailSendState controller(QuillController? controller) =>
-      this(controller: controller);
+      call(controller: controller);
 
   @override
   EmailSendState subjectEditor(TextEditingController? subjectEditor) =>
-      this(subjectEditor: subjectEditor);
+      call(subjectEditor: subjectEditor);
 
   @override
   EmailSendState destinationEditor(TextEditingController? destinationEditor) =>
-      this(destinationEditor: destinationEditor);
+      call(destinationEditor: destinationEditor);
 
   @override
   EmailSendState originalMessage(int? originalMessage) =>
-      this(originalMessage: originalMessage);
+      call(originalMessage: originalMessage);
 
   @override
-  EmailSendState replyAll(bool? replyAll) => this(replyAll: replyAll);
+  EmailSendState replyAll(bool? replyAll) => call(replyAll: replyAll);
 
   @override
-  EmailSendState reply(bool? reply) => this(reply: reply);
+  EmailSendState reply(bool? reply) => call(reply: reply);
 
   @override
-  EmailSendState forward(bool? forward) => this(forward: forward);
+  EmailSendState forward(bool? forward) => call(forward: forward);
 
   @override
   EmailSendState attachments(List<File> attachments) =>
-      this(attachments: attachments);
+      call(attachments: attachments);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `EmailSendState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `EmailSendState(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// EmailSendState(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   EmailSendState call({
     Object? status = const $CopyWithPlaceholder(),
     Object? controller = const $CopyWithPlaceholder(),
@@ -144,7 +147,8 @@ class _$EmailSendStateCWProxyImpl implements _$EmailSendStateCWProxy {
 }
 
 extension $EmailSendStateCopyWith on EmailSendState {
-  /// Returns a callable class that can be used as follows: `instanceOfEmailSendState.copyWith(...)` or like so:`instanceOfEmailSendState.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfEmailSendState.copyWith(...)` or `instanceOfEmailSendState.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$EmailSendStateCWProxy get copyWith => _$EmailSendStateCWProxyImpl(this);
 }

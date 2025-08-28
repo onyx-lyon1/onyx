@@ -1,13 +1,10 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
-import 'package:hive_ce/hive.dart';
 
 part 'generated/stage_code.g.dart';
 
 @CopyWith()
-@HiveType(typeId: 28)
 class StageCode extends TeachingUnitElement {
-  @HiveField(1, defaultValue: "")
   late final String value;
 
   StageCode.fromJSON(
@@ -21,7 +18,7 @@ class StageCode extends TeachingUnitElement {
     required super.author,
     required super.date,
     required super.position,
-    required this.value,
+    this.value = "",
   });
 
   @override

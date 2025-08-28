@@ -1,15 +1,11 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
-import 'package:hive_ce/hive.dart';
 
 part 'generated/url.g.dart';
 
 @CopyWith()
-@HiveType(typeId: 31)
 class URL extends TeachingUnitElement {
-  @HiveField(2, defaultValue: "")
   late final String value;
-  @HiveField(3, defaultValue: false)
   late final bool isModifiable;
 
   URL.fromJSON(var id, Map json, var stats, var line, var column, String user)
@@ -38,7 +34,8 @@ class URL extends TeachingUnitElement {
     required super.author,
     required super.date,
     required super.position,
-    required this.value,
+    this.value = "",
+    this.isModifiable = false,
   });
 
   @override

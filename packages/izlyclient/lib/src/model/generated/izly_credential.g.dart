@@ -11,38 +11,41 @@ abstract class _$IzlyCredentialCWProxy {
 
   IzlyCredential password(String password);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `IzlyCredential(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `IzlyCredential(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// IzlyCredential(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   IzlyCredential call({
-    String? username,
-    String? password,
+    String username,
+    String password,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfIzlyCredential.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfIzlyCredential.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfIzlyCredential.copyWith(...)` or call `instanceOfIzlyCredential.copyWith.fieldName(value)` for a single field.
 class _$IzlyCredentialCWProxyImpl implements _$IzlyCredentialCWProxy {
   const _$IzlyCredentialCWProxyImpl(this._value);
 
   final IzlyCredential _value;
 
   @override
-  IzlyCredential username(String username) => this(username: username);
+  IzlyCredential username(String username) => call(username: username);
 
   @override
-  IzlyCredential password(String password) => this(password: password);
+  IzlyCredential password(String password) => call(password: password);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `IzlyCredential(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `IzlyCredential(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// IzlyCredential(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   IzlyCredential call({
     Object? username = const $CopyWithPlaceholder(),
     Object? password = const $CopyWithPlaceholder(),
@@ -61,48 +64,8 @@ class _$IzlyCredentialCWProxyImpl implements _$IzlyCredentialCWProxy {
 }
 
 extension $IzlyCredentialCopyWith on IzlyCredential {
-  /// Returns a callable class that can be used as follows: `instanceOfIzlyCredential.copyWith(...)` or like so:`instanceOfIzlyCredential.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfIzlyCredential.copyWith(...)` or `instanceOfIzlyCredential.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$IzlyCredentialCWProxy get copyWith => _$IzlyCredentialCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class IzlyCredentialAdapter extends TypeAdapter<IzlyCredential> {
-  @override
-  final int typeId = 15;
-
-  @override
-  IzlyCredential read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return IzlyCredential(
-      username: fields[0] as String,
-      password: fields[1] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, IzlyCredential obj) {
-    writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.username)
-      ..writeByte(1)
-      ..write(obj.password);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is IzlyCredentialAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }
