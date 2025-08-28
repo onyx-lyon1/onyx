@@ -46,7 +46,7 @@ class _$IzlyPaymentModelListCWProxyImpl
     Object? payments = const $CopyWithPlaceholder(),
   }) {
     return IzlyPaymentModelList(
-      payments: payments == const $CopyWithPlaceholder() || payments == null
+      payments: payments == const $CopyWithPlaceholder()
           ? _value.payments
           // ignore: cast_nullable_to_non_nullable
           : payments as List<IzlyPaymentModel>,

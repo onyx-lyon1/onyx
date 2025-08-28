@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
@@ -11,6 +10,7 @@ import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
@@ -67,7 +67,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                     element.languageCode ==
                                     context
                                         .read<SettingsCubit>()
-                                        .state
                                         .settings
                                         .language) +
                             1,
@@ -83,7 +82,6 @@ class _SettingsPageState extends State<SettingsPage> {
                           context.read<SettingsCubit>().modify(
                               settings: context
                                   .read<SettingsCubit>()
-                                  .state
                                   .settings
                                   .copyWith(
                                       language: (value == 0)
@@ -192,15 +190,10 @@ class _SettingsPageState extends State<SettingsPage> {
                             CacheService.reset<TeachingUnitList>();
                             CacheService.reset<SemesterList>();
                             context.read<TomussCubit>().load(
-                                lyon1Cas: context
-                                    .read<AuthentificationCubit>()
-                                    .state
-                                    .lyon1Cas,
+                                lyon1Cas: context.read<AuthCubit>().lyon1Cas,
                                 cache: false,
-                                settings: context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .settings);
+                                settings:
+                                    context.read<SettingsCubit>().settings);
                           },
                         ),
                         MaterialButton(
@@ -212,14 +205,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           onPressed: () {
                             CacheService.reset<Agenda>();
                             context.read<AgendaCubit>().load(
-                                lyon1Cas: context
-                                    .read<AuthentificationCubit>()
-                                    .state
-                                    .lyon1Cas,
-                                settings: context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .settings,
+                                lyon1Cas: context.read<AuthCubit>().lyon1Cas,
+                                settings:
+                                    context.read<SettingsCubit>().settings,
                                 cache: false);
                           },
                         ),
@@ -235,7 +223,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                   cache: false,
                                   blockTrackers: context
                                       .read<SettingsCubit>()
-                                      .state
                                       .settings
                                       .blockTrackers,
                                   appLocalizations:
@@ -258,10 +245,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               Hive.deleteBoxFromDisk("cached_izly_amount");
                               context.read<IzlyCubit>().resetCubit();
                               context.read<IzlyCubit>().connect(
-                                  settings: context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .settings);
+                                  settings:
+                                      context.read<SettingsCubit>().settings);
                             },
                           ),
                         const SizedBox(

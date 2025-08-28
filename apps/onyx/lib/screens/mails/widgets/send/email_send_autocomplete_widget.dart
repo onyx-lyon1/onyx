@@ -25,7 +25,7 @@ class MailSendAutocompleteWidget extends StatelessWidget {
         final localization = AppLocalizations.of(context);
         if (!context.read<EmailCubit>().mailClient!.isAuthenticated) {
           CacheService.getEncryptionKey(
-                  context.read<SettingsCubit>().state.settings.biometricAuth)
+                  context.read<SettingsCubit>().settings.biometricAuth)
               .then((encryptionKey) =>
                   CacheService.get<Credential>(secureKey: encryptionKey))
               .then(

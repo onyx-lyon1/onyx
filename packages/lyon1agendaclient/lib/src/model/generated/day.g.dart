@@ -51,11 +51,11 @@ class _$DayCWProxyImpl implements _$DayCWProxy {
     Object? events = const $CopyWithPlaceholder(),
   }) {
     return Day(
-      date == const $CopyWithPlaceholder() || date == null
+      date == const $CopyWithPlaceholder()
           ? _value.date
           // ignore: cast_nullable_to_non_nullable
           : date as DateTime,
-      events == const $CopyWithPlaceholder() || events == null
+      events == const $CopyWithPlaceholder()
           ? _value.events
           // ignore: cast_nullable_to_non_nullable
           : events as List<Event>,

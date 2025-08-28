@@ -32,17 +32,12 @@ class Lyon1CasClient {
     _corsProxyUrl = corsProxyUrl;
   }
 
-  Future<({bool authResult, Credential credential})> authenticate(
-      Credential credential,
-      {bool cookieOnly = false}) async {
+  Future<bool> authenticate(Credential credential) async {
     if (credential.tgcToken.isNotEmpty) {
       CookieJar cookieJar =
           await RequestsPlus.getStoredCookies(Constants.casLogin);
       cookieJar["TGC-CAS"] = Cookie("TGC-CAS", credential.tgcToken);
       await RequestsPlus.setStoredCookies(Constants.casLogin, cookieJar);
-    }
-    if (cookieOnly) {
-      return (credential: credential, authResult: await checkAuthentificated());
     }
     if (!(await checkAuthentificated())) {
       await RequestsPlus.clearStoredCookies(Constants.casLogin);
@@ -55,7 +50,7 @@ class Lyon1CasClient {
     if (isAuthenticated) {
       credential = credential.copyWith.tgcToken((await getTgcToken()));
     }
-    return (credential: credential, authResult: isAuthenticated);
+    return isAuthenticated;
   }
 
   Future<void> logout() async {

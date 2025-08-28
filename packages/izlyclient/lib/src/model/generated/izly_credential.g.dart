@@ -51,11 +51,11 @@ class _$IzlyCredentialCWProxyImpl implements _$IzlyCredentialCWProxy {
     Object? password = const $CopyWithPlaceholder(),
   }) {
     return IzlyCredential(
-      username: username == const $CopyWithPlaceholder() || username == null
+      username: username == const $CopyWithPlaceholder()
           ? _value.username
           // ignore: cast_nullable_to_non_nullable
           : username as String,
-      password: password == const $CopyWithPlaceholder() || password == null
+      password: password == const $CopyWithPlaceholder()
           ? _value.password
           // ignore: cast_nullable_to_non_nullable
           : password as String,

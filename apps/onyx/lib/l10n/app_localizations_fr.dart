@@ -839,4 +839,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get unHideQrCode => 'Cliquez pour\nafficher le qr code';
+
+  @override
+  String get resetSettings => 'Réinitialiser les paramètres';
 }

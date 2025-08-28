@@ -44,7 +44,7 @@ class _$MailBoxListCWProxyImpl implements _$MailBoxListCWProxy {
     Object? mailBoxes = const $CopyWithPlaceholder(),
   }) {
     return MailBoxList(
-      mailBoxes: mailBoxes == const $CopyWithPlaceholder() || mailBoxes == null
+      mailBoxes: mailBoxes == const $CopyWithPlaceholder()
           ? _value.mailBoxes
           // ignore: cast_nullable_to_non_nullable
           : mailBoxes as List<MailBox>,

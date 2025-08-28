@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
@@ -9,14 +9,12 @@ import 'package:onyx/screens/settings/settings_export.dart';
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit({ThemeSettingsModel? themeSettings})
-      : super(ThemeState(themesSettings: themeSettings)) {
+  ThemeCubit() : super(ThemeState()) {
     init();
   }
 
   /// This function initilize the Hive of ThemeUserData and load the themes selected.
   Future<ThemeSettingsModel> init() async {
-    emit(state.copyWith(status: ThemeStateStatus.init));
     ThemeSettingsModel themesUserData;
 
     if (await CacheService.exist<ThemeSettingsModel>()) {
@@ -27,7 +25,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     }
 
     emit(state.copyWith(
-        status: ThemeStateStatus.loaded, themesSettings: themesUserData));
+        status: ThemeStateStatus.ready, themesSettings: themesUserData));
     return themesUserData;
   }
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class WaitingBiometric extends StatelessWidget {
   const WaitingBiometric({super.key});
@@ -82,9 +82,9 @@ class WaitingBiometric extends StatelessWidget {
             const Spacer(),
             InkWell(
               onTap: () {
-                context.read<AuthentificationCubit>().login(
-                      settings: context.read<SettingsCubit>().state.settings,
-                    );
+                context
+                    .read<AuthCubit>()
+                    .login(settings: context.read<SettingsCubit>().settings);
               },
               borderRadius: BorderRadius.circular(500),
               child: Container(

@@ -57,9 +57,8 @@ class _TomussPageState extends State<TomussPage> {
         switch (state.status) {
           case TomussStatus.initial:
             context.read<TomussCubit>().load(
-                  lyon1Cas:
-                      context.read<AuthentificationCubit>().state.lyon1Cas,
-                  settings: context.read<SettingsCubit>().state.settings,
+                  lyon1Cas: context.read<AuthCubit>().lyon1Cas,
+                  settings: context.read<SettingsCubit>().settings,
                 );
             loadingHeader = LoadingHeaderWidget(
               message: AppLocalizations.of(context).tomussConnection,
@@ -76,9 +75,8 @@ class _TomussPageState extends State<TomussPage> {
             break;
           case TomussStatus.error:
             final tomussCubit = context.read<TomussCubit>();
-            final lyon1Cas =
-                context.read<AuthentificationCubit>().state.lyon1Cas;
-            final settings = context.read<SettingsCubit>().state.settings;
+            final lyon1Cas = context.read<AuthCubit>().lyon1Cas;
+            final settings = context.read<SettingsCubit>().settings;
             Future.delayed(const Duration(seconds: 3),
                 () => tomussCubit.load(lyon1Cas: lyon1Cas, settings: settings));
             loadingHeader = LoadingHeaderWidget(
@@ -93,13 +91,10 @@ class _TomussPageState extends State<TomussPage> {
                 timeout: state.timeout,
                 timeoutCallBack: () {
                   context.read<TomussCubit>().load(
-                        lyon1Cas: context
-                            .read<AuthentificationCubit>()
-                            .state
-                            .lyon1Cas,
+                        lyon1Cas: context.read<AuthCubit>().lyon1Cas,
                         semestreIndex: state.currentSemesterIndex,
                         cache: false,
-                        settings: context.read<SettingsCubit>().state.settings,
+                        settings: context.read<SettingsCubit>().settings,
                         force: false,
                       );
                 });
@@ -180,8 +175,8 @@ class _TomussPageState extends State<TomussPage> {
           onRefresh: () async {
             final tomussCubit = context.read<TomussCubit>();
             tomussCubit.load(
-              lyon1Cas: context.read<AuthentificationCubit>().state.lyon1Cas,
-              settings: context.read<SettingsCubit>().state.settings,
+              lyon1Cas: context.read<AuthCubit>().lyon1Cas,
+              settings: context.read<SettingsCubit>().settings,
               force: true,
             );
 

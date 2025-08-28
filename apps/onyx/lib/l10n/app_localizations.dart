@@ -1410,6 +1410,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Click to\nunhide the QR code'**
   String get unHideQrCode;
+
+  /// No description provided for @resetSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset settings'**
+  String get resetSettings;
 }
 
 class _AppLocalizationsDelegate

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
@@ -20,14 +19,10 @@ import 'package:onyx/screens/settings/states/theme_cubit.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'core/widgets/states_displaying/state_displaying_widget_export.dart';
-
 class OnyxApp extends StatefulWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
-  final ThemeSettingsModel theme;
-  final SettingsModel settings;
 
-  const OnyxApp({super.key, required this.theme, required this.settings});
+  const OnyxApp({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -55,99 +50,61 @@ class OnyxAppState extends State<OnyxApp> {
       builder: (context, orientation, deviceType) => MultiBlocProvider(
         providers: [
           BlocProvider<HomeCubit>(create: (context) => HomeCubit()),
-          BlocProvider<AuthentificationCubit>(
-              create: (context) => AuthentificationCubit(widget.settings)),
-          BlocProvider<SettingsCubit>(
-              create: (context) => SettingsCubit(settings: widget.settings)),
+          BlocProvider<AuthCubit>(create: (context) => AuthCubit()),
+          BlocProvider<SettingsCubit>(create: (context) => SettingsCubit()),
           BlocProvider<EmailCubit>(create: (context) => EmailCubit()),
           BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
           BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
           BlocProvider<MapCubit>(create: (context) => MapCubit()),
           BlocProvider<IzlyCubit>(create: (context) => IzlyCubit()),
           BlocProvider<ExamenCubit>(create: (context) => ExamenCubit()),
-          BlocProvider<ThemeCubit>(
-              create: (context) => ThemeCubit(themeSettings: widget.theme)),
+          BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
         ],
-        child: BlocBuilder<SettingsCubit, SettingsState>(
-          builder: (context, settingsState) {
-            return BlocBuilder<ThemeCubit, ThemeState>(
-              builder: (context, themeState) {
-                return MaterialApp(
-                  title: lookupAppLocalizations(const Locale("fr")).onyx,
-                  navigatorKey: OnyxApp.navigatorKey,
-                  scrollBehavior: const CustomScrollBehavior(),
-                  debugShowCheckedModeBanner: false,
-                  themeMode: themeState.themesSettings!.themeMode.toThemeMode,
-                  theme: themeState.lightTheme,
-                  darkTheme: themeState.darkTheme,
-                  locale: locale,
-                  localizationsDelegates: const [
-                    LocaleNamesLocalizationsDelegate(),
-                    ...AppLocalizations.localizationsDelegates
-                  ],
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  localeListResolutionCallback: (locales, supportedLocales) {
-                    if (context.read<SettingsCubit>().state.settings.language !=
-                        null) {
-                      return Locale(context
-                          .read<SettingsCubit>()
-                          .state
-                          .settings
-                          .language!);
-                    } else {
-                      if (locales != null) {
-                        for (var locale in locales) {
-                          if (supportedLocales.contains(locale)) {
-                            return locale;
-                          }
-                        }
-                      }
-                      return const Locale("fr");
-                    }
-                  },
-                  home: BlocConnectionScreen(
-                    child: BlocBuilder<AuthentificationCubit,
-                        AuthentificationState>(
-                      builder: (context, authState) {
-                        if (kDebugMode) {
-                          print("Device.orientation : ${Device.orientation}");
-                          print("Device.deviceType : ${Device.deviceType}");
-                          print("Device.screenType : ${Device.screenType}");
-                          print("Device.width : ${Device.width}");
-                          print("Device.height : ${Device.height}");
-                          print(
-                              "Device.boxConstraints : ${Device.boxConstraints}");
-                          print("Device.aspectRatio : ${Device.aspectRatio}");
-                          print("Device.pixelRatio : ${Device.pixelRatio}");
-                        }
+        child: Builder(
+          builder: (context) {
+            final settingsState = context.watch<SettingsCubit>().state;
+            final themeState = context.watch<ThemeCubit>().state;
 
-                        if ((settingsState.status == SettingsStatus.ready ||
-                                settingsState.status == SettingsStatus.error) &&
-                            (themeState.status != ThemeStateStatus.init)) {
-                          if ((authState.status ==
-                                      AuthentificationStatus.authentificated ||
-                                  authState.status ==
-                                      AuthentificationStatus.authentificating ||
-                                  (!settingsState.settings.firstLogin &&
-                                      !settingsState.settings.biometricAuth)) &&
-                              authState.status !=
-                                  AuthentificationStatus.needCredential) {
-                            return const HomePage();
-                          } else {
-                            return const LoginPage();
-                          }
-                        } else {
-                          return const CustomCircularProgressIndicatorWidget();
-                        }
-                      },
-                    ),
-                  ),
-                );
+            return MaterialApp(
+              title: lookupAppLocalizations(locale ?? const Locale("fr")).onyx,
+              navigatorKey: OnyxApp.navigatorKey,
+              scrollBehavior: const CustomScrollBehavior(),
+              debugShowCheckedModeBanner: false,
+              themeMode: themeState.themesSettings?.themeMode.toThemeMode,
+              theme: themeState.lightTheme,
+              darkTheme: themeState.darkTheme,
+              locale: locale,
+              localizationsDelegates: const [
+                LocaleNamesLocalizationsDelegate(),
+                ...AppLocalizations.localizationsDelegates
+              ],
+              supportedLocales: AppLocalizations.supportedLocales,
+              localeListResolutionCallback: (locales, supportedLocales) {
+                if (settingsState is SettingsReady &&
+                    settingsState.settings.language != null) {
+                  return Locale(settingsState.settings.language!);
+                }
+                return locales?.firstWhere(supportedLocales.contains,
+                        orElse: () => const Locale("fr")) ??
+                    const Locale("fr");
               },
+              home:
+                  BlocConnectionScreen(child: home(settingsState, themeState)),
             );
           },
         ),
       ),
     );
+  }
+
+  Widget home(SettingsState settingsState, ThemeState themeState) {
+    if (settingsState is! SettingsReady ||
+        themeState.status == ThemeStateStatus.initial) {
+      return SplashScreen();
+    } else if (!settingsState.settings.firstLogin) {
+      return const HomePage();
+    } else {
+      return const LoginPage();
+    }
   }
 }

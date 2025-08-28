@@ -836,4 +836,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unHideQrCode => 'Click to\nunhide the QR code';
+
+  @override
+  String get resetSettings => 'Reset settings';
 }

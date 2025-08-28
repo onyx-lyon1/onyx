@@ -33,7 +33,7 @@ class _MailContentWidgetState extends State<MailContentWidget> {
   @override
   Widget build(BuildContext context) {
     String html = widget.mail.body;
-    if (context.read<SettingsCubit>().state.settings.forcedMailTheme) {
+    if (context.read<SettingsCubit>().settings.forcedMailTheme) {
       bool isDark = Theme.of(context).brightness == Brightness.dark;
       html = widget.mail.getThemedBody(
         isDarkMode: isDark,

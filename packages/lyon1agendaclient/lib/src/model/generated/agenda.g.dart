@@ -44,7 +44,7 @@ class _$AgendaCWProxyImpl implements _$AgendaCWProxy {
     Object? days = const $CopyWithPlaceholder(),
   }) {
     return Agenda(
-      days == const $CopyWithPlaceholder() || days == null
+      days == const $CopyWithPlaceholder()
           ? _value.days
           // ignore: cast_nullable_to_non_nullable
           : days as List<Day>,

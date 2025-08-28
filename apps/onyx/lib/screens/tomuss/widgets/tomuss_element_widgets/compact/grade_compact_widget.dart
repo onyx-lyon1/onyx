@@ -22,7 +22,7 @@ class GradeCompactWidget extends StatelessWidget {
     return TomussCompactElementWidget(
       onTap: onTap,
       color: TomussLogic.getMainGradeColor(
-          forceGreen: context.read<SettingsCubit>().state.settings.forceGreen,
+          forceGreen: context.read<SettingsCubit>().settings.forceGreen,
           isSeen: false,
           grades: [grade]),
       child2: Row(

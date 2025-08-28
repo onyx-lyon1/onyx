@@ -1019,5 +1019,6 @@
     },
     "discard": "Discard",
     "more": "More",
-    "unHideQrCode": "Click to\nunhide the QR code"
+    "unHideQrCode": "Click to\nunhide the QR code",
+    "resetSettings": "Reset settings"
 }

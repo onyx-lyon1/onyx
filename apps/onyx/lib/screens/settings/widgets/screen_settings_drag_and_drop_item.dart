@@ -67,9 +67,13 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
               BlocListener<SettingsCubit, SettingsState>(
                 //bloc listener handling the collapsing when draging an item
                 listenWhen: (previous, current) {
+                  if (previous is! SettingsReady || current is! SettingsReady) {
+                    return false;
+                  }
                   return current.collapseAll;
                 },
                 listener: (context, state) {
+                  if (state is! SettingsReady) return;
                   if (state.collapseAll) {
                     if (ExpansibleController.maybeOf(context)?.isExpanded ??
                         false) {

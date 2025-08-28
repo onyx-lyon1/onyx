@@ -58,15 +58,15 @@ class _$StudentColloscopeCWProxyImpl implements _$StudentColloscopeCWProxy {
     Object? kholles = const $CopyWithPlaceholder(),
   }) {
     return StudentColloscope(
-      student == const $CopyWithPlaceholder() || student == null
+      student == const $CopyWithPlaceholder()
           ? _value.student
           // ignore: cast_nullable_to_non_nullable
           : student as Student,
-      trinomeId == const $CopyWithPlaceholder() || trinomeId == null
+      trinomeId == const $CopyWithPlaceholder()
           ? _value.trinomeId
           // ignore: cast_nullable_to_non_nullable
           : trinomeId as int,
-      kholles == const $CopyWithPlaceholder() || kholles == null
+      kholles == const $CopyWithPlaceholder()
           ? _value.kholles
           // ignore: cast_nullable_to_non_nullable
           : kholles as List<Kholle>,

@@ -840,4 +840,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get unHideQrCode => 'Показать QR-код';
+
+  @override
+  String get resetSettings => 'Сбросить настройки';
 }

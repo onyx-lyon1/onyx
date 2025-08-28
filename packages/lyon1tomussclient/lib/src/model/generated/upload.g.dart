@@ -86,11 +86,11 @@ class _$UploadCWProxyImpl implements _$UploadCWProxy {
     Object? fileUrl = const $CopyWithPlaceholder(),
   }) {
     return Upload(
-      title: title == const $CopyWithPlaceholder() || title == null
+      title: title == const $CopyWithPlaceholder()
           ? _value.title
           // ignore: cast_nullable_to_non_nullable
           : title as String,
-      author: author == const $CopyWithPlaceholder() || author == null
+      author: author == const $CopyWithPlaceholder()
           ? _value.author
           // ignore: cast_nullable_to_non_nullable
           : author as String,
@@ -98,19 +98,19 @@ class _$UploadCWProxyImpl implements _$UploadCWProxy {
           ? _value.date
           // ignore: cast_nullable_to_non_nullable
           : date as DateTime?,
-      position: position == const $CopyWithPlaceholder() || position == null
+      position: position == const $CopyWithPlaceholder()
           ? _value.position
           // ignore: cast_nullable_to_non_nullable
           : position as double,
-      comment: comment == const $CopyWithPlaceholder() || comment == null
+      comment: comment == const $CopyWithPlaceholder()
           ? _value.comment
           // ignore: cast_nullable_to_non_nullable
           : comment as String,
-      uploadMax: uploadMax == const $CopyWithPlaceholder() || uploadMax == null
+      uploadMax: uploadMax == const $CopyWithPlaceholder()
           ? _value.uploadMax
           // ignore: cast_nullable_to_non_nullable
           : uploadMax as int,
-      fileUrl: fileUrl == const $CopyWithPlaceholder() || fileUrl == null
+      fileUrl: fileUrl == const $CopyWithPlaceholder()
           ? _value.fileUrl
           // ignore: cast_nullable_to_non_nullable
           : fileUrl as String,

@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/extensions/mail_box_extension.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class MailMailboxChooserWidget extends StatefulWidget {
   const MailMailboxChooserWidget({super.key});
@@ -57,7 +57,6 @@ class _MailMailboxChooserWidgetState extends State<MailMailboxChooserWidget> {
                           context.read<EmailCubit>().load(
                                 blockTrackers: context
                                     .read<SettingsCubit>()
-                                    .state
                                     .settings
                                     .blockTrackers,
                                 mailbox: e,

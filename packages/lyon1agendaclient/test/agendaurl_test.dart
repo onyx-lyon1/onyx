@@ -15,8 +15,7 @@ void main() async {
           "Check your .env file, username and/or password are empty");
     }
     auth = Lyon1CasClient();
-    final bool ok =
-        (await auth.authenticate(Credential(username, password))).authResult;
+    final bool ok = (await auth.authenticate(Credential(username, password)));
     expect(ok, equals(true));
   });
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/login/login_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 class SemesterChooserWidget extends StatelessWidget {
   const SemesterChooserWidget({super.key});
@@ -45,17 +45,13 @@ class SemesterChooserWidget extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       context.read<TomussCubit>().load(
-                            lyon1Cas: context
-                                .read<AuthentificationCubit>()
-                                .state
-                                .lyon1Cas,
+                            lyon1Cas: context.read<AuthCubit>().lyon1Cas,
                             semestreIndex: context
                                 .read<TomussCubit>()
                                 .state
                                 .semesters
                                 .indexOf(semester),
-                            settings:
-                                context.read<SettingsCubit>().state.settings,
+                            settings: context.read<SettingsCubit>().settings,
                             force: true,
                           );
                       Navigator.pop(context);

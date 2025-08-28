@@ -217,5 +217,6 @@
   "mailSendPageDiscardContent": "Вы уверены, что хотите отменить отправку письма?",
   "discard": "Отменить",
   "more": "Еще",
-  "unHideQrCode": "Показать QR-код"
+  "unHideQrCode": "Показать QR-код",
+  "resetSettings": "Сбросить настройки"
 }

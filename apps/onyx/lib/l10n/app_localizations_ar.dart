@@ -833,4 +833,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get unHideQrCode => 'إظهار رمز الاستجابة السريعة';
+
+  @override
+  String get resetSettings => 'إعادة تعيين الإعدادات';
 }

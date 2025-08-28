@@ -86,28 +86,27 @@ class _$EventCWProxyImpl implements _$EventCWProxy {
     Object? menuCrous = const $CopyWithPlaceholder(),
   }) {
     return Event(
-      location: location == const $CopyWithPlaceholder() || location == null
+      location: location == const $CopyWithPlaceholder()
           ? _value.location
           // ignore: cast_nullable_to_non_nullable
           : location as String,
-      description:
-          description == const $CopyWithPlaceholder() || description == null
-              ? _value.description
-              // ignore: cast_nullable_to_non_nullable
-              : description as String,
-      teacher: teacher == const $CopyWithPlaceholder() || teacher == null
+      description: description == const $CopyWithPlaceholder()
+          ? _value.description
+          // ignore: cast_nullable_to_non_nullable
+          : description as String,
+      teacher: teacher == const $CopyWithPlaceholder()
           ? _value.teacher
           // ignore: cast_nullable_to_non_nullable
           : teacher as String,
-      name: name == const $CopyWithPlaceholder() || name == null
+      name: name == const $CopyWithPlaceholder()
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
           : name as String,
-      start: start == const $CopyWithPlaceholder() || start == null
+      start: start == const $CopyWithPlaceholder()
           ? _value.start
           // ignore: cast_nullable_to_non_nullable
           : start as DateTime,
-      end: end == const $CopyWithPlaceholder() || end == null
+      end: end == const $CopyWithPlaceholder()
           ? _value.end
           // ignore: cast_nullable_to_non_nullable
           : end as DateTime,

@@ -72,7 +72,7 @@ class CacheService {
     _storageFile = await BiometricStorage().getStorage(
       "encryptionKey_${(biometricAuth) ? "secure" : "lesssecure"}",
       options: StorageFileInitOptions(
-        androidBiometricOnly: true,
+        androidBiometricOnly: false,
         authenticationValidityDurationSeconds: 10,
         authenticationRequired: biometricAuth,
       ),
@@ -98,7 +98,7 @@ class CacheService {
     _storageFile = await BiometricStorage().getStorage(
       "encryptionKey_${(biometricAuth) ? "secure" : "lesssecure"}",
       options: StorageFileInitOptions(
-        androidBiometricOnly: true,
+        androidBiometricOnly: false,
         authenticationValidityDurationSeconds: 10,
         authenticationRequired: biometricAuth,
       ),

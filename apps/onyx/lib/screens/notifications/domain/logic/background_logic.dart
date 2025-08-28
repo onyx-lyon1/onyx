@@ -4,10 +4,10 @@ import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:workmanager/workmanager.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 @pragma('vm:entry-point')
 void workmanagerHandler() {
@@ -40,7 +40,7 @@ Future<bool> backgroundLogic({bool init = true}) async {
     var result = await lyon1Cas.authenticate(
         (await CacheService.get<Credential>(
             secureKey: await CacheService.getEncryptionKey(false)))!);
-    if (!result.authResult) return false;
+    if (!result) return false;
     await tomussNotificationLogic(settings, lyon1Cas, localizations);
     await emailNotificationLogic(settings, localizations);
     await agendaNotificationLogic(settings, lyon1Cas, localizations);

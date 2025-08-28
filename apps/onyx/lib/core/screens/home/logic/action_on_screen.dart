@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/examen/states/examen_cubit.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
@@ -14,26 +14,15 @@ import 'package:screen_brightness/screen_brightness.dart';
 int lastIndex = 0;
 
 void actionOnScreen(BuildContext context, int index) {
-  final agendaIndex = context
-      .read<SettingsCubit>()
-      .state
-      .settings
-      .enabledFunctionalities
-      .indexOf(Functionalities.agenda);
+  final settings = context.read<SettingsCubit>().settings;
+  final agendaIndex =
+      settings.enabledFunctionalities.indexOf(Functionalities.agenda);
 
-  final colloscopeIndex = context
-      .read<SettingsCubit>()
-      .state
-      .settings
-      .enabledFunctionalities
-      .indexOf(Functionalities.examen);
+  final colloscopeIndex =
+      settings.enabledFunctionalities.indexOf(Functionalities.examen);
 
-  final izlyIndex = context
-      .read<SettingsCubit>()
-      .state
-      .settings
-      .enabledFunctionalities
-      .indexOf(Functionalities.izly);
+  final izlyIndex =
+      settings.enabledFunctionalities.indexOf(Functionalities.izly);
 
   if (index != izlyIndex) {
     if (Platform.isAndroid || Platform.isIOS) {
@@ -49,13 +38,10 @@ void actionOnScreen(BuildContext context, int index) {
   }
 
   if (index == agendaIndex) {
-    if (!context.read<SettingsCubit>().state.settings.shownAgendaPopup) {
-      context.read<SettingsCubit>().modify(
-          settings: context
-              .read<SettingsCubit>()
-              .state
-              .settings
-              .copyWith(shownAgendaPopup: true));
+    if (!settings.shownAgendaPopup) {
+      context
+          .read<SettingsCubit>()
+          .modify(settings: settings.copyWith(shownAgendaPopup: true));
       SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
         showDialog(
           context: context,
@@ -73,13 +59,9 @@ void actionOnScreen(BuildContext context, int index) {
                   onTap: () {
                     Navigator.of(context).pop();
                     context.read<SettingsCubit>().modify(
-                        settings: context
-                            .read<SettingsCubit>()
-                            .state
-                            .settings
-                            .copyWith(
-                                fetchAgendaAuto:
-                                    false)); //this automaticallty reload agenda from bloclistener in home page
+                        settings: settings.copyWith(
+                            fetchAgendaAuto:
+                                false)); //this automaticallty reload agenda from bloclistener in home page
                   },
                 ),
               ],
