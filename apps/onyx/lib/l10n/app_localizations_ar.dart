@@ -102,7 +102,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settings => 'الإعدادات';
 
   @override
-  String get showMiniCalendar => 'إظهار التقويم المصغر في الجزء العلوي من الصفحة';
+  String get showMiniCalendar =>
+      'إظهار التقويم المصغر في الجزء العلوي من الصفحة';
 
   @override
   String get calendarUpdateNotification => 'الإخطار في حالة تحديث جدول الأعمال';
@@ -150,7 +151,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get searchInCalendars => 'ابحث في جدول أعمال';
 
   @override
-  String get needCameraToScanQrCode => 'نحتاج إلى الكاميرا لمسح رمز الاستجابة السريعة';
+  String get needCameraToScanQrCode =>
+      'نحتاج إلى الكاميرا لمسح رمز الاستجابة السريعة';
 
   @override
   String get forLyon1 => 'ل ليون 1';
@@ -192,7 +194,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String available(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -237,7 +238,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String minimumAmountIs(int countEuros) {
     final intl.NumberFormat countEurosNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countEurosString = countEurosNumberFormat.format(countEuros);
 
@@ -320,7 +320,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String nDayModified(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -360,14 +359,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String youHaveANewGrade(double numerator, double denominator, String title) {
     final intl.NumberFormat numeratorNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String numeratorString = numeratorNumberFormat.format(numerator);
     final intl.NumberFormat denominatorNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
-    final String denominatorString = denominatorNumberFormat.format(denominator);
+    final String denominatorString =
+        denominatorNumberFormat.format(denominator);
 
     return 'كان لديك $numeratorString/$denominatorString في: $title';
   }
@@ -388,7 +386,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get ok => 'نعم';
 
   @override
-  String get warningSelectShouldAgenda => 'يتم اختيار جدول الأعمال تلقائيًا.هذا يمكن أن يكون غير دقيق ،\nخاصة لطلاب التكنولوجيا الفنية.\nلا تتردد في تحديدها يدويًا من الإعدادات.';
+  String get warningSelectShouldAgenda =>
+      'يتم اختيار جدول الأعمال تلقائيًا.هذا يمكن أن يكون غير دقيق ،\nخاصة لطلاب التكنولوجيا الفنية.\nلا تتردد في تحديدها يدويًا من الإعدادات.';
 
   @override
   String get privacyPolicy => 'سياسة الخصوصية';
@@ -403,22 +402,27 @@ class AppLocalizationsAr extends AppLocalizations {
   String get contactUs => 'اتصل بنا';
 
   @override
-  String get weTakeCareOfYourData => 'تم تصميم تطبيقنا لتوفير الوصول عبر الإنترنت إلى خدمات جامعة ليون 1. نأخذ حماية معلوماتك الشخصية على محمل الجد ونحن مصممون على ضمان سرية معلوماتك.';
+  String get weTakeCareOfYourData =>
+      'تم تصميم تطبيقنا لتوفير الوصول عبر الإنترنت إلى خدمات جامعة ليون 1. نأخذ حماية معلوماتك الشخصية على محمل الجد ونحن مصممون على ضمان سرية معلوماتك.';
 
   @override
-  String get dataOnlyStoredOnYourDevice => 'تطبيقنا لا يجمع أي معلومات شخصية.يتم تخزين بيانات الاتصال فقط على هاتف المستخدم ويتم توصيلها فقط مع خوادم الجامعة ، والتي لسنا مسؤولين عنها.';
+  String get dataOnlyStoredOnYourDevice =>
+      'تطبيقنا لا يجمع أي معلومات شخصية.يتم تخزين بيانات الاتصال فقط على هاتف المستخدم ويتم توصيلها فقط مع خوادم الجامعة ، والتي لسنا مسؤولين عنها.';
 
   @override
-  String get ourSecurityMeasures => 'نتخذ تدابير أمان معقولة لحماية معلوماتك الشخصية من الخسارة والاستخدام المسيء والوصول غير المصرح به والتعديل والإفصاح.ومع ذلك ، لا توجد طريقة للإرسال على الإنترنت أو التخزين الإلكتروني موثوقًا بنسبة 100 ٪.لذلك ، على الرغم من أننا نحاول حماية معلوماتك الشخصية ، إلا أنه لا يمكننا ضمان الأمان المطلق لمعلوماتك المنقولة إلى تطبيقنا وتقوم بذلك على مسؤوليتك الخاصة.';
+  String get ourSecurityMeasures =>
+      'نتخذ تدابير أمان معقولة لحماية معلوماتك الشخصية من الخسارة والاستخدام المسيء والوصول غير المصرح به والتعديل والإفصاح.ومع ذلك ، لا توجد طريقة للإرسال على الإنترنت أو التخزين الإلكتروني موثوقًا بنسبة 100 ٪.لذلك ، على الرغم من أننا نحاول حماية معلوماتك الشخصية ، إلا أنه لا يمكننا ضمان الأمان المطلق لمعلوماتك المنقولة إلى تطبيقنا وتقوم بذلك على مسؤوليتك الخاصة.';
 
   @override
   String get modificationOfThePrivacyPolicy => 'تعديل سياسة الخصوصية هذه';
 
   @override
-  String get weCanModifyRules => 'نحن نحتفظ بالحق في تعديل سياسة الخصوصية هذه من وقت لآخر.سيتم نشر أي تعديل على هذه الصفحة وسيؤدي سريانه مباشرة بعد نشره.تقع على عاتقك مسؤولية استشارة هذه الصفحة بانتظام لإبقائك على اطلاع بالتعديلات التي تم إجراؤها على سياسة الخصوصية الخاصة بنا.';
+  String get weCanModifyRules =>
+      'نحن نحتفظ بالحق في تعديل سياسة الخصوصية هذه من وقت لآخر.سيتم نشر أي تعديل على هذه الصفحة وسيؤدي سريانه مباشرة بعد نشره.تقع على عاتقك مسؤولية استشارة هذه الصفحة بانتظام لإبقائك على اطلاع بالتعديلات التي تم إجراؤها على سياسة الخصوصية الخاصة بنا.';
 
   @override
-  String get ifQuestionThenGithub => 'إذا كان لديك أي أسئلة حول سياسة الخصوصية هذه ، فيرجى الاتصال بنا على Github';
+  String get ifQuestionThenGithub =>
+      'إذا كان لديك أي أسئلة حول سياسة الخصوصية هذه ، فيرجى الاتصال بنا على Github';
 
   @override
   String kholleOf(String teacher) {
@@ -432,7 +436,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String examLocationPlace(String location, num place) {
-    final intl.NumberFormat placeNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat placeNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
     final String placeString = placeNumberFormat.format(place);
 
     return '$location ، المكان: $placeString';
@@ -463,7 +468,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String weekNumberShort(int weekNumber) {
     final intl.NumberFormat weekNumberNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String weekNumberString = weekNumberNumberFormat.format(weekNumber);
 
@@ -495,7 +499,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String searchInTheNLastEmails(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -506,7 +509,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String minuteCompact(int minutes) {
     final intl.NumberFormat minutesNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String minutesString = minutesNumberFormat.format(minutes);
 
@@ -517,7 +519,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String hourCompact(int hours) {
     final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String hoursString = hoursNumberFormat.format(hours);
 
@@ -528,7 +529,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String dayCompact(int days) {
     final intl.NumberFormat daysNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String daysString = daysNumberFormat.format(days);
 
@@ -558,7 +558,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get cancel => 'يلغي';
 
   @override
-  String get emailAddressHint => 'المستلم: pxxxxxxxx ، name.nom@status.univ-lyon1.fr';
+  String get emailAddressHint =>
+      'المستلم: pxxxxxxxx ، name.nom@status.univ-lyon1.fr';
 
   @override
   String get building => 'مبنى';
@@ -623,7 +624,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String forceYearValue(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -653,7 +653,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get unableToEnableBiometricAuth => 'من المستحيل تنشيط مصادقة البصمات';
 
   @override
-  String get enableBiometricAuthDisableNotifications => 'مصادقة بصمة الرقمية تعطل الإخطارات';
+  String get enableBiometricAuthDisableNotifications =>
+      'مصادقة بصمة الرقمية تعطل الإخطارات';
 
   @override
   String get autoChangeTheme => 'التغيير تلقائيا إلى السمة المحددة';
@@ -665,7 +666,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String nDays(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -683,25 +683,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectSemester => 'حدد الفصل الدراسي';
 
   @override
-  String noteDescription(double average, double mediane, int rank, int groupeSize, String author) {
+  String noteDescription(
+      double average, double mediane, int rank, int groupeSize, String author) {
     final intl.NumberFormat averageNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String averageString = averageNumberFormat.format(average);
     final intl.NumberFormat medianeNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String medianeString = medianeNumberFormat.format(mediane);
     final intl.NumberFormat rankNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String rankString = rankNumberFormat.format(rank);
     final intl.NumberFormat groupeSizeNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String groupeSizeString = groupeSizeNumberFormat.format(groupeSize);
 
@@ -815,7 +812,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String izlyNotEnoughMoneyBody(double money) {
     final intl.NumberFormat moneyNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String moneyString = moneyNumberFormat.format(money);
 
@@ -826,7 +822,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get mailSendPageDiscardTitle => 'تجاهل التغييرات؟';
 
   @override
-  String get mailSendPageDiscardContent => 'هل تريد بالتأكيد تجاهل التغييرات التي أدخلتها؟';
+  String get mailSendPageDiscardContent =>
+      'هل تريد بالتأكيد تجاهل التغييرات التي أدخلتها؟';
 
   @override
   String get discard => 'غادر';

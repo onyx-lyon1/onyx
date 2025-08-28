@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/core/extensions/functionalities_extension.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -71,9 +71,9 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
                 },
                 listener: (context, state) {
                   if (state.collapseAll) {
-                    if (ExpansionTileController.maybeOf(context)?.isExpanded ??
+                    if (ExpansibleController.maybeOf(context)?.isExpanded ??
                         false) {
-                      ExpansionTileController.maybeOf(context)?.collapse();
+                      ExpansibleController.maybeOf(context)?.collapse();
                     }
                   }
                 },

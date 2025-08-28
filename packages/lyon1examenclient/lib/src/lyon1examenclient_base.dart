@@ -1,5 +1,5 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1examenclient/lyon1examenclient.dart';
 import 'package:lyon1examenclient/src/duration_adapter.dart';

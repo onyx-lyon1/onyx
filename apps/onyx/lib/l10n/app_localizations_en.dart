@@ -102,10 +102,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
-  String get showMiniCalendar => 'Show the mini calendar at the top of the page';
+  String get showMiniCalendar =>
+      'Show the mini calendar at the top of the page';
 
   @override
-  String get calendarUpdateNotification => 'Notification in case of calendar update';
+  String get calendarUpdateNotification =>
+      'Notification in case of calendar update';
 
   @override
   String get agendaPageBottomToTop => 'Display the agendas from bottom to top';
@@ -183,7 +185,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get connecting => 'Connecting';
 
   @override
-  String get thereWasAnErrorWhileConnecting => 'There was an error while connecting';
+  String get thereWasAnErrorWhileConnecting =>
+      'There was an error while connecting';
 
   @override
   String get loading => 'Loading...';
@@ -192,7 +195,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String available(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -237,7 +239,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String minimumAmountIs(int countEuros) {
     final intl.NumberFormat countEurosNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countEurosString = countEurosNumberFormat.format(countEuros);
 
@@ -320,7 +321,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String nDayModified(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -360,14 +360,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String youHaveANewGrade(double numerator, double denominator, String title) {
     final intl.NumberFormat numeratorNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String numeratorString = numeratorNumberFormat.format(numerator);
     final intl.NumberFormat denominatorNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
-    final String denominatorString = denominatorNumberFormat.format(denominator);
+    final String denominatorString =
+        denominatorNumberFormat.format(denominator);
 
     return 'You got $numeratorString/$denominatorString in: $title';
   }
@@ -388,7 +387,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ok => 'Ok';
 
   @override
-  String get warningSelectShouldAgenda => 'The agenda is automatically selected. This can be inaccurate,\nespecially for Polytech students.\nDon\'t hesitate to select it manually in the settings.';
+  String get warningSelectShouldAgenda =>
+      'The agenda is automatically selected. This can be inaccurate,\nespecially for Polytech students.\nDon\'t hesitate to select it manually in the settings.';
 
   @override
   String get privacyPolicy => 'Privacy policy';
@@ -403,22 +403,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contactUs => 'Contact us';
 
   @override
-  String get weTakeCareOfYourData => 'Our application is designed to provide online access to the services of the University of Lyon 1. We take the protection of your personal information seriously and we are committed to ensuring the confidentiality of your information.';
+  String get weTakeCareOfYourData =>
+      'Our application is designed to provide online access to the services of the University of Lyon 1. We take the protection of your personal information seriously and we are committed to ensuring the confidentiality of your information.';
 
   @override
-  String get dataOnlyStoredOnYourDevice => 'Our application does not collect any personal information. Login data is stored only on the user\'s phone and is only communicated with the university\'s servers, for which we are not responsible.';
+  String get dataOnlyStoredOnYourDevice =>
+      'Our application does not collect any personal information. Login data is stored only on the user\'s phone and is only communicated with the university\'s servers, for which we are not responsible.';
 
   @override
-  String get ourSecurityMeasures => 'We take reasonable security measures to protect your personal information against loss, misuse, unauthorized access, modification and disclosure. Nevertheless, no method of transmission over the Internet or electronic storage is 100% secure. Therefore, while we strive to protect your personal information, we cannot guarantee the absolute security of your information transmitted to our application and you do so at your own risk.';
+  String get ourSecurityMeasures =>
+      'We take reasonable security measures to protect your personal information against loss, misuse, unauthorized access, modification and disclosure. Nevertheless, no method of transmission over the Internet or electronic storage is 100% secure. Therefore, while we strive to protect your personal information, we cannot guarantee the absolute security of your information transmitted to our application and you do so at your own risk.';
 
   @override
-  String get modificationOfThePrivacyPolicy => 'Modification of this privacy policy';
+  String get modificationOfThePrivacyPolicy =>
+      'Modification of this privacy policy';
 
   @override
-  String get weCanModifyRules => 'We reserve the right to modify this privacy policy from time to time. Any changes will be posted on this page and will take effect immediately upon posting. It is your responsibility to check this page regularly to keep up to date with any changes to our privacy policy.';
+  String get weCanModifyRules =>
+      'We reserve the right to modify this privacy policy from time to time. Any changes will be posted on this page and will take effect immediately upon posting. It is your responsibility to check this page regularly to keep up to date with any changes to our privacy policy.';
 
   @override
-  String get ifQuestionThenGithub => 'If you have any questions about this privacy policy, please contact us on github';
+  String get ifQuestionThenGithub =>
+      'If you have any questions about this privacy policy, please contact us on github';
 
   @override
   String kholleOf(String teacher) {
@@ -432,7 +438,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String examLocationPlace(String location, num place) {
-    final intl.NumberFormat placeNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat placeNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
     final String placeString = placeNumberFormat.format(place);
 
     return '$location, place: $placeString';
@@ -463,7 +470,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String weekNumberShort(int weekNumber) {
     final intl.NumberFormat weekNumberNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String weekNumberString = weekNumberNumberFormat.format(weekNumber);
 
@@ -495,7 +501,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String searchInTheNLastEmails(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -506,7 +511,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String minuteCompact(int minutes) {
     final intl.NumberFormat minutesNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String minutesString = minutesNumberFormat.format(minutes);
 
@@ -517,7 +521,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String hourCompact(int hours) {
     final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String hoursString = hoursNumberFormat.format(hours);
 
@@ -528,7 +531,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String dayCompact(int days) {
     final intl.NumberFormat daysNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String daysString = daysNumberFormat.format(days);
 
@@ -558,7 +560,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancel => 'Cancel';
 
   @override
-  String get emailAddressHint => 'Recipient: PXXXXXXX, firstName.surname@status.univ-lyon1.fr';
+  String get emailAddressHint =>
+      'Recipient: PXXXXXXX, firstName.surname@status.univ-lyon1.fr';
 
   @override
   String get building => 'Building';
@@ -623,7 +626,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String forceYearValue(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -650,10 +652,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enablebiometricAuth => 'Enable fingerprint authentication';
 
   @override
-  String get unableToEnableBiometricAuth => 'Unable to enable fingerprint authentication';
+  String get unableToEnableBiometricAuth =>
+      'Unable to enable fingerprint authentication';
 
   @override
-  String get enableBiometricAuthDisableNotifications => 'Fingerprint authentication disables notifications';
+  String get enableBiometricAuthDisableNotifications =>
+      'Fingerprint authentication disables notifications';
 
   @override
   String get autoChangeTheme => 'Automatically change to the selected theme';
@@ -665,7 +669,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String nDays(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -683,25 +686,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectSemester => 'Select a semester';
 
   @override
-  String noteDescription(double average, double mediane, int rank, int groupeSize, String author) {
+  String noteDescription(
+      double average, double mediane, int rank, int groupeSize, String author) {
     final intl.NumberFormat averageNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String averageString = averageNumberFormat.format(average);
     final intl.NumberFormat medianeNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String medianeString = medianeNumberFormat.format(mediane);
     final intl.NumberFormat rankNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String rankString = rankNumberFormat.format(rank);
     final intl.NumberFormat groupeSizeNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String groupeSizeString = groupeSizeNumberFormat.format(groupeSize);
 
@@ -815,7 +815,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String izlyNotEnoughMoneyBody(double money) {
     final intl.NumberFormat moneyNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String moneyString = moneyNumberFormat.format(money);
 
@@ -826,7 +825,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mailSendPageDiscardTitle => 'Discard the email?';
 
   @override
-  String get mailSendPageDiscardContent => 'Do you really want to discard the email?';
+  String get mailSendPageDiscardContent =>
+      'Do you really want to discard the email?';
 
   @override
   String get discard => 'Discard';

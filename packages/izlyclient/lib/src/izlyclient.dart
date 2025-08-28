@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';

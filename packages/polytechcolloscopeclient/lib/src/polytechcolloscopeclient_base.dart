@@ -1,7 +1,7 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:collection/collection.dart';
 import 'package:diacritic/diacritic.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:html/dom.dart';
 import 'package:requests_plus/requests_plus.dart';
 

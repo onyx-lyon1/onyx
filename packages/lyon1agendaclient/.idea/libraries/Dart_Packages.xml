@@ -226,17 +226,17 @@
             </list>
           </value>
         </entry>
-        <entry key="hive">
+        <entry key="hive_ce">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/hive-2.2.3/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/hive_ce-2.2.3/lib" />
             </list>
           </value>
         </entry>
-        <entry key="hive_generator">
+        <entry key="hive_ce_generator">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/hive_generator-2.0.0/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/hive_ce_generator-2.0.0/lib" />
             </list>
           </value>
         </entry>
@@ -597,8 +597,8 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/glob-2.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/graphs-2.3.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/hex-0.2.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/hive-2.2.3/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/hive_generator-2.0.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/hive_ce-2.2.3/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/hive_ce_generator-2.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/html-0.15.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http-1.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_multi_server-3.2.1/lib" />

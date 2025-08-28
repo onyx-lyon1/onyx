@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 
 part 'generated/izly_payment_model.g.dart';
 

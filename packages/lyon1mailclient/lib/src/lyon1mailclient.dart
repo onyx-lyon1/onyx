@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:enough_mail/enough_mail.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:requests_plus/requests_plus.dart';
 

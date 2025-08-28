@@ -2,7 +2,7 @@ import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:enough_mail/enough_mail.dart' as enough_mail;
 import 'package:enough_mail/highlevel.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 
 part 'generated/mail_box.g.dart';

@@ -105,13 +105,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get showMiniCalendar => 'Показать мини-календарь вверху страницы';
 
   @override
-  String get calendarUpdateNotification => 'Уведомление об обновлении календаря';
+  String get calendarUpdateNotification =>
+      'Уведомление об обновлении календаря';
 
   @override
   String get agendaPageBottomToTop => 'Отображать повестку дня снизу вверх';
 
   @override
-  String get agendaWeekLength => 'Количество дней, отображаемых в режиме недели';
+  String get agendaWeekLength =>
+      'Количество дней, отображаемых в режиме недели';
 
   @override
   String get agendaWeekReference => 'День ссылки в режиме недели';
@@ -171,7 +173,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get pleaseEnterUsername => 'Введите имя пользователя';
 
   @override
-  String get pleaseEnterAValidEmail => 'Введите действительный адрес электронной почты';
+  String get pleaseEnterAValidEmail =>
+      'Введите действительный адрес электронной почты';
 
   @override
   String get pleaseEnterPassword => 'Введите пароль';
@@ -183,7 +186,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get connecting => 'Подключение';
 
   @override
-  String get thereWasAnErrorWhileConnecting => 'Во время подключения произошла ошибка';
+  String get thereWasAnErrorWhileConnecting =>
+      'Во время подключения произошла ошибка';
 
   @override
   String get loading => 'Загрузка...';
@@ -192,7 +196,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String available(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -237,7 +240,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String minimumAmountIs(int countEuros) {
     final intl.NumberFormat countEurosNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countEurosString = countEurosNumberFormat.format(countEuros);
 
@@ -278,7 +280,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get me => 'Мне';
 
   @override
-  String get mailSendPageErrorTitle => 'Пожалуйста, заполните все поля правильно';
+  String get mailSendPageErrorTitle =>
+      'Пожалуйста, заполните все поля правильно';
 
   @override
   String get subject => 'Тема';
@@ -290,7 +293,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get mailServerConnection => 'Подключение к почтовому серверу';
 
   @override
-  String get mailServerConnectionError => 'Ошибка подключения к почтовому серверу';
+  String get mailServerConnectionError =>
+      'Ошибка подключения к почтовому серверу';
 
   @override
   String get loadingMails => 'Загрузка почты';
@@ -320,7 +324,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String nDayModified(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -360,14 +363,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String youHaveANewGrade(double numerator, double denominator, String title) {
     final intl.NumberFormat numeratorNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String numeratorString = numeratorNumberFormat.format(numerator);
     final intl.NumberFormat denominatorNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
-    final String denominatorString = denominatorNumberFormat.format(denominator);
+    final String denominatorString =
+        denominatorNumberFormat.format(denominator);
 
     return 'Вы получили numerator/$denominatorString (\$$title) в: \$$title';
   }
@@ -388,7 +390,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get ok => 'Ok';
 
   @override
-  String get warningSelectShouldAgenda => 'Расписание выбирается автоматически. Это может быть неправильно,\nособенно для студентов Политехнического института.\nНе стесняйтесь выбирать его вручную в настройках.';
+  String get warningSelectShouldAgenda =>
+      'Расписание выбирается автоматически. Это может быть неправильно,\nособенно для студентов Политехнического института.\nНе стесняйтесь выбирать его вручную в настройках.';
 
   @override
   String get privacyPolicy => 'Политика конфиденциальности';
@@ -403,22 +406,28 @@ class AppLocalizationsRu extends AppLocalizations {
   String get contactUs => 'Свяжитесь с нами';
 
   @override
-  String get weTakeCareOfYourData => 'Наше приложение предназначено для обеспечения онлайн-доступа к услугам Университета Лиона 1. Мы серьезно относимся к защите вашей личной информации и стремимся обеспечить конфиденциальность вашей информации.';
+  String get weTakeCareOfYourData =>
+      'Наше приложение предназначено для обеспечения онлайн-доступа к услугам Университета Лиона 1. Мы серьезно относимся к защите вашей личной информации и стремимся обеспечить конфиденциальность вашей информации.';
 
   @override
-  String get dataOnlyStoredOnYourDevice => 'Наше приложение не собирает никакой личной информации. Данные для входа хранятся только на телефоне пользователя и передаются только на серверы университета, за которые мы не несем ответственности.';
+  String get dataOnlyStoredOnYourDevice =>
+      'Наше приложение не собирает никакой личной информации. Данные для входа хранятся только на телефоне пользователя и передаются только на серверы университета, за которые мы не несем ответственности.';
 
   @override
-  String get ourSecurityMeasures => 'Мы принимаем разумные меры безопасности для защиты вашей личной информации от потери, злоупотребления, несанкционированного доступа, изменения и раскрытия. Тем не менее, ни один метод передачи данных через Интернет или электронного хранения не является на 100% безопасным. Поэтому, хотя мы стремимся защитить вашу личную информацию, мы не можем гарантировать абсолютную безопасность вашей информации, передаваемой в наше приложение, и вы делаете это на свой страх и риск.';
+  String get ourSecurityMeasures =>
+      'Мы принимаем разумные меры безопасности для защиты вашей личной информации от потери, злоупотребления, несанкционированного доступа, изменения и раскрытия. Тем не менее, ни один метод передачи данных через Интернет или электронного хранения не является на 100% безопасным. Поэтому, хотя мы стремимся защитить вашу личную информацию, мы не можем гарантировать абсолютную безопасность вашей информации, передаваемой в наше приложение, и вы делаете это на свой страх и риск.';
 
   @override
-  String get modificationOfThePrivacyPolicy => 'Изменение настоящей политики конфиденциальности';
+  String get modificationOfThePrivacyPolicy =>
+      'Изменение настоящей политики конфиденциальности';
 
   @override
-  String get weCanModifyRules => 'Мы оставляем за собой право время от времени менять эту политику конфиденциальности. Любые изменения будут размещены на этой странице и вступят в силу сразу после публикации. Вы обязаны регулярно проверять эту страницу, чтобы быть в курсе любых изменений нашей политики конфиденциальности.';
+  String get weCanModifyRules =>
+      'Мы оставляем за собой право время от времени менять эту политику конфиденциальности. Любые изменения будут размещены на этой странице и вступят в силу сразу после публикации. Вы обязаны регулярно проверять эту страницу, чтобы быть в курсе любых изменений нашей политики конфиденциальности.';
 
   @override
-  String get ifQuestionThenGithub => 'Если у вас есть какие-либо вопросы по поводу этой политики конфиденциальности, пожалуйста, свяжитесь с нами на github';
+  String get ifQuestionThenGithub =>
+      'Если у вас есть какие-либо вопросы по поводу этой политики конфиденциальности, пожалуйста, свяжитесь с нами на github';
 
   @override
   String kholleOf(String teacher) {
@@ -432,7 +441,8 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String examLocationPlace(String location, num place) {
-    final intl.NumberFormat placeNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final intl.NumberFormat placeNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
     final String placeString = placeNumberFormat.format(place);
 
     return '$location, место: $placeString';
@@ -463,7 +473,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String weekNumberShort(int weekNumber) {
     final intl.NumberFormat weekNumberNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String weekNumberString = weekNumberNumberFormat.format(weekNumber);
 
@@ -495,7 +504,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String searchInTheNLastEmails(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -506,7 +514,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String minuteCompact(int minutes) {
     final intl.NumberFormat minutesNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String minutesString = minutesNumberFormat.format(minutes);
 
@@ -517,7 +524,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String hourCompact(int hours) {
     final intl.NumberFormat hoursNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String hoursString = hoursNumberFormat.format(hours);
 
@@ -528,7 +534,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String dayCompact(int days) {
     final intl.NumberFormat daysNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String daysString = daysNumberFormat.format(days);
 
@@ -558,7 +563,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get cancel => 'Отмена';
 
   @override
-  String get emailAddressHint => 'Получатель: PXXXXXXX, firstName.surname@status.univ-lyon1.fr';
+  String get emailAddressHint =>
+      'Получатель: PXXXXXXX, firstName.surname@status.univ-lyon1.fr';
 
   @override
   String get building => 'Здание';
@@ -623,7 +629,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String forceYearValue(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -647,13 +652,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get yetNothingToConfigure => 'Пока нечего настраивать';
 
   @override
-  String get enablebiometricAuth => 'Включить аутентификацию по отпечатку пальца';
+  String get enablebiometricAuth =>
+      'Включить аутентификацию по отпечатку пальца';
 
   @override
-  String get unableToEnableBiometricAuth => 'Не удалось включить аутентификацию по отпечатку пальца';
+  String get unableToEnableBiometricAuth =>
+      'Не удалось включить аутентификацию по отпечатку пальца';
 
   @override
-  String get enableBiometricAuthDisableNotifications => 'Аутентификация по отпечатку пальца отключает уведомления';
+  String get enableBiometricAuthDisableNotifications =>
+      'Аутентификация по отпечатку пальца отключает уведомления';
 
   @override
   String get autoChangeTheme => 'Автоматически переключаться на выбранную тему';
@@ -665,7 +673,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String nDays(int count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String countString = countNumberFormat.format(count);
 
@@ -683,25 +690,22 @@ class AppLocalizationsRu extends AppLocalizations {
   String get selectSemester => 'Выбрать семестр';
 
   @override
-  String noteDescription(double average, double mediane, int rank, int groupeSize, String author) {
+  String noteDescription(
+      double average, double mediane, int rank, int groupeSize, String author) {
     final intl.NumberFormat averageNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String averageString = averageNumberFormat.format(average);
     final intl.NumberFormat medianeNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String medianeString = medianeNumberFormat.format(mediane);
     final intl.NumberFormat rankNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String rankString = rankNumberFormat.format(rank);
     final intl.NumberFormat groupeSizeNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String groupeSizeString = groupeSizeNumberFormat.format(groupeSize);
 
@@ -815,7 +819,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String izlyNotEnoughMoneyBody(double money) {
     final intl.NumberFormat moneyNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
-      
     );
     final String moneyString = moneyNumberFormat.format(money);
 
@@ -826,7 +829,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get mailSendPageDiscardTitle => 'Отменить отправку письма?';
 
   @override
-  String get mailSendPageDiscardContent => 'Вы уверены, что хотите отменить отправку письма?';
+  String get mailSendPageDiscardContent =>
+      'Вы уверены, что хотите отменить отправку письма?';
 
   @override
   String get discard => 'Отменить';
