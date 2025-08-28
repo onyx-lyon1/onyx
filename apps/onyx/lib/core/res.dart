@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logger/logger.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-part 'generated/res.g.dart';
 
 class Res {
   static Duration get animationDuration => const Duration(milliseconds: 300);
@@ -108,20 +106,12 @@ class Res {
   ];
 }
 
-@HiveType(typeId: 18)
 enum Functionalities {
-  @HiveField(0)
   tomuss,
-  @HiveField(1)
   agenda,
-  @HiveField(2)
   mail,
-  @HiveField(3)
   map,
-  @HiveField(4)
   izly,
-  @HiveField(5)
   settings,
-  @HiveField(6)
   examen,
 }

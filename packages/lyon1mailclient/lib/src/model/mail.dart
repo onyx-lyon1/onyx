@@ -6,36 +6,24 @@ import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:enough_mail_html/enough_mail_html.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:lyon1mailclient/src/config/config.dart';
 
 part 'generated/mail.g.dart';
 
 @CopyWith()
-@HiveType(typeId: 5)
 // ignore: must_be_immutable
 class Mail extends Equatable {
   late final MimeMessage? rawMail;
 
-  @HiveField(0)
   late final String subject;
-  @HiveField(1)
   late final String sender;
-  @HiveField(2)
   late final String excerpt;
-  @HiveField(3)
   late final String body;
-  @HiveField(4)
   late final int? id;
-  @HiveField(5)
   late final bool isRead;
-  @HiveField(6)
   late final bool isFlagged;
-  @HiveField(7)
   late final DateTime date;
-  @HiveField(8)
   late final String receiver;
-  @HiveField(9)
   late final List<String> attachments;
 
   late List<File> attachmentsFiles;

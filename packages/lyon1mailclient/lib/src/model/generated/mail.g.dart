@@ -31,79 +31,82 @@ abstract class _$MailCWProxy {
 
   Mail rawMail(MimeMessage? rawMail);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Mail(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Mail(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Mail(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Mail call({
-    String? subject,
-    String? sender,
-    String? excerpt,
-    bool? isRead,
-    DateTime? date,
-    String? body,
+    String subject,
+    String sender,
+    String excerpt,
+    bool isRead,
+    DateTime date,
+    String body,
     int? id,
-    String? receiver,
-    List<String>? attachments,
-    bool? isFlagged,
-    List<File>? attachmentsFiles,
+    String receiver,
+    List<String> attachments,
+    bool isFlagged,
+    List<File> attachmentsFiles,
     MimeMessage? rawMail,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfMail.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfMail.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfMail.copyWith(...)` or call `instanceOfMail.copyWith.fieldName(value)` for a single field.
 class _$MailCWProxyImpl implements _$MailCWProxy {
   const _$MailCWProxyImpl(this._value);
 
   final Mail _value;
 
   @override
-  Mail subject(String subject) => this(subject: subject);
+  Mail subject(String subject) => call(subject: subject);
 
   @override
-  Mail sender(String sender) => this(sender: sender);
+  Mail sender(String sender) => call(sender: sender);
 
   @override
-  Mail excerpt(String excerpt) => this(excerpt: excerpt);
+  Mail excerpt(String excerpt) => call(excerpt: excerpt);
 
   @override
-  Mail isRead(bool isRead) => this(isRead: isRead);
+  Mail isRead(bool isRead) => call(isRead: isRead);
 
   @override
-  Mail date(DateTime date) => this(date: date);
+  Mail date(DateTime date) => call(date: date);
 
   @override
-  Mail body(String body) => this(body: body);
+  Mail body(String body) => call(body: body);
 
   @override
-  Mail id(int? id) => this(id: id);
+  Mail id(int? id) => call(id: id);
 
   @override
-  Mail receiver(String receiver) => this(receiver: receiver);
+  Mail receiver(String receiver) => call(receiver: receiver);
 
   @override
-  Mail attachments(List<String> attachments) => this(attachments: attachments);
+  Mail attachments(List<String> attachments) => call(attachments: attachments);
 
   @override
-  Mail isFlagged(bool isFlagged) => this(isFlagged: isFlagged);
+  Mail isFlagged(bool isFlagged) => call(isFlagged: isFlagged);
 
   @override
   Mail attachmentsFiles(List<File> attachmentsFiles) =>
-      this(attachmentsFiles: attachmentsFiles);
+      call(attachmentsFiles: attachmentsFiles);
 
   @override
-  Mail rawMail(MimeMessage? rawMail) => this(rawMail: rawMail);
+  Mail rawMail(MimeMessage? rawMail) => call(rawMail: rawMail);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Mail(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Mail(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Mail(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Mail call({
     Object? subject = const $CopyWithPlaceholder(),
     Object? sender = const $CopyWithPlaceholder(),
@@ -174,72 +177,8 @@ class _$MailCWProxyImpl implements _$MailCWProxy {
 }
 
 extension $MailCopyWith on Mail {
-  /// Returns a callable class that can be used as follows: `instanceOfMail.copyWith(...)` or like so:`instanceOfMail.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfMail.copyWith(...)` or `instanceOfMail.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$MailCWProxy get copyWith => _$MailCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class MailAdapter extends TypeAdapter<Mail> {
-  @override
-  final int typeId = 5;
-
-  @override
-  Mail read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Mail(
-      subject: fields[0] as String,
-      sender: fields[1] as String,
-      excerpt: fields[2] as String,
-      isRead: fields[5] as bool,
-      date: fields[7] as DateTime,
-      body: fields[3] as String,
-      id: fields[4] as int?,
-      receiver: fields[8] as String,
-      attachments: (fields[9] as List).cast<String>(),
-      isFlagged: fields[6] as bool,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Mail obj) {
-    writer
-      ..writeByte(10)
-      ..writeByte(0)
-      ..write(obj.subject)
-      ..writeByte(1)
-      ..write(obj.sender)
-      ..writeByte(2)
-      ..write(obj.excerpt)
-      ..writeByte(3)
-      ..write(obj.body)
-      ..writeByte(4)
-      ..write(obj.id)
-      ..writeByte(5)
-      ..write(obj.isRead)
-      ..writeByte(6)
-      ..write(obj.isFlagged)
-      ..writeByte(7)
-      ..write(obj.date)
-      ..writeByte(8)
-      ..write(obj.receiver)
-      ..writeByte(9)
-      ..write(obj.attachments);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MailAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

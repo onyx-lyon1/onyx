@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:html/dom.dart';
+import 'package:polytechcolloscopeclient/hive/hive_registrar.g.dart';
 import 'package:requests_plus/requests_plus.dart';
 
 import 'consts.dart';
@@ -133,9 +134,6 @@ class PolytechColloscopeClient {
   }
 
   static void registerAdapters() {
-    Hive.registerAdapter(StudentAdapter());
-    Hive.registerAdapter(KholleAdapter());
-    Hive.registerAdapter(YearAdapter());
-    Hive.registerAdapter(StudentColloscopeAdapter());
+    Hive.registerAdapters();
   }
 }

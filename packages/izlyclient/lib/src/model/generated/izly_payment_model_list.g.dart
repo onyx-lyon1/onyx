@@ -9,18 +9,20 @@ part of '../izly_payment_model_list.dart';
 abstract class _$IzlyPaymentModelListCWProxy {
   IzlyPaymentModelList payments(List<IzlyPaymentModel> payments);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `IzlyPaymentModelList(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `IzlyPaymentModelList(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// IzlyPaymentModelList(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   IzlyPaymentModelList call({
-    List<IzlyPaymentModel>? payments,
+    List<IzlyPaymentModel> payments,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfIzlyPaymentModelList.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfIzlyPaymentModelList.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfIzlyPaymentModelList.copyWith(...)` or call `instanceOfIzlyPaymentModelList.copyWith.fieldName(value)` for a single field.
 class _$IzlyPaymentModelListCWProxyImpl
     implements _$IzlyPaymentModelListCWProxy {
   const _$IzlyPaymentModelListCWProxyImpl(this._value);
@@ -29,16 +31,17 @@ class _$IzlyPaymentModelListCWProxyImpl
 
   @override
   IzlyPaymentModelList payments(List<IzlyPaymentModel> payments) =>
-      this(payments: payments);
+      call(payments: payments);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `IzlyPaymentModelList(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `IzlyPaymentModelList(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// IzlyPaymentModelList(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   IzlyPaymentModelList call({
     Object? payments = const $CopyWithPlaceholder(),
   }) {
@@ -52,46 +55,9 @@ class _$IzlyPaymentModelListCWProxyImpl
 }
 
 extension $IzlyPaymentModelListCopyWith on IzlyPaymentModelList {
-  /// Returns a callable class that can be used as follows: `instanceOfIzlyPaymentModelList.copyWith(...)` or like so:`instanceOfIzlyPaymentModelList.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfIzlyPaymentModelList.copyWith(...)` or `instanceOfIzlyPaymentModelList.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$IzlyPaymentModelListCWProxy get copyWith =>
       _$IzlyPaymentModelListCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class IzlyPaymentModelListAdapter extends TypeAdapter<IzlyPaymentModelList> {
-  @override
-  final int typeId = 41;
-
-  @override
-  IzlyPaymentModelList read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return IzlyPaymentModelList(
-      payments: (fields[0] as List).cast<IzlyPaymentModel>(),
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, IzlyPaymentModelList obj) {
-    writer
-      ..writeByte(1)
-      ..writeByte(0)
-      ..write(obj.payments);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is IzlyPaymentModelListAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

@@ -67,46 +67,48 @@ abstract class _$SettingsModelCWProxy {
 
   SettingsModel izlyNotification(bool izlyNotification);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `SettingsModel(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// SettingsModel(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   SettingsModel call({
-    bool? biometricAuth,
-    bool? forceGreen,
-    bool? newGradeNotification,
-    bool? showHiddenUE,
-    bool? fetchAgendaAuto,
-    bool? showMiniCalendar,
-    bool? calendarUpdateNotification,
-    List<int>? agendaIds,
-    bool? newMailNotification,
-    bool? blockTrackers,
-    bool? forcedMailTheme,
-    bool? shownAgendaPopup,
-    List<Functionalities>? enabledFunctionalities,
-    List<Functionalities>? disabledFunctionalities,
-    int? recentGradeDuration,
-    bool? firstLogin,
-    bool? mock,
-    int? agendaWeekLength,
-    int? agendaWeekReference,
-    List<int>? agendaDisabledDays,
-    bool? agendaPageTopToBottom,
-    int? agendaWeekRerenceAlignement,
-    int? colloscopeOverrideStudentId,
-    int? colloscopeOverrideYearId,
+    bool biometricAuth,
+    bool forceGreen,
+    bool newGradeNotification,
+    bool showHiddenUE,
+    bool fetchAgendaAuto,
+    bool showMiniCalendar,
+    bool calendarUpdateNotification,
+    List<int> agendaIds,
+    bool newMailNotification,
+    bool blockTrackers,
+    bool forcedMailTheme,
+    bool shownAgendaPopup,
+    List<Functionalities> enabledFunctionalities,
+    List<Functionalities> disabledFunctionalities,
+    int recentGradeDuration,
+    bool firstLogin,
+    bool mock,
+    int agendaWeekLength,
+    int agendaWeekReference,
+    List<int> agendaDisabledDays,
+    bool agendaPageTopToBottom,
+    int agendaWeekRerenceAlignement,
+    int colloscopeOverrideStudentId,
+    int colloscopeOverrideYearId,
     bool? colloscopeEnabled,
     int? agendaId,
-    bool? examenAddToAgenda,
+    bool examenAddToAgenda,
     String? language,
-    bool? izlyNotification,
+    bool izlyNotification,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfSettingsModel.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfSettingsModel.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfSettingsModel.copyWith(...)` or call `instanceOfSettingsModel.copyWith.fieldName(value)` for a single field.
 class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
   const _$SettingsModelCWProxyImpl(this._value);
 
@@ -114,124 +116,125 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
 
   @override
   SettingsModel biometricAuth(bool biometricAuth) =>
-      this(biometricAuth: biometricAuth);
+      call(biometricAuth: biometricAuth);
 
   @override
-  SettingsModel forceGreen(bool forceGreen) => this(forceGreen: forceGreen);
+  SettingsModel forceGreen(bool forceGreen) => call(forceGreen: forceGreen);
 
   @override
   SettingsModel newGradeNotification(bool newGradeNotification) =>
-      this(newGradeNotification: newGradeNotification);
+      call(newGradeNotification: newGradeNotification);
 
   @override
   SettingsModel showHiddenUE(bool showHiddenUE) =>
-      this(showHiddenUE: showHiddenUE);
+      call(showHiddenUE: showHiddenUE);
 
   @override
   SettingsModel fetchAgendaAuto(bool fetchAgendaAuto) =>
-      this(fetchAgendaAuto: fetchAgendaAuto);
+      call(fetchAgendaAuto: fetchAgendaAuto);
 
   @override
   SettingsModel showMiniCalendar(bool showMiniCalendar) =>
-      this(showMiniCalendar: showMiniCalendar);
+      call(showMiniCalendar: showMiniCalendar);
 
   @override
   SettingsModel calendarUpdateNotification(bool calendarUpdateNotification) =>
-      this(calendarUpdateNotification: calendarUpdateNotification);
+      call(calendarUpdateNotification: calendarUpdateNotification);
 
   @override
-  SettingsModel agendaIds(List<int> agendaIds) => this(agendaIds: agendaIds);
+  SettingsModel agendaIds(List<int> agendaIds) => call(agendaIds: agendaIds);
 
   @override
   SettingsModel newMailNotification(bool newMailNotification) =>
-      this(newMailNotification: newMailNotification);
+      call(newMailNotification: newMailNotification);
 
   @override
   SettingsModel blockTrackers(bool blockTrackers) =>
-      this(blockTrackers: blockTrackers);
+      call(blockTrackers: blockTrackers);
 
   @override
   SettingsModel forcedMailTheme(bool forcedMailTheme) =>
-      this(forcedMailTheme: forcedMailTheme);
+      call(forcedMailTheme: forcedMailTheme);
 
   @override
   SettingsModel shownAgendaPopup(bool shownAgendaPopup) =>
-      this(shownAgendaPopup: shownAgendaPopup);
+      call(shownAgendaPopup: shownAgendaPopup);
 
   @override
   SettingsModel enabledFunctionalities(
           List<Functionalities> enabledFunctionalities) =>
-      this(enabledFunctionalities: enabledFunctionalities);
+      call(enabledFunctionalities: enabledFunctionalities);
 
   @override
   SettingsModel disabledFunctionalities(
           List<Functionalities> disabledFunctionalities) =>
-      this(disabledFunctionalities: disabledFunctionalities);
+      call(disabledFunctionalities: disabledFunctionalities);
 
   @override
   SettingsModel recentGradeDuration(int recentGradeDuration) =>
-      this(recentGradeDuration: recentGradeDuration);
+      call(recentGradeDuration: recentGradeDuration);
 
   @override
-  SettingsModel firstLogin(bool firstLogin) => this(firstLogin: firstLogin);
+  SettingsModel firstLogin(bool firstLogin) => call(firstLogin: firstLogin);
 
   @override
-  SettingsModel mock(bool mock) => this(mock: mock);
+  SettingsModel mock(bool mock) => call(mock: mock);
 
   @override
   SettingsModel agendaWeekLength(int agendaWeekLength) =>
-      this(agendaWeekLength: agendaWeekLength);
+      call(agendaWeekLength: agendaWeekLength);
 
   @override
   SettingsModel agendaWeekReference(int agendaWeekReference) =>
-      this(agendaWeekReference: agendaWeekReference);
+      call(agendaWeekReference: agendaWeekReference);
 
   @override
   SettingsModel agendaDisabledDays(List<int> agendaDisabledDays) =>
-      this(agendaDisabledDays: agendaDisabledDays);
+      call(agendaDisabledDays: agendaDisabledDays);
 
   @override
   SettingsModel agendaPageTopToBottom(bool agendaPageTopToBottom) =>
-      this(agendaPageTopToBottom: agendaPageTopToBottom);
+      call(agendaPageTopToBottom: agendaPageTopToBottom);
 
   @override
   SettingsModel agendaWeekRerenceAlignement(int agendaWeekRerenceAlignement) =>
-      this(agendaWeekRerenceAlignement: agendaWeekRerenceAlignement);
+      call(agendaWeekRerenceAlignement: agendaWeekRerenceAlignement);
 
   @override
   SettingsModel colloscopeOverrideStudentId(int colloscopeOverrideStudentId) =>
-      this(colloscopeOverrideStudentId: colloscopeOverrideStudentId);
+      call(colloscopeOverrideStudentId: colloscopeOverrideStudentId);
 
   @override
   SettingsModel colloscopeOverrideYearId(int colloscopeOverrideYearId) =>
-      this(colloscopeOverrideYearId: colloscopeOverrideYearId);
+      call(colloscopeOverrideYearId: colloscopeOverrideYearId);
 
   @override
   SettingsModel colloscopeEnabled(bool? colloscopeEnabled) =>
-      this(colloscopeEnabled: colloscopeEnabled);
+      call(colloscopeEnabled: colloscopeEnabled);
 
   @override
-  SettingsModel agendaId(int? agendaId) => this(agendaId: agendaId);
+  SettingsModel agendaId(int? agendaId) => call(agendaId: agendaId);
 
   @override
   SettingsModel examenAddToAgenda(bool examenAddToAgenda) =>
-      this(examenAddToAgenda: examenAddToAgenda);
+      call(examenAddToAgenda: examenAddToAgenda);
 
   @override
-  SettingsModel language(String? language) => this(language: language);
+  SettingsModel language(String? language) => call(language: language);
 
   @override
   SettingsModel izlyNotification(bool izlyNotification) =>
-      this(izlyNotification: izlyNotification);
+      call(izlyNotification: izlyNotification);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `SettingsModel(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// SettingsModel(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   SettingsModel call({
     Object? biometricAuth = const $CopyWithPlaceholder(),
     Object? forceGreen = const $CopyWithPlaceholder(),
@@ -420,142 +423,8 @@ class _$SettingsModelCWProxyImpl implements _$SettingsModelCWProxy {
 }
 
 extension $SettingsModelCopyWith on SettingsModel {
-  /// Returns a callable class that can be used as follows: `instanceOfSettingsModel.copyWith(...)` or like so:`instanceOfSettingsModel.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfSettingsModel.copyWith(...)` or `instanceOfSettingsModel.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$SettingsModelCWProxy get copyWith => _$SettingsModelCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
-  @override
-  final int typeId = 7;
-
-  @override
-  SettingsModel read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return SettingsModel(
-      biometricAuth: fields[16] == null ? false : fields[16] as bool,
-      forceGreen: fields[1] as bool,
-      newGradeNotification: fields[3] as bool,
-      showHiddenUE: fields[4] as bool,
-      fetchAgendaAuto: fields[5] as bool,
-      showMiniCalendar: fields[6] as bool,
-      calendarUpdateNotification: fields[7] as bool,
-      agendaIds: fields[27] == null ? [] : (fields[27] as List).cast<int>(),
-      newMailNotification: fields[9] as bool,
-      blockTrackers: fields[10] as bool,
-      forcedMailTheme: fields[11] as bool,
-      shownAgendaPopup: fields[18] == null ? false : fields[18] as bool,
-      enabledFunctionalities: fields[12] == null
-          ? [
-              Functionalities.mail,
-              Functionalities.tomuss,
-              Functionalities.agenda,
-              Functionalities.settings,
-              Functionalities.izly,
-              Functionalities.examen,
-              Functionalities.map
-            ]
-          : (fields[12] as List).cast<Functionalities>(),
-      disabledFunctionalities: fields[13] == null
-          ? []
-          : (fields[13] as List).cast<Functionalities>(),
-      recentGradeDuration: fields[14] == null ? 7 : fields[14] as int,
-      firstLogin: fields[15] == null ? true : fields[15] as bool,
-      mock: fields[17] == null ? false : fields[17] as bool,
-      agendaWeekLength: fields[19] == null ? 5 : fields[19] as int,
-      agendaWeekReference: fields[20] == null ? 0 : fields[20] as int,
-      agendaDisabledDays:
-          fields[21] == null ? [6, 7] : (fields[21] as List).cast<int>(),
-      agendaPageTopToBottom: fields[22] == null ? false : fields[22] as bool,
-      agendaWeekRerenceAlignement: fields[23] == null ? 0 : fields[23] as int,
-      colloscopeOverrideStudentId: fields[25] == null ? 0 : fields[25] as int,
-      colloscopeOverrideYearId: fields[26] == null ? 0 : fields[26] as int,
-      colloscopeEnabled: fields[28] as bool?,
-      agendaId: fields[8] as int?,
-      examenAddToAgenda: fields[29] == null ? true : fields[29] as bool,
-      language: fields[30] as String?,
-      izlyNotification: fields[31] == null ? false : fields[31] as bool,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, SettingsModel obj) {
-    writer
-      ..writeByte(29)
-      ..writeByte(15)
-      ..write(obj.firstLogin)
-      ..writeByte(16)
-      ..write(obj.biometricAuth)
-      ..writeByte(1)
-      ..write(obj.forceGreen)
-      ..writeByte(3)
-      ..write(obj.newGradeNotification)
-      ..writeByte(4)
-      ..write(obj.showHiddenUE)
-      ..writeByte(14)
-      ..write(obj.recentGradeDuration)
-      ..writeByte(5)
-      ..write(obj.fetchAgendaAuto)
-      ..writeByte(6)
-      ..write(obj.showMiniCalendar)
-      ..writeByte(7)
-      ..write(obj.calendarUpdateNotification)
-      ..writeByte(8)
-      ..write(obj.agendaId)
-      ..writeByte(27)
-      ..write(obj.agendaIds)
-      ..writeByte(19)
-      ..write(obj.agendaWeekLength)
-      ..writeByte(20)
-      ..write(obj.agendaWeekReference)
-      ..writeByte(23)
-      ..write(obj.agendaWeekRerenceAlignement)
-      ..writeByte(21)
-      ..write(obj.agendaDisabledDays)
-      ..writeByte(22)
-      ..write(obj.agendaPageTopToBottom)
-      ..writeByte(9)
-      ..write(obj.newMailNotification)
-      ..writeByte(10)
-      ..write(obj.blockTrackers)
-      ..writeByte(11)
-      ..write(obj.forcedMailTheme)
-      ..writeByte(12)
-      ..write(obj.enabledFunctionalities)
-      ..writeByte(13)
-      ..write(obj.disabledFunctionalities)
-      ..writeByte(17)
-      ..write(obj.mock)
-      ..writeByte(18)
-      ..write(obj.shownAgendaPopup)
-      ..writeByte(25)
-      ..write(obj.colloscopeOverrideStudentId)
-      ..writeByte(26)
-      ..write(obj.colloscopeOverrideYearId)
-      ..writeByte(28)
-      ..write(obj.colloscopeEnabled)
-      ..writeByte(29)
-      ..write(obj.examenAddToAgenda)
-      ..writeByte(30)
-      ..write(obj.language)
-      ..writeByte(31)
-      ..write(obj.izlyNotification);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is SettingsModelAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

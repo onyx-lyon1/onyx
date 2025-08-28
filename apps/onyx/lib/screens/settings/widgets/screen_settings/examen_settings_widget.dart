@@ -56,6 +56,7 @@ class ExamenSettingsWidget extends StatelessWidget {
                             AppLocalizations.of(context).forceYearValue(i))),
                 ],
                 onChanged: (int? value) {
+                  if (value == null) return;
                   context.read<SettingsCubit>().modify(
                       settings:
                           settings.copyWith(colloscopeOverrideYearId: value));

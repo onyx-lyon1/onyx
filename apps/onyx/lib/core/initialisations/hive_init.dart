@@ -6,15 +6,11 @@ import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1examenclient/lyon1examenclient.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
-import 'package:onyx/core/res.dart';
-import 'package:onyx/screens/settings/settings_export.dart';
+import 'package:onyx/hive/hive_registrar.g.dart';
 import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
 
 Future<void> hiveInit({String? path}) async {
-  Hive.registerAdapter(FunctionalitiesAdapter());
-  Hive.registerAdapter(ThemeModeEnumAdapter());
-  Hive.registerAdapter(SettingsModelAdapter());
-  Hive.registerAdapter(ThemeSettingsModelAdapter());
+  Hive.registerAdapters();
 
   IzlyClient.registerAdapters();
   Lyon1TomussClient.registerAdapters();

@@ -17,50 +17,53 @@ abstract class _$StageCodeCWProxy {
 
   StageCode value(String value);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `StageCode(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `StageCode(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// StageCode(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   StageCode call({
-    String? title,
-    String? author,
+    String title,
+    String author,
     DateTime? date,
-    double? position,
-    String? value,
+    double position,
+    String value,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfStageCode.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfStageCode.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfStageCode.copyWith(...)` or call `instanceOfStageCode.copyWith.fieldName(value)` for a single field.
 class _$StageCodeCWProxyImpl implements _$StageCodeCWProxy {
   const _$StageCodeCWProxyImpl(this._value);
 
   final StageCode _value;
 
   @override
-  StageCode title(String title) => this(title: title);
+  StageCode title(String title) => call(title: title);
 
   @override
-  StageCode author(String author) => this(author: author);
+  StageCode author(String author) => call(author: author);
 
   @override
-  StageCode date(DateTime? date) => this(date: date);
+  StageCode date(DateTime? date) => call(date: date);
 
   @override
-  StageCode position(double position) => this(position: position);
+  StageCode position(double position) => call(position: position);
 
   @override
-  StageCode value(String value) => this(value: value);
+  StageCode value(String value) => call(value: value);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `StageCode(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `StageCode(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// StageCode(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   StageCode call({
     Object? title = const $CopyWithPlaceholder(),
     Object? author = const $CopyWithPlaceholder(),
@@ -94,57 +97,8 @@ class _$StageCodeCWProxyImpl implements _$StageCodeCWProxy {
 }
 
 extension $StageCodeCopyWith on StageCode {
-  /// Returns a callable class that can be used as follows: `instanceOfStageCode.copyWith(...)` or like so:`instanceOfStageCode.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfStageCode.copyWith(...)` or `instanceOfStageCode.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$StageCodeCWProxy get copyWith => _$StageCodeCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class StageCodeAdapter extends TypeAdapter<StageCode> {
-  @override
-  final int typeId = 28;
-
-  @override
-  StageCode read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return StageCode(
-      title: fields[100] == null ? '' : fields[100] as String,
-      author: fields[101] == null ? '' : fields[101] as String,
-      date: fields[102] as DateTime?,
-      position: fields[103] == null ? 0 : fields[103] as double,
-      value: fields[1] == null ? '' : fields[1] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, StageCode obj) {
-    writer
-      ..writeByte(5)
-      ..writeByte(1)
-      ..write(obj.value)
-      ..writeByte(100)
-      ..write(obj.title)
-      ..writeByte(101)
-      ..write(obj.author)
-      ..writeByte(102)
-      ..write(obj.date)
-      ..writeByte(103)
-      ..write(obj.position);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is StageCodeAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

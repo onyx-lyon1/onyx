@@ -11,19 +11,21 @@ abstract class _$SemesterListCWProxy {
 
   SemesterList currentSemesterIndex(int currentSemesterIndex);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SemesterList(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `SemesterList(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// SemesterList(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   SemesterList call({
-    List<Semester>? semestres,
-    int? currentSemesterIndex,
+    List<Semester> semestres,
+    int currentSemesterIndex,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfSemesterList.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfSemesterList.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfSemesterList.copyWith(...)` or call `instanceOfSemesterList.copyWith.fieldName(value)` for a single field.
 class _$SemesterListCWProxyImpl implements _$SemesterListCWProxy {
   const _$SemesterListCWProxyImpl(this._value);
 
@@ -31,20 +33,21 @@ class _$SemesterListCWProxyImpl implements _$SemesterListCWProxy {
 
   @override
   SemesterList semestres(List<Semester> semestres) =>
-      this(semestres: semestres);
+      call(semestres: semestres);
 
   @override
   SemesterList currentSemesterIndex(int currentSemesterIndex) =>
-      this(currentSemesterIndex: currentSemesterIndex);
+      call(currentSemesterIndex: currentSemesterIndex);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SemesterList(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `SemesterList(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// SemesterList(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   SemesterList call({
     Object? semestres = const $CopyWithPlaceholder(),
     Object? currentSemesterIndex = const $CopyWithPlaceholder(),
@@ -65,48 +68,8 @@ class _$SemesterListCWProxyImpl implements _$SemesterListCWProxy {
 }
 
 extension $SemesterListCopyWith on SemesterList {
-  /// Returns a callable class that can be used as follows: `instanceOfSemesterList.copyWith(...)` or like so:`instanceOfSemesterList.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfSemesterList.copyWith(...)` or `instanceOfSemesterList.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$SemesterListCWProxy get copyWith => _$SemesterListCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class SemesterListAdapter extends TypeAdapter<SemesterList> {
-  @override
-  final int typeId = 14;
-
-  @override
-  SemesterList read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return SemesterList(
-      (fields[0] as List).cast<Semester>(),
-      currentSemesterIndex: fields[1] as int,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, SemesterList obj) {
-    writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.semestres)
-      ..writeByte(1)
-      ..write(obj.currentSemesterIndex);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is SemesterListAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

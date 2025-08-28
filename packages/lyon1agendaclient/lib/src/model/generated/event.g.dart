@@ -21,58 +21,61 @@ abstract class _$EventCWProxy {
 
   Event menuCrous(dynamic menuCrous);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Event(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Event(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Event(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Event call({
-    String? location,
-    String? description,
-    String? teacher,
-    String? name,
-    DateTime? start,
-    DateTime? end,
+    String location,
+    String description,
+    String teacher,
+    String name,
+    DateTime start,
+    DateTime end,
     dynamic menuCrous,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfEvent.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfEvent.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfEvent.copyWith(...)` or call `instanceOfEvent.copyWith.fieldName(value)` for a single field.
 class _$EventCWProxyImpl implements _$EventCWProxy {
   const _$EventCWProxyImpl(this._value);
 
   final Event _value;
 
   @override
-  Event location(String location) => this(location: location);
+  Event location(String location) => call(location: location);
 
   @override
-  Event description(String description) => this(description: description);
+  Event description(String description) => call(description: description);
 
   @override
-  Event teacher(String teacher) => this(teacher: teacher);
+  Event teacher(String teacher) => call(teacher: teacher);
 
   @override
-  Event name(String name) => this(name: name);
+  Event name(String name) => call(name: name);
 
   @override
-  Event start(DateTime start) => this(start: start);
+  Event start(DateTime start) => call(start: start);
 
   @override
-  Event end(DateTime end) => this(end: end);
+  Event end(DateTime end) => call(end: end);
 
   @override
-  Event menuCrous(dynamic menuCrous) => this(menuCrous: menuCrous);
+  Event menuCrous(dynamic menuCrous) => call(menuCrous: menuCrous);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Event(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Event(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Event(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Event call({
     Object? location = const $CopyWithPlaceholder(),
     Object? description = const $CopyWithPlaceholder(),
@@ -108,7 +111,7 @@ class _$EventCWProxyImpl implements _$EventCWProxy {
           ? _value.end
           // ignore: cast_nullable_to_non_nullable
           : end as DateTime,
-      menuCrous: menuCrous == const $CopyWithPlaceholder() || menuCrous == null
+      menuCrous: menuCrous == const $CopyWithPlaceholder()
           ? _value.menuCrous
           // ignore: cast_nullable_to_non_nullable
           : menuCrous as dynamic,
@@ -117,60 +120,8 @@ class _$EventCWProxyImpl implements _$EventCWProxy {
 }
 
 extension $EventCopyWith on Event {
-  /// Returns a callable class that can be used as follows: `instanceOfEvent.copyWith(...)` or like so:`instanceOfEvent.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfEvent.copyWith(...)` or `instanceOfEvent.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$EventCWProxy get copyWith => _$EventCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class EventAdapter extends TypeAdapter<Event> {
-  @override
-  final int typeId = 3;
-
-  @override
-  Event read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Event(
-      location: fields[0] as String,
-      description: fields[1] as String,
-      teacher: fields[2] as String,
-      name: fields[3] as String,
-      start: fields[4] as DateTime,
-      end: fields[5] as DateTime,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Event obj) {
-    writer
-      ..writeByte(6)
-      ..writeByte(0)
-      ..write(obj.location)
-      ..writeByte(1)
-      ..write(obj.description)
-      ..writeByte(2)
-      ..write(obj.teacher)
-      ..writeByte(3)
-      ..write(obj.name)
-      ..writeByte(4)
-      ..write(obj.start)
-      ..writeByte(5)
-      ..write(obj.end);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is EventAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

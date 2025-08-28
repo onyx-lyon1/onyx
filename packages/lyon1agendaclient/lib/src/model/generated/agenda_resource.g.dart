@@ -13,43 +13,46 @@ abstract class _$AgendaResourceCWProxy {
 
   AgendaResource children(List<AgendaResource>? children);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AgendaResource(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `AgendaResource(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// AgendaResource(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   AgendaResource call({
     int? id,
-    String? name,
+    String name,
     List<AgendaResource>? children,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfAgendaResource.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfAgendaResource.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfAgendaResource.copyWith(...)` or call `instanceOfAgendaResource.copyWith.fieldName(value)` for a single field.
 class _$AgendaResourceCWProxyImpl implements _$AgendaResourceCWProxy {
   const _$AgendaResourceCWProxyImpl(this._value);
 
   final AgendaResource _value;
 
   @override
-  AgendaResource id(int? id) => this(id: id);
+  AgendaResource id(int? id) => call(id: id);
 
   @override
-  AgendaResource name(String name) => this(name: name);
+  AgendaResource name(String name) => call(name: name);
 
   @override
   AgendaResource children(List<AgendaResource>? children) =>
-      this(children: children);
+      call(children: children);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `AgendaResource(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `AgendaResource(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// AgendaResource(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   AgendaResource call({
     Object? id = const $CopyWithPlaceholder(),
     Object? name = const $CopyWithPlaceholder(),
@@ -73,7 +76,8 @@ class _$AgendaResourceCWProxyImpl implements _$AgendaResourceCWProxy {
 }
 
 extension $AgendaResourceCopyWith on AgendaResource {
-  /// Returns a callable class that can be used as follows: `instanceOfAgendaResource.copyWith(...)` or like so:`instanceOfAgendaResource.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfAgendaResource.copyWith(...)` or `instanceOfAgendaResource.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$AgendaResourceCWProxy get copyWith => _$AgendaResourceCWProxyImpl(this);
 }

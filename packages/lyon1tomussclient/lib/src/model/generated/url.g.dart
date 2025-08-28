@@ -17,56 +17,66 @@ abstract class _$URLCWProxy {
 
   URL value(String value);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `URL(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  URL isModifiable(bool isModifiable);
+
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `URL(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// URL(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   URL call({
-    String? title,
-    String? author,
+    String title,
+    String author,
     DateTime? date,
-    double? position,
-    String? value,
+    double position,
+    String value,
+    bool isModifiable,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfURL.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfURL.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfURL.copyWith(...)` or call `instanceOfURL.copyWith.fieldName(value)` for a single field.
 class _$URLCWProxyImpl implements _$URLCWProxy {
   const _$URLCWProxyImpl(this._value);
 
   final URL _value;
 
   @override
-  URL title(String title) => this(title: title);
+  URL title(String title) => call(title: title);
 
   @override
-  URL author(String author) => this(author: author);
+  URL author(String author) => call(author: author);
 
   @override
-  URL date(DateTime? date) => this(date: date);
+  URL date(DateTime? date) => call(date: date);
 
   @override
-  URL position(double position) => this(position: position);
+  URL position(double position) => call(position: position);
 
   @override
-  URL value(String value) => this(value: value);
+  URL value(String value) => call(value: value);
+
+  @override
+  URL isModifiable(bool isModifiable) => call(isModifiable: isModifiable);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `URL(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `URL(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// URL(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   URL call({
     Object? title = const $CopyWithPlaceholder(),
     Object? author = const $CopyWithPlaceholder(),
     Object? date = const $CopyWithPlaceholder(),
     Object? position = const $CopyWithPlaceholder(),
     Object? value = const $CopyWithPlaceholder(),
+    Object? isModifiable = const $CopyWithPlaceholder(),
   }) {
     return URL(
       title: title == const $CopyWithPlaceholder() || title == null
@@ -89,64 +99,18 @@ class _$URLCWProxyImpl implements _$URLCWProxy {
           ? _value.value
           // ignore: cast_nullable_to_non_nullable
           : value as String,
+      isModifiable:
+          isModifiable == const $CopyWithPlaceholder() || isModifiable == null
+              ? _value.isModifiable
+              // ignore: cast_nullable_to_non_nullable
+              : isModifiable as bool,
     );
   }
 }
 
 extension $URLCopyWith on URL {
-  /// Returns a callable class that can be used as follows: `instanceOfURL.copyWith(...)` or like so:`instanceOfURL.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfURL.copyWith(...)` or `instanceOfURL.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$URLCWProxy get copyWith => _$URLCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class URLAdapter extends TypeAdapter<URL> {
-  @override
-  final int typeId = 31;
-
-  @override
-  URL read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return URL(
-      title: fields[100] == null ? '' : fields[100] as String,
-      author: fields[101] == null ? '' : fields[101] as String,
-      date: fields[102] as DateTime?,
-      position: fields[103] == null ? 0 : fields[103] as double,
-      value: fields[2] == null ? '' : fields[2] as String,
-    )..isModifiable = fields[3] == null ? false : fields[3] as bool;
-  }
-
-  @override
-  void write(BinaryWriter writer, URL obj) {
-    writer
-      ..writeByte(6)
-      ..writeByte(2)
-      ..write(obj.value)
-      ..writeByte(3)
-      ..write(obj.isModifiable)
-      ..writeByte(100)
-      ..write(obj.title)
-      ..writeByte(101)
-      ..write(obj.author)
-      ..writeByte(102)
-      ..write(obj.date)
-      ..writeByte(103)
-      ..write(obj.position);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is URLAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

@@ -1,22 +1,15 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:onyx/core/theme/theme.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
-part 'generated/theme_settings_model.g.dart';
 
-@HiveType(typeId: 42)
 class ThemeSettingsModel {
   List<ThemeModel> themesCreated;
-  @HiveField(1)
   late final String darkThemeSelected;
-  @HiveField(2)
   late final String lightThemeSelected;
   List<ThemeModel> favoriteThemes;
-  @HiveField(4)
   final ThemeModeEnum themeMode;
-  @HiveField(5)
   final bool autoSwitchTheme;
   List<ThemeModel> themesPreset =
       OnyxTheme.themesPreset; //do not save it in hive_ce
@@ -45,7 +38,7 @@ class ThemeSettingsModel {
     }
   }
 
-  copyWith({
+  ThemeSettingsModel copyWith({
     List<ThemeModel>? themesCreated,
     String? darkThemeSelected,
     String? lightThemeSelected,
@@ -79,11 +72,9 @@ class ThemeSettingsModel {
       .where((themeInfo) => themeInfo.theme.brightness == Brightness.dark)
       .toList();
 
-  @HiveField(0)
   String get themesCreatedString =>
       jsonEncode(themesCreated.map((e) => e.toJson()).toList());
 
-  @HiveField(3)
   String get favoriteThemesString =>
       jsonEncode(favoriteThemes.map((e) => e.toJson()).toList());
 }

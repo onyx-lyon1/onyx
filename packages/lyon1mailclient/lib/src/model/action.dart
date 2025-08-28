@@ -1,24 +1,16 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 
 part 'generated/action.g.dart';
 
 @CopyWith()
-@HiveType(typeId: 23)
 class Action extends Equatable {
-  @HiveField(0)
   final ActionType type;
-  @HiveField(1)
   final MailBox? fromMailBox;
-  @HiveField(4)
   final Mail mail;
-  @HiveField(5)
   final int? originalMessageId;
-  @HiveField(6)
   final bool? replyAll;
-  @HiveField(8)
   final MailBox? destinationMailBox;
 
   Action({

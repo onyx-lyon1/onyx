@@ -1,32 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../restaurant_list_model.dart';
+part of '../hive_adapters.dart';
 
 // **************************************************************************
-// TypeAdapterGenerator
+// AdaptersGenerator
 // **************************************************************************
 
-class RestaurantListModelAdapter extends TypeAdapter<RestaurantListModel> {
+class CredentialAdapter extends TypeAdapter<Credential> {
   @override
-  final int typeId = 39;
+  final typeId = 4;
 
   @override
-  RestaurantListModel read(BinaryReader reader) {
+  Credential read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return RestaurantListModel(
-      restaurantList: (fields[0] as List).cast<RestaurantModel>(),
+    return Credential(
+      fields[0] as String,
+      fields[1] as String,
+      tgcToken: fields[2] == null ? "" : fields[2] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, RestaurantListModel obj) {
+  void write(BinaryWriter writer, Credential obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.restaurantList);
+      ..write(obj.username)
+      ..writeByte(1)
+      ..write(obj.password)
+      ..writeByte(2)
+      ..write(obj.tgcToken);
   }
 
   @override
@@ -35,7 +41,7 @@ class RestaurantListModelAdapter extends TypeAdapter<RestaurantListModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RestaurantListModelAdapter &&
+      other is CredentialAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

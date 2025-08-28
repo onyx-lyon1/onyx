@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:hive_ce/hive.dart';
+import 'package:lyon1agendaclient/hive/hive_registrar.g.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1agendaclient/src/constants/constants.dart';
-import 'package:lyon1agendaclient/src/model/agenda.dart';
 import 'package:lyon1agendaclient/src/parser/agendaparser.dart';
 import 'package:lyon1agendaclient/src/utils/agenda_url.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
@@ -21,9 +21,7 @@ class Lyon1AgendaClient {
   }
 
   static void registerAdapters() {
-    Hive.registerAdapter(AgendaAdapter());
-    Hive.registerAdapter(DayAdapter());
-    Hive.registerAdapter(EventAdapter());
+    Hive.registerAdapters();
   }
 
   Lyon1AgendaClient.useLyon1Cas(final Lyon1CasClient authentication) {

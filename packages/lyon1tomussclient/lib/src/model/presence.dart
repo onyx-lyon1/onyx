@@ -2,32 +2,21 @@ import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 import 'package:lyon1tomussclient/src/parser/condition_parser.dart';
 import 'package:lyon1tomussclient/src/parser/dateparser.dart';
-import 'package:hive_ce/hive.dart';
 
 part 'generated/presence.g.dart';
 
-@HiveType(typeId: 26)
 enum PresenceColor {
-  @HiveField(0)
   green,
-  @HiveField(1)
   red,
-  @HiveField(2)
   unset
 }
 
 @CopyWith()
-@HiveType(typeId: 27)
 class Presence extends TeachingUnitElement {
-  @HiveField(1, defaultValue: "")
   late final String value;
-  @HiveField(3, defaultValue: "")
   late final String? emptyIs;
-  @HiveField(4, defaultValue: PresenceColor.unset)
   late final PresenceColor color;
-  @HiveField(5, defaultValue: null)
   late final DateTime? visibilityDate;
-  @HiveField(6, defaultValue: null)
   late final bool? visible;
 
   Presence.fromJSON(
@@ -85,11 +74,11 @@ class Presence extends TeachingUnitElement {
     required super.author,
     required super.date,
     required super.position,
-    required this.value,
-    required this.emptyIs,
-    required this.color,
-    required this.visibilityDate,
-    required this.visible,
+    this.value = "",
+    this.emptyIs = "",
+    this.color = PresenceColor.unset,
+    this.visibilityDate,
+    this.visible,
   });
 
   @override

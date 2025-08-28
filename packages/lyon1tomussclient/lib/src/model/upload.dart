@@ -1,19 +1,14 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:lyon1tomussclient/src/constant/constants.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:requests_plus/requests_plus.dart';
 
 part 'generated/upload.g.dart';
 
 @CopyWith()
-@HiveType(typeId: 30)
 class Upload extends TeachingUnitElement {
-  @HiveField(2, defaultValue: "")
   late final String comment;
-  @HiveField(3, defaultValue: 0)
   late final int uploadMax;
-  @HiveField(5, defaultValue: "")
   late final String fileUrl;
 
   Upload.fromJSON(
@@ -30,14 +25,15 @@ class Upload extends TeachingUnitElement {
     }
   }
 
-  Upload(
-      {required super.title,
-      required super.author,
-      required super.date,
-      required super.position,
-      required this.comment,
-      required this.uploadMax,
-      required this.fileUrl});
+  Upload({
+    required super.title,
+    required super.author,
+    required super.date,
+    required super.position,
+    this.comment = "",
+    this.uploadMax = 0,
+    this.fileUrl = "",
+  });
 
   Future<List<int>> getContent(String ticket) async {
     var response = await RequestsPlus.get(

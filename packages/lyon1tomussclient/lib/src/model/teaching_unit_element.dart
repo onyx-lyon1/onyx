@@ -1,22 +1,18 @@
-import 'package:lyon1tomussclient/src/parser/dateparser.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive_ce/hive.dart';
+import 'package:lyon1tomussclient/src/parser/dateparser.dart';
 
 abstract class TeachingUnitElement extends Equatable {
-  @HiveField(100, defaultValue: "")
   late final String title;
-  @HiveField(101, defaultValue: "")
   late final String author;
-  @HiveField(102, defaultValue: null)
   late final DateTime? date;
-  @HiveField(103, defaultValue: 0)
   late final double position;
 
-  TeachingUnitElement(
-      {required this.title,
-      required this.author,
-      required this.date,
-      required this.position});
+  TeachingUnitElement({
+    this.title = "",
+    this.author = "",
+    this.date,
+    this.position = 0,
+  });
 
   TeachingUnitElement.fromJson(
       var id, var json, var stats, var line, var column, String user) {
@@ -37,11 +33,11 @@ abstract class TeachingUnitElement extends Equatable {
 
   @override
   List<Object?> get props => [title, author, date, position, ...customProps];
+
   @override
   bool? get stringify => true;
 }
 
-// @HiveType(typeId: 12)
 // class CustomElement extends TeachingUnitElement {
 //   // Ajoutez ici les propriétés spécifiques à CustomElement
 //

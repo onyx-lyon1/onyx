@@ -11,19 +11,21 @@ abstract class _$TeachingUnitListCWProxy {
 
   TeachingUnitList semesterIndex(int semesterIndex);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `TeachingUnitList(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `TeachingUnitList(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// TeachingUnitList(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   TeachingUnitList call({
-    List<TeachingUnit>? teachingUnitModels,
-    int? semesterIndex,
+    List<TeachingUnit> teachingUnitModels,
+    int semesterIndex,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfTeachingUnitList.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfTeachingUnitList.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfTeachingUnitList.copyWith(...)` or call `instanceOfTeachingUnitList.copyWith.fieldName(value)` for a single field.
 class _$TeachingUnitListCWProxyImpl implements _$TeachingUnitListCWProxy {
   const _$TeachingUnitListCWProxyImpl(this._value);
 
@@ -31,20 +33,21 @@ class _$TeachingUnitListCWProxyImpl implements _$TeachingUnitListCWProxy {
 
   @override
   TeachingUnitList teachingUnitModels(List<TeachingUnit> teachingUnitModels) =>
-      this(teachingUnitModels: teachingUnitModels);
+      call(teachingUnitModels: teachingUnitModels);
 
   @override
   TeachingUnitList semesterIndex(int semesterIndex) =>
-      this(semesterIndex: semesterIndex);
+      call(semesterIndex: semesterIndex);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `TeachingUnitList(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `TeachingUnitList(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// TeachingUnitList(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   TeachingUnitList call({
     Object? teachingUnitModels = const $CopyWithPlaceholder(),
     Object? semesterIndex = const $CopyWithPlaceholder(),
@@ -64,48 +67,8 @@ class _$TeachingUnitListCWProxyImpl implements _$TeachingUnitListCWProxy {
 }
 
 extension $TeachingUnitListCopyWith on TeachingUnitList {
-  /// Returns a callable class that can be used as follows: `instanceOfTeachingUnitList.copyWith(...)` or like so:`instanceOfTeachingUnitList.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfTeachingUnitList.copyWith(...)` or `instanceOfTeachingUnitList.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$TeachingUnitListCWProxy get copyWith => _$TeachingUnitListCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class TeachingUnitListAdapter extends TypeAdapter<TeachingUnitList> {
-  @override
-  final int typeId = 11;
-
-  @override
-  TeachingUnitList read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return TeachingUnitList(
-      (fields[0] as List).cast<TeachingUnit>(),
-      fields[1] as int,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, TeachingUnitList obj) {
-    writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.teachingUnitModels)
-      ..writeByte(1)
-      ..write(obj.semesterIndex);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TeachingUnitListAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

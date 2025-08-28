@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hive_ce_flutter/hive_flutter.dart';
 
-part 'generated/theme_mode_enum.g.dart';
-
-@HiveType(typeId: 8)
 enum ThemeModeEnum {
-  @HiveField(0)
   system,
-  @HiveField(1)
   dark,
-  @HiveField(2)
   light,
 }
 

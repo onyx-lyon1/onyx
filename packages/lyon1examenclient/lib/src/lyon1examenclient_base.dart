@@ -1,8 +1,8 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:lyon1casclient/hive/hive_registrar.g.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1examenclient/lyon1examenclient.dart';
-import 'package:lyon1examenclient/src/duration_adapter.dart';
 
 class Lyon1ExamenClient {
   static const String examensUrl =
@@ -13,9 +13,7 @@ class Lyon1ExamenClient {
       : _authentication = authentication;
 
   static void registerAdapters() {
-    Hive.registerAdapter(ExamenModelAdapter());
-    Hive.registerAdapter(ExamenListModelAdapter());
-    Hive.registerAdapter(DurationAdapter());
+    Hive.registerAdapters();
   }
 
   Future<List<ExamenModel>> fetchExams() async {
@@ -79,7 +77,7 @@ class Lyon1ExamenClient {
       final place = locationAndPlace?.group(2) != null
           ? int.parse(locationAndPlace!.group(2)!)
           : null;
-      retour.add(ExamenModel(title, codeName, date, duration, location, place));
+      retour.add(ExamenModel(title: title, codeName: codeName, date: date, duration: duration, location: location, place: place));
     }
 
     return retour;

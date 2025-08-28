@@ -19,15 +19,16 @@ abstract class _$ActionCWProxy {
 
   Action destinationMailBox(MailBox? destinationMailBox);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Action(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Action(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Action(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Action call({
-    ActionType? type,
-    Mail? mail,
+    ActionType type,
+    Mail mail,
     MailBox? fromMailBox,
     int? originalMessageId,
     bool? replyAll,
@@ -35,40 +36,42 @@ abstract class _$ActionCWProxy {
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfAction.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfAction.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfAction.copyWith(...)` or call `instanceOfAction.copyWith.fieldName(value)` for a single field.
 class _$ActionCWProxyImpl implements _$ActionCWProxy {
   const _$ActionCWProxyImpl(this._value);
 
   final Action _value;
 
   @override
-  Action type(ActionType type) => this(type: type);
+  Action type(ActionType type) => call(type: type);
 
   @override
-  Action mail(Mail mail) => this(mail: mail);
+  Action mail(Mail mail) => call(mail: mail);
 
   @override
-  Action fromMailBox(MailBox? fromMailBox) => this(fromMailBox: fromMailBox);
+  Action fromMailBox(MailBox? fromMailBox) => call(fromMailBox: fromMailBox);
 
   @override
   Action originalMessageId(int? originalMessageId) =>
-      this(originalMessageId: originalMessageId);
+      call(originalMessageId: originalMessageId);
 
   @override
-  Action replyAll(bool? replyAll) => this(replyAll: replyAll);
+  Action replyAll(bool? replyAll) => call(replyAll: replyAll);
 
   @override
   Action destinationMailBox(MailBox? destinationMailBox) =>
-      this(destinationMailBox: destinationMailBox);
+      call(destinationMailBox: destinationMailBox);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Action(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Action(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Action(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Action call({
     Object? type = const $CopyWithPlaceholder(),
     Object? mail = const $CopyWithPlaceholder(),
@@ -107,60 +110,8 @@ class _$ActionCWProxyImpl implements _$ActionCWProxy {
 }
 
 extension $ActionCopyWith on Action {
-  /// Returns a callable class that can be used as follows: `instanceOfAction.copyWith(...)` or like so:`instanceOfAction.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfAction.copyWith(...)` or `instanceOfAction.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$ActionCWProxy get copyWith => _$ActionCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class ActionAdapter extends TypeAdapter<Action> {
-  @override
-  final int typeId = 23;
-
-  @override
-  Action read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Action(
-      type: fields[0] as ActionType,
-      mail: fields[4] as Mail,
-      fromMailBox: fields[1] as MailBox?,
-      originalMessageId: fields[5] as int?,
-      replyAll: fields[6] as bool?,
-      destinationMailBox: fields[8] as MailBox?,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Action obj) {
-    writer
-      ..writeByte(6)
-      ..writeByte(0)
-      ..write(obj.type)
-      ..writeByte(1)
-      ..write(obj.fromMailBox)
-      ..writeByte(4)
-      ..write(obj.mail)
-      ..writeByte(5)
-      ..write(obj.originalMessageId)
-      ..writeByte(6)
-      ..write(obj.replyAll)
-      ..writeByte(8)
-      ..write(obj.destinationMailBox);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ActionAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

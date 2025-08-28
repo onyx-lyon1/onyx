@@ -101,7 +101,7 @@
   "youHaveANewEmail": "У вас новое письмо от {sender} \n\n {excerpt}",
   "defaultSemester": "Семестр по умолчанию",
   "newGrade": "Новая оценка",
-  "youHaveANewGrade": "Вы получили numerator/{denominator} (${title}) в: ${title}",
+  "youHaveANewGrade": "Вы получили {numerator}/{denominator} (${title}) в: ${title}",
   "grades": "Оценки",
   "agenda": "Повестка дня",
   "mails": "Почта",

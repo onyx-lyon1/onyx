@@ -17,50 +17,53 @@ abstract class _$KholleCWProxy {
 
   Kholle room(String? room);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Kholle(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Kholle(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Kholle(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Kholle call({
-    DateTime? date,
-    String? subject,
-    String? kholleur,
+    DateTime date,
+    String subject,
+    String kholleur,
     String? message,
     String? room,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfKholle.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfKholle.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfKholle.copyWith(...)` or call `instanceOfKholle.copyWith.fieldName(value)` for a single field.
 class _$KholleCWProxyImpl implements _$KholleCWProxy {
   const _$KholleCWProxyImpl(this._value);
 
   final Kholle _value;
 
   @override
-  Kholle date(DateTime date) => this(date: date);
+  Kholle date(DateTime date) => call(date: date);
 
   @override
-  Kholle subject(String subject) => this(subject: subject);
+  Kholle subject(String subject) => call(subject: subject);
 
   @override
-  Kholle kholleur(String kholleur) => this(kholleur: kholleur);
+  Kholle kholleur(String kholleur) => call(kholleur: kholleur);
 
   @override
-  Kholle message(String? message) => this(message: message);
+  Kholle message(String? message) => call(message: message);
 
   @override
-  Kholle room(String? room) => this(room: room);
+  Kholle room(String? room) => call(room: room);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Kholle(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Kholle(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// Kholle(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   Kholle call({
     Object? date = const $CopyWithPlaceholder(),
     Object? subject = const $CopyWithPlaceholder(),
@@ -94,57 +97,8 @@ class _$KholleCWProxyImpl implements _$KholleCWProxy {
 }
 
 extension $KholleCopyWith on Kholle {
-  /// Returns a callable class that can be used as follows: `instanceOfKholle.copyWith(...)` or like so:`instanceOfKholle.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfKholle.copyWith(...)` or `instanceOfKholle.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$KholleCWProxy get copyWith => _$KholleCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class KholleAdapter extends TypeAdapter<Kholle> {
-  @override
-  final int typeId = 45;
-
-  @override
-  Kholle read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Kholle(
-      fields[0] as DateTime,
-      fields[1] as String,
-      fields[2] as String,
-      fields[3] as String?,
-      fields[4] as String?,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Kholle obj) {
-    writer
-      ..writeByte(5)
-      ..writeByte(0)
-      ..write(obj.date)
-      ..writeByte(1)
-      ..write(obj.subject)
-      ..writeByte(2)
-      ..write(obj.kholleur)
-      ..writeByte(3)
-      ..write(obj.message)
-      ..writeByte(4)
-      ..write(obj.room);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is KholleAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

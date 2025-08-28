@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:http/http.dart';
+import 'package:lyon1casclient/hive/hive_registrar.g.dart';
 import 'package:requests_plus/requests_plus.dart';
 
 import 'constant/constants.dart';
@@ -16,7 +17,7 @@ class Lyon1CasClient {
   late final String _corsProxyUrl;
 
   static void registerAdapters({bool initHive = true}) {
-    Hive.registerAdapter(CredentialAdapter());
+    Hive.registerAdapters();
     if (initHive) Hive.init(Directory.current.path);
   }
 

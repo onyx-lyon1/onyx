@@ -27,72 +27,75 @@ abstract class _$RestaurantModelCWProxy {
 
   RestaurantModel imageUrl(String imageUrl);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `RestaurantModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `RestaurantModel(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// RestaurantModel(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   RestaurantModel call({
-    int? id,
-    String? name,
-    String? description,
-    String? shortDescription,
-    CrousType? type,
-    double? lat,
-    double? lon,
-    String? opening,
-    List<MenuCrous>? menus,
-    String? imageUrl,
+    int id,
+    String name,
+    String description,
+    String shortDescription,
+    CrousType type,
+    double lat,
+    double lon,
+    String opening,
+    List<MenuCrous> menus,
+    String imageUrl,
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfRestaurantModel.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfRestaurantModel.copyWith.fieldName(...)`
+/// Callable proxy for `copyWith` functionality.
+/// Use as `instanceOfRestaurantModel.copyWith(...)` or call `instanceOfRestaurantModel.copyWith.fieldName(value)` for a single field.
 class _$RestaurantModelCWProxyImpl implements _$RestaurantModelCWProxy {
   const _$RestaurantModelCWProxyImpl(this._value);
 
   final RestaurantModel _value;
 
   @override
-  RestaurantModel id(int id) => this(id: id);
+  RestaurantModel id(int id) => call(id: id);
 
   @override
-  RestaurantModel name(String name) => this(name: name);
+  RestaurantModel name(String name) => call(name: name);
 
   @override
   RestaurantModel description(String description) =>
-      this(description: description);
+      call(description: description);
 
   @override
   RestaurantModel shortDescription(String shortDescription) =>
-      this(shortDescription: shortDescription);
+      call(shortDescription: shortDescription);
 
   @override
-  RestaurantModel type(CrousType type) => this(type: type);
+  RestaurantModel type(CrousType type) => call(type: type);
 
   @override
-  RestaurantModel lat(double lat) => this(lat: lat);
+  RestaurantModel lat(double lat) => call(lat: lat);
 
   @override
-  RestaurantModel lon(double lon) => this(lon: lon);
+  RestaurantModel lon(double lon) => call(lon: lon);
 
   @override
-  RestaurantModel opening(String opening) => this(opening: opening);
+  RestaurantModel opening(String opening) => call(opening: opening);
 
   @override
-  RestaurantModel menus(List<MenuCrous> menus) => this(menus: menus);
+  RestaurantModel menus(List<MenuCrous> menus) => call(menus: menus);
 
   @override
-  RestaurantModel imageUrl(String imageUrl) => this(imageUrl: imageUrl);
+  RestaurantModel imageUrl(String imageUrl) => call(imageUrl: imageUrl);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `RestaurantModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// Creates a new instance with the provided field values.
+  /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `RestaurantModel(...).copyWith.fieldName(value)`.
   ///
-  /// Usage
+  /// Example:
   /// ```dart
   /// RestaurantModel(...).copyWith(id: 12, name: "My name")
-  /// ````
+  /// ```
   RestaurantModel call({
     Object? id = const $CopyWithPlaceholder(),
     Object? name = const $CopyWithPlaceholder(),
@@ -153,111 +156,8 @@ class _$RestaurantModelCWProxyImpl implements _$RestaurantModelCWProxy {
 }
 
 extension $RestaurantModelCopyWith on RestaurantModel {
-  /// Returns a callable class that can be used as follows: `instanceOfRestaurantModel.copyWith(...)` or like so:`instanceOfRestaurantModel.copyWith.fieldName(...)`.
+  /// Returns a callable class used to build a new instance with modified fields.
+  /// Example: `instanceOfRestaurantModel.copyWith(...)` or `instanceOfRestaurantModel.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
   _$RestaurantModelCWProxy get copyWith => _$RestaurantModelCWProxyImpl(this);
-}
-
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class RestaurantModelAdapter extends TypeAdapter<RestaurantModel> {
-  @override
-  final int typeId = 33;
-
-  @override
-  RestaurantModel read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return RestaurantModel(
-      id: fields[0] as int,
-      name: fields[1] as String,
-      description: fields[2] as String,
-      shortDescription: fields[3] as String,
-      type: fields[4] as CrousType,
-      lat: fields[5] as double,
-      lon: fields[6] as double,
-      opening: fields[7] as String,
-      menus: (fields[8] as List).cast<MenuCrous>(),
-      imageUrl: fields[9] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, RestaurantModel obj) {
-    writer
-      ..writeByte(10)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.name)
-      ..writeByte(2)
-      ..write(obj.description)
-      ..writeByte(3)
-      ..write(obj.shortDescription)
-      ..writeByte(4)
-      ..write(obj.type)
-      ..writeByte(5)
-      ..write(obj.lat)
-      ..writeByte(6)
-      ..write(obj.lon)
-      ..writeByte(7)
-      ..write(obj.opening)
-      ..writeByte(8)
-      ..write(obj.menus)
-      ..writeByte(9)
-      ..write(obj.imageUrl);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is RestaurantModelAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class CrousTypeAdapter extends TypeAdapter<CrousType> {
-  @override
-  final int typeId = 38;
-
-  @override
-  CrousType read(BinaryReader reader) {
-    switch (reader.readByte()) {
-      case 0:
-        return CrousType.restaurant;
-      case 1:
-        return CrousType.cafet;
-      default:
-        return CrousType.restaurant;
-    }
-  }
-
-  @override
-  void write(BinaryWriter writer, CrousType obj) {
-    switch (obj) {
-      case CrousType.restaurant:
-        writer.writeByte(0);
-        break;
-      case CrousType.cafet:
-        writer.writeByte(1);
-        break;
-    }
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is CrousTypeAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

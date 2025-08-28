@@ -371,7 +371,7 @@ class AppLocalizationsRu extends AppLocalizations {
     final String denominatorString =
         denominatorNumberFormat.format(denominator);
 
-    return 'Вы получили numerator/$denominatorString (\$$title) в: \$$title';
+    return 'Вы получили $numeratorString/$denominatorString (\$$title) в: \$$title';
   }
 
   @override

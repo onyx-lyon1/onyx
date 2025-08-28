@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_dart_scan/qr_code_dart_scan.dart';
-
-import 'package:onyx/l10n/app_localizations.dart';
 
 class QrCodeScannerPage extends StatefulWidget {
   const QrCodeScannerPage({super.key});
@@ -37,7 +36,6 @@ class QrCodeScannerPageState extends State<QrCodeScannerPage> {
         color: Theme.of(context).colorScheme.surface,
         child: cameraGranted
             ? QRCodeDartScanView(
-                scanInvertedQRCode: true,
                 typeScan: TypeScan.live,
                 onCapture: (result) {
                   if (result.text.isNotEmpty &&

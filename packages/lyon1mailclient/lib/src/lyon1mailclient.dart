@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:lyon1mailclient/hive/hive_registrar.g.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:requests_plus/requests_plus.dart';
 
@@ -31,13 +32,7 @@ class Lyon1MailClient {
   }
 
   static void registerAdapters({bool initHive = true}) {
-    Hive.registerAdapter(ActionAdapter());
-    Hive.registerAdapter(ActionListAdapter());
-    Hive.registerAdapter(ActionTypeAdapter());
-    Hive.registerAdapter(MailAdapter());
-    Hive.registerAdapter(MailBoxAdapter());
-    Hive.registerAdapter(MailBoxListAdapter());
-    Hive.registerAdapter(SpecialMailBoxAdapter());
+    Hive.registerAdapters();
     if (initHive) Hive.init(Directory.current.path);
   }
 
