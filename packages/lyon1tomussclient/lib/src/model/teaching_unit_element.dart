@@ -1,6 +1,6 @@
 import 'package:lyon1tomussclient/src/parser/dateparser.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 
 abstract class TeachingUnitElement extends Equatable {
   @HiveField(100, defaultValue: "")

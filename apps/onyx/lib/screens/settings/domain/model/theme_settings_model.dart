@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:onyx/core/theme/theme.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 part 'generated/theme_settings_model.g.dart';
@@ -19,7 +19,7 @@ class ThemeSettingsModel {
   @HiveField(5)
   final bool autoSwitchTheme;
   List<ThemeModel> themesPreset =
-      OnyxTheme.themesPreset; //do not save it in hive
+      OnyxTheme.themesPreset; //do not save it in hive_ce
 
   ThemeSettingsModel({
     this.themesCreated = const [],

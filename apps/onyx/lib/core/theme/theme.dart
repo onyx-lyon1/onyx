@@ -1,10 +1,10 @@
-import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:flutter/material.dart';
+import 'package:onyx/screens/settings/settings_export.dart';
 
 class OnyxTheme {
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
-    cardTheme: const CardTheme(color: Color(0xff4c566a)),
+    cardTheme: const CardThemeData(color: Color(0xff4c566a)),
     cardColor: const Color(0xff4c566a),
     secondaryHeaderColor: const Color(0xff2f343f),
     primaryColor: const Color(0xffd08770),
@@ -32,7 +32,7 @@ class OnyxTheme {
 
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
-    cardTheme: const CardTheme(color: Color(0xffe5e9f0)),
+    cardTheme: const CardThemeData(color: Color(0xffe5e9f0)),
     cardColor: const Color(0xffe5e9f0),
     primaryColor: const Color(0xffd08770),
     secondaryHeaderColor: const Color(0xffe5e9f0),
@@ -60,13 +60,14 @@ class OnyxTheme {
 
   static ThemeData nichihachiTheme = ThemeData(
     useMaterial3: true,
-    cardTheme: const CardTheme(color: Color.fromARGB(255, 40, 40, 60)),
+    cardTheme: const CardThemeData(color: Color.fromARGB(255, 40, 40, 60)),
     cardColor: const Color.fromARGB(255, 40, 40, 60),
     secondaryHeaderColor: const Color.fromARGB(255, 2, 36, 68),
     primaryColor: const Color.fromARGB(255, 80, 120, 255),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color.fromARGB(255, 140, 251, 255),
-      selectionColor: const Color.fromARGB(255, 140, 251, 255).withValues(alpha: 0.7),
+      selectionColor:
+          const Color.fromARGB(255, 140, 251, 255).withValues(alpha: 0.7),
     ),
     brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -88,13 +89,14 @@ class OnyxTheme {
 
   static ThemeData blueSkyTheme = ThemeData(
     useMaterial3: true,
-    cardTheme: const CardTheme(color: Color.fromARGB(255, 220, 240, 255)),
+    cardTheme: const CardThemeData(color: Color.fromARGB(255, 220, 240, 255)),
     cardColor: const Color.fromARGB(255, 220, 240, 255),
     secondaryHeaderColor: const Color.fromARGB(255, 255, 255, 255),
     primaryColor: const Color.fromARGB(255, 122, 198, 255),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color.fromARGB(255, 255, 123, 98),
-      selectionColor: const Color.fromARGB(255, 255, 123, 98).withValues(alpha: 0.7),
+      selectionColor:
+          const Color.fromARGB(255, 255, 123, 98).withValues(alpha: 0.7),
     ),
     brightness: Brightness.light,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -115,13 +117,14 @@ class OnyxTheme {
 
   static ThemeData ultrakillTheme = ThemeData(
     useMaterial3: true,
-    cardTheme: const CardTheme(color: Color.fromARGB(255, 30, 30, 30)),
+    cardTheme: const CardThemeData(color: Color.fromARGB(255, 30, 30, 30)),
     cardColor: const Color.fromARGB(255, 30, 30, 30),
     secondaryHeaderColor: const Color.fromARGB(40, 255, 255, 255),
     primaryColor: const Color.fromARGB(255, 255, 87, 34),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color.fromARGB(255, 255, 87, 34),
-      selectionColor: const Color.fromARGB(255, 255, 87, 34).withValues(alpha: 0.7),
+      selectionColor:
+          const Color.fromARGB(255, 255, 87, 34).withValues(alpha: 0.7),
     ),
     brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -143,13 +146,14 @@ class OnyxTheme {
 
   static ThemeData badappleTheme = ThemeData(
     useMaterial3: true,
-    cardTheme: const CardTheme(color: Color.fromARGB(255, 20, 20, 20)),
+    cardTheme: const CardThemeData(color: Color.fromARGB(255, 20, 20, 20)),
     cardColor: const Color.fromARGB(255, 20, 20, 20),
     primaryColor: const Color.fromARGB(230, 255, 255, 255),
     secondaryHeaderColor: const Color.fromARGB(255, 255, 255, 255),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color.fromARGB(255, 255, 255, 255),
-      selectionColor: const Color.fromARGB(255, 255, 255, 255).withValues(alpha: 0.7),
+      selectionColor:
+          const Color.fromARGB(255, 255, 255, 255).withValues(alpha: 0.7),
     ),
     brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -171,13 +175,14 @@ class OnyxTheme {
 
   static ThemeData moonlightTheme = ThemeData(
     useMaterial3: true,
-    cardTheme: const CardTheme(color: Color.fromARGB(255, 35, 40, 50)),
+    cardTheme: const CardThemeData(color: Color.fromARGB(255, 35, 40, 50)),
     cardColor: const Color.fromARGB(255, 35, 40, 50),
     primaryColor: const Color.fromARGB(255, 140, 180, 200),
     secondaryHeaderColor: const Color.fromARGB(40, 255, 255, 255),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color.fromARGB(255, 140, 180, 200),
-      selectionColor: const Color.fromARGB(255, 140, 180, 200).withValues(alpha: 0.7),
+      selectionColor:
+          const Color.fromARGB(255, 140, 180, 200).withValues(alpha: 0.7),
     ),
     brightness: Brightness.dark,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -199,13 +204,14 @@ class OnyxTheme {
 
   static ThemeData stardewValleyTheme = ThemeData(
     useMaterial3: true,
-    cardTheme: const CardTheme(color: Color.fromARGB(255, 220, 240, 200)),
+    cardTheme: const CardThemeData(color: Color.fromARGB(255, 220, 240, 200)),
     cardColor: const Color.fromARGB(255, 220, 240, 200),
     primaryColor: const Color.fromARGB(255, 74, 212, 74),
     secondaryHeaderColor: const Color.fromARGB(255, 253, 248, 201),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: const Color.fromARGB(255, 255, 200, 50),
-      selectionColor: const Color.fromARGB(255, 255, 200, 50).withValues(alpha: 0.7),
+      selectionColor:
+          const Color.fromARGB(255, 255, 200, 50).withValues(alpha: 0.7),
     ),
     brightness: Brightness.light,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(

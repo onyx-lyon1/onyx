@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1agendaclient/src/constants/constants.dart';
 import 'package:lyon1agendaclient/src/model/agenda.dart';

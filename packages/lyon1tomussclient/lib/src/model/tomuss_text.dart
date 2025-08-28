@@ -1,5 +1,5 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 
 part 'generated/tomuss_text.g.dart';

@@ -16,7 +16,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "fr.onyx.lyon1"
-    compileSdk = 35
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -34,7 +34,7 @@ android {
         applicationId = "fr.onyx.lyon1"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 23
+        minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -54,14 +54,15 @@ android {
         release {
             signingConfig = signingConfigs.getByName("release")
         }
+// applicationIdSuffix commented because biometric storage seems to try overriding it
         getByName("debug") {
             resValue("string", "app_name", "Onyx debug")
-            applicationIdSuffix = ".debug"
+//            applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
         }
         getByName("profile") {
             resValue("string", "app_name", "Onyx profile")
-            applicationIdSuffix = ".profile"
+//            applicationIdSuffix = ".profile"
             versionNameSuffix = "-profile"
         }
     }

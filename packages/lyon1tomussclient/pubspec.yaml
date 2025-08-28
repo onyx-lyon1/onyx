@@ -11,13 +11,13 @@ dev_dependencies:
   lints: ^5.1.1
   test: ^1.20.1
   build_runner: ^2.3.3
-  hive_generator: ^2.0.0
+  hive_ce_generator: ^1.9.2
   copy_with_extension_gen: ^6.0.0
 dependencies:
   beautiful_soup_dart: ^0.3.0
   copy_with_extension: ^6.0.1
   equatable: ^2.0.5
-  hive: ^2.2.3
+  hive_ce: ^2.2.3
   requests_plus: ^4.8.5
   lyon1casclient: ^1.0.6
 

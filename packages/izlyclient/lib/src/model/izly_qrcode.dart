@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 
 part 'generated/izly_qrcode.g.dart';
 

@@ -34,7 +34,7 @@ class TextSwitchWidget extends StatelessWidget {
           ),
         ),
         Switch(
-          activeColor: Theme.of(context).primaryColor,
+          activeThumbColor: Theme.of(context).primaryColor,
           value: value,
           onChanged: (bool b) => onChanged(b),
         ),

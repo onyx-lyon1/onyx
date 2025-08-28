@@ -2,7 +2,7 @@ import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 import 'package:lyon1tomussclient/src/parser/condition_parser.dart';
 import 'package:lyon1tomussclient/src/parser/dateparser.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 
 part 'generated/presence.g.dart';
 
