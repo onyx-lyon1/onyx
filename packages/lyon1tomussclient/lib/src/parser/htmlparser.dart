@@ -139,7 +139,11 @@ class HTMLparser {
 
     final List<Semester> semesters = [];
     for (var item in json[key][1].keys) {
-      semesters.add(Semester(title: item,url: json[key][1][item]));
+      if (item is String && item.isNotEmpty) {
+        if (json[key][1][item] is String && json[key][1][item].isNotEmpty) {
+          semesters.add(Semester(title: item, url: json[key][1][item]));
+        }
+      }
     }
     return semesters;
   }
