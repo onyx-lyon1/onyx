@@ -141,7 +141,8 @@ class MailSendPage extends StatelessWidget {
                                                         .textTheme
                                                         .bodyLarge!
                                                         .color!
-                                                        .withValues(alpha: 0.5)),
+                                                        .withValues(
+                                                            alpha: 0.5)),
                                             isDense: true,
                                             focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(

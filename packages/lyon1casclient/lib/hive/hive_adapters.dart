@@ -6,5 +6,4 @@ part 'generated/hive_adapters.g.dart';
 @GenerateAdapters([
   AdapterSpec<Credential>(),
 ])
-
 class HiveAdapters {}

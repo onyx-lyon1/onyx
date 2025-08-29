@@ -179,27 +179,28 @@ class _HomeStateCopyWithImpl<$R, $Out>
     HomeStatus? status,
     int? selectedIndex,
     bool? showSecondaryScreens,
-  }) => $apply(
-    FieldCopyWithData({
-      if (status != null) #status: status,
-      if (selectedIndex != null) #selectedIndex: selectedIndex,
-      if (showSecondaryScreens != null)
-        #showSecondaryScreens: showSecondaryScreens,
-    }),
-  );
+  }) =>
+      $apply(
+        FieldCopyWithData({
+          if (status != null) #status: status,
+          if (selectedIndex != null) #selectedIndex: selectedIndex,
+          if (showSecondaryScreens != null)
+            #showSecondaryScreens: showSecondaryScreens,
+        }),
+      );
   @override
   HomeState $make(CopyWithData data) => HomeState(
-    status: data.get(#status, or: $value.status),
-    selectedIndex: data.get(#selectedIndex, or: $value.selectedIndex),
-    showSecondaryScreens: data.get(
-      #showSecondaryScreens,
-      or: $value.showSecondaryScreens,
-    ),
-  );
+        status: data.get(#status, or: $value.status),
+        selectedIndex: data.get(#selectedIndex, or: $value.selectedIndex),
+        showSecondaryScreens: data.get(
+          #showSecondaryScreens,
+          or: $value.showSecondaryScreens,
+        ),
+      );
 
   @override
   HomeStateCopyWith<$R2, HomeState, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
-  ) => _HomeStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  ) =>
+      _HomeStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
-

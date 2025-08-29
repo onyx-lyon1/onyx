@@ -29,7 +29,8 @@ Future<void> tomussNotificationLogic(SettingsModel settings,
                   tomussClient: tomussClient,
                   autoRefresh: true,
                   semester: semestreModel ??
-                      Semester(title:localizations.defaultSemester,
+                      Semester(
+                          title: localizations.defaultSemester,
                           url: Lyon1TomussClient.currentSemester())))
               .schoolSubjectModel!;
       for (var i in newTeachingUnits) {

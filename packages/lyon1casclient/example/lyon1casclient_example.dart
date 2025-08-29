@@ -1,4 +1,3 @@
-
 void main() async {
   // final Lyon1CasClient auth = Lyon1CasClient();
   // final bool isAuthenticated =

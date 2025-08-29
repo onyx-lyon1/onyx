@@ -79,9 +79,10 @@ class TomussLogic {
       );
     } else {
       return (
-        student: Student(name: "Jean", surname: "Dupont",email: ""),
+        student: Student(name: "Jean", surname: "Dupont", email: ""),
         semesters: [
-          Semester(title: "2022/Automne",url: Lyon1TomussClient.currentSemester())
+          Semester(
+              title: "2022/Automne", url: Lyon1TomussClient.currentSemester())
         ],
         schoolSubjectModel: teachingUnitsModelListMock,
         timeout: null
@@ -229,7 +230,9 @@ class TomussLogic {
   static final List<TeachingUnit> teachingUnitsModelListMock = [
     TeachingUnit(
         title: "Algèbre 1 Cursus Prépa",
-        masters: [Teacher(name:"Frank WAGNER", email:"wagner@math.univ-lyon1.fr")],
+        masters: [
+          Teacher(name: "Frank WAGNER", email: "wagner@math.univ-lyon1.fr")
+        ],
         grades: [
           Grade(
             title: "Colle1",
@@ -361,9 +364,13 @@ class TomussLogic {
         ticket: "ticket",
         ue: "UE algèbre"),
     TeachingUnit(
-        title:"Compétences Numériques et Préparation PIX - Module 1",
-masters:        [Teacher(name:"Christian TRILLAUD",email: "christian.trillaud@univ-lyon1.fr")],
-        grades:[
+        title: "Compétences Numériques et Préparation PIX - Module 1",
+        masters: [
+          Teacher(
+              name: "Christian TRILLAUD",
+              email: "christian.trillaud@univ-lyon1.fr")
+        ],
+        grades: [
           Grade(
             title: "TD/comp1.2_5.2/noteQUEST",
             author: "christian.trillaud",
@@ -627,25 +634,25 @@ masters:        [Teacher(name:"Christian TRILLAUD",email: "christian.trillaud@un
             position: 0,
           ),
         ],
-        textValues:const [],
-        enumerations:const [],
-        presences:const [],
-        stageCodes:const [],
-        uploads:const [],
-        urls:const [],
-        ticket:"ticket",
-        ue:"UE pix"),
+        textValues: const [],
+        enumerations: const [],
+        presences: const [],
+        stageCodes: const [],
+        uploads: const [],
+        urls: const [],
+        ticket: "ticket",
+        ue: "UE pix"),
     TeachingUnit(
-        title:"Transversale Préparation Aux Métiers De L'Ingénieur 1",
-        masters:const [],
-        grades:const [],
-        textValues:const [],
-        enumerations:const [],
-        presences:const [],
-        stageCodes:const [],
-        uploads:const [],
-        urls:const [],
-        ticket:"ticket",
-        ue:"UE ppp2")
+        title: "Transversale Préparation Aux Métiers De L'Ingénieur 1",
+        masters: const [],
+        grades: const [],
+        textValues: const [],
+        enumerations: const [],
+        presences: const [],
+        stageCodes: const [],
+        uploads: const [],
+        urls: const [],
+        ticket: "ticket",
+        ue: "UE ppp2")
   ];
 }
