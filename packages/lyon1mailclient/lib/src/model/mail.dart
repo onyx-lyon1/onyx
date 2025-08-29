@@ -13,7 +13,7 @@ part 'generated/mail.g.dart';
 @CopyWith()
 // ignore: must_be_immutable
 class Mail extends Equatable {
-  late final MimeMessage? rawMail;
+  late final MimeMessage? _rawMail;
 
   late final String subject;
   late final String sender;
@@ -26,16 +26,17 @@ class Mail extends Equatable {
   late final String receiver;
   late final List<String> attachments;
 
-  late List<File> attachmentsFiles;
+  late List<File> _attachmentsFiles;
 
-  Mail.fromRaw(this.rawMail, {bool removeTrackingImages = false}) {
-    subject = rawMail!.decodeSubject() ?? "";
-    sender = rawMail!.fromEmail ?? "n/a";
-    isRead = rawMail!.hasFlag(MessageFlags.seen);
-    date = rawMail!.decodeDate() ?? DateTime.now();
-    isFlagged = rawMail!.isFlagged;
+  Mail.fromRaw(MimeMessage rawMail, {bool removeTrackingImages = false}) {
+    _rawMail = rawMail;
+    subject = rawMail.decodeSubject() ?? "";
+    sender = rawMail.fromEmail ?? "n/a";
+    isRead = rawMail.hasFlag(MessageFlags.seen);
+    date = rawMail.decodeDate() ?? DateTime.now();
+    isFlagged = rawMail.isFlagged;
 
-    body = rawMail!.transformToHtml(
+    body = rawMail.transformToHtml(
       blockExternalImages: removeTrackingImages,
       emptyMessageText: 'Le message est vide',
       enableDarkMode: false,
@@ -64,7 +65,7 @@ class Mail extends Equatable {
     } else {
       attachments = [];
     }
-    attachmentsFiles = [];
+    _attachmentsFiles = [];
   }
 
   Mail({
@@ -78,15 +79,18 @@ class Mail extends Equatable {
     required this.receiver,
     required this.attachments,
     required this.isFlagged,
-    this.attachmentsFiles = const [],
-    this.rawMail,
-  });
+    List<File> attachmentsFiles = const [],
+    MimeMessage? rawMail,
+  }) {
+    _rawMail = rawMail;
+    _attachmentsFiles = attachmentsFiles;
+  }
 
   Mail.forSending({
     required this.subject,
     required this.body,
     required this.receiver,
-    this.attachmentsFiles = const [],
+    List<File> attachmentsFiles = const [],
   }) {
     sender = "";
     excerpt = HtmlToPlainTextConverter.convert(body)
@@ -101,15 +105,16 @@ class Mail extends Equatable {
     isRead = false;
     date = DateTime.now();
     id = null;
-    attachments = attachmentsFiles.map((e) => e.path.split("/").last).toList();
+    attachments = _attachmentsFiles.map((e) => e.path.split("/").last).toList();
     isFlagged = false;
-    rawMail = null;
+    _rawMail = null;
+    _attachmentsFiles = attachmentsFiles;
   }
 
   Mail.forReplying({
     required this.body,
     required Mail mail,
-    this.attachmentsFiles = const [],
+    List<File> attachmentsFiles = const [],
   }) {
     receiver = mail.sender;
     sender = mail.receiver;
@@ -126,16 +131,17 @@ class Mail extends Equatable {
     isRead = false;
     date = DateTime.now();
     id = null;
-    attachments = attachmentsFiles.map((e) => e.path.split("/").last).toList();
+    attachments = _attachmentsFiles.map((e) => e.path.split("/").last).toList();
     isFlagged = false;
-    rawMail = null;
+    _rawMail = null;
+    _attachmentsFiles = attachmentsFiles;
   }
 
   Mail.forForwarding({
     required this.body,
     required this.receiver,
     required Mail mail,
-    this.attachmentsFiles = const [],
+    List<File> attachmentsFiles = const [],
   }) {
     sender = mail.receiver;
     subject = "";
@@ -151,9 +157,10 @@ class Mail extends Equatable {
     isRead = false;
     date = DateTime.now();
     id = null;
-    attachments = attachmentsFiles.map((e) => e.path.split("/").last).toList();
+    attachments = _attachmentsFiles.map((e) => e.path.split("/").last).toList();
     isFlagged = false;
-    rawMail = null;
+    _rawMail = null;
+    _attachmentsFiles = attachmentsFiles;
   }
 
 /*
@@ -167,8 +174,8 @@ class Mail extends Equatable {
 */
 
   List<int> getAttachment(String fileName) {
-    assert(rawMail != null);
-    final List<MimePart> parts = rawMail!.allPartsFlat;
+    assert(_rawMail != null);
+    final List<MimePart> parts = _rawMail!.allPartsFlat;
     for (final MimePart mp in parts) {
       if (mp.decodeFileName() == fileName) {
         Uint8List? content = mp.decodeContentBinary();
@@ -206,6 +213,10 @@ class Mail extends Equatable {
       return "$body\n$themeScript";
     }
   }
+
+  MimeMessage? get rawMail => _rawMail;
+
+  List<File> get attachmentsFiles => _attachmentsFiles;
 
   @override
   List<Object?> get props => [
