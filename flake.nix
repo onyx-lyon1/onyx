@@ -85,6 +85,10 @@
               at-spi2-core
               clang
               dart
+              libdeflate
+              xz
+              zstd
+              libwebp
               dbus
               util-linux
               cmake
