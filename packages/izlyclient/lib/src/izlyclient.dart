@@ -226,7 +226,7 @@ class IzlyClient {
     }
     String body =
         r.body.replaceAll("\n", "").replaceAll("\t", "").replaceAll("\r", "");
-    final decoded = jsonDecode(utf8.decode(body.codeUnits));
+    final decoded = jsonDecode(body);
     return (decoded["restaurants"] as List)
         .map((e) => RestaurantModel.fromJson(e))
         .toList();
