@@ -1,29 +1,31 @@
 import 'dart:convert';
-import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:onyx/core/theme/theme.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 class ThemeSettingsModel {
-  List<ThemeModel> themesCreated;
+  late List<ThemeModel> _themesCreated;
   late final String darkThemeSelected;
   late final String lightThemeSelected;
-  List<ThemeModel> favoriteThemes;
+  late List<ThemeModel> _favoriteThemes;
   final ThemeModeEnum themeMode;
   final bool autoSwitchTheme;
-  List<ThemeModel> themesPreset =
+  final List<ThemeModel> _themesPreset =
       OnyxTheme.themesPreset; //do not save it in hive_ce
 
   ThemeSettingsModel({
-    this.themesCreated = const [],
+    List<ThemeModel> themesCreated = const [],
     this.darkThemeSelected = 'Dark Default',
     this.lightThemeSelected = 'Light Default',
-    this.favoriteThemes = const [],
+    List<ThemeModel> favoriteThemes = const [],
     this.themeMode = ThemeModeEnum.system,
     this.autoSwitchTheme = true,
     String? themesCreatedString,
     String? favoriteThemesString,
   }) {
+    _themesCreated = themesCreated;
+    _favoriteThemes = favoriteThemes;
     if (themesCreatedString != null) {
       themesCreated = jsonDecode(themesCreatedString)
           .map((e) => ThemeModel.fromJson(e))
@@ -64,13 +66,27 @@ class ThemeSettingsModel {
       .where((themeInfo) => themeInfo.theme.brightness == Brightness.dark)
       .toList();
 
-  List<ThemeModel> get lightThemesPreset => themesPreset
+  List<ThemeModel> get lightThemesPreset => _themesPreset
       .where((themeInfo) => themeInfo.theme.brightness == Brightness.light)
       .toList();
 
-  List<ThemeModel> get darkThemesPreset => themesPreset
+  List<ThemeModel> get darkThemesPreset => _themesPreset
       .where((themeInfo) => themeInfo.theme.brightness == Brightness.dark)
       .toList();
+
+  List<ThemeModel> get themesCreated => _themesCreated;
+
+  set themesCreated(List<ThemeModel> value) {
+    _themesCreated = value;
+  }
+
+  List<ThemeModel> get favoriteThemes => _favoriteThemes;
+
+  set favoriteThemes(List<ThemeModel> value) {
+    _favoriteThemes = value;
+  }
+
+  List<ThemeModel> get themesPreset => _themesPreset;
 
   String get themesCreatedString =>
       jsonEncode(themesCreated.map((e) => e.toJson()).toList());

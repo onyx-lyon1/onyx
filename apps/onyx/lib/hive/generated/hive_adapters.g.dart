@@ -255,13 +255,13 @@ class ThemeSettingsModelAdapter extends TypeAdapter<ThemeSettingsModel> {
       autoSwitchTheme: fields[5] == null ? true : fields[5] as bool,
       themesCreatedString: fields[0] as String?,
       favoriteThemesString: fields[3] as String?,
-    )..themesPreset = (fields[9] as List).cast<ThemeModel>();
+    );
   }
 
   @override
   void write(BinaryWriter writer, ThemeSettingsModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.themesCreatedString)
       ..writeByte(1)
@@ -277,9 +277,7 @@ class ThemeSettingsModelAdapter extends TypeAdapter<ThemeSettingsModel> {
       ..writeByte(6)
       ..write(obj.themesCreated)
       ..writeByte(8)
-      ..write(obj.favoriteThemes)
-      ..writeByte(9)
-      ..write(obj.themesPreset);
+      ..write(obj.favoriteThemes);
   }
 
   @override

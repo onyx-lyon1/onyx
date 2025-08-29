@@ -1,7 +1,7 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:hive_ce/hive.dart';
-import 'package:lyon1casclient/hive/hive_registrar.g.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
+import 'package:lyon1examenclient/hive/hive_registrar.g.dart';
 import 'package:lyon1examenclient/lyon1examenclient.dart';
 
 class Lyon1ExamenClient {
@@ -77,7 +77,13 @@ class Lyon1ExamenClient {
       final place = locationAndPlace?.group(2) != null
           ? int.parse(locationAndPlace!.group(2)!)
           : null;
-      retour.add(ExamenModel(title: title, codeName: codeName, date: date, duration: duration, location: location, place: place));
+      retour.add(ExamenModel(
+          title: title,
+          codeName: codeName,
+          date: date,
+          duration: duration,
+          location: location,
+          place: place));
     }
 
     return retour;
