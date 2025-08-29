@@ -27,10 +27,6 @@ abstract class _$MailCWProxy {
 
   Mail isFlagged(bool isFlagged);
 
-  Mail attachmentsFiles(List<File> attachmentsFiles);
-
-  Mail rawMail(MimeMessage? rawMail);
-
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Mail(...).copyWith.fieldName(value)`.
   ///
@@ -49,8 +45,6 @@ abstract class _$MailCWProxy {
     String receiver,
     List<String> attachments,
     bool isFlagged,
-    List<File> attachmentsFiles,
-    MimeMessage? rawMail,
   });
 }
 
@@ -92,13 +86,6 @@ class _$MailCWProxyImpl implements _$MailCWProxy {
   Mail isFlagged(bool isFlagged) => call(isFlagged: isFlagged);
 
   @override
-  Mail attachmentsFiles(List<File> attachmentsFiles) =>
-      call(attachmentsFiles: attachmentsFiles);
-
-  @override
-  Mail rawMail(MimeMessage? rawMail) => call(rawMail: rawMail);
-
-  @override
 
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Mail(...).copyWith.fieldName(value)`.
@@ -118,8 +105,6 @@ class _$MailCWProxyImpl implements _$MailCWProxy {
     Object? receiver = const $CopyWithPlaceholder(),
     Object? attachments = const $CopyWithPlaceholder(),
     Object? isFlagged = const $CopyWithPlaceholder(),
-    Object? attachmentsFiles = const $CopyWithPlaceholder(),
-    Object? rawMail = const $CopyWithPlaceholder(),
   }) {
     return Mail(
       subject: subject == const $CopyWithPlaceholder() || subject == null
@@ -163,15 +148,6 @@ class _$MailCWProxyImpl implements _$MailCWProxy {
           ? _value.isFlagged
           // ignore: cast_nullable_to_non_nullable
           : isFlagged as bool,
-      attachmentsFiles: attachmentsFiles == const $CopyWithPlaceholder() ||
-              attachmentsFiles == null
-          ? _value.attachmentsFiles
-          // ignore: cast_nullable_to_non_nullable
-          : attachmentsFiles as List<File>,
-      rawMail: rawMail == const $CopyWithPlaceholder()
-          ? _value.rawMail
-          // ignore: cast_nullable_to_non_nullable
-          : rawMail as MimeMessage?,
     );
   }
 }

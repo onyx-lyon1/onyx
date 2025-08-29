@@ -27,16 +27,13 @@ class MailAdapter extends TypeAdapter<Mail> {
       receiver: fields[8] as String,
       attachments: (fields[9] as List).cast<String>(),
       isFlagged: fields[6] as bool,
-      attachmentsFiles:
-          fields[10] == null ? const [] : (fields[10] as List).cast<File>(),
-      rawMail: fields[11] as MimeMessage?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Mail obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.subject)
       ..writeByte(1)
@@ -56,11 +53,7 @@ class MailAdapter extends TypeAdapter<Mail> {
       ..writeByte(8)
       ..write(obj.receiver)
       ..writeByte(9)
-      ..write(obj.attachments)
-      ..writeByte(10)
-      ..write(obj.attachmentsFiles)
-      ..writeByte(11)
-      ..write(obj.rawMail);
+      ..write(obj.attachments);
   }
 
   @override

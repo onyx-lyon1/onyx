@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:enough_mail/enough_mail.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:lyon1mailclient/src/model/action.dart';
 import 'package:lyon1mailclient/src/model/action_list.dart';
