@@ -37,22 +37,20 @@ class Lyon1AgendaClient {
 
     // Request a firsty bearer token
     final resp = await RequestsPlus.post(Constants.adeTokenUrl);
-    _token = jsonDecode(resp.body)["token"];
+    _token = jsonDecode(resp.body)["data"]["token"];
 
-    // Don't know why but we need to get a second one to replace the first token (the first is used to get the second)
-    final tokenUpdate = await RequestsPlus.post(Constants.adeAuthUrl,
-        headers: buildAuthHeaders(), json: {"name": "", "password": ""});
-    _token = jsonDecode(tokenUpdate.body)["data"]["accessToken"];
     if (!(await isLoggedIn())) {
       throw Exception("login failed");
     }
   }
 
   Future<bool> isLoggedIn() async {
-    final check = await RequestsPlus.post(Constants.adeAuthUrl,
-        headers: buildAuthHeaders(), json: {"name": "", "password": ""});
+    final check = await RequestsPlus.get(Constants.adeAuthUrl,
+        headers: buildAuthHeaders());
     return check.statusCode == 200 &&
-        jsonDecode(check.body)["data"]["isAuthenticated"];
+        // Checking the value may not be the most precise way to check if logged in
+        // We could maybe check the rights also for exemple
+            jsonDecode(check.body)["data"]["active"];
   }
 
   Map<String, String> buildAuthHeaders(
