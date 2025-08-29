@@ -30,7 +30,8 @@ class LoadingHeaderWidget extends StatelessWidget {
                   builder: (context, double value, widget) {
                     return LinearProgressIndicator(
                       value: value,
-                      color: Theme.of(context).primaryColor.withValues(alpha: 0.5),
+                      color:
+                          Theme.of(context).primaryColor.withValues(alpha: 0.5),
                       backgroundColor: Theme.of(context).colorScheme.surface,
                       minHeight: 5.h,
                     );

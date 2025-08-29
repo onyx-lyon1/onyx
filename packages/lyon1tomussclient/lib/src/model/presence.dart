@@ -5,11 +5,7 @@ import 'package:lyon1tomussclient/src/parser/dateparser.dart';
 
 part 'generated/presence.g.dart';
 
-enum PresenceColor {
-  green,
-  red,
-  unset
-}
+enum PresenceColor { green, red, unset }
 
 @CopyWith()
 class Presence extends TeachingUnitElement {

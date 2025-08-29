@@ -1,5 +1,3 @@
-
-
 enum Year {
   first,
   second,

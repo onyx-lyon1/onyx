@@ -20,8 +20,11 @@ class TeachingUnitChildrenTitleWidget extends StatelessWidget {
           width: 12.w,
           margin: const EdgeInsets.only(bottom: 10),
           decoration: BoxDecoration(
-            color:
-                Theme.of(context).textTheme.bodyLarge!.color!.withValues(alpha: 0.3),
+            color: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .color!
+                .withValues(alpha: 0.3),
             borderRadius: BorderRadius.circular(5),
           ),
         ),

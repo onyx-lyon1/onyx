@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-
 class Res {
   static Duration get animationDuration => const Duration(milliseconds: 300);
 
