@@ -56,14 +56,7 @@ class Res {
 
   static final logger = Logger(
     level: (kDebugMode) ? Level.all : Level.fatal,
-    printer: PrettyPrinter(
-      methodCount: 0,
-      errorMethodCount: 8,
-      lineLength: 120,
-      colors: true,
-      printEmojis: true,
-      dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
-    ),
+    printer: SimplePrinter(),
   );
 
   static const List<int> peipStudentsAgendaIds = [
