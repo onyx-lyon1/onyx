@@ -25,7 +25,7 @@ class AgendaURL {
 
   Future<String> _getIcalURL(final String resources, final int projectid,
       final String start, final String end) async {
-    return "http://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=$resources&projectId=$projectid&calType=ical&firstDate=$start&lastDate=$end";
+    return "https://edt.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=$resources&projectId=$projectid&calType=ical&firstDate=$start&lastDate=$end";
   }
 
   Future<({String resources, int projectid})> getUserAgendaIds(
