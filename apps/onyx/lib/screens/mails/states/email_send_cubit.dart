@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:onyx/screens/mails/states/email_cubit.dart';
@@ -53,7 +53,7 @@ class EmailSendCubit extends Cubit<EmailSendState> {
             state.destinationEditor!.value.text.contains(".")) ||
         (state.originalMessage != null &&
             bodyHtml(state.controller!).isNotEmpty)) {
-      Mail email = Mail(
+      Mail email = Mail.withAttachments(
         subject: state.subjectEditor!.text,
         sender: "moi",
         excerpt: "",

@@ -5,7 +5,7 @@ nextTypeId: 25
 types:
   Mail:
     typeId: 5
-    nextIndex: 12
+    nextIndex: 13
     fields:
       subject:
         index: 0
@@ -27,10 +27,6 @@ types:
         index: 8
       attachments:
         index: 9
-      attachmentsFiles:
-        index: 10
-      rawMail:
-        index: 11
   MailBox:
     typeId: 19
     nextIndex: 3

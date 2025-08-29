@@ -51,13 +51,13 @@ class Mail extends Equatable {
                     .replaceAll("\n", "")
                     .length,
                 100));
-    id = rawMail!.sequenceId;
-    receiver = rawMail!.to!
+    id = rawMail.sequenceId;
+    receiver = rawMail.to!
         .map((e) => e.email)
         .toList()
         .join(", "); //.substring(0, receiver.length - 2);
-    if (rawMail!.hasAttachments()) {
-      attachments = rawMail!.allPartsFlat
+    if (rawMail.hasAttachments()) {
+      attachments = rawMail.allPartsFlat
           .where((element) => element.decodeFileName() != null)
           .map((e) => e.decodeFileName())
           .toList()
@@ -79,10 +79,25 @@ class Mail extends Equatable {
     required this.receiver,
     required this.attachments,
     required this.isFlagged,
-    List<File> attachmentsFiles = const [],
-    MimeMessage? rawMail,
   }) {
-    _rawMail = rawMail;
+    _rawMail = null;
+    _attachmentsFiles = [];
+  }
+
+  Mail.withAttachments({
+    required this.subject,
+    required this.sender,
+    required this.excerpt,
+    required this.isRead,
+    required this.date,
+    required this.body,
+    required this.id,
+    required this.receiver,
+    required this.attachments,
+    required this.isFlagged,
+    List<File> attachmentsFiles = const [],
+  }) {
+    _rawMail = null;
     _attachmentsFiles = attachmentsFiles;
   }
 
