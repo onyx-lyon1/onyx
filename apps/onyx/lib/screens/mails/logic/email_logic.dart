@@ -2,15 +2,20 @@ import 'package:flutter/foundation.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/extensions/special_mail_box_extension.dart';
-import 'package:onyx/core/initialisations/initialisations_export.dart';
+import 'package:onyx/core/initialisations/sembast_init.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/l10n/app_localizations.dart';
 
 class MailLogic {
-  static Future<Lyon1MailClient> connect(
-      {required String username, required String password}) async {
-    Lyon1MailClient mailClient = Lyon1MailClient(username, password,
-        corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
+  static Future<Lyon1MailClient> connect({
+    required String username,
+    required String password,
+  }) async {
+    Lyon1MailClient mailClient = Lyon1MailClient(
+      username,
+      password,
+      corsProxyUrl: (kIsWeb) ? Res.corsProxy : "",
+    );
     if (Res.mock) {
       return mailClient;
     }
@@ -43,9 +48,10 @@ class MailLogic {
       removeTrackingImages: blockTrackers,
     );
     mailBox ??= MailBox(
-        name: appLocalizations.inbox,
-        specialMailBox: SpecialMailBox.inbox,
-        emails: const []);
+      name: appLocalizations.inbox,
+      specialMailBox: SpecialMailBox.inbox,
+      emails: const [],
+    );
     if (emailOpt == null || emailOpt.isEmpty) {
       Res.logger.d("no Mails");
     } else {
@@ -58,7 +64,7 @@ class MailLogic {
     if (Res.mock) {
       return mailboxesMock;
     }
-    hiveInit(path: path);
+    initSembastDb();
     if (await CacheService.exist<MailBoxList>()) {
       return (await CacheService.get<MailBoxList>())!.mailBoxes;
     } else {
@@ -85,59 +91,64 @@ class MailLogic {
 
   static final List<Mail> emailListMock = [
     Mail(
-        subject: "subjectMock1",
-        sender: "senderMock1",
-        excerpt: "excerptMock1",
-        isRead: false,
-        date: DateTime(2022, 9, 1, 8),
-        body: "bodyMock1",
-        id: 1,
-        receiver: "receiverMock1",
-        attachments: const ["attachmentMock1", "attachmentMock2"],
-        isFlagged: false),
+      subject: "subjectMock1",
+      sender: "senderMock1",
+      excerpt: "excerptMock1",
+      isRead: false,
+      date: DateTime(2022, 9, 1, 8),
+      body: "bodyMock1",
+      id: 1,
+      receiver: "receiverMock1",
+      attachments: const ["attachmentMock1", "attachmentMock2"],
+      isFlagged: false,
+    ),
     Mail(
-        subject: "subjectMock2",
-        sender: "senderMock2",
-        excerpt: "excerptMock2",
-        isRead: true,
-        date: DateTime(2022, 9, 1, 9),
-        body: "bodyMock2",
-        id: 2,
-        receiver: "receiverMock2",
-        attachments: const ["attachmentMock1", "attachmentMock2"],
-        isFlagged: true),
+      subject: "subjectMock2",
+      sender: "senderMock2",
+      excerpt: "excerptMock2",
+      isRead: true,
+      date: DateTime(2022, 9, 1, 9),
+      body: "bodyMock2",
+      id: 2,
+      receiver: "receiverMock2",
+      attachments: const ["attachmentMock1", "attachmentMock2"],
+      isFlagged: true,
+    ),
     Mail(
-        subject: "subjectMock3",
-        sender: "senderMock3",
-        excerpt: "excerptMock3",
-        isRead: false,
-        date: DateTime(2022, 9, 1, 10),
-        body: "bodyMock3",
-        id: 3,
-        receiver: "receiverMock3",
-        attachments: const ["attachmentMock1", "attachmentMock2"],
-        isFlagged: false),
+      subject: "subjectMock3",
+      sender: "senderMock3",
+      excerpt: "excerptMock3",
+      isRead: false,
+      date: DateTime(2022, 9, 1, 10),
+      body: "bodyMock3",
+      id: 3,
+      receiver: "receiverMock3",
+      attachments: const ["attachmentMock1", "attachmentMock2"],
+      isFlagged: false,
+    ),
     Mail(
-        subject: "subjectMock4",
-        sender: "senderMock4",
-        excerpt: "excerptMock4",
-        isRead: true,
-        date: DateTime(2022, 9, 1, 11),
-        body: "bodyMock4",
-        id: 4,
-        receiver: "receiverMock4",
-        attachments: const ["attachmentMock1", "attachmentMock2"],
-        isFlagged: true),
+      subject: "subjectMock4",
+      sender: "senderMock4",
+      excerpt: "excerptMock4",
+      isRead: true,
+      date: DateTime(2022, 9, 1, 11),
+      body: "bodyMock4",
+      id: 4,
+      receiver: "receiverMock4",
+      attachments: const ["attachmentMock1", "attachmentMock2"],
+      isFlagged: true,
+    ),
     Mail(
-        subject: "subjectMock5",
-        sender: "senderMock5",
-        excerpt: "excerptMock5",
-        isRead: false,
-        date: DateTime(2022, 9, 1, 12),
-        body: "bodyMock5",
-        id: 5,
-        receiver: "receiverMock5",
-        attachments: const ["attachmentMock1", "attachmentMock2"],
-        isFlagged: false),
+      subject: "subjectMock5",
+      sender: "senderMock5",
+      excerpt: "excerptMock5",
+      isRead: false,
+      date: DateTime(2022, 9, 1, 12),
+      body: "bodyMock5",
+      id: 5,
+      receiver: "receiverMock5",
+      attachments: const ["attachmentMock1", "attachmentMock2"],
+      isFlagged: false,
+    ),
   ];
 }

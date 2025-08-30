@@ -28,7 +28,7 @@ void main() async {
     await NotificationLogic.init();
   }
 
-  await hiveInit();
+  await initSembastDb();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

@@ -4,10 +4,10 @@ import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:workmanager/workmanager.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 
 @pragma('vm:entry-point')
 void workmanagerHandler() {
@@ -23,7 +23,7 @@ void workmanagerHandler() {
 
 Future<bool> backgroundLogic({bool init = true}) async {
   if (init) {
-    await hiveInit();
+    await initSembastDb();
     await NotificationLogic.init();
   }
   SettingsModel settings = await SettingsLogic.load();
@@ -38,8 +38,10 @@ Future<bool> backgroundLogic({bool init = true}) async {
   if (!settings.firstLogin && !settings.biometricAuth) {
     Lyon1CasClient lyon1Cas = Lyon1CasClient();
     var result = await lyon1Cas.authenticate(
-        (await CacheService.get<Credential>(
-            secureKey: await CacheService.getEncryptionKey(false)))!);
+      (await CacheService.get<Credential>(
+        secureKey: await CacheService.getEncryptionKey(false),
+      ))!,
+    );
     if (!result.authResult) return false;
     await tomussNotificationLogic(settings, lyon1Cas, localizations);
     await emailNotificationLogic(settings, localizations);

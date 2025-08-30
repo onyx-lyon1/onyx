@@ -13,8 +13,10 @@ dependencies:
     sdk: flutter
   modal_bottom_sheet: ^3.0.0-pre
   flutter_bloc: ^9.1.0
-  hive_ce: ^2.11.3
-  hive_ce_flutter: ^2.3.2
+  sembast: ^3.6.0
+  encrypt: ^5.0.3
+  crypto: ^3.0.6
+  path: ^1.9.1
   url_launcher: ^6.1.14
   path_provider: ^2.1.1
   animations: ^2.0.8
@@ -33,7 +35,6 @@ dependencies:
   #agenda_config
   qr_code_dart_scan: ^0.11.2
   permission_handler: ^12.0.0+1
-  encrypt: ^5.0.3
 
   #izly
   izlyclient: ^1.0.9
