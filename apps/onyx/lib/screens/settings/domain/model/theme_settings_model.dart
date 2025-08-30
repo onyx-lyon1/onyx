@@ -5,38 +5,34 @@ import 'package:onyx/core/theme/theme.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 class ThemeSettingsModel {
-  late List<ThemeModel> _themesCreated;
+  late List<ThemeModel> themesCreated;
   late final String darkThemeSelected;
   late final String lightThemeSelected;
-  late List<ThemeModel> _favoriteThemes;
+  late List<ThemeModel> favoriteThemes;
   final ThemeModeEnum themeMode;
   final bool autoSwitchTheme;
   final List<ThemeModel> _themesPreset =
       OnyxTheme.themesPreset; //do not save it in hive_ce
 
   ThemeSettingsModel({
-    List<ThemeModel> themesCreated = const [],
+    this.themesCreated = const [],
     this.darkThemeSelected = 'Dark Default',
     this.lightThemeSelected = 'Light Default',
-    List<ThemeModel> favoriteThemes = const [],
+    this.favoriteThemes = const [],
     this.themeMode = ThemeModeEnum.system,
     this.autoSwitchTheme = true,
     String? themesCreatedString,
     String? favoriteThemesString,
   }) {
-    _themesCreated = themesCreated;
-    _favoriteThemes = favoriteThemes;
     if (themesCreatedString != null) {
-      themesCreated = jsonDecode(themesCreatedString)
-          .map((e) => ThemeModel.fromJson(e))
-          .toList()
-          .cast<ThemeModel>();
+      themesCreated = jsonDecode(
+        themesCreatedString,
+      ).map((e) => ThemeModel.fromJson(e)).toList().cast<ThemeModel>();
     }
     if (favoriteThemesString != null) {
-      favoriteThemes = jsonDecode(favoriteThemesString)
-          .map((e) => ThemeModel.fromJson(e))
-          .toList()
-          .cast<ThemeModel>();
+      favoriteThemes = jsonDecode(
+        favoriteThemesString,
+      ).map((e) => ThemeModel.fromJson(e)).toList().cast<ThemeModel>();
     }
   }
 
@@ -73,18 +69,6 @@ class ThemeSettingsModel {
   List<ThemeModel> get darkThemesPreset => _themesPreset
       .where((themeInfo) => themeInfo.theme.brightness == Brightness.dark)
       .toList();
-
-  List<ThemeModel> get themesCreated => _themesCreated;
-
-  set themesCreated(List<ThemeModel> value) {
-    _themesCreated = value;
-  }
-
-  List<ThemeModel> get favoriteThemes => _favoriteThemes;
-
-  set favoriteThemes(List<ThemeModel> value) {
-    _favoriteThemes = value;
-  }
 
   List<ThemeModel> get themesPreset => _themesPreset;
 

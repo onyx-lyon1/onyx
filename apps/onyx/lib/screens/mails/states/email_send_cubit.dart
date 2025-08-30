@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart';
@@ -9,22 +9,24 @@ import 'package:onyx/screens/mails/states/email_cubit.dart';
 import 'package:vsc_quill_delta_to_html/vsc_quill_delta_to_html.dart';
 
 part 'email_send_state.dart';
-part 'generated/email_send_cubit.g.dart';
+part 'generated/email_send_cubit.mapper.dart';
 
 class EmailSendCubit extends Cubit<EmailSendState> {
   EmailSendCubit(int? originalMessage, bool? replyAll, bool reply, bool forward)
-      : super(EmailSendState(status: EmailSendStatus.initial)) {
-    emit(state.copyWith(
-      status: EmailSendStatus.updated,
-      originalMessage: originalMessage,
-      replyAll: replyAll,
-      reply: reply,
-      forward: forward,
-      controller: QuillController.basic(),
-      subjectEditor: TextEditingController(),
-      destinationEditor: TextEditingController(),
-      attachments: [],
-    ));
+    : super(EmailSendState(status: EmailSendStatus.initial)) {
+    emit(
+      state.copyWith(
+        status: EmailSendStatus.updated,
+        originalMessage: originalMessage,
+        replyAll: replyAll,
+        reply: reply,
+        forward: forward,
+        controller: QuillController.basic(),
+        subjectEditor: TextEditingController(),
+        destinationEditor: TextEditingController(),
+        attachments: [],
+      ),
+    );
   }
 
   void addAttachment(File file) {
@@ -53,7 +55,7 @@ class EmailSendCubit extends Cubit<EmailSendState> {
             state.destinationEditor!.value.text.contains(".")) ||
         (state.originalMessage != null &&
             bodyHtml(state.controller!).isNotEmpty)) {
-      Mail email = Mail.withAttachments(
+      Mail email = Mail(
         subject: state.subjectEditor!.text,
         sender: "moi",
         excerpt: "",
@@ -83,8 +85,8 @@ class EmailSendCubit extends Cubit<EmailSendState> {
 
   String bodyHtml(QuillController controller) {
     return QuillDeltaToHtmlConverter(
-            List.castFrom(controller.document.toDelta().toJson()),
-            ConverterOptions.forEmail())
-        .convert();
+      List.castFrom(controller.document.toDelta().toJson()),
+      ConverterOptions.forEmail(),
+    ).convert();
   }
 }

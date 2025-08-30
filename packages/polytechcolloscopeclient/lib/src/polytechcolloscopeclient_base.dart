@@ -1,9 +1,7 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:collection/collection.dart';
 import 'package:diacritic/diacritic.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:html/dom.dart';
-import 'package:polytechcolloscopeclient/hive/hive_registrar.g.dart';
 import 'package:requests_plus/requests_plus.dart';
 
 import 'consts.dart';
@@ -18,8 +16,11 @@ class PolytechColloscopeClient {
   }
 
   Future<List<Student>> fetchStudents(Year year) async {
-    var page = await RequestsPlus.get(Consts.kholleURL[year]!,
-        userName: _username, password: _password);
+    var page = await RequestsPlus.get(
+      Consts.kholleURL[year]!,
+      userName: _username,
+      password: _password,
+    );
 
     BeautifulSoup bs = BeautifulSoup(page.body);
 
@@ -50,15 +51,19 @@ class PolytechColloscopeClient {
 
     var students = await fetchStudents(year);
     return students.firstWhereOrNull(
-        (s) => removeDiacritics(s.name) == removeDiacritics(match));
+      (s) => removeDiacritics(s.name) == removeDiacritics(match),
+    );
   }
 
   Future<StudentColloscope> getColloscope(Student student) async {
     var page = await RequestsPlus.get(
-        Consts.khollesStudentURL[student.year]!
-            .replaceFirst(":id", student.id.toString()),
-        userName: _username,
-        password: _password);
+      Consts.khollesStudentURL[student.year]!.replaceFirst(
+        ":id",
+        student.id.toString(),
+      ),
+      userName: _username,
+      password: _password,
+    );
 
     BeautifulSoup bs = BeautifulSoup(page.body);
 
@@ -68,8 +73,9 @@ class PolytechColloscopeClient {
       throw StateError("Invalid student id");
     }
 
-    var trinomeStr =
-        RegExp(r"trinôme (\d+)").firstMatch(header.innerHtml)!.group(1)!;
+    var trinomeStr = RegExp(
+      r"trinôme (\d+)",
+    ).firstMatch(header.innerHtml)!.group(1)!;
 
     var trinome = int.parse(trinomeStr);
 
@@ -90,14 +96,16 @@ class PolytechColloscopeClient {
     var date = e.children.first.innerHtml.trim();
     var secondTd = e.children.elementAtOrNull(1)!;
 
-    var hourAndMinute =
-        secondTd.children.first.innerHtml.replaceFirst("&nbsp;", "").trim();
+    var hourAndMinute = secondTd.children.first.innerHtml
+        .replaceFirst("&nbsp;", "")
+        .trim();
 
     var secondDiv = secondTd.children.elementAtOrNull(1)!;
     var kholleur = secondDiv.find("a")!.text.trim();
 
-    var divText =
-        secondDiv.nodes.where((element) => element.runtimeType == Text);
+    var divText = secondDiv.nodes.where(
+      (element) => element.runtimeType == Text,
+    );
 
     var subject = divText.first.text!.replaceAll(RegExp(r'[()]'), "").trim();
 
@@ -110,30 +118,37 @@ class PolytechColloscopeClient {
     String? room;
     if (message != null) {
       room = RegExp(r"salle(.*)", caseSensitive: false)
-          .firstMatch(message.replaceAll(
-              RegExp(r"\b(salle\s*)+\b", caseSensitive: false), "Salle"))
+          .firstMatch(
+            message.replaceAll(
+              RegExp(r"\b(salle\s*)+\b", caseSensitive: false),
+              "Salle",
+            ),
+          )
           ?.group(1)
           ?.trim();
     }
 
-    var dateParsed =
-        RegExp(r"(\d{1,2})\s*(\S{3,9})\s*(\d{4})?").firstMatch(date)!;
+    var dateParsed = RegExp(
+      r"(\d{1,2})\s*(\S{3,9})\s*(\d{4})?",
+    ).firstMatch(date)!;
     var day = dateParsed.group(1)!;
     var month = dateParsed.group(2)!.asMonthNumber;
     var year = int.parse(dateParsed.group(3) ?? DateTime.now().year.toString());
 
-    var hourAndMinutesParsed =
-        RegExp(r"(\d{1,2}) h (\d{2})").firstMatch(hourAndMinute)!;
+    var hourAndMinutesParsed = RegExp(
+      r"(\d{1,2}) h (\d{2})",
+    ).firstMatch(hourAndMinute)!;
     var hour = hourAndMinutesParsed.group(1)!;
     var minutes = hourAndMinutesParsed.group(2)!;
 
     var dateTime = DateTime(
-        year, month, int.parse(day), int.parse(hour), int.parse(minutes));
+      year,
+      month,
+      int.parse(day),
+      int.parse(hour),
+      int.parse(minutes),
+    );
 
     return Kholle(dateTime, subject, kholleur, message, room);
-  }
-
-  static void registerAdapters() {
-    Hive.registerAdapters();
   }
 }

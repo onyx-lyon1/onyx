@@ -4,9 +4,8 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:enough_mail/enough_mail.dart';
-import 'package:hive_ce/hive.dart';
-import 'package:lyon1mailclient/hive/hive_registrar.g.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
+import 'package:lyon1mailclient/src/sembast_helper.dart';
 import 'package:requests_plus/requests_plus.dart';
 
 import 'config/config.dart';
@@ -29,11 +28,6 @@ class Lyon1MailClient {
       throw Exception("proxyUrl must end with /");
     }
     _corsProxyUrl = corsProxyUrl;
-  }
-
-  static void registerAdapters({bool initHive = true}) {
-    Hive.registerAdapters();
-    if (initHive) Hive.init(Directory.current.path);
   }
 
   Future<bool> login() async {
@@ -162,9 +156,7 @@ class Lyon1MailClient {
           .add(Mail.fromRaw(email, removeTrackingImages: removeTrackingImages));
     }
     if (mailbox.name.contains("Boîte d'envoi")) {
-      Box<ActionList> actionsBox = await Hive.openBox<ActionList>("cached_0");
-      ActionList actionList =
-          actionsBox.get("cache0") ?? ActionList(action: []);
+      ActionList actionList = await SembastActionCache.getActions();
       for (Action action in actionList.action) {
         switch (action.type) {
           case ActionType.send:
@@ -438,11 +430,10 @@ class Lyon1MailClient {
   }
 
   Future<void> addAction(Action action, {bool autoDoAction = true}) async {
-    Box<ActionList> box = await Hive.openBox<ActionList>("cached_0");
-    ActionList wrapper = box.get("cache0") ?? ActionList(action: []);
+    ActionList wrapper = await SembastActionCache.getActions();
     if (!wrapper.action.contains(action)) {
       wrapper.action.add(action);
-      await box.put("cache0", wrapper);
+      await SembastActionCache.putActions(wrapper);
       if (autoDoAction) {
         await doActions();
       }
@@ -450,21 +441,19 @@ class Lyon1MailClient {
   }
 
   Future<void> removeAction(Action action) async {
-    Box<ActionList> box = await Hive.openBox<ActionList>("cached_0");
-    ActionList wrapper = box.get("cache0") ?? ActionList(action: []);
+    ActionList wrapper = await SembastActionCache.getActions();
     while (wrapper.action.contains(action)) {
       wrapper.action.remove(action);
     }
-    await box.put("cache0", wrapper);
+    await SembastActionCache.putActions(wrapper);
   }
 
   Future<void> cleanActions() async {
-    await Hive.deleteBoxFromDisk("cached_0");
+    await SembastActionCache.clearActions();
   }
 
   Future<List<Action>> getActions() async {
-    Box<ActionList> box = await Hive.openBox<ActionList>("cached_0");
-    return List.from(box.get("cache0")?.action ?? []);
+    return List.from((await SembastActionCache.getActions()).action);
   }
 
   Future<void> doActions() async {

@@ -2,18 +2,20 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:enough_mail_html/enough_mail_html.dart';
-import 'package:equatable/equatable.dart';
 import 'package:lyon1mailclient/src/config/config.dart';
 
-part 'generated/mail.g.dart';
+part 'generated/mail.mapper.dart';
 
-@CopyWith()
+@MappableClass(ignore: ['rawMail', 'attachmentsFiles'])
 // ignore: must_be_immutable
-class Mail extends Equatable {
-  late final MimeMessage? _rawMail;
+class Mail with MailMappable {
+  late final MimeMessage? rawMail; // Changement: plus de nullable
+
+  // Ajout pour satisfaire dart_mappable (non utilisé ailleurs)
+  late final bool removeTrackingImages;
 
   late final String subject;
   late final String sender;
@@ -26,17 +28,16 @@ class Mail extends Equatable {
   late final String receiver;
   late final List<String> attachments;
 
-  late List<File> _attachmentsFiles;
+  late List<File> attachmentsFiles;
 
-  Mail.fromRaw(MimeMessage rawMail, {bool removeTrackingImages = false}) {
-    _rawMail = rawMail;
-    subject = rawMail.decodeSubject() ?? "";
-    sender = rawMail.fromEmail ?? "n/a";
-    isRead = rawMail.hasFlag(MessageFlags.seen);
-    date = rawMail.decodeDate() ?? DateTime.now();
-    isFlagged = rawMail.isFlagged;
+  Mail.fromRaw(MimeMessage this.rawMail, {this.removeTrackingImages = false}) {
+    subject = rawMail!.decodeSubject() ?? "";
+    sender = rawMail!.fromEmail ?? "n/a";
+    isRead = rawMail!.hasFlag(MessageFlags.seen);
+    date = rawMail!.decodeDate() ?? DateTime.now();
+    isFlagged = rawMail!.isFlagged;
 
-    body = rawMail.transformToHtml(
+    body = rawMail!.transformToHtml(
       blockExternalImages: removeTrackingImages,
       emptyMessageText: 'Le message est vide',
       enableDarkMode: false,
@@ -51,13 +52,13 @@ class Mail extends Equatable {
                     .replaceAll("\n", "")
                     .length,
                 100));
-    id = rawMail.sequenceId;
-    receiver = rawMail.to!
+    id = rawMail!.sequenceId;
+    receiver = rawMail!.to!
         .map((e) => e.email)
         .toList()
         .join(", "); //.substring(0, receiver.length - 2);
-    if (rawMail.hasAttachments()) {
-      attachments = rawMail.allPartsFlat
+    if (rawMail!.hasAttachments()) {
+      attachments = rawMail!.allPartsFlat
           .where((element) => element.decodeFileName() != null)
           .map((e) => e.decodeFileName())
           .toList()
@@ -65,9 +66,10 @@ class Mail extends Equatable {
     } else {
       attachments = [];
     }
-    _attachmentsFiles = [];
+    attachmentsFiles = [];
   }
 
+  @MappableConstructor()
   Mail({
     required this.subject,
     required this.sender,
@@ -79,33 +81,16 @@ class Mail extends Equatable {
     required this.receiver,
     required this.attachments,
     required this.isFlagged,
-  }) {
-    _rawMail = null;
-    _attachmentsFiles = [];
-  }
-
-  Mail.withAttachments({
-    required this.subject,
-    required this.sender,
-    required this.excerpt,
-    required this.isRead,
-    required this.date,
-    required this.body,
-    required this.id,
-    required this.receiver,
-    required this.attachments,
-    required this.isFlagged,
-    List<File> attachmentsFiles = const [],
-  }) {
-    _rawMail = null;
-    _attachmentsFiles = attachmentsFiles;
-  }
+    this.rawMail,
+    this.attachmentsFiles = const [],
+    this.removeTrackingImages = false, // Ajouté
+  });
 
   Mail.forSending({
     required this.subject,
     required this.body,
     required this.receiver,
-    List<File> attachmentsFiles = const [],
+    this.attachmentsFiles = const [],
   }) {
     sender = "";
     excerpt = HtmlToPlainTextConverter.convert(body)
@@ -120,10 +105,12 @@ class Mail extends Equatable {
     isRead = false;
     date = DateTime.now();
     id = null;
-    attachments = _attachmentsFiles.map((e) => e.path.split("/").last).toList();
+    attachments = attachmentsFiles.map((e) => e.path.split("/").last).toList();
     isFlagged = false;
-    _rawMail = null;
-    _attachmentsFiles = attachmentsFiles;
+    // rawMail n'est pas utilisé ici, on met une valeur fictive
+    rawMail = MimeMessage();
+    removeTrackingImages = false;
+    attachmentsFiles = attachmentsFiles;
   }
 
   Mail.forReplying({
@@ -146,10 +133,11 @@ class Mail extends Equatable {
     isRead = false;
     date = DateTime.now();
     id = null;
-    attachments = _attachmentsFiles.map((e) => e.path.split("/").last).toList();
+    attachments = attachmentsFiles.map((e) => e.path.split("/").last).toList();
     isFlagged = false;
-    _rawMail = null;
-    _attachmentsFiles = attachmentsFiles;
+    rawMail = MimeMessage();
+    removeTrackingImages = false;
+    attachmentsFiles = attachmentsFiles;
   }
 
   Mail.forForwarding({
@@ -172,10 +160,11 @@ class Mail extends Equatable {
     isRead = false;
     date = DateTime.now();
     id = null;
-    attachments = _attachmentsFiles.map((e) => e.path.split("/").last).toList();
+    attachments = attachmentsFiles.map((e) => e.path.split("/").last).toList();
     isFlagged = false;
-    _rawMail = null;
-    _attachmentsFiles = attachmentsFiles;
+    rawMail = MimeMessage();
+    removeTrackingImages = false;
+    attachmentsFiles = attachmentsFiles;
   }
 
 /*
@@ -189,8 +178,7 @@ class Mail extends Equatable {
 */
 
   List<int> getAttachment(String fileName) {
-    assert(_rawMail != null);
-    final List<MimePart> parts = _rawMail!.allPartsFlat;
+    final List<MimePart> parts = rawMail!.allPartsFlat;
     for (final MimePart mp in parts) {
       if (mp.decodeFileName() == fileName) {
         Uint8List? content = mp.decodeContentBinary();
@@ -228,25 +216,4 @@ class Mail extends Equatable {
       return "$body\n$themeScript";
     }
   }
-
-  MimeMessage? get rawMail => _rawMail;
-
-  List<File> get attachmentsFiles => _attachmentsFiles;
-
-  @override
-  List<Object?> get props => [
-        subject,
-        sender,
-        excerpt,
-        body,
-        id,
-        isRead,
-        isFlagged,
-        date,
-        receiver,
-        attachments,
-      ];
-
-  @override
-  bool? get stringify => true;
 }

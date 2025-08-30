@@ -1,10 +1,10 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 
-part 'generated/tomuss_text.g.dart';
+part 'generated/tomuss_text.mapper.dart';
 
-@CopyWith()
-class TomussText extends TeachingUnitElement {
+@MappableClass()
+class TomussText extends TeachingUnitElement with TomussTextMappable {
   late final String value;
   late final String comment;
   late final bool isValidText;
@@ -12,11 +12,16 @@ class TomussText extends TeachingUnitElement {
   late final String theId;
 
   TomussText.fromJSON(
-      var id, var json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+    int id,
+    Map<String, dynamic> json,
+    Map<String, dynamic> stats,
+    List<dynamic> line,
+    Map<String, dynamic> column,
+    String user,
+  ) : super.fromJson(id, json, stats, line, column, user) {
     comment = json['comment'] ?? "";
 
-    value = (line.length > 0 && id < line.length && line[id].length > 0)
+    value = (line.isNotEmpty && id < line.length && line[id].length > 0)
         ? line[id][0].toString()
         : "";
     isValidText = value.isNotEmpty;
@@ -24,6 +29,7 @@ class TomussText extends TeachingUnitElement {
     theId = json['the_id'] ?? "";
   }
 
+  @MappableConstructor()
   TomussText({
     required super.title,
     required super.author,
@@ -40,6 +46,11 @@ class TomussText extends TeachingUnitElement {
   bool get isVisible => !isHidden && !["0_0", "0_1", "0_2"].contains(theId);
 
   @override
-  List<Object?> get customProps =>
-      [value, comment, isValidText, theId, isHidden];
+  List<Object?> get customProps => [
+    value,
+    comment,
+    isValidText,
+    theId,
+    isHidden,
+  ];
 }

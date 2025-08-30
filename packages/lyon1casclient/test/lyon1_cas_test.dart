@@ -19,7 +19,6 @@ void main() async {
 
     authOK = Lyon1CasClient();
     credential = Credential(username, password);
-    Lyon1CasClient.registerAdapters();
   });
 
   test('getExecToken', () async {
@@ -27,8 +26,9 @@ void main() async {
   });
 
   test('authenticate.ok', () async {
-    final bool isAuthenticated =
-        (await authOK.authenticate(credential)).authResult;
+    final bool isAuthenticated = (await authOK.authenticate(
+      credential,
+    )).authResult;
     expect(isAuthenticated, equals(true));
     expect((await authOK.checkAuthentificated()), true);
   });
@@ -37,18 +37,19 @@ void main() async {
     var authReturn = await authOK.authenticate(credential);
     await authOK.logout();
     expect(
-        (await authOK.authenticate(
-                authReturn.credential.copyWith(username: "", password: "")))
-            .authResult,
-        true);
+      (await authOK.authenticate(
+        authReturn.credential.copyWith(username: "", password: ""),
+      )).authResult,
+      true,
+    );
   });
 
   test('authenticate.fail', () async {
     await authOK.logout();
     Lyon1CasClient authBAD = Lyon1CasClient();
-    final bool isAuthenticated = (await authBAD
-            .authenticate(Credential("p1234567", "not_valid_password")))
-        .authResult;
+    final bool isAuthenticated = (await authBAD.authenticate(
+      Credential("p1234567", "not_valid_password"),
+    )).authResult;
 
     expect(isAuthenticated, equals(false));
 

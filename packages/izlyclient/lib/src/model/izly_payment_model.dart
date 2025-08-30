@@ -1,10 +1,9 @@
-import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'generated/izly_payment_model.g.dart';
+part 'generated/izly_payment_model.mapper.dart';
 
-@JsonSerializable()
-class IzlyPaymentModel extends Equatable {
+@MappableClass()
+class IzlyPaymentModel with IzlyPaymentModelMappable {
   final DateTime paymentTime;
   final double amountSpent;
   final bool isSucess;
@@ -14,10 +13,4 @@ class IzlyPaymentModel extends Equatable {
     required this.amountSpent,
     required this.isSucess,
   });
-
-  @override
-  List<Object> get props => [paymentTime, amountSpent, isSucess];
-
-  @override
-  bool get stringify => true;
 }

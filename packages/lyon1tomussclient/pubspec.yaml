@@ -4,22 +4,19 @@ version: 1.0.12
 repository: https://github.com/onyx-lyon1/onxy/packages/lyon1tomussclient
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.8.0 <4.0.0"
 
 dev_dependencies:
   dotenv: ^4.0.1
   lints: ^6.0.0
   test: ^1.20.1
   build_runner: ^2.3.3
-  hive_ce_generator: ^1.9.2
-  copy_with_extension_gen: ^9.1.0
+  dart_mappable_builder: ^4.6.0
 dependencies:
   beautiful_soup_dart: ^0.3.0
-  copy_with_extension: ^9.1.0
-  equatable: ^2.0.5
-  hive_ce: ^2.2.3
   requests_plus: ^4.8.5
   lyon1casclient: ^1.0.6
+  dart_mappable: ^4.6.0
 
 #dependency_overrides:
 #  requests:

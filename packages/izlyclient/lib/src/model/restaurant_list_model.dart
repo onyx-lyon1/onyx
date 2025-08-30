@@ -1,10 +1,10 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:izlyclient/izlyclient.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'generated/restaurant_list_model.g.dart';
+part 'generated/restaurant_list_model.mapper.dart';
 
-@JsonSerializable()
-class RestaurantListModel {
+@MappableClass()
+class RestaurantListModel with RestaurantListModelMappable {
   List<RestaurantModel> restaurantList;
 
   RestaurantListModel({required this.restaurantList});

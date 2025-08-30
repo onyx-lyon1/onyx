@@ -1,11 +1,10 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
 
-part 'generated/student_colloscope.g.dart';
+part 'generated/student_colloscope.mapper.dart';
 
-@CopyWith()
-class StudentColloscope extends Equatable {
+@MappableClass()
+class StudentColloscope with StudentColloscopeMappable {
   final Student student;
   final int trinomeId;
   final List<Kholle> kholles;
@@ -15,10 +14,4 @@ class StudentColloscope extends Equatable {
   static StudentColloscope empty() {
     return StudentColloscope(Student.empty(), 0, []);
   }
-
-  @override
-  List<Object?> get props => [student, trinomeId, kholles];
-
-  @override
-  bool? get stringify => true;
 }

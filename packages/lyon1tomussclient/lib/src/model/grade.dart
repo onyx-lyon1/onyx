@@ -1,11 +1,11 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 import 'package:lyon1tomussclient/src/utils/roundtoprecision.dart';
 
-part 'generated/grade.g.dart';
+part 'generated/grade.mapper.dart';
 
-@CopyWith()
-class Grade extends TeachingUnitElement {
+@MappableClass()
+class Grade extends TeachingUnitElement with GradeMappable {
   late final double numerator;
   late final double denominator;
   late final int rank;
@@ -18,32 +18,42 @@ class Grade extends TeachingUnitElement {
   // ignore: preferfinalfields
   late final List<Grade> children;
 
-  Grade.fromJSON(var id, var json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+  Grade.fromJSON(
+    int id,
+    Map<String, dynamic> json,
+    Map<String, dynamic> stats,
+    List<dynamic> line,
+    Map<String, dynamic> column,
+    String user,
+  ) : super.fromJson(id, json, stats, line, column, user) {
     rank = stats[json['the_id']]['rank'] ?? -1;
     groupeSize = stats[json['the_id']]['nr'] ?? -1;
     isValid = (rank != -1);
     if (!isValid) {
       return;
     }
-    average = double.tryParse(stats[json['the_id']]['average'].toString())
-        .roundToPrecision();
-    mediane = double.tryParse(stats[json['the_id']]['mediane'].toString())
-        .roundToPrecision();
+    average = double.tryParse(
+      stats[json['the_id']]['average'].toString(),
+    ).roundToPrecision();
+    mediane = double.tryParse(
+      stats[json['the_id']]['mediane'].toString(),
+    ).roundToPrecision();
 
-    numerator = (line.length > 0 && id < line.length && line[id].length > 0)
+    numerator = (line.isNotEmpty && id < line.length && line[id].length > 0)
         ? double.tryParse(line[id][0].toString()).roundToPrecision()
         : double.nan;
 
-    denominator = double.tryParse(
-            (json['minmax'] ?? "").split(";").last.replaceAll("]", "") ??
-                "20") ??
+    denominator =
+        double.tryParse(
+          (json['minmax'] ?? "").split(";").last.replaceAll("]", "") ?? "20",
+        ) ??
         20; // "minmax": "[0;22]",
 
     coef = 1.0;
     children = [];
   }
 
+  @MappableConstructor()
   Grade({
     required super.title,
     required super.author,
@@ -73,13 +83,13 @@ class Grade extends TeachingUnitElement {
 
   @override
   List<Object?> get customProps => [
-        numerator,
-        denominator,
-        rank,
-        average,
-        mediane,
-        isValid,
-        groupeSize,
-        children
-      ];
+    numerator,
+    denominator,
+    rank,
+    average,
+    mediane,
+    isValid,
+    groupeSize,
+    children,
+  ];
 }

@@ -1,5 +1,5 @@
 name: lyon1examenclient
-description:  A Dart library that provides seamless integration with Lyon 1 University's exam service, leveraging the Lyon 1 CAS (Central Authentication Service) system for user authentication.
+description: A Dart library that provides seamless integration with Lyon 1 University's exam service, leveraging the Lyon 1 CAS (Central Authentication Service) system for user authentication.
 version: 1.0.9
 repository: https://github.com/onyx-lyon1/onyx/tree/main/packages/lyon1examenclient
 
@@ -8,14 +8,12 @@ environment:
 
 dependencies:
   beautiful_soup_dart: ^0.3.0
-  dart_mappable: ^4.2.0
-  json_annotation: ^4.9.0
+  dart_mappable: ^4.6.0
   lyon1casclient: ^1.0.7
 
 dev_dependencies:
   lints: ^6.0.0
   test: ^1.24.0
-  dart_mappable_builder: ^4.2.3
+  dart_mappable_builder: ^4.6.0
   build_runner: ^2.4.7
   dotenv: ^4.2.0
-  json_serializable: ^6.11.0

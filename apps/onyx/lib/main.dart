@@ -18,10 +18,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-    Workmanager().initialize(workmanagerHandler, isInDebugMode: kDebugMode);
-    Workmanager().registerPeriodicTask("updateChecking", "check update",
-        frequency: const Duration(hours: 1),
-        constraints: Constraints(networkType: NetworkType.connected));
+    Workmanager().initialize(workmanagerHandler);
+    Workmanager().registerPeriodicTask(
+      "updateChecking",
+      "check update",
+      frequency: const Duration(hours: 1),
+      constraints: Constraints(networkType: NetworkType.connected),
+    );
     await NotificationLogic.init();
   }
 

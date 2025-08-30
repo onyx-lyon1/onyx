@@ -48,7 +48,7 @@ class Lyon1CasClient {
     }
 
     if (isAuthenticated) {
-      credential = credential.copyWith.tgcToken((await getTgcToken()));
+      credential = credential.copyWith(tgcToken: (await getTgcToken()));
     }
     return (credential: credential, authResult: isAuthenticated);
   }
