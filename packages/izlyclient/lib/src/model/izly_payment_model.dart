@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'generated/izly_payment_model.g.dart';
+
+@JsonSerializable()
 class IzlyPaymentModel extends Equatable {
   final DateTime paymentTime;
   final double amountSpent;

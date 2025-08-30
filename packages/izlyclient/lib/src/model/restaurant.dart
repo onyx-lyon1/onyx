@@ -1,7 +1,7 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
-
 import 'package:izlyclient/izlyclient.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'generated/restaurant.g.dart';
 
@@ -10,6 +10,7 @@ enum CrousType {
   cafet,
 }
 
+@JsonSerializable()
 @CopyWith()
 class RestaurantModel extends Equatable {
   final int id;

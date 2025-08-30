@@ -16,9 +16,7 @@ abstract class _$IzlyPaymentModelListCWProxy {
   /// ```dart
   /// IzlyPaymentModelList(...).copyWith(id: 12, name: "My name")
   /// ```
-  IzlyPaymentModelList call({
-    List<IzlyPaymentModel> payments,
-  });
+  IzlyPaymentModelList call({List<IzlyPaymentModel> payments});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -34,7 +32,6 @@ class _$IzlyPaymentModelListCWProxyImpl
       call(payments: payments);
 
   @override
-
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `IzlyPaymentModelList(...).copyWith.fieldName(value)`.
   ///
@@ -42,9 +39,7 @@ class _$IzlyPaymentModelListCWProxyImpl
   /// ```dart
   /// IzlyPaymentModelList(...).copyWith(id: 12, name: "My name")
   /// ```
-  IzlyPaymentModelList call({
-    Object? payments = const $CopyWithPlaceholder(),
-  }) {
+  IzlyPaymentModelList call({Object? payments = const $CopyWithPlaceholder()}) {
     return IzlyPaymentModelList(
       payments: payments == const $CopyWithPlaceholder() || payments == null
           ? _value.payments
@@ -61,3 +56,19 @@ extension $IzlyPaymentModelListCopyWith on IzlyPaymentModelList {
   _$IzlyPaymentModelListCWProxy get copyWith =>
       _$IzlyPaymentModelListCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+IzlyPaymentModelList _$IzlyPaymentModelListFromJson(
+  Map<String, dynamic> json,
+) => IzlyPaymentModelList(
+  payments: (json['payments'] as List<dynamic>)
+      .map((e) => IzlyPaymentModel.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$IzlyPaymentModelListToJson(
+  IzlyPaymentModelList instance,
+) => <String, dynamic>{'payments': instance.payments};

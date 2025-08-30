@@ -18,10 +18,7 @@ abstract class _$IzlyQrCodeCWProxy {
   /// ```dart
   /// IzlyQrCode(...).copyWith(id: 12, name: "My name")
   /// ```
-  IzlyQrCode call({
-    Uint8List qrCode,
-    DateTime expirationDate,
-  });
+  IzlyQrCode call({Uint8List qrCode, DateTime expirationDate});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -39,7 +36,6 @@ class _$IzlyQrCodeCWProxyImpl implements _$IzlyQrCodeCWProxy {
       call(expirationDate: expirationDate);
 
   @override
-
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `IzlyQrCode(...).copyWith.fieldName(value)`.
   ///
@@ -56,7 +52,8 @@ class _$IzlyQrCodeCWProxyImpl implements _$IzlyQrCodeCWProxy {
           ? _value.qrCode
           // ignore: cast_nullable_to_non_nullable
           : qrCode as Uint8List,
-      expirationDate: expirationDate == const $CopyWithPlaceholder() ||
+      expirationDate:
+          expirationDate == const $CopyWithPlaceholder() ||
               expirationDate == null
           ? _value.expirationDate
           // ignore: cast_nullable_to_non_nullable
@@ -71,3 +68,18 @@ extension $IzlyQrCodeCopyWith on IzlyQrCode {
   // ignore: library_private_types_in_public_api
   _$IzlyQrCodeCWProxy get copyWith => _$IzlyQrCodeCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+IzlyQrCode _$IzlyQrCodeFromJson(Map<String, dynamic> json) => IzlyQrCode(
+  qrCode: const Uint8ListConverter().fromJson(json['qrCode'] as List<int>),
+  expirationDate: DateTime.parse(json['expirationDate'] as String),
+);
+
+Map<String, dynamic> _$IzlyQrCodeToJson(IzlyQrCode instance) =>
+    <String, dynamic>{
+      'qrCode': const Uint8ListConverter().toJson(instance.qrCode),
+      'expirationDate': instance.expirationDate.toIso8601String(),
+    };
