@@ -16,9 +16,7 @@ abstract class _$AgendaCWProxy {
   /// ```dart
   /// Agenda(...).copyWith(id: 12, name: "My name")
   /// ```
-  Agenda call({
-    List<Day> days,
-  });
+  Agenda call({List<Day> days});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -32,7 +30,6 @@ class _$AgendaCWProxyImpl implements _$AgendaCWProxy {
   Agenda days(List<Day> days) => call(days: days);
 
   @override
-
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Agenda(...).copyWith.fieldName(value)`.
   ///
@@ -40,9 +37,7 @@ class _$AgendaCWProxyImpl implements _$AgendaCWProxy {
   /// ```dart
   /// Agenda(...).copyWith(id: 12, name: "My name")
   /// ```
-  Agenda call({
-    Object? days = const $CopyWithPlaceholder(),
-  }) {
+  Agenda call({Object? days = const $CopyWithPlaceholder()}) {
     return Agenda(
       days == const $CopyWithPlaceholder() || days == null
           ? _value.days
@@ -58,3 +53,17 @@ extension $AgendaCopyWith on Agenda {
   // ignore: library_private_types_in_public_api
   _$AgendaCWProxy get copyWith => _$AgendaCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Agenda _$AgendaFromJson(Map<String, dynamic> json) => Agenda(
+  (json['days'] as List<dynamic>)
+      .map((e) => Day.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$AgendaToJson(Agenda instance) => <String, dynamic>{
+  'days': instance.days,
+};

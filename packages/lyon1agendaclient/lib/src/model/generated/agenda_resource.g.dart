@@ -20,11 +20,7 @@ abstract class _$AgendaResourceCWProxy {
   /// ```dart
   /// AgendaResource(...).copyWith(id: 12, name: "My name")
   /// ```
-  AgendaResource call({
-    int? id,
-    String name,
-    List<AgendaResource>? children,
-  });
+  AgendaResource call({int? id, String name, List<AgendaResource>? children});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -45,7 +41,6 @@ class _$AgendaResourceCWProxyImpl implements _$AgendaResourceCWProxy {
       call(children: children);
 
   @override
-
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `AgendaResource(...).copyWith.fieldName(value)`.
   ///
@@ -81,3 +76,23 @@ extension $AgendaResourceCopyWith on AgendaResource {
   // ignore: library_private_types_in_public_api
   _$AgendaResourceCWProxy get copyWith => _$AgendaResourceCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+AgendaResource _$AgendaResourceFromJson(Map<String, dynamic> json) =>
+    AgendaResource(
+      (json['id'] as num?)?.toInt(),
+      json['name'] as String,
+      (json['children'] as List<dynamic>?)
+          ?.map((e) => AgendaResource.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$AgendaResourceToJson(AgendaResource instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'children': instance.children,
+    };

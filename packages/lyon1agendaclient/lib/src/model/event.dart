@@ -1,8 +1,10 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'generated/event.g.dart';
 
+@JsonSerializable()
 @CopyWith()
 class Event extends Equatable {
   late final String location;

@@ -18,10 +18,7 @@ abstract class _$DayCWProxy {
   /// ```dart
   /// Day(...).copyWith(id: 12, name: "My name")
   /// ```
-  Day call({
-    DateTime date,
-    List<Event> events,
-  });
+  Day call({DateTime date, List<Event> events});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -38,7 +35,6 @@ class _$DayCWProxyImpl implements _$DayCWProxy {
   Day events(List<Event> events) => call(events: events);
 
   @override
-
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Day(...).copyWith.fieldName(value)`.
   ///
@@ -69,3 +65,19 @@ extension $DayCopyWith on Day {
   // ignore: library_private_types_in_public_api
   _$DayCWProxy get copyWith => _$DayCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Day _$DayFromJson(Map<String, dynamic> json) => Day(
+  DateTime.parse(json['date'] as String),
+  (json['events'] as List<dynamic>)
+      .map((e) => Event.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$DayToJson(Day instance) => <String, dynamic>{
+  'events': instance.events,
+  'date': instance.date.toIso8601String(),
+};
