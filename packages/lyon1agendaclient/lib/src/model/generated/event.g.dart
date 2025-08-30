@@ -68,7 +68,6 @@ class _$EventCWProxyImpl implements _$EventCWProxy {
   Event menuCrous(dynamic menuCrous) => call(menuCrous: menuCrous);
 
   @override
-
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Event(...).copyWith.fieldName(value)`.
   ///
@@ -92,9 +91,9 @@ class _$EventCWProxyImpl implements _$EventCWProxy {
           : location as String,
       description:
           description == const $CopyWithPlaceholder() || description == null
-              ? _value.description
-              // ignore: cast_nullable_to_non_nullable
-              : description as String,
+          ? _value.description
+          // ignore: cast_nullable_to_non_nullable
+          : description as String,
       teacher: teacher == const $CopyWithPlaceholder() || teacher == null
           ? _value.teacher
           // ignore: cast_nullable_to_non_nullable
@@ -125,3 +124,27 @@ extension $EventCopyWith on Event {
   // ignore: library_private_types_in_public_api
   _$EventCWProxy get copyWith => _$EventCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Event _$EventFromJson(Map<String, dynamic> json) => Event(
+  location: json['location'] as String,
+  description: json['description'] as String,
+  teacher: json['teacher'] as String,
+  name: json['name'] as String,
+  start: DateTime.parse(json['start'] as String),
+  end: DateTime.parse(json['end'] as String),
+  menuCrous: json['menuCrous'],
+);
+
+Map<String, dynamic> _$EventToJson(Event instance) => <String, dynamic>{
+  'location': instance.location,
+  'description': instance.description,
+  'teacher': instance.teacher,
+  'name': instance.name,
+  'start': instance.start.toIso8601String(),
+  'end': instance.end.toIso8601String(),
+  'menuCrous': instance.menuCrous,
+};
