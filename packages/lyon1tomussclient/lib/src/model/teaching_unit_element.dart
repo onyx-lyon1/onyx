@@ -1,12 +1,13 @@
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/parser/dateparser.dart';
 
-abstract class TeachingUnitElement extends Equatable {
+abstract class TeachingUnitElement {
   late final String title;
   late final String author;
   late final DateTime? date;
   late final double position;
 
+  @MappableConstructor()
   TeachingUnitElement({
     this.title = "",
     this.author = "",
@@ -15,7 +16,13 @@ abstract class TeachingUnitElement extends Equatable {
   });
 
   TeachingUnitElement.fromJson(
-      var id, var json, var stats, var line, var column, String user) {
+    int id,
+    Map<String, dynamic> json,
+    Map<String, dynamic> stats,
+    List<dynamic> line,
+    Map<String, dynamic> column,
+    String user,
+  ) {
     title = json['title'] ?? "";
     author = json['author'] ?? "";
     if (line[id].length > 2) {
@@ -30,26 +37,4 @@ abstract class TeachingUnitElement extends Equatable {
   bool get isVisible;
 
   List<Object?> get customProps;
-
-  @override
-  List<Object?> get props => [title, author, date, position, ...customProps];
-
-  @override
-  bool? get stringify => true;
 }
-
-// class CustomElement extends TeachingUnitElement {
-//   // Ajoutez ici les propriétés spécifiques à CustomElement
-//
-//   CustomElement.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-//     coucou = json['coucou'];
-//   }
-//
-//   CustomElement({required super.name, required this.coucou});
-//
-//   @override
-//   bool get isVisible => false;
-//
-//   @override
-//   List<Object?> get customProps => [coucou];
-// }

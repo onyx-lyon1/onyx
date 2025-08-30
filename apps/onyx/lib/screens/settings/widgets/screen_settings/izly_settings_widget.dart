@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/cache_service.dart';
-import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/l10n/app_localizations.dart';
-import 'package:onyx/screens/settings/domain/model/settings_model.dart';
+import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/states/settings_cubit.dart';
 import 'package:onyx/screens/settings/widgets/text_switch_widget.dart';
 
@@ -20,17 +19,13 @@ class IzlySettingsWidget extends StatelessWidget {
           value: context.read<SettingsCubit>().state.settings.izlyNotification,
           onChanged: (value) {
             context.read<SettingsCubit>().modify(
-                  settings: context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .copyWith(izlyNotification: value),
-                );
+              settings: context.read<SettingsCubit>().state.settings.copyWith(
+                izlyNotification: value,
+              ),
+            );
           },
         ),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         MaterialButton(
           minWidth: MediaQuery.of(context).size.width,
           color: const Color(0xffbf616a),

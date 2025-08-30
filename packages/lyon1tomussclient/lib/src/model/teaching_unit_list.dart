@@ -1,19 +1,12 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit.dart';
-import 'package:equatable/equatable.dart';
 
-part 'generated/teaching_unit_list.g.dart';
+part 'generated/teaching_unit_list.mapper.dart';
 
-@CopyWith()
-class TeachingUnitList extends Equatable {
+@MappableClass()
+class TeachingUnitList with TeachingUnitListMappable {
   final List<TeachingUnit> teachingUnitModels;
   final int semesterIndex;
 
   TeachingUnitList(this.teachingUnitModels, this.semesterIndex);
-
-  @override
-  List<Object?> get props => [teachingUnitModels, semesterIndex];
-
-  @override
-  bool? get stringify => true;
 }

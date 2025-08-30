@@ -1,15 +1,21 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 
-part 'generated/url.g.dart';
+part 'generated/url.mapper.dart';
 
-@CopyWith()
-class URL extends TeachingUnitElement {
+@MappableClass()
+class URL extends TeachingUnitElement with URLMappable {
   late final String value;
   late final bool isModifiable;
 
-  URL.fromJSON(var id, Map json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+  URL.fromJSON(
+    int id,
+    Map<String, dynamic> json,
+    Map<String, dynamic> stats,
+    List<dynamic> line,
+    Map<String, dynamic> column,
+    String user,
+  ) : super.fromJson(id, json, stats, line, column, user) {
     var props = line[id];
     bool isModifiable;
     if (json.containsKey("modifiable")) {
@@ -29,6 +35,7 @@ class URL extends TeachingUnitElement {
     this.isModifiable = isModifiable;
   }
 
+  @MappableConstructor()
   URL({
     required super.title,
     required super.author,

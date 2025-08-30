@@ -1,11 +1,10 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 
-part 'generated/teaching_unit.g.dart';
+part 'generated/teaching_unit.mapper.dart';
 
-@CopyWith()
-class TeachingUnit extends Equatable {
+@MappableClass()
+class TeachingUnit with TeachingUnitMappable {
   final String title;
   final List<Teacher> masters;
   final List<Grade> grades;
@@ -32,33 +31,15 @@ class TeachingUnit extends Equatable {
     this.ue = "",
   });
 
-  @override
-  List<Object?> get props => [
-        title,
-        masters,
-        grades,
-        textValues,
-        enumerations,
-        presences,
-        stageCodes,
-        uploads,
-        urls,
-        ticket,
-        ue
-      ];
-
-  @override
-  bool? get stringify => true;
-
   List<TeachingUnitElement> get children => [
-        ...grades,
-        ...textValues,
-        ...enumerations,
-        ...presences,
-        ...stageCodes,
-        ...uploads,
-        ...urls,
-      ];
+    ...grades,
+    ...textValues,
+    ...enumerations,
+    ...presences,
+    ...stageCodes,
+    ...uploads,
+    ...urls,
+  ];
 
   List<TeachingUnitElement> get visibleChildren =>
       children.where((element) => element.isVisible).toList();

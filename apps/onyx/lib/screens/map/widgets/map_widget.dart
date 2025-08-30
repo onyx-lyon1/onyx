@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
-import 'package:flutter_map_marker_cluster_2/flutter_map_marker_cluster.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter_map_cache/flutter_map_cache.dart';
+import 'package:flutter_map_marker_cluster_2/flutter_map_marker_cluster.dart';
 import 'package:http_cache_hive_store/http_cache_hive_store.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/map/map_export.dart';
 import 'package:onyx/screens/map/widgets/popup_widgets/restaurant_pop_up_widget.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MapWidget extends StatefulWidget {
@@ -52,7 +52,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    mapController = widget.mapController ??
+    mapController =
+        widget.mapController ??
         AnimatedMapController(
           vsync: this,
           curve: Curves.easeInOut,
@@ -91,8 +92,9 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
 
     if (widget.center == null) {
       GeolocationLogic.getCurrentLocation(
-              askPermission: false, context: context)
-          .then((value) async {
+        askPermission: false,
+        context: context,
+      ).then((value) async {
         if (value != null) {
           mapController.centerOnPoint(value, zoom: 16.5);
         }
@@ -126,42 +128,47 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
             Padding(
               padding: EdgeInsets.all(2.h),
               child: IconButton(
-                  onPressed: () {
-                    GeolocationLogic.getCurrentLocation(
-                            askPermission: true, context: context)
-                        .then((value) {
-                      setState(() {
-                        if ((value != null)) {
-                          mapController.centerOnPoint(value, zoom: 15);
-                        }
-                      });
+                onPressed: () {
+                  GeolocationLogic.getCurrentLocation(
+                    askPermission: true,
+                    context: context,
+                  ).then((value) {
+                    setState(() {
+                      if ((value != null)) {
+                        mapController.centerOnPoint(value, zoom: 15);
+                      }
                     });
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(
-                        Theme.of(context).colorScheme.surface),
+                  });
+                },
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(
+                    Theme.of(context).colorScheme.surface,
                   ),
-                  icon: Icon(
-                    Icons.location_searching_rounded,
-                    size: 25.sp,
-                    color: Theme.of(context).primaryColor,
-                  )),
+                ),
+                icon: Icon(
+                  Icons.location_searching_rounded,
+                  size: 25.sp,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
             ),
           Padding(
             padding: EdgeInsets.all(2.h),
             child: IconButton(
-                onPressed: () {
-                  mapController.centerOnPoint(MapRes.center, zoom: 16.5);
-                },
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(
-                      Theme.of(context).colorScheme.surface),
+              onPressed: () {
+                mapController.centerOnPoint(MapRes.center, zoom: 16.5);
+              },
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(
+                  Theme.of(context).colorScheme.surface,
                 ),
-                icon: Icon(
-                  Icons.location_city_rounded,
-                  size: 25.sp,
-                  color: Theme.of(context).primaryColor,
-                )),
+              ),
+              icon: Icon(
+                Icons.location_city_rounded,
+                size: 25.sp,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
           ),
         ],
       ),
@@ -171,9 +178,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
       future: getPath(),
       builder: (context, snap) {
         if (!snap.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
         return PopupScope(
           popupController: popupLayerController,
@@ -183,7 +188,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
               initialZoom: 16.5,
               maxZoom: MapRes.maxZoom,
               minZoom: 0,
-              onTap: (_, __) => popupLayerController.hideAllPopups(),
+              onTap: (_, _) => popupLayerController.hideAllPopups(),
             ),
             mapController: mapController.mapController,
             children: [
@@ -200,9 +205,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
               ),
               if (widget.polylines.isNotEmpty &&
                   !widget.polylines.any((element) => element.points.isEmpty))
-                PolylineLayer(
-                  polylines: widget.polylines,
-                ),
+                PolylineLayer(polylines: widget.polylines),
               if (!kIsWeb &&
                   !(Platform.isLinux || Platform.isMacOS || Platform.isWindows))
                 const CustomCurrentLocationLayerWidget(),
@@ -224,7 +227,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                       popupController: popupLayerController,
                       popupBuilder: (context, marker) {
                         int index = widget.batiments.indexWhere(
-                            (element) => element.position == marker.point);
+                          (element) => element.position == marker.point,
+                        );
                         if (index != -1) {
                           return BatimentPopupWidget(
                             element: widget.batiments[index],
@@ -232,9 +236,11 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                             popupController: popupLayerController,
                           );
                         } else {
-                          index = widget.restaurant.indexWhere((element) =>
-                              element.lat == marker.point.latitude &&
-                              element.lon == marker.point.longitude);
+                          index = widget.restaurant.indexWhere(
+                            (element) =>
+                                element.lat == marker.point.latitude &&
+                                element.lon == marker.point.longitude,
+                          );
                           return RestaurantPopUpWidget(
                             element: widget.restaurant[index],
                             onTap: widget.onTapNavigate,
@@ -276,18 +282,20 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
               child: Padding(
                 padding: EdgeInsets.all(2.h),
                 child: IconButton(
-                    onPressed: () {
-                      callback();
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(
-                          Theme.of(context).colorScheme.surface),
+                  onPressed: () {
+                    callback();
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(
+                      Theme.of(context).colorScheme.surface,
                     ),
-                    icon: Icon(
-                      Icons.zoom_in_map_rounded,
-                      size: 25.sp,
-                      color: Theme.of(context).primaryColor,
-                    )),
+                  ),
+                  icon: Icon(
+                    Icons.zoom_in_map_rounded,
+                    size: 25.sp,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
               ),
             ),
         ],
@@ -302,18 +310,20 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
               child: Padding(
                 padding: EdgeInsets.all(2.h),
                 child: IconButton(
-                    onPressed: () {
-                      callback();
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(
-                          Theme.of(context).colorScheme.surface),
+                  onPressed: () {
+                    callback();
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(
+                      Theme.of(context).colorScheme.surface,
                     ),
-                    icon: Icon(
-                      Icons.zoom_out_map_rounded,
-                      size: 25.sp,
-                      color: Theme.of(context).primaryColor,
-                    )),
+                  ),
+                  icon: Icon(
+                    Icons.zoom_out_map_rounded,
+                    size: 25.sp,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
               ),
             ),
         ],

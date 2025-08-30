@@ -1,7 +1,7 @@
+import 'package:dotenv/dotenv.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1examenclient/lyon1examenclient.dart';
 import 'package:test/test.dart';
-import 'package:dotenv/dotenv.dart';
 
 void main() {
   late Lyon1ExamenClient examClient;
@@ -9,7 +9,6 @@ void main() {
 
   DotEnv env = DotEnv(includePlatformEnvironment: true);
   setUpAll(() async {
-    Lyon1CasClient.registerAdapters();
     env.load();
     final String username = env['USERNAME'] ?? "";
     final String password = env['PASSWORD'] ?? "";

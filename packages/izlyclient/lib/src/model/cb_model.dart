@@ -1,18 +1,11 @@
-import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'generated/cb_model.g.dart';
+part 'generated/cb_model.mapper.dart';
 
-@JsonSerializable()
-class CbModel extends Equatable {
+@MappableClass()
+class CbModel with CbModelMappable {
   final String name;
   final String id;
 
   CbModel(this.name, this.id);
-
-  @override
-  List<Object?> get props => [name, id];
-
-  @override
-  bool get stringify => true;
 }

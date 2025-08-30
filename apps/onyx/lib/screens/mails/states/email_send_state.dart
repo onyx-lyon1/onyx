@@ -2,8 +2,8 @@ part of 'email_send_cubit.dart';
 
 enum EmailSendStatus { initial, sending, sent, updated, error, inputNotValid }
 
-@CopyWith()
-class EmailSendState {
+@MappableClass()
+class EmailSendState with EmailSendStateMappable {
   EmailSendStatus status;
   final QuillController? controller;
   final TextEditingController? subjectEditor;

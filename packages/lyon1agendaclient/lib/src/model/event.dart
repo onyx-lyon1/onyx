@@ -1,20 +1,15 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'generated/event.g.dart';
+part 'generated/event.mapper.dart';
 
-@JsonSerializable()
-@CopyWith()
-class Event extends Equatable {
+@MappableClass()
+class Event with EventMappable {
   late final String location;
   late final String description;
   late final String teacher;
   late final String name;
-
   late final DateTime start;
   late final DateTime end;
-
   final dynamic menuCrous;
 
   Event({
@@ -34,31 +29,16 @@ class Event extends Equatable {
         .replaceFirst(RegExp("\\(Exported.*", multiLine: true), "")
         .trim();
     name = eventJSON['summary'] ?? "";
-
     List<String> descriptionSplited = description.split("\\n");
     teacher = (descriptionSplited.length - 2 >= 0)
         ? ((descriptionSplited[descriptionSplited.length - 2]
-                    .split(" ")
-                    .length >=
-                2)
-            ? descriptionSplited[descriptionSplited.length - 2]
-            : "")
+                      .split(" ")
+                      .length >=
+                  2)
+              ? descriptionSplited[descriptionSplited.length - 2]
+              : "")
         : "";
     start = DateTime.parse(eventJSON['dtstart']['dt']).toLocal();
     end = DateTime.parse(eventJSON['dtend']['dt']).toLocal();
   }
-
-  @override
-  List<Object?> get props => [
-        location,
-        description,
-        teacher,
-        name,
-        start,
-        end,
-        menuCrous,
-      ];
-
-  @override
-  bool get stringify => true;
 }

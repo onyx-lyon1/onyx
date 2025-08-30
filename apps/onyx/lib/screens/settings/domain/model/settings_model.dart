@@ -1,8 +1,7 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:onyx/core/res.dart';
 
-part 'generated/settings_model.g.dart';
+part 'generated/settings_model.mapper.dart';
 
 const List<Functionalities> defaultEnabledFunctionalities = [
   Functionalities.mail,
@@ -16,8 +15,8 @@ const List<Functionalities> defaultEnabledFunctionalities = [
 
 const List<Functionalities> defaultDisabledFunctionalities = [];
 
-@CopyWith()
-class SettingsModel extends Equatable {
+@MappableClass()
+class SettingsModel with SettingsModelMappable {
   final bool firstLogin;
   final bool biometricAuth;
 
@@ -96,39 +95,4 @@ class SettingsModel extends Equatable {
     this.language,
     this.izlyNotification = true,
   });
-
-  @override
-  List<Object?> get props => [
-        forceGreen,
-        newGradeNotification,
-        showHiddenUE,
-        fetchAgendaAuto,
-        showMiniCalendar,
-        calendarUpdateNotification,
-        agendaIds,
-        newMailNotification,
-        blockTrackers,
-        forcedMailTheme,
-        enabledFunctionalities,
-        disabledFunctionalities,
-        recentGradeDuration,
-        firstLogin,
-        biometricAuth,
-        mock,
-        shownAgendaPopup,
-        agendaWeekLength,
-        agendaWeekReference,
-        agendaDisabledDays,
-        agendaPageTopToBottom,
-        agendaWeekRerenceAlignement,
-        colloscopeOverrideStudentId,
-        colloscopeOverrideYearId,
-        colloscopeEnabled,
-        agendaId,
-        language,
-        izlyNotification,
-      ];
-
-  @override
-  bool? get stringify => true;
 }

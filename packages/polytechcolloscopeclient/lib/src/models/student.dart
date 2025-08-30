@@ -1,11 +1,10 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:polytechcolloscopeclient/src/models/year.dart';
 
-part 'generated/student.g.dart';
+part 'generated/student.mapper.dart';
 
-@CopyWith()
-class Student extends Equatable {
+@MappableClass()
+class Student with StudentMappable {
   final Year year;
   final String name;
   final int id;
@@ -15,10 +14,4 @@ class Student extends Equatable {
   static Student empty() {
     return Student(Year.first, "", 0);
   }
-
-  @override
-  List<Object?> get props => [year, name, id];
-
-  @override
-  bool? get stringify => true;
 }

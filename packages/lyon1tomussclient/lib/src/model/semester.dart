@@ -1,21 +1,11 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'generated/semester.g.dart';
+part 'generated/semester.mapper.dart';
 
-@CopyWith()
-class Semester extends Equatable {
+@MappableClass()
+class Semester with SemesterMappable {
   final String title;
   final String url;
 
-  Semester({
-    this.title = "",
-    this.url = "",
-  });
-
-  @override
-  List<Object?> get props => [title, url];
-
-  @override
-  bool? get stringify => true;
+  Semester({this.title = "", this.url = ""});
 }

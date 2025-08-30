@@ -10,14 +10,11 @@ dev_dependencies:
   lints: ^6.0.0
   test: ^1.20.1
   build_runner: ^2.4.6
-  copy_with_extension_gen: ^9.1.0
-  json_serializable: ^6.11.0
+  dart_mappable_builder: ^4.6.0
 
 dependencies:
   requests_plus: ^4.8.3
   lyon1casclient: ^1.0.2
   icalendar_parser: ^2.0.0
   dotenv: ^4.1.0
-  equatable: ^2.0.5
-  copy_with_extension: ^9.1.0
-  json_annotation: ^4.9.0
+  dart_mappable: ^4.6.0

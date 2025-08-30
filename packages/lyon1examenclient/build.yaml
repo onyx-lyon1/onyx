@@ -8,3 +8,4 @@ targets:
             'lib/{{path}}/{{file}}.dart':
               - 'lib/{{path}}/generated/{{file}}.mapper.dart'
               - 'lib/{{path}}/generated/{{file}}.init.dart'
+
