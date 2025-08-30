@@ -20,11 +20,7 @@ abstract class _$CredentialCWProxy {
   /// ```dart
   /// Credential(...).copyWith(id: 12, name: "My name")
   /// ```
-  Credential call({
-    String username,
-    String password,
-    String tgcToken,
-  });
+  Credential call({String username, String password, String tgcToken});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -44,7 +40,6 @@ class _$CredentialCWProxyImpl implements _$CredentialCWProxy {
   Credential tgcToken(String tgcToken) => call(tgcToken: tgcToken);
 
   @override
-
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `Credential(...).copyWith.fieldName(value)`.
   ///
@@ -80,3 +75,20 @@ extension $CredentialCopyWith on Credential {
   // ignore: library_private_types_in_public_api
   _$CredentialCWProxy get copyWith => _$CredentialCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Credential _$CredentialFromJson(Map<String, dynamic> json) => Credential(
+  json['username'] as String,
+  json['password'] as String,
+  tgcToken: json['tgcToken'] as String? ?? "",
+);
+
+Map<String, dynamic> _$CredentialToJson(Credential instance) =>
+    <String, dynamic>{
+      'username': instance.username,
+      'password': instance.password,
+      'tgcToken': instance.tgcToken,
+    };
