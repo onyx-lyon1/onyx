@@ -16,9 +16,7 @@ abstract class _$IzlyQrCodeListCWProxy {
   /// ```dart
   /// IzlyQrCodeList(...).copyWith(id: 12, name: "My name")
   /// ```
-  IzlyQrCodeList call({
-    List<IzlyQrCode> qrCodes,
-  });
+  IzlyQrCodeList call({List<IzlyQrCode> qrCodes});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -32,7 +30,6 @@ class _$IzlyQrCodeListCWProxyImpl implements _$IzlyQrCodeListCWProxy {
   IzlyQrCodeList qrCodes(List<IzlyQrCode> qrCodes) => call(qrCodes: qrCodes);
 
   @override
-
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `IzlyQrCodeList(...).copyWith.fieldName(value)`.
   ///
@@ -40,9 +37,7 @@ class _$IzlyQrCodeListCWProxyImpl implements _$IzlyQrCodeListCWProxy {
   /// ```dart
   /// IzlyQrCodeList(...).copyWith(id: 12, name: "My name")
   /// ```
-  IzlyQrCodeList call({
-    Object? qrCodes = const $CopyWithPlaceholder(),
-  }) {
+  IzlyQrCodeList call({Object? qrCodes = const $CopyWithPlaceholder()}) {
     return IzlyQrCodeList(
       qrCodes: qrCodes == const $CopyWithPlaceholder() || qrCodes == null
           ? _value.qrCodes
@@ -58,3 +53,17 @@ extension $IzlyQrCodeListCopyWith on IzlyQrCodeList {
   // ignore: library_private_types_in_public_api
   _$IzlyQrCodeListCWProxy get copyWith => _$IzlyQrCodeListCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+IzlyQrCodeList _$IzlyQrCodeListFromJson(Map<String, dynamic> json) =>
+    IzlyQrCodeList(
+      qrCodes: (json['qrCodes'] as List<dynamic>)
+          .map((e) => IzlyQrCode.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$IzlyQrCodeListToJson(IzlyQrCodeList instance) =>
+    <String, dynamic>{'qrCodes': instance.qrCodes};

@@ -20,11 +20,7 @@ abstract class _$MenuCrousCWProxy {
   /// ```dart
   /// MenuCrous(...).copyWith(id: 12, name: "My name")
   /// ```
-  MenuCrous call({
-    DateTime date,
-    MenuType type,
-    List<PlatCrous> plats,
-  });
+  MenuCrous call({DateTime date, MenuType type, List<PlatCrous> plats});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -44,7 +40,6 @@ class _$MenuCrousCWProxyImpl implements _$MenuCrousCWProxy {
   MenuCrous plats(List<PlatCrous> plats) => call(plats: plats);
 
   @override
-
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `MenuCrous(...).copyWith.fieldName(value)`.
   ///
@@ -93,10 +88,7 @@ abstract class _$PlatCrousCWProxy {
   /// ```dart
   /// PlatCrous(...).copyWith(id: 12, name: "My name")
   /// ```
-  PlatCrous call({
-    String name,
-    List<String> variants,
-  });
+  PlatCrous call({String name, List<String> variants});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -113,7 +105,6 @@ class _$PlatCrousCWProxyImpl implements _$PlatCrousCWProxy {
   PlatCrous variants(List<String> variants) => call(variants: variants);
 
   @override
-
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `PlatCrous(...).copyWith.fieldName(value)`.
   ///
@@ -144,3 +135,39 @@ extension $PlatCrousCopyWith on PlatCrous {
   // ignore: library_private_types_in_public_api
   _$PlatCrousCWProxy get copyWith => _$PlatCrousCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+MenuCrous _$MenuCrousFromJson(Map<String, dynamic> json) => MenuCrous(
+  date: DateTime.parse(json['date'] as String),
+  type: $enumDecode(_$MenuTypeEnumMap, json['type']),
+  plats: (json['plats'] as List<dynamic>)
+      .map((e) => PlatCrous.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$MenuCrousToJson(MenuCrous instance) => <String, dynamic>{
+  'date': instance.date.toIso8601String(),
+  'type': _$MenuTypeEnumMap[instance.type]!,
+  'plats': instance.plats,
+};
+
+const _$MenuTypeEnumMap = {
+  MenuType.matin: 'matin',
+  MenuType.midi: 'midi',
+  MenuType.soir: 'soir',
+};
+
+PlatCrous _$PlatCrousFromJson(Map<String, dynamic> json) => PlatCrous(
+  name: json['name'] as String,
+  variants: (json['variants'] as List<dynamic>)
+      .map((e) => e as String)
+      .toList(),
+);
+
+Map<String, dynamic> _$PlatCrousToJson(PlatCrous instance) => <String, dynamic>{
+  'name': instance.name,
+  'variants': instance.variants,
+};

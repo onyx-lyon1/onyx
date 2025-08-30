@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
-import 'package:izlyclient/hive/hive_registrar.g.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:requests_plus/requests_plus.dart';
 
@@ -17,10 +15,6 @@ class IzlyClient {
   static const _cbConfirmationLink =
       "https://secure-magenta1.be2bill.com/front/form/process";
   late final String _corsProxyUrl;
-
-  static void registerAdapters() {
-    Hive.registerAdapters();
-  }
 
   final String _username;
   final String _password;
@@ -34,14 +28,18 @@ class IzlyClient {
   }
 
   Future<bool> isLogged() async {
-    final r = await RequestsPlus.get("$_baseUrl/Home/PaymentInitiation",
-        corsProxyUrl: _corsProxyUrl);
+    final r = await RequestsPlus.get(
+      "$_baseUrl/Home/PaymentInitiation",
+      corsProxyUrl: _corsProxyUrl,
+    );
     return (r.statusCode == 200);
   }
 
   Future<bool> login() async {
-    var r = await RequestsPlus.get("$_baseUrl/Home/Logon",
-        corsProxyUrl: _corsProxyUrl);
+    var r = await RequestsPlus.get(
+      "$_baseUrl/Home/Logon",
+      corsProxyUrl: _corsProxyUrl,
+    );
     List<String> content = r
         .content()
         .split("\n")
@@ -50,15 +48,17 @@ class IzlyClient {
     int index = content.indexOf(" value=");
     // ignore: no_leading_underscores_for_local_identifiers, non_constant_identifier_names
     String __RequestVerificationToken = content[index + 1];
-    r = await RequestsPlus.post('$_baseUrl/Home/Logon',
-        body: {
-          'Username': _username,
-          'Password': _password,
-          'ReturnUrl': '/',
-          "__RequestVerificationToken": __RequestVerificationToken,
-        },
-        corsProxyUrl: _corsProxyUrl,
-        followRedirects: false);
+    r = await RequestsPlus.post(
+      '$_baseUrl/Home/Logon',
+      body: {
+        'Username': _username,
+        'Password': _password,
+        'ReturnUrl': '/',
+        "__RequestVerificationToken": __RequestVerificationToken,
+      },
+      corsProxyUrl: _corsProxyUrl,
+      followRedirects: false,
+    );
     if (r.statusCode != 302) {
       throw Exception("Login failed");
     }
@@ -67,8 +67,10 @@ class IzlyClient {
   }
 
   Future<void> logout() async {
-    var r = await RequestsPlus.get("$_baseUrl/Home/Logout",
-        corsProxyUrl: _corsProxyUrl);
+    var r = await RequestsPlus.get(
+      "$_baseUrl/Home/Logout",
+      corsProxyUrl: _corsProxyUrl,
+    );
     if (r.statusCode != 200) {
       throw Exception("Logout failed");
     }
@@ -86,40 +88,47 @@ class IzlyClient {
     }
     Document document = parse(r.content());
     //select the value in the p with id balance
-    String balance =
-        document.getElementById("balance")!.innerHtml.split("<sup>").first;
+    String balance = document
+        .getElementById("balance")!
+        .innerHtml
+        .split("<sup>")
+        .first;
     return double.parse(balance.replaceAll(",", "."));
   }
 
   Future<Uint8List> getQRCode() async {
     assert(_isLogged);
-    var r = await RequestsPlus.post("$_baseUrl/Home/CreateQrCodeImg",
-        body: {
-          'numberOfQrCodes': "1",
-        },
-        corsProxyUrl: _corsProxyUrl);
+    var r = await RequestsPlus.post(
+      "$_baseUrl/Home/CreateQrCodeImg",
+      body: {'numberOfQrCodes': "1"},
+      corsProxyUrl: _corsProxyUrl,
+    );
     Uint8List result = base64Decode(jsonDecode(r.body)["images"][0]);
     return result;
   }
 
   Future<({Map<String, dynamic> body, String url})> getTransferPaymentUrl(
-      double amount) async {
+    double amount,
+  ) async {
     assert(_isLogged);
     var r = await RequestsPlus.post(
-        "$_baseUrl/Home/PaymentInitiationRequest?amount=${amount.toStringAsFixed(2)}",
-        corsProxyUrl: _corsProxyUrl);
+      "$_baseUrl/Home/PaymentInitiationRequest?amount=${amount.toStringAsFixed(2)}",
+      corsProxyUrl: _corsProxyUrl,
+    );
     if (r.statusCode != 200) {
       throw Exception("Payment failed");
     }
     return (
       url: jsonDecode(r.content())["url"].toString(),
-      body: <String, dynamic>{}
+      body: <String, dynamic>{},
     );
   }
 
   Future<List<CbModel>> getAvailableCBs() async {
-    var r = await RequestsPlus.get("$_baseUrl/Home/Recharge",
-        corsProxyUrl: _corsProxyUrl);
+    var r = await RequestsPlus.get(
+      "$_baseUrl/Home/Recharge",
+      corsProxyUrl: _corsProxyUrl,
+    );
     if (r.statusCode != 200) {
       throw Exception("Recharge failed");
     }
@@ -136,24 +145,29 @@ class IzlyClient {
   }
 
   Future<({Map<String, dynamic> body, String url})> rechargeWithCB(
-      double amount, CbModel cb) async {
+    double amount,
+    CbModel cb,
+  ) async {
     assert(amount >= 10.0);
 
     if ((cb.id != "newCB")) {
-      var r = await RequestsPlus.post("$_baseUrl/Home/RechargeConfirm",
-          body: {
-            'dataToSend':
-                '{"Amount":"${amount.toStringAsFixed(2)}","Code":"$_password","Senders":[{"ID":"${cb.id}","Name":"${cb.name}","Amount":"${amount.toStringAsFixed(2)}"}]}',
-            'operation': '',
-            'engagementId': '',
-          },
-          corsProxyUrl: _corsProxyUrl);
+      var r = await RequestsPlus.post(
+        "$_baseUrl/Home/RechargeConfirm",
+        body: {
+          'dataToSend':
+              '{"Amount":"${amount.toStringAsFixed(2)}","Code":"$_password","Senders":[{"ID":"${cb.id}","Name":"${cb.name}","Amount":"${amount.toStringAsFixed(2)}"}]}',
+          'operation': '',
+          'engagementId': '',
+        },
+        corsProxyUrl: _corsProxyUrl,
+      );
       if (r.statusCode != 200) {
         throw Exception("Recharge failed");
       }
       final jsonData = jsonDecode(r.body);
-      final securityReturn =
-          jsonDecode(jsonData["Confirm"]["DalenysData3DSReturn"]);
+      final securityReturn = jsonDecode(
+        jsonData["Confirm"]["DalenysData3DSReturn"],
+      );
       return (
         url: jsonData["Confirm"]["DalenysUrl3DSReturn"].toString(),
         body: {
@@ -161,34 +175,38 @@ class IzlyClient {
           'transaction_public_id': securityReturn['transaction_public_id'],
           'card_network': securityReturn['card_network'],
           'log_id': securityReturn['log_id'],
-        }
+        },
       );
     } else {
-      var r = await RequestsPlus.post("$_baseUrl/Home/PaymentCreateRequest",
-          body: {
-            'amount': amount.toStringAsFixed(2),
-          },
-          corsProxyUrl: _corsProxyUrl);
+      var r = await RequestsPlus.post(
+        "$_baseUrl/Home/PaymentCreateRequest",
+        body: {'amount': amount.toStringAsFixed(2)},
+        corsProxyUrl: _corsProxyUrl,
+      );
       if (r.hasError) {
         throw 'web error';
       }
-      r = await RequestsPlus.post("$_baseUrl/Profile/CompleteProfilePayment",
-          body: {
-            'amount': jsonDecode(r.body)["amount"],
-            'registered': "true",
-            'transferId': jsonDecode(r.body)["transfertId"]
-          },
-          corsProxyUrl: _corsProxyUrl);
+      r = await RequestsPlus.post(
+        "$_baseUrl/Profile/CompleteProfilePayment",
+        body: {
+          'amount': jsonDecode(r.body)["amount"],
+          'registered': "true",
+          'transferId': jsonDecode(r.body)["transfertId"],
+        },
+        corsProxyUrl: _corsProxyUrl,
+      );
       if (r.hasError) {
         throw 'web error';
       }
       Document parsedHtml = HtmlParser(r.body).parse();
       Map<String, dynamic> body = {};
-      for (Node node in parsedHtml.children.first.nodes[2].nodes[1].nodes
-          .firstWhere(
-              (element) => element.attributes["id"] == "submit-payment-form")
-          .nodes
-          .toList()) {
+      for (Node node
+          in parsedHtml.children.first.nodes[2].nodes[1].nodes
+              .firstWhere(
+                (element) => element.attributes["id"] == "submit-payment-form",
+              )
+              .nodes
+              .toList()) {
         if (node.attributes.containsKey("type") &&
             node.attributes["type"] == "hidden") {
           body[node.attributes['name'].toString()] = node.attributes['value'];
@@ -199,19 +217,23 @@ class IzlyClient {
   }
 
   Future<bool> rechargeViaSomeoneElse(
-      double amount, String email, String message) async {
+    double amount,
+    String email,
+    String message,
+  ) async {
     assert(_isLogged);
     assert(amount >= 10.0);
-    var r =
-        await RequestsPlus.post("$_baseUrl/PayInRequest/PayInRequestConfirm",
-            body: {
-              "Email": email,
-              "AmountPad.AmountSelectedValue": "",
-              "Message": message,
-              "PadAmount": "0",
-              "Amount": amount.toStringAsFixed(2),
-            },
-            corsProxyUrl: _corsProxyUrl);
+    var r = await RequestsPlus.post(
+      "$_baseUrl/PayInRequest/PayInRequestConfirm",
+      body: {
+        "Email": email,
+        "AmountPad.AmountSelectedValue": "",
+        "Message": message,
+        "PadAmount": "0",
+        "Amount": amount.toStringAsFixed(2),
+      },
+      corsProxyUrl: _corsProxyUrl,
+    );
     if (r.statusCode != 200) {
       throw Exception("Recharge failed");
     }
@@ -219,13 +241,17 @@ class IzlyClient {
   }
 
   static Future<List<RestaurantModel>> getRestaurantCrous() async {
-    final r = await RequestsPlus.get(_menuUrl,
-        bodyEncoding: RequestBodyEncoding.JSON);
+    final r = await RequestsPlus.get(
+      _menuUrl,
+      bodyEncoding: RequestBodyEncoding.JSON,
+    );
     if (r.statusCode != 200) {
       throw Exception("Can't get menu crous");
     }
-    String body =
-        r.body.replaceAll("\n", "").replaceAll("\t", "").replaceAll("\r", "");
+    String body = r.body
+        .replaceAll("\n", "")
+        .replaceAll("\t", "")
+        .replaceAll("\r", "");
     final decoded = jsonDecode(body);
     return (decoded["restaurants"] as List)
         .map((e) => RestaurantModel.fromJson(e))
@@ -247,13 +273,17 @@ class IzlyClient {
     List<IzlyPaymentModel> paymentsList = [];
 
     for (var i = 0; i < paymentTime.length; i++) {
-      paymentsList.add(IzlyPaymentModel(
-        paymentTime: DateFormat('dd/MM/yyyy HH:mm')
-            .parse(paymentTime[i].element!.nodes.first.data),
-        amountSpent: double.parse(
-            amountSpent[i].element!.nodes.first.data.replaceFirst(",", ".")),
-        isSucess: isSucess[i].element!.nodes.first.data == " Succès ",
-      ));
+      paymentsList.add(
+        IzlyPaymentModel(
+          paymentTime: DateFormat(
+            'dd/MM/yyyy HH:mm',
+          ).parse(paymentTime[i].element!.nodes.first.data),
+          amountSpent: double.parse(
+            amountSpent[i].element!.nodes.first.data.replaceFirst(",", "."),
+          ),
+          isSucess: isSucess[i].element!.nodes.first.data == " Succès ",
+        ),
+      );
     }
 
     return paymentsList;

@@ -18,10 +18,7 @@ abstract class _$IzlyCredentialCWProxy {
   /// ```dart
   /// IzlyCredential(...).copyWith(id: 12, name: "My name")
   /// ```
-  IzlyCredential call({
-    String username,
-    String password,
-  });
+  IzlyCredential call({String username, String password});
 }
 
 /// Callable proxy for `copyWith` functionality.
@@ -38,7 +35,6 @@ class _$IzlyCredentialCWProxyImpl implements _$IzlyCredentialCWProxy {
   IzlyCredential password(String password) => call(password: password);
 
   @override
-
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored. To update a single field use `IzlyCredential(...).copyWith.fieldName(value)`.
   ///
@@ -69,3 +65,19 @@ extension $IzlyCredentialCopyWith on IzlyCredential {
   // ignore: library_private_types_in_public_api
   _$IzlyCredentialCWProxy get copyWith => _$IzlyCredentialCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+IzlyCredential _$IzlyCredentialFromJson(Map<String, dynamic> json) =>
+    IzlyCredential(
+      username: json['username'] as String,
+      password: json['password'] as String,
+    );
+
+Map<String, dynamic> _$IzlyCredentialToJson(IzlyCredential instance) =>
+    <String, dynamic>{
+      'username': instance.username,
+      'password': instance.password,
+    };

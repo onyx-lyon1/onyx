@@ -1,5 +1,6 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'generated/menu_crous.g.dart';
 
@@ -16,6 +17,7 @@ enum MenuType {
   String toString() => name;
 }
 
+@JsonSerializable()
 @CopyWith()
 class MenuCrous extends Equatable {
   final DateTime date;
@@ -52,6 +54,7 @@ class MenuCrous extends Equatable {
   bool get stringify => true;
 }
 
+@JsonSerializable()
 @CopyWith()
 class PlatCrous extends Equatable {
   final String name;
