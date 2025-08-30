@@ -5,7 +5,7 @@
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
-part of 'examen_model.dart';
+part of '../examen_model.dart';
 
 class ExamenModelMapper extends ClassMapperBase<ExamenModel> {
   ExamenModelMapper._();
@@ -171,30 +171,29 @@ class _ExamenModelCopyWithImpl<$R, $Out>
     Object? duration = $none,
     Object? location = $none,
     Object? place = $none,
-  }) =>
-      $apply(
-        FieldCopyWithData({
-          if (title != $none) #title: title,
-          if (codeName != null) #codeName: codeName,
-          if (date != $none) #date: date,
-          if (duration != $none) #duration: duration,
-          if (location != $none) #location: location,
-          if (place != $none) #place: place,
-        }),
-      );
+  }) => $apply(
+    FieldCopyWithData({
+      if (title != $none) #title: title,
+      if (codeName != null) #codeName: codeName,
+      if (date != $none) #date: date,
+      if (duration != $none) #duration: duration,
+      if (location != $none) #location: location,
+      if (place != $none) #place: place,
+    }),
+  );
   @override
   ExamenModel $make(CopyWithData data) => ExamenModel(
-        title: data.get(#title, or: $value.title),
-        codeName: data.get(#codeName, or: $value.codeName),
-        date: data.get(#date, or: $value.date),
-        duration: data.get(#duration, or: $value.duration),
-        location: data.get(#location, or: $value.location),
-        place: data.get(#place, or: $value.place),
-      );
+    title: data.get(#title, or: $value.title),
+    codeName: data.get(#codeName, or: $value.codeName),
+    date: data.get(#date, or: $value.date),
+    duration: data.get(#duration, or: $value.duration),
+    location: data.get(#location, or: $value.location),
+    place: data.get(#place, or: $value.place),
+  );
 
   @override
   ExamenModelCopyWith<$R2, ExamenModel, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
-  ) =>
-      _ExamenModelCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  ) => _ExamenModelCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+
