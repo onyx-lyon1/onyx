@@ -1,12 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/domain/model/settings_model.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sembast/sembast_io.dart';
 
 part 'izly_state.dart';
 
@@ -15,26 +17,37 @@ class IzlyCubit extends Cubit<IzlyState> {
 
   IzlyCubit() : super(IzlyState(status: IzlyStatus.initial));
 
-  void connect(
-      {IzlyCredential? credential, required SettingsModel settings}) async {
+  // Sembast helpers for cached Izly amount
+  static Future<Database> _getDb() async {
+    final dir = await getApplicationDocumentsDirectory();
+    final dbPath = join(dir.path, 'cached_izly_amount.db');
+    return await databaseFactoryIo.openDatabase(dbPath);
+  }
+
+  static final _amountStore = StoreRef<String, double>('cached_izly_amount');
+
+  void connect({
+    IzlyCredential? credential,
+    required SettingsModel settings,
+  }) async {
     //mock gestion
     if (Res.mock) {
       _izlyClient = IzlyClient("mockUsername", "mockPassword");
       emit(
         state.copyWith(
-            status: IzlyStatus.loaded,
-            balance: 100.0,
-            qrCode: (await rootBundle.load(Res.izlyMockQrCodePath))
-                .buffer
-                .asUint8List(),
-            izlyClient: _izlyClient),
+          status: IzlyStatus.loaded,
+          balance: 100.0,
+          qrCode: (await rootBundle.load(
+            Res.izlyMockQrCodePath,
+          )).buffer.asUint8List(),
+          izlyClient: _izlyClient,
+        ),
       );
-
       return;
     }
-    //cache loading
-    Box box = await Hive.openBox<double>("cached_izly_amount");
-    double amount = box.get("amount") ?? 0.0;
+    //cache loading (Sembast)
+    final db = await _getDb();
+    double amount = await _amountStore.record('amount').get(db) ?? 0.0;
     emit(state.copyWith(status: IzlyStatus.connecting, balance: amount));
 
     //real load
@@ -42,28 +55,38 @@ class IzlyCubit extends Cubit<IzlyState> {
       if (_izlyClient == null || !(await _izlyClient!.isLogged())) {
         //need to login
         credential ??= await CacheService.get<IzlyCredential>(
-            secureKey:
-                await CacheService.getEncryptionKey(settings.biometricAuth));
+          secureKey: await CacheService.getEncryptionKey(
+            settings.biometricAuth,
+          ),
+        );
         if (credential == null) {
           emit(state.copyWith(status: IzlyStatus.noCredentials));
           return;
         }
-        _izlyClient = IzlyClient(credential.username, credential.password,
-            corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
+        _izlyClient = IzlyClient(
+          credential.username,
+          credential.password,
+          corsProxyUrl: (kIsWeb) ? Res.corsProxy : "",
+        );
         bool loginResult = await _izlyClient!.login();
         if (!loginResult) {
           if (await CacheService.exist<IzlyCredential>(
-              secureKey: await CacheService.getEncryptionKey(
-                  settings.biometricAuth))) {
+            secureKey: await CacheService.getEncryptionKey(
+              settings.biometricAuth,
+            ),
+          )) {
             emit(state.copyWith(status: IzlyStatus.error));
           } else {
             emit(state.copyWith(status: IzlyStatus.noCredentials));
           }
           return;
         } else {
-          await CacheService.set<IzlyCredential>(credential,
-              secureKey:
-                  await CacheService.getEncryptionKey(settings.biometricAuth));
+          await CacheService.set<IzlyCredential>(
+            credential,
+            secureKey: await CacheService.getEncryptionKey(
+              settings.biometricAuth,
+            ),
+          );
         }
       }
       emit(state.copyWith(status: IzlyStatus.loading, izlyClient: _izlyClient));
@@ -72,11 +95,15 @@ class IzlyCubit extends Cubit<IzlyState> {
       var qrCode = await IzlyLogic.getQrCode(_izlyClient!);
       //load balance
       double balance = await _izlyClient!.getBalance();
-      Box box = await Hive.openBox<double>("cached_izly_amount");
-      await box.put("amount", balance);
-      box.close();
-      emit(state.copyWith(
-          status: IzlyStatus.loaded, balance: balance, qrCode: qrCode));
+      // Sembast: save balance
+      await _amountStore.record('amount').put(db, balance);
+      emit(
+        state.copyWith(
+          status: IzlyStatus.loaded,
+          balance: balance,
+          qrCode: qrCode,
+        ),
+      );
       loadPaymentHistory();
     } catch (e) {
       emit(state.copyWith(status: IzlyStatus.error));
@@ -87,18 +114,24 @@ class IzlyCubit extends Cubit<IzlyState> {
     if (_izlyClient != null) {
       emit(state.copyWith(status: IzlyStatus.loading));
       if (cache && await CacheService.exist<IzlyPaymentModelList>()) {
-        emit(state.copyWith(
+        emit(
+          state.copyWith(
             status: IzlyStatus.cacheLoaded,
             paymentList:
-                (await CacheService.get<IzlyPaymentModelList>())!.payments));
+                (await CacheService.get<IzlyPaymentModelList>())!.payments,
+          ),
+        );
       }
       try {
-        List<IzlyPaymentModel> paymentList =
-            await IzlyLogic.getUserPayments(_izlyClient!);
-        emit(state.copyWith(
-            status: IzlyStatus.loaded, paymentList: paymentList));
+        List<IzlyPaymentModel> paymentList = await IzlyLogic.getUserPayments(
+          _izlyClient!,
+        );
+        emit(
+          state.copyWith(status: IzlyStatus.loaded, paymentList: paymentList),
+        );
         await CacheService.set<IzlyPaymentModelList>(
-            IzlyPaymentModelList(payments: paymentList));
+          IzlyPaymentModelList(payments: paymentList),
+        );
       } catch (e) {
         emit(state.copyWith(status: IzlyStatus.error));
       }
