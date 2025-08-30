@@ -110,7 +110,6 @@ class Mail with MailMappable {
     // rawMail n'est pas utilisé ici, on met une valeur fictive
     rawMail = MimeMessage();
     removeTrackingImages = false;
-    attachmentsFiles = attachmentsFiles;
   }
 
   Mail.forReplying({
