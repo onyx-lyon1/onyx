@@ -1,6 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
-part 'examen_model.mapper.dart';
+part 'generated/examen_model.mapper.dart';
 
 @MappableClass()
 class ExamenModel with ExamenModelMappable {
