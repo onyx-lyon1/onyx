@@ -388,16 +388,20 @@ packages:
   dart_mappable:
     dependency: "direct main"
     description:
-      path: "/home/eymeric/tmp/dart_mappable/packages/dart_mappable"
-      relative: false
-    source: path
+      path: "packages/dart_mappable"
+      ref: HEAD
+      resolved-ref: "215adf5e6c17a36ca94328cdece035b9b09fccf4"
+      url: "https://github.com/hatch01/dart_mappable.git"
+    source: git
     version: "4.6.0"
   dart_mappable_builder:
     dependency: "direct dev"
     description:
-      path: "/home/eymeric/tmp/dart_mappable/packages/dart_mappable_builder"
-      relative: false
-    source: path
+      path: "packages/dart_mappable_builder"
+      ref: HEAD
+      resolved-ref: "215adf5e6c17a36ca94328cdece035b9b09fccf4"
+      url: "https://github.com/hatch01/dart_mappable.git"
+    source: git
     version: "4.6.0"
   dart_quill_delta:
     dependency: transitive
