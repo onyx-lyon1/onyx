@@ -351,7 +351,7 @@ packages:
       path: "../lyon1casclient"
       relative: true
     source: path
-    version: "1.0.9"
+    version: "1.0.10"
   matcher:
     dependency: transitive
     description:
