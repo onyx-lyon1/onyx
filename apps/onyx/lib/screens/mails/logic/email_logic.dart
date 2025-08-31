@@ -64,7 +64,7 @@ class MailLogic {
     if (Res.mock) {
       return mailboxesMock;
     }
-    initSembastDb();
+    await initSembastDb(path);
     if (await CacheService.exist<MailBoxList>()) {
       return (await CacheService.get<MailBoxList>())!.mailBoxes;
     } else {

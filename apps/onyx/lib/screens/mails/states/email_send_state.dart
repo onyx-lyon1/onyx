@@ -1,5 +1,6 @@
 part of 'email_send_cubit.dart';
 
+@MappableEnum()
 enum EmailSendStatus { initial, sending, sent, updated, error, inputNotValid }
 
 @MappableClass()

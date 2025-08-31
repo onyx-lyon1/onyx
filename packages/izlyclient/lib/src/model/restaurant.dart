@@ -3,6 +3,7 @@ import 'package:izlyclient/izlyclient.dart';
 
 part 'generated/restaurant.mapper.dart';
 
+@MappableEnum()
 enum CrousType { restaurant, cafet }
 
 @MappableClass()
@@ -43,10 +44,12 @@ class RestaurantModel with RestaurantModelMappable {
       lat: json["lat"],
       lon: json["lon"],
       opening: json["opening"],
-      menus: (json["menus"] as List)
-          .map((e) => MenuCrous.fromJson(e, json["date"]))
-          .toList(),
-      imageUrl: json["imageUrl"],
+      menus: [
+        for (var e in json["menus"])
+          for (var meal in e["meal"])
+            MenuCrous.fromJson(meal, e["date"] as String),
+      ],
+      imageUrl: json["photo"]["src"],
     );
   }
 }

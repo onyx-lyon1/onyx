@@ -2,6 +2,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 
 part 'generated/menu_crous.mapper.dart';
 
+@MappableEnum()
 enum MenuType {
   matin,
   midi,

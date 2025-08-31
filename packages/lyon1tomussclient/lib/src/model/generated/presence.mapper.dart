@@ -7,6 +7,56 @@
 
 part of '../presence.dart';
 
+class PresenceColorMapper extends EnumMapper<PresenceColor> {
+  PresenceColorMapper._();
+
+  static PresenceColorMapper? _instance;
+  static PresenceColorMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = PresenceColorMapper._());
+    }
+    return _instance!;
+  }
+
+  static PresenceColor fromValue(dynamic value) {
+    ensureInitialized();
+    return MapperContainer.globals.fromValue(value);
+  }
+
+  @override
+  PresenceColor decode(dynamic value) {
+    switch (value) {
+      case r'green':
+        return PresenceColor.green;
+      case r'red':
+        return PresenceColor.red;
+      case r'unset':
+        return PresenceColor.unset;
+      default:
+        throw MapperException.unknownEnumValue(value);
+    }
+  }
+
+  @override
+  dynamic encode(PresenceColor self) {
+    switch (self) {
+      case PresenceColor.green:
+        return r'green';
+      case PresenceColor.red:
+        return r'red';
+      case PresenceColor.unset:
+        return r'unset';
+    }
+  }
+}
+
+extension PresenceColorMapperExtension on PresenceColor {
+  String toValue() {
+    PresenceColorMapper.ensureInitialized();
+    return MapperContainer.globals.toValue<PresenceColor>(this) as String;
+  }
+}
+
 class PresenceMapper extends ClassMapperBase<Presence> {
   PresenceMapper._();
 
@@ -14,6 +64,7 @@ class PresenceMapper extends ClassMapperBase<Presence> {
   static PresenceMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = PresenceMapper._());
+      PresenceColorMapper.ensureInitialized();
     }
     return _instance!;
   }

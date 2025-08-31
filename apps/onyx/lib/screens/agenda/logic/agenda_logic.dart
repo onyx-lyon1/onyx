@@ -33,7 +33,7 @@ class AgendaLogic {
     if (Res.mock) {
       return dayListMock;
     }
-    await initSembastDb();
+    await initSembastDb(path);
     if (await CacheService.exist<Agenda>()) {
       return (await CacheService.get<Agenda>())!.days;
     } else {
@@ -51,8 +51,8 @@ class AgendaLogic {
       );
     }
     List<RestaurantModel> restaurant = await IzlyClient.getRestaurantCrous();
-    CacheService.set<RestaurantListModel>(
-      RestaurantListModel(restaurantList: restaurant),
+    CacheService.set<Map<String, dynamic>>(
+      RestaurantListModel(restaurantList: restaurant).toMap(),
     );
     List<Event> menuToAdd = [];
     for (var resto in restaurant) {

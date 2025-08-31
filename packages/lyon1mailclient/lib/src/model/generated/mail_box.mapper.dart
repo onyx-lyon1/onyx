@@ -7,6 +7,64 @@
 
 part of '../mail_box.dart';
 
+class SpecialMailBoxMapper extends EnumMapper<SpecialMailBox> {
+  SpecialMailBoxMapper._();
+
+  static SpecialMailBoxMapper? _instance;
+  static SpecialMailBoxMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = SpecialMailBoxMapper._());
+    }
+    return _instance!;
+  }
+
+  static SpecialMailBox fromValue(dynamic value) {
+    ensureInitialized();
+    return MapperContainer.globals.fromValue(value);
+  }
+
+  @override
+  SpecialMailBox decode(dynamic value) {
+    switch (value) {
+      case r'inbox':
+        return SpecialMailBox.inbox;
+      case r'sent':
+        return SpecialMailBox.sent;
+      case r'trash':
+        return SpecialMailBox.trash;
+      case r'flagged':
+        return SpecialMailBox.flagged;
+      case r'archive':
+        return SpecialMailBox.archive;
+      default:
+        throw MapperException.unknownEnumValue(value);
+    }
+  }
+
+  @override
+  dynamic encode(SpecialMailBox self) {
+    switch (self) {
+      case SpecialMailBox.inbox:
+        return r'inbox';
+      case SpecialMailBox.sent:
+        return r'sent';
+      case SpecialMailBox.trash:
+        return r'trash';
+      case SpecialMailBox.flagged:
+        return r'flagged';
+      case SpecialMailBox.archive:
+        return r'archive';
+    }
+  }
+}
+
+extension SpecialMailBoxMapperExtension on SpecialMailBox {
+  String toValue() {
+    SpecialMailBoxMapper.ensureInitialized();
+    return MapperContainer.globals.toValue<SpecialMailBox>(this) as String;
+  }
+}
+
 class MailBoxMapper extends ClassMapperBase<MailBox> {
   MailBoxMapper._();
 
@@ -15,6 +73,7 @@ class MailBoxMapper extends ClassMapperBase<MailBox> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = MailBoxMapper._());
       MailMapper.ensureInitialized();
+      SpecialMailBoxMapper.ensureInitialized();
     }
     return _instance!;
   }

@@ -7,6 +7,56 @@
 
 part of '../menu_crous.dart';
 
+class MenuTypeMapper extends EnumMapper<MenuType> {
+  MenuTypeMapper._();
+
+  static MenuTypeMapper? _instance;
+  static MenuTypeMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = MenuTypeMapper._());
+    }
+    return _instance!;
+  }
+
+  static MenuType fromValue(dynamic value) {
+    ensureInitialized();
+    return MapperContainer.globals.fromValue(value);
+  }
+
+  @override
+  MenuType decode(dynamic value) {
+    switch (value) {
+      case r'matin':
+        return MenuType.matin;
+      case r'midi':
+        return MenuType.midi;
+      case r'soir':
+        return MenuType.soir;
+      default:
+        throw MapperException.unknownEnumValue(value);
+    }
+  }
+
+  @override
+  dynamic encode(MenuType self) {
+    switch (self) {
+      case MenuType.matin:
+        return r'matin';
+      case MenuType.midi:
+        return r'midi';
+      case MenuType.soir:
+        return r'soir';
+    }
+  }
+}
+
+extension MenuTypeMapperExtension on MenuType {
+  String toValue() {
+    MenuTypeMapper.ensureInitialized();
+    return MapperContainer.globals.toValue<MenuType>(this) as String;
+  }
+}
+
 class MenuCrousMapper extends ClassMapperBase<MenuCrous> {
   MenuCrousMapper._();
 
@@ -14,6 +64,7 @@ class MenuCrousMapper extends ClassMapperBase<MenuCrous> {
   static MenuCrousMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = MenuCrousMapper._());
+      MenuTypeMapper.ensureInitialized();
       PlatCrousMapper.ensureInitialized();
     }
     return _instance!;

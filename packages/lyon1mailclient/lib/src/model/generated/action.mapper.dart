@@ -14,6 +14,7 @@ class ActionMapper extends ClassMapperBase<Action> {
   static ActionMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = ActionMapper._());
+      ActionTypeMapper.ensureInitialized();
       MailMapper.ensureInitialized();
       MailBoxMapper.ensureInitialized();
     }
