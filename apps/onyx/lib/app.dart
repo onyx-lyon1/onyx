@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:onyx/core/initialisations/initialisations_export.dart';
 import 'package:onyx/core/screens/bloc_connections/bloc_connection_screen.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
@@ -83,7 +84,8 @@ class OnyxAppState extends State<OnyxApp> {
                   locale: locale,
                   localizationsDelegates: const [
                     LocaleNamesLocalizationsDelegate(),
-                    ...AppLocalizations.localizationsDelegates
+                    ...AppLocalizations.localizationsDelegates,
+                    FlutterQuillLocalizations.delegate,
                   ],
                   supportedLocales: AppLocalizations.supportedLocales,
                   localeListResolutionCallback: (locales, supportedLocales) {
