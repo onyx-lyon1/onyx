@@ -18,8 +18,6 @@ enum AgendaStatus {
 class AgendaState {
   final AgendaStatus status;
   late final List<Day> realDays;
-  late final int paddingBefore;
-  late final int paddingAfter;
   final List<Event> examEvents;
   final List<int> agendaIds;
   final int wantedDate;
@@ -32,10 +30,10 @@ class AgendaState {
     this.agendaIds = const [],
     required SettingsModel settingsModel,
   }) {
+    int paddingBefore = 0;
+    int paddingAfter = 0;
     if (realDays.isEmpty) {
       this.realDays = realDays;
-      this.paddingBefore = 0;
-      this.paddingAfter = 0;
       return;
     }
     // remove disabled days
@@ -70,8 +68,8 @@ class AgendaState {
       alignementOffset =
           alignementOffset.positiveModulo(settingsModel.agendaWeekLength);
 
-      this.paddingBefore = alignementOffset;
-      this.paddingAfter = settingsModel.agendaWeekLength - alignementOffset;
+      paddingBefore = alignementOffset;
+      paddingAfter = settingsModel.agendaWeekLength - alignementOffset;
     }
 
     //add examEvents
