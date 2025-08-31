@@ -368,8 +368,9 @@ class AppLocalizationsRu extends AppLocalizations {
     final intl.NumberFormat denominatorNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
     );
-    final String denominatorString =
-        denominatorNumberFormat.format(denominator);
+    final String denominatorString = denominatorNumberFormat.format(
+      denominator,
+    );
 
     return 'Вы получили $numeratorString/$denominatorString (\$$title) в: \$$title';
   }
@@ -691,7 +692,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String noteDescription(
-      double average, double mediane, int rank, int groupeSize, String author) {
+    double average,
+    double mediane,
+    int rank,
+    int groupeSize,
+    String author,
+  ) {
     final intl.NumberFormat averageNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
     );
