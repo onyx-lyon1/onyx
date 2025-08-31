@@ -56,3 +56,4 @@ apps/onyx/assets/iv.txt
 .android
 apps/onyx/upload-keystore.jks
 apps/onyx/key.properties
+apps/onyx/actions.db
