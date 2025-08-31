@@ -3,12 +3,19 @@ dependency_overrides:
   geolocator_android:
     git:
       url: https://github.com/onyx-lyon1/flutter-geolocator.git
-      ref: 13.0.1
       path: geolocator_android
   json_theme:
     git:
       url: https://github.com/wardbj93/json_theme
       path: packages/json_theme
+  dart_mappable:
+    git:
+      url: https://github.com/hatch01/dart_mappable.git
+      path: packages/dart_mappable
+  dart_mappable_builder:
+    git:
+      url: https://github.com/hatch01/dart_mappable.git
+      path: packages/dart_mappable_builder
   intl: ^0.20.2
   izlyclient:
     path: ../../packages/izlyclient

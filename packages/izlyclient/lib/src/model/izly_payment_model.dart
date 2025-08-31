@@ -1,6 +1,9 @@
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-class IzlyPaymentModel extends Equatable {
+part 'generated/izly_payment_model.mapper.dart';
+
+@MappableClass()
+class IzlyPaymentModel with IzlyPaymentModelMappable {
   final DateTime paymentTime;
   final double amountSpent;
   final bool isSucess;
@@ -10,10 +13,4 @@ class IzlyPaymentModel extends Equatable {
     required this.amountSpent,
     required this.isSucess,
   });
-
-  @override
-  List<Object> get props => [paymentTime, amountSpent, isSucess];
-
-  @override
-  bool get stringify => true;
 }

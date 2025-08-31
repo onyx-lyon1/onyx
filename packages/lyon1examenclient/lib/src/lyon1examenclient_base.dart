@@ -1,7 +1,5 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
-import 'package:lyon1examenclient/hive/hive_registrar.g.dart';
 import 'package:lyon1examenclient/lyon1examenclient.dart';
 
 class Lyon1ExamenClient {
@@ -11,10 +9,6 @@ class Lyon1ExamenClient {
 
   const Lyon1ExamenClient(Lyon1CasClient authentication)
       : _authentication = authentication;
-
-  static void registerAdapters() {
-    Hive.registerAdapters();
-  }
 
   Future<List<ExamenModel>> fetchExams() async {
     final resp = (await _authentication.serviceRequest(examensUrl));

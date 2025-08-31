@@ -1,11 +1,10 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 
-part 'generated/action.g.dart';
+part 'generated/action.mapper.dart';
 
-@CopyWith()
-class Action extends Equatable {
+@MappableClass()
+class Action with ActionMappable {
   final ActionType type;
   final MailBox? fromMailBox;
   final Mail mail;
@@ -84,17 +83,4 @@ class Action extends Equatable {
         break;
     }
   }
-
-  @override
-  List<Object?> get props => [
-        type,
-        fromMailBox,
-        mail,
-        originalMessageId,
-        replyAll,
-        destinationMailBox,
-      ];
-
-  @override
-  bool? get stringify => true;
 }

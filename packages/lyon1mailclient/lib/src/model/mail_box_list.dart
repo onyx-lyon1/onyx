@@ -1,20 +1,13 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 
-part 'generated/mail_box_list.g.dart';
+part 'generated/mail_box_list.mapper.dart';
 
-@CopyWith()
-class MailBoxList extends Equatable {
+@MappableClass()
+class MailBoxList with MailBoxListMappable {
   late final List<MailBox> mailBoxes;
 
   MailBoxList({
     required this.mailBoxes,
   });
-
-  @override
-  List<Object?> get props => [mailBoxes];
-
-  @override
-  bool? get stringify => true;
 }

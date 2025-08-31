@@ -1,19 +1,24 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/constant/constants.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 import 'package:requests_plus/requests_plus.dart';
 
-part 'generated/upload.g.dart';
+part 'generated/upload.mapper.dart';
 
-@CopyWith()
-class Upload extends TeachingUnitElement {
+@MappableClass()
+class Upload extends TeachingUnitElement with UploadMappable {
   late final String comment;
   late final int uploadMax;
   late final String fileUrl;
 
   Upload.fromJSON(
-      var id, var json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+    int id,
+    Map<String, dynamic> json,
+    Map<String, dynamic> stats,
+    List<dynamic> line,
+    Map<String, dynamic> column,
+    String user,
+  ) : super.fromJson(id, json, stats, line, column, user) {
     comment = json['comment'] ?? "";
     uploadMax = int.tryParse(json['upload_max'] ?? "") ?? 0;
     //https://tomuss.univ-lyon1.fr/2023/Printemps/codeUE/upload_get/theId/lineId/codeUE_uploadName_filename?unsafe=1&ticket=ST-6037266-YbrFlIZeqewEEE1TjBgy-cas.univ-lyon1.fr
@@ -25,6 +30,7 @@ class Upload extends TeachingUnitElement {
     }
   }
 
+  @MappableConstructor()
   Upload({
     required super.title,
     required super.author,
@@ -36,9 +42,7 @@ class Upload extends TeachingUnitElement {
   });
 
   Future<List<int>> getContent(String ticket) async {
-    var response = await RequestsPlus.get(
-      "$fileUrl?unsafe=1&ticket=$ticket",
-    );
+    var response = await RequestsPlus.get("$fileUrl?unsafe=1&ticket=$ticket");
     if (response.statusCode == 200) {
       return response.bytes().toList();
     }

@@ -1,11 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'dart:io';
-
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:http/http.dart';
-import 'package:lyon1casclient/hive/hive_registrar.g.dart';
 import 'package:requests_plus/requests_plus.dart';
 
 import 'constant/constants.dart';
@@ -15,11 +11,6 @@ class Lyon1CasClient {
   static String encryptionKeyName = "tgcToken";
   bool isAuthenticated = false;
   late final String _corsProxyUrl;
-
-  static void registerAdapters({bool initHive = true}) {
-    Hive.registerAdapters();
-    if (initHive) Hive.init(Directory.current.path);
-  }
 
   String get corsProxyUrl => _corsProxyUrl;
 
@@ -33,11 +24,13 @@ class Lyon1CasClient {
   }
 
   Future<({bool authResult, Credential credential})> authenticate(
-      Credential credential,
-      {bool cookieOnly = false}) async {
+    Credential credential, {
+    bool cookieOnly = false,
+  }) async {
     if (credential.tgcToken.isNotEmpty) {
-      CookieJar cookieJar =
-          await RequestsPlus.getStoredCookies(Constants.casLogin);
+      CookieJar cookieJar = await RequestsPlus.getStoredCookies(
+        Constants.casLogin,
+      );
       cookieJar["TGC-CAS"] = Cookie("TGC-CAS", credential.tgcToken);
       await RequestsPlus.setStoredCookies(Constants.casLogin, cookieJar);
     }
@@ -46,14 +39,16 @@ class Lyon1CasClient {
     }
     if (!(await checkAuthentificated())) {
       await RequestsPlus.clearStoredCookies(Constants.casLogin);
-      isAuthenticated =
-          await _authenticationRequest(await getExecToken(), credential);
+      isAuthenticated = await _authenticationRequest(
+        await getExecToken(),
+        credential,
+      );
     } else {
       isAuthenticated = true;
     }
 
     if (isAuthenticated) {
-      credential = credential.copyWith.tgcToken((await getTgcToken()));
+      credential = credential.copyWith(tgcToken: (await getTgcToken()));
     }
     return (credential: credential, authResult: isAuthenticated);
   }
@@ -80,9 +75,11 @@ class Lyon1CasClient {
       url = "${Constants.casLogin}?service=$url${(unsafe ? '/?unsafe=1' : '')}";
     }
     Response? response;
-    for (var i = 0;
-        i < maxRetry && (response?.request?.url.host.contains("cas") ?? true);
-        i++) {
+    for (
+      var i = 0;
+      i < maxRetry && (response?.request?.url.host.contains("cas") ?? true);
+      i++
+    ) {
       if (response != null) {
         url = response.request!.url.toString();
       }
@@ -112,9 +109,7 @@ class Lyon1CasClient {
     final response = await RequestsPlus.get(
       Constants.casLogin,
       corsProxyUrl: _corsProxyUrl,
-      headers: {
-        'User-Agent': Constants.userAgent,
-      },
+      headers: {'User-Agent': Constants.userAgent},
       withCredentials: true,
     );
 
@@ -131,7 +126,9 @@ class Lyon1CasClient {
   }
 
   Future<bool> _authenticationRequest(
-      final String execToken, Credential credential) async {
+    final String execToken,
+    Credential credential,
+  ) async {
     final response = await RequestsPlus.post(
       Constants.casLogin,
       corsProxyUrl: _corsProxyUrl,
@@ -141,7 +138,7 @@ class Lyon1CasClient {
         'lt': '',
         'execution': execToken,
         '_eventId': 'submit',
-        'submit': 'SE+CONNECTER'
+        'submit': 'SE+CONNECTER',
       },
       headers: {
         'User-Agent': Constants.userAgent,

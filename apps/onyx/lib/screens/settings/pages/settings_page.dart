@@ -2,15 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onyx/l10n/app_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
-import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/agenda/agenda_export.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/login/login_export.dart';
@@ -22,12 +21,13 @@ import 'package:onyx/screens/settings/states/theme_cubit.dart';
 import 'package:onyx/screens/settings/widgets/draggable_zone_widget.dart';
 import 'package:onyx/screens/settings/widgets/drop_down_widget.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:sembast/sembast_io.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({
-    super.key,
-  });
+  const SettingsPage({super.key});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -38,8 +38,10 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) => Container(
-          color: Theme.of(context).colorScheme.surface,
-          child: Column(mainAxisSize: MainAxisSize.max, children: [
+        color: Theme.of(context).colorScheme.surface,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
             Container(
               height: Res.bottomNavBarHeight,
               color: Theme.of(context).cardTheme.color,
@@ -62,39 +64,52 @@ class _SettingsPageState extends State<SettingsPage> {
                     widgets: [
                       DropDownWidget(
                         text: AppLocalizations.of(context).chooseLanguage,
-                        value: AppLocalizations.supportedLocales.indexWhere(
-                                (element) =>
-                                    element.languageCode ==
-                                    context
-                                        .read<SettingsCubit>()
-                                        .state
-                                        .settings
-                                        .language) +
+                        value:
+                            AppLocalizations.supportedLocales.indexWhere(
+                              (element) =>
+                                  element.languageCode ==
+                                  context
+                                      .read<SettingsCubit>()
+                                      .state
+                                      .settings
+                                      .language,
+                            ) +
                             1,
                         //little trick, if it does not found because null, it will return -1, so +1 to get 0
                         // afterward we add in the list the auto option
                         items: [
                           AppLocalizations.of(context).auto,
-                          ...AppLocalizations.supportedLocales.map((e) =>
-                              LocaleNames.of(context)?.nameOf(e.languageCode) ??
-                              e.languageCode)
+                          ...AppLocalizations.supportedLocales.map(
+                            (e) =>
+                                LocaleNames.of(
+                                  context,
+                                )?.nameOf(e.languageCode) ??
+                                e.languageCode,
+                          ),
                         ],
                         onChanged: (value) {
                           context.read<SettingsCubit>().modify(
-                              settings: context
-                                  .read<SettingsCubit>()
-                                  .state
-                                  .settings
-                                  .copyWith(
-                                      language: (value == 0)
-                                          ? null
-                                          : AppLocalizations
-                                              .supportedLocales[value - 1]
-                                              .languageCode));
-                          context.read<MapCubit>().loadBatiment((value == 0)
-                              ? const Locale("fr")
-                              : Locale(AppLocalizations
-                                  .supportedLocales[value - 1].languageCode));
+                            settings: context
+                                .read<SettingsCubit>()
+                                .state
+                                .settings
+                                .copyWith(
+                                  language: (value == 0)
+                                      ? null
+                                      : AppLocalizations
+                                            .supportedLocales[value - 1]
+                                            .languageCode,
+                                ),
+                          );
+                          context.read<MapCubit>().loadBatiment(
+                            (value == 0)
+                                ? const Locale("fr")
+                                : Locale(
+                                    AppLocalizations
+                                        .supportedLocales[value - 1]
+                                        .languageCode,
+                                  ),
+                          );
                         },
                       ),
                       BlocBuilder<ThemeCubit, ThemeState>(
@@ -104,42 +119,41 @@ class _SettingsPageState extends State<SettingsPage> {
                         },
                         builder: (context, themeState) {
                           return DropDownWidget(
-                              text: AppLocalizations.of(context).chooseTheme,
-                              items: [
-                                AppLocalizations.of(context).system,
-                                AppLocalizations.of(context).dark,
-                                AppLocalizations.of(context).light,
-                              ],
-                              value: themeState.themesSettings!.themeMode.index,
-                              onChanged: (choice) {
-                                switch (choice) {
-                                  case 0:
-                                    context
-                                        .read<ThemeCubit>()
-                                        .updateThemeMode(ThemeModeEnum.system);
-                                    break;
-                                  case 1:
-                                    context
-                                        .read<ThemeCubit>()
-                                        .updateThemeMode(ThemeModeEnum.dark);
-                                    break;
-                                  case 2:
-                                    context
-                                        .read<ThemeCubit>()
-                                        .updateThemeMode(ThemeModeEnum.light);
-                                    break;
-                                }
-                              });
+                            text: AppLocalizations.of(context).chooseTheme,
+                            items: [
+                              AppLocalizations.of(context).system,
+                              AppLocalizations.of(context).dark,
+                              AppLocalizations.of(context).light,
+                            ],
+                            value: themeState.themesSettings!.themeMode.index,
+                            onChanged: (choice) {
+                              switch (choice) {
+                                case 0:
+                                  context.read<ThemeCubit>().updateThemeMode(
+                                    ThemeModeEnum.system,
+                                  );
+                                  break;
+                                case 1:
+                                  context.read<ThemeCubit>().updateThemeMode(
+                                    ThemeModeEnum.dark,
+                                  );
+                                  break;
+                                case 2:
+                                  context.read<ThemeCubit>().updateThemeMode(
+                                    ThemeModeEnum.light,
+                                  );
+                                  break;
+                              }
+                            },
+                          );
                         },
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                      const SizedBox(height: 5),
                       MaterialButton(
                         color: Theme.of(context).primaryColor,
                         textColor:
                             Theme.of(context).textTheme.bodyLarge?.color ??
-                                Colors.black,
+                            Colors.black,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -158,9 +172,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           );
                         },
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                      const SizedBox(height: 5),
                     ],
                   ),
                   const DraggableZoneWidget(),
@@ -170,127 +182,140 @@ class _SettingsPageState extends State<SettingsPage> {
                       MaterialButton(
                         color: const Color(0xffbf616a),
                         textColor: Colors.white70,
-                        child: Text(AppLocalizations.of(context).logout,
-                            style: TextStyle(fontSize: 17.sp)),
+                        child: Text(
+                          AppLocalizations.of(context).logout,
+                          style: TextStyle(fontSize: 17.sp),
+                        ),
                         onPressed: () => SettingsLogic.logout(context),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                     ],
                   ),
                   SettingsCardWidget(
-                      name: AppLocalizations.of(context).cache,
-                      widgets: [
+                    name: AppLocalizations.of(context).cache,
+                    widgets: [
+                      MaterialButton(
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: Text(
+                          AppLocalizations.of(context).clearGradeCache,
+                          style: TextStyle(fontSize: 17.sp),
+                        ),
+                        onPressed: () {
+                          CacheService.reset<TeachingUnitList>();
+                          CacheService.reset<SemesterList>();
+                          context.read<TomussCubit>().load(
+                            lyon1Cas: context
+                                .read<AuthentificationCubit>()
+                                .state
+                                .lyon1Cas,
+                            cache: false,
+                            settings: context
+                                .read<SettingsCubit>()
+                                .state
+                                .settings,
+                          );
+                        },
+                      ),
+                      MaterialButton(
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: Text(
+                          AppLocalizations.of(context).clearAgendaCache,
+                          style: TextStyle(fontSize: 17.sp),
+                        ),
+                        onPressed: () {
+                          CacheService.reset<Agenda>();
+                          context.read<AgendaCubit>().load(
+                            lyon1Cas: context
+                                .read<AuthentificationCubit>()
+                                .state
+                                .lyon1Cas,
+                            settings: context
+                                .read<SettingsCubit>()
+                                .state
+                                .settings,
+                            cache: false,
+                          );
+                        },
+                      ),
+                      MaterialButton(
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: Text(
+                          AppLocalizations.of(context).clearEmailCache,
+                          style: TextStyle(fontSize: 17.sp),
+                        ),
+                        onPressed: () {
+                          CacheService.reset<MailBoxList>();
+                          context.read<EmailCubit>().load(
+                            cache: false,
+                            blockTrackers: context
+                                .read<SettingsCubit>()
+                                .state
+                                .settings
+                                .blockTrackers,
+                            appLocalizations: AppLocalizations.of(context),
+                          );
+                        },
+                      ),
+                      if (!Platform.isIOS)
                         MaterialButton(
                           color: const Color(0xffbf616a),
                           textColor: Colors.white70,
                           child: Text(
-                              AppLocalizations.of(context).clearGradeCache,
-                              style: TextStyle(fontSize: 17.sp)),
-                          onPressed: () {
-                            CacheService.reset<TeachingUnitList>();
-                            CacheService.reset<SemesterList>();
-                            context.read<TomussCubit>().load(
-                                lyon1Cas: context
-                                    .read<AuthentificationCubit>()
-                                    .state
-                                    .lyon1Cas,
-                                cache: false,
-                                settings: context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .settings);
-                          },
-                        ),
-                        MaterialButton(
-                          color: const Color(0xffbf616a),
-                          textColor: Colors.white70,
-                          child: Text(
-                              AppLocalizations.of(context).clearAgendaCache,
-                              style: TextStyle(fontSize: 17.sp)),
-                          onPressed: () {
-                            CacheService.reset<Agenda>();
-                            context.read<AgendaCubit>().load(
-                                lyon1Cas: context
-                                    .read<AuthentificationCubit>()
-                                    .state
-                                    .lyon1Cas,
-                                settings: context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .settings,
-                                cache: false);
-                          },
-                        ),
-                        MaterialButton(
-                          color: const Color(0xffbf616a),
-                          textColor: Colors.white70,
-                          child: Text(
-                              AppLocalizations.of(context).clearEmailCache,
-                              style: TextStyle(fontSize: 17.sp)),
-                          onPressed: () {
-                            CacheService.reset<MailBoxList>();
-                            context.read<EmailCubit>().load(
-                                  cache: false,
-                                  blockTrackers: context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .settings
-                                      .blockTrackers,
-                                  appLocalizations:
-                                      AppLocalizations.of(context),
-                                );
-                          },
-                        ),
-                        if (!Platform.isIOS)
-                          MaterialButton(
-                            color: const Color(0xffbf616a),
-                            textColor: Colors.white70,
-                            child: Text(
-                                AppLocalizations.of(context).clearIzlyCache,
-                                style: TextStyle(fontSize: 17.sp)),
-                            onPressed: () {
-                              CacheService.reset<IzlyQrCodeList>();
-                              CacheService.reset<IzlyPaymentModelList>();
-                              CacheService.reset<IzlyCredential>();
-                              Hive.deleteBoxFromDisk("cached_qr_code");
-                              Hive.deleteBoxFromDisk("cached_izly_amount");
-                              context.read<IzlyCubit>().resetCubit();
-                              context.read<IzlyCubit>().connect(
-                                  settings: context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .settings);
-                            },
+                            AppLocalizations.of(context).clearIzlyCache,
+                            style: TextStyle(fontSize: 17.sp),
                           ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                      ]),
-                  SettingsCardWidget(
-                      name: AppLocalizations.of(context).notifications,
-                      widgets: [
-                        MaterialButton(
-                          color: const Color(0xffbf616a),
-                          textColor: Colors.white70,
-                          child: Text(
-                              AppLocalizations.of(context)
-                                  .checkForNewNotifications,
-                              style: TextStyle(fontSize: 17.sp)),
-                          onPressed: () {
-                            backgroundLogic(init: false);
+                          onPressed: () async {
+                            CacheService.reset<IzlyQrCodeList>();
+                            CacheService.reset<IzlyPaymentModelList>();
+                            CacheService.reset<IzlyCredential>();
+                            // Prélever les valeurs du context avant tout await
+                            final izlyCubit = context.read<IzlyCubit>();
+                            final settings = context
+                                .read<SettingsCubit>()
+                                .state
+                                .settings;
+                            final dir =
+                                await getApplicationDocumentsDirectory();
+                            await databaseFactoryIo.deleteDatabase(
+                              join(dir.path, 'cached_qr_code.db'),
+                            );
+                            await databaseFactoryIo.deleteDatabase(
+                              join(dir.path, 'cached_izly_amount.db'),
+                            );
+                            izlyCubit.resetCubit();
+                            izlyCubit.connect(settings: settings);
                           },
                         ),
-                        const SizedBox(
-                          height: 10,
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                  SettingsCardWidget(
+                    name: AppLocalizations.of(context).notifications,
+                    widgets: [
+                      MaterialButton(
+                        color: const Color(0xffbf616a),
+                        textColor: Colors.white70,
+                        child: Text(
+                          AppLocalizations.of(context).checkForNewNotifications,
+                          style: TextStyle(fontSize: 17.sp),
                         ),
-                      ]),
+                        onPressed: () {
+                          backgroundLogic(init: false);
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
                   const SettingsLinkWidget(),
                 ],
               ),
-            )
-          ])),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

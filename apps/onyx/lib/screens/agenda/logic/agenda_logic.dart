@@ -2,17 +2,18 @@ import 'package:izlyclient/izlyclient.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/extensions/extensions_export.dart';
-import 'package:onyx/core/initialisations/initialisations_export.dart';
+import 'package:onyx/core/initialisations/sembast_init.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/izly/izly_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 
 class AgendaLogic {
-  static Future<List<Day>> load(
-      {required Lyon1AgendaClient agendaClient,
-      required SettingsModel settings,
-      required List<int> ids,
-      DateTime? maxDate}) async {
+  static Future<List<Day>> load({
+    required Lyon1AgendaClient agendaClient,
+    required SettingsModel settings,
+    required List<int> ids,
+    DateTime? maxDate,
+  }) async {
     if (Res.mock) {
       return dayListMock;
     }
@@ -32,7 +33,7 @@ class AgendaLogic {
     if (Res.mock) {
       return dayListMock;
     }
-    await hiveInit(path: path);
+    await initSembastDb(path);
     if (await CacheService.exist<Agenda>()) {
       return (await CacheService.get<Agenda>())!.days;
     } else {
@@ -44,14 +45,15 @@ class AgendaLogic {
     //clean the agenda
     for (int i = 0; i < days.length; i++) {
       days[i] = days[i].copyWith(
-          events: days[i]
-              .events
-              .where((element) => element.menuCrous == null)
-              .toList());
+        events: days[i].events
+            .where((element) => element.menuCrous == null)
+            .toList(),
+      );
     }
     List<RestaurantModel> restaurant = await IzlyClient.getRestaurantCrous();
-    CacheService.set<RestaurantListModel>(
-        RestaurantListModel(restaurantList: restaurant));
+    CacheService.set<Map<String, dynamic>>(
+      RestaurantListModel(restaurantList: restaurant).toMap(),
+    );
     List<Event> menuToAdd = [];
     for (var resto in restaurant) {
       if (await IzlyLogic.isRestaurantFavourite(resto)) {
@@ -75,38 +77,47 @@ class AgendaLogic {
           }
           startLimit = startLimit.subtract(const Duration(minutes: 1));
           endLimit = endLimit.add(const Duration(minutes: 1));
-          int dayIndex = days.indexWhere((element) =>
-              element.date.shrink(3).isAtSameMomentAs(menu.date.shrink(3)));
+          int dayIndex = days.indexWhere(
+            (element) =>
+                element.date.shrink(3).isAtSameMomentAs(menu.date.shrink(3)),
+          );
           if (dayIndex != -1) {
             Day day = days[dayIndex];
             if (day.events.isNotEmpty) {
               List<({DateTime start, DateTime end})> pause = [
-                (start: day.date, end: day.events.first.start)
+                (start: day.date, end: day.events.first.start),
               ];
               for (var i = 0; i < day.events.length - 1; i++) {
-                pause.add(
-                    (start: day.events[i].end, end: day.events[i + 1].start));
+                pause.add((
+                  start: day.events[i].end,
+                  end: day.events[i + 1].start,
+                ));
               }
               pause.add((
                 start: day.events.last.end,
-                end: day.date.add(const Duration(days: 1))
+                end: day.date.add(const Duration(days: 1)),
               ));
-              pause.removeWhere((element) =>
-                  element.end.difference(element.start).inHours < 1);
+              pause.removeWhere(
+                (element) => element.end.difference(element.start).inHours < 1,
+              );
               for (var i in pause) {
-                bool startOk = i.start.isAfter(startLimit) &&
+                bool startOk =
+                    i.start.isAfter(startLimit) &&
                     i.start.add(const Duration(hours: 1)).isBefore(endLimit);
-                bool stopOk = i.end.isBefore(endLimit) &&
+                bool stopOk =
+                    i.end.isBefore(endLimit) &&
                     i.end
                         .subtract(const Duration(hours: 1))
                         .isAfter(startLimit);
                 bool inTimeSlot =
                     startLimit.isAfter(i.start) && endLimit.isBefore(i.end);
                 if (startOk || stopOk || inTimeSlot) {
-                  DateTime start =
-                      startLimit.add(const Duration(minutes: 1, hours: 1));
-                  DateTime end =
-                      endLimit.subtract(const Duration(minutes: 1, hours: 1));
+                  DateTime start = startLimit.add(
+                    const Duration(minutes: 1, hours: 1),
+                  );
+                  DateTime end = endLimit.subtract(
+                    const Duration(minutes: 1, hours: 1),
+                  );
                   if (startOk && stopOk) {
                     if (startLimit.difference(i.start) <
                         endLimit.difference(i.end)) {
@@ -123,27 +134,32 @@ class AgendaLogic {
                     end = i.end;
                     start = end.subtract(const Duration(hours: 1));
                   }
-                  menuToAdd.add((Event(
+                  menuToAdd.add(
+                    (Event(
                       location: resto.name,
                       menuCrous: menu,
                       teacher: "",
                       description: "",
                       name: menu.type.toString(),
                       start: start,
-                      end: end)));
+                      end: end,
+                    )),
+                  );
                   break;
                 }
               }
             } else {
-              menuToAdd.add((Event(
-                location: resto.name,
-                menuCrous: menu,
-                teacher: "",
-                description: "",
-                name: menu.type.toString(),
-                start: startLimit.add(const Duration(minutes: 1)),
-                end: endLimit.subtract(const Duration(minutes: 1)),
-              )));
+              menuToAdd.add(
+                (Event(
+                  location: resto.name,
+                  menuCrous: menu,
+                  teacher: "",
+                  description: "",
+                  name: menu.type.toString(),
+                  start: startLimit.add(const Duration(minutes: 1)),
+                  end: endLimit.subtract(const Duration(minutes: 1)),
+                )),
+              );
             }
           }
         }
@@ -152,8 +168,10 @@ class AgendaLogic {
 
     //add the new menu to the clean agenda
     for (var menu in menuToAdd) {
-      int dayIndex = days.indexWhere((element) =>
-          element.date.shrink(3).isAtSameMomentAs(menu.start.shrink(3)));
+      int dayIndex = days.indexWhere(
+        (element) =>
+            element.date.shrink(3).isAtSameMomentAs(menu.start.shrink(3)),
+      );
       if (dayIndex != -1) {
         days[dayIndex].events.add(menu);
         days[dayIndex].events.sort((a, b) => a.start.compareTo(b.start));
@@ -243,11 +261,11 @@ class AgendaLogic {
     ]),
     for (int i = 4; i < 300; i++)
       Day(
-          DateTime(DateTime.now().year + ((DateTime.now().month < 6) ? -1 : 0),
-                  9)
-              .add(
-            Duration(days: i),
-          ),
-          const []),
+        DateTime(
+          DateTime.now().year + ((DateTime.now().month < 6) ? -1 : 0),
+          9,
+        ).add(Duration(days: i)),
+        const [],
+      ),
   ];
 }

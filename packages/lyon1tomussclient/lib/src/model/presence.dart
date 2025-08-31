@@ -1,14 +1,15 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 import 'package:lyon1tomussclient/src/parser/condition_parser.dart';
 import 'package:lyon1tomussclient/src/parser/dateparser.dart';
 
-part 'generated/presence.g.dart';
+part 'generated/presence.mapper.dart';
 
+@MappableEnum()
 enum PresenceColor { green, red, unset }
 
-@CopyWith()
-class Presence extends TeachingUnitElement {
+@MappableClass()
+class Presence extends TeachingUnitElement with PresenceMappable {
   late final String value;
   late final String? emptyIs;
   late final PresenceColor color;
@@ -16,8 +17,13 @@ class Presence extends TeachingUnitElement {
   late final bool? visible;
 
   Presence.fromJSON(
-      var id, var json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+    int id,
+    Map<String, dynamic> json,
+    Map<String, dynamic> stats,
+    List<dynamic> line,
+    Map<String, dynamic> column,
+    String user,
+  ) : super.fromJson(id, json, stats, line, column, user) {
     emptyIs = json['empty_is'];
     if (line[id] == null || (line[id] is List && line[id].isEmpty)) {
       value = "";
@@ -31,8 +37,11 @@ class Presence extends TeachingUnitElement {
         visibilityDate = vDate.toDateTime();
         visible = null;
       } else {
-        visible =
-            vDate.evaluateCondition(value: value, line: line, column: column);
+        visible = vDate.evaluateCondition(
+          value: value,
+          line: line,
+          column: column,
+        );
         visibilityDate = null;
       }
       // exemple de condition:
@@ -42,19 +51,27 @@ class Presence extends TeachingUnitElement {
       visibilityDate = null;
       visible = null;
     }
-    if (json['redtext']
-            .toString()
-            .evaluateCondition(value: value, line: line, column: column) ||
-        json['red']
-            .toString()
-            .evaluateCondition(value: value, line: line, column: column)) {
+    if (json['redtext'].toString().evaluateCondition(
+          value: value,
+          line: line,
+          column: column,
+        ) ||
+        json['red'].toString().evaluateCondition(
+          value: value,
+          line: line,
+          column: column,
+        )) {
       color = PresenceColor.red;
-    } else if (json['greentext']
-            .toString()
-            .evaluateCondition(value: value, line: line, column: column) ||
-        json['green']
-            .toString()
-            .evaluateCondition(value: value, line: line, column: column)) {
+    } else if (json['greentext'].toString().evaluateCondition(
+          value: value,
+          line: line,
+          column: column,
+        ) ||
+        json['green'].toString().evaluateCondition(
+          value: value,
+          line: line,
+          column: column,
+        )) {
       color = PresenceColor.green;
     } else {
       color = PresenceColor.unset;
@@ -65,6 +82,7 @@ class Presence extends TeachingUnitElement {
   bool get isVisible => value != ""; //(visible != null && visible!) ||
   //(visibilityDate != null && visibilityDate!.isBefore(DateTime.now()));
 
+  @MappableConstructor()
   Presence({
     required super.title,
     required super.author,
@@ -78,6 +96,11 @@ class Presence extends TeachingUnitElement {
   });
 
   @override
-  List<Object?> get customProps =>
-      [value, emptyIs, color, visibilityDate, visible];
+  List<Object?> get customProps => [
+    value,
+    emptyIs,
+    color,
+    visibilityDate,
+    visible,
+  ];
 }

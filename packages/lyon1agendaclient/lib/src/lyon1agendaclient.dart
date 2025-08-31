@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:hive_ce/hive.dart';
-import 'package:lyon1agendaclient/hive/hive_registrar.g.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1agendaclient/src/constants/constants.dart';
 import 'package:lyon1agendaclient/src/parser/agendaparser.dart';
@@ -18,10 +16,6 @@ class Lyon1AgendaClient {
 
   Lyon1AgendaClient(this._agendaURL, this._casClient) {
     _corsProxyUrl = "";
-  }
-
-  static void registerAdapters() {
-    Hive.registerAdapters();
   }
 
   Lyon1AgendaClient.useLyon1Cas(final Lyon1CasClient authentication) {
@@ -50,7 +44,7 @@ class Lyon1AgendaClient {
     return check.statusCode == 200 &&
         // Checking the value may not be the most precise way to check if logged in
         // We could maybe check the rights also for exemple
-            jsonDecode(check.body)["data"]["active"];
+        jsonDecode(check.body)["data"]["active"];
   }
 
   Map<String, String> buildAuthHeaders(

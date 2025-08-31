@@ -1,0 +1,169 @@
+⚠️ WARNING: HIVE MULTI-ISOLATE RISK DETECTED ⚠️
+
+Accessing Hive from an unsafe isolate (current isolate: "Closure: (String?) => Future<List<Day>> from Function 'getCache': static.")
+This can lead to DATA CORRUPTION as Hive boxes are not designed for concurrent
+access across isolates. Each isolate would maintain its own box cache,
+potentially causing data inconsistency and corruption.
+
+RECOMMENDED ACTIONS:
+- Use IsolatedHive instead
+
+
+[D]  AgendaCubit: AgendaStatus.cacheReady
+[D]  AuthentificationCubit: AuthentificationStatus.authentificated
+[D]  AgendaCubit: AgendaStatus.loading
+[D]  AgendaCubit: AgendaStatus.connecting
+[D]  EmailCubit: MailStatus.connecting
+Device.orientation : Orientation.portrait
+Device.deviceType : DeviceType.linux
+Device.screenType : ScreenType.mobile
+Device.width : 360.0
+Device.height : 740.0
+Device.boxConstraints : BoxConstraints(w=360.0, h=740.0)
+Device.aspectRatio : 0.4864864864864865
+Device.pixelRatio : 1.0
+⚠️ WARNING: HIVE MULTI-ISOLATE RISK DETECTED ⚠️
+
+Accessing Hive from an unsafe isolate (current isolate: "Closure: (String?) => Future<List<MailBox>> from Function 'cacheLoad': static.")
+This can lead to DATA CORRUPTION as Hive boxes are not designed for concurrent
+access across isolates. Each isolate would maintain its own box cache,
+potentially causing data inconsistency and corruption.
+
+RECOMMENDED ACTIONS:
+- Use IsolatedHive instead
+
+
+[ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: FormatException: Missing extension byte (at offset 45)
+#0      _Utf8Decoder.convertSingle (dart:convert-patch/convert_patch.dart:1859:7)
+#1      Utf8Decoder.convert (dart:convert/utf.dart:350:37)
+#2      Utf8Codec.decode (dart:convert/utf.dart:63:20)
+#3      IzlyClient.getRestaurantCrous (package:izlyclient/src/izlyclient.dart:229:37)
+<asynchronous suspension>
+#4      MapCubit.loadBatiment (package:onyx/screens/map/states/map_cubit.dart:50:18)
+<asynchronous suspension>
+
+[D]  SettingsCubit: SettingsStatus.ready
+[D]  ThemeCubit: ThemeStateStatus.init
+[D]  ThemeCubit: ThemeStateStatus.loaded
+Device.orientation : Orientation.portrait
+Device.deviceType : DeviceType.linux
+Device.screenType : ScreenType.mobile
+Device.width : 360.0
+Device.height : 740.0
+Device.boxConstraints : BoxConstraints(w=360.0, h=740.0)
+Device.aspectRatio : 0.4864864864864865
+Device.pixelRatio : 1.0
+[D]  IzlyCubit: IzlyStatus.loading
+⚠️ WARNING: HIVE MULTI-ISOLATE RISK DETECTED ⚠️
+
+Accessing Hive from an unsafe isolate (current isolate: "Closure: (({int currentSemesterIndex, String? path})) => Future<List<TeachingUnit>> from Function 'getTeachingUnitsCache': static.")
+This can lead to DATA CORRUPTION as Hive boxes are not designed for concurrent
+access across isolates. Each isolate would maintain its own box cache,
+potentially causing data inconsistency and corruption.
+
+RECOMMENDED ACTIONS:
+- Use IsolatedHive instead
+
+
+[D]  TomussCubit: TomussStatus.cacheReady
+[D]  IzlyCubit: IzlyStatus.loaded
+[D]  IzlyCubit: IzlyStatus.loading
+[D]  IzlyCubit: IzlyStatus.cacheLoaded
+⚠️ WARNING: HIVE MULTI-ISOLATE RISK DETECTED ⚠️
+
+Accessing Hive from an unsafe isolate (current isolate: "Closure: (String?) => Future<List<Day>> from Function 'getCache': static.")
+This can lead to DATA CORRUPTION as Hive boxes are not designed for concurrent
+access across isolates. Each isolate would maintain its own box cache,
+potentially causing data inconsistency and corruption.
+
+RECOMMENDED ACTIONS:
+- Use IsolatedHive instead
+
+
+[D]  AgendaCubit: AgendaStatus.cacheReady
+[D]  TomussCubit: TomussStatus.ready
+[E]  Null check operator used on a null value
+[D]  ExamenCubit: ExamenStatus.error
+[D]  IzlyCubit: IzlyStatus.loaded
+⚠️ WARNING: HIVE MULTI-ISOLATE RISK DETECTED ⚠️
+
+Accessing Hive from an unsafe isolate (current isolate: "Closure: (String?) => Future<List<MailBox>> from Function 'cacheLoad': static.")
+This can lead to DATA CORRUPTION as Hive boxes are not designed for concurrent
+access across isolates. Each isolate would maintain its own box cache,
+potentially causing data inconsistency and corruption.
+
+RECOMMENDED ACTIONS:
+- Use IsolatedHive instead
+
+
+⚠️ WARNING: HIVE MULTI-ISOLATE RISK DETECTED ⚠️
+
+Accessing Hive from an unsafe isolate (current isolate: "Closure: (({int currentSemesterIndex, String? path})) => Future<List<TeachingUnit>> from Function 'getTeachingUnitsCache': static.")
+This can lead to DATA CORRUPTION as Hive boxes are not designed for concurrent
+access across isolates. Each isolate would maintain its own box cache,
+potentially causing data inconsistency and corruption.
+
+RECOMMENDED ACTIONS:
+- Use IsolatedHive instead
+
+
+[D]  TomussCubit: TomussStatus.cacheReady
+[D]  EmailCubit: MailStatus.connected
+[D]  EmailCubit: MailStatus.loading
+[D]  ExamenCubit: ExamenStatus.ready
+[D]  AgendaCubit: AgendaStatus.cacheReady
+[D]  AgendaCubit: AgendaStatus.cacheReady
+[D]  TomussCubit: TomussStatus.ready
+[D]  ExamenCubit: ExamenStatus.loading
+⚠️ WARNING: HIVE MULTI-ISOLATE RISK DETECTED ⚠️
+
+Accessing Hive from an unsafe isolate (current isolate: "Closure: (String?) => Future<List<MailBox>> from Function 'cacheLoad': static.")
+This can lead to DATA CORRUPTION as Hive boxes are not designed for concurrent
+access across isolates. Each isolate would maintain its own box cache,
+potentially causing data inconsistency and corruption.
+
+RECOMMENDED ACTIONS:
+- Use IsolatedHive instead
+
+
+[D]  EmailCubit: MailStatus.mailboxesLoaded
+[D]  AgendaCubit: AgendaStatus.haveToChooseManualy
+[D]  AgendaConfigCubit: created
+[D]  AgendaConfigCubit: AgendaConfigStatus.loading
+[D]  AgendaConfigCubit: AgendaConfigStatus.connecting
+[D]  ExamenCubit: ExamenStatus.ready
+[D]  AgendaCubit: AgendaStatus.haveToChooseManualy
+[D]  AgendaCubit: AgendaStatus.haveToChooseManualy
+[D]  EmailCubit: MailStatus.loaded
+[D]  EmailCubit: MailStatus.sorted
+[D]  AgendaConfigCubit: AgendaConfigStatus.error
+[D]  EmailCubit: MailStatus.connected
+[D]  EmailCubit: MailStatus.loading
+⚠️ WARNING: HIVE MULTI-ISOLATE RISK DETECTED ⚠️
+
+Accessing Hive from an unsafe isolate (current isolate: "Closure: (String?) => Future<List<MailBox>> from Function 'cacheLoad': static.")
+This can lead to DATA CORRUPTION as Hive boxes are not designed for concurrent
+access across isolates. Each isolate would maintain its own box cache,
+potentially causing data inconsistency and corruption.
+
+RECOMMENDED ACTIONS:
+- Use IsolatedHive instead
+
+
+[D]  EmailCubit: MailStatus.mailboxesLoaded
+[D]  EmailCubit: MailStatus.loaded
+[D]  EmailCubit: MailStatus.sorted
+[D]  HomeCubit: HomeStatus.initial
+[D]  TomussCubit: TomussStatus.loading
+⚠️ WARNING: HIVE MULTI-ISOLATE RISK DETECTED ⚠️
+
+Accessing Hive from an unsafe isolate (current isolate: "Closure: (({int currentSemesterIndex, String? path})) => Future<List<TeachingUnit>> from Function 'getTeachingUnitsCache': static.")
+This can lead to DATA CORRUPTION as Hive boxes are not designed for concurrent
+access across isolates. Each isolate would maintain its own box cache,
+potentially causing data inconsistency and corruption.
+
+RECOMMENDED ACTIONS:
+- Use IsolatedHive instead
+
+
+[D]  TomussCubit: TomussStatus.cacheReady

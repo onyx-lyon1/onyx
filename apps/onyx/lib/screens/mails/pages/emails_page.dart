@@ -11,9 +11,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MailsPage extends StatelessWidget {
-  const MailsPage({
-    super.key,
-  });
+  const MailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +23,13 @@ class MailsPage extends StatelessWidget {
           current.status != previous.status,
       listener: (context, state) {
         context.read<EmailCubit>().doQueuedAction(
-              blockTrackers:
-                  context.read<SettingsCubit>().state.settings.blockTrackers,
-              appLocalizations: AppLocalizations.of(context),
-            );
+          blockTrackers: context
+              .read<SettingsCubit>()
+              .state
+              .settings
+              .blockTrackers,
+          appLocalizations: AppLocalizations.of(context),
+        );
       },
       builder: (context, state) {
         Widget? loadingHeader;
@@ -43,7 +44,8 @@ class MailsPage extends StatelessWidget {
           case MailStatus.cacheSorted:
           case MailStatus.mailboxesLoaded:
             loadingHeader = LoadingHeaderWidget(
-                message: AppLocalizations.of(context).loadingMails);
+              message: AppLocalizations.of(context).loadingMails,
+            );
             break;
           case MailStatus.error:
             loadingHeader = LoadingHeaderWidget(
@@ -59,35 +61,35 @@ class MailsPage extends StatelessWidget {
             final emailCubit = context.read<EmailCubit>();
             final localization = AppLocalizations.of(context);
             CacheService.getEncryptionKey(
-                    context.read<SettingsCubit>().state.settings.biometricAuth)
-                .then((key) => CacheService.get<Credential>(secureKey: key))
-                .then(
-              (value) {
-                if (value != null) {
-                  emailCubit.connect(
-                    username: value.username,
-                    password: value.password,
-                    appLocalizations: localization,
-                  );
-                }
-              },
-            );
+              context.read<SettingsCubit>().state.settings.biometricAuth,
+            ).then((key) => CacheService.get<Credential>(secureKey: key)).then((
+              value,
+            ) {
+              if (value != null) {
+                emailCubit.connect(
+                  username: value.username,
+                  password: value.password,
+                  appLocalizations: localization,
+                );
+              }
+            });
 
             break;
           case MailStatus.connected:
             context.read<EmailCubit>().load(
-                  blockTrackers: context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .blockTrackers,
-                  appLocalizations: AppLocalizations.of(context),
-                );
+              blockTrackers: context
+                  .read<SettingsCubit>()
+                  .state
+                  .settings
+                  .blockTrackers,
+              appLocalizations: AppLocalizations.of(context),
+            );
 
             break;
           case MailStatus.sending:
             loadingHeader = LoadingHeaderWidget(
-                message: AppLocalizations.of(context).sendingEmail);
+              message: AppLocalizations.of(context).sendingEmail,
+            );
             break;
           case MailStatus.loaded:
             break;
@@ -107,10 +109,10 @@ class MailsPage extends StatelessWidget {
             break;
         }
         return PopScope(
-          onPopInvokedWithResult: (_, __) {
-            context
-                .read<EmailCubit>()
-                .unselectAllMails(AppLocalizations.of(context));
+          onPopInvokedWithResult: (_, _) {
+            context.read<EmailCubit>().unselectAllMails(
+              AppLocalizations.of(context),
+            );
           },
           child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.surface,
@@ -145,12 +147,15 @@ class MailsPage extends StatelessWidget {
                     padding: EdgeInsets.only(top: 0.7 * Res.bottomNavBarHeight),
                     child: ListView.custom(
                       controller: scrollController,
-                      childrenDelegate:
-                          SliverChildBuilderDelegate((context, index) {
+                      childrenDelegate: SliverChildBuilderDelegate((
+                        context,
+                        index,
+                      ) {
                         if (index <
                             (state.currentMailBox?.emails.length ?? 0)) {
                           return MailWidget(
-                              email: state.currentMailBox!.emails[index]);
+                            email: state.currentMailBox!.emails[index],
+                          );
                         } else if ((index ==
                                 (state.currentMailBox?.emails.length ?? 0)) &&
                             (state.currentMailBox?.emails.isNotEmpty ??
@@ -175,14 +180,18 @@ class MailsPage extends StatelessWidget {
                                               .state
                                               .settings
                                               .blockTrackers,
-                                          appLocalizations:
-                                              AppLocalizations.of(context),
+                                          appLocalizations: AppLocalizations.of(
+                                            context,
+                                          ),
                                         ),
                                     child: Center(
                                       child: Padding(
                                         padding: EdgeInsets.all(8.w),
-                                        child: Text(AppLocalizations.of(context)
-                                            .loadMoreMails),
+                                        child: Text(
+                                          AppLocalizations.of(
+                                            context,
+                                          ).loadMoreMails,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -197,13 +206,13 @@ class MailsPage extends StatelessWidget {
               ),
               onRefresh: () async {
                 context.read<EmailCubit>().load(
-                      blockTrackers: context
-                          .read<SettingsCubit>()
-                          .state
-                          .settings
-                          .blockTrackers,
-                      appLocalizations: AppLocalizations.of(context),
-                    );
+                  blockTrackers: context
+                      .read<SettingsCubit>()
+                      .state
+                      .settings
+                      .blockTrackers,
+                  appLocalizations: AppLocalizations.of(context),
+                );
                 return;
               },
             ),

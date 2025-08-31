@@ -1,17 +1,13 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
-
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:izlyclient/izlyclient.dart';
 
-part 'generated/restaurant.g.dart';
+part 'generated/restaurant.mapper.dart';
 
-enum CrousType {
-  restaurant,
-  cafet,
-}
+@MappableEnum()
+enum CrousType { restaurant, cafet }
 
-@CopyWith()
-class RestaurantModel extends Equatable {
+@MappableClass()
+class RestaurantModel with RestaurantModelMappable {
   final int id;
   final String name;
   final String description;
@@ -42,34 +38,18 @@ class RestaurantModel extends Equatable {
       name: json["title"],
       description: json["description"],
       shortDescription: json["shortdesc"],
-      type:
-          json["type"] == "Restaurant" ? CrousType.restaurant : CrousType.cafet,
+      type: json["type"] == "Restaurant"
+          ? CrousType.restaurant
+          : CrousType.cafet,
       lat: json["lat"],
       lon: json["lon"],
       opening: json["opening"],
       menus: [
         for (var e in json["menus"])
           for (var meal in e["meal"])
-            MenuCrous.fromJson(meal, e["date"] as String)
+            MenuCrous.fromJson(meal, e["date"] as String),
       ],
       imageUrl: json["photo"]["src"],
     );
   }
-
-  @override
-  List<Object?> get props => [
-        id,
-        name,
-        description,
-        shortDescription,
-        type,
-        lat,
-        lon,
-        opening,
-        menus,
-        imageUrl
-      ];
-
-  @override
-  bool get stringify => true;
 }

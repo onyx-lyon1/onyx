@@ -29,8 +29,12 @@ class TomussCubit extends Cubit<TomussState> {
       return;
     }
     _loading = true;
-    emit(state.copyWith(
-        status: TomussStatus.loading, currentSemesterIndex: semestreIndex));
+    emit(
+      state.copyWith(
+        status: TomussStatus.loading,
+        currentSemesterIndex: semestreIndex,
+      ),
+    );
     _tomussClient = Lyon1TomussClient(lyon1Cas);
     Student? student;
     List<TeachingUnit> teachingUnits = [];
@@ -40,7 +44,7 @@ class TomussCubit extends Cubit<TomussState> {
     if (semestreIndex != null) {
       semesterModelWrapper =
           semesterModelWrapper?.copyWith(currentSemesterIndex: semestreIndex) ??
-              SemesterList(const [], currentSemesterIndex: semestreIndex);
+          SemesterList(const [], currentSemesterIndex: semestreIndex);
     }
     if (semesterModelWrapper != null) {
       await CacheService.set<SemesterList>(semesterModelWrapper);
@@ -50,40 +54,48 @@ class TomussCubit extends Cubit<TomussState> {
     if (cache && !kIsWeb) {
       teachingUnits = await compute(TomussLogic.getTeachingUnitsCache, (
         path: (await getApplicationDocumentsDirectory()).path,
-        currentSemesterIndex: semestreIndex ?? 0
-      ));
-      emit(state.copyWith(
-        status: TomussStatus.cacheReady,
-        teachingUnits: teachingUnits,
-        semesters: semesterModelWrapper?.semestres ?? [],
         currentSemesterIndex: semestreIndex ?? 0,
-        newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
       ));
+      emit(
+        state.copyWith(
+          status: TomussStatus.cacheReady,
+          teachingUnits: teachingUnits,
+          semesters: semesterModelWrapper?.semestres ?? [],
+          currentSemesterIndex: semestreIndex ?? 0,
+          newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
+        ),
+      );
     }
     if (_tomussClient != null && _tomussClient!.lyon1Cas.isAuthenticated) {
       try {
         final result = await TomussLogic.getNameAndSemestersAndNotes(
-            tomussClient: _tomussClient!,
-            semesterIndex: semestreIndex,
-            autoRefresh: false,
-            semester: (semesters.length > (semestreIndex ?? 0))
-                ? semesters[semestreIndex ?? 0]
-                : null);
+          tomussClient: _tomussClient!,
+          semesterIndex: semestreIndex,
+          autoRefresh: false,
+          semester: (semesters.length > (semestreIndex ?? 0))
+              ? semesters[semestreIndex ?? 0]
+              : null,
+        );
         if (result.timeout != null) {
-          emit(state.copyWith(
-            name: result.student?.name,
-            surname: result.student?.surname,
-            currentSemesterIndex: semestreIndex ?? 0,
-            status: TomussStatus.timeout,
-            timeout: result.timeout,
-            newElements:
-                TomussLogic.parseRecentElements(teachingUnits, settings),
-          ));
+          emit(
+            state.copyWith(
+              name: result.student?.name,
+              surname: result.student?.surname,
+              currentSemesterIndex: semestreIndex ?? 0,
+              status: TomussStatus.timeout,
+              timeout: result.timeout,
+              newElements: TomussLogic.parseRecentElements(
+                teachingUnits,
+                settings,
+              ),
+            ),
+          );
           _loading = false;
           return;
         }
         semestreIndex ??= result.semesters!.indexWhere(
-            (element) => element.url == Lyon1TomussClient.currentSemester());
+          (element) => element.url == Lyon1TomussClient.currentSemester(),
+        );
         semesters = result.semesters!;
         teachingUnits = result.schoolSubjectModel!;
         student = result.student;
@@ -96,19 +108,23 @@ class TomussCubit extends Cubit<TomussState> {
 
       teachingUnits.sort((a, b) => a.title.compareTo(b.title));
       CacheService.set<TeachingUnitList>(
-          TeachingUnitList(teachingUnits, semestreIndex),
-          index: semestreIndex);
+        TeachingUnitList(teachingUnits, semestreIndex),
+        index: semestreIndex,
+      );
       CacheService.set<SemesterList>(
-          SemesterList(semesters, currentSemesterIndex: semestreIndex));
-      emit(state.copyWith(
-        name: student?.name,
-        surname: student?.surname,
-        status: TomussStatus.ready,
-        teachingUnits: teachingUnits,
-        semesters: semesters,
-        currentSemesterIndex: semestreIndex,
-        newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
-      ));
+        SemesterList(semesters, currentSemesterIndex: semestreIndex),
+      );
+      emit(
+        state.copyWith(
+          name: student?.name,
+          surname: student?.surname,
+          status: TomussStatus.ready,
+          teachingUnits: teachingUnits,
+          semesters: semesters,
+          currentSemesterIndex: semestreIndex,
+          newElements: TomussLogic.parseRecentElements(teachingUnits, settings),
+        ),
+      );
     }
     _loading = false;
   }
@@ -116,59 +132,73 @@ class TomussCubit extends Cubit<TomussState> {
   Future<void> updateCoef(Grade grade, double? coef) async {
     //update state
     List<TeachingUnit> teachingUnits = state.teachingUnits;
-    int index =
-        teachingUnits.indexWhere((element) => element.grades.contains(grade));
+    int index = teachingUnits.indexWhere(
+      (element) => element.grades.contains(grade),
+    );
     if (index == -1) {
       return;
     }
     int gradeIndex = teachingUnits[index].grades.indexOf(grade);
-    grade = grade.copyWith.coef(coef ?? 1.0);
+    grade = grade.copyWith(coef: coef ?? 1.0);
     teachingUnits[index].grades[gradeIndex] = grade;
 
     //save in cache
     await CacheService.set<TeachingUnitList>(
-        TeachingUnitList(teachingUnits, state.currentSemesterIndex));
-    emit(state.copyWith(
-        status: TomussStatus.updated, teachingUnits: teachingUnits));
+      TeachingUnitList(teachingUnits, state.currentSemesterIndex),
+    );
+    emit(
+      state.copyWith(
+        status: TomussStatus.updated,
+        teachingUnits: teachingUnits,
+      ),
+    );
   }
 
   Future<void> updateEnumerationValue(
-      Enumeration enumeration, String value) async {
+    Enumeration enumeration,
+    String value,
+  ) async {
     List<TeachingUnit> teachingUnits = List.from(state.teachingUnits);
     final List<
-        ({
-          TeachingUnit teachingUnit,
-          TeachingUnitElement teachingUnitElement
-        })> newElements = List.from(state.newElements);
-    int index = teachingUnits
-        .indexWhere((element) => element.enumerations.contains(enumeration));
-    int recentElementIndex = newElements
-        .indexWhere((element) => element.teachingUnitElement == enumeration);
+      ({TeachingUnit teachingUnit, TeachingUnitElement teachingUnitElement})
+    >
+    newElements = List.from(state.newElements);
+    int index = teachingUnits.indexWhere(
+      (element) => element.enumerations.contains(enumeration),
+    );
+    int recentElementIndex = newElements.indexWhere(
+      (element) => element.teachingUnitElement == enumeration,
+    );
     if (index == -1) {
       return;
     }
-    int enumerationIndex =
-        teachingUnits[index].enumerations.indexOf(enumeration);
+    int enumerationIndex = teachingUnits[index].enumerations.indexOf(
+      enumeration,
+    );
     await enumeration.updateValue(value, teachingUnits[index].ticket);
-    enumeration = enumeration.copyWith.value(value);
+    enumeration = enumeration.copyWith(value: value);
 
     teachingUnits[index].enumerations[enumerationIndex] = enumeration;
     await CacheService.set<TeachingUnitList>(
-        TeachingUnitList(teachingUnits, state.currentSemesterIndex));
+      TeachingUnitList(teachingUnits, state.currentSemesterIndex),
+    );
 
     if (recentElementIndex != -1) {
       newElements[recentElementIndex] = (
         teachingUnit: state.newElements[recentElementIndex].teachingUnit,
-        teachingUnitElement: (state.newElements[recentElementIndex]
-                .teachingUnitElement as Enumeration)
-            .copyWith
-            .value(value)
+        teachingUnitElement:
+            (state.newElements[recentElementIndex].teachingUnitElement
+                    as Enumeration)
+                .copyWith(value: value),
       );
     }
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         status: TomussStatus.updated,
         teachingUnits: teachingUnits,
-        newElements: newElements));
+        newElements: newElements,
+      ),
+    );
   }
 
   void resetCubit() async {

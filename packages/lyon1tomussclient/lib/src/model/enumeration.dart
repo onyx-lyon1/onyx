@@ -1,12 +1,12 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1tomussclient/src/constant/constants.dart';
 import 'package:lyon1tomussclient/src/model/teaching_unit_element.dart';
 import 'package:requests_plus/requests_plus.dart';
 
-part 'generated/enumeration.g.dart';
+part 'generated/enumeration.mapper.dart';
 
-@CopyWith()
-class Enumeration extends TeachingUnitElement {
+@MappableClass()
+class Enumeration extends TeachingUnitElement with EnumerationMappable {
   late final String? value;
   late final List<String> values;
   late final String comment;
@@ -20,8 +20,13 @@ class Enumeration extends TeachingUnitElement {
   late final bool modifiable;
 
   Enumeration.fromJSON(
-      var id, var json, var stats, var line, var column, String user)
-      : super.fromJson(id, json, stats, line, column, user) {
+    int id,
+    Map<String, dynamic> json,
+    Map<String, dynamic> stats,
+    List<dynamic> line,
+    Map<String, dynamic> column,
+    String user,
+  ) : super.fromJson(id, json, stats, line, column, user) {
     comment = json['comment'] ?? "";
     if (json["type"] == "Bool") {
       values = ['OUI', 'NON'];
@@ -55,7 +60,8 @@ class Enumeration extends TeachingUnitElement {
         value = null;
       }
     }
-    modifiable = json.keys.contains("modifiable") &&
+    modifiable =
+        json.keys.contains("modifiable") &&
         json["modifiable"] == 2 &&
         ((line[id].length > 1 && line[id][1] == user) || line[id].length <= 1);
     theId = json['the_id'] ?? "";
@@ -65,6 +71,7 @@ class Enumeration extends TeachingUnitElement {
     year = (column['year'] ?? "").toString();
   }
 
+  @MappableConstructor()
   Enumeration({
     required super.title,
     required super.author,
@@ -87,7 +94,7 @@ class Enumeration extends TeachingUnitElement {
         "${Constants.tomuss}/POST",
         body: {
           'content':
-              "/$year/$semester/$ue/cell/$theId/$lineId/$value?%E2%9C%80_________________________________________________________________$ticket"
+              "/$year/$semester/$ue/cell/$theId/$lineId/$value?%E2%9C%80_________________________________________________________________$ticket",
         },
         bodyEncoding: RequestBodyEncoding.FormData,
       );

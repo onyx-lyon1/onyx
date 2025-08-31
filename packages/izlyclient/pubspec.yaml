@@ -4,7 +4,7 @@ version: 1.0.10
 repository: https://github.com/onyx-lyon1/onyx/tree/main/packages/izlyclient
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.8.0 <4.0.0"
 
 # dependencies:
 #   path: ^1.8.0
@@ -14,14 +14,11 @@ dev_dependencies:
   test: ^1.16.0
   dotenv: ^4.0.1
   build_runner: ^2.4.6
-  hive_ce_generator: ^1.9.2
-  copy_with_extension_gen: ^9.1.0
+  dart_mappable_builder: ^4.6.0
 
 dependencies:
   requests_plus: ^4.8.3
   html: ^0.15.4
-  hive_ce: ^2.2.3
-  equatable: ^2.0.5
-  copy_with_extension: ^9.1.0
   beautiful_soup_dart: ^0.3.0
   intl: ^0.20.2
+  dart_mappable: ^4.6.0

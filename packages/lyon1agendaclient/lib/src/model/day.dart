@@ -1,11 +1,10 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 
-part 'generated/day.g.dart';
+part 'generated/day.mapper.dart';
 
-@CopyWith()
-class Day extends Equatable {
+@MappableClass()
+class Day with DayMappable {
   final List<Event> events;
   final DateTime date;
 
@@ -13,7 +12,8 @@ class Day extends Equatable {
 
   Event firstEventForDay(final DateTime dt) {
     return events.firstWhere(
-        (event) => dt.isAfter(event.start) && dt.isBefore(event.end));
+      (event) => dt.isAfter(event.start) && dt.isBefore(event.end),
+    );
   }
 
   List<Event> allEventsForDay(final DateTime dt) {
@@ -24,19 +24,14 @@ class Day extends Equatable {
 
   List<Event> searchEvents(final String keyword) {
     final RegExp r = RegExp(keyword, multiLine: true, caseSensitive: false);
-
     return events
-        .where((event) =>
-            event.location.contains(r) ||
-            event.teacher.contains(r) ||
-            event.name.contains(r) ||
-            event.description.contains(r))
+        .where(
+          (event) =>
+              event.location.contains(r) ||
+              event.teacher.contains(r) ||
+              event.name.contains(r) ||
+              event.description.contains(r),
+        )
         .toList();
   }
-
-  @override
-  List<Object?> get props => [events, date];
-
-  @override
-  bool get stringify => true;
 }

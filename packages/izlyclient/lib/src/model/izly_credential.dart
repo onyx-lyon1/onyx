@@ -1,20 +1,11 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'generated/izly_credential.g.dart';
+part 'generated/izly_credential.mapper.dart';
 
-@CopyWith()
-class IzlyCredential extends Equatable {
+@MappableClass()
+class IzlyCredential with IzlyCredentialMappable {
   final String username;
   final String password;
 
-  IzlyCredential({
-    required this.username,
-    required this.password,
-  });
-
-  @override
-  List<Object?> get props => [username, password];
-  @override
-  bool get stringify => true;
+  IzlyCredential({required this.username, required this.password});
 }

@@ -1,13 +1,12 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:enough_mail/enough_mail.dart' as enough_mail;
 import 'package:enough_mail/highlevel.dart';
-import 'package:equatable/equatable.dart';
 import 'package:lyon1mailclient/lyon1mailclient.dart';
 
-part 'generated/mail_box.g.dart';
+part 'generated/mail_box.mapper.dart';
 
-@CopyWith()
-class MailBox extends Equatable {
+@MappableClass()
+class MailBox with MailBoxMappable {
   late final String name;
   late final SpecialMailBox? specialMailBox;
   late final List<Mail> emails;
@@ -68,14 +67,9 @@ class MailBox extends Equatable {
       specialMailBox = null;
     }
   }
-
-  @override
-  List<Object?> get props => [name, specialMailBox, emails];
-
-  @override
-  bool? get stringify => true;
 }
 
+@MappableEnum()
 enum SpecialMailBox {
   inbox,
   sent,
