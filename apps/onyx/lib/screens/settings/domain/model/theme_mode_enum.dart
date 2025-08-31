@@ -1,5 +1,9 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 
+part 'generated/theme_mode_enum.mapper.dart';
+
+@MappableEnum()
 enum ThemeModeEnum {
   system,
   dark,

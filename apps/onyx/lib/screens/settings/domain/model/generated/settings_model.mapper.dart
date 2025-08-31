@@ -14,6 +14,7 @@ class SettingsModelMapper extends ClassMapperBase<SettingsModel> {
   static SettingsModelMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = SettingsModelMapper._());
+      FunctionalitiesMapper.ensureInitialized();
     }
     return _instance!;
   }

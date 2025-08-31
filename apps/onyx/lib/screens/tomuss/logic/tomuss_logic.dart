@@ -4,12 +4,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/core/cache_service.dart';
+import 'package:onyx/core/initialisations/sembast_init.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/core/theme/grade_color.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:path_provider/path_provider.dart';
-
-import '../../../core/initialisations/sembast_init.dart' show initSembastDb;
 
 class GetCacheDataPass {
   final String path;
@@ -123,7 +122,7 @@ class TomussLogic {
     if (Res.mock) {
       return teachingUnitsModelListMock;
     }
-    await initSembastDb();
+    await initSembastDb(inputData.path);
     if (await CacheService.exist<TeachingUnitList>(
       index: inputData.currentSemesterIndex,
     )) {

@@ -106,6 +106,17 @@ class TeachingUnitMapper extends ClassMapperBase<TeachingUnit> {
     opt: true,
     def: "",
   );
+  static List<TeachingUnitElement> _$children(TeachingUnit v) => v.children;
+  static const Field<TeachingUnit, List<TeachingUnitElement>> _f$children =
+      Field('children', _$children, mode: FieldMode.member);
+  static List<TeachingUnitElement> _$visibleChildren(TeachingUnit v) =>
+      v.visibleChildren;
+  static const Field<TeachingUnit, List<TeachingUnitElement>>
+  _f$visibleChildren = Field(
+    'visibleChildren',
+    _$visibleChildren,
+    mode: FieldMode.member,
+  );
 
   @override
   final MappableFields<TeachingUnit> fields = const {
@@ -120,6 +131,8 @@ class TeachingUnitMapper extends ClassMapperBase<TeachingUnit> {
     #urls: _f$urls,
     #ticket: _f$ticket,
     #ue: _f$ue,
+    #children: _f$children,
+    #visibleChildren: _f$visibleChildren,
   };
 
   static TeachingUnit _instantiate(DecodingData data) {

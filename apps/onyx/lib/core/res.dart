@@ -1,7 +1,10 @@
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+part 'generated/res.mapper.dart';
 
 class Res {
   static Duration get animationDuration => const Duration(milliseconds: 300);
@@ -51,8 +54,9 @@ class Res {
   static const Duration agendaDayStart = Duration(hours: 6);
   static const Duration agendaDayEnd = Duration(hours: 22);
   static const Duration agendaDayDuration = Duration(
-      hours: 16); // be careful to change this value accordingly to the previous
-// 22 - 6 = 16
+    hours: 16,
+  ); // be careful to change this value accordingly to the previous
+  // 22 - 6 = 16
 
   static final logger = Logger(
     level: (kDebugMode) ? Level.all : Level.fatal,
@@ -98,12 +102,5 @@ class Res {
   ];
 }
 
-enum Functionalities {
-  tomuss,
-  agenda,
-  mail,
-  map,
-  izly,
-  settings,
-  examen,
-}
+@MappableEnum()
+enum Functionalities { tomuss, agenda, mail, map, izly, settings, examen }

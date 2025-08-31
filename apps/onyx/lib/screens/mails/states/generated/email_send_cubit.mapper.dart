@@ -7,6 +7,68 @@
 
 part of '../email_send_cubit.dart';
 
+class EmailSendStatusMapper extends EnumMapper<EmailSendStatus> {
+  EmailSendStatusMapper._();
+
+  static EmailSendStatusMapper? _instance;
+  static EmailSendStatusMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = EmailSendStatusMapper._());
+    }
+    return _instance!;
+  }
+
+  static EmailSendStatus fromValue(dynamic value) {
+    ensureInitialized();
+    return MapperContainer.globals.fromValue(value);
+  }
+
+  @override
+  EmailSendStatus decode(dynamic value) {
+    switch (value) {
+      case r'initial':
+        return EmailSendStatus.initial;
+      case r'sending':
+        return EmailSendStatus.sending;
+      case r'sent':
+        return EmailSendStatus.sent;
+      case r'updated':
+        return EmailSendStatus.updated;
+      case r'error':
+        return EmailSendStatus.error;
+      case r'inputNotValid':
+        return EmailSendStatus.inputNotValid;
+      default:
+        throw MapperException.unknownEnumValue(value);
+    }
+  }
+
+  @override
+  dynamic encode(EmailSendStatus self) {
+    switch (self) {
+      case EmailSendStatus.initial:
+        return r'initial';
+      case EmailSendStatus.sending:
+        return r'sending';
+      case EmailSendStatus.sent:
+        return r'sent';
+      case EmailSendStatus.updated:
+        return r'updated';
+      case EmailSendStatus.error:
+        return r'error';
+      case EmailSendStatus.inputNotValid:
+        return r'inputNotValid';
+    }
+  }
+}
+
+extension EmailSendStatusMapperExtension on EmailSendStatus {
+  String toValue() {
+    EmailSendStatusMapper.ensureInitialized();
+    return MapperContainer.globals.toValue<EmailSendStatus>(this) as String;
+  }
+}
+
 class EmailSendStateMapper extends ClassMapperBase<EmailSendState> {
   EmailSendStateMapper._();
 
@@ -14,6 +76,7 @@ class EmailSendStateMapper extends ClassMapperBase<EmailSendState> {
   static EmailSendStateMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = EmailSendStateMapper._());
+      EmailSendStatusMapper.ensureInitialized();
     }
     return _instance!;
   }

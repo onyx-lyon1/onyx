@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/cache_service.dart';
-import 'package:onyx/core/initialisations/initialisations_export.dart';
+import 'package:onyx/core/initialisations/sembast_init.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/notifications/notifications_export.dart';

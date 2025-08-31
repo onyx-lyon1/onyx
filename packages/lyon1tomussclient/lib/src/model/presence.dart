@@ -5,6 +5,7 @@ import 'package:lyon1tomussclient/src/parser/dateparser.dart';
 
 part 'generated/presence.mapper.dart';
 
+@MappableEnum()
 enum PresenceColor { green, red, unset }
 
 @MappableClass()

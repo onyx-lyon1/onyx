@@ -12,6 +12,10 @@ dependency_overrides:
     git:
       url: https://github.com/hatch01/dart_mappable.git
       path: packages/dart_mappable
+  dart_mappable_builder:
+    git:
+      url: https://github.com/hatch01/dart_mappable.git
+      path: packages/dart_mappable_builder
   intl: ^0.20.2
   izlyclient:
     path: ../../packages/izlyclient

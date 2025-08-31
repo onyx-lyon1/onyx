@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:biometric_storage/biometric_storage.dart';
-import 'package:onyx/core/initialisations/sembast_init.dart';
+import 'package:dart_mappable/dart_mappable.dart';
+import 'package:izlyclient/izlyclient.dart';
+import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/res.dart';
+import 'package:onyx/screens/settings/domain/model/theme_settings_model.dart';
 import 'package:sembast/sembast_io.dart';
 
 import 'encrypt_codec.dart';
@@ -11,18 +14,26 @@ class CacheService {
   static List<int>? secureKey;
   static BiometricStorageFile? _storageFile;
   static bool? _isBiometricEnabled;
-  static Database? _db;
+  static Database? db;
+
+  static void resetDb() {
+    db = null;
+  }
 
   static Future<Database> _getDb({List<int>? secureKey}) async {
-    _db ??= await initSembastDb();
+    if (db == null) {
+      throw Exception(
+        "CacheService not initialized. Call CacheService.init() first.",
+      );
+    }
     if (secureKey != null) {
       // Utilisation du codec d'encryption Sembast (Salsa20)
       final codec = getEncryptSembastCodec(
         password: base64Url.encode(secureKey),
       );
-      return await databaseFactoryIo.openDatabase(_db!.path, codec: codec);
+      return await databaseFactoryIo.openDatabase(db!.path, codec: codec);
     }
-    return _db!;
+    return db!;
   }
 
   static StoreRef<String, dynamic> _getStore<E>() {
@@ -33,7 +44,18 @@ class CacheService {
     try {
       final db = await _getDb(secureKey: secureKey);
       final store = _getStore<E>();
-      return await store.record('cache$index').get(db) as E?;
+      final value = await store.record('cache$index').get(db);
+
+      // Try to decode using dart_mappable if possible
+      if (value != null) {
+        try {
+          return MapperContainer.globals.fromValue<E>(value);
+        } catch (e) {
+          Res.logger.e("error while decoding cache for $E: $e");
+          return value as E;
+        }
+      }
+      return null;
     } catch (e) {
       Res.logger.e("error while getting cache for $E: $e");
       await reset<E>(secureKey: secureKey);
@@ -46,12 +68,26 @@ class CacheService {
     int index = 0,
     List<int>? secureKey,
   }) async {
+    dynamic toStore = data;
     try {
       final db = await _getDb(secureKey: secureKey);
       final store = _getStore<E>();
-      await store.record('cache$index').put(db, data);
+
+      var a = RestaurantListModel(restaurantList: []);
+      var b = ThemeSettingsModel();
+      b.toMap();
+      a.toMap();
+      // Try to encode using dart_mappable if possible
+      try {
+        toStore = MapperContainer.globals.toValue(data);
+      } catch (parseError) {
+        Res.logger.e("error while encoding cache for $E: $parseError");
+      }
+
+      await store.record('cache$index').put(db, toStore);
     } catch (e) {
       Res.logger.e("error while setting cache for $E: $e");
+      //Res.logger.e("data was: $toStore");
       await reset<E>(secureKey: secureKey);
     }
   }

@@ -7,6 +7,52 @@
 
 part of '../restaurant.dart';
 
+class CrousTypeMapper extends EnumMapper<CrousType> {
+  CrousTypeMapper._();
+
+  static CrousTypeMapper? _instance;
+  static CrousTypeMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = CrousTypeMapper._());
+    }
+    return _instance!;
+  }
+
+  static CrousType fromValue(dynamic value) {
+    ensureInitialized();
+    return MapperContainer.globals.fromValue(value);
+  }
+
+  @override
+  CrousType decode(dynamic value) {
+    switch (value) {
+      case r'restaurant':
+        return CrousType.restaurant;
+      case r'cafet':
+        return CrousType.cafet;
+      default:
+        throw MapperException.unknownEnumValue(value);
+    }
+  }
+
+  @override
+  dynamic encode(CrousType self) {
+    switch (self) {
+      case CrousType.restaurant:
+        return r'restaurant';
+      case CrousType.cafet:
+        return r'cafet';
+    }
+  }
+}
+
+extension CrousTypeMapperExtension on CrousType {
+  String toValue() {
+    CrousTypeMapper.ensureInitialized();
+    return MapperContainer.globals.toValue<CrousType>(this) as String;
+  }
+}
+
 class RestaurantModelMapper extends ClassMapperBase<RestaurantModel> {
   RestaurantModelMapper._();
 
@@ -14,6 +60,7 @@ class RestaurantModelMapper extends ClassMapperBase<RestaurantModel> {
   static RestaurantModelMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = RestaurantModelMapper._());
+      CrousTypeMapper.ensureInitialized();
       MenuCrousMapper.ensureInitialized();
     }
     return _instance!;

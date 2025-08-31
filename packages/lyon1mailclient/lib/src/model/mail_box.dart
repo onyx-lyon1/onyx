@@ -69,6 +69,7 @@ class MailBox with MailBoxMappable {
   }
 }
 
+@MappableEnum()
 enum SpecialMailBox {
   inbox,
   sent,
