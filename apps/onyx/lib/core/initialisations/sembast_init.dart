@@ -26,6 +26,8 @@ Future<Database> initSembastDb([String? dbDirPath]) async {
   final db = await databaseFactoryIo.openDatabase(dbPath);
   CacheService.db = db;
 
+  mailclient.Lyon1MailClient.initSembast(path: path);
+
   // Settings mappers
   ThemeSettingsModelMapper.ensureInitialized();
   ThemeModeEnumMapper.ensureInitialized();

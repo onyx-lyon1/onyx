@@ -30,6 +30,10 @@ class Lyon1MailClient {
     _corsProxyUrl = corsProxyUrl;
   }
 
+  static Future<void> initSembast({String? path}) async {
+    await SembastActionCache.openDb(path: path);
+  }
+
   Future<bool> login() async {
     await _client.connectToServer(
         Lyon1MailClientConfig.imapHost, Lyon1MailClientConfig.imapPort,
