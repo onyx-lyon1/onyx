@@ -54,21 +54,25 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
                   ),
                   SizedBox(height: 5.h),
                   if (cbs.isNotEmpty)
-                    DropdownButton(
-                      dropdownColor: Theme.of(context).colorScheme.surface,
-                      value: dropDownValue,
-                      items: [
-                        for (var i = 0; i < cbs.length; i++)
-                          DropdownMenuItem(
-                            value: i,
-                            child: Text(cbs[i].name),
-                          ),
-                      ],
-                      onChanged: (id) {
-                        setState(() {
-                          dropDownValue = id as int;
-                        });
-                      },
+                    SizedBox(
+                      width: 80.w,
+                      child: DropdownButton(
+                        dropdownColor: Theme.of(context).colorScheme.surface,
+                        iconSize: 24.0,
+                        value: dropDownValue,
+                        items: [
+                          for (var i = 0; i < cbs.length; i++)
+                            DropdownMenuItem(
+                              value: i,
+                              child: SizedBox(width: 80.w - 24.0, child: Text(cbs[i].name)),
+                            ),
+                        ],
+                        onChanged: (id) {
+                          setState(() {
+                            dropDownValue = id as int;
+                          });
+                        },
+                      ),
                     ),
                   if (cbs.isEmpty)
                     CircularProgressIndicator(
