@@ -37,7 +37,6 @@ class Res {
 
   static const String ivPath = "assets/iv.txt";
   static const String keyPath = "assets/key.txt";
-  static const String agendaIdsPath = "assets/agenda_ids.json.enc";
 
   static const String colloscopeIdsPath = "assets/colloscope_ids.enc";
 
