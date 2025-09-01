@@ -114,6 +114,7 @@
               zenity
               lerc
               libsysprof-capture
+              just
             ];
           };
         formatter = pkgs.alejandra;
