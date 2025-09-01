@@ -134,7 +134,6 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
-    - assets/agenda_ids.json.enc
     - assets/batiment_lyon1.json
     - assets/discord_Logo.png
     - assets/icon_transparent.png
