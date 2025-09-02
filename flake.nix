@@ -14,11 +14,9 @@
   nixConfig = {
     substituters = [
       "https://cache.nixos.org"
-      "https://cache.onyx.ovh"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "cache.onyx.ovh:2wUG6wsx5slbKUgkHT6GJuQ5k2StuUc8ysZQ2W+fbxA="
     ];
   };
 
