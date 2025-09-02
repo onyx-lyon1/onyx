@@ -8,15 +8,18 @@ bs:
 	melos bs
 
 apk:
-	cd apps/onyx && flutter build apk --release
+	cd apps/onyx && flutter build apk --release --no-tree-shake-icons
 
 apk-p:
-	cd apps/onyx && flutter build apk --profile
+	cd apps/onyx && flutter build apk --profile --no-tree-shake-icons
 
-apk-rs:
+apks:
 	cd apps/onyx && flutter build apk --release --no-tree-shake-icons --split-per-abi
 
-apk-ps:
+apkp:
+	cd apps/onyx && flutter build apk --profile --no-tree-shake-icons
+
+apkps:
 	cd apps/onyx && flutter build apk --profile --no-tree-shake-icons --split-per-abi
 
 web:
