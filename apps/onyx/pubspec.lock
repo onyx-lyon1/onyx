@@ -1020,9 +1020,10 @@ packages:
   izlyclient:
     dependency: "direct main"
     description:
-      path: "../../packages/izlyclient"
-      relative: true
-    source: path
+      name: izlyclient
+      sha256: c5d5681722a1e00384c556514f3041cdf22487b42c7d8ddf8549ddc25e9cc8ac
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.11"
   js:
     dependency: transitive
@@ -1140,37 +1141,42 @@ packages:
   lyon1agendaclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1agendaclient"
-      relative: true
-    source: path
+      name: lyon1agendaclient
+      sha256: db4f3aaeaad9eb73a6b76d22785093c1402ce50b75a4dc5e5654a1c5d75944bc
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.11"
   lyon1casclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1casclient"
-      relative: true
-    source: path
+      name: lyon1casclient
+      sha256: cefed48aaced20ec1eb34f03e91a906e9832578d32669c576ae75ff428227451
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.10"
   lyon1examenclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1examenclient"
-      relative: true
-    source: path
+      name: lyon1examenclient
+      sha256: e7209ae738b3bdc99b90eb50b34f946672a9294444eaa5134b4b67de6953b660
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.10"
   lyon1mailclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1mailclient"
-      relative: true
-    source: path
+      name: lyon1mailclient
+      sha256: "30e28afc647ee403fb5310e4a906884e9320534749c907bc6118d44363b20121"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.11"
   lyon1tomussclient:
     dependency: "direct main"
     description:
-      path: "../../packages/lyon1tomussclient"
-      relative: true
-    source: path
+      name: lyon1tomussclient
+      sha256: "8fac0ac2f102ddd174597d88614ee16b11b5d97b4196e9f77487ee54224f005a"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.13"
   markdown:
     dependency: transitive
@@ -1423,9 +1429,10 @@ packages:
   polytechcolloscopeclient:
     dependency: "direct main"
     description:
-      path: "../../packages/polytechcolloscopeclient"
-      relative: true
-    source: path
+      name: polytechcolloscopeclient
+      sha256: da09a7eb625559015181947d2df843194a6da864bb542fc65c4ce6fa72b3521c
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.12"
   pool:
     dependency: transitive
