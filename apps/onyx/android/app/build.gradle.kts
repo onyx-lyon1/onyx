@@ -42,6 +42,7 @@ android {
     }
 
     signingConfigs {
+        if (keystorePropertiesFile.exists()) {
             create("release") {
                 keyAlias = keystoreProperties["keyAlias"] as String
                 keyPassword = keystoreProperties["keyPassword"] as String
@@ -49,10 +50,13 @@ android {
                 storePassword = keystoreProperties["storePassword"] as String
             }
         }
+    }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            if (keystorePropertiesFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
 // applicationIdSuffix commented because biometric storage seems to try overriding it
         getByName("debug") {
