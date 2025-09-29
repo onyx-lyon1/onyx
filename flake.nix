@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    nixpkgs-flutter-patched.url = "github:birros/nixpkgs?ref=flutter-335-fix-android-build";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -41,11 +40,6 @@
               allowUnfree = true;
               android_sdk.accept_license = true;
             };
-            overlays = [
-              (final: prev: {
-                flutter = (import inputs.nixpkgs-flutter-patched { inherit system; }).flutter;
-              })
-            ];
           };
           android-nixpkgs = pkgs.callPackage inputs.android-nixpkgs {};
           androidSdk = android-nixpkgs.sdk (sdkPkgs:
