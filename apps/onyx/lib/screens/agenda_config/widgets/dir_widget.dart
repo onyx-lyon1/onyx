@@ -18,7 +18,7 @@ class DirWidget extends StatelessWidget {
       }
       return Container(
         color:
-            context.read<AgendaConfigCubit>().state.choosedIds.contains(dir.id)
+            context.read<AgendaConfigCubit>().state.chosenIds.contains(dir.id)
                 ? Theme.of(context).primaryColor.withValues(alpha: 0.3)
                 : null,
         child: ListTile(
@@ -36,7 +36,7 @@ class DirWidget extends StatelessWidget {
     } else {
       return Material(
         color:
-            context.read<AgendaConfigCubit>().state.choosedIds.contains(dir.id)
+            context.read<AgendaConfigCubit>().state.chosenIds.contains(dir.id)
                 ? Theme.of(context).primaryColor.withValues(alpha: 0.3)
                 : null,
         child: InkWell(
@@ -57,9 +57,9 @@ class DirWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(5.0),
                   child: BlocBuilder<AgendaConfigCubit, AgendaConfigState>(
                     buildWhen: (previous, current) =>
-                        !listEquals(previous.choosedIds, current.choosedIds),
+                        !listEquals(previous.chosenIds, current.chosenIds),
                     builder: (context, state) {
-                      if (state.choosedIds.contains(dir.id)) {
+                      if (state.chosenIds.contains(dir.id)) {
                         return const Icon(Icons.check_box);
                       }
                       return const Icon(Icons.folder);

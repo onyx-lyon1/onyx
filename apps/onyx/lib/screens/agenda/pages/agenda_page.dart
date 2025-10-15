@@ -57,7 +57,7 @@ class AgendaPage extends StatelessWidget {
                   headerState = LoadingHeaderWidget(
                       message: AppLocalizations.of(context).agendaError);
                   break;
-                case AgendaStatus.haveToChooseManualy:
+                case AgendaStatus.haveToChooseManually:
                   return AgendaConfigPage(
                     noBack: true,
                     onBack: (List<int> agendaIds) {

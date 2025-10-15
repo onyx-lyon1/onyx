@@ -37,7 +37,7 @@
     "agendaWeekLength": "عدد الأيام المعروضة في الجدول الأسبوعي",
     "agendaWeekReference": "اليوم المرجعي في الوضع الأسبوعي",
     "today": "اليوم",
-    "agendaWeekReferenceAlignement": "محاذاة اليوم المرجعي",
+    "agendaWeekReferenceAlignment": "محاذاة اليوم المرجعي",
     "disabledDays": "أيام خفية",
     "cantHideAllDays": "لا يمكنك الاختباء كل يوم",
     "root": "راسين",

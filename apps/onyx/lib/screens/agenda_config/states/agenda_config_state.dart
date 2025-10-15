@@ -4,7 +4,7 @@ enum AgendaConfigStatus {
   initial,
   loading,
   loaded,
-  choosed,
+  chosen,
   searchResult,
   connecting,
   error
@@ -15,13 +15,13 @@ class AgendaConfigState {
   final List<AgendaResource> categories;
   final String error;
   final List<AgendaResource> expandedResources;
-  final List<int> choosedIds;
+  final List<int> chosenIds;
 
   AgendaConfigState({
     required this.status,
     required this.categories,
     required this.error,
-    this.choosedIds = const [],
+    this.chosenIds = const [],
     this.expandedResources = const [],
   });
 
@@ -29,21 +29,21 @@ class AgendaConfigState {
     AgendaConfigStatus? status,
     List<AgendaResource>? categories,
     String? error,
-    List<int>? choosedIds,
+    List<int>? chosenIds,
     List<AgendaResource>? expandedResources,
   }) {
     return AgendaConfigState(
       status: status ?? this.status,
       categories: categories ?? this.categories,
       error: error ?? this.error,
-      choosedIds: choosedIds ?? this.choosedIds,
+      chosenIds: chosenIds ?? this.chosenIds,
       expandedResources: expandedResources ?? this.expandedResources,
     );
   }
 
   @override
   String toString() {
-    return 'AgendaConfigState{status: $status, categories: $categories, error: $error, expandedResources: $expandedResources, choosedIds: $choosedIds}';
+    return 'AgendaConfigState{status: $status, categories: $categories, error: $error, expandedResources: $expandedResources, chosenIds: $chosenIds}';
   }
 
   @override
@@ -55,7 +55,7 @@ class AgendaConfigState {
           categories == other.categories &&
           error == other.error &&
           expandedResources == other.expandedResources &&
-          choosedIds == other.choosedIds;
+          chosenIds == other.chosenIds;
 
   @override
   int get hashCode =>
@@ -63,5 +63,5 @@ class AgendaConfigState {
       categories.hashCode ^
       error.hashCode ^
       expandedResources.hashCode ^
-      choosedIds.hashCode;
+      chosenIds.hashCode;
 }

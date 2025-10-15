@@ -62,7 +62,7 @@ class AgendaCubit extends Cubit<AgendaState> {
     }
     if (!settings.fetchAgendaAuto && settings.agendaIds.isEmpty) {
       emit(state.copyWith(
-          status: AgendaStatus.haveToChooseManualy, settingsModel: settings));
+          status: AgendaStatus.haveToChooseManually, settingsModel: settings));
       return;
     }
     if (lyon1Cas != null && lyon1Cas.isAuthenticated) {
@@ -93,7 +93,7 @@ class AgendaCubit extends Cubit<AgendaState> {
       } catch (e) {
         if (e.toString().contains("AutoIdException")) {
           emit(state.copyWith(
-              status: AgendaStatus.haveToChooseManualy,
+              status: AgendaStatus.haveToChooseManually,
               settingsModel: settings));
         } else {
           Res.logger.e(e);

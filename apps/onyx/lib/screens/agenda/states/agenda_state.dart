@@ -9,7 +9,7 @@ enum AgendaStatus {
   cacheReady,
   dateUpdated,
   error,
-  haveToChooseManualy,
+  haveToChooseManually,
   updateDayCount,
   updateAnimating,
   connecting,
@@ -62,14 +62,14 @@ class AgendaState {
     if (todayIndex != -1) {
       int indexToAlign = todayIndex -
           (realDays[todayIndex].date.weekday - (weekReference + 1));
-      int alignement = indexToAlign % settingsModel.agendaWeekLength;
-      int alignementOffset =
-          settingsModel.agendaWeekRerenceAlignement - alignement;
-      alignementOffset =
-          alignementOffset.positiveModulo(settingsModel.agendaWeekLength);
+      int alignment = indexToAlign % settingsModel.agendaWeekLength;
+      int alignmentOffset =
+          settingsModel.agendaWeekRerenceAlignment - alignment;
+      alignmentOffset =
+          alignmentOffset.positiveModulo(settingsModel.agendaWeekLength);
 
-      paddingBefore = alignementOffset;
-      paddingAfter = settingsModel.agendaWeekLength - alignementOffset;
+      paddingBefore = alignmentOffset;
+      paddingAfter = settingsModel.agendaWeekLength - alignmentOffset;
     }
 
     //add examEvents

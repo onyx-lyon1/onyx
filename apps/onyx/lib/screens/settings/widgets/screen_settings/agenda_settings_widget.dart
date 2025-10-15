@@ -60,10 +60,10 @@ class AgendaSettingsWidget extends StatelessWidget {
               Slider(
                 value: settings.agendaWeekLength.toDouble(),
                 onChanged: (double d) {
-                  if (settings.agendaWeekRerenceAlignement >= d) {
+                  if (settings.agendaWeekRerenceAlignment >= d) {
                     context.read<SettingsCubit>().modify(
                         settings: settings.copyWith(
-                            agendaWeekRerenceAlignement: d.toInt() - 1,
+                            agendaWeekRerenceAlignment: d.toInt() - 1,
                             agendaWeekLength: d.toInt()));
                   } else {
                     context.read<SettingsCubit>().modify(
@@ -117,18 +117,18 @@ class AgendaSettingsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Column(
             children: [
-              Text(AppLocalizations.of(context).agendaWeekReferenceAlignement),
+              Text(AppLocalizations.of(context).agendaWeekReferenceAlignment),
               SizedBox(
                 height: 1.h,
               ),
               AgendaWeekDaySelector(
                   elements: List.generate(7, (index) => (index + 1).toString()),
                   colorCondition: (i) =>
-                      i == settings.agendaWeekRerenceAlignement,
+                      i == settings.agendaWeekRerenceAlignment,
                   disabledCondition: (i) => settings.agendaWeekLength <= i,
                   onTap: (int i) => context.read<SettingsCubit>().modify(
                       settings:
-                          settings.copyWith(agendaWeekRerenceAlignement: i))),
+                          settings.copyWith(agendaWeekRerenceAlignment: i))),
             ],
           ),
         ),

@@ -70,18 +70,18 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
       unSearch();
       return;
     }
-    List<AgendaResource> foundedDirs = [];
+    List<AgendaResource> foundDirs = [];
     for (var dir = 0; dir < categories.length; dir++) {
       if (categories[dir].name.toLowerCase().contains(query.toLowerCase())) {
-        foundedDirs.add(categories[dir]);
+        foundDirs.add(categories[dir]);
       } else {
-        subSearch(categories[dir], query, foundedDirs);
+        subSearch(categories[dir], query, foundDirs);
       }
     }
-    foundedDirs = foundedDirs.reversed.toList();
+    foundDirs = foundDirs.reversed.toList();
     emit(state.copyWith(
         expandedResources: [],
-        categories: foundedDirs,
+        categories: foundDirs,
         status: AgendaConfigStatus.searchResult));
   }
 
@@ -118,15 +118,15 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
         }
       }
     }
-    List<int> choosedIds = List.from(state.choosedIds);
-    if (choosedIds.contains(dir.id)) {
-      choosedIds.remove(dir.id);
+    List<int> chosenIds = List.from(state.chosenIds);
+    if (chosenIds.contains(dir.id)) {
+      chosenIds.remove(dir.id);
       emit(state.copyWith(
-          choosedIds: choosedIds, status: AgendaConfigStatus.choosed));
+          chosenIds: chosenIds, status: AgendaConfigStatus.chosen));
     } else {
       emit(state.copyWith(
-          choosedIds: state.choosedIds + [dir.id!],
-          status: AgendaConfigStatus.choosed));
+          chosenIds: state.chosenIds + [dir.id!],
+          status: AgendaConfigStatus.chosen));
     }
   }
 

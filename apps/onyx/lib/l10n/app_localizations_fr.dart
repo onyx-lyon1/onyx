@@ -121,7 +121,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get today => 'Aujourd\'hui';
 
   @override
-  String get agendaWeekReferenceAlignement => 'Alignement du jour de référence';
+  String get agendaWeekReferenceAlignment => 'Alignment du jour de référence';
 
   @override
   String get disabledDays => 'Jours cachés';

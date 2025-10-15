@@ -176,11 +176,11 @@ class SettingsModelMapper extends ClassMapperBase<SettingsModel> {
     opt: true,
     def: false,
   );
-  static int _$agendaWeekRerenceAlignement(SettingsModel v) =>
-      v.agendaWeekRerenceAlignement;
-  static const Field<SettingsModel, int> _f$agendaWeekRerenceAlignement = Field(
-    'agendaWeekRerenceAlignement',
-    _$agendaWeekRerenceAlignement,
+  static int _$agendaWeekRerenceAlignment(SettingsModel v) =>
+      v.agendaWeekRerenceAlignment;
+  static const Field<SettingsModel, int> _f$agendaWeekRerenceAlignment = Field(
+    'agendaWeekRerenceAlignment',
+    _$agendaWeekRerenceAlignment,
     opt: true,
     def: 0,
   );
@@ -256,7 +256,7 @@ class SettingsModelMapper extends ClassMapperBase<SettingsModel> {
     #agendaWeekReference: _f$agendaWeekReference,
     #agendaDisabledDays: _f$agendaDisabledDays,
     #agendaPageTopToBottom: _f$agendaPageTopToBottom,
-    #agendaWeekRerenceAlignement: _f$agendaWeekRerenceAlignement,
+    #agendaWeekRerenceAlignment: _f$agendaWeekRerenceAlignment,
     #colloscopeOverrideStudentId: _f$colloscopeOverrideStudentId,
     #colloscopeOverrideYearId: _f$colloscopeOverrideYearId,
     #colloscopeEnabled: _f$colloscopeEnabled,
@@ -289,7 +289,7 @@ class SettingsModelMapper extends ClassMapperBase<SettingsModel> {
       agendaWeekReference: data.dec(_f$agendaWeekReference),
       agendaDisabledDays: data.dec(_f$agendaDisabledDays),
       agendaPageTopToBottom: data.dec(_f$agendaPageTopToBottom),
-      agendaWeekRerenceAlignement: data.dec(_f$agendaWeekRerenceAlignement),
+      agendaWeekRerenceAlignment: data.dec(_f$agendaWeekRerenceAlignment),
       colloscopeOverrideStudentId: data.dec(_f$colloscopeOverrideStudentId),
       colloscopeOverrideYearId: data.dec(_f$colloscopeOverrideYearId),
       colloscopeEnabled: data.dec(_f$colloscopeEnabled),
@@ -398,7 +398,7 @@ abstract class SettingsModelCopyWith<$R, $In extends SettingsModel, $Out>
     int? agendaWeekReference,
     List<int>? agendaDisabledDays,
     bool? agendaPageTopToBottom,
-    int? agendaWeekRerenceAlignement,
+    int? agendaWeekRerenceAlignment,
     int? colloscopeOverrideStudentId,
     int? colloscopeOverrideYearId,
     bool? colloscopeEnabled,
@@ -477,7 +477,7 @@ class _SettingsModelCopyWithImpl<$R, $Out>
     int? agendaWeekReference,
     List<int>? agendaDisabledDays,
     bool? agendaPageTopToBottom,
-    int? agendaWeekRerenceAlignement,
+    int? agendaWeekRerenceAlignment,
     int? colloscopeOverrideStudentId,
     int? colloscopeOverrideYearId,
     Object? colloscopeEnabled = $none,
@@ -516,8 +516,8 @@ class _SettingsModelCopyWithImpl<$R, $Out>
       if (agendaDisabledDays != null) #agendaDisabledDays: agendaDisabledDays,
       if (agendaPageTopToBottom != null)
         #agendaPageTopToBottom: agendaPageTopToBottom,
-      if (agendaWeekRerenceAlignement != null)
-        #agendaWeekRerenceAlignement: agendaWeekRerenceAlignement,
+      if (agendaWeekRerenceAlignment != null)
+        #agendaWeekRerenceAlignment: agendaWeekRerenceAlignment,
       if (colloscopeOverrideStudentId != null)
         #colloscopeOverrideStudentId: colloscopeOverrideStudentId,
       if (colloscopeOverrideYearId != null)
@@ -579,9 +579,9 @@ class _SettingsModelCopyWithImpl<$R, $Out>
       #agendaPageTopToBottom,
       or: $value.agendaPageTopToBottom,
     ),
-    agendaWeekRerenceAlignement: data.get(
-      #agendaWeekRerenceAlignement,
-      or: $value.agendaWeekRerenceAlignement,
+    agendaWeekRerenceAlignment: data.get(
+      #agendaWeekRerenceAlignment,
+      or: $value.agendaWeekRerenceAlignment,
     ),
     colloscopeOverrideStudentId: data.get(
       #colloscopeOverrideStudentId,
