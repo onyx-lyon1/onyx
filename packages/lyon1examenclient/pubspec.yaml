@@ -4,7 +4,9 @@ version: 1.0.10
 repository: https://github.com/onyx-lyon1/onyx/tree/main/packages/lyon1examenclient
 
 environment:
-  sdk: ^3.2.3
+  sdk: '>=3.6.0 <4.0.0'
+
+resolution: workspace
 
 dependencies:
   beautiful_soup_dart: ^0.3.0

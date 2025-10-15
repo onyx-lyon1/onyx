@@ -4,8 +4,9 @@ version: 1.0.11
 repository: https://github.com/onyx-lyon1/onxy/tree/main/packages/lyon1mailclient
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.6.0 <4.0.0'
 
+resolution: workspace
 
 dev_dependencies:
   dotenv: ^4.0.1
