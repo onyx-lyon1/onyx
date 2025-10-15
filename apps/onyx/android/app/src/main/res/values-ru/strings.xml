@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_widget">Добавить виджет</string>
+    <string name="agenda_widget_description">Отображение вашей повестки дня предстоящих событий</string>
+    <string name="agenda_widget_last_update">"Последнее обновление: "</string>
+    <string name="agenda_widget_empty_list">Нет предстоящих событий</string>
+    <string name="no_data">Нет данных</string>
+</resources>
