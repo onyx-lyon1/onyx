@@ -121,7 +121,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get today => 'اليوم';
 
   @override
-  String get agendaWeekReferenceAlignement => 'محاذاة اليوم المرجعي';
+  String get agendaWeekReferenceAlignment => 'محاذاة اليوم المرجعي';
 
   @override
   String get disabledDays => 'أيام خفية';

@@ -35,7 +35,7 @@ class SettingsModel with SettingsModelMappable {
   final int agendaWeekLength;
   final int agendaWeekReference;
 
-  final int agendaWeekRerenceAlignement;
+  final int agendaWeekRerenceAlignment;
 
   final List<int> agendaDisabledDays;
 
@@ -86,7 +86,7 @@ class SettingsModel with SettingsModelMappable {
     this.agendaWeekReference = 0,
     this.agendaDisabledDays = const [6, 7],
     this.agendaPageTopToBottom = false,
-    this.agendaWeekRerenceAlignement = 0,
+    this.agendaWeekRerenceAlignment = 0,
     this.colloscopeOverrideStudentId = -1,
     this.colloscopeOverrideYearId = 0,
     this.colloscopeEnabled,

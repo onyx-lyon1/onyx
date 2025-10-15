@@ -148,8 +148,8 @@
     "@today": {
         "description": "Today"
     },
-    "agendaWeekReferenceAlignement": "Reference day alignment",
-    "@agendaWeekReferenceAlignement": {
+    "agendaWeekReferenceAlignment": "Reference day alignment",
+    "@agendaWeekReferenceAlignment": {
         "description": "Reference day alignment"
     },
     "disabledDays": "Hidden days",

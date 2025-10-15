@@ -37,7 +37,7 @@
   "agendaWeekLength": "Количество дней, отображаемых в режиме недели",
   "agendaWeekReference": "День ссылки в режиме недели",
   "today": "Сегодня",
-  "agendaWeekReferenceAlignement": "Выравнивание дня ссылки",
+  "agendaWeekReferenceAlignment": "Выравнивание дня ссылки",
   "disabledDays": "Скрытые дни",
   "cantHideAllDays": "Вы не можете скрыть все дни",
   "root": "Корень",

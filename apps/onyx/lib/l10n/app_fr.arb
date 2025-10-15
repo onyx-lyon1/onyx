@@ -37,7 +37,7 @@
     "agendaWeekLength": "Nombre de jours affichés en mode semaine",
     "agendaWeekReference": "Jour de référence en mode semaine",
     "today": "Aujourd''hui",
-    "agendaWeekReferenceAlignement": "Alignement du jour de référence",
+    "agendaWeekReferenceAlignment": "Alignment du jour de référence",
     "disabledDays": "Jours cachés",
     "cantHideAllDays": "Vous ne pouvez pas cacher tous les jours",
     "root": "Racine",
