@@ -65,19 +65,12 @@ class AgendaConfigPage extends StatelessWidget {
                     if (didPop) {
                       return ;
                     } else {
-                      if (((state.status == AgendaConfigStatus.loaded ||
-                            state.status == AgendaConfigStatus.chosen) &&
-                          state.expandedResources.isNotEmpty) ||
+                      if (state.expandedResources.isNotEmpty ||
                           state.status == AgendaConfigStatus.searchResult) {
                         context
                             .read<AgendaConfigCubit>()
                             .collapseResource(state.expandedResources.last);
                       } else {
-                        pageController.animateToPage(
-                          pageController.page!.toInt() - 1,
-                          duration: Res.animationDuration,
-                          curve: Curves.easeInOut,
-                        );
                         Navigator.of(context).pop();
                       }
                     }
@@ -224,18 +217,11 @@ class AgendaConfigPage extends StatelessWidget {
                                 if (state.status ==
                                     AgendaConfigStatus.searchResult) {
                                   context.read<AgendaConfigCubit>().unSearch();
-                                } else if ((state.status == AgendaConfigStatus.loaded ||
-                                    state.status == AgendaConfigStatus.chosen) &&
-                                    state.expandedResources.isNotEmpty) {
+                                } else if (state.expandedResources.isNotEmpty) {
                                   context
                                       .read<AgendaConfigCubit>()
                                       .collapseResource(state.expandedResources.last);
                                 } else {
-                                  pageController.animateToPage(
-                                    pageController.page!.toInt() - 1,
-                                    duration: Res.animationDuration,
-                                    curve: Curves.easeInOut,
-                                  );
                                   Navigator.of(context).pop();
                                 }
                               },

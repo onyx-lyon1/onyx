@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Onyx</string>
+    <string name="app_name" translatable="false">Onyx</string>
+    <string name="add_widget">Add widget</string>
+    <string name="agenda_widget_title" translatable="false">Onyx Agenda</string>
+    <string name="agenda_widget_description">Display your agenda upcoming events</string>
+    <string name="agenda_widget_last_update">"Last Updated: "</string>
+    <string name="agenda_widget_empty_list">No upcoming events</string>
+    <string name="no_data">No data</string>
 </resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="agenda_widget_last_update">"Dernière mise à jour: "</string>
+    <string name="agenda_widget_empty_list">Pas d\'événements à venir</string>
+    <string name="add_widget">Ajouter le widget</string>
+    <string name="agenda_widget_description">Affichez vos prochains événements</string>
+    <string name="no_data">Pas de données</string>
+</resources>
