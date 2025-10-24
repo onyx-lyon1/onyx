@@ -41,15 +41,13 @@ class MailDetailsPage extends StatelessWidget {
                             },
                             child: Icon(
                               Icons.arrow_back_rounded,
-                              color: Theme.of(context)
-                                  .bottomNavigationBarTheme
-                                  .unselectedItemColor,
+                              color: Theme.of(
+                                context,
+                              ).bottomNavigationBarTheme.unselectedItemColor,
                               size: 20.sp,
                             ),
                           ),
-                          SizedBox(
-                            width: 3.w,
-                          ),
+                          SizedBox(width: 3.w),
                           SizedBox(
                             width: 80.w,
                             child: Center(
@@ -64,9 +62,7 @@ class MailDetailsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
+                  SizedBox(height: 1.h),
                   Container(
                     color: Theme.of(context).cardTheme.color,
                     width: 100.w,
@@ -80,9 +76,7 @@ class MailDetailsPage extends StatelessWidget {
                             "${AppLocalizations.of(context).from} : ${mail.sender}",
                             maxLines: 1,
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+                          SizedBox(height: 1.h),
                           SelectableText(
                             "${AppLocalizations.of(context).to} : ${mail.receiver}",
                             maxLines: 1,
@@ -91,9 +85,7 @@ class MailDetailsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
+                  SizedBox(height: 1.h),
                   if (mail.attachments.isNotEmpty)
                     Container(
                       color: Theme.of(context).cardTheme.color,
@@ -104,38 +96,43 @@ class MailDetailsPage extends StatelessWidget {
                         itemCount: mail.attachments.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                            ),
                             child: MailAttachmentWidget(
                               fileName: mail.attachments[index],
                               onTap: () async {
                                 //save data in a file and open it
                                 if (mail.attachmentsFiles
-                                    .where((element) => element.path
-                                        .contains(mail.attachments[1]))
+                                    .where(
+                                      (element) => element.path.contains(
+                                        mail.attachments[1],
+                                      ),
+                                    )
                                     .isEmpty) {
                                   mail.attachmentsFiles.insert(
-                                      index,
-                                      await AttachmentLogic
-                                          .getAttachmentLocalPath(
-                                              email: mail,
-                                              mailClient: context
-                                                  .read<EmailCubit>()
-                                                  .mailClient!,
-                                              emailNumber: state.emailNumber,
-                                              fileName: mail.attachments[index],
-                                              folder: state.currentMailBox!,
-                                              appLocalizations:
-                                                  AppLocalizations.of(
-                                                      context)));
+                                    index,
+                                    await AttachmentLogic.getAttachmentLocalPath(
+                                      email: mail,
+                                      mailClient: context
+                                          .read<EmailCubit>()
+                                          .mailClient!,
+                                      emailNumber: state.emailNumber,
+                                      fileName: mail.attachments[index],
+                                      folder: state.currentMailBox!,
+                                      appLocalizations: AppLocalizations.of(
+                                        context,
+                                      ),
+                                    ),
+                                  );
                                 }
                                 if (!context.mounted) return;
                                 showDialog(
-                                    context: context,
-                                    builder: (_) => SaveOrOpenDialogWidget(
-                                          filePath:
-                                              mail.attachmentsFiles[index].path,
-                                        ));
+                                  context: context,
+                                  builder: (_) => SaveOrOpenDialogWidget(
+                                    filePath: mail.attachmentsFiles[index].path,
+                                  ),
+                                );
                               },
                             ),
                           );
@@ -170,9 +167,7 @@ class MailDetailsPage extends StatelessWidget {
                     ),
                     closedBuilder: (context, openwidget) => InkWell(
                       onTap: (!state.connected) ? null : openwidget,
-                      child: const Icon(
-                        Icons.reply_rounded,
-                      ),
+                      child: const Icon(Icons.reply_rounded),
                     ),
                   ),
                   OpenContainer(
@@ -185,23 +180,17 @@ class MailDetailsPage extends StatelessWidget {
                     ),
                     closedBuilder: (context, openwidget) => InkWell(
                       onTap: (!state.connected) ? null : openwidget,
-                      child: const Icon(
-                        Icons.reply_all_rounded,
-                      ),
+                      child: const Icon(Icons.reply_all_rounded),
                     ),
                   ),
                   OpenContainer(
                     closedColor: Colors.transparent,
                     closedElevation: 0,
-                    openBuilder: (context, closewidget) => MailSendPage(
-                      forward: true,
-                      originalMessage: mail.id,
-                    ),
+                    openBuilder: (context, closewidget) =>
+                        MailSendPage(forward: true, originalMessage: mail.id),
                     closedBuilder: (context, openwidget) => InkWell(
                       onTap: (!state.connected) ? null : openwidget,
-                      child: const Icon(
-                        Icons.forward_rounded,
-                      ),
+                      child: const Icon(Icons.forward_rounded),
                     ),
                   ),
                 ],

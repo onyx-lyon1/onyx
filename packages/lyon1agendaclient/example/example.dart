@@ -2,12 +2,14 @@ import 'package:lyon1agendaclient/lyon1agendaclient.dart';
 import 'package:lyon1casclient/lyon1casclient.dart';
 
 void main() async {
-  final Lyon1AgendaClient agendaClient =
-      Lyon1AgendaClient.useLyon1Cas(Lyon1CasClient());
+  final Lyon1AgendaClient agendaClient = Lyon1AgendaClient.useLyon1Cas(
+    Lyon1CasClient(),
+  );
   final Agenda? agendaOpt = await agendaClient.getAgenda(ids: [10069]);
   //or for automatic ids fetching:
-  final Agenda? agendaOpt2 =
-      await agendaClient.getAgenda(ids: await agendaClient.getAgendaIds);
+  final Agenda? agendaOpt2 = await agendaClient.getAgenda(
+    ids: await agendaClient.getAgendaIds,
+  );
 
   if (agendaOpt == null) {
     // handle gracefully

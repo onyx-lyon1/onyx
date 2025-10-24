@@ -24,11 +24,10 @@ class TomussSettingsWidget extends StatelessWidget {
                 .newGradeNotification,
             onChanged: (bool b) {
               context.read<SettingsCubit>().modify(
-                  settings: context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .copyWith(newGradeNotification: b));
+                settings: context.read<SettingsCubit>().state.settings.copyWith(
+                  newGradeNotification: b,
+                ),
+              );
             },
           ),
         TextSwitchWidget(
@@ -36,11 +35,10 @@ class TomussSettingsWidget extends StatelessWidget {
           value: context.read<SettingsCubit>().state.settings.forceGreen,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
-                settings: context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .copyWith(forceGreen: b));
+              settings: context.read<SettingsCubit>().state.settings.copyWith(
+                forceGreen: b,
+              ),
+            );
           },
         ),
         //pick the duration of a recent grade
@@ -72,11 +70,12 @@ class TomussSettingsWidget extends StatelessWidget {
               onChanged: (int? value) {
                 if (value == null) return;
                 context.read<SettingsCubit>().modify(
-                    settings: context
-                        .read<SettingsCubit>()
-                        .state
-                        .settings
-                        .copyWith(recentGradeDuration: value));
+                  settings: context
+                      .read<SettingsCubit>()
+                      .state
+                      .settings
+                      .copyWith(recentGradeDuration: value),
+                );
               },
             ),
           ],

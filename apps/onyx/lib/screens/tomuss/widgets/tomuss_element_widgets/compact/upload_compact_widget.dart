@@ -15,11 +15,12 @@ class UploadCompactWidget extends StatelessWidget {
   final Function()? onTap;
   final String teachingUnitTitle;
 
-  const UploadCompactWidget(
-      {super.key,
-      required this.upload,
-      required this.onTap,
-      required this.teachingUnitTitle});
+  const UploadCompactWidget({
+    super.key,
+    required this.upload,
+    required this.onTap,
+    required this.teachingUnitTitle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,65 +33,63 @@ class UploadCompactWidget extends StatelessWidget {
         children: [
           Flexible(
             child: IconButton(
-                onPressed: () async {
-                  final String path = await TomussLogic.getDownloadLocalPath(
-                    upload: upload,
-                    ticket: context
-                        .read<TomussCubit>()
-                        .state
-                        .teachingUnits
-                        .firstWhere(
-                            (element) => element.uploads.contains(upload))
-                        .ticket,
-                    context: context,
-                  );
-                  OpenFilex.open(path);
-                },
-                icon: const Icon(
-                  Icons.open_in_new_rounded,
-                )),
+              onPressed: () async {
+                final String path = await TomussLogic.getDownloadLocalPath(
+                  upload: upload,
+                  ticket: context
+                      .read<TomussCubit>()
+                      .state
+                      .teachingUnits
+                      .firstWhere((element) => element.uploads.contains(upload))
+                      .ticket,
+                  context: context,
+                );
+                OpenFilex.open(path);
+              },
+              icon: const Icon(Icons.open_in_new_rounded),
+            ),
           ),
           Flexible(
             child: IconButton(
-                onPressed: () async {
-                  final localization = AppLocalizations.of(context);
-                  final String path = await TomussLogic.getDownloadLocalPath(
-                    upload: upload,
-                    ticket: context
-                        .read<TomussCubit>()
-                        .state
-                        .teachingUnits
-                        .firstWhere(
-                            (element) => element.uploads.contains(upload))
-                        .ticket,
-                    context: context,
+              onPressed: () async {
+                final localization = AppLocalizations.of(context);
+                final String path = await TomussLogic.getDownloadLocalPath(
+                  upload: upload,
+                  ticket: context
+                      .read<TomussCubit>()
+                      .state
+                      .teachingUnits
+                      .firstWhere((element) => element.uploads.contains(upload))
+                      .ticket,
+                  context: context,
+                );
+                if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+                  FlutterFileDialog.saveFile(
+                    params: SaveFileDialogParams(sourceFilePath: path),
                   );
-                  if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-                    FlutterFileDialog.saveFile(
-                        params: SaveFileDialogParams(sourceFilePath: path));
-                  } else if (!kIsWeb &&
-                      (Platform.isWindows ||
-                          Platform.isLinux ||
-                          Platform.isMacOS)) {
-                    FilePicker.platform
-                        .saveFile(
-                      dialogTitle: localization.pleaseSelectOutputFile,
-                      fileName: path.split('/').last,
-                    )
-                        .then((outputFilePath) {
-                      if (outputFilePath != null) {
-                        File outputFile = File(outputFilePath);
-                        File inputFile = File(path);
-                        outputFile
-                            .writeAsBytesSync(inputFile.readAsBytesSync());
-                      }
-                      // Navigator.pop(context);
-                    });
-                  }
-                },
-                icon: const Icon(
-                  Icons.save_rounded,
-                )),
+                } else if (!kIsWeb &&
+                    (Platform.isWindows ||
+                        Platform.isLinux ||
+                        Platform.isMacOS)) {
+                  FilePicker.platform
+                      .saveFile(
+                        dialogTitle: localization.pleaseSelectOutputFile,
+                        fileName: path.split('/').last,
+                      )
+                      .then((outputFilePath) {
+                        if (outputFilePath != null) {
+                          File outputFile = File(outputFilePath);
+                          File inputFile = File(path);
+                          outputFile.writeAsBytesSync(
+                            inputFile.readAsBytesSync(),
+                          );
+                        }
+                        // Navigator.pop(context);
+                      });
+                }
+              },
+              icon: const Icon(Icons.save_rounded),
+            ),
           ),
         ],
       ),

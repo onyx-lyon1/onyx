@@ -18,9 +18,9 @@ class SettingsBottomNavBarIcon extends StatelessWidget {
             Icons.settings_rounded,
             color: selected
                 ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
-                : Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .unselectedItemColor,
+                : Theme.of(
+                    context,
+                  ).bottomNavigationBarTheme.unselectedItemColor,
           ),
           Text(
             AppLocalizations.of(context).settings,

@@ -4,11 +4,7 @@ import 'package:flutter/material.dart';
 part 'generated/theme_mode_enum.mapper.dart';
 
 @MappableEnum()
-enum ThemeModeEnum {
-  system,
-  dark,
-  light,
-}
+enum ThemeModeEnum { system, dark, light }
 
 extension ThemeModeEnumExtension on ThemeModeEnum {
   ThemeMode get toThemeMode {

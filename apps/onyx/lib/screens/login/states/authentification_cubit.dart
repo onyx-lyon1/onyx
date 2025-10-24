@@ -13,13 +13,17 @@ import 'package:onyx/screens/settings/settings_export.dart';
 part 'authentification_state.dart';
 
 class AuthentificationCubit extends Cubit<AuthentificationState> {
-  Lyon1CasClient _lyon1Cas =
-      Lyon1CasClient(corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
+  Lyon1CasClient _lyon1Cas = Lyon1CasClient(
+    corsProxyUrl: (kIsWeb) ? Res.corsProxy : "",
+  );
 
   AuthentificationCubit(SettingsModel settings)
-      : super(AuthentificationState(
-            status: AuthentificationStatus.initial,
-            lyon1Cas: Lyon1CasClient())) {
+    : super(
+        AuthentificationState(
+          status: AuthentificationStatus.initial,
+          lyon1Cas: Lyon1CasClient(),
+        ),
+      ) {
     login(settings: settings);
   }
 
@@ -32,16 +36,22 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     }
   }
 
-  Future<void> login(
-      {Credential? creds, required SettingsModel settings}) async {
+  Future<void> login({
+    Credential? creds,
+    required SettingsModel settings,
+  }) async {
     if (Res.mock) {
       await CacheService.set<Credential>(
         Credential("mockUsername", "mockPassword"),
         secureKey: await CacheService.getEncryptionKey(settings.biometricAuth),
       );
       _lyon1Cas.isAuthenticated = true;
-      emit(state.copyWith(
-          status: AuthentificationStatus.authentificated, lyon1Cas: _lyon1Cas));
+      emit(
+        state.copyWith(
+          status: AuthentificationStatus.authentificated,
+          lyon1Cas: _lyon1Cas,
+        ),
+      );
       return;
     }
 
@@ -58,36 +68,32 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     emit(state.copyWith(status: AuthentificationStatus.authentificating));
 
     //login
-    if (!(await (Connectivity().checkConnectivity()))
-        .contains(ConnectivityResult.none)) {
+    if (!(await (Connectivity().checkConnectivity())).contains(
+      ConnectivityResult.none,
+    )) {
       try {
-        ({bool authResult, Credential credential}) auth =
-            await _lyon1Cas.authenticate(creds);
-        emit(state.copyWith(
+        ({bool authResult, Credential credential}) auth = await _lyon1Cas
+            .authenticate(creds);
+        emit(
+          state.copyWith(
             status: auth.authResult
                 ? AuthentificationStatus.authentificated
                 : AuthentificationStatus.error,
             lyon1Cas: _lyon1Cas,
-            username: auth.credential.username));
-        await CacheService.set<Credential>(
-          auth.credential,
-          secureKey: key,
+            username: auth.credential.username,
+          ),
         );
+        await CacheService.set<Credential>(auth.credential, secureKey: key);
       } catch (e) {
         Res.logger.e(e);
-        emit(
-          state.copyWith(status: AuthentificationStatus.error),
-        );
+        emit(state.copyWith(status: AuthentificationStatus.error));
         return;
       }
     } else {
       Connectivity().onConnectivityChanged.listen((event) {
         if (!event.contains(ConnectivityResult.none)) {
           Res.logger.d("retrieve connection");
-          login(
-            creds: creds,
-            settings: settings,
-          );
+          login(creds: creds, settings: settings);
         }
       });
     }
@@ -106,17 +112,21 @@ class AuthentificationCubit extends Cubit<AuthentificationState> {
     CacheService.reset<Credential>();
     SettingsLogic.reset();
     await _lyon1Cas.logout();
-    emit(state.copyWith(
-      status: AuthentificationStatus.needCredential,
-      lyon1Cas: _lyon1Cas,
-    ));
+    emit(
+      state.copyWith(
+        status: AuthentificationStatus.needCredential,
+        lyon1Cas: _lyon1Cas,
+      ),
+    );
   }
 
   void resetCubit() {
     _lyon1Cas = Lyon1CasClient(corsProxyUrl: (kIsWeb) ? Res.corsProxy : "");
-    emit(state.copyWith(
-      status: AuthentificationStatus.initial,
-      lyon1Cas: _lyon1Cas,
-    ));
+    emit(
+      state.copyWith(
+        status: AuthentificationStatus.initial,
+        lyon1Cas: _lyon1Cas,
+      ),
+    );
   }
 }

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlyRechargeAmountWidget extends StatelessWidget {
-  const IzlyRechargeAmountWidget(
-      {super.key,
-      required this.min,
-      required this.controller,
-      required this.onSaved});
+  const IzlyRechargeAmountWidget({
+    super.key,
+    required this.min,
+    required this.controller,
+    required this.onSaved,
+  });
   final double min;
   final TextEditingController controller;
   final VoidCallback onSaved;
@@ -35,8 +36,9 @@ class IzlyRechargeAmountWidget extends StatelessWidget {
                   border: InputBorder.none,
                 ),
                 style: TextStyle(
-                    fontSize: 15.sp,
-                    color: Theme.of(context).textTheme.bodyLarge!.color),
+                  fontSize: 15.sp,
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
+                ),
                 textAlign: TextAlign.center,
                 textAlignVertical: TextAlignVertical.center,
               ),
@@ -95,14 +97,15 @@ class IzlyRechargeAmountWidget extends StatelessWidget {
 }
 
 class IzlyRechargeAmountExampleValuesWidget extends StatelessWidget {
-  const IzlyRechargeAmountExampleValuesWidget(
-      {super.key,
-      this.top,
-      this.left,
-      this.right,
-      this.bottom,
-      required this.controller,
-      required this.value});
+  const IzlyRechargeAmountExampleValuesWidget({
+    super.key,
+    this.top,
+    this.left,
+    this.right,
+    this.bottom,
+    required this.controller,
+    required this.value,
+  });
   final double? top;
   final double? left;
   final double? right;

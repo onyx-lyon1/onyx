@@ -28,16 +28,15 @@ class _TomussPageState extends State<TomussPage> {
       builder: (context) => SafeArea(
         child: SingleChildScrollView(
           controller: ModalScrollController.of(context),
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
           child: Column(
             children: [
               TeachingUnitChildrenTitleWidget(name: schoolSubject.title),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
-                child: TeachingUnitChildrenWidget(
-                  teachingUnit: schoolSubject,
-                ),
+                child: TeachingUnitChildrenWidget(teachingUnit: schoolSubject),
               ),
             ],
           ),
@@ -57,10 +56,9 @@ class _TomussPageState extends State<TomussPage> {
         switch (state.status) {
           case TomussStatus.initial:
             context.read<TomussCubit>().load(
-                  lyon1Cas:
-                      context.read<AuthentificationCubit>().state.lyon1Cas,
-                  settings: context.read<SettingsCubit>().state.settings,
-                );
+              lyon1Cas: context.read<AuthentificationCubit>().state.lyon1Cas,
+              settings: context.read<SettingsCubit>().state.settings,
+            );
             loadingHeader = LoadingHeaderWidget(
               message: AppLocalizations.of(context).tomussConnection,
             );
@@ -76,11 +74,15 @@ class _TomussPageState extends State<TomussPage> {
             break;
           case TomussStatus.error:
             final tomussCubit = context.read<TomussCubit>();
-            final lyon1Cas =
-                context.read<AuthentificationCubit>().state.lyon1Cas;
+            final lyon1Cas = context
+                .read<AuthentificationCubit>()
+                .state
+                .lyon1Cas;
             final settings = context.read<SettingsCubit>().state.settings;
-            Future.delayed(const Duration(seconds: 3),
-                () => tomussCubit.load(lyon1Cas: lyon1Cas, settings: settings));
+            Future.delayed(
+              const Duration(seconds: 3),
+              () => tomussCubit.load(lyon1Cas: lyon1Cas, settings: settings),
+            );
             loadingHeader = LoadingHeaderWidget(
               message: AppLocalizations.of(context).loadingGradesError,
             );
@@ -89,20 +91,21 @@ class _TomussPageState extends State<TomussPage> {
             break;
           case TomussStatus.timeout:
             loadingHeader = LoadingHeaderWidget(
-                message: AppLocalizations.of(context).loadingGrades,
-                timeout: state.timeout,
-                timeoutCallBack: () {
-                  context.read<TomussCubit>().load(
-                        lyon1Cas: context
-                            .read<AuthentificationCubit>()
-                            .state
-                            .lyon1Cas,
-                        semestreIndex: state.currentSemesterIndex,
-                        cache: false,
-                        settings: context.read<SettingsCubit>().state.settings,
-                        force: false,
-                      );
-                });
+              message: AppLocalizations.of(context).loadingGrades,
+              timeout: state.timeout,
+              timeoutCallBack: () {
+                context.read<TomussCubit>().load(
+                  lyon1Cas: context
+                      .read<AuthentificationCubit>()
+                      .state
+                      .lyon1Cas,
+                  semestreIndex: state.currentSemesterIndex,
+                  cache: false,
+                  settings: context.read<SettingsCubit>().state.settings,
+                  force: false,
+                );
+              },
+            );
             break;
         }
         return CommonScreenWidget(
@@ -110,14 +113,16 @@ class _TomussPageState extends State<TomussPage> {
           header: Container(
             color: Theme.of(context).cardTheme.color,
             padding: EdgeInsets.all(
-                (Device.orientation == Orientation.portrait) ? 1.w : 1.h),
+              (Device.orientation == Orientation.portrait) ? 1.w : 1.h,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
                   child: HeaderChildren(
-                      onTap: (TeachingUnit teachingUnit) =>
-                          showAllGrades(context, teachingUnit)),
+                    onTap: (TeachingUnit teachingUnit) =>
+                        showAllGrades(context, teachingUnit),
+                  ),
                 ),
                 //button to toggle semester with an icon
                 Align(
@@ -132,8 +137,9 @@ class _TomussPageState extends State<TomussPage> {
                       showGeneralDialog(
                         context: context,
                         barrierDismissible: true,
-                        barrierLabel: MaterialLocalizations.of(context)
-                            .modalBarrierDismissLabel,
+                        barrierLabel: MaterialLocalizations.of(
+                          context,
+                        ).modalBarrierDismissLabel,
                         pageBuilder: (ctx, a1, a2) {
                           return Container();
                         },
@@ -141,7 +147,9 @@ class _TomussPageState extends State<TomussPage> {
                           var curve = Curves.easeInOut.transform(a1.value);
                           return Transform.translate(
                             offset: Offset(
-                                50.w - 50.w * curve, -(45.h - 45.h * curve)),
+                              50.w - 50.w * curve,
+                              -(45.h - 45.h * curve),
+                            ),
                             child: Transform.scale(
                               scale: curve,
                               child: const SemesterChooserWidget(),
@@ -149,9 +157,10 @@ class _TomussPageState extends State<TomussPage> {
                           );
                         },
                         transitionDuration: Duration(
-                            milliseconds:
-                                (Res.animationDuration.inMilliseconds / 2)
-                                    .round()),
+                          milliseconds:
+                              (Res.animationDuration.inMilliseconds / 2)
+                                  .round(),
+                        ),
                       );
                     },
                   ),

@@ -5,11 +5,12 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class GradeListWidget extends StatelessWidget {
-  const GradeListWidget(
-      {super.key,
-      required this.grades,
-      this.depth = 1,
-      this.lastElement = true});
+  const GradeListWidget({
+    super.key,
+    required this.grades,
+    this.depth = 1,
+    this.lastElement = true,
+  });
 
   final Grade grades;
   final int depth;
@@ -38,11 +39,12 @@ class GradeListWidget extends StatelessWidget {
                   isSeen: true,
                   text1: grades.title.replaceAll("_", " "),
                   text2: AppLocalizations.of(context).noteDescription(
-                      grades.average,
-                      grades.mediane,
-                      grades.rank + 1,
-                      grades.groupeSize,
-                      grades.author),
+                    grades.average,
+                    grades.mediane,
+                    grades.rank + 1,
+                    grades.groupeSize,
+                    grades.author,
+                  ),
                   depth: depth,
                 ),
               ),
@@ -56,7 +58,8 @@ class GradeListWidget extends StatelessWidget {
                 GradeListWidget(
                   grades: grade,
                   depth: depth + 1,
-                  lastElement: grades.children.indexOf(grade) ==
+                  lastElement:
+                      grades.children.indexOf(grade) ==
                       grades.children.length - 1,
                 ),
             ],
@@ -96,11 +99,11 @@ class GradeListWidget extends StatelessWidget {
             padding: EdgeInsets.only(
               left: (lastElement)
                   ? (depth == 2)
-                      ? 10.w
-                      : ((10.w + 3.w) * (depth - 1)) - 3.w
+                        ? 10.w
+                        : ((10.w + 3.w) * (depth - 1)) - 3.w
                   : (i == 0)
-                      ? 10.w
-                      : 10.w + 2.w,
+                  ? 10.w
+                  : 10.w + 2.w,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -112,9 +115,10 @@ class GradeListWidget extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                   ),
                 Container(
-                    width: 1.w,
-                    height: (lastElement) ? 6.5.h - 0.25.h : 0,
-                    color: Colors.transparent),
+                  width: 1.w,
+                  height: (lastElement) ? 6.5.h - 0.25.h : 0,
+                  color: Colors.transparent,
+                ),
               ],
             ),
           ),

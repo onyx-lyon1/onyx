@@ -13,11 +13,12 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:onyx/l10n/app_localizations.dart';
 
 class RestaurantPopUpWidget extends StatelessWidget {
-  const RestaurantPopUpWidget(
-      {required this.element,
-      required this.onTap,
-      required this.popupController,
-      super.key});
+  const RestaurantPopUpWidget({
+    required this.element,
+    required this.onTap,
+    required this.popupController,
+    super.key,
+  });
 
   final RestaurantModel element;
   final void Function(LatLng) onTap;
@@ -31,9 +32,7 @@ class RestaurantPopUpWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
         color: Theme.of(context).colorScheme.surface,
       ),
-      constraints: BoxConstraints(
-        maxWidth: 60.w,
-      ),
+      constraints: BoxConstraints(maxWidth: 60.w),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -46,8 +45,11 @@ class RestaurantPopUpWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Flexible(
-                  child: Text(element.name,
-                      style: Theme.of(context).textTheme.bodyLarge)),
+                child: Text(
+                  element.name,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ),
               IconButton(
                 onPressed: () {
                   onTap(LatLng(element.lat, element.lon));
@@ -58,10 +60,11 @@ class RestaurantPopUpWidget extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   showDialog(
-                      context: context,
-                      builder: (context) {
-                        return RestaurantMenuPopUp(element: element);
-                      });
+                    context: context,
+                    builder: (context) {
+                      return RestaurantMenuPopUp(element: element);
+                    },
+                  );
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantScreen(restaurant: element)));
                 },
                 icon: const Icon(Icons.restaurant_menu_rounded),
@@ -75,10 +78,7 @@ class RestaurantPopUpWidget extends StatelessWidget {
 }
 
 class RestaurantMenuPopUp extends StatefulWidget {
-  const RestaurantMenuPopUp({
-    super.key,
-    required this.element,
-  });
+  const RestaurantMenuPopUp({super.key, required this.element});
 
   final RestaurantModel element;
 
@@ -140,14 +140,16 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
                 });
               },
               child: FutureBuilder(
-                  future: IzlyLogic.isRestaurantFavourite(widget.element),
-                  builder: (context, snapshot) {
-                    return Icon(
-                        (snapshot.data ?? false)
-                            ? Icons.favorite_rounded
-                            : Icons.favorite_border_rounded,
-                        color: Theme.of(context).colorScheme.primary);
-                  }),
+                future: IzlyLogic.isRestaurantFavourite(widget.element),
+                builder: (context, snapshot) {
+                  return Icon(
+                    (snapshot.data ?? false)
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_rounded,
+                    color: Theme.of(context).colorScheme.primary,
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -204,8 +206,11 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
                           children: [
                             for (var d in dates)
                               Center(
-                                child: Text(d.dateBeautifull(
-                                    AppLocalizations.of(context).localeName)),
+                                child: Text(
+                                  d.dateBeautifull(
+                                    AppLocalizations.of(context).localeName,
+                                  ),
+                                ),
                               ),
                           ],
                         ),
@@ -259,10 +264,13 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
                           SingleChildScrollView(
                             child: Column(
                               children: [
-                                for (MenuCrous menuCrous in widget.element.menus
-                                    .where(
-                                        (element) => element.date.isSameDay(d))
-                                    .toList())
+                                for (MenuCrous menuCrous
+                                    in widget.element.menus
+                                        .where(
+                                          (element) =>
+                                              element.date.isSameDay(d),
+                                        )
+                                        .toList())
                                   MenuWidget(menuCrous: menuCrous),
                               ],
                             ),
@@ -290,7 +298,7 @@ class _RestaurantMenuPopUpState extends State<RestaurantMenuPopUp> {
             Navigator.pop(context);
           },
           child: Text(AppLocalizations.of(context).close),
-        )
+        ),
       ],
     );
   }

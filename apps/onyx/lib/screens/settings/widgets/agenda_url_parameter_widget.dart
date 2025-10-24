@@ -23,15 +23,19 @@ class AgendaUrlParameterWidget extends StatelessWidget {
           children: [
             TextSwitchWidget(
               text: AppLocalizations.of(context).fetchAgendaAuto,
-              value:
-                  context.read<SettingsCubit>().state.settings.fetchAgendaAuto,
+              value: context
+                  .read<SettingsCubit>()
+                  .state
+                  .settings
+                  .fetchAgendaAuto,
               onChanged: (bool b) {
                 context.read<SettingsCubit>().modify(
-                    settings: context
-                        .read<SettingsCubit>()
-                        .state
-                        .settings
-                        .copyWith(fetchAgendaAuto: b));
+                  settings: context
+                      .read<SettingsCubit>()
+                      .state
+                      .settings
+                      .copyWith(fetchAgendaAuto: b),
+                );
               },
             ),
             AnimatedContainer(
@@ -39,7 +43,8 @@ class AgendaUrlParameterWidget extends StatelessWidget {
               margin: EdgeInsets.only(top: 2.w),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: (!context
+                color:
+                    (!context
                         .read<SettingsCubit>()
                         .state
                         .settings
@@ -74,12 +79,14 @@ class AgendaSelectionWidget extends StatelessWidget {
           ? Theme.of(context).colorScheme.primary
           : Colors.transparent,
       child: BlocBuilder<SettingsCubit, SettingsState>(
-        buildWhen: (previous, current) => (previous.settings.fetchAgendaAuto !=
+        buildWhen: (previous, current) =>
+            (previous.settings.fetchAgendaAuto !=
             current.settings.fetchAgendaAuto),
         builder: (context, state) {
           return InkWell(
             borderRadius: BorderRadius.circular(100),
-            onTap: (!(context
+            onTap:
+                (!(context
                         .read<SettingsCubit>()
                         .state
                         .settings
@@ -94,11 +101,12 @@ class AgendaSelectionWidget extends StatelessWidget {
                           child: AgendaConfigPage(
                             onBack: (List<int> ids) {
                               context.read<SettingsCubit>().modify(
-                                  settings: context
-                                      .read<SettingsCubit>()
-                                      .state
-                                      .settings
-                                      .copyWith(agendaIds: ids));
+                                settings: context
+                                    .read<SettingsCubit>()
+                                    .state
+                                    .settings
+                                    .copyWith(agendaIds: ids),
+                              );
                               Navigator.pop(context);
                             },
                           ),
@@ -113,9 +121,10 @@ class AgendaSelectionWidget extends StatelessWidget {
                 AppLocalizations.of(context).agendaSelection,
                 maxLines: 1,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: (state.settings.fetchAgendaAuto && !forceClickable)
-                        ? Theme.of(context).disabledColor
-                        : null),
+                  color: (state.settings.fetchAgendaAuto && !forceClickable)
+                      ? Theme.of(context).disabledColor
+                      : null,
+                ),
               ),
             ),
           );

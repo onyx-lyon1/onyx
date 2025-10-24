@@ -92,33 +92,19 @@ extension FunctionalitiesExtention on Functionalities {
   Widget toSettings({Key? key, VoidCallback? sizeUpdate}) {
     switch (this) {
       case Functionalities.tomuss:
-        return TomussSettingsWidget(
-          key: key,
-        );
+        return TomussSettingsWidget(key: key);
       case Functionalities.agenda:
-        return AgendaSettingsWidget(
-          key: key,
-        );
+        return AgendaSettingsWidget(key: key);
       case Functionalities.mail:
-        return MailSettingsWidget(
-          key: key,
-        );
+        return MailSettingsWidget(key: key);
       case Functionalities.map:
-        return MapSettingsWidget(
-          key: key,
-        );
+        return MapSettingsWidget(key: key);
       case Functionalities.izly:
-        return IzlySettingsWidget(
-          key: key,
-        );
+        return IzlySettingsWidget(key: key);
       case Functionalities.settings:
-        return SettingsSettingsWidget(
-          key: key,
-        );
+        return SettingsSettingsWidget(key: key);
       case Functionalities.examen:
-        return ExamenSettingsWidget(
-          key: key,
-        );
+        return ExamenSettingsWidget(key: key);
     }
   }
 }

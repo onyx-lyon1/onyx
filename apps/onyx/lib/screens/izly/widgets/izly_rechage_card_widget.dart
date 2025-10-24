@@ -4,12 +4,13 @@ import 'package:onyx/core/res.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlayRechargeCardWidget extends StatelessWidget {
-  const IzlayRechargeCardWidget(
-      {super.key,
-      required this.icon,
-      required this.text,
-      required this.child,
-      required this.pageController});
+  const IzlayRechargeCardWidget({
+    super.key,
+    required this.icon,
+    required this.text,
+    required this.child,
+    required this.pageController,
+  });
   final IconData icon;
   final String text;
   final Widget child;
@@ -29,8 +30,11 @@ class IzlayRechargeCardWidget extends StatelessWidget {
       transitionDuration: Res.animationDuration,
       onClosed: (value) {
         Future.delayed(Res.animationDuration, () {
-          pageController.animateToPage(0,
-              duration: Res.animationDuration, curve: Curves.easeInOut);
+          pageController.animateToPage(
+            0,
+            duration: Res.animationDuration,
+            curve: Curves.easeInOut,
+          );
         });
       },
       openBuilder: (context, closeContainer) => child,
@@ -40,22 +44,20 @@ class IzlayRechargeCardWidget extends StatelessWidget {
           width: 30.w,
           height: 30.w,
           child: Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                color: Theme.of(context).textTheme.bodySmall!.color,
-              ),
-              Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.bodySmall!.color,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, color: Theme.of(context).textTheme.bodySmall!.color),
+                Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodySmall!.color,
+                  ),
                 ),
-              ),
-            ],
-          )),
+              ],
+            ),
+          ),
         ),
       ),
     );

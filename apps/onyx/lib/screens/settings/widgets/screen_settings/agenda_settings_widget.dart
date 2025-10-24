@@ -14,23 +14,23 @@ class AgendaSettingsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.read<SettingsCubit>().state.settings;
-    final weekDays = DateFormat.E(AppLocalizations.of(context).localeName)
-        .dateSymbols
-        .SHORTWEEKDAYS
-        .sublist(1)
-      ..add(DateFormat.E(AppLocalizations.of(context).localeName)
-          .dateSymbols
-          .SHORTWEEKDAYS
-          .first);
+    final weekDays =
+        DateFormat.E(
+          AppLocalizations.of(context).localeName,
+        ).dateSymbols.SHORTWEEKDAYS.sublist(1)..add(
+          DateFormat.E(
+            AppLocalizations.of(context).localeName,
+          ).dateSymbols.SHORTWEEKDAYS.first,
+        );
     return Column(
       children: [
         TextSwitchWidget(
           text: AppLocalizations.of(context).showMiniCalendar,
           value: settings.showMiniCalendar,
           onChanged: (bool b) {
-            context
-                .read<SettingsCubit>()
-                .modify(settings: settings.copyWith(showMiniCalendar: b));
+            context.read<SettingsCubit>().modify(
+              settings: settings.copyWith(showMiniCalendar: b),
+            );
           },
         ),
         if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS)) &&
@@ -40,16 +40,17 @@ class AgendaSettingsWidget extends StatelessWidget {
             value: settings.calendarUpdateNotification,
             onChanged: (bool b) {
               context.read<SettingsCubit>().modify(
-                  settings: settings.copyWith(calendarUpdateNotification: b));
+                settings: settings.copyWith(calendarUpdateNotification: b),
+              );
             },
           ),
         TextSwitchWidget(
           text: AppLocalizations.of(context).agendaPageBottomToTop,
           value: settings.agendaPageTopToBottom,
           onChanged: (bool b) {
-            context
-                .read<SettingsCubit>()
-                .modify(settings: settings.copyWith(agendaPageTopToBottom: b));
+            context.read<SettingsCubit>().modify(
+              settings: settings.copyWith(agendaPageTopToBottom: b),
+            );
           },
         ),
         Padding(
@@ -62,13 +63,15 @@ class AgendaSettingsWidget extends StatelessWidget {
                 onChanged: (double d) {
                   if (settings.agendaWeekRerenceAlignment >= d) {
                     context.read<SettingsCubit>().modify(
-                        settings: settings.copyWith(
-                            agendaWeekRerenceAlignment: d.toInt() - 1,
-                            agendaWeekLength: d.toInt()));
+                      settings: settings.copyWith(
+                        agendaWeekRerenceAlignment: d.toInt() - 1,
+                        agendaWeekLength: d.toInt(),
+                      ),
+                    );
                   } else {
                     context.read<SettingsCubit>().modify(
-                        settings:
-                            settings.copyWith(agendaWeekLength: d.toInt()));
+                      settings: settings.copyWith(agendaWeekLength: d.toInt()),
+                    );
                   }
                 },
                 min: 2,
@@ -84,17 +87,15 @@ class AgendaSettingsWidget extends StatelessWidget {
           child: Column(
             children: [
               Text(AppLocalizations.of(context).agendaWeekReference),
-              SizedBox(
-                height: 1.h,
-              ),
+              SizedBox(height: 1.h),
               AgendaWeekDaySelector(
                 elements: weekDays,
                 colorCondition: (i) => i == settings.agendaWeekReference,
                 disabledCondition: (i) =>
                     settings.agendaDisabledDays.contains(i + 1),
                 onTap: (int i) => context.read<SettingsCubit>().modify(
-                      settings: settings.copyWith(agendaWeekReference: i),
-                    ),
+                  settings: settings.copyWith(agendaWeekReference: i),
+                ),
               ),
               SizedBox(
                 height: 5.h,
@@ -104,9 +105,11 @@ class AgendaSettingsWidget extends StatelessWidget {
                       : Theme.of(context).cardColor,
                   child: InkWell(
                     onTap: () => context.read<SettingsCubit>().modify(
-                        settings: settings.copyWith(agendaWeekReference: 8)),
-                    child:
-                        Center(child: Text(AppLocalizations.of(context).today)),
+                      settings: settings.copyWith(agendaWeekReference: 8),
+                    ),
+                    child: Center(
+                      child: Text(AppLocalizations.of(context).today),
+                    ),
                   ),
                 ),
               ),
@@ -118,17 +121,15 @@ class AgendaSettingsWidget extends StatelessWidget {
           child: Column(
             children: [
               Text(AppLocalizations.of(context).agendaWeekReferenceAlignment),
-              SizedBox(
-                height: 1.h,
-              ),
+              SizedBox(height: 1.h),
               AgendaWeekDaySelector(
-                  elements: List.generate(7, (index) => (index + 1).toString()),
-                  colorCondition: (i) =>
-                      i == settings.agendaWeekRerenceAlignment,
-                  disabledCondition: (i) => settings.agendaWeekLength <= i,
-                  onTap: (int i) => context.read<SettingsCubit>().modify(
-                      settings:
-                          settings.copyWith(agendaWeekRerenceAlignment: i))),
+                elements: List.generate(7, (index) => (index + 1).toString()),
+                colorCondition: (i) => i == settings.agendaWeekRerenceAlignment,
+                disabledCondition: (i) => settings.agendaWeekLength <= i,
+                onTap: (int i) => context.read<SettingsCubit>().modify(
+                  settings: settings.copyWith(agendaWeekRerenceAlignment: i),
+                ),
+              ),
             ],
           ),
         ),
@@ -137,9 +138,7 @@ class AgendaSettingsWidget extends StatelessWidget {
           child: Column(
             children: [
               Text(AppLocalizations.of(context).disabledDays),
-              SizedBox(
-                height: 1.h,
-              ),
+              SizedBox(height: 1.h),
               AgendaWeekDaySelector(
                 elements: weekDays,
                 colorCondition: (i) =>
@@ -148,17 +147,22 @@ class AgendaSettingsWidget extends StatelessWidget {
                   int i = rawI + 1;
                   if (settings.agendaDisabledDays.contains(i)) {
                     context.read<SettingsCubit>().modify(
-                        settings: settings.copyWith(
-                            agendaDisabledDays: settings.agendaDisabledDays
-                                .where((element) => element != i)
-                                .toList()));
+                      settings: settings.copyWith(
+                        agendaDisabledDays: settings.agendaDisabledDays
+                            .where((element) => element != i)
+                            .toList(),
+                      ),
+                    );
                   } else {
                     if (settings.agendaDisabledDays.length == 6) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content:
-                            Text(AppLocalizations.of(context).cantHideAllDays),
-                        backgroundColor: Theme.of(context).primaryColor,
-                      ));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            AppLocalizations.of(context).cantHideAllDays,
+                          ),
+                          backgroundColor: Theme.of(context).primaryColor,
+                        ),
+                      );
 
                       return;
                     } else {
@@ -168,22 +172,26 @@ class AgendaSettingsWidget extends StatelessWidget {
                           if (!settings.agendaDisabledDays.contains(j + 1) &&
                               j != rawI) {
                             context.read<SettingsCubit>().modify(
-                                    settings: settings.copyWith(
-                                        agendaWeekReference: j,
-                                        agendaDisabledDays: [
-                                      ...settings.agendaDisabledDays,
-                                      i
-                                    ]));
+                              settings: settings.copyWith(
+                                agendaWeekReference: j,
+                                agendaDisabledDays: [
+                                  ...settings.agendaDisabledDays,
+                                  i,
+                                ],
+                              ),
+                            );
                             break;
                           }
                         }
                       } else {
                         context.read<SettingsCubit>().modify(
-                                settings: settings.copyWith(
-                                    agendaDisabledDays: [
-                                  ...settings.agendaDisabledDays,
-                                  i
-                                ]));
+                          settings: settings.copyWith(
+                            agendaDisabledDays: [
+                              ...settings.agendaDisabledDays,
+                              i,
+                            ],
+                          ),
+                        );
                       }
                     }
                   }

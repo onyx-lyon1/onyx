@@ -34,8 +34,9 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
             child: Text(
               'Ouvrir',
               style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyLarge!.color,
-                  fontSize: 17.sp),
+                color: Theme.of(context).textTheme.bodyLarge!.color,
+                fontSize: 17.sp,
+              ),
             ),
           ),
           ElevatedButton(
@@ -45,8 +46,8 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
             onPressed: () {
               if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
                 FlutterFileDialog.saveFile(
-                        params: SaveFileDialogParams(sourceFilePath: filePath))
-                    .then((value) {
+                  params: SaveFileDialogParams(sourceFilePath: filePath),
+                ).then((value) {
                   if (!context.mounted) return;
                   Navigator.pop(context);
                 });
@@ -56,25 +57,28 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
                       Platform.isMacOS)) {
                 FilePicker.platform
                     .saveFile(
-                  dialogTitle: 'Please select an output file:',
-                  fileName: filePath.split('/').last,
-                )
+                      dialogTitle: 'Please select an output file:',
+                      fileName: filePath.split('/').last,
+                    )
                     .then((outputFilePath) {
-                  if (outputFilePath != null) {
-                    File outputFile = File(outputFilePath);
-                    File inputFile = File(filePath);
-                    outputFile.writeAsBytesSync(inputFile.readAsBytesSync());
-                  }
-                  if (!context.mounted) return;
-                  Navigator.pop(context);
-                });
+                      if (outputFilePath != null) {
+                        File outputFile = File(outputFilePath);
+                        File inputFile = File(filePath);
+                        outputFile.writeAsBytesSync(
+                          inputFile.readAsBytesSync(),
+                        );
+                      }
+                      if (!context.mounted) return;
+                      Navigator.pop(context);
+                    });
               }
             },
             child: Text(
               'Enregistrer',
               style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyLarge!.color,
-                  fontSize: 17.sp),
+                color: Theme.of(context).textTheme.bodyLarge!.color,
+                fontSize: 17.sp,
+              ),
             ),
           ),
         ],

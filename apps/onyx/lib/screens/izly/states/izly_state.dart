@@ -8,7 +8,7 @@ enum IzlyStatus {
   loaded,
   cacheLoaded,
   error,
-  noCredentials
+  noCredentials,
 }
 
 class IzlyState {

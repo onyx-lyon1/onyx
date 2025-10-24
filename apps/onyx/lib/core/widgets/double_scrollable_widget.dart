@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 /// don't forget to add NeverScrollableScrollPhysics() to all the scrollable widgets
 class MultiScrollableWidget extends StatefulWidget {
-  const MultiScrollableWidget(
-      {super.key,
-      required this.pageController,
-      required this.listScrollController,
-      required this.child});
+  const MultiScrollableWidget({
+    super.key,
+    required this.pageController,
+    required this.listScrollController,
+    required this.child,
+  });
 
   final List<ScrollController> listScrollController;
   final PageController pageController;
@@ -43,14 +44,15 @@ class _MultiScrollableWidgetState extends State<MultiScrollableWidget> {
       gestures: <Type, GestureRecognizerFactory>{
         VerticalDragGestureRecognizer:
             GestureRecognizerFactoryWithHandlers<VerticalDragGestureRecognizer>(
-                () => VerticalDragGestureRecognizer(),
-                (VerticalDragGestureRecognizer instance) {
-          instance
-            ..onStart = _handleDragStart
-            ..onUpdate = _handleDragUpdate
-            ..onEnd = _handleDragEnd
-            ..onCancel = _handleDragCancel;
-        })
+              () => VerticalDragGestureRecognizer(),
+              (VerticalDragGestureRecognizer instance) {
+                instance
+                  ..onStart = _handleDragStart
+                  ..onUpdate = _handleDragUpdate
+                  ..onEnd = _handleDragEnd
+                  ..onCancel = _handleDragCancel;
+              },
+            ),
       },
       behavior: HitTestBehavior.opaque,
       child: widget.child,
@@ -60,9 +62,10 @@ class _MultiScrollableWidgetState extends State<MultiScrollableWidget> {
   void _handleDragStart(DragStartDetails details) {
     int i = _getScrollControllerIndex();
     if (widget.listScrollController[i].hasClients) {
-      final RenderBox renderBox = widget
-          .listScrollController[i].position.context.storageContext
-          .findRenderObject() as RenderBox;
+      final RenderBox renderBox =
+          widget.listScrollController[i].position.context.storageContext
+                  .findRenderObject()
+              as RenderBox;
       if (renderBox.paintBounds
           .shift(renderBox.localToGlobal(Offset.zero))
           .contains(details.globalPosition)) {
@@ -86,10 +89,12 @@ class _MultiScrollableWidgetState extends State<MultiScrollableWidget> {
       _activeScrollController = widget.pageController;
       _drag?.cancel();
       _drag = widget.pageController.position.drag(
-          DragStartDetails(
-              globalPosition: details.globalPosition,
-              localPosition: details.localPosition),
-          _disposeDrag);
+        DragStartDetails(
+          globalPosition: details.globalPosition,
+          localPosition: details.localPosition,
+        ),
+        _disposeDrag,
+      );
     }
     if (_activeScrollController == widget.pageController &&
         ((forward != null) && details.primaryDelta! > 0 != forward!)) {
@@ -102,10 +107,12 @@ class _MultiScrollableWidgetState extends State<MultiScrollableWidget> {
           _activeScrollController = widget.listScrollController[i];
           _drag?.cancel();
           _drag = widget.listScrollController[i].position.drag(
-              DragStartDetails(
-                  globalPosition: details.globalPosition,
-                  localPosition: details.localPosition),
-              _disposeDrag);
+            DragStartDetails(
+              globalPosition: details.globalPosition,
+              localPosition: details.localPosition,
+            ),
+            _disposeDrag,
+          );
         }
       }
     }

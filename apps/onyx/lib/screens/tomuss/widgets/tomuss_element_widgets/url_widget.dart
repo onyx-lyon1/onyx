@@ -14,27 +14,31 @@ class URLWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TomussElementWidget(
       left: IconButton(
-          onPressed: () async {
-            if (await canLaunchUrl(Uri.parse(url.value))) {
-              await launchUrl(Uri.parse(url.value),
-                  mode: LaunchMode.externalApplication);
-            } else {
-              if (!context.mounted) return;
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        title: Text(AppLocalizations.of(context).error),
-                        content:
-                            Text(AppLocalizations.of(context).unableToOpenLink),
-                        actions: [
-                          TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text(AppLocalizations.of(context).ok))
-                        ],
-                      ));
-            }
-          },
-          icon: const Icon(Icons.open_in_new_rounded, color: Colors.white)),
+        onPressed: () async {
+          if (await canLaunchUrl(Uri.parse(url.value))) {
+            await launchUrl(
+              Uri.parse(url.value),
+              mode: LaunchMode.externalApplication,
+            );
+          } else {
+            if (!context.mounted) return;
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(AppLocalizations.of(context).error),
+                content: Text(AppLocalizations.of(context).unableToOpenLink),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text(AppLocalizations.of(context).ok),
+                  ),
+                ],
+              ),
+            );
+          }
+        },
+        icon: const Icon(Icons.open_in_new_rounded, color: Colors.white),
+      ),
       right: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

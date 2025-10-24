@@ -8,8 +8,13 @@ class CommonScreenWidget extends StatelessWidget {
   final Widget? state;
   final Future<void> Function()? onRefresh;
 
-  const CommonScreenWidget(
-      {super.key, this.header, required this.body, this.state, this.onRefresh});
+  const CommonScreenWidget({
+    super.key,
+    this.header,
+    required this.body,
+    this.state,
+    this.onRefresh,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +40,7 @@ class CommonScreenWidget extends StatelessWidget {
                           color: Theme.of(context).cardColor,
                           child: header,
                         ),
-                      Expanded(
-                        child: body,
-                      ),
+                      Expanded(child: body),
                     ],
                   ),
                 )
@@ -50,9 +53,7 @@ class CommonScreenWidget extends StatelessWidget {
                         color: Theme.of(context).cardColor,
                         child: header,
                       ),
-                    Expanded(
-                      child: body,
-                    ),
+                    Expanded(child: body),
                   ],
                 ),
         ),

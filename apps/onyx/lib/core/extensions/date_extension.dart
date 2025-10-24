@@ -19,7 +19,15 @@ extension DateExtension on DateTime {
         return DateTime(year, month, day, hour, minute, second, millisecond);
       case 8:
         return DateTime(
-            year, month, day, hour, minute, second, millisecond, microsecond);
+          year,
+          month,
+          day,
+          hour,
+          minute,
+          second,
+          millisecond,
+          microsecond,
+        );
       default:
         return this;
     }

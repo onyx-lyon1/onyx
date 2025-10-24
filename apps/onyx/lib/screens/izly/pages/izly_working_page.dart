@@ -19,7 +19,8 @@ class IzlyWorkingPage extends StatelessWidget {
       child: Scaffold(
         body: CommonScreenWidget(
           header: IzlyRechargeHeaderWidget(
-              title: AppLocalizations.of(context).recharging),
+            title: AppLocalizations.of(context).recharging,
+          ),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

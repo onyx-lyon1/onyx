@@ -9,7 +9,8 @@ class NotificationLogic {
 
   @pragma('vm:entry-point')
   static void notificationTapBackground(
-      NotificationResponse notificationResponse) {
+    NotificationResponse notificationResponse,
+  ) {
     Res.logger.t("background tap notification");
   }
 
@@ -31,16 +32,17 @@ class NotificationLogic {
       initializationSettings,
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) async {
-        // handle action
-      },
+            // handle action
+          },
       onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
     );
   }
 
-  static Future<void> showNotification(
-      {required String title,
-      required String body,
-      required String payload}) async {
+  static Future<void> showNotification({
+    required String title,
+    required String body,
+    required String payload,
+  }) async {
     notificationId++;
     await flutterLocalNotificationsPlugin.show(
       notificationId,

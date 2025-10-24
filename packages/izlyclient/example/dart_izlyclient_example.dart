@@ -28,6 +28,9 @@ void main() async {
   //do a post request to cbRequest.url with the body cbRequest.body
 
   //recharge via someone else
-  bool result2 =
-      await izlyClient.rechargeViaSomeoneElse(10.0, "email", "message");
+  bool result2 = await izlyClient.rechargeViaSomeoneElse(
+    10.0,
+    "email",
+    "message",
+  );
 }

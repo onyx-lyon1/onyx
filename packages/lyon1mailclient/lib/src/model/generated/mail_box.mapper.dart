@@ -195,13 +195,12 @@ class _MailBoxCopyWithImpl<$R, $Out>
       );
   @override
   MailBox $make(CopyWithData data) => MailBox(
-    name: data.get(#name, or: $value.name),
-    emails: data.get(#emails, or: $value.emails),
-    specialMailBox: data.get(#specialMailBox, or: $value.specialMailBox),
-  );
+        name: data.get(#name, or: $value.name),
+        emails: data.get(#emails, or: $value.emails),
+        specialMailBox: data.get(#specialMailBox, or: $value.specialMailBox),
+      );
 
   @override
   MailBoxCopyWith<$R2, MailBox, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
       _MailBoxCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
-

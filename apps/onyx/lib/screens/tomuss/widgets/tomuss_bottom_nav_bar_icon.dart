@@ -17,9 +17,9 @@ class TomussBottomNavBarIcon extends StatelessWidget {
             Icons.class_rounded,
             color: selected
                 ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
-                : Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .unselectedItemColor,
+                : Theme.of(
+                    context,
+                  ).bottomNavigationBarTheme.unselectedItemColor,
           ),
           Text(
             AppLocalizations.of(context).tomuss,

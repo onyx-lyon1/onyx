@@ -9,13 +9,13 @@ class ThemeModel extends Equatable {
   const ThemeModel(this.name, this.theme);
 
   ThemeModel.fromJson(Map<String, dynamic> json)
-      : name = json['name'] as String,
-        theme = ThemeDecoder.decodeThemeData(json['theme']) ?? ThemeData();
+    : name = json['name'] as String,
+      theme = ThemeDecoder.decodeThemeData(json['theme']) ?? ThemeData();
 
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'theme': ThemeEncoder.encodeThemeData(theme),
-      };
+    'name': name,
+    'theme': ThemeEncoder.encodeThemeData(theme),
+  };
 
   @override
   List<Object?> get props => [name, theme];

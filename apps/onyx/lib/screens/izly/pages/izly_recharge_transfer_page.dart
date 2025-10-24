@@ -17,7 +17,8 @@ class IzlyRechargeTranferPage extends StatelessWidget {
       child: Material(
         child: CommonScreenWidget(
           header: IzlyRechargeHeaderWidget(
-              title: AppLocalizations.of(context).refillWithBankTransfer),
+            title: AppLocalizations.of(context).refillWithBankTransfer,
+          ),
           body: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -55,23 +56,30 @@ class IzlyRechargeTranferPage extends StatelessWidget {
   void _pay(BuildContext context, TextEditingController controller) async {
     if (controller.text.isEmpty || double.tryParse(controller.text) == null) {
       showDialog(
-          context: context,
-          builder: (context) => ErrorDialogWidget(
-              message: AppLocalizations.of(context).pleaseSelectAnAmount));
+        context: context,
+        builder: (context) => ErrorDialogWidget(
+          message: AppLocalizations.of(context).pleaseSelectAnAmount,
+        ),
+      );
     } else if (double.parse(controller.text) < 5) {
       showDialog(
-          context: context,
-          builder: (context) => ErrorDialogWidget(
-              message: AppLocalizations.of(context).minimumAmountIs(5)));
+        context: context,
+        builder: (context) => ErrorDialogWidget(
+          message: AppLocalizations.of(context).minimumAmountIs(5),
+        ),
+      );
     } else {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => IzlyWorkingPage(callback: () async {
-            return await IzlyLogic.getTransferUrl(
+          builder: (context) => IzlyWorkingPage(
+            callback: () async {
+              return await IzlyLogic.getTransferUrl(
                 context.read<IzlyCubit>().state.izlyClient!,
-                double.parse(controller.text));
-          }),
+                double.parse(controller.text),
+              );
+            },
+          ),
         ),
       ).then((request) {
         bool poped = false;
@@ -97,11 +105,8 @@ class IzlyRechargeTranferPage extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SafeArea(
-              child: WebViewWidget(
-                controller: controller,
-              ),
-            ),
+            builder: (context) =>
+                SafeArea(child: WebViewWidget(controller: controller)),
           ),
         ).then((value) {
           izlyCubit.connect(settings: settings);

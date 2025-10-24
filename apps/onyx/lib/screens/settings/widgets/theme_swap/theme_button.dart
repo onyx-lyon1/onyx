@@ -37,7 +37,8 @@ class ThemeButton extends StatelessWidget {
               themeCubit.chooseTheme(listThemes[index]).then((value) {
                 if (state.themesSettings!.autoSwitchTheme) {
                   themeCubit.updateThemeMode(
-                      listThemes[index].theme.brightness.toThemeModeEnum);
+                    listThemes[index].theme.brightness.toThemeModeEnum,
+                  );
                 }
               });
             },
@@ -66,13 +67,15 @@ class ThemeButton extends StatelessWidget {
                       listThemes[index].translate(AppLocalizations.of(context)),
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontWeight: ((listThemes[index].name ==
+                        fontWeight:
+                            ((listThemes[index].name ==
                                     state.themesSettings!.darkThemeSelected ||
                                 listThemes[index].name ==
                                     state.themesSettings!.lightThemeSelected))
                             ? FontWeight.w900
                             : FontWeight.normal,
-                        color: listThemes[index]
+                        color:
+                            listThemes[index]
                                 .theme
                                 .textTheme
                                 .labelLarge
@@ -83,7 +86,8 @@ class ThemeButton extends StatelessWidget {
                   ),
                 ),
                 if (state.themesSettings!.favoriteThemes.indexWhere(
-                        (element) => element.name == listThemes[index].name) !=
+                      (element) => element.name == listThemes[index].name,
+                    ) !=
                     -1)
                   Positioned(
                     top: 15,

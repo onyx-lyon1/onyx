@@ -21,12 +21,15 @@ class Graph extends Equatable {
   Graph(List<Map<String, dynamic>> graphData) {
     for (var i in graphData) {
       Node node = Node(
-          i['id'],
-          LatLng(i['lat'], i['lon']),
-          i['connected_nodes']
-              .map<({int nodeId, double distance})>((e) =>
-                  (nodeId: e['id'] as int, distance: e['distance'] as double))
-              .toList());
+        i['id'],
+        LatLng(i['lat'], i['lon']),
+        i['connected_nodes']
+            .map<({int nodeId, double distance})>(
+              (e) =>
+                  (nodeId: e['id'] as int, distance: e['distance'] as double),
+            )
+            .toList(),
+      );
       nodes[node.id] = node;
     }
   }

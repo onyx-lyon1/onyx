@@ -96,7 +96,7 @@ extension MailBoxListValueCopy<$R, $Out>
 abstract class MailBoxListCopyWith<$R, $In extends MailBoxList, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, MailBox, MailBoxCopyWith<$R, MailBox, MailBox>>
-  get mailBoxes;
+      get mailBoxes;
   $R call({List<MailBox>? mailBoxes});
   MailBoxListCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -111,11 +111,11 @@ class _MailBoxListCopyWithImpl<$R, $Out>
       MailBoxListMapper.ensureInitialized();
   @override
   ListCopyWith<$R, MailBox, MailBoxCopyWith<$R, MailBox, MailBox>>
-  get mailBoxes => ListCopyWith(
-    $value.mailBoxes,
-    (v, t) => v.copyWith.$chain(t),
-    (v) => call(mailBoxes: v),
-  );
+      get mailBoxes => ListCopyWith(
+            $value.mailBoxes,
+            (v, t) => v.copyWith.$chain(t),
+            (v) => call(mailBoxes: v),
+          );
   @override
   $R call({List<MailBox>? mailBoxes}) =>
       $apply(FieldCopyWithData({if (mailBoxes != null) #mailBoxes: mailBoxes}));
@@ -126,6 +126,6 @@ class _MailBoxListCopyWithImpl<$R, $Out>
   @override
   MailBoxListCopyWith<$R2, MailBoxList, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
-  ) => _MailBoxListCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  ) =>
+      _MailBoxListCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
-

@@ -24,69 +24,65 @@ class SemesterChooserWidget extends StatelessWidget {
       content: SizedBox(
         width: (!Res.isWide) ? 20.h : 25.h,
         child: GridView.extent(
-            maxCrossAxisExtent: 25.h,
-            mainAxisSpacing: (!Res.isWide) ? 3.w : 3.h,
-            crossAxisSpacing: (!Res.isWide) ? 3.w : 3.h,
-            childAspectRatio: 3 / 2,
-            shrinkWrap: true,
-            children: [
-              for (var semester in context.read<TomussCubit>().state.semesters)
-                Material(
-                  color:
-                      (context.read<TomussCubit>().state.currentSemesterIndex ==
-                              context
-                                  .read<TomussCubit>()
-                                  .state
-                                  .semesters
-                                  .indexOf(semester))
-                          ? Theme.of(context).primaryColor
-                          : Theme.of(context).colorScheme.surface,
+          maxCrossAxisExtent: 25.h,
+          mainAxisSpacing: (!Res.isWide) ? 3.w : 3.h,
+          crossAxisSpacing: (!Res.isWide) ? 3.w : 3.h,
+          childAspectRatio: 3 / 2,
+          shrinkWrap: true,
+          children: [
+            for (var semester in context.read<TomussCubit>().state.semesters)
+              Material(
+                color:
+                    (context.read<TomussCubit>().state.currentSemesterIndex ==
+                        context.read<TomussCubit>().state.semesters.indexOf(
+                          semester,
+                        ))
+                    ? Theme.of(context).primaryColor
+                    : Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(10),
+                child: InkWell(
+                  onTap: () {
+                    context.read<TomussCubit>().load(
+                      lyon1Cas: context
+                          .read<AuthentificationCubit>()
+                          .state
+                          .lyon1Cas,
+                      semestreIndex: context
+                          .read<TomussCubit>()
+                          .state
+                          .semesters
+                          .indexOf(semester),
+                      settings: context.read<SettingsCubit>().state.settings,
+                      force: true,
+                    );
+                    Navigator.pop(context);
+                  },
                   borderRadius: BorderRadius.circular(10),
-                  child: InkWell(
-                    onTap: () {
-                      context.read<TomussCubit>().load(
-                            lyon1Cas: context
-                                .read<AuthentificationCubit>()
-                                .state
-                                .lyon1Cas,
-                            semestreIndex: context
-                                .read<TomussCubit>()
-                                .state
-                                .semesters
-                                .indexOf(semester),
-                            settings:
-                                context.read<SettingsCubit>().state.settings,
-                            force: true,
-                          );
-                      Navigator.pop(context);
-                    },
-                    borderRadius: BorderRadius.circular(10),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            semester.title.split("/")[0],
-                            style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
-                              fontSize: 18.sp,
-                            ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          semester.title.split("/")[0],
+                          style: TextStyle(
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                            fontSize: 18.sp,
                           ),
-                          Text(
-                            semester.title.split("/")[1],
-                            style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
-                              fontSize: 16.sp,
-                            ),
+                        ),
+                        Text(
+                          semester.title.split("/")[1],
+                          style: TextStyle(
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                            fontSize: 16.sp,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-            ]),
+              ),
+          ],
+        ),
       ),
     );
   }

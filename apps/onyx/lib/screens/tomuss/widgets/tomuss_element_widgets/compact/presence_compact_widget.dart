@@ -8,11 +8,12 @@ class PresenceCompactWidget extends StatelessWidget {
   final Function()? onTap;
   final String teachingUnitTitle;
 
-  const PresenceCompactWidget(
-      {super.key,
-      required this.presence,
-      required this.onTap,
-      required this.teachingUnitTitle});
+  const PresenceCompactWidget({
+    super.key,
+    required this.presence,
+    required this.onTap,
+    required this.teachingUnitTitle,
+  });
 
   @override
   Widget build(BuildContext context) {

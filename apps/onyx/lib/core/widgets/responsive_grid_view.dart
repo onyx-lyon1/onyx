@@ -30,11 +30,12 @@ class ResponsiveGridView extends StatelessWidget {
         padding: padding,
         shrinkWrap: shrinkWrap,
         children: children
-            .map((e) => Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: mainAxisSpacing,
-                ),
-                child: e))
+            .map(
+              (e) => Padding(
+                padding: EdgeInsets.symmetric(vertical: mainAxisSpacing),
+                child: e,
+              ),
+            )
             .toList(),
       );
     } else {

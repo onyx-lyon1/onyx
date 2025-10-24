@@ -14,7 +14,7 @@ enum MailStatus {
   nonFatalError,
   sorted,
   cacheSorted,
-  mailboxesLoaded
+  mailboxesLoaded,
 }
 
 class EmailState {

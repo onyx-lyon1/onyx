@@ -37,8 +37,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
     String search = widget.event.location;
     search = search.toLowerCase().replaceAll("amphi", "");
     if (widget.event.menuCrous == null) {
-      List<BatimentModel> tmpBatiments =
-          await BatimentsLogic.loadBatiments(locale);
+      List<BatimentModel> tmpBatiments = await BatimentsLogic.loadBatiments(
+        locale,
+      );
       for (var i in tmpBatiments) {
         if (await SearchService.isMatch(search, i.name, locale)) {
           batiments.add(i);
@@ -53,8 +54,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
       } else {
         tmpRestaurants = await IzlyClient.getRestaurantCrous();
       }
-      restaurant = tmpRestaurants
-          .firstWhere((element) => element.name == widget.event.location);
+      restaurant = tmpRestaurants.firstWhere(
+        (element) => element.name == widget.event.location,
+      );
     }
   }
 
@@ -70,13 +72,14 @@ class _EventDetailPageState extends State<EventDetailPage> {
             child: Row(
               children: [
                 IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_back_rounded)),
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.arrow_back_rounded),
+                ),
                 Text(
                   AppLocalizations.of(context).eventDetails,
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: 20.sp,
-                      ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge!.copyWith(fontSize: 20.sp),
                 ),
               ],
             ),
@@ -89,10 +92,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
               children: [
                 SelectableText(
                   widget.event.name,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontSize: 18.sp, fontWeight: FontWeight.w500),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 EventDetailText(
                   icon: Icons.access_time_rounded,
@@ -102,12 +105,15 @@ class _EventDetailPageState extends State<EventDetailPage> {
                 EventDetailText(
                   icon: Icons.calendar_month_rounded,
                   text: DateFormat(
-                          'yMMMMEEEEd', AppLocalizations.of(context).localeName)
-                      .format(widget.event.start),
+                    'yMMMMEEEEd',
+                    AppLocalizations.of(context).localeName,
+                  ).format(widget.event.start),
                 ),
                 if (widget.event.teacher.isNotEmpty)
                   EventDetailText(
-                      icon: Icons.person_rounded, text: widget.event.teacher),
+                    icon: Icons.person_rounded,
+                    text: widget.event.teacher,
+                  ),
                 // if (widget.event.description.isNotEmpty)
                 //   Text(widget.event.description),
                 if (widget.event.menuCrous != null &&
@@ -121,16 +127,15 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           Icons.restaurant_menu_rounded,
                           color: Theme.of(context).textTheme.bodyLarge!.color,
                         ),
-                        MenuWidget(
-                          menuCrous: widget.event.menuCrous,
-                        ),
+                        MenuWidget(menuCrous: widget.event.menuCrous),
                       ],
                     ),
                   ),
                 if (widget.event.description.isNotEmpty)
                   EventDetailText(
-                      icon: Icons.location_on_rounded,
-                      text: widget.event.location),
+                    icon: Icons.location_on_rounded,
+                    text: widget.event.location,
+                  ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 1.h),
                   child: ClipRRect(
@@ -149,30 +154,33 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                     points: i,
                                     strokeWidth: 4.0,
                                     color: Colors.red,
-                                  )
+                                  ),
                               ],
                               center: (batiments.isNotEmpty)
                                   ? batiments.first.position
                                   : (restaurant != null)
-                                      ? LatLng(restaurant!.lat, restaurant!.lon)
-                                      : null,
+                                  ? LatLng(restaurant!.lat, restaurant!.lon)
+                                  : null,
                               onTapNavigate: (position) async {
                                 List<LatLng> dest;
                                 if (batiments.isNotEmpty) {
-                                  dest =
-                                      batiments.map((e) => e.position).toList();
+                                  dest = batiments
+                                      .map((e) => e.position)
+                                      .toList();
                                 } else {
                                   dest = [
-                                    LatLng(restaurant!.lat, restaurant!.lon)
+                                    LatLng(restaurant!.lat, restaurant!.lon),
                                   ];
                                 }
 
                                 if (!NavigationLogic.calculating) {
                                   NavigationLogic.calculating = true;
 
-                                  routingPaths = (await NavigationLogic
-                                      .navigateToBatimentFromLocation(
-                                          context, dest));
+                                  routingPaths =
+                                      (await NavigationLogic.navigateToBatimentFromLocation(
+                                        context,
+                                        dest,
+                                      ));
                                   setState(() {});
                                   NavigationLogic.calculating = false;
                                 }
@@ -180,8 +188,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             )
                           : Center(
                               child: StateDisplayingPage(
-                                  message: AppLocalizations.of(context)
-                                      .loadingBuildings),
+                                message: AppLocalizations.of(
+                                  context,
+                                ).loadingBuildings,
+                              ),
                             ),
                     ),
                   ),
@@ -205,8 +215,11 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           if (!NavigationLogic.calculating) {
                             NavigationLogic.calculating = true;
 
-                            routingPaths = (await NavigationLogic
-                                .navigateToBatimentFromLocation(context, dest));
+                            routingPaths =
+                                (await NavigationLogic.navigateToBatimentFromLocation(
+                                  context,
+                                  dest,
+                                ));
                             setState(() {});
                             NavigationLogic.calculating = false;
                           }
@@ -215,12 +228,11 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         child: Center(
                           child: Text(
                             AppLocalizations.of(context).route,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
+                            style: Theme.of(context).textTheme.bodyLarge!
                                 .copyWith(
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
                           ),
                         ),
                       ),
@@ -237,11 +249,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
 }
 
 class EventDetailText extends StatelessWidget {
-  const EventDetailText({
-    super.key,
-    required this.icon,
-    required this.text,
-  });
+  const EventDetailText({super.key, required this.icon, required this.text});
 
   final IconData icon;
   final String text;
@@ -255,10 +263,7 @@ class EventDetailText extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Icon(
-              icon,
-              color: Theme.of(context).textTheme.bodyLarge!.color,
-            ),
+            Icon(icon, color: Theme.of(context).textTheme.bodyLarge!.color),
             Expanded(
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

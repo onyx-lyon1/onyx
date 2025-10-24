@@ -4,10 +4,7 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/core/screens/home/home_export.dart';
 
 class BottomNavBarWidget extends StatelessWidget {
-  const BottomNavBarWidget({
-    super.key,
-    required this.enabledDestinations,
-  });
+  const BottomNavBarWidget({super.key, required this.enabledDestinations});
 
   final List<Destination> enabledDestinations;
 
@@ -28,35 +25,40 @@ class BottomNavBarWidget extends StatelessWidget {
                   curve: Curves.easeInOut,
                   //80 is the default height of the navigation bar
                   padding: EdgeInsets.only(
-                      bottom: state.showSecondaryScreens ? 67 : 0),
+                    bottom: state.showSecondaryScreens ? 67 : 0,
+                  ),
                   child: Container(
                     height: 80,
                     color: Theme.of(context).colorScheme.surface,
                     child: NavigationBar(
-                      selectedIndex: (state.selectedIndex - 3)
-                          .clamp(0, enabledDestinations.length - 5),
+                      selectedIndex: (state.selectedIndex - 3).clamp(
+                        0,
+                        enabledDestinations.length - 5,
+                      ),
                       height: 80,
                       indicatorColor: (state.selectedIndex < 3)
                           ? Colors.transparent
-                          : Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withValues(alpha: 0.5),
+                          : Theme.of(
+                              context,
+                            ).colorScheme.primary.withValues(alpha: 0.5),
                       onDestinationSelected: (int index) {
-                        context
-                            .read<HomeCubit>()
-                            .updateSelectedIndex(index + 3);
+                        context.read<HomeCubit>().updateSelectedIndex(
+                          index + 3,
+                        );
                       },
                       destinations: enabledDestinations
                           .sublist(4)
-                          .map((page) => NavigationDestination(
+                          .map(
+                            (page) => NavigationDestination(
                               icon: Icon(
                                 page.icon,
                                 color: (state.selectedIndex < 4)
                                     ? Theme.of(context).iconTheme.color
                                     : null,
                               ),
-                              label: page.title))
+                              label: page.title,
+                            ),
+                          )
                           .toList(),
                     ),
                   ),
@@ -64,8 +66,9 @@ class BottomNavBarWidget extends StatelessWidget {
               ),
             NavigationBar(
               selectedIndex: state.selectedIndex.clamp(0, 3),
-              indicatorColor:
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+              indicatorColor: Theme.of(
+                context,
+              ).colorScheme.primary.withValues(alpha: 0.5),
               onDestinationSelected: (int index) {
                 if (index ==
                         ((enabledDestinations.length < 4)
@@ -79,17 +82,20 @@ class BottomNavBarWidget extends StatelessWidget {
               },
               destinations: enabledDestinations
                   .sublist(
-                      0,
-                      (enabledDestinations.length >= 5)
-                          ? 4
-                          : enabledDestinations.length)
-                  .map((page) => NavigationDestination(
-                        icon: Icon(
-                          page.icon,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        label: page.title,
-                      ))
+                    0,
+                    (enabledDestinations.length >= 5)
+                        ? 4
+                        : enabledDestinations.length,
+                  )
+                  .map(
+                    (page) => NavigationDestination(
+                      icon: Icon(
+                        page.icon,
+                        color: Theme.of(context).iconTheme.color,
+                      ),
+                      label: page.title,
+                    ),
+                  )
                   .toList(),
             ),
           ],

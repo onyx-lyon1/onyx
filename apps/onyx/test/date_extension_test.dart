@@ -42,13 +42,15 @@ void main() {
       expect(dateTime.toWeekDayName('fr_FR', short: true), 'sam.');
     });
 
-    test('toHourMinuteString should return the formatted hour minute string',
-        () {
-      final dateTime = DateTime(2022, 10, 15, 12, 30);
+    test(
+      'toHourMinuteString should return the formatted hour minute string',
+      () {
+        final dateTime = DateTime(2022, 10, 15, 12, 30);
 
-      expect(dateTime.toHourMinuteString('en_US'), '12:30');
-      expect(dateTime.toHourMinuteString('fr_FR'), '12:30');
-    });
+        expect(dateTime.toHourMinuteString('en_US'), '12:30');
+        expect(dateTime.toHourMinuteString('fr_FR'), '12:30');
+      },
+    );
 
     test('toMonthName should return the formatted month name', () {
       final dateTime = DateTime(2022, 10, 15);

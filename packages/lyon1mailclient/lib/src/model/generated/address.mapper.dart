@@ -107,19 +107,18 @@ class _AddressCopyWithImpl<$R, $Out>
       AddressMapper.ensureInitialized();
   @override
   $R call({String? email, String? name}) => $apply(
-    FieldCopyWithData({
-      if (email != null) #email: email,
-      if (name != null) #name: name,
-    }),
-  );
+        FieldCopyWithData({
+          if (email != null) #email: email,
+          if (name != null) #name: name,
+        }),
+      );
   @override
   Address $make(CopyWithData data) => Address(
-    data.get(#email, or: $value.email),
-    data.get(#name, or: $value.name),
-  );
+        data.get(#email, or: $value.email),
+        data.get(#name, or: $value.name),
+      );
 
   @override
   AddressCopyWith<$R2, Address, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
       _AddressCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
-

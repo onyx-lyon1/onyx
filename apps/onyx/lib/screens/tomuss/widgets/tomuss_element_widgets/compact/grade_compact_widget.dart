@@ -11,20 +11,22 @@ class GradeCompactWidget extends StatelessWidget {
   final Function()? onTap;
   final String teachingUnitTitle;
 
-  const GradeCompactWidget(
-      {super.key,
-      required this.grade,
-      required this.onTap,
-      required this.teachingUnitTitle});
+  const GradeCompactWidget({
+    super.key,
+    required this.grade,
+    required this.onTap,
+    required this.teachingUnitTitle,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TomussCompactElementWidget(
       onTap: onTap,
       color: TomussLogic.getMainGradeColor(
-          forceGreen: context.read<SettingsCubit>().state.settings.forceGreen,
-          isSeen: false,
-          grades: [grade]),
+        forceGreen: context.read<SettingsCubit>().state.settings.forceGreen,
+        isSeen: false,
+        grades: [grade],
+      ),
       child2: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

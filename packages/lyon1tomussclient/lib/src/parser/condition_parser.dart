@@ -1,17 +1,22 @@
 import 'dart:math';
 
 extension ConditionParser on String {
-  bool evaluateCondition(
-      {required String value, required var line, required var column}) {
+  bool evaluateCondition({
+    required String value,
+    required var line,
+    required var column,
+  }) {
     try {
       value = value.toLowerCase();
       if (this == "null") {
         return false;
       }
-      String condition = toLowerCase()
-          .replaceAllMapped(RegExp(r'\\x([0-9a-fA-F]{2})'), (match) {
-        return String.fromCharCode(int.parse(match.group(1)!, radix: 16));
-      });
+      String condition = toLowerCase().replaceAllMapped(
+        RegExp(r'\\x([0-9a-fA-F]{2})'),
+        (match) {
+          return String.fromCharCode(int.parse(match.group(1)!, radix: 16));
+        },
+      );
       String cleanCondition = "";
       for (var i = 0; i < condition.length; i++) {
         if (condition[i] == '[') {
@@ -24,8 +29,9 @@ extension ConditionParser on String {
             String query = condition.substring(i + 1, j);
             int element = column["columns"]
                 .firstWhere(
-                    (element) => element['title'].toLowerCase() == query,
-                    orElse: () => {"position": "0"})["position"]
+                  (element) => element['title'].toLowerCase() == query,
+                  orElse: () => {"position": "0"},
+                )["position"]
                 .toInt();
             cleanCondition += line[element][0].toString();
             i = j;
@@ -57,7 +63,9 @@ extension ConditionParser on String {
             List<int> indexes = [sup, inf, eq, neq];
             indexes.removeWhere((element) => element == -1);
             compValue = cond.substring(
-                0, indexes.reduce((value, element) => min(value, element)));
+              0,
+              indexes.reduce((value, element) => min(value, element)),
+            );
           }
           if (sup != -1) {
             if (eq != -1) {

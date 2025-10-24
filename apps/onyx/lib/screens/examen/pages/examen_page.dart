@@ -10,9 +10,7 @@ import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
 import 'package:onyx/l10n/app_localizations.dart';
 
 class ExamenPage extends StatelessWidget {
-  const ExamenPage({
-    super.key,
-  });
+  const ExamenPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +22,13 @@ class ExamenPage extends StatelessWidget {
         switch (state.status) {
           case ExamenStatus.initial:
             context.read<ExamenCubit>().load(
-                  context.read<TomussCubit>().state.name,
-                  context.read<TomussCubit>().state.surname,
-                  context.read<AuthentificationCubit>().state.username,
-                  context.read<SettingsCubit>().state.settings,
-                  context.read<AuthentificationCubit>().state.lyon1Cas,
-                  AppLocalizations.of(context),
-                );
+              context.read<TomussCubit>().state.name,
+              context.read<TomussCubit>().state.surname,
+              context.read<AuthentificationCubit>().state.username,
+              context.read<SettingsCubit>().state.settings,
+              context.read<AuthentificationCubit>().state.lyon1Cas,
+              AppLocalizations.of(context),
+            );
             break;
           case ExamenStatus.loading:
             stateWidget = LoadingHeaderWidget(
@@ -52,13 +50,13 @@ class ExamenPage extends StatelessWidget {
         return CommonScreenWidget(
           onRefresh: () async {
             context.read<ExamenCubit>().load(
-                  context.read<TomussCubit>().state.name,
-                  context.read<TomussCubit>().state.surname,
-                  context.read<AuthentificationCubit>().state.username,
-                  context.read<SettingsCubit>().state.settings,
-                  context.read<AuthentificationCubit>().state.lyon1Cas,
-                  AppLocalizations.of(context),
-                );
+              context.read<TomussCubit>().state.name,
+              context.read<TomussCubit>().state.surname,
+              context.read<AuthentificationCubit>().state.username,
+              context.read<SettingsCubit>().state.settings,
+              context.read<AuthentificationCubit>().state.lyon1Cas,
+              AppLocalizations.of(context),
+            );
           },
           state: stateWidget,
           header: Center(
@@ -78,22 +76,26 @@ class ExamenPage extends StatelessWidget {
   }
 
   Widget buildExamen(BuildContext context) {
-    StudentColloscope? colloscope =
-        context.watch<ExamenCubit>().state.studentColloscope;
+    StudentColloscope? colloscope = context
+        .watch<ExamenCubit>()
+        .state
+        .studentColloscope;
     List<ExamenModel> examens = context.watch<ExamenCubit>().state.examens;
     List<dynamic> all = [...colloscope?.kholles ?? [], ...examens];
     all.sort((a, b) => a.date.compareTo(b.date));
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
-      child: ListView(children: [
-        for (var e in all)
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: (e is Kholle)
-                ? KholleWidget(kholle: e)
-                : ExamenWidget(examen: e),
-          )
-      ]),
+      child: ListView(
+        children: [
+          for (var e in all)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: (e is Kholle)
+                  ? KholleWidget(kholle: e)
+                  : ExamenWidget(examen: e),
+            ),
+        ],
+      ),
     );
   }
 }

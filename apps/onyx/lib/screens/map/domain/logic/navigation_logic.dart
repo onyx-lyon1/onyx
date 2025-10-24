@@ -16,12 +16,15 @@ class NavigationLogic {
   static bool calculating = false;
 
   static Future<List<List<LatLng>>> navigateToBatimentFromLocation(
-      BuildContext context, List<LatLng> latLngs,
-      {bool useLastLocation = false}) async {
+    BuildContext context,
+    List<LatLng> latLngs, {
+    bool useLastLocation = false,
+  }) async {
     final assetBundle = DefaultAssetBundle.of(context);
     List<List<LatLng>> paths = [];
-    LatLng position =
-        (await GeolocationLogic.getCurrentLocation(context: context))!;
+    LatLng position = (await GeolocationLogic.getCurrentLocation(
+      context: context,
+    ))!;
     int state = 0; //0: unknow, 1: found local path, 2: found osrm path
     for (var latLng in latLngs) {
       if (position.inside(MapRes.minBound, MapRes.maxBound) &&
@@ -30,7 +33,7 @@ class NavigationLogic {
         compute(_findPathFromLocalGraph, (
           graph: graph!,
           start: position,
-          vertig: latLng
+          vertig: latLng,
         )).then((value) async {
           if (state != 2) {
             if (value.isNotEmpty) {
@@ -61,17 +64,18 @@ class NavigationLogic {
   static Future<void> _loadGraph(AssetBundle assetBundle) async {
     if (graph == null) {
       ByteData data = await assetBundle.load(Res.graphPath);
-      final bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      final bytes = data.buffer.asUint8List(
+        data.offsetInBytes,
+        data.lengthInBytes,
+      );
       final decodedData = jsonDecode(String.fromCharCodes(gzip.decode(bytes)));
       if (decodedData is List<dynamic>) {
         final List<Map<String, dynamic>> graphData = decodedData
-            .map((e) => e.map<String, dynamic>(
-                  (key, value) => MapEntry<String, dynamic>(
-                    key,
-                    value,
-                  ),
-                ))
+            .map(
+              (e) => e.map<String, dynamic>(
+                (key, value) => MapEntry<String, dynamic>(key, value),
+              ),
+            )
             .toList()
             .cast<Map<String, dynamic>>();
         graph = Graph(graphData);
@@ -133,7 +137,9 @@ class NavigationLogic {
   }
 
   static List<Node> _extractShortestPathFromPredecessorList(
-      Map<Node, Node> predecessors, Node end) {
+    Map<Node, Node> predecessors,
+    Node end,
+  ) {
     var nodes = <Node>[];
     Node? u = end;
     while (u != null) {
@@ -145,7 +151,8 @@ class NavigationLogic {
   }
 
   static List<Node> _findPathFromLocalGraph(
-      ({Graph graph, LatLng start, LatLng vertig}) input) {
+    ({Graph graph, LatLng start, LatLng vertig}) input,
+  ) {
     var s = _nearestNode(input.start, input.graph);
     var end = _nearestNode(input.vertig, input.graph);
     var predecessors = _findShortestPaths(input.graph, s, end);
@@ -153,7 +160,9 @@ class NavigationLogic {
   }
 
   static Future<List<LatLng>> _getOsrmRouteFromApi(
-      LatLng departure, LatLng arrival) async {
+    LatLng departure,
+    LatLng arrival,
+  ) async {
     var url =
         'https://routing.openstreetmap.de/routed-foot/route/v1/driving/${departure.longitude},${departure.latitude};${arrival.longitude},${arrival.latitude}?overview=false&alternatives=false&steps=true';
     var r = await RequestsPlus.get(url);
@@ -161,8 +170,12 @@ class NavigationLogic {
     List steps = json['routes'][0]['legs'][0]['steps'];
     List<LatLng> points = [];
     for (var step in steps) {
-      points.add(LatLng(
-          step['maneuver']['location'][1], step['maneuver']['location'][0]));
+      points.add(
+        LatLng(
+          step['maneuver']['location'][1],
+          step['maneuver']['location'][0],
+        ),
+      );
     }
     return points;
   }

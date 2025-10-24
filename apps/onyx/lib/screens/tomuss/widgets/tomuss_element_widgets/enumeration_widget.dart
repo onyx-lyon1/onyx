@@ -34,9 +34,10 @@ class EnumerationWidget extends StatelessWidget {
                 }).toList();
               },
               onSelected: (String value) {
-                context
-                    .read<TomussCubit>()
-                    .updateEnumerationValue(enumeration, value);
+                context.read<TomussCubit>().updateEnumerationValue(
+                  enumeration,
+                  value,
+                );
               },
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -55,13 +56,10 @@ class EnumerationWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Icon(
-                    Icons.arrow_drop_down,
-                    size: 15.sp,
-                    color: Colors.white,
-                  ),
+                  Icon(Icons.arrow_drop_down, size: 15.sp, color: Colors.white),
                 ],
-              ))
+              ),
+            )
           : Center(
               child: Text(
                 enumeration.value ?? "",

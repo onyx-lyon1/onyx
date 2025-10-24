@@ -6,18 +6,22 @@ import 'package:onyx/screens/notifications/notifications_export.dart';
 import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/l10n/app_localizations.dart';
 
-Future<void> agendaNotificationLogic(SettingsModel settings,
-    Lyon1CasClient lyon1Cas, AppLocalizations localizations) async {
+Future<void> agendaNotificationLogic(
+  SettingsModel settings,
+  Lyon1CasClient lyon1Cas,
+  AppLocalizations localizations,
+) async {
   if (settings.calendarUpdateNotification) {
     if (await CacheService.exist<Agenda>()) {
       List<Day> days = (await CacheService.get<Agenda>())!.days;
 
       List<Day> newDays = await AgendaLogic.load(
-          agendaClient: Lyon1AgendaClient.useLyon1Cas(lyon1Cas),
-          settings: settings,
-          ids: (settings.fetchAgendaAuto
-              ? (await Lyon1AgendaClient.useLyon1Cas(lyon1Cas).getAgendaIds)
-              : settings.agendaIds));
+        agendaClient: Lyon1AgendaClient.useLyon1Cas(lyon1Cas),
+        settings: settings,
+        ids: (settings.fetchAgendaAuto
+            ? (await Lyon1AgendaClient.useLyon1Cas(lyon1Cas).getAgendaIds)
+            : settings.agendaIds),
+      );
       List<Day> notifyDays = [];
       for (var i in newDays) {
         if (i.date.isAfter(DateTime.now()) &&
@@ -31,15 +35,17 @@ Future<void> agendaNotificationLogic(SettingsModel settings,
       }
       if (notifyDays.length > 4) {
         await NotificationLogic.showNotification(
-            title: localizations.newEvent,
-            body: localizations.nDayModified(notifyDays.length),
-            payload: localizations.newEvent);
+          title: localizations.newEvent,
+          body: localizations.nDayModified(notifyDays.length),
+          payload: localizations.newEvent,
+        );
       } else {
         for (var i in notifyDays) {
           await NotificationLogic.showNotification(
-              title: localizations.newEvent,
-              body: localizations.newEventAt(i.date),
-              payload: localizations.newEvent);
+            title: localizations.newEvent,
+            body: localizations.newEventAt(i.date),
+            payload: localizations.newEvent,
+          );
         }
       }
       await CacheService.set<Agenda>(Agenda(newDays));

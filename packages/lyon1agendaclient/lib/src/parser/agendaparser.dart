@@ -10,16 +10,20 @@ class AgendaParser {
     List<Day> days = [];
     for (final dynamic eventJSON in icsJSON) {
       Event event = Event.fromJSON(eventJSON);
-      int index = days.indexWhere((element) =>
-          element.date.day == event.start.day &&
-          element.date.month == event.start.month &&
-          element.date.year == event.start.year);
+      int index = days.indexWhere(
+        (element) =>
+            element.date.day == event.start.day &&
+            element.date.month == event.start.month &&
+            element.date.year == event.start.year,
+      );
       if (index != -1) {
         days[index].events.add(event);
       } else {
-        days.add(Day(
-            DateTime(event.start.year, event.start.month, event.start.day),
-            [event]));
+        days.add(
+          Day(DateTime(event.start.year, event.start.month, event.start.day), [
+            event,
+          ]),
+        );
       }
     }
     List<Day> tmpDays = [];
@@ -37,24 +41,31 @@ class AgendaParser {
     days = tmpDays;
     days.sort((a, b) => a.date.compareTo(b.date));
     if (days.isEmpty) return null;
-    for (DateTime i = days.first.date;
-        i.isBefore(days.last.date);
-        i = i.add(const Duration(days: 1))) {
-      int index = days.indexWhere((element) =>
-          element.date.toLocal().day == i.day &&
-          element.date.toLocal().month == i.month &&
-          element.date.toLocal().year == i.year);
+    for (
+      DateTime i = days.first.date;
+      i.isBefore(days.last.date);
+      i = i.add(const Duration(days: 1))
+    ) {
+      int index = days.indexWhere(
+        (element) =>
+            element.date.toLocal().day == i.day &&
+            element.date.toLocal().month == i.month &&
+            element.date.toLocal().year == i.year,
+      );
       if (index == -1) {
         days.insert(
-            days.indexWhere((element) =>
+          days.indexWhere(
+                (element) =>
                     element.date.toLocal().day ==
                         i.subtract(const Duration(days: 1)).day &&
                     element.date.toLocal().month ==
                         i.subtract(const Duration(days: 1)).month &&
                     element.date.toLocal().year ==
-                        i.subtract(const Duration(days: 1)).year) +
-                1,
-            Day(i, []));
+                        i.subtract(const Duration(days: 1)).year,
+              ) +
+              1,
+          Day(i, []),
+        );
       }
     }
 

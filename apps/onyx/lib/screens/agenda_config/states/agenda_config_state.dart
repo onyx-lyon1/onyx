@@ -7,7 +7,7 @@ enum AgendaConfigStatus {
   chosen,
   searchResult,
   connecting,
-  error
+  error,
 }
 
 class AgendaConfigState {

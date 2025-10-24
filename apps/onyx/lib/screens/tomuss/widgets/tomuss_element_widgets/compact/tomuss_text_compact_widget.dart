@@ -7,11 +7,12 @@ class TomussTextCompactWidget extends StatelessWidget {
   final Function()? onTap;
   final String teachingUnitTitle;
 
-  const TomussTextCompactWidget(
-      {super.key,
-      required this.text,
-      required this.onTap,
-      required this.teachingUnitTitle});
+  const TomussTextCompactWidget({
+    super.key,
+    required this.text,
+    required this.onTap,
+    required this.teachingUnitTitle,
+  });
 
   @override
   Widget build(BuildContext context) {

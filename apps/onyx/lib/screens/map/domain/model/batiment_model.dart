@@ -9,10 +9,10 @@ class BatimentModel {
   BatimentModel(this.name, this.position);
 
   BatimentModel.fromJson(Map<String, dynamic> json, Locale locale)
-      : name = (json["name"].keys.contains(locale.languageCode))
-            ? json["name"][locale.languageCode]
-            : json["name"]["fr"],
-        position = LatLng(json['coordinates'][1], json['coordinates'][0]);
+    : name = (json["name"].keys.contains(locale.languageCode))
+          ? json["name"][locale.languageCode]
+          : json["name"]["fr"],
+      position = LatLng(json['coordinates'][1], json['coordinates'][0]);
 
   @override
   String toString() {

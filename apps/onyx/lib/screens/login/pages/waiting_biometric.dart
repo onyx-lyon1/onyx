@@ -25,9 +25,7 @@ class WaitingBiometric extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Flexible(flex: 10, child: Image.asset(Res.iconPath)),
-                  const Spacer(
-                    flex: 1,
-                  ),
+                  const Spacer(flex: 1),
                   Flexible(
                     flex: 10,
                     child: Column(
@@ -36,19 +34,15 @@ class WaitingBiometric extends StatelessWidget {
                       children: [
                         Text(
                           AppLocalizations.of(context).onyx,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                                fontSize: 20.sp,
-                              ),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.displayLarge!.copyWith(fontSize: 20.sp),
                         ),
                         Text(
                           AppLocalizations.of(context).onyxSubTitle,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium!
-                              .copyWith(fontSize: 12.sp),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.displayMedium!.copyWith(fontSize: 12.sp),
                         ),
                       ],
                     ),
@@ -56,9 +50,7 @@ class WaitingBiometric extends StatelessWidget {
                 ],
               ),
             ),
-            const Spacer(
-              flex: 5,
-            ),
+            const Spacer(flex: 5),
             InkWell(
               onTap: () => SettingsLogic.logout(context),
               child: Container(
@@ -72,9 +64,9 @@ class WaitingBiometric extends StatelessWidget {
                 child: Center(
                   child: Text(
                     AppLocalizations.of(context).logout,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          fontSize: 17.sp,
-                        ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge!.copyWith(fontSize: 17.sp),
                   ),
                 ),
               ),
@@ -83,8 +75,8 @@ class WaitingBiometric extends StatelessWidget {
             InkWell(
               onTap: () {
                 context.read<AuthentificationCubit>().login(
-                      settings: context.read<SettingsCubit>().state.settings,
-                    );
+                  settings: context.read<SettingsCubit>().state.settings,
+                );
               },
               borderRadius: BorderRadius.circular(500),
               child: Container(
@@ -92,10 +84,8 @@ class WaitingBiometric extends StatelessWidget {
                 height: 30.w,
                 padding: EdgeInsets.symmetric(vertical: 2.h),
                 child: Center(
-                    child: Icon(
-                  Icons.fingerprint_rounded,
-                  size: 40.sp,
-                )),
+                  child: Icon(Icons.fingerprint_rounded, size: 40.sp),
+                ),
               ),
             ),
             const Spacer(flex: 5),

@@ -63,13 +63,13 @@ class AgendaConfigPage extends StatelessWidget {
                   canPop: false,
                   onPopInvokedWithResult: (didPop, _) async {
                     if (didPop) {
-                      return ;
+                      return;
                     } else {
                       if (state.expandedResources.isNotEmpty ||
                           state.status == AgendaConfigStatus.searchResult) {
-                        context
-                            .read<AgendaConfigCubit>()
-                            .collapseResource(state.expandedResources.last);
+                        context.read<AgendaConfigCubit>().collapseResource(
+                          state.expandedResources.last,
+                        );
                       } else {
                         Navigator.of(context).pop();
                       }
@@ -220,7 +220,9 @@ class AgendaConfigPage extends StatelessWidget {
                                 } else if (state.expandedResources.isNotEmpty) {
                                   context
                                       .read<AgendaConfigCubit>()
-                                      .collapseResource(state.expandedResources.last);
+                                      .collapseResource(
+                                        state.expandedResources.last,
+                                      );
                                 } else {
                                   Navigator.of(context).pop();
                                 }

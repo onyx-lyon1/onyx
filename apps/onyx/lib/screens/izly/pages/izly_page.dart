@@ -8,9 +8,7 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IzlyPage extends StatelessWidget {
-  const IzlyPage({
-    super.key,
-  });
+  const IzlyPage({super.key});
 
   static double indexToOffset(int index) {
     return (15.w) * (index);
@@ -26,7 +24,8 @@ class IzlyPage extends StatelessWidget {
         switch (state.status) {
           case IzlyStatus.initial:
             context.read<IzlyCubit>().connect(
-                settings: context.read<SettingsCubit>().state.settings);
+              settings: context.read<SettingsCubit>().state.settings,
+            );
             body = StateDisplayingPage(
               message: AppLocalizations.of(context).connecting,
             );
@@ -39,17 +38,22 @@ class IzlyPage extends StatelessWidget {
           case IzlyStatus.error:
             final izlyCubit = context.read<IzlyCubit>();
             final settings = context.read<SettingsCubit>().state.settings;
-            Future.delayed(const Duration(seconds: 5),
-                () => izlyCubit.connect(settings: settings));
+            Future.delayed(
+              const Duration(seconds: 5),
+              () => izlyCubit.connect(settings: settings),
+            );
             stateWidget = StateDisplayingPage(
-                message: AppLocalizations.of(context)
-                    .thereWasAnErrorWhileConnecting);
+              message: AppLocalizations.of(
+                context,
+              ).thereWasAnErrorWhileConnecting,
+            );
             break;
           case IzlyStatus.noCredentials:
             return const IzlyLoginPage();
           case IzlyStatus.loading:
             stateWidget = LoadingHeaderWidget(
-                message: AppLocalizations.of(context).loading);
+              message: AppLocalizations.of(context).loading,
+            );
             break;
           case IzlyStatus.connected:
             break;
@@ -74,23 +78,27 @@ class IzlyPage extends StatelessWidget {
                       Text(
                         "${state.balance.toStringAsFixed(2)}€",
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontSize: 30.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          fontSize: 30.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
                   Positioned(
                     bottom: 0,
                     child: IconButton(
-                      onPressed: () => pageController.animateToPage(1,
-                          duration: Res.animationDuration,
-                          curve: Curves.easeInOut),
-                      icon: Icon(Icons.keyboard_double_arrow_down_rounded,
-                          size: 40.sp,
-                          color: Theme.of(context)
-                              .bottomNavigationBarTheme
-                              .unselectedItemColor),
+                      onPressed: () => pageController.animateToPage(
+                        1,
+                        duration: Res.animationDuration,
+                        curve: Curves.easeInOut,
+                      ),
+                      icon: Icon(
+                        Icons.keyboard_double_arrow_down_rounded,
+                        size: 40.sp,
+                        color: Theme.of(
+                          context,
+                        ).bottomNavigationBarTheme.unselectedItemColor,
+                      ),
                     ),
                   ),
                 ],
@@ -103,7 +111,8 @@ class IzlyPage extends StatelessWidget {
           state: stateWidget,
           onRefresh: () async {
             context.read<IzlyCubit>().connect(
-                settings: context.read<SettingsCubit>().state.settings);
+              settings: context.read<SettingsCubit>().state.settings,
+            );
             while (state.status != IzlyStatus.loaded &&
                 state.status != IzlyStatus.error) {
               await Future.delayed(const Duration(milliseconds: 100));

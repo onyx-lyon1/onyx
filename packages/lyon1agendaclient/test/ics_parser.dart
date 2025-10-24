@@ -12,7 +12,7 @@ void main() async {
       'test/data/licenceical.ics',
       'test/data/m2ical.ics',
       'test/data/random.ics',
-      'test/data/random2.ics'
+      'test/data/random2.ics',
     ];
 
     for (final String filename in files) {

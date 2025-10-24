@@ -21,8 +21,7 @@ class AttachmentLogic {
         blockTrackers: false,
         mailBox: folder,
         appLocalizations: appLocalizations,
-      ))
-          .emails;
+      )).emails;
       email = mails.firstWhere((element) => element.id == email.id);
     }
     final directory = await getApplicationDocumentsDirectory();

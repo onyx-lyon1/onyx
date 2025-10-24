@@ -176,11 +176,11 @@ class _MailCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Mail, $Out>
   late final ClassMapperBase<Mail> $mapper = MailMapper.ensureInitialized();
   @override
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>
-  get attachments => ListCopyWith(
-    $value.attachments,
-    (v, t) => ObjectCopyWith(v, $identity, t),
-    (v) => call(attachments: v),
-  );
+      get attachments => ListCopyWith(
+            $value.attachments,
+            (v, t) => ObjectCopyWith(v, $identity, t),
+            (v) => call(attachments: v),
+          );
   @override
   ListCopyWith<$R, File, ObjectCopyWith<$R, File, File>> get attachmentsFiles =>
       ListCopyWith(
@@ -203,46 +203,47 @@ class _MailCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Mail, $Out>
     Object? rawMail = $none,
     List<File>? attachmentsFiles,
     bool? removeTrackingImages,
-  }) => $apply(
-    FieldCopyWithData({
-      if (subject != null) #subject: subject,
-      if (sender != null) #sender: sender,
-      if (excerpt != null) #excerpt: excerpt,
-      if (isRead != null) #isRead: isRead,
-      if (date != null) #date: date,
-      if (body != null) #body: body,
-      if (id != $none) #id: id,
-      if (receiver != null) #receiver: receiver,
-      if (attachments != null) #attachments: attachments,
-      if (isFlagged != null) #isFlagged: isFlagged,
-      if (rawMail != $none) #rawMail: rawMail,
-      if (attachmentsFiles != null) #attachmentsFiles: attachmentsFiles,
-      if (removeTrackingImages != null)
-        #removeTrackingImages: removeTrackingImages,
-    }),
-  );
+  }) =>
+      $apply(
+        FieldCopyWithData({
+          if (subject != null) #subject: subject,
+          if (sender != null) #sender: sender,
+          if (excerpt != null) #excerpt: excerpt,
+          if (isRead != null) #isRead: isRead,
+          if (date != null) #date: date,
+          if (body != null) #body: body,
+          if (id != $none) #id: id,
+          if (receiver != null) #receiver: receiver,
+          if (attachments != null) #attachments: attachments,
+          if (isFlagged != null) #isFlagged: isFlagged,
+          if (rawMail != $none) #rawMail: rawMail,
+          if (attachmentsFiles != null) #attachmentsFiles: attachmentsFiles,
+          if (removeTrackingImages != null)
+            #removeTrackingImages: removeTrackingImages,
+        }),
+      );
   @override
   Mail $make(CopyWithData data) => Mail(
-    subject: data.get(#subject, or: $value.subject),
-    sender: data.get(#sender, or: $value.sender),
-    excerpt: data.get(#excerpt, or: $value.excerpt),
-    isRead: data.get(#isRead, or: $value.isRead),
-    date: data.get(#date, or: $value.date),
-    body: data.get(#body, or: $value.body),
-    id: data.get(#id, or: $value.id),
-    receiver: data.get(#receiver, or: $value.receiver),
-    attachments: data.get(#attachments, or: $value.attachments),
-    isFlagged: data.get(#isFlagged, or: $value.isFlagged),
-    rawMail: data.get(#rawMail, or: $value.rawMail),
-    attachmentsFiles: data.get(#attachmentsFiles, or: $value.attachmentsFiles),
-    removeTrackingImages: data.get(
-      #removeTrackingImages,
-      or: $value.removeTrackingImages,
-    ),
-  );
+        subject: data.get(#subject, or: $value.subject),
+        sender: data.get(#sender, or: $value.sender),
+        excerpt: data.get(#excerpt, or: $value.excerpt),
+        isRead: data.get(#isRead, or: $value.isRead),
+        date: data.get(#date, or: $value.date),
+        body: data.get(#body, or: $value.body),
+        id: data.get(#id, or: $value.id),
+        receiver: data.get(#receiver, or: $value.receiver),
+        attachments: data.get(#attachments, or: $value.attachments),
+        isFlagged: data.get(#isFlagged, or: $value.isFlagged),
+        rawMail: data.get(#rawMail, or: $value.rawMail),
+        attachmentsFiles:
+            data.get(#attachmentsFiles, or: $value.attachmentsFiles),
+        removeTrackingImages: data.get(
+          #removeTrackingImages,
+          or: $value.removeTrackingImages,
+        ),
+      );
 
   @override
   MailCopyWith<$R2, Mail, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
       _MailCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
-

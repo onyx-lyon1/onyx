@@ -26,8 +26,9 @@ class HTMLparser {
 
   String? toJSONready(String? extractedContent) {
     if (extractedContent == null) return null;
-    extractedContent =
-        Uri.decodeComponent(extractedContent.replaceAll("\\x", "%"));
+    extractedContent = Uri.decodeComponent(
+      extractedContent.replaceAll("\\x", "%"),
+    );
     return extractedContent.replaceAll("NaN", "-1");
   }
 
@@ -42,8 +43,9 @@ class HTMLparser {
 
   List<TeachingUnit> extractTeachingUnits() {
     final int? key = getIndexForKey('Grades');
-    final String userName =
-        json.firstWhere((element) => element[0] == 'Login')[1];
+    final String userName = json.firstWhere(
+      (element) => element[0] == 'Login',
+    )[1];
     if (key == null) return [];
 
     final List<TeachingUnit> units = [];
@@ -67,26 +69,41 @@ class HTMLparser {
       for (var item in columns) {
         switch (item['type'].toLowerCase()) {
           case 'note' || 'moy' || 'cow':
-            final Grade grade =
-                Grade.fromJSON(id, item, stats, line, unit, userName);
+            final Grade grade = Grade.fromJSON(
+              id,
+              item,
+              stats,
+              line,
+              unit,
+              userName,
+            );
             (grade.isValid) ? grades.add(grade) : null;
             break;
           case 'text':
-            final TomussText text =
-                TomussText.fromJSON(id, item, stats, line, unit, userName);
+            final TomussText text = TomussText.fromJSON(
+              id,
+              item,
+              stats,
+              line,
+              unit,
+              userName,
+            );
             (text.isValidText) ? texts.add(text) : null;
             break;
           case 'enumeration' || 'bool':
             enumerations.add(
-                Enumeration.fromJSON(id, item, stats, line, unit, userName));
+              Enumeration.fromJSON(id, item, stats, line, unit, userName),
+            );
             break;
           case 'prst':
-            presences
-                .add(Presence.fromJSON(id, item, stats, line, unit, userName));
+            presences.add(
+              Presence.fromJSON(id, item, stats, line, unit, userName),
+            );
             break;
           case 'stage_code':
-            stageCodes
-                .add(StageCode.fromJSON(id, item, stats, line, unit, userName));
+            stageCodes.add(
+              StageCode.fromJSON(id, item, stats, line, unit, userName),
+            );
             break;
           case 'upload':
             uploads.add(Upload.fromJSON(id, item, stats, line, unit, userName));
@@ -100,8 +117,9 @@ class HTMLparser {
       //move children to their parents
       List<Grade> childToRemoveLater = [];
       for (var grade in grades) {
-        var column =
-            columns.firstWhere((element) => element['title'] == grade.title);
+        var column = columns.firstWhere(
+          (element) => element['title'] == grade.title,
+        );
         if (column.keys.contains("columns")) {
           for (var i in column["columns"].split(" ")) {
             if (grades.any((element) => element.title == i)) {
@@ -117,7 +135,8 @@ class HTMLparser {
 
       String ticket =
           RegExp(r'ticket="([^\s";]+)').firstMatch(_rawContent)?.group(1) ?? "";
-      units.add(TeachingUnit(
+      units.add(
+        TeachingUnit(
           title: unit['table_title'] ?? unit['ue'],
           masters: masters,
           grades: grades,
@@ -128,7 +147,9 @@ class HTMLparser {
           uploads: uploads,
           urls: urls,
           ticket: ticket,
-          ue: unit['ue']));
+          ue: unit['ue'],
+        ),
+      );
     }
     return units;
   }

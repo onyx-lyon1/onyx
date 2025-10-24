@@ -26,8 +26,12 @@ class Lyon1AgendaClient {
 
   Future<void> login() async {
     // Login through ADE
-    await _casClient.serviceRequest(Constants.adeWebURL,
-        wrapUrl: true, followRedirects: true, unsafe: false);
+    await _casClient.serviceRequest(
+      Constants.adeWebURL,
+      wrapUrl: true,
+      followRedirects: true,
+      unsafe: false,
+    );
 
     // Request a firsty bearer token
     final resp = await RequestsPlus.post(Constants.adeTokenUrl);
@@ -39,24 +43,28 @@ class Lyon1AgendaClient {
   }
 
   Future<bool> isLoggedIn() async {
-    final check = await RequestsPlus.get(Constants.adeAuthUrl,
-        headers: buildAuthHeaders());
+    final check = await RequestsPlus.get(
+      Constants.adeAuthUrl,
+      headers: buildAuthHeaders(),
+    );
     return check.statusCode == 200 &&
         // Checking the value may not be the most precise way to check if logged in
         // We could maybe check the rights also for exemple
         jsonDecode(check.body)["data"]["active"];
   }
 
-  Map<String, String> buildAuthHeaders(
-      {Map<String, String> headers = const {}}) {
+  Map<String, String> buildAuthHeaders({
+    Map<String, String> headers = const {},
+  }) {
     final Map<String, String> resultHeaders = Map.from(headers);
     resultHeaders["Authorization"] = "Bearer $_token";
     return resultHeaders;
   }
 
   Future<List<int>> get getAgendaIds async {
-    String resources =
-        (await _agendaURL.getUserAgendaIds(_casClient)).resources;
+    String resources = (await _agendaURL.getUserAgendaIds(
+      _casClient,
+    )).resources;
     List<int?> ids = resources.split(",").map((e) => int.tryParse(e)).toList();
     ids.removeWhere((element) => element == null);
     return ids.map((e) => e!).toList();
@@ -65,8 +73,11 @@ class Lyon1AgendaClient {
   Future<Agenda?> getAgenda({required List<int> ids}) async {
     assert(ids.isNotEmpty);
     String url = "";
-    url = (await _agendaURL.getURL(_casClient,
-        projectid: Constants.idProject, resources: ids.join(",")));
+    url = (await _agendaURL.getURL(
+      _casClient,
+      projectid: Constants.idProject,
+      resources: ids.join(","),
+    ));
     url = url.replaceFirst("http:", "https:"); // force https
 
     final response = await RequestsPlus.get(
@@ -79,7 +90,7 @@ class Lyon1AgendaClient {
         'Accept-Encoding': 'gzip, deflate, br',
         'DNT': '1',
         'Pragma': 'no-cache',
-        'Cache-Control': 'no-cache'
+        'Cache-Control': 'no-cache',
       },
       corsProxyUrl: _corsProxyUrl,
       timeoutSeconds: 20,
@@ -90,11 +101,11 @@ class Lyon1AgendaClient {
   }
 
   Future<List<AgendaResource>> get getResources async {
-    final resp = await RequestsPlus.get(Constants.adeResourcesUrl,
-        queryParameters: {"idProject": Constants.idProject},
-        headers: buildAuthHeaders(headers: {
-          "charset": "utf-8",
-        }));
+    final resp = await RequestsPlus.get(
+      Constants.adeResourcesUrl,
+      queryParameters: {"idProject": Constants.idProject},
+      headers: buildAuthHeaders(headers: {"charset": "utf-8"}),
+    );
     final data = jsonDecode(utf8.decode(resp.bodyBytes));
     List<AgendaResource> resource = [];
     for (var i in data["data"]["category"]) {

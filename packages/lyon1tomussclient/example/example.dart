@@ -3,17 +3,18 @@ import 'package:lyon1casclient/lyon1casclient.dart';
 
 void main() async {
   Lyon1CasClient lyon1Cas = Lyon1CasClient();
-  final bool isAuthenticated =
-      (await lyon1Cas.authenticate(Credential("p1234567", "a_valid_password")))
-          .authResult;
+  final bool isAuthenticated = (await lyon1Cas.authenticate(
+    Credential("p1234567", "a_valid_password"),
+  )).authResult;
   if (!isAuthenticated) {
     print("You are not authenticated. Please check your username and password");
     return;
   }
   final Lyon1TomussClient tomuss = Lyon1TomussClient(lyon1Cas);
 
-  final ParsedPage? parsedPageOpt =
-      await tomuss.getParsedPage(Lyon1TomussClient.currentSemester());
+  final ParsedPage? parsedPageOpt = await tomuss.getParsedPage(
+    Lyon1TomussClient.currentSemester(),
+  );
 
   if (parsedPageOpt == null) {
     print("There was an error while fetching Tomuss");

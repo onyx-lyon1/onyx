@@ -60,108 +60,118 @@ class _GradeWidgetState extends State<GradeWidget> {
       }
       numerator = (numerator / ((coefSum != 0) ? coefSum : 1)) * denominator;
     }
-    gradeNumerator =
-        ((widget.grades.isNotEmpty) ? numerator.toStringAsPrecision(3) : '-');
+    gradeNumerator = ((widget.grades.isNotEmpty)
+        ? numerator.toStringAsPrecision(3)
+        : '-');
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TomussCubit, TomussState>(builder: (context, state) {
-      calculateNumerator();
-      return GestureDetector(
-        onTap: (widget.onTap != null) ? () => widget.onTap!() : null,
-        child: Screenshot(
-          controller: screenshotController,
-          child: TomussElementWidget(
-            color: TomussLogic.getMainGradeColor(
-                forceGreen:
-                    context.read<SettingsCubit>().state.settings.forceGreen,
+    return BlocBuilder<TomussCubit, TomussState>(
+      builder: (context, state) {
+        calculateNumerator();
+        return GestureDetector(
+          onTap: (widget.onTap != null) ? () => widget.onTap!() : null,
+          child: Screenshot(
+            controller: screenshotController,
+            child: TomussElementWidget(
+              color: TomussLogic.getMainGradeColor(
+                forceGreen: context
+                    .read<SettingsCubit>()
+                    .state
+                    .settings
+                    .forceGreen,
                 isSeen: widget.isSeen,
-                grades: widget.grades),
-            left: Column(
-              children: [
-                const Spacer(
-                  flex: 4,
-                ),
-                Flexible(
-                  fit: FlexFit.tight,
-                  flex: 10,
-                  child: Container(
-                    alignment: Alignment.bottomCenter,
+                grades: widget.grades,
+              ),
+              left: Column(
+                children: [
+                  const Spacer(flex: 4),
+                  Flexible(
+                    fit: FlexFit.tight,
+                    flex: 10,
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        gradeNumerator,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: OnyxTheme.darkTheme.colorScheme.surface,
+                          fontSize: 20.sp,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      const Spacer(),
+                      Flexible(
+                        flex: 5,
+                        child: Container(
+                          height: 0.2.h,
+                          color: OnyxTheme.darkTheme.colorScheme.surface,
+                        ),
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                  Flexible(
+                    fit: FlexFit.tight,
+                    flex: 10,
                     child: Text(
-                      gradeNumerator,
+                      ((widget.grades.isNotEmpty) ? denominator : '-')
+                          .toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
                         color: OnyxTheme.darkTheme.colorScheme.surface,
-                        fontSize: 20.sp,
+                        fontSize: 16.sp,
                       ),
                     ),
                   ),
-                ),
-                Row(
-                  children: [
-                    const Spacer(),
-                    Flexible(
-                      flex: 5,
-                      child: Container(
-                        height: 0.2.h,
-                        color: OnyxTheme.darkTheme.colorScheme.surface,
-                      ),
+                ],
+              ),
+              right: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Flexible(
+                    flex: 11,
+                    fit: FlexFit.tight,
+                    child: LayoutBuilder(
+                      builder: (context, contraints) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.text1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(
+                                  context,
+                                ).textTheme.bodyLarge!.color,
+                                fontSize: 15.sp,
+                              ),
+                            ),
+                            Text(
+                              widget.text2,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: Theme.of(
+                                  context,
+                                ).textTheme.bodyLarge!.color,
+                                fontSize: 12.5.sp,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
-                    const Spacer(),
-                  ],
-                ),
-                Flexible(
-                  fit: FlexFit.tight,
-                  flex: 10,
-                  child: Text(
-                    ((widget.grades.isNotEmpty) ? denominator : '-').toString(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: OnyxTheme.darkTheme.colorScheme.surface,
-                        fontSize: 16.sp),
                   ),
-                ),
-              ],
-            ),
-            right: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Flexible(
-                  flex: 11,
-                  fit: FlexFit.tight,
-                  child: LayoutBuilder(builder: (context, contraints) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.text1,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).textTheme.bodyLarge!.color,
-                            fontSize: 15.sp,
-                          ),
-                        ),
-                        Text(
-                          widget.text2,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyLarge!.color,
-                            fontSize: 12.5.sp,
-                          ),
-                        ),
-                      ],
-                    );
-                  }),
-                ),
-                const Spacer(
-                  flex: 1,
-                ),
-                if (widget.depth == 1)
-                  GradeCoefWidget(grade: widget.grades.first),
-                IconButton(
+                  const Spacer(flex: 1),
+                  if (widget.depth == 1)
+                    GradeCoefWidget(grade: widget.grades.first),
+                  IconButton(
                     onPressed: () async {
                       Directory tmpDir = await getTemporaryDirectory();
                       await screenshotController.captureAndSave(
@@ -176,22 +186,22 @@ class _GradeWidgetState extends State<GradeWidget> {
                         ShareParams(
                           files: [
                             XFile(
-                                "${tmpDir.path}/screenshot_${widget.text1}.png")
+                              "${tmpDir.path}/screenshot_${widget.text1}.png",
+                            ),
                           ],
                           text: localization.hereMyGrade(widget.text1),
                         ),
                       );
                     },
-                    icon: Icon(
-                      Icons.share_rounded,
-                      size: 20.sp,
-                    )),
-              ],
+                    icon: Icon(Icons.share_rounded, size: 20.sp),
+                  ),
+                ],
+              ),
+              onTap: widget.onTap,
             ),
-            onTap: widget.onTap,
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

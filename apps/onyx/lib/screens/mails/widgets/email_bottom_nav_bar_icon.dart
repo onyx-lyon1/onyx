@@ -17,9 +17,9 @@ class MailBottomNavBarIcon extends StatelessWidget {
             Icons.email_rounded,
             color: selected
                 ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
-                : Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .unselectedItemColor,
+                : Theme.of(
+                    context,
+                  ).bottomNavigationBarTheme.unselectedItemColor,
           ),
           Text(
             AppLocalizations.of(context).mails,

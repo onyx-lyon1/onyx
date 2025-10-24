@@ -20,22 +20,22 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
       buildWhen: (previous, current) =>
           listEquals(previous.teachingUnits, current.teachingUnits),
       builder: (context, state) {
-        List<TeachingUnitElement> children =
-            teachingUnit.visibleChildren.sortByPosition();
+        List<TeachingUnitElement> children = teachingUnit.visibleChildren
+            .sortByPosition();
         List<Widget> widgets = [];
 
         for (var child in children) {
           if (child.isVisible) {
             if (child is Grade) {
               if (Device.orientation == Orientation.portrait) {
-                widgets.add(
-                  GradeListWidget(
-                    grades: child,
+                widgets.add(GradeListWidget(grades: child));
+              } else {
+                widgets.addAll(
+                  constructGradeChildrenFullList(
+                    child,
+                    appLocalizations: AppLocalizations.of(context),
                   ),
                 );
-              } else {
-                widgets.addAll(constructGradeChildrenFullList(child,
-                    appLocalizations: AppLocalizations.of(context)));
               }
             } else if (child is Enumeration) {
               widgets.add(EnumerationWidget(enumeration: child));
@@ -69,27 +69,36 @@ class TeachingUnitChildrenWidget extends StatelessWidget {
     );
   }
 
-  List<Widget> constructGradeChildrenFullList(Grade grade,
-      {int depth = 1,
-      List<Widget>? widgets,
-      required AppLocalizations appLocalizations}) {
+  List<Widget> constructGradeChildrenFullList(
+    Grade grade, {
+    int depth = 1,
+    List<Widget>? widgets,
+    required AppLocalizations appLocalizations,
+  }) {
     widgets ??= [];
     widgets.add(
       GradeWidget(
         grades: [grade],
         isSeen: true,
         text1: grade.title.replaceAll("_", " "),
-        text2: appLocalizations.noteDescription(grade.average, grade.mediane,
-            grade.rank + 1, grade.groupeSize, grade.author),
+        text2: appLocalizations.noteDescription(
+          grade.average,
+          grade.mediane,
+          grade.rank + 1,
+          grade.groupeSize,
+          grade.author,
+        ),
         depth: 1,
       ),
     );
     if (grade.children.isNotEmpty) {
       for (var child in grade.children) {
-        constructGradeChildrenFullList(child,
-            depth: depth + 1,
-            widgets: widgets,
-            appLocalizations: appLocalizations);
+        constructGradeChildrenFullList(
+          child,
+          depth: depth + 1,
+          widgets: widgets,
+          appLocalizations: appLocalizations,
+        );
       }
     }
     return widgets;

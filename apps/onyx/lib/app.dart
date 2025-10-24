@@ -57,9 +57,11 @@ class OnyxAppState extends State<OnyxApp> {
         providers: [
           BlocProvider<HomeCubit>(create: (context) => HomeCubit()),
           BlocProvider<AuthentificationCubit>(
-              create: (context) => AuthentificationCubit(widget.settings)),
+            create: (context) => AuthentificationCubit(widget.settings),
+          ),
           BlocProvider<SettingsCubit>(
-              create: (context) => SettingsCubit(settings: widget.settings)),
+            create: (context) => SettingsCubit(settings: widget.settings),
+          ),
           BlocProvider<EmailCubit>(create: (context) => EmailCubit()),
           BlocProvider<AgendaCubit>(create: (context) => AgendaCubit()),
           BlocProvider<TomussCubit>(create: (context) => TomussCubit()),
@@ -67,7 +69,8 @@ class OnyxAppState extends State<OnyxApp> {
           BlocProvider<IzlyCubit>(create: (context) => IzlyCubit()),
           BlocProvider<ExamenCubit>(create: (context) => ExamenCubit()),
           BlocProvider<ThemeCubit>(
-              create: (context) => ThemeCubit(themeSettings: widget.theme)),
+            create: (context) => ThemeCubit(themeSettings: widget.theme),
+          ),
         ],
         child: BlocBuilder<SettingsCubit, SettingsState>(
           builder: (context, settingsState) {
@@ -91,11 +94,9 @@ class OnyxAppState extends State<OnyxApp> {
                   localeListResolutionCallback: (locales, supportedLocales) {
                     if (context.read<SettingsCubit>().state.settings.language !=
                         null) {
-                      return Locale(context
-                          .read<SettingsCubit>()
-                          .state
-                          .settings
-                          .language!);
+                      return Locale(
+                        context.read<SettingsCubit>().state.settings.language!,
+                      );
                     } else {
                       if (locales != null) {
                         for (var locale in locales) {
@@ -108,8 +109,7 @@ class OnyxAppState extends State<OnyxApp> {
                     }
                   },
                   home: BlocConnectionScreen(
-                    child: BlocBuilder<AuthentificationCubit,
-                        AuthentificationState>(
+                    child: BlocBuilder<AuthentificationCubit, AuthentificationState>(
                       builder: (context, authState) {
                         if (kDebugMode) {
                           print("Device.orientation : ${Device.orientation}");
@@ -118,7 +118,8 @@ class OnyxAppState extends State<OnyxApp> {
                           print("Device.width : ${Device.width}");
                           print("Device.height : ${Device.height}");
                           print(
-                              "Device.boxConstraints : ${Device.boxConstraints}");
+                            "Device.boxConstraints : ${Device.boxConstraints}",
+                          );
                           print("Device.aspectRatio : ${Device.aspectRatio}");
                           print("Device.pixelRatio : ${Device.pixelRatio}");
                         }

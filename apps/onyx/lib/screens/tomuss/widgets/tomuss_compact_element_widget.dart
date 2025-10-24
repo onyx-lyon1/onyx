@@ -29,11 +29,14 @@ class TomussCompactElementWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     assert(
-        (text1 != null && child1 == null) || (text1 == null && child1 != null));
+      (text1 != null && child1 == null) || (text1 == null && child1 != null),
+    );
     assert(
-        (text2 != null && child2 == null) || (text2 == null && child2 != null));
+      (text2 != null && child2 == null) || (text2 == null && child2 != null),
+    );
     assert(
-        (text3 != null && child3 == null) || (text3 == null && child3 != null));
+      (text3 != null && child3 == null) || (text3 == null && child3 != null),
+    );
     return SizedBox(
       width: (!Res.isWide)
           ? Res.bottomNavBarHeight * 1.3
@@ -42,94 +45,93 @@ class TomussCompactElementWidget extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         color: color ?? Theme.of(context).colorScheme.surface,
         child: InkWell(
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            onTap: onTap,
-            child: Padding(
-              padding: EdgeInsets.all(
-                  (Device.orientation == Orientation.portrait) ? 1.w : 1.h),
-              child: Column(
-                children: [
-                  Flexible(
-                    flex: 14,
-                    fit: FlexFit.tight,
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: (child1 != null)
-                          ? child1!
-                          : AutoSizeText(
-                              text1!,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          onTap: onTap,
+          child: Padding(
+            padding: EdgeInsets.all(
+              (Device.orientation == Orientation.portrait) ? 1.w : 1.h,
+            ),
+            child: Column(
+              children: [
+                Flexible(
+                  flex: 14,
+                  fit: FlexFit.tight,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: (child1 != null)
+                        ? child1!
+                        : AutoSizeText(
+                            text1!,
+                            maxLines: 1,
+                            style: TextStyle(
+                              overflow: TextOverflow.clip,
+                              color:
+                                  (Theme.of(context).colorScheme.surface ==
+                                      OnyxTheme.darkTheme.colorScheme.surface)
+                                  ? Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium!.color
+                                  : OnyxTheme.darkTheme.colorScheme.surface,
+                            ),
+                          ),
+                  ),
+                ),
+                Flexible(
+                  flex: 14,
+                  fit: FlexFit.tight,
+                  child: Center(
+                    child: (child2 != null)
+                        ? child2!
+                        : Center(
+                            child: AutoSizeText(
+                              text2!,
                               maxLines: 1,
-                              style: TextStyle(
-                                overflow: TextOverflow.clip,
-                                color: (Theme.of(context).colorScheme.surface ==
-                                        OnyxTheme.darkTheme.colorScheme.surface)
-                                    ? Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .color
-                                    : OnyxTheme.darkTheme.colorScheme.surface,
-                              ),
-                            ),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 14,
-                    fit: FlexFit.tight,
-                    child: Center(
-                      child: (child2 != null)
-                          ? child2!
-                          : Center(
-                              child: AutoSizeText(
-                                text2!,
-                                maxLines: 1,
-                                minFontSize: 10,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  overflow: TextOverflow.clip,
-                                  color: (Theme.of(context)
-                                              .colorScheme
-                                              .surface ==
-                                          OnyxTheme
-                                              .darkTheme.colorScheme.surface)
-                                      ? Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .color
-                                      : OnyxTheme.darkTheme.colorScheme.surface,
-                                ),
-                              ),
-                            ),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 14,
-                    fit: FlexFit.tight,
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: (child3 != null)
-                          ? child3!
-                          : AutoSizeText(
-                              text3!,
-                              maxLines: 2,
-                              minFontSize: 8.sp.roundToDouble(),
+                              minFontSize: 10,
                               textAlign: TextAlign.center,
                               style: TextStyle(
+                                fontWeight: FontWeight.bold,
                                 overflow: TextOverflow.clip,
-                                color: (Theme.of(context).colorScheme.surface ==
+                                color:
+                                    (Theme.of(context).colorScheme.surface ==
                                         OnyxTheme.darkTheme.colorScheme.surface)
-                                    ? Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .color
+                                    ? Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium!.color
                                     : OnyxTheme.darkTheme.colorScheme.surface,
                               ),
                             ),
-                    ),
+                          ),
                   ),
-                ],
-              ),
-            )),
+                ),
+                Flexible(
+                  flex: 14,
+                  fit: FlexFit.tight,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: (child3 != null)
+                        ? child3!
+                        : AutoSizeText(
+                            text3!,
+                            maxLines: 2,
+                            minFontSize: 8.sp.roundToDouble(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              overflow: TextOverflow.clip,
+                              color:
+                                  (Theme.of(context).colorScheme.surface ==
+                                      OnyxTheme.darkTheme.colorScheme.surface)
+                                  ? Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium!.color
+                                  : OnyxTheme.darkTheme.colorScheme.surface,
+                            ),
+                          ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

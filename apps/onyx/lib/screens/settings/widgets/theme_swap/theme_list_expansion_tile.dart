@@ -16,18 +16,14 @@ class ThemeListExpansionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       child: Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
           childrenPadding: EdgeInsets.zero,
           title: Container(
             padding: const EdgeInsets.all(10),
-            child: Text(
-              title,
-            ),
+            child: Text(title),
           ),
           children: [
             ThemeButton(

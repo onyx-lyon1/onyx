@@ -50,7 +50,8 @@ class Res {
   static const String graphPath = 'assets/graph.json.gz';
   static const String discordLogoPath = 'assets/discord_Logo.png';
 
-  static const String iOSAppGroupId = 'fr.onyx.lyon1'; // Not sure, to confirm, and currently not used as widget is only on Android at the time
+  static const String iOSAppGroupId =
+      'fr.onyx.lyon1'; // Not sure, to confirm, and currently not used as widget is only on Android at the time
   static const String agendaWidgetName = "AgendaWidget";
 
   static const Duration agendaDayStart = Duration(hours: 6);

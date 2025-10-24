@@ -9,8 +9,13 @@ class ParsedPage {
   late bool _isTimedOut;
   late Duration _timeout;
 
-  ParsedPage(this._student, this._semesters, this._teachingunits,
-      this._isTimedOut, this._timeout);
+  ParsedPage(
+    this._student,
+    this._semesters,
+    this._teachingunits,
+    this._isTimedOut,
+    this._timeout,
+  );
 
   ParsedPage.empty() {
     _student = null;

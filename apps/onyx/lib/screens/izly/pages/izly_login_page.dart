@@ -36,27 +36,24 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  Res.izlyLogoPath,
-                  width: 25.w,
-                ),
-                SizedBox(
-                  width: 5.w,
-                ),
+                Image.asset(Res.izlyLogoPath, width: 25.w),
+                SizedBox(width: 5.w),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(AppLocalizations.of(context).onyx,
-                        style:
-                            Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  fontSize: 20.sp,
-                                )),
-                    Text(AppLocalizations.of(context).forLyon1,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(fontSize: 12.sp)),
+                    Text(
+                      AppLocalizations.of(context).onyx,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.displayLarge!.copyWith(fontSize: 20.sp),
+                    ),
+                    Text(
+                      AppLocalizations.of(context).forLyon1,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.displayMedium!.copyWith(fontSize: 12.sp),
+                    ),
                   ],
                 ),
               ],
@@ -80,23 +77,25 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                         children: [
                           Text(
                             AppLocalizations.of(context).authentication,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(fontSize: 16.sp),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyLarge!.copyWith(fontSize: 16.sp),
                           ),
                           Material(
                             borderRadius: BorderRadius.circular(5),
                             child: OpenContainer(
-                              closedColor:
-                                  Theme.of(context).secondaryHeaderColor,
+                              closedColor: Theme.of(
+                                context,
+                              ).secondaryHeaderColor,
                               openBuilder: (context, closewidget) =>
                                   const PrivacyPolicyPage(),
                               closedBuilder: (context, openwidget) => InkWell(
                                 onTap: openwidget,
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 2.w, vertical: 0.5.h),
+                                    horizontal: 2.w,
+                                    vertical: 0.5.h,
+                                  ),
                                   child: Text(
                                     AppLocalizations.of(context).privacy,
                                     style: Theme.of(context)
@@ -107,13 +106,11 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
+                    SizedBox(height: 1.h),
                     Container(
                       color: Theme.of(context).secondaryHeaderColor,
                       width: 70.w,
@@ -123,40 +120,36 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context).username,
-                          labelStyle:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    color: (Theme.of(context)
-                                                .textTheme
-                                                .bodySmall
-                                                ?.color ??
-                                            Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .color!)
+                          labelStyle: Theme.of(context).textTheme.bodyLarge!
+                              .copyWith(
+                                color:
+                                    (Theme.of(
+                                              context,
+                                            ).textTheme.bodySmall?.color ??
+                                            Theme.of(
+                                              context,
+                                            ).textTheme.bodyLarge!.color!)
                                         .withValues(alpha: 0.7),
-                                  ),
+                              ),
                           prefixIcon: Icon(
                             Icons.school_rounded,
                             size: 18.sp,
                             color:
                                 (Theme.of(context).textTheme.bodySmall!.color ??
-                                        Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .color!)
+                                        Theme.of(
+                                          context,
+                                        ).textTheme.bodyLarge!.color!)
                                     .withValues(alpha: 0.7),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                width: 2,
-                                color: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.color ??
-                                    Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .color!),
+                              width: 2,
+                              color:
+                                  Theme.of(
+                                    context,
+                                  ).textTheme.bodySmall?.color ??
+                                  Theme.of(context).textTheme.bodyLarge!.color!,
+                            ),
                           ),
                           disabledBorder: InputBorder.none,
                         ),
@@ -165,13 +158,15 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                             return null;
                           }
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)
-                                .pleaseEnterUsername;
+                            return AppLocalizations.of(
+                              context,
+                            ).pleaseEnterUsername;
                           } else if (!(RegExp(
-                                  r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-                              .hasMatch(value.trim()))) {
-                            return AppLocalizations.of(context)
-                                .pleaseEnterAValidEmail;
+                            r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
+                          ).hasMatch(value.trim()))) {
+                            return AppLocalizations.of(
+                              context,
+                            ).pleaseEnterAValidEmail;
                           }
                           return null;
                         },
@@ -185,15 +180,13 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                width: 2,
-                                color: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.color ??
-                                    Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .color!),
+                              width: 2,
+                              color:
+                                  Theme.of(
+                                    context,
+                                  ).textTheme.bodySmall?.color ??
+                                  Theme.of(context).textTheme.bodyLarge!.color!,
+                            ),
                           ),
                           disabledBorder: InputBorder.none,
                         ),
@@ -204,20 +197,20 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                             return null;
                           }
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)
-                                .pleaseEnterPassword;
+                            return AppLocalizations.of(
+                              context,
+                            ).pleaseEnterPassword;
                           }
                           if (int.tryParse(value) == null) {
-                            return AppLocalizations.of(context)
-                                .passwordShouldBeANumber;
+                            return AppLocalizations.of(
+                              context,
+                            ).passwordShouldBeANumber;
                           }
                           return null;
                         },
                       ),
                     ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
+                    SizedBox(height: 1.h),
                     InkWell(
                       onTap: send,
                       child: Container(
@@ -231,8 +224,9 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
                           child: Text(
                             AppLocalizations.of(context).login,
                             style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodySmall?.color,
+                              color: Theme.of(
+                                context,
+                              ).textTheme.bodySmall?.color,
                               fontSize: 18.sp,
                             ),
                           ),
@@ -244,9 +238,7 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
               ),
             ),
           ),
-          const Spacer(
-            flex: 2,
-          )
+          const Spacer(flex: 2),
         ],
       ),
     );
@@ -256,8 +248,9 @@ class _IzlyLoginPageState extends State<IzlyLoginPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       context.read<IzlyCubit>().connect(
-          credential: IzlyCredential(username: username, password: password),
-          settings: context.read<SettingsCubit>().state.settings);
+        credential: IzlyCredential(username: username, password: password),
+        settings: context.read<SettingsCubit>().state.settings,
+      );
     }
   }
 }
@@ -294,32 +287,37 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       keyboardType: TextInputType.number,
       onFieldSubmitted: (String useless) => widget.onFieldSubmitted(),
       decoration: widget.decoration.copyWith(
-          labelText: AppLocalizations.of(context).password,
-          labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: (Theme.of(context).textTheme.bodySmall!.color ??
-                        Theme.of(context).textTheme.bodyLarge!.color!)
-                    .withValues(alpha: 0.5),
-              ),
-          prefixIcon: Icon(
-            Icons.lock_rounded,
-            size: 18.sp,
-            color: (Theme.of(context).textTheme.bodySmall!.color ??
-                    Theme.of(context).textTheme.bodyLarge!.color!)
-                .withValues(alpha: 0.5),
+        labelText: AppLocalizations.of(context).password,
+        labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+          color:
+              (Theme.of(context).textTheme.bodySmall!.color ??
+                      Theme.of(context).textTheme.bodyLarge!.color!)
+                  .withValues(alpha: 0.5),
+        ),
+        prefixIcon: Icon(
+          Icons.lock_rounded,
+          size: 18.sp,
+          color:
+              (Theme.of(context).textTheme.bodySmall!.color ??
+                      Theme.of(context).textTheme.bodyLarge!.color!)
+                  .withValues(alpha: 0.5),
+        ),
+        suffixIcon: IconButton(
+          icon: Icon(
+            _isObscure
+                ? Icons.visibility_rounded
+                : Icons.visibility_off_rounded,
+            color:
+                (Theme.of(context).textTheme.bodySmall!.color ??
+                Theme.of(context).textTheme.bodyLarge!.color!),
           ),
-          suffixIcon: IconButton(
-              icon: Icon(
-                _isObscure
-                    ? Icons.visibility_rounded
-                    : Icons.visibility_off_rounded,
-                color: (Theme.of(context).textTheme.bodySmall!.color ??
-                    Theme.of(context).textTheme.bodyLarge!.color!),
-              ),
-              onPressed: () {
-                setState(() {
-                  _isObscure = !_isObscure;
-                });
-              })),
+          onPressed: () {
+            setState(() {
+              _isObscure = !_isObscure;
+            });
+          },
+        ),
+      ),
     );
   }
 }
