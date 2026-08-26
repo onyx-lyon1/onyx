@@ -101,6 +101,7 @@ dependencies:
   lyon1examenclient: ^1.0.0
   dart_mappable: ^4.6.0
   home_widget: ^0.9.0
+  pointycastle: ^3.9.1
 
 dev_dependencies:
   flutter_test:
