@@ -6,8 +6,6 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-
-    android-nixpkgs.url = "github:tadfisher/android-nixpkgs";
   };
 
   nixConfig = {
@@ -41,22 +39,17 @@
               android_sdk.accept_license = true;
             };
           };
-          android-nixpkgs = pkgs.callPackage inputs.android-nixpkgs {};
-          androidSdk = android-nixpkgs.sdk (sdkPkgs:
-            with sdkPkgs; [
-              cmdline-tools-latest
-              build-tools-35-0-0
-              build-tools-34-0-0
-              build-tools-30-0-3
-              platform-tools
-              platforms-android-36
-              platforms-android-35
-              platforms-android-34
-              platforms-android-33
-              platforms-android-31
-              ndk-28-2-13676358
-              cmake-3-22-1
-            ]);
+          androidComposition = pkgs.androidenv.composeAndroidPackages {
+            cmdLineToolsVersion = "latest";
+            platformToolsVersion = "latest";
+            buildToolsVersions = ["35.0.0" "34.0.0" "30.0.3"];
+            platformVersions = ["36" "35" "34" "33" "31"];
+            includeCmake = true;
+            cmakeVersions = ["3.22.1"];
+            includeNDK = true;
+            ndkVersions = ["28.2.13676358"];
+          };
+          androidSdk = androidComposition.androidsdk;
           PWD = builtins.getEnv "PWD";
         in
           pkgs.mkShell {
@@ -66,7 +59,7 @@
             ANDROID_AVD_HOME = "${PWD}/.android/avd";
             ANDROID_HOME = "${androidSdk}/libexec/android-sdk";
             FLUTTER_SDK = "${pkgs.flutter}";
-            GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/share/android-sdk/build-tools/34.0.0/aapt2";
+            GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/libexec/android-sdk/build-tools/34.0.0/aapt2";
             LD_LIBRARY_PATH = "${PWD}/apps/onyx/build/linux/x64/debug/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/release/bundle/lib/:${PWD}/apps/onyx/build/linux/x64/profile/bundle/lib/";
             buildInputs = with pkgs; [
               flutter_rust_bridge_codegen
