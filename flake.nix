@@ -51,11 +51,7 @@
               androidComposition = pkgs.androidenv.composeAndroidPackages {
                 cmdLineToolsVersion = "latest";
                 platformToolsVersion = "latest";
-                buildToolsVersions = [
-                  "35.0.0"
-                  "34.0.0"
-                  "30.0.3"
-                ];
+                buildToolsVersions = [ "36.0.0" "35.0.0" "34.0.0" "30.0.3" ];
                 platformVersions = [
                   "36"
                   "35"
@@ -85,6 +81,7 @@
                 chromium
                 flutter
                 melos
+                jdk25
                 jdk17
                 androidSdk
                 at-spi2-core
@@ -109,9 +106,9 @@
                 libsepol
                 libthai
                 libdatrie
-                xorg.libXdmcp
+                libxdmcp
                 libxkbcommon
-                xorg.libXtst
+                libxtst
                 libepoxy
                 libgcrypt
                 libgpg-error

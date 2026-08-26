@@ -5,16 +5,13 @@ allprojects {
     }
 }
 
-val newBuildDir: Directory = rootProject.layout.buildDirectory.dir("../../build").get()
+val newBuildDir = rootProject.layout.projectDirectory.dir("../../build")
 rootProject.layout.buildDirectory.value(newBuildDir)
 
 subprojects {
-    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
-    project.layout.buildDirectory.value(newSubprojectBuildDir)
+    project.layout.buildDirectory.value(rootProject.layout.projectDirectory.dir("../../build/${project.name}"))
 }
-subprojects {
-    project.evaluationDependsOn(":app")
-}
+// evaluationDependsOn is managed automatically by the new Flutter Gradle Plugin.
 
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
