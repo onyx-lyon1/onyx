@@ -4,10 +4,6 @@ dependency_overrides:
       url: https://github.com/onyx-lyon1/flutter-geolocator.git
       path: geolocator_android
       ref: floss
-  json_theme:
-    git:
-      url: https://github.com/wardbj93/json_theme
-      path: packages/json_theme
   dart_mappable:
     git:
       url: https://github.com/hatch01/dart_mappable.git

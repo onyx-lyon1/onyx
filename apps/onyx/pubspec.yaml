@@ -91,7 +91,7 @@ dependencies:
   equatable: ^2.0.5
   biometric_storage: ^5.0.1
   logger: ^2.0.2+1
-  json_theme: ^9.0.1+2
+  json_theme_plus: ^7.0.0
 
   #colloscope
   polytechcolloscopeclient: ^1.0.9
@@ -99,17 +99,17 @@ dependencies:
 
   #examen
   lyon1examenclient: ^1.0.0
-  dart_mappable: ^4.2.2
+  dart_mappable: ^4.6.0
   home_widget: ^0.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  build_runner: ^2.4.10
+  build_runner: ^2.16.0
   flutter_launcher_icons: ^0.14.3
   test: ^1.24.9
-  dart_mappable_builder: ^4.2.3
+  dart_mappable_builder: ^4.6.0
 
 dependencies_overrides:
   flutter_compass:
