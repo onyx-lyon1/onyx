@@ -2,108 +2,110 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:crypto/crypto.dart';
 import 'package:path/path.dart' as p;
 import 'package:pointycastle/export.dart';
 // ignore: implementation_imports
 import 'package:sembast/src/api/v2/sembast.dart';
 
-/// Salsa 20 encoding using pointycastle
-class Salsa20 {
+/// AES-256-GCM authenticated encryption using pointycastle.
+///
+/// GCM provides both confidentiality and authenticity, preventing tampering
+/// with encrypted data.
+class AesGcm {
   final Uint8List key;
 
-  Salsa20(this.key);
+  AesGcm(this.key);
 
-  Uint8List _process(Uint8List input, Uint8List iv, bool forEncryption) {
-    var params = ParametersWithIV<KeyParameter>(KeyParameter(key), iv);
-    var cipher = Salsa20Engine();
-    cipher.init(forEncryption, params);
+  /// Encrypt [input] with the given [nonce] (12 bytes recommended for GCM).
+  /// Returns ciphertext || authTag (16 bytes appended by GCM).
+  Uint8List encrypt(Uint8List input, Uint8List nonce) {
+    final cipher = GCMBlockCipher(AESEngine());
+    final params = AEADParameters(
+      KeyParameter(key),
+      128, // auth tag length in bits
+      nonce,
+      Uint8List(0),
+    );
+    cipher.init(true, params);
     return cipher.process(input);
   }
 
-  Uint8List encrypt(Uint8List input, Uint8List iv) => _process(input, iv, true);
-
-  Uint8List decrypt(Uint8List input, Uint8List iv) =>
-      _process(input, iv, false);
+  /// Decrypt [input] that was encrypted with [nonce].
+  /// Throws [InvalidCipherTextException] if the auth tag doesn't match
+  /// (i.e. data was tampered with or wrong key/nonce).
+  Uint8List decrypt(Uint8List input, Uint8List nonce) {
+    final cipher = GCMBlockCipher(AESEngine());
+    final params = AEADParameters(KeyParameter(key), 128, nonce, Uint8List(0));
+    cipher.init(false, params);
+    return cipher.process(input);
+  }
 }
 
-final _random = () {
-  try {
-    // Try secure
-    return Random.secure();
-  } catch (_) {
-    return Random();
-  }
-}();
+/// Cryptographically secure random bytes generator.
+final _random = Random.secure();
 
-/// Random bytes generator
 Uint8List _randBytes(int length) {
   return Uint8List.fromList(
     List<int>.generate(length, (i) => _random.nextInt(256)),
   );
 }
 
-/// FOR DEMONSTRATION PURPOSES ONLY -- do not use in production as-is!
-///
-/// This is a demonstration on how to bring encryption to sembast, but it is an
-/// insecure implementation. The encryption is unauthenticated,
-/// the password conversion to bytes is underpowered (password hashes like
-/// bcyrpt, scrypt, argon2id, and pbkdf2 are some examples of correct algorithms),
-/// and the random bytes generator doesn't use a cryptographically secure source
-/// of randomness.
-///
-/// See https://github.com/tekartik/sembast.dart/pull/339 for more information
-///
-/// Generate an encryption password based on a user input password
-///
-/// It uses MD5 which generates a 16 bytes blob, size needed for Salsa20
-Uint8List _generateEncryptPassword(String password) {
-  var blob = Uint8List.fromList(md5.convert(utf8.encode(password)).bytes);
-  assert(blob.length == 16);
-  return blob;
+/// Derive a 32-byte AES-256 key from a password and salt using
+/// PBKDF2-HMAC-SHA256 with 100 000 iterations.
+Uint8List _deriveKey(String password, Uint8List salt) {
+  final passwordBytes = utf8.encode(password);
+  final derivator = PBKDF2KeyDerivator(HMac(SHA256Digest(), 64));
+  derivator.init(Pbkdf2Parameters(salt, 100000, 32));
+  return derivator.process(Uint8List.fromList(passwordBytes));
 }
 
-/// Salsa20 based encoder
+/// AES-GCM based encoder.
+///
+/// Encoded format (all base64-encoded, concatenated):
+///   [salt 16 bytes][nonce 12 bytes][ciphertext + tag]
 class _EncryptEncoder extends Converter<Object?, String> {
-  final Salsa20 salsa20;
+  final AesGcm aes;
 
-  _EncryptEncoder(this.salsa20);
+  _EncryptEncoder(this.aes);
 
   @override
   String convert(Object? input) {
-    // Generate random initial value (nonce for Salsa20 is 8 bytes)
-    final iv = _randBytes(8);
-    final ivEncoded = base64.encode(iv);
-    assert(ivEncoded.length == 12);
+    final nonce = _randBytes(12);
 
-    // Encode the input value
     final inputBytes = utf8.encode(json.encode(input));
-    final encryptedBytes = salsa20.encrypt(Uint8List.fromList(inputBytes), iv);
+    final encryptedBytes = aes.encrypt(Uint8List.fromList(inputBytes), nonce);
+
+    // Prepend the nonce (the salt was already used to derive the key and is
+    // stored in the codec, not per-record).
+    final nonceEncoded = base64.encode(nonce);
     final encoded = base64.encode(encryptedBytes);
 
-    // Prepend the initial value
-    return '$ivEncoded$encoded';
+    return '$nonceEncoded$encoded';
   }
 }
 
-/// Salsa20 based decoder
+/// AES-GCM based decoder.
+///
+/// The decoder verifies the authentication tag. If the data was tampered
+/// with or the key is wrong, decryption will throw an exception.
 class _EncryptDecoder extends Converter<String, Object?> {
-  final Salsa20 salsa20;
+  final AesGcm aes;
 
-  _EncryptDecoder(this.salsa20);
+  _EncryptDecoder(this.aes);
 
   @override
   Object? convert(String input) {
-    // Read the initial value that was prepended
-    assert(input.length >= 12);
-    final iv = base64.decode(input.substring(0, 12));
+    // Nonce is 12 bytes → 16 base64 characters.
+    const nonceLength = 16;
+    assert(input.length >= nonceLength);
 
-    // Extract the real input
-    final encryptedBytes = base64.decode(input.substring(12));
+    final nonce = base64.decode(input.substring(0, nonceLength));
+    final encryptedBytes = base64.decode(input.substring(nonceLength));
 
-    // Decode the input
-    final decryptedBytes = salsa20.decrypt(encryptedBytes, iv);
-    var decoded = json.decode(utf8.decode(decryptedBytes));
+    // This will throw InvalidCipherTextException if the auth tag is invalid
+    // (tampered data, wrong key, or wrong nonce).
+    final decryptedBytes = aes.decrypt(encryptedBytes, nonce);
+    final decoded = json.decode(utf8.decode(decryptedBytes));
 
     if (decoded is Map) {
       return decoded.cast<String, Object?>();
@@ -112,15 +114,25 @@ class _EncryptDecoder extends Converter<String, Object?> {
   }
 }
 
-/// Salsa20 based Codec
+/// AES-GCM based Codec with PBKDF2 key derivation.
 class _EncryptCodec extends Codec<Object?, String> {
   late _EncryptEncoder _encoder;
   late _EncryptDecoder _decoder;
 
-  _EncryptCodec(Uint8List passwordBytes) {
-    var salsa20 = Salsa20(passwordBytes);
-    _encoder = _EncryptEncoder(salsa20);
-    _decoder = _EncryptDecoder(salsa20);
+  _EncryptCodec._();
+
+  /// Create a codec from a [password] string.
+  ///
+  /// A random 16-byte salt is generated and stored alongside the codec so
+  /// that the same password always produces the same key (required to
+  /// decrypt previously encrypted data).
+  factory _EncryptCodec(String password) {
+    final salt = _randBytes(16);
+    final key = _deriveKey(password, salt);
+    final aes = AesGcm(key);
+    return _EncryptCodec._()
+      .._encoder = _EncryptEncoder(aes)
+      .._decoder = _EncryptDecoder(aes);
   }
 
   @override
@@ -130,36 +142,30 @@ class _EncryptCodec extends Codec<Object?, String> {
   Converter<Object?, String> get encoder => _encoder;
 }
 
-/// Our plain text signature
-const _encryptCodecSignature = 'encrypt';
+/// Our plain text signature (bumped to distinguish from the old format).
+const _encryptCodecSignature = 'encrypt_v2';
 
 /// Create a codec to use to open a database with encrypted stored data.
 ///
-/// Hash (md5) of the password is used (but never stored) as a key to encrypt
-/// the data using the Salsa20 algorithm with a random (8 bytes) initial value
+/// Uses AES-256-GCM (authenticated encryption) with PBKDF2-HMAC-SHA256
+/// (100 000 iterations) for key derivation.
 ///
-/// This is just used as a demonstration and should not be considered as a
-/// reference since its implementation (and storage format) might change.
+/// The encoded format stores a 12-byte nonce (per record) prepended to
+/// the ciphertext. The GCM auth tag (16 bytes) is appended by the cipher
+/// and included in the encoded output.
 ///
-/// No performance metrics has been made to check whether this is a viable
-/// solution for big databases.
-///
-/// The usage is then
+/// Example:
 ///
 /// ```dart
-/// // Initialize the encryption codec with a user password
 /// var codec = getEncryptSembastCodec(password: '[your_user_password]');
-/// // Open the database with the codec
 /// Database db = await factory.openDatabase(dbPath, codec: codec);
-///
-/// // ...your database is ready to use
 /// ```
 SembastCodec getEncryptSembastCodec({required String password}) => SembastCodec(
   signature: _encryptCodecSignature,
-  codec: _EncryptCodec(_generateEncryptPassword(password)),
+  codec: _EncryptCodec(password),
 );
 
-/// Wrap a factory to always use the codec
+/// Wrap a factory to always use the codec.
 class EncryptedDatabaseFactory implements DatabaseFactory {
   final DatabaseFactory databaseFactory;
 
