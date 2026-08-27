@@ -201,9 +201,7 @@ class AgendaPage extends StatelessWidget {
                           .read<AgendaCubit>()
                           .horizontalScrollController[1],
                     ),
-                    Center(
-                      child: Text(AppLocalizations.of(context).monthViewSoon),
-                    ),
+                    const MonthViewWidget(),
                   ],
                 ),
               ),
