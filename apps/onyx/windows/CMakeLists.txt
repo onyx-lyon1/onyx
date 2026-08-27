@@ -52,6 +52,11 @@ add_subdirectory(${FLUTTER_MANAGED_DIR})
 # Application build; see runner/CMakeLists.txt.
 add_subdirectory("runner")
 
+# Suppress deprecated experimental coroutine errors in third-party plugins
+# (e.g. permission_handler_windows) until they migrate to C++20 coroutines.
+# See: https://github.com/Baseflow/flutter-permission-handler/issues/1534
+add_compile_definitions(_SILENCE_EXPERIMENTAL_COROUTINE_DEPRECATION_WARNINGS)
+
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.
 include(flutter/generated_plugins.cmake)
