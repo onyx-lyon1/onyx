@@ -42,11 +42,12 @@ class HTMLparser {
   }
 
   List<TeachingUnit> extractTeachingUnits() {
+    if (json.isEmpty) return [];
     final int? key = getIndexForKey('Grades');
+    if (key == null) return [];
     final String userName = json.firstWhere(
       (element) => element[0] == 'Login',
     )[1];
-    if (key == null) return [];
 
     final List<TeachingUnit> units = [];
     for (var unit in json[key][1][0]) {

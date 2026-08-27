@@ -22,11 +22,15 @@ class AuthentificationConnection
               context.read<SettingsCubit>().state.settings.biometricAuth,
             ).then(
               (key) => CacheService.get<Credential>(secureKey: key).then(
-                (value) => emailCubit.connect(
-                  username: value!.username,
-                  password: value.password,
-                  appLocalizations: localization,
-                ),
+                (value) {
+                  if (value != null) {
+                    emailCubit.connect(
+                      username: value.username,
+                      password: value.password,
+                      appLocalizations: localization,
+                    );
+                  }
+                },
               ),
             );
             if (context.read<SettingsCubit>().state.settings.firstLogin) {

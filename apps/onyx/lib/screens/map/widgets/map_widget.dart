@@ -96,7 +96,9 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
         context: context,
       ).then((value) async {
         if (value != null) {
-          mapController.centerOnPoint(value, zoom: 16.5);
+          SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+            mapController.centerOnPoint(value, zoom: 16.5);
+          });
         }
       });
     }
