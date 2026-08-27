@@ -45,7 +45,7 @@ dependencies:
   lyon1mailclient: ^1.0.10
   webview_flutter: ^4.4.1
   file_picker: ^12.1.0
-  open_filex: ^4.3.4
+  open_app_file: ^4.0.5
   flutter_file_dialog: ^3.3.2
   flutter_quill: ^11.1.0
   vsc_quill_delta_to_html: ^1.0.3

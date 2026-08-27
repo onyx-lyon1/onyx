@@ -8,7 +8,7 @@ import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:open_filex/open_filex.dart';
+import 'package:open_app_file/open_app_file.dart';
 
 class UploadCompactWidget extends StatelessWidget {
   final Upload upload;
@@ -44,7 +44,7 @@ class UploadCompactWidget extends StatelessWidget {
                       .ticket,
                   context: context,
                 );
-                OpenFilex.open(path);
+                OpenAppFile.open(path);
               },
               icon: const Icon(Icons.open_in_new_rounded),
             ),

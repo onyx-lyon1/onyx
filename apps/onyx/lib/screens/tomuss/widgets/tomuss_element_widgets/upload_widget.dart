@@ -8,7 +8,7 @@ import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:lyon1tomussclient/lyon1tomussclient.dart';
 import 'package:onyx/l10n/app_localizations.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
-import 'package:open_filex/open_filex.dart';
+import 'package:open_app_file/open_app_file.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class UploadWidget extends StatelessWidget {
@@ -40,7 +40,7 @@ class UploadWidget extends StatelessWidget {
                                 .ticket,
                             context: context,
                           );
-                      OpenFilex.open(path);
+                      OpenAppFile.open(path);
                     },
                     child: Icon(
                       Icons.open_in_new_rounded,
