@@ -41,7 +41,8 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
       child: Material(
         child: CommonScreenWidget(
           header: IzlyRechargeHeaderWidget(
-              title: AppLocalizations.of(context).refillWithBankCard),
+            title: AppLocalizations.of(context).refillWithBankCard,
+          ),
           body: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -64,7 +65,10 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
                           for (var i = 0; i < cbs.length; i++)
                             DropdownMenuItem(
                               value: i,
-                              child: SizedBox(width: 80.w - 24.0, child: Text(cbs[i].name)),
+                              child: SizedBox(
+                                width: 80.w - 24.0,
+                                child: Text(cbs[i].name),
+                              ),
                             ),
                         ],
                         onChanged: (id) {
@@ -105,14 +109,18 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
   void _pay(BuildContext context, TextEditingController controller) async {
     if (controller.text.isEmpty || double.tryParse(controller.text) == null) {
       showDialog(
-          context: context,
-          builder: (context) => ErrorDialogWidget(
-              message: AppLocalizations.of(context).pleaseSelectAnAmount));
+        context: context,
+        builder: (context) => ErrorDialogWidget(
+          message: AppLocalizations.of(context).pleaseSelectAnAmount,
+        ),
+      );
     } else if (double.parse(controller.text) < 10) {
       showDialog(
-          context: context,
-          builder: (context) => ErrorDialogWidget(
-              message: AppLocalizations.of(context).minimumAmountIs(10)));
+        context: context,
+        builder: (context) => ErrorDialogWidget(
+          message: AppLocalizations.of(context).minimumAmountIs(10),
+        ),
+      );
     } else {
       Navigator.push(
         context,
@@ -120,9 +128,10 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
           builder: (context) => IzlyWorkingPage(
             callback: () async {
               return await IzlyLogic.rechargeWithCB(
-                  context.read<IzlyCubit>().state.izlyClient!,
-                  double.parse(controller.text),
-                  cbs[dropDownValue]);
+                context.read<IzlyCubit>().state.izlyClient!,
+                double.parse(controller.text),
+                cbs[dropDownValue],
+              );
             },
           ),
         ),
@@ -160,11 +169,8 @@ class _IzlyRechargeCBPageState extends State<IzlyRechargeCBPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SafeArea(
-              child: WebViewWidget(
-                controller: controller,
-              ),
-            ),
+            builder: (context) =>
+                SafeArea(child: WebViewWidget(controller: controller)),
           ),
         ).then((value) {
           if (!context.mounted) return;

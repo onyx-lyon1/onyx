@@ -20,9 +20,9 @@ class MapCubit extends Cubit<MapState> {
     List<List<LatLng>> paths;
     if (!NavigationLogic.calculating) {
       NavigationLogic.calculating = true;
-      paths = await NavigationLogic.navigateToBatimentFromLocation(
-          context, [latLng],
-          useLastLocation: false);
+      paths = await NavigationLogic.navigateToBatimentFromLocation(context, [
+        latLng,
+      ], useLastLocation: false);
       NavigationLogic.calculating = false;
       emit(
         state.copyWith(
@@ -44,21 +44,33 @@ class MapCubit extends Cubit<MapState> {
     if (await CacheService.exist<RestaurantListModel>()) {
       restaurant =
           (await CacheService.get<RestaurantListModel>())!.restaurantList;
-      emit(state.copyWith(
-          restaurant: restaurant, status: MapStatus.batimentsUpdated));
+      emit(
+        state.copyWith(
+          restaurant: restaurant,
+          status: MapStatus.batimentsUpdated,
+        ),
+      );
     }
     restaurant = await IzlyClient.getRestaurantCrous();
-    emit(state.copyWith(
-        restaurant: restaurant, status: MapStatus.batimentsUpdated));
+    emit(
+      state.copyWith(
+        restaurant: restaurant,
+        status: MapStatus.batimentsUpdated,
+      ),
+    );
     await CacheService.set<RestaurantListModel>(
-        RestaurantListModel(restaurantList: restaurant));
+      RestaurantListModel(restaurantList: restaurant),
+    );
   }
 
   Future<bool> updateGeolocationAutorisation() async {
     if ((!kIsWeb && (Platform.isAndroid || Platform.isIOS))) {
       var permission = await Geolocator.checkPermission();
-      bool result = [LocationPermission.whileInUse, LocationPermission.always]
-              .contains(permission) &&
+      bool result =
+          [
+            LocationPermission.whileInUse,
+            LocationPermission.always,
+          ].contains(permission) &&
           await Geolocator.isLocationServiceEnabled();
       emit(state.copyWith(geolocationAutorisation: result));
       return result;

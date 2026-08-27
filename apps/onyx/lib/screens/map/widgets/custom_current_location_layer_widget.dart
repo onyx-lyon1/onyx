@@ -4,20 +4,19 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:onyx/screens/map/states/map_cubit.dart';
 
 class CustomCurrentLocationLayerWidget extends StatelessWidget {
-  const CustomCurrentLocationLayerWidget({
-    super.key,
-  });
+  const CustomCurrentLocationLayerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MapCubit, MapState>(
-        buildWhen: (previous, current) =>
-            previous.geolocationAutorisation != current.geolocationAutorisation,
-        builder: (context, state) {
-          if (state.geolocationAutorisation) {
-            return CurrentLocationLayer();
-          }
-          return Container();
-        });
+      buildWhen: (previous, current) =>
+          previous.geolocationAutorisation != current.geolocationAutorisation,
+      builder: (context, state) {
+        if (state.geolocationAutorisation) {
+          return CurrentLocationLayer();
+        }
+        return Container();
+      },
+    );
   }
 }

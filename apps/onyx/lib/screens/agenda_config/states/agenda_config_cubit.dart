@@ -9,8 +9,13 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
   List<AgendaResource> categories = [];
 
   AgendaConfigCubit({required this.onBack, required this.client})
-      : super(AgendaConfigState(
-            categories: [], error: '', status: AgendaConfigStatus.initial));
+    : super(
+        AgendaConfigState(
+          categories: [],
+          error: '',
+          status: AgendaConfigStatus.initial,
+        ),
+      );
 
   void loadResources() async {
     emit(state.copyWith(status: AgendaConfigStatus.loading));
@@ -20,21 +25,25 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
       try {
         await client.login();
       } catch (e) {
-        emit(state.copyWith(
-            status: AgendaConfigStatus.error, error: e.toString()));
+        emit(
+          state.copyWith(status: AgendaConfigStatus.error, error: e.toString()),
+        );
         return;
       }
     }
 
     try {
       categories = await client.getResources;
-      emit(state.copyWith(
-        status: AgendaConfigStatus.loaded,
-        categories: categories,
-      ));
+      emit(
+        state.copyWith(
+          status: AgendaConfigStatus.loaded,
+          categories: categories,
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(
-          status: AgendaConfigStatus.error, error: e.toString()));
+      emit(
+        state.copyWith(status: AgendaConfigStatus.error, error: e.toString()),
+      );
     }
   }
 
@@ -58,11 +67,13 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
   }
 
   void unSearch() {
-    emit(state.copyWith(
-      status: AgendaConfigStatus.loaded,
-      categories: categories,
-      expandedResources: [],
-    ));
+    emit(
+      state.copyWith(
+        status: AgendaConfigStatus.loaded,
+        categories: categories,
+        expandedResources: [],
+      ),
+    );
   }
 
   void search(String query) async {
@@ -70,23 +81,29 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
       unSearch();
       return;
     }
-    List<AgendaResource> foundedDirs = [];
+    List<AgendaResource> foundDirs = [];
     for (var dir = 0; dir < categories.length; dir++) {
       if (categories[dir].name.toLowerCase().contains(query.toLowerCase())) {
-        foundedDirs.add(categories[dir]);
+        foundDirs.add(categories[dir]);
       } else {
-        subSearch(categories[dir], query, foundedDirs);
+        subSearch(categories[dir], query, foundDirs);
       }
     }
-    foundedDirs = foundedDirs.reversed.toList();
-    emit(state.copyWith(
+    foundDirs = foundDirs.reversed.toList();
+    emit(
+      state.copyWith(
         expandedResources: [],
-        categories: foundedDirs,
-        status: AgendaConfigStatus.searchResult));
+        categories: foundDirs,
+        status: AgendaConfigStatus.searchResult,
+      ),
+    );
   }
 
   void subSearch(
-      AgendaResource dir, String query, List<AgendaResource> dirs) async {
+    AgendaResource dir,
+    String query,
+    List<AgendaResource> dirs,
+  ) async {
     if (dir.children != null) {
       for (int directory = 0; directory < dir.children!.length; directory++) {
         if (dir.children![directory].name
@@ -118,20 +135,29 @@ class AgendaConfigCubit extends Cubit<AgendaConfigState> {
         }
       }
     }
-    List<int> choosedIds = List.from(state.choosedIds);
-    if (choosedIds.contains(dir.id)) {
-      choosedIds.remove(dir.id);
-      emit(state.copyWith(
-          choosedIds: choosedIds, status: AgendaConfigStatus.choosed));
+    List<int> chosenIds = List.from(state.chosenIds);
+    if (chosenIds.contains(dir.id)) {
+      chosenIds.remove(dir.id);
+      emit(
+        state.copyWith(chosenIds: chosenIds, status: AgendaConfigStatus.chosen),
+      );
     } else {
-      emit(state.copyWith(
-          choosedIds: state.choosedIds + [dir.id!],
-          status: AgendaConfigStatus.choosed));
+      emit(
+        state.copyWith(
+          chosenIds: state.chosenIds + [dir.id!],
+          status: AgendaConfigStatus.chosen,
+        ),
+      );
     }
   }
 
   void resetCubit() {
-    emit(AgendaConfigState(
-        categories: [], error: '', status: AgendaConfigStatus.initial));
+    emit(
+      AgendaConfigState(
+        categories: [],
+        error: '',
+        status: AgendaConfigStatus.initial,
+      ),
+    );
   }
 }

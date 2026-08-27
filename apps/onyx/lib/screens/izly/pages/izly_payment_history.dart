@@ -44,8 +44,9 @@ class IzlyPaymentHistory extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        DateFormat.yMd(AppLocalizations.of(context).localeName)
-                            .format(i.paymentTime),
+                        DateFormat.yMd(
+                          AppLocalizations.of(context).localeName,
+                        ).format(i.paymentTime),
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -57,7 +58,7 @@ class IzlyPaymentHistory extends StatelessWidget {
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -69,13 +70,13 @@ class IzlyPaymentHistory extends StatelessWidget {
             child: CommonScreenWidget(
               state: (IzlyStatus.loading == state.status)
                   ? LoadingHeaderWidget(
-                      message: AppLocalizations.of(context).loading)
+                      message: AppLocalizations.of(context).loading,
+                    )
                   : null,
               header: IzlyRechargeHeaderWidget(
-                  title: AppLocalizations.of(context).paymentHistory),
-              body: Center(
-                child: body,
+                title: AppLocalizations.of(context).paymentHistory,
               ),
+              body: Center(child: body),
               onRefresh: () async {
                 context.read<IzlyCubit>().loadPaymentHistory(cache: false);
               },

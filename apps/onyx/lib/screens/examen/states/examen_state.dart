@@ -1,11 +1,6 @@
 part of 'examen_cubit.dart';
 
-enum ExamenStatus {
-  initial,
-  loading,
-  error,
-  ready,
-}
+enum ExamenStatus { initial, loading, error, ready }
 
 class ExamenState extends Equatable {
   final ExamenStatus status;
@@ -45,8 +40,12 @@ class ExamenState extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [status, studentColloscope, reloadScheduled, examens];
+  List<Object?> get props => [
+    status,
+    studentColloscope,
+    reloadScheduled,
+    examens,
+  ];
 
   @override
   bool? get stringify => true;

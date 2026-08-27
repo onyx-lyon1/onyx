@@ -17,9 +17,9 @@ class ExamenSettingsWidget extends StatelessWidget {
           text: AppLocalizations.of(context).examenAddToAgenda,
           value: settings.examenAddToAgenda,
           onChanged: (value) {
-            context
-                .read<SettingsCubit>()
-                .modify(settings: settings.copyWith(examenAddToAgenda: value));
+            context.read<SettingsCubit>().modify(
+              settings: settings.copyWith(examenAddToAgenda: value),
+            );
             context.read<ExamenCubit>().scheduleReload();
           },
         ),
@@ -27,9 +27,9 @@ class ExamenSettingsWidget extends StatelessWidget {
           text: AppLocalizations.of(context).enableColloscope,
           value: settings.colloscopeEnabled ?? false,
           onChanged: (value) {
-            context
-                .read<SettingsCubit>()
-                .modify(settings: settings.copyWith(colloscopeEnabled: value));
+            context.read<SettingsCubit>().modify(
+              settings: settings.copyWith(colloscopeEnabled: value),
+            );
             context.read<ExamenCubit>().scheduleReload();
           },
         ),
@@ -51,15 +51,19 @@ class ExamenSettingsWidget extends StatelessWidget {
                 items: [
                   for (var i = 0; i < 3; i++)
                     DropdownMenuItem(
-                        value: i,
-                        child: Text(
-                            AppLocalizations.of(context).forceYearValue(i))),
+                      value: i,
+                      child: Text(
+                        AppLocalizations.of(context).forceYearValue(i),
+                      ),
+                    ),
                 ],
                 onChanged: (int? value) {
                   if (value == null) return;
                   context.read<SettingsCubit>().modify(
-                      settings:
-                          settings.copyWith(colloscopeOverrideYearId: value));
+                    settings: settings.copyWith(
+                      colloscopeOverrideYearId: value,
+                    ),
+                  );
                   context.read<ExamenCubit>().scheduleReload();
                 },
               ),
@@ -89,9 +93,7 @@ class ExamenSettingsWidget extends StatelessWidget {
                 child: TextFormField(
                   maxLengthEnforcement: MaxLengthEnforcement.enforced,
                   keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
                     hintText: AppLocalizations.of(context).emptyToDisable,
                     hintStyle: TextStyle(
@@ -112,8 +114,10 @@ class ExamenSettingsWidget extends StatelessWidget {
                     int newId = (value!.isEmpty) ? -1 : int.parse(value);
 
                     context.read<SettingsCubit>().modify(
-                        settings: settings.copyWith(
-                            colloscopeOverrideStudentId: newId));
+                      settings: settings.copyWith(
+                        colloscopeOverrideStudentId: newId,
+                      ),
+                    );
                     context.read<ExamenCubit>().scheduleReload();
                   },
                 ),

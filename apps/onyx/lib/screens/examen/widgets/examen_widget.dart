@@ -5,10 +5,7 @@ import 'package:onyx/core/extensions/extensions_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ExamenWidget extends StatelessWidget {
-  const ExamenWidget({
-    super.key,
-    required this.examen,
-  });
+  const ExamenWidget({super.key, required this.examen});
 
   final ExamenModel examen;
 
@@ -21,9 +18,7 @@ class ExamenWidget extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Theme.of(context).cardTheme.color,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10),
-        ),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -51,8 +46,9 @@ class ExamenWidget extends StatelessWidget {
                       children: [
                         Text(
                           examen.date?.toMonthName(
-                                  AppLocalizations.of(context).localeName,
-                                  short: true) ??
+                                AppLocalizations.of(context).localeName,
+                                short: true,
+                              ) ??
                               "",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -68,8 +64,9 @@ class ExamenWidget extends StatelessWidget {
                         ),
                         Text(
                           examen.date?.toWeekDayName(
-                                  AppLocalizations.of(context).localeName,
-                                  short: false) ??
+                                AppLocalizations.of(context).localeName,
+                                short: false,
+                              ) ??
                               "",
                         ),
                       ],
@@ -82,7 +79,8 @@ class ExamenWidget extends StatelessWidget {
                   child: Container(
                     margin: EdgeInsets.only(left: constraints.maxWidth * 0.02),
                     padding: EdgeInsets.symmetric(
-                        vertical: constraints.maxHeight * 0.02),
+                      vertical: constraints.maxHeight * 0.02,
+                    ),
                     child: Row(
                       children: [
                         Flexible(
@@ -94,8 +92,8 @@ class ExamenWidget extends StatelessWidget {
                               Center(
                                 child: Text(
                                   examen.date?.toHourMinuteString(
-                                          AppLocalizations.of(context)
-                                              .localeName) ??
+                                        AppLocalizations.of(context).localeName,
+                                      ) ??
                                       "",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -114,30 +112,34 @@ class ExamenWidget extends StatelessWidget {
                               Colors.black38,
                         ),
                         Flexible(
-                            flex: 7,
-                            fit: FlexFit.tight,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 13.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    examen.title ?? "",
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  Text(
-                                    (examen.location != null &&
-                                            examen.place != null)
-                                        ? AppLocalizations.of(context)
-                                            .examLocationPlace(
-                                                examen.location!, examen.place!)
-                                        : "",
-                                  ),
-                                ],
-                              ),
-                            ))
+                          flex: 7,
+                          fit: FlexFit.tight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 13.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  examen.title ?? "",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  (examen.location != null &&
+                                          examen.place != null)
+                                      ? AppLocalizations.of(
+                                          context,
+                                        ).examLocationPlace(
+                                          examen.location!,
+                                          examen.place!,
+                                        )
+                                      : "",
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

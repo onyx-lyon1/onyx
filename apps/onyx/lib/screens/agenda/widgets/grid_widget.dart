@@ -5,8 +5,11 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'days_view_widget_res.dart';
 
 class GridWidget extends StatelessWidget {
-  const GridWidget(
-      {super.key, required this.columnWidth, required this.dayCount});
+  const GridWidget({
+    super.key,
+    required this.columnWidth,
+    required this.dayCount,
+  });
 
   final double columnWidth;
   final int dayCount;
@@ -14,10 +17,7 @@ class GridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: GridPainter(
-        dayCount: dayCount,
-        columnWidth: columnWidth,
-      ),
+      painter: GridPainter(dayCount: dayCount, columnWidth: columnWidth),
     );
   }
 }
@@ -26,10 +26,7 @@ class GridPainter extends CustomPainter {
   final int dayCount;
   final double columnWidth;
 
-  GridPainter({
-    required this.dayCount,
-    required this.columnWidth,
-  });
+  GridPainter({required this.dayCount, required this.columnWidth});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -37,15 +34,21 @@ class GridPainter extends CustomPainter {
       ..color = Colors.grey
       ..strokeWidth = 1.0;
     //draw horizontal lines
-    for (var i = 0;
-        i < (Res.agendaDayEnd - Res.agendaDayStart).inHours - 1;
-        i++) {
+    for (
+      var i = 0;
+      i < (Res.agendaDayEnd - Res.agendaDayStart).inHours - 1;
+      i++
+    ) {
       // Duration i = const Duration(hours: 1);
       canvas.drawLine(
-        Offset(0,
-            (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor).h * i),
-        Offset(100.w,
-            (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor).h * i),
+        Offset(
+          0,
+          (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor).h * i,
+        ),
+        Offset(
+          100.w,
+          (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor).h * i,
+        ),
         paint,
       );
     }
@@ -54,7 +57,9 @@ class GridPainter extends CustomPainter {
       canvas.drawLine(
         Offset((columnWidth * i) + (DaysViewRes.leftHourIndicatorWidth.w), 0),
         Offset(
-            (columnWidth * i) + (DaysViewRes.leftHourIndicatorWidth.w), 100.h),
+          (columnWidth * i) + (DaysViewRes.leftHourIndicatorWidth.w),
+          100.h,
+        ),
         paint,
       );
     }

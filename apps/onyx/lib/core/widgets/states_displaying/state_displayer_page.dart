@@ -15,13 +15,8 @@ class StateDisplayingPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const CustomCircularProgressIndicatorWidget(),
-          SizedBox(
-            height: 2.h,
-          ),
-          Text(
-            message,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
+          SizedBox(height: 2.h),
+          Text(message, style: Theme.of(context).textTheme.bodyLarge),
         ],
       ),
     );

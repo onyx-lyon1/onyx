@@ -28,23 +28,23 @@ class EmailSendBottomBarWidget extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       final emailSendCubit = context.read<EmailSendCubit>();
-                      FilePicker.platform.pickFiles(allowMultiple: true).then(
-                        (result) {
-                          if (result != null) {
-                            List<File> files = result.paths
-                                .map((path) => File(path!))
-                                .toList();
-                            emailSendCubit.addAttachments(files);
-                          } else {
-                            Res.logger.d("cancelled attachment");
-                          }
-                        },
-                      );
+                      FilePicker.pickFiles().then((result) {
+                        if (result.isNotEmpty) {
+                          List<File> files = result
+                              .map((file) => File(file.path!))
+                              .toList();
+                          emailSendCubit.addAttachments(files);
+                        } else {
+                          Res.logger.d("cancelled attachment");
+                        }
+                      });
                     },
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 1.5.w),
-                      child: Icon(Icons.attach_file_rounded,
-                          color: Theme.of(context).primaryColor),
+                      child: Icon(
+                        Icons.attach_file_rounded,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                   ),
                 ),
@@ -65,13 +65,15 @@ class EmailSendBottomBarWidget extends StatelessWidget {
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    onTap: () => context
-                        .read<EmailSendCubit>()
-                        .sendEmail(context.read<EmailCubit>()),
+                    onTap: () => context.read<EmailSendCubit>().sendEmail(
+                      context.read<EmailCubit>(),
+                    ),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 1.5.w),
-                      child: Icon(Icons.send_rounded,
-                          color: Theme.of(context).primaryColor),
+                      child: Icon(
+                        Icons.send_rounded,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                   ),
                 ),

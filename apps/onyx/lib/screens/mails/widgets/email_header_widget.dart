@@ -5,9 +5,7 @@ import 'package:onyx/screens/mails/mails_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MailHeaderWidget extends StatelessWidget {
-  const MailHeaderWidget({
-    super.key,
-  });
+  const MailHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +19,13 @@ class MailHeaderWidget extends StatelessWidget {
                 onPressed: () {
                   for (var email in state.selectedMails) {
                     context.read<EmailCubit>().delete(
-                          email: email,
-                          from: state.currentMailBox!,
-                        );
+                      email: email,
+                      from: state.currentMailBox!,
+                    );
                   }
                   context.read<EmailCubit>().unselectAllMails(
-                        AppLocalizations.of(context),
-                      );
+                    AppLocalizations.of(context),
+                  );
                 },
                 icon: const Icon(Icons.delete),
                 tooltip: AppLocalizations.of(context).delete,
@@ -36,14 +34,14 @@ class MailHeaderWidget extends StatelessWidget {
                 onPressed: () {
                   for (var email in state.selectedMails) {
                     context.read<EmailCubit>().archive(
-                          email: email,
-                          from: state.currentMailBox!,
-                          appLocalizations: AppLocalizations.of(context),
-                        );
+                      email: email,
+                      from: state.currentMailBox!,
+                      appLocalizations: AppLocalizations.of(context),
+                    );
                   }
                   context.read<EmailCubit>().unselectAllMails(
-                        AppLocalizations.of(context),
-                      );
+                    AppLocalizations.of(context),
+                  );
                 },
                 icon: const Icon(Icons.archive),
                 tooltip: AppLocalizations.of(context).toArchive,
@@ -62,19 +60,19 @@ class MailHeaderWidget extends StatelessWidget {
                   for (var email in state.selectedMails) {
                     if (readedMail < unreadedMail) {
                       context.read<EmailCubit>().markAsRead(
-                            email: email,
-                            from: state.currentMailBox!,
-                          );
+                        email: email,
+                        from: state.currentMailBox!,
+                      );
                     } else {
                       context.read<EmailCubit>().markAsUnread(
-                            email: email,
-                            from: state.currentMailBox!,
-                          );
+                        email: email,
+                        from: state.currentMailBox!,
+                      );
                     }
                   }
                   context.read<EmailCubit>().unselectAllMails(
-                        AppLocalizations.of(context),
-                      );
+                    AppLocalizations.of(context),
+                  );
                 },
                 icon: const Icon(Icons.mark_email_read_rounded),
                 tooltip: AppLocalizations.of(context).markAsReadUnread,
@@ -84,28 +82,31 @@ class MailHeaderWidget extends StatelessWidget {
                   final emailCubit = context.read<EmailCubit>();
                   final localization = AppLocalizations.of(context);
                   showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text(AppLocalizations.of(context).moveTo),
-                          content: SizedBox(
-                            height: 30.h,
-                            width: 100.w,
-                            child: ListView.builder(
-                              itemCount: state.mailBoxes.length,
-                              itemBuilder: (context, index) {
-                                return ListTile(
-                                  onTap: () {
-                                    Navigator.pop(
-                                        context, state.mailBoxes[index]);
-                                  },
-                                  title: Text(state.mailBoxes[index].name),
-                                );
-                              },
-                            ),
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text(AppLocalizations.of(context).moveTo),
+                        content: SizedBox(
+                          height: 30.h,
+                          width: 100.w,
+                          child: ListView.builder(
+                            itemCount: state.mailBoxes.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                onTap: () {
+                                  Navigator.pop(
+                                    context,
+                                    state.mailBoxes[index],
+                                  );
+                                },
+                                title: Text(state.mailBoxes[index].name),
+                              );
+                            },
                           ),
-                        );
-                      }).then((folder) {
+                        ),
+                      );
+                    },
+                  ).then((folder) {
                     for (var email in state.selectedMails) {
                       emailCubit.move(
                         email: email,
@@ -123,13 +124,13 @@ class MailHeaderWidget extends StatelessWidget {
                 onPressed: () {
                   for (var email in state.selectedMails) {
                     context.read<EmailCubit>().toggleFlag(
-                          email: email,
-                          from: state.currentMailBox!,
-                        );
+                      email: email,
+                      from: state.currentMailBox!,
+                    );
                   }
                   context.read<EmailCubit>().unselectAllMails(
-                        AppLocalizations.of(context),
-                      );
+                    AppLocalizations.of(context),
+                  );
                 },
                 icon: const Icon(Icons.flag_rounded),
                 tooltip: AppLocalizations.of(context).markAsImportant,
@@ -156,18 +157,18 @@ class MailHeaderWidget extends StatelessWidget {
               cursorColor: Theme.of(context).textTheme.bodyLarge!.color,
               decoration: InputDecoration(
                 hintText: AppLocalizations.of(context).searchInTheNLastEmails(
-                    context.read<EmailCubit>().emailNumber),
+                  context.read<EmailCubit>().emailNumber,
+                ),
                 hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .color!
-                        .withValues(alpha: 0.5)),
+                  color: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge!.color!.withValues(alpha: 0.5),
+                ),
                 prefixIcon: Icon(
                   Icons.search_rounded,
-                  color: Theme.of(context)
-                      .bottomNavigationBarTheme
-                      .unselectedItemColor,
+                  color: Theme.of(
+                    context,
+                  ).bottomNavigationBarTheme.unselectedItemColor,
                 ),
                 contentPadding: EdgeInsets.only(bottom: 1.h),
                 focusedBorder: InputBorder.none,

@@ -50,8 +50,10 @@ class _MailContentWidgetState extends State<MailContentWidget> {
         NavigationDelegate(
           onNavigationRequest: (NavigationRequest request) async {
             if (await canLaunchUrl(Uri.parse(request.url))) {
-              await launchUrl(Uri.parse(request.url),
-                  mode: LaunchMode.externalApplication);
+              await launchUrl(
+                Uri.parse(request.url),
+                mode: LaunchMode.externalApplication,
+              );
             } else {
               throw 'Could not launch ${request.url}';
             }
@@ -60,11 +62,10 @@ class _MailContentWidgetState extends State<MailContentWidget> {
         ),
       );
 
-      webViewController!
-          .setBackgroundColor(Theme.of(context).colorScheme.surface);
-      webViewController!.loadHtmlString(
-        html,
+      webViewController!.setBackgroundColor(
+        Theme.of(context).colorScheme.surface,
       );
+      webViewController!.loadHtmlString(html);
     }
     return ((widget.mail.body.contains("<html") ||
                 widget.mail.body.contains("text/html")) &&
@@ -74,9 +75,6 @@ class _MailContentWidgetState extends State<MailContentWidget> {
             gestureRecognizers: {Factory(() => EagerGestureRecognizer())},
             //maybe causing bug on ios
           )
-        : SelectableText(
-            html,
-            textAlign: TextAlign.left,
-          );
+        : SelectableText(html, textAlign: TextAlign.left);
   }
 }

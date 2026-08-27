@@ -9,11 +9,12 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class DaysViewWidget extends StatelessWidget {
-  const DaysViewWidget(
-      {super.key,
-      required this.dayCount,
-      required this.verticalController,
-      required this.horizontalController});
+  const DaysViewWidget({
+    super.key,
+    required this.dayCount,
+    required this.verticalController,
+    required this.horizontalController,
+  });
 
   final int dayCount;
   final ScrollController verticalController;
@@ -31,10 +32,7 @@ class DaysViewWidget extends StatelessWidget {
       scrollDirection: Axis.vertical,
       child: Stack(
         children: [
-          GridWidget(
-            columnWidth: columnWidth,
-            dayCount: dayCount,
-          ),
+          GridWidget(columnWidth: columnWidth, dayCount: dayCount),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,22 +41,21 @@ class DaysViewWidget extends StatelessWidget {
                 width: (100 - DaysViewRes.leftHourIndicatorWidth).w,
                 height:
                     (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor)
-                            .h *
-                        (Res.agendaDayDuration.inHours - 1),
+                        .h *
+                    (Res.agendaDayDuration.inHours - 1),
                 child: PageView.builder(
                   controller: horizontalController,
                   scrollDirection: Axis.horizontal,
                   onPageChanged: (index) {
                     context.read<AgendaCubit>().updateDisplayedDate(
-                          wantedDate: index * dayCount +
-                              ((context.read<AgendaCubit>().state.wantedDate +
-                                      0) %
-                                  dayCount),
-                          fromMiniCalendar: false,
-                          settings:
-                              context.read<SettingsCubit>().state.settings,
-                          fromHorizontalScroll: true,
-                        );
+                      wantedDate:
+                          index * dayCount +
+                          ((context.read<AgendaCubit>().state.wantedDate + 0) %
+                              dayCount),
+                      fromMiniCalendar: false,
+                      settings: context.read<SettingsCubit>().state.settings,
+                      fromHorizontalScroll: true,
+                    );
                   },
                   itemBuilder: (context, rawJ) {
                     int j = rawJ * dayCount;
@@ -73,13 +70,15 @@ class DaysViewWidget extends StatelessWidget {
                                     ...buildEventWidgetList(
                                       agendaState.days[j + i].events,
                                       columnWidth,
-                                    )
+                                    ),
                                   ],
                                 ),
-                                if (DateTime.now()
-                                    .isSameDay(agendaState.days[j + i].date))
+                                if (DateTime.now().isSameDay(
+                                  agendaState.days[j + i].date,
+                                ))
                                   CurrentDateIndicator(
-                                      columnWidth: columnWidth),
+                                    columnWidth: columnWidth,
+                                  ),
                               ],
                             ),
                         ],
@@ -99,9 +98,7 @@ class DaysViewWidget extends StatelessWidget {
   List<Widget> buildEventWidgetList(List<Event> events, double columnWidth) {
     List<Widget> result = [];
     if (events.isEmpty) {
-      result.add(SizedBox(
-        width: columnWidth,
-      ));
+      result.add(SizedBox(width: columnWidth));
       return result;
     }
 
@@ -131,12 +128,13 @@ class DaysViewWidget extends StatelessWidget {
       if (superposed) {
         for (int j = 0; j < superposition[index]!.length; j++) {
           diffMap[superposition[index]![j]] = getDiff(
-              events[superposition[index]![j]],
-              //if we have to compare to the previous event in the calendar
-              (j == 0)
-                  //if there is a previous one
-                  ? ((index > 0) ? events[index - 1] : null)
-                  : events[superposition[index]![j - 1]]);
+            events[superposition[index]![j]],
+            //if we have to compare to the previous event in the calendar
+            (j == 0)
+                //if there is a previous one
+                ? ((index > 0) ? events[index - 1] : null)
+                : events[superposition[index]![j - 1]],
+          );
         }
         diff = diffMap[superposition[index]!.first]!;
       } else {
@@ -145,10 +143,12 @@ class DaysViewWidget extends StatelessWidget {
       result.add(
         Padding(
           padding: EdgeInsets.only(
-            top: (diff *
-                    (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor)
-                        .h)
-                .clamp(0, double.infinity),
+            top:
+                (diff *
+                        (Res.agendaDayDuration.inHours /
+                                DaysViewRes.heightFactor)
+                            .h)
+                    .clamp(0, double.infinity),
           ),
           child: (superposed)
               ? Row(
@@ -158,18 +158,18 @@ class DaysViewWidget extends StatelessWidget {
                         padding: EdgeInsets.only(
                           top: (superposition[index]!.first != i)
                               ? (diffMap[i]! *
-                                      (Res.agendaDayDuration.inHours /
-                                              DaysViewRes.heightFactor)
-                                          .h)
-                                  .clamp(0, double.infinity)
+                                        (Res.agendaDayDuration.inHours /
+                                                DaysViewRes.heightFactor)
+                                            .h)
+                                    .clamp(0, double.infinity)
                               : 0.0,
                         ),
                         child: SizedEventWidget(
-                            heightFactor: DaysViewRes.heightFactor,
-                            numberPerColumn:
-                                (superposition[index]?.length) ?? 1,
-                            columnWidth: columnWidth,
-                            event: events[i]),
+                          heightFactor: DaysViewRes.heightFactor,
+                          numberPerColumn: (superposition[index]?.length) ?? 1,
+                          columnWidth: columnWidth,
+                          event: events[i],
+                        ),
                       ),
                   ],
                 )
@@ -177,11 +177,12 @@ class DaysViewWidget extends StatelessWidget {
                   heightFactor: DaysViewRes.heightFactor,
                   numberPerColumn: 1,
                   columnWidth: columnWidth,
-                  event: events[index]),
+                  event: events[index],
+                ),
         ),
       );
       if (superposed) {
-//-1 because the for loop will add it
+        //-1 because the for loop will add it
         index += superposition[index]!.length - 1;
       }
     }
@@ -194,8 +195,14 @@ class DaysViewWidget extends StatelessWidget {
       return a.start.difference(b.end).inMinutes / 60;
     } else {
       return a.start
-              .difference(DateTime(a.start.year, a.start.month, a.start.day,
-                  Res.agendaDayStart.inHours))
+              .difference(
+                DateTime(
+                  a.start.year,
+                  a.start.month,
+                  a.start.day,
+                  Res.agendaDayStart.inHours,
+                ),
+              )
               .inMinutes /
           60;
     }

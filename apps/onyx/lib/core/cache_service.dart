@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:biometric_storage/biometric_storage.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:izlyclient/izlyclient.dart';
-import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/settings/domain/model/theme_settings_model.dart';
 import 'package:sembast/sembast_io.dart';
@@ -129,7 +128,7 @@ class CacheService {
       "encryptionKey_${(biometricAuth) ? "secure" : "lesssecure"}",
       options: StorageFileInitOptions(
         androidBiometricOnly: true,
-        authenticationValidityDurationSeconds: 10,
+        androidAuthenticationValidityDuration: Duration(seconds: 10),
         authenticationRequired: biometricAuth,
       ),
     );
@@ -157,7 +156,7 @@ class CacheService {
       "encryptionKey_${(biometricAuth) ? "secure" : "lesssecure"}",
       options: StorageFileInitOptions(
         androidBiometricOnly: true,
-        authenticationValidityDurationSeconds: 10,
+        androidAuthenticationValidityDuration: Duration(seconds: 10),
         authenticationRequired: biometricAuth,
       ),
     );

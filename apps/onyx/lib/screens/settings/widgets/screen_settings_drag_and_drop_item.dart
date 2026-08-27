@@ -16,8 +16,10 @@ DragAndDropItem screenSettingsDragAndDropItem(Functionalities functionality) {
 }
 
 class ScreenSettingsDragAndDropContent extends StatelessWidget {
-  const ScreenSettingsDragAndDropContent(
-      {super.key, required this.functionality});
+  const ScreenSettingsDragAndDropContent({
+    super.key,
+    required this.functionality,
+  });
 
   final Functionalities functionality;
 
@@ -26,9 +28,7 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
     final StreamController<bool> isExpandedController =
         StreamController<bool>(); //only used for the rotating arrow
     return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minHeight: 50,
-      ),
+      constraints: const BoxConstraints(minHeight: 50),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 2.w),
         decoration: BoxDecoration(
@@ -42,22 +42,25 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
             initiallyExpanded: false,
             trailing: const SizedBox.shrink(),
             leading: StreamBuilder(
-                stream: isExpandedController.stream,
-                builder: (context, snap) {
-                  return AnimatedRotation(
-                      turns: (snap.data ?? false) ? .5 : 0,
-                      duration: Res.animationDuration,
-                      child: const Icon(Icons
-                          .keyboard_arrow_down_outlined) // your svgImage here
-                      );
-                }),
+              stream: isExpandedController.stream,
+              builder: (context, snap) {
+                return AnimatedRotation(
+                  turns: (snap.data ?? false) ? .5 : 0,
+                  duration: Res.animationDuration,
+                  child: const Icon(
+                    Icons.keyboard_arrow_down_outlined,
+                  ), // your svgImage here
+                );
+              },
+            ),
             title: SizedBox(
               // height: 50,
               child: Row(
                 children: [
                   Icon(functionality.toIcon()),
                   Text(
-                      functionality.toCleanString(AppLocalizations.of(context)))
+                    functionality.toCleanString(AppLocalizations.of(context)),
+                  ),
                 ],
               ),
             ),
@@ -78,7 +81,7 @@ class ScreenSettingsDragAndDropContent extends StatelessWidget {
                   }
                 },
                 child: functionality.toSettings(),
-              )
+              ),
             ],
           ),
         ),

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="surface">#FFD8DEE9</color>
+    <color name="primary">#FFD08770</color>
+    <color name="secondary_header_color">#FFE5E9F0</color>
+    <color name="selection_color">#B3D08770</color>
+    <color name="text_label_large">#FF292F39</color>
+    <color name="text_body_large">#FF4C566A</color>
+    <color name="text_body_medium">#FF4C566A</color>
+</resources>

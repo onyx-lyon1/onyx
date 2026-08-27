@@ -20,11 +20,12 @@ class _CurrentDateIndicatorState extends State<CurrentDateIndicator> {
       setState(() {});
     });
     return Positioned(
-      top: (((DateTime.now().difference(DateTime.now().shrink(3)).inMinutes /
-                      60) -
-                  (Res.agendaDayStart.inMinutes / 60)) *
-              (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor).h)
-          .clamp(0, double.infinity),
+      top:
+          (((DateTime.now().difference(DateTime.now().shrink(3)).inMinutes /
+                          60) -
+                      (Res.agendaDayStart.inMinutes / 60)) *
+                  (Res.agendaDayDuration.inHours / DaysViewRes.heightFactor).h)
+              .clamp(0, double.infinity),
       child:
           // Stack(
           //   alignment: Alignment.centerLeft,
@@ -38,10 +39,10 @@ class _CurrentDateIndicatorState extends State<CurrentDateIndicator> {
           //       ),
           //     ),
           Container(
-        height: 0.8.w,
-        width: widget.columnWidth,
-        color: Theme.of(context).primaryColor,
-      ),
+            height: 0.8.w,
+            width: widget.columnWidth,
+            color: Theme.of(context).primaryColor,
+          ),
       // Positioned(
       //   right: 0,
       //   child: Container(

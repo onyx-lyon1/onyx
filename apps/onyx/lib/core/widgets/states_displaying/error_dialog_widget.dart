@@ -20,7 +20,7 @@ class ErrorDialogWidget extends StatelessWidget {
             AppLocalizations.of(context).ok,
             style: TextStyle(color: Theme.of(context).primaryColor),
           ),
-        )
+        ),
       ],
     );
   }

@@ -10,26 +10,41 @@ part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit({SettingsModel? settings})
-      : super(SettingsState(
-            settings: settings ?? const SettingsModel(),
-            status: SettingsStatus.initial)) {
+    : super(
+        SettingsState(
+          settings: settings ?? const SettingsModel(),
+          status: SettingsStatus.initial,
+        ),
+      ) {
     load();
   }
 
   Future<void> reset() async {
     await SettingsLogic.reset();
-    emit(state.copyWith(
-        status: SettingsStatus.ready, settings: const SettingsModel()));
+    emit(
+      state.copyWith(
+        status: SettingsStatus.ready,
+        settings: const SettingsModel(),
+      ),
+    );
   }
 
   Future<SettingsModel> load() async {
     emit(state.copyWith(status: SettingsStatus.loading));
     try {
-      emit(state.copyWith(
-          status: SettingsStatus.ready, settings: await SettingsLogic.load()));
+      emit(
+        state.copyWith(
+          status: SettingsStatus.ready,
+          settings: await SettingsLogic.load(),
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(
-          status: SettingsStatus.error, settings: const SettingsModel()));
+      emit(
+        state.copyWith(
+          status: SettingsStatus.error,
+          settings: const SettingsModel(),
+        ),
+      );
     }
 
     var settings = state.settings.copyWith();
@@ -37,15 +52,15 @@ class SettingsCubit extends Cubit<SettingsState> {
     var disabled = settings.disabledFunctionalities;
     var enabledOrDisabled = enabled + disabled;
 
-    Functionalities.values
-        .where((e) => !enabledOrDisabled.contains(e))
-        .forEach((element) {
-      if (defaultEnabledFunctionalities.contains(element)) {
-        enabled.add(element);
-      } else if (defaultDisabledFunctionalities.contains(element)) {
-        disabled.add(element);
-      }
-    });
+    Functionalities.values.where((e) => !enabledOrDisabled.contains(e)).forEach(
+      (element) {
+        if (defaultEnabledFunctionalities.contains(element)) {
+          enabled.add(element);
+        } else if (defaultDisabledFunctionalities.contains(element)) {
+          disabled.add(element);
+        }
+      },
+    );
 
     //ensure retrocompatibility
     if (settings.agendaIds.isEmpty && settings.agendaId != null) {
@@ -73,15 +88,20 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   void resetCubit() async {
-    emit(SettingsState(
-        settings: const SettingsModel(), status: SettingsStatus.initial));
+    emit(
+      SettingsState(
+        settings: const SettingsModel(),
+        status: SettingsStatus.initial,
+      ),
+    );
   }
 
-  Future<void> move(
-      {required bool oldEnabled,
-      required bool newEnabled,
-      required int oldIndex,
-      required int newIndex}) async {
+  Future<void> move({
+    required bool oldEnabled,
+    required bool newEnabled,
+    required int oldIndex,
+    required int newIndex,
+  }) async {
     if ((oldEnabled && !newEnabled) &&
         state.settings.enabledFunctionalities[oldIndex] !=
             Functionalities.settings) {
@@ -89,61 +109,66 @@ class SettingsCubit extends Cubit<SettingsState> {
       switch (item) {
         case Functionalities.agenda:
           await modify(
-              settings: state.settings.copyWith(
-            calendarUpdateNotification: false,
-          ));
+            settings: state.settings.copyWith(
+              calendarUpdateNotification: false,
+            ),
+          );
           break;
         case Functionalities.mail:
           await modify(
-              settings: state.settings.copyWith(
-            newMailNotification: false,
-          ));
+            settings: state.settings.copyWith(newMailNotification: false),
+          );
           break;
         case Functionalities.tomuss:
           await modify(
-              settings: state.settings.copyWith(
-            newGradeNotification: false,
-          ));
+            settings: state.settings.copyWith(newGradeNotification: false),
+          );
           break;
         default:
           break;
       }
       modify(
-          settings: state.settings.copyWith(
-              enabledFunctionalities: state.settings.enabledFunctionalities
-                  .where((element) => element != item)
-                  .toList(),
-              disabledFunctionalities:
-                  state.settings.disabledFunctionalities.toList()
-                    ..insert(newIndex, item)));
+        settings: state.settings.copyWith(
+          enabledFunctionalities: state.settings.enabledFunctionalities
+              .where((element) => element != item)
+              .toList(),
+          disabledFunctionalities:
+              state.settings.disabledFunctionalities.toList()
+                ..insert(newIndex, item),
+        ),
+      );
     } else if (!oldEnabled && newEnabled) {
       Functionalities item = state.settings.disabledFunctionalities[oldIndex];
       modify(
-          settings: state.settings.copyWith(
-              disabledFunctionalities: state.settings.disabledFunctionalities
-                  .where((element) => element != item)
-                  .toList(),
-              enabledFunctionalities:
-                  state.settings.enabledFunctionalities.toList()
-                    ..insert(newIndex, item)));
+        settings: state.settings.copyWith(
+          disabledFunctionalities: state.settings.disabledFunctionalities
+              .where((element) => element != item)
+              .toList(),
+          enabledFunctionalities: state.settings.enabledFunctionalities.toList()
+            ..insert(newIndex, item),
+        ),
+      );
     } else if (oldEnabled && newEnabled) {
       Functionalities item = state.settings.enabledFunctionalities[oldIndex];
       modify(
-          settings: state.settings.copyWith(
-              enabledFunctionalities:
-                  state.settings.enabledFunctionalities.toList()
-                    ..removeAt(oldIndex)
-                    ..insert(newIndex, item)));
+        settings: state.settings.copyWith(
+          enabledFunctionalities: state.settings.enabledFunctionalities.toList()
+            ..removeAt(oldIndex)
+            ..insert(newIndex, item),
+        ),
+      );
     } else if ((!oldEnabled && !newEnabled) &&
         state.settings.enabledFunctionalities[oldIndex] !=
             Functionalities.settings) {
       Functionalities item = state.settings.disabledFunctionalities[oldIndex];
       modify(
-          settings: state.settings.copyWith(
-              disabledFunctionalities:
-                  state.settings.disabledFunctionalities.toList()
-                    ..removeAt(oldIndex)
-                    ..insert(newIndex, item)));
+        settings: state.settings.copyWith(
+          disabledFunctionalities:
+              state.settings.disabledFunctionalities.toList()
+                ..removeAt(oldIndex)
+                ..insert(newIndex, item),
+        ),
+      );
     }
   }
 

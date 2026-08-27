@@ -18,27 +18,32 @@ class DirWidget extends StatelessWidget {
       }
       return Container(
         color:
-            context.read<AgendaConfigCubit>().state.choosedIds.contains(dir.id)
-                ? Theme.of(context).primaryColor.withValues(alpha: 0.3)
-                : null,
+            context.read<AgendaConfigCubit>().state.chosenIds.contains(dir.id)
+            ? Theme.of(context).primaryColor.withValues(alpha: 0.3)
+            : null,
         child: ListTile(
-          title: Text(Uri.decodeFull(
-              Uri.encodeFull(dir.name.split(".").last.replaceAll("\\x", "%"))
-                  .replaceAll("%25", "%"))),
+          title: Text(
+            Uri.decodeFull(
+              Uri.encodeFull(
+                dir.name.split(".").last.replaceAll("\\x", "%"),
+              ).replaceAll("%25", "%"),
+            ),
+          ),
           leading: const Icon(Icons.calendar_today_rounded),
           onTap: () {
-            context
-                .read<AgendaConfigCubit>()
-                .toggleChooseDir(dir, collapse: false);
+            context.read<AgendaConfigCubit>().toggleChooseDir(
+              dir,
+              collapse: false,
+            );
           },
         ),
       );
     } else {
       return Material(
         color:
-            context.read<AgendaConfigCubit>().state.choosedIds.contains(dir.id)
-                ? Theme.of(context).primaryColor.withValues(alpha: 0.3)
-                : null,
+            context.read<AgendaConfigCubit>().state.chosenIds.contains(dir.id)
+            ? Theme.of(context).primaryColor.withValues(alpha: 0.3)
+            : null,
         child: InkWell(
           onTap: () =>
               context.read<AgendaConfigCubit>().expandAgenda(dir, parent!),
@@ -46,26 +51,31 @@ class DirWidget extends StatelessWidget {
               context.read<AgendaConfigCubit>().toggleChooseDir(dir),
           child: ListTile(
             key: key,
-            title: Text(Uri.decodeFull(
-                Uri.encodeFull(dir.name.split(".").last.replaceAll("\\x", "%"))
-                    .replaceAll("%25", "%"))),
+            title: Text(
+              Uri.decodeFull(
+                Uri.encodeFull(
+                  dir.name.split(".").last.replaceAll("\\x", "%"),
+                ).replaceAll("%25", "%"),
+              ),
+            ),
             leading: InkWell(
-                borderRadius: BorderRadius.circular(100),
-                onTap: () =>
-                    context.read<AgendaConfigCubit>().toggleChooseDir(dir),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: BlocBuilder<AgendaConfigCubit, AgendaConfigState>(
-                    buildWhen: (previous, current) =>
-                        !listEquals(previous.choosedIds, current.choosedIds),
-                    builder: (context, state) {
-                      if (state.choosedIds.contains(dir.id)) {
-                        return const Icon(Icons.check_box);
-                      }
-                      return const Icon(Icons.folder);
-                    },
-                  ),
-                )),
+              borderRadius: BorderRadius.circular(100),
+              onTap: () =>
+                  context.read<AgendaConfigCubit>().toggleChooseDir(dir),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: BlocBuilder<AgendaConfigCubit, AgendaConfigState>(
+                  buildWhen: (previous, current) =>
+                      !listEquals(previous.chosenIds, current.chosenIds),
+                  builder: (context, state) {
+                    if (state.chosenIds.contains(dir.id)) {
+                      return const Icon(Icons.check_box);
+                    }
+                    return const Icon(Icons.folder);
+                  },
+                ),
+              ),
+            ),
           ),
         ),
       );

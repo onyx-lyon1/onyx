@@ -125,6 +125,6 @@ class _ActionListCopyWithImpl<$R, $Out>
   @override
   ActionListCopyWith<$R2, ActionList, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
-  ) => _ActionListCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  ) =>
+      _ActionListCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
-

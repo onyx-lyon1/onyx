@@ -5,11 +5,12 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class EnumerationCompactWidget extends StatelessWidget {
-  const EnumerationCompactWidget(
-      {super.key,
-      required this.enumeration,
-      required this.onTap,
-      required this.teachingUnitTitle});
+  const EnumerationCompactWidget({
+    super.key,
+    required this.enumeration,
+    required this.onTap,
+    required this.teachingUnitTitle,
+  });
 
   final Enumeration enumeration;
   final String teachingUnitTitle;
@@ -42,9 +43,10 @@ class EnumerationCompactWidget extends StatelessWidget {
                 }).toList();
               },
               onSelected: (String value) {
-                context
-                    .read<TomussCubit>()
-                    .updateEnumerationValue(enumeration, value);
+                context.read<TomussCubit>().updateEnumerationValue(
+                  enumeration,
+                  value,
+                );
               },
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -62,12 +64,10 @@ class EnumerationCompactWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Icon(
-                    Icons.arrow_drop_down,
-                    size: 15.sp,
-                  ),
+                  Icon(Icons.arrow_drop_down, size: 15.sp),
                 ],
-              ))
+              ),
+            )
           : Center(
               child: Text(
                 enumeration.value ?? "",

@@ -4,8 +4,9 @@ version: 1.0.11
 repository: https://github.com/onyx-lyon1/onxy/tree/main/packages/lyon1mailclient
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.6.0 <4.0.0'
 
+resolution: workspace
 
 dev_dependencies:
   dotenv: ^4.0.1
@@ -19,12 +20,9 @@ dev_dependencies:
 
 dependencies:
   requests_plus: ^4.8.3
-  enough_mail: ^2.1.2
+  enough_mail: ^2.1.7
   enough_mail_html: ^2.0.1
   collection: ^1.18.0
   dart_mappable: ^4.6.0 # overwritten in pubspec_overrides.yaml
   sembast: ^3.8.5+1
   path: ^1.9.1
-
-dependency_overrides:
-  http: ^1.1.0 # needed for enough_mail

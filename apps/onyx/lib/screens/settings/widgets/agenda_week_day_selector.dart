@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AgendaWeekDaySelector extends StatelessWidget {
-  const AgendaWeekDaySelector(
-      {super.key,
-      required this.colorCondition,
-      required this.onTap,
-      this.disabledCondition,
-      required this.elements});
+  const AgendaWeekDaySelector({
+    super.key,
+    required this.colorCondition,
+    required this.onTap,
+    this.disabledCondition,
+    required this.elements,
+  });
 
   final bool Function(int) colorCondition;
   final Function(int) onTap;
@@ -30,8 +31,8 @@ class AgendaWeekDaySelector extends StatelessWidget {
                 color: colorCondition(i)
                     ? Theme.of(context).primaryColor
                     : (disabledCondition?.call(i) ?? false
-                        ? Theme.of(context).colorScheme.surface
-                        : Theme.of(context).cardColor),
+                          ? Theme.of(context).colorScheme.surface
+                          : Theme.of(context).cardColor),
                 child: InkWell(
                   onTap: disabledCondition?.call(i) ?? false
                       ? null
@@ -40,9 +41,10 @@ class AgendaWeekDaySelector extends StatelessWidget {
                     child: Text(
                       elements[i],
                       style: TextStyle(
-                          color: disabledCondition?.call(i) ?? false
-                              ? Theme.of(context).disabledColor
-                              : Theme.of(context).textTheme.bodyLarge?.color),
+                        color: disabledCondition?.call(i) ?? false
+                            ? Theme.of(context).disabledColor
+                            : Theme.of(context).textTheme.bodyLarge?.color,
+                      ),
                     ),
                   ),
                 ),

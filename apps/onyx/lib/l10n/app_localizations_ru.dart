@@ -122,7 +122,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get today => 'Сегодня';
 
   @override
-  String get agendaWeekReferenceAlignement => 'Выравнивание дня ссылки';
+  String get agendaWeekReferenceAlignment => 'Выравнивание дня ссылки';
 
   @override
   String get disabledDays => 'Скрытые дни';

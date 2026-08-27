@@ -24,10 +24,12 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
       buildWhen: (previous, current) {
         if (previous.days.length > previous.wantedDate &&
             current.days.length > current.wantedDate) {
-          return (previous.days[previous.wantedDate].date
-                  .isSameDay(current.days[currentDateIndex].date) ||
-              current.days[current.wantedDate].date
-                  .isSameDay(current.days[currentDateIndex].date));
+          return (previous.days[previous.wantedDate].date.isSameDay(
+                current.days[currentDateIndex].date,
+              ) ||
+              current.days[current.wantedDate].date.isSameDay(
+                current.days[currentDateIndex].date,
+              ));
         }
         return true;
       },
@@ -35,7 +37,8 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
         return SizedBox(
           key: Key(state.days[currentDateIndex].date.shrink(3).toString()),
           height: Res.bottomNavBarHeight,
-          width: (100 - DaysViewRes.leftHourIndicatorWidth).w /
+          width:
+              (100 - DaysViewRes.leftHourIndicatorWidth).w /
               context.read<SettingsCubit>().state.settings.agendaWeekLength,
           child: Padding(
             padding: EdgeInsets.all(0.5.w),
@@ -45,7 +48,8 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
                 decoration: BoxDecoration(
-                  color: (state.days[state.wantedDate].date.day ==
+                  color:
+                      (state.days[state.wantedDate].date.day ==
                               state.days[currentDateIndex].date.day &&
                           state.days[state.wantedDate].date.month ==
                               state.days[currentDateIndex].date.month)
@@ -53,8 +57,10 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: (DateTime.now()
-                            .isSameDay(state.days[currentDateIndex].date))
+                    color:
+                        (DateTime.now().isSameDay(
+                          state.days[currentDateIndex].date,
+                        ))
                         ? Theme.of(context).primaryColor
                         : Colors.transparent,
                     width: 0.5.w,
@@ -64,10 +70,11 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   onTap: () {
                     context.read<AgendaCubit>().updateDisplayedDate(
-                        wantedDate: currentDateIndex,
-                        fromMiniCalendar: true,
-                        settings: context.read<SettingsCubit>().state.settings,
-                        fromHorizontalScroll: false);
+                      wantedDate: currentDateIndex,
+                      fromMiniCalendar: true,
+                      settings: context.read<SettingsCubit>().state.settings,
+                      fromHorizontalScroll: false,
+                    );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -77,8 +84,9 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
                         height: 2.9.h,
                         child: Text(
                           state.days[currentDateIndex].date.toMonthName(
-                              AppLocalizations.of(context).localeName,
-                              short: true),
+                            AppLocalizations.of(context).localeName,
+                            short: true,
+                          ),
                           style: TextStyle(fontSize: 15.sp),
                         ),
                       ),
@@ -93,8 +101,9 @@ class MiniCalendarOneDayWidget extends StatelessWidget {
                         height: 3.h,
                         child: Text(
                           state.days[currentDateIndex].date.toWeekDayName(
-                              AppLocalizations.of(context).localeName,
-                              short: true),
+                            AppLocalizations.of(context).localeName,
+                            short: true,
+                          ),
                           style: TextStyle(fontSize: 15.sp),
                         ),
                       ),

@@ -18,9 +18,9 @@ class MapPage extends StatelessWidget {
       builder: (context, state) {
         LatLng? center;
         if (state.status == MapStatus.initial) {
-          context
-              .read<MapCubit>()
-              .loadBatiment(Locale(AppLocalizations.of(context).localeName));
+          context.read<MapCubit>().loadBatiment(
+            Locale(AppLocalizations.of(context).localeName),
+          );
         }
         if (state.status == MapStatus.batimentsUpdated &&
             state.path.isNotEmpty) {
@@ -48,11 +48,7 @@ class MapPage extends StatelessWidget {
             restaurant: state.restaurant,
             center: center,
             polylines: [
-              Polyline(
-                points: state.path,
-                strokeWidth: 4.0,
-                color: Colors.red,
-              ),
+              Polyline(points: state.path, strokeWidth: 4.0, color: Colors.red),
             ],
             onTapNavigate: (LatLng latLng) {
               context.read<MapCubit>().navigate(context, latLng);

@@ -8,8 +8,10 @@ void main() {
 
   setUp(() {
     env.load();
-    izlyClient =
-        IzlyClient(env['IZLY_USERNAME'] ?? "", env['IZLY_PASSWORD'] ?? "");
+    izlyClient = IzlyClient(
+      env['IZLY_USERNAME'] ?? "",
+      env['IZLY_PASSWORD'] ?? "",
+    );
   });
 
   test('Login-lougout test', () async {
@@ -66,7 +68,10 @@ void main() {
     await izlyClient.login();
     expect(await izlyClient.isLogged(), true);
     bool rechargement = await izlyClient.rechargeViaSomeoneElse(
-        10.0, env['IZLY_USERNAME'] ?? "", "un petit message");
+      10.0,
+      env['IZLY_USERNAME'] ?? "",
+      "un petit message",
+    );
     expect(rechargement, true);
     await izlyClient.logout();
     expect(await izlyClient.isLogged(), false);
@@ -80,8 +85,8 @@ void main() {
   test("get payment", () async {
     await izlyClient.login();
     expect(await izlyClient.isLogged(), true);
-    final List<IzlyPaymentModel> userPayments =
-        await izlyClient.getUserPayments();
+    final List<IzlyPaymentModel> userPayments = await izlyClient
+        .getUserPayments();
     expect(userPayments.isNotEmpty, true);
   });
 }

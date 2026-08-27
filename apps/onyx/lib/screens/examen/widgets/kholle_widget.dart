@@ -5,10 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:onyx/l10n/app_localizations.dart';
 
 class KholleWidget extends StatelessWidget {
-  const KholleWidget({
-    super.key,
-    required this.kholle,
-  });
+  const KholleWidget({super.key, required this.kholle});
 
   final Kholle kholle;
 
@@ -21,9 +18,7 @@ class KholleWidget extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Theme.of(context).cardTheme.color,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10),
-        ),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -51,8 +46,9 @@ class KholleWidget extends StatelessWidget {
                       children: [
                         Text(
                           kholle.date.toMonthName(
-                              AppLocalizations.of(context).localeName,
-                              short: true),
+                            AppLocalizations.of(context).localeName,
+                            short: true,
+                          ),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17.sp,
@@ -67,8 +63,9 @@ class KholleWidget extends StatelessWidget {
                         ),
                         Text(
                           kholle.date.toWeekDayName(
-                              AppLocalizations.of(context).localeName,
-                              short: false),
+                            AppLocalizations.of(context).localeName,
+                            short: false,
+                          ),
                         ),
                       ],
                     ),
@@ -80,7 +77,8 @@ class KholleWidget extends StatelessWidget {
                   child: Container(
                     margin: EdgeInsets.only(left: constraints.maxWidth * 0.02),
                     padding: EdgeInsets.symmetric(
-                        vertical: constraints.maxHeight * 0.02),
+                      vertical: constraints.maxHeight * 0.02,
+                    ),
                     child: Row(
                       children: [
                         Flexible(
@@ -105,21 +103,22 @@ class KholleWidget extends StatelessWidget {
                               Colors.black38,
                         ),
                         Flexible(
-                            flex: 7,
-                            fit: FlexFit.tight,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 13.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(kholle.subject),
-                                  Text(kholle.kholleur),
-                                  if (kholle.message != null)
-                                    Text(kholle.room ?? kholle.message!),
-                                ],
-                              ),
-                            ))
+                          flex: 7,
+                          fit: FlexFit.tight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 13.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(kholle.subject),
+                                Text(kholle.kholleur),
+                                if (kholle.message != null)
+                                  Text(kholle.room ?? kholle.message!),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

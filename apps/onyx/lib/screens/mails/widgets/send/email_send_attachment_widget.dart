@@ -38,27 +38,34 @@ class _MailSendAttachmentWidgetState extends State<MailSendAttachmentWidget> {
                   showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                      title: Text(AppLocalizations.of(context)
-                          .deleteAttachmentConfirmation),
+                      title: Text(
+                        AppLocalizations.of(
+                          context,
+                        ).deleteAttachmentConfirmation,
+                      ),
                       actions: [
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
                           style: TextButton.styleFrom(
-                              backgroundColor: Theme.of(context).primaryColor),
-                          child: Text(AppLocalizations.of(context).cancel,
-                              style: const TextStyle(color: Colors.white)),
+                            backgroundColor: Theme.of(context).primaryColor,
+                          ),
+                          child: Text(
+                            AppLocalizations.of(context).cancel,
+                            style: const TextStyle(color: Colors.white),
+                          ),
                         ),
                         TextButton(
                           onPressed: () {
-                            context
-                                .read<EmailSendCubit>()
-                                .removeAttachment(state.attachments[index]);
+                            context.read<EmailSendCubit>().removeAttachment(
+                              state.attachments[index],
+                            );
                             Navigator.pop(context);
                           },
                           style: TextButton.styleFrom(
-                              backgroundColor: Theme.of(context).primaryColor),
+                            backgroundColor: Theme.of(context).primaryColor,
+                          ),
                           child: Text(
                             AppLocalizations.of(context).delete,
                             style: const TextStyle(color: Colors.white),

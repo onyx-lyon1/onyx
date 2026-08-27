@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
-import 'package:open_filex/open_filex.dart';
+import 'package:open_app_file/open_app_file.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SaveOrOpenDialogWidget extends StatelessWidget {
@@ -28,14 +28,15 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColor,
             ),
             onPressed: () {
-              OpenFilex.open(filePath);
+              OpenAppFile.open(filePath);
               Navigator.pop(context);
             },
             child: Text(
               'Ouvrir',
               style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyLarge!.color,
-                  fontSize: 17.sp),
+                color: Theme.of(context).textTheme.bodyLarge!.color,
+                fontSize: 17.sp,
+              ),
             ),
           ),
           ElevatedButton(
@@ -45,8 +46,8 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
             onPressed: () {
               if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
                 FlutterFileDialog.saveFile(
-                        params: SaveFileDialogParams(sourceFilePath: filePath))
-                    .then((value) {
+                  params: SaveFileDialogParams(sourceFilePath: filePath),
+                ).then((value) {
                   if (!context.mounted) return;
                   Navigator.pop(context);
                 });
@@ -54,17 +55,13 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
                   (Platform.isWindows ||
                       Platform.isLinux ||
                       Platform.isMacOS)) {
-                FilePicker.platform
-                    .saveFile(
+                final inputFile = File(filePath);
+                final bytes = inputFile.readAsBytesSync();
+                FilePicker.saveFile(
                   dialogTitle: 'Please select an output file:',
                   fileName: filePath.split('/').last,
-                )
-                    .then((outputFilePath) {
-                  if (outputFilePath != null) {
-                    File outputFile = File(outputFilePath);
-                    File inputFile = File(filePath);
-                    outputFile.writeAsBytesSync(inputFile.readAsBytesSync());
-                  }
+                  bytes: bytes,
+                ).then((outputUri) {
                   if (!context.mounted) return;
                   Navigator.pop(context);
                 });
@@ -73,8 +70,9 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
             child: Text(
               'Enregistrer',
               style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyLarge!.color,
-                  fontSize: 17.sp),
+                color: Theme.of(context).textTheme.bodyLarge!.color,
+                fontSize: 17.sp,
+              ),
             ),
           ),
         ],

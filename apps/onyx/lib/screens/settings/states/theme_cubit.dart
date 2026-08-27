@@ -10,7 +10,7 @@ part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
   ThemeCubit({ThemeSettingsModel? themeSettings})
-      : super(ThemeState(themesSettings: themeSettings)) {
+    : super(ThemeState(themesSettings: themeSettings)) {
     init();
   }
 
@@ -26,8 +26,12 @@ class ThemeCubit extends Cubit<ThemeState> {
       await CacheService.set<ThemeSettingsModel>(themesUserData);
     }
 
-    emit(state.copyWith(
-        status: ThemeStateStatus.loaded, themesSettings: themesUserData));
+    emit(
+      state.copyWith(
+        status: ThemeStateStatus.loaded,
+        themesSettings: themesUserData,
+      ),
+    );
     return themesUserData;
   }
 
@@ -42,7 +46,8 @@ class ThemeCubit extends Cubit<ThemeState> {
     }
 
     ThemeSettingsModel themesUserData = state.themesSettings!.copyWith(
-        themesCreated: state.themesSettings!.themesCreated..add(themeCreated));
+      themesCreated: state.themesSettings!.themesCreated..add(themeCreated),
+    );
 
     await CacheService.set<ThemeSettingsModel>(themesUserData);
     emit(state.copyWith(themesSettings: themesUserData));
@@ -57,7 +62,8 @@ class ThemeCubit extends Cubit<ThemeState> {
     }
 
     ThemeSettingsModel themesUserData = state.themesSettings!.copyWith(
-        themesCreated: state.themesSettings!.themesCreated..remove(theme));
+      themesCreated: state.themesSettings!.themesCreated..remove(theme),
+    );
     await CacheService.set<ThemeSettingsModel>(themesUserData);
     emit(state.copyWith(themesSettings: themesUserData));
   }
@@ -66,50 +72,69 @@ class ThemeCubit extends Cubit<ThemeState> {
   Future<void> chooseTheme(ThemeModel theme) async {
     late ThemeSettingsModel updatedUserData;
     if (theme.theme.brightness == Brightness.dark) {
-      updatedUserData =
-          state.themesSettings!.copyWith(darkThemeSelected: theme.name);
+      updatedUserData = state.themesSettings!.copyWith(
+        darkThemeSelected: theme.name,
+      );
     } else {
-      updatedUserData =
-          state.themesSettings!.copyWith(lightThemeSelected: theme.name);
+      updatedUserData = state.themesSettings!.copyWith(
+        lightThemeSelected: theme.name,
+      );
     }
     await CacheService.set<ThemeSettingsModel>(updatedUserData);
-    emit(state.copyWith(
-        themesSettings: updatedUserData, status: ThemeStateStatus.updated));
+    emit(
+      state.copyWith(
+        themesSettings: updatedUserData,
+        status: ThemeStateStatus.updated,
+      ),
+    );
   }
 
   /// Add the theme in the Hive at the favoriteThemes list.
   /// If the theme is already in the list, remove it from the list.
   void toggleThemeFavorite(ThemeModel theme) async {
-    int index = state.themesSettings!.favoriteThemes
-        .indexWhere((element) => element.name == theme.name);
+    int index = state.themesSettings!.favoriteThemes.indexWhere(
+      (element) => element.name == theme.name,
+    );
     ThemeSettingsModel themesUserData;
     if (index != -1) {
       themesUserData = state.themesSettings!.copyWith(
-          favoriteThemes: state.themesSettings!.favoriteThemes.toList()
-            ..removeAt(index));
+        favoriteThemes: state.themesSettings!.favoriteThemes.toList()
+          ..removeAt(index),
+      );
     } else {
       themesUserData = state.themesSettings!.copyWith(
-          favoriteThemes: state.themesSettings!.favoriteThemes.toList()
-            ..add(theme));
+        favoriteThemes: state.themesSettings!.favoriteThemes.toList()
+          ..add(theme),
+      );
     }
     await CacheService.set<ThemeSettingsModel>(themesUserData);
     emit(state.copyWith(themesSettings: themesUserData));
   }
 
   void updateThemeMode(ThemeModeEnum themeMode) async {
-    final updatedUserData =
-        state.themesSettings!.copyWith(themeMode: themeMode);
+    final updatedUserData = state.themesSettings!.copyWith(
+      themeMode: themeMode,
+    );
     await CacheService.set<ThemeSettingsModel>(updatedUserData);
-    emit(state.copyWith(
-        themesSettings: updatedUserData, status: ThemeStateStatus.updated));
+    emit(
+      state.copyWith(
+        themesSettings: updatedUserData,
+        status: ThemeStateStatus.updated,
+      ),
+    );
   }
 
   void updateAutoSwitchTheme(bool autoSwitchTheme) async {
-    final updatedUserData =
-        state.themesSettings!.copyWith(autoSwitchTheme: autoSwitchTheme);
+    final updatedUserData = state.themesSettings!.copyWith(
+      autoSwitchTheme: autoSwitchTheme,
+    );
     await CacheService.set<ThemeSettingsModel>(updatedUserData);
-    emit(state.copyWith(
-        themesSettings: updatedUserData, status: ThemeStateStatus.updated));
+    emit(
+      state.copyWith(
+        themesSettings: updatedUserData,
+        status: ThemeStateStatus.updated,
+      ),
+    );
   }
 
   void toggleThemeMode() {

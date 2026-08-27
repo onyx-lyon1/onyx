@@ -11,11 +11,7 @@ class EventWidget extends StatelessWidget {
   final Event event;
   final bool compact;
 
-  const EventWidget({
-    super.key,
-    required this.event,
-    this.compact = false,
-  });
+  const EventWidget({super.key, required this.event, this.compact = false});
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +27,9 @@ class EventWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       openBuilder: (context, _) => EventDetailPage(
-          event: event,
-          locale: Locale(AppLocalizations.of(context).localeName)),
+        event: event,
+        locale: Locale(AppLocalizations.of(context).localeName),
+      ),
       closedBuilder: (context, _) {
         return Card(
           color: Theme.of(context).cardTheme.color,
@@ -62,17 +59,16 @@ class EventWidget extends StatelessWidget {
                               event.end
                                   .difference(event.start)
                                   .durationBeautifull(),
-                              event.location)
+                              event.location,
+                            )
                           : event.location,
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       softWrap: true,
                       style: TextStyle(
-                        color: Theme.of(context)
-                            .textTheme
-                            .bodyLarge!
-                            .color!
-                            .withValues(alpha: 0.7),
+                        color: Theme.of(
+                          context,
+                        ).textTheme.bodyLarge!.color!.withValues(alpha: 0.7),
                         fontSize: 12,
                       ),
                     ),

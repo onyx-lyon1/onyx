@@ -35,8 +35,12 @@ class IzlyQrcodeWidget extends StatelessWidget {
     //do a linear interpolation between green and red
     double interpolation =
         (context.read<IzlyCubit>().state.balance - red) / (green - red);
-    return HSVColor.fromAHSV(1, (120 * interpolation).clamp(0, 120), 1, 1)
-        .toColor();
+    return HSVColor.fromAHSV(
+      1,
+      (120 * interpolation).clamp(0, 120),
+      1,
+      1,
+    ).toColor();
   }
 
   @override
@@ -55,8 +59,9 @@ class IzlyQrcodeWidget extends StatelessWidget {
         listener: (context, state) async {
           if (Platform.isAndroid || Platform.isIOS) {
             if (state.showQrCode) {
-              await ScreenBrightness.instance
-                  .setApplicationScreenBrightness(1.0);
+              await ScreenBrightness.instance.setApplicationScreenBrightness(
+                1.0,
+              );
             } else {
               await ScreenBrightness.instance
                   .resetApplicationScreenBrightness();
@@ -77,8 +82,8 @@ class IzlyQrcodeWidget extends StatelessWidget {
                   future: state.qrCode != null
                       ? Future.value(state.qrCode!)
                       : rootBundle
-                          .load(Res.izlyLogoPath)
-                          .then((data) => data.buffer.asUint8List()),
+                            .load(Res.izlyLogoPath)
+                            .then((data) => data.buffer.asUint8List()),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return const CircularProgressIndicator();
@@ -96,8 +101,9 @@ class IzlyQrcodeWidget extends StatelessWidget {
                   curve: Curves.easeInOut,
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                    child:
-                        Container(color: Colors.black.withValues(alpha: 0.4)),
+                    child: Container(
+                      color: Colors.black.withValues(alpha: 0.4),
+                    ),
                   ),
                 ),
                 AnimatedOpacity(
@@ -128,8 +134,9 @@ class IzlyQrcodeWidget extends StatelessWidget {
                       onTap: () {
                         context.read<IzlyCubit>().toggleShowQrCode();
                       },
-                      splashColor: Colors.white
-                          .withValues(alpha: 0.3), // Customize splash color
+                      splashColor: Colors.white.withValues(
+                        alpha: 0.3,
+                      ), // Customize splash color
                     ),
                   ),
                 ),

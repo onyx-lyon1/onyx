@@ -7,7 +7,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_cache/flutter_map_cache.dart';
-import 'package:flutter_map_marker_cluster_2/flutter_map_marker_cluster.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:http_cache_hive_store/http_cache_hive_store.dart';
 import 'package:izlyclient/izlyclient.dart';
 import 'package:latlong2/latlong.dart';
@@ -96,7 +96,9 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
         context: context,
       ).then((value) async {
         if (value != null) {
-          mapController.centerOnPoint(value, zoom: 16.5);
+          SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+            mapController.centerOnPoint(value, zoom: 16.5);
+          });
         }
       });
     }

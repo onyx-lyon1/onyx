@@ -29,13 +29,8 @@ class MailAttachmentWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
-                icon,
-                size: 20.sp,
-              ),
-              SizedBox(
-                height: 1.h,
-              ),
+              Icon(icon, size: 20.sp),
+              SizedBox(height: 1.h),
               Text(
                 fileName,
                 maxLines: 2,

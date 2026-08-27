@@ -60,12 +60,20 @@ class AgendaConfigPage extends StatelessWidget {
                   }
                 },
                 child: PopScope(
-                  onPopInvokedWithResult: (_, _) async {
-                    pageController.animateToPage(
-                      pageController.page!.toInt() - 1,
-                      duration: Res.animationDuration,
-                      curve: Curves.easeInOut,
-                    );
+                  canPop: false,
+                  onPopInvokedWithResult: (didPop, _) async {
+                    if (didPop) {
+                      return;
+                    } else {
+                      if (state.expandedResources.isNotEmpty ||
+                          state.status == AgendaConfigStatus.searchResult) {
+                        context.read<AgendaConfigCubit>().collapseResource(
+                          state.expandedResources.last,
+                        );
+                      } else {
+                        Navigator.of(context).pop();
+                      }
+                    }
                   },
                   child: Stack(
                     alignment: Alignment.bottomCenter,
@@ -106,7 +114,7 @@ class AgendaConfigPage extends StatelessWidget {
                       BlocBuilder<AgendaConfigCubit, AgendaConfigState>(
                         builder: (context, state) {
                           return AnimatedScale(
-                            scale: state.choosedIds.isNotEmpty ? 1 : 0,
+                            scale: state.chosenIds.isNotEmpty ? 1 : 0,
                             duration: Res.animationDuration,
                             child: Container(
                               margin: EdgeInsets.only(bottom: 10.h),
@@ -129,7 +137,7 @@ class AgendaConfigPage extends StatelessWidget {
                               child: IconButton(
                                 onPressed: () {
                                   context.read<AgendaConfigCubit>().onBack(
-                                    state.choosedIds,
+                                    state.chosenIds,
                                   );
                                 },
                                 icon: Icon(
@@ -209,6 +217,12 @@ class AgendaConfigPage extends StatelessWidget {
                                 if (state.status ==
                                     AgendaConfigStatus.searchResult) {
                                   context.read<AgendaConfigCubit>().unSearch();
+                                } else if (state.expandedResources.isNotEmpty) {
+                                  context
+                                      .read<AgendaConfigCubit>()
+                                      .collapseResource(
+                                        state.expandedResources.last,
+                                      );
                                 } else {
                                   Navigator.of(context).pop();
                                 }

@@ -16,9 +16,7 @@ class _ThemesSwapState extends State<ThemesSwap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).changeTheme),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context).changeTheme)),
       body: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, themeState) {
           return SingleChildScrollView(

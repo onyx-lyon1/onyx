@@ -9,7 +9,7 @@ enum AgendaStatus {
   cacheReady,
   dateUpdated,
   error,
-  haveToChooseManualy,
+  haveToChooseManually,
   updateDayCount,
   updateAnimating,
   connecting,
@@ -38,17 +38,22 @@ class AgendaState {
     }
     // remove disabled days
     realDays = realDays
-        .where((element) =>
-            !settingsModel.agendaDisabledDays.contains(element.date.weekday))
+        .where(
+          (element) =>
+              !settingsModel.agendaDisabledDays.contains(element.date.weekday),
+        )
         .toList();
 
     // move today week day to next week day if on a disabled day
     int todayOffset = 0;
-    for (var i = 0;
-        i < 7 &&
-            settingsModel.agendaDisabledDays.contains(
-                (DateTime.now().weekday + todayOffset).positiveModulo(8));
-        i++) {
+    for (
+      var i = 0;
+      i < 7 &&
+          settingsModel.agendaDisabledDays.contains(
+            (DateTime.now().weekday + todayOffset).positiveModulo(8),
+          );
+      i++
+    ) {
       //use for to ensure that we don't loop forever
       todayOffset++;
     }
@@ -58,40 +63,41 @@ class AgendaState {
       weekReference = DateTime.now().weekday - 1;
     }
     int todayIndex = realDays.indexWhere(
-        (element) => element.date.day == (DateTime.now().day + todayOffset));
+      (element) => element.date.day == (DateTime.now().day + todayOffset),
+    );
     if (todayIndex != -1) {
-      int indexToAlign = todayIndex -
+      int indexToAlign =
+          todayIndex -
           (realDays[todayIndex].date.weekday - (weekReference + 1));
-      int alignement = indexToAlign % settingsModel.agendaWeekLength;
-      int alignementOffset =
-          settingsModel.agendaWeekRerenceAlignement - alignement;
-      alignementOffset =
-          alignementOffset.positiveModulo(settingsModel.agendaWeekLength);
+      int alignment = indexToAlign % settingsModel.agendaWeekLength;
+      int alignmentOffset =
+          settingsModel.agendaWeekRerenceAlignment - alignment;
+      alignmentOffset = alignmentOffset.positiveModulo(
+        settingsModel.agendaWeekLength,
+      );
 
-      paddingBefore = alignementOffset;
-      paddingAfter = settingsModel.agendaWeekLength - alignementOffset;
+      paddingBefore = alignmentOffset;
+      paddingAfter = settingsModel.agendaWeekLength - alignmentOffset;
     }
 
     //add examEvents
     for (var i in examEvents) {
-      int index =
-          realDays.indexWhere((element) => element.date.isSameDay(i.start));
+      int index = realDays.indexWhere(
+        (element) => element.date.isSameDay(i.start),
+      );
       if (index != -1) {
         //remove if an event with name colle/kholle is at the same time
         for (var j = 0; j < realDays[index].events.length; j++) {
-          if (realDays[index]
-                  .events[j]
-                  .start
-                  .isBefore(i.start.add(Durations.short1)) &&
-              realDays[index]
-                  .events[j]
-                  .end
-                  .isAfter(i.start.subtract(Durations.short1))) {
+          if (realDays[index].events[j].start.isBefore(
+                i.start.add(Durations.short1),
+              ) &&
+              realDays[index].events[j].end.isAfter(
+                i.start.subtract(Durations.short1),
+              )) {
             for (var name in ["colle", "kholle"]) {
-              if (removeDiacritics(realDays[index].events[j].name)
-                  .toLowerCase()
-                  .trim()
-                  .contains(name)) {
+              if (removeDiacritics(
+                realDays[index].events[j].name,
+              ).toLowerCase().trim().contains(name)) {
                 realDays[index].events.removeAt(j);
                 j--;
               }
@@ -104,13 +110,13 @@ class AgendaState {
 
     //add examEvents
     for (var i in examEvents) {
-      int index =
-          realDays.indexWhere((element) => element.date.isSameDay(i.start));
+      int index = realDays.indexWhere(
+        (element) => element.date.isSameDay(i.start),
+      );
       if (index != -1) {
-        realDays[index] = realDays[index].copyWith(events: [
-          ...realDays[index].events,
-          i,
-        ]);
+        realDays[index] = realDays[index].copyWith(
+          events: [...realDays[index].events, i],
+        );
       } else {
         realDays.add(Day(i.start.shrink(3), [i]));
       }

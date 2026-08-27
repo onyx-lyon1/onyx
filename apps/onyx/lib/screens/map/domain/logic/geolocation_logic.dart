@@ -9,8 +9,10 @@ import 'package:onyx/core/res.dart';
 import 'package:onyx/screens/map/map_export.dart';
 
 class GeolocationLogic {
-  static Future<LatLng?> getCurrentLocation(
-      {bool askPermission = true, required BuildContext context}) async {
+  static Future<LatLng?> getCurrentLocation({
+    bool askPermission = true,
+    required BuildContext context,
+  }) async {
     if (Res.mock) {
       return mockLatLng;
     }
@@ -20,8 +22,9 @@ class GeolocationLogic {
     bool permission = context.read<MapCubit>().state.geolocationAutorisation;
     if (!permission) {
       if (askPermission) {
-        permission =
-            await context.read<MapCubit>().askGeolocationAutorisation();
+        permission = await context
+            .read<MapCubit>()
+            .askGeolocationAutorisation();
       }
     }
     if (!permission) {

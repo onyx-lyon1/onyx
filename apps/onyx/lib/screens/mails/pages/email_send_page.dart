@@ -12,12 +12,13 @@ class MailSendPage extends StatelessWidget {
   final bool reply;
   final bool forward;
 
-  const MailSendPage(
-      {super.key,
-      this.replyAll,
-      this.originalMessage,
-      this.forward = false,
-      this.reply = false});
+  const MailSendPage({
+    super.key,
+    this.replyAll,
+    this.originalMessage,
+    this.forward = false,
+    this.reply = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,9 @@ class MailSendPage extends StatelessWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                   backgroundColor: Theme.of(context).colorScheme.surface,
-                  title:
-                      Text(AppLocalizations.of(context).mailSendPageErrorTitle),
+                  title: Text(
+                    AppLocalizations.of(context).mailSendPageErrorTitle,
+                  ),
                 ),
               );
               break;
@@ -69,15 +71,18 @@ class MailSendPage extends StatelessWidget {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      backgroundColor:
-                                          Theme.of(context).colorScheme.surface,
+                                      backgroundColor: Theme.of(
+                                        context,
+                                      ).colorScheme.surface,
                                       title: Text(
-                                        AppLocalizations.of(context)
-                                            .mailSendPageDiscardTitle,
+                                        AppLocalizations.of(
+                                          context,
+                                        ).mailSendPageDiscardTitle,
                                       ),
                                       content: Text(
-                                        AppLocalizations.of(context)
-                                            .mailSendPageDiscardContent,
+                                        AppLocalizations.of(
+                                          context,
+                                        ).mailSendPageDiscardContent,
                                       ),
                                       actions: [
                                         TextButton(
@@ -94,8 +99,9 @@ class MailSendPage extends StatelessWidget {
                                             Navigator.pop(context);
                                           },
                                           child: Text(
-                                            AppLocalizations.of(context)
-                                                .discard,
+                                            AppLocalizations.of(
+                                              context,
+                                            ).discard,
                                           ),
                                         ),
                                       ],
@@ -119,47 +125,46 @@ class MailSendPage extends StatelessWidget {
                                         maxLines: 1,
                                         textAlignVertical:
                                             TextAlignVertical.top,
-                                        cursorColor: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge!
-                                            .color!,
+                                        cursorColor: Theme.of(
+                                          context,
+                                        ).textTheme.labelLarge!.color!,
                                         style: TextStyle(
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge!
-                                              .color!,
+                                          color: Theme.of(
+                                            context,
+                                          ).textTheme.labelLarge!.color!,
                                         ),
                                         decoration: InputDecoration(
-                                            hintText:
-                                                AppLocalizations.of(context)
-                                                    .subject,
-                                            hintStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(
-                                                    color: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge!
-                                                        .color!
-                                                        .withValues(
-                                                            alpha: 0.5)),
-                                            isDense: true,
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyLarge!
-                                                      .color!,
-                                                  width: 1),
-                                            ),
-                                            border: UnderlineInputBorder(
-                                              borderSide: BorderSide(
+                                          hintText: AppLocalizations.of(
+                                            context,
+                                          ).subject,
+                                          hintStyle: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge!
+                                              .copyWith(
                                                 color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surface,
-                                                width: 1,
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .color!
+                                                    .withValues(alpha: 0.5),
                                               ),
-                                            )),
+                                          isDense: true,
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Theme.of(
+                                                context,
+                                              ).textTheme.bodyLarge!.color!,
+                                              width: 1,
+                                            ),
+                                          ),
+                                          border: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.surface,
+                                              width: 1,
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     )
                                   : Expanded(
@@ -183,7 +188,8 @@ class MailSendPage extends StatelessWidget {
                           height: 7.h,
                           padding: EdgeInsets.all(1.h),
                           child: MailSendAutocompleteWidget(
-                              destinationEditor: state.destinationEditor!),
+                            destinationEditor: state.destinationEditor!,
+                          ),
                         ),
                       SizedBox(height: 1.h),
                       if (state.attachments.isNotEmpty)
@@ -203,15 +209,18 @@ class MailSendPage extends StatelessWidget {
                               child: QuillEditor.basic(
                                 controller: state.controller!,
                                 config: QuillEditorConfig(
-                                  minHeight: (100 -
-                                          (8 +
-                                              1 +
-                                              ((!state.reply!) ? 7 : 0) +
-                                              1 +
-                                              ((state.attachments.isNotEmpty)
-                                                  ? 8
-                                                  : 0)))
-                                      .h,
+                                  minHeight:
+                                      (100 -
+                                              (8 +
+                                                  1 +
+                                                  ((!state.reply!) ? 7 : 0) +
+                                                  1 +
+                                                  ((state
+                                                          .attachments
+                                                          .isNotEmpty)
+                                                      ? 8
+                                                      : 0)))
+                                          .h,
                                 ),
                               ),
                             ),
@@ -219,14 +228,17 @@ class MailSendPage extends StatelessWidget {
                                 ? Padding(
                                     padding: EdgeInsets.all(1.h),
                                     child: MailContentWidget(
-                                        mail: context
-                                            .read<EmailCubit>()
-                                            .state
-                                            .currentMailBox!
-                                            .emails
-                                            .firstWhere((element) =>
+                                      mail: context
+                                          .read<EmailCubit>()
+                                          .state
+                                          .currentMailBox!
+                                          .emails
+                                          .firstWhere(
+                                            (element) =>
                                                 element.id ==
-                                                state.originalMessage)),
+                                                state.originalMessage,
+                                          ),
+                                    ),
                                   )
                                 : Container(),
                           ],
@@ -238,9 +250,7 @@ class MailSendPage extends StatelessWidget {
               ),
             );
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

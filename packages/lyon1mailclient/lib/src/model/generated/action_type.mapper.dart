@@ -84,4 +84,3 @@ extension ActionTypeMapperExtension on ActionType {
     return MapperContainer.globals.toValue<ActionType>(this) as String;
   }
 }
-

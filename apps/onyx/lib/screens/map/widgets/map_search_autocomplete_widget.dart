@@ -18,26 +18,26 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
     onTap(String option) {
       //needed because the context is not passed in the onSelected basic callback
       focusNode.unfocus();
-      int index = context
-          .read<MapCubit>()
-          .state
-          .batiments
-          .indexWhere((element) => element.name == option);
+      int index = context.read<MapCubit>().state.batiments.indexWhere(
+        (element) => element.name == option,
+      );
       if (index != -1) {
         context.read<MapCubit>().navigate(
-            context, context.read<MapCubit>().state.batiments[index].position);
+          context,
+          context.read<MapCubit>().state.batiments[index].position,
+        );
       } else {
-        index = context
-            .read<MapCubit>()
-            .state
-            .restaurant
-            .indexWhere((element) => element.name == option);
+        index = context.read<MapCubit>().state.restaurant.indexWhere(
+          (element) => element.name == option,
+        );
         if (index != -1) {
           context.read<MapCubit>().navigate(
-                context,
-                LatLng(context.read<MapCubit>().state.restaurant[index].lat,
-                    context.read<MapCubit>().state.restaurant[index].lon),
-              );
+            context,
+            LatLng(
+              context.read<MapCubit>().state.restaurant[index].lat,
+              context.read<MapCubit>().state.restaurant[index].lon,
+            ),
+          );
         }
       }
     }
@@ -48,80 +48,92 @@ class MapSearchAutocompleteWidget extends StatelessWidget {
         final localization = AppLocalizations.of(context);
         return [
           for (BatimentModel batiment in mapCubit.state.batiments)
-            if (await SearchService.isMatch(textEditingValue.text,
-                batiment.name, Locale(AppLocalizations.of(context).localeName)))
+            if (await SearchService.isMatch(
+              textEditingValue.text,
+              batiment.name,
+              Locale(AppLocalizations.of(context).localeName),
+            ))
               batiment.name,
           for (RestaurantModel restau in mapCubit.state.restaurant)
-            if (await SearchService.isMatch(textEditingValue.text, restau.name,
-                Locale(localization.localeName)))
+            if (await SearchService.isMatch(
+              textEditingValue.text,
+              restau.name,
+              Locale(localization.localeName),
+            ))
               restau.name,
         ];
       },
       textEditingController: controller,
       focusNode: focusNode,
-      optionsViewBuilder: (BuildContext context,
-          AutocompleteOnSelected<String> onSelected, Iterable<String> options) {
-        return Align(
-          alignment: Alignment.topLeft,
-          child: Material(
-            elevation: 4.0,
-            color: Theme.of(context).colorScheme.surface,
-            child: ListView(
-              padding: EdgeInsets.all(1.h),
-              shrinkWrap: true,
-              children: options
-                  .map((String option) => GestureDetector(
-                        onTap: () {
-                          onSelected(option);
-                          onTap(option);
-                        },
-                        child: ListTile(
-                          title: Text(option),
+      optionsViewBuilder:
+          (
+            BuildContext context,
+            AutocompleteOnSelected<String> onSelected,
+            Iterable<String> options,
+          ) {
+            return Align(
+              alignment: Alignment.topLeft,
+              child: Material(
+                elevation: 4.0,
+                color: Theme.of(context).colorScheme.surface,
+                child: ListView(
+                  padding: EdgeInsets.all(1.h),
+                  shrinkWrap: true,
+                  children: options
+                      .map(
+                        (String option) => GestureDetector(
+                          onTap: () {
+                            onSelected(option);
+                            onTap(option);
+                          },
+                          child: ListTile(title: Text(option)),
                         ),
-                      ))
-                  .toList(),
-            ),
-          ),
-        );
-      },
-      fieldViewBuilder: (BuildContext context,
-          TextEditingController fieldTextEditingController,
-          FocusNode fieldFocusNode,
-          VoidCallback onFieldSubmitted) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(100),
-          ),
-          margin: const EdgeInsets.all(10),
-          child: TextField(
-            controller: fieldTextEditingController,
-            focusNode: fieldFocusNode,
-            textAlignVertical: TextAlignVertical.top,
-            cursorColor: Theme.of(context).textTheme.labelLarge!.color!,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.labelLarge!.color!,
-            ),
-            decoration: InputDecoration(
-              prefixIcon: Icon(
-                Icons.search_rounded,
-                color: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .unselectedItemColor,
+                      )
+                      .toList(),
+                ),
               ),
-              hintText: AppLocalizations.of(context).building,
-              hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .color!
-                      .withValues(alpha: 0.5)),
-              focusedBorder: InputBorder.none,
-              border: InputBorder.none,
-            ),
-          ),
-        );
-      },
+            );
+          },
+      fieldViewBuilder:
+          (
+            BuildContext context,
+            TextEditingController fieldTextEditingController,
+            FocusNode fieldFocusNode,
+            VoidCallback onFieldSubmitted,
+          ) {
+            return Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(100),
+              ),
+              margin: const EdgeInsets.all(10),
+              child: TextField(
+                controller: fieldTextEditingController,
+                focusNode: fieldFocusNode,
+                textAlignVertical: TextAlignVertical.top,
+                cursorColor: Theme.of(context).textTheme.labelLarge!.color!,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.labelLarge!.color!,
+                ),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.search_rounded,
+                    color: Theme.of(
+                      context,
+                    ).bottomNavigationBarTheme.unselectedItemColor,
+                  ),
+                  hintText: AppLocalizations.of(context).building,
+                  hintStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge!.color!.withValues(alpha: 0.5),
+                  ),
+                  focusedBorder: InputBorder.none,
+                  border: InputBorder.none,
+                ),
+              ),
+            );
+          },
     );
   }
 }

@@ -18,13 +18,18 @@ class IzlyRechargePage extends StatelessWidget {
         Positioned(
           top: 0,
           child: IconButton(
-            onPressed: () => pageController.animateToPage(0,
-                duration: Res.animationDuration, curve: Curves.easeInOut),
-            icon: Icon(Icons.keyboard_double_arrow_up_rounded,
-                size: 40.sp,
-                color: Theme.of(context)
-                    .bottomNavigationBarTheme
-                    .unselectedItemColor),
+            onPressed: () => pageController.animateToPage(
+              0,
+              duration: Res.animationDuration,
+              curve: Curves.easeInOut,
+            ),
+            icon: Icon(
+              Icons.keyboard_double_arrow_up_rounded,
+              size: 40.sp,
+              color: Theme.of(
+                context,
+              ).bottomNavigationBarTheme.unselectedItemColor,
+            ),
           ),
         ),
         Center(

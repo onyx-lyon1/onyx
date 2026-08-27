@@ -60,12 +60,12 @@ mixin ExamenListModelMappable {
   }
 
   ExamenListModelCopyWith<ExamenListModel, ExamenListModel, ExamenListModel>
-  get copyWith =>
-      _ExamenListModelCopyWithImpl<ExamenListModel, ExamenListModel>(
-        this as ExamenListModel,
-        $identity,
-        $identity,
-      );
+      get copyWith =>
+          _ExamenListModelCopyWithImpl<ExamenListModel, ExamenListModel>(
+            this as ExamenListModel,
+            $identity,
+            $identity,
+          );
   @override
   String toString() {
     return ExamenListModelMapper.ensureInitialized().stringifyValue(
@@ -97,12 +97,8 @@ extension ExamenListModelValueCopy<$R, $Out>
 
 abstract class ExamenListModelCopyWith<$R, $In extends ExamenListModel, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  ListCopyWith<
-    $R,
-    ExamenModel,
-    ExamenModelCopyWith<$R, ExamenModel, ExamenModel>
-  >
-  get examens;
+  ListCopyWith<$R, ExamenModel,
+      ExamenModelCopyWith<$R, ExamenModel, ExamenModel>> get examens;
   $R call({List<ExamenModel>? examens});
   ExamenListModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
@@ -118,16 +114,13 @@ class _ExamenListModelCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ExamenListModel> $mapper =
       ExamenListModelMapper.ensureInitialized();
   @override
-  ListCopyWith<
-    $R,
-    ExamenModel,
-    ExamenModelCopyWith<$R, ExamenModel, ExamenModel>
-  >
-  get examens => ListCopyWith(
-    $value.examens,
-    (v, t) => v.copyWith.$chain(t),
-    (v) => call(examens: v),
-  );
+  ListCopyWith<$R, ExamenModel,
+          ExamenModelCopyWith<$R, ExamenModel, ExamenModel>>
+      get examens => ListCopyWith(
+            $value.examens,
+            (v, t) => v.copyWith.$chain(t),
+            (v) => call(examens: v),
+          );
   @override
   $R call({List<ExamenModel>? examens}) =>
       $apply(FieldCopyWithData({if (examens != null) #examens: examens}));
@@ -138,6 +131,6 @@ class _ExamenListModelCopyWithImpl<$R, $Out>
   @override
   ExamenListModelCopyWith<$R2, ExamenListModel, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
-  ) => _ExamenListModelCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  ) =>
+      _ExamenListModelCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
-

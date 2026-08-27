@@ -147,10 +147,9 @@ class _ActionCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Action, $Out>
   MailBoxCopyWith<$R, MailBox, MailBox>? get fromMailBox =>
       $value.fromMailBox?.copyWith.$chain((v) => call(fromMailBox: v));
   @override
-  MailBoxCopyWith<$R, MailBox, MailBox>? get destinationMailBox => $value
-      .destinationMailBox
-      ?.copyWith
-      .$chain((v) => call(destinationMailBox: v));
+  MailBoxCopyWith<$R, MailBox, MailBox>? get destinationMailBox =>
+      $value.destinationMailBox?.copyWith
+          .$chain((v) => call(destinationMailBox: v));
   @override
   $R call({
     ActionType? type,
@@ -159,34 +158,35 @@ class _ActionCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Action, $Out>
     Object? originalMessageId = $none,
     Object? replyAll = $none,
     Object? destinationMailBox = $none,
-  }) => $apply(
-    FieldCopyWithData({
-      if (type != null) #type: type,
-      if (mail != null) #mail: mail,
-      if (fromMailBox != $none) #fromMailBox: fromMailBox,
-      if (originalMessageId != $none) #originalMessageId: originalMessageId,
-      if (replyAll != $none) #replyAll: replyAll,
-      if (destinationMailBox != $none) #destinationMailBox: destinationMailBox,
-    }),
-  );
+  }) =>
+      $apply(
+        FieldCopyWithData({
+          if (type != null) #type: type,
+          if (mail != null) #mail: mail,
+          if (fromMailBox != $none) #fromMailBox: fromMailBox,
+          if (originalMessageId != $none) #originalMessageId: originalMessageId,
+          if (replyAll != $none) #replyAll: replyAll,
+          if (destinationMailBox != $none)
+            #destinationMailBox: destinationMailBox,
+        }),
+      );
   @override
   Action $make(CopyWithData data) => Action(
-    type: data.get(#type, or: $value.type),
-    mail: data.get(#mail, or: $value.mail),
-    fromMailBox: data.get(#fromMailBox, or: $value.fromMailBox),
-    originalMessageId: data.get(
-      #originalMessageId,
-      or: $value.originalMessageId,
-    ),
-    replyAll: data.get(#replyAll, or: $value.replyAll),
-    destinationMailBox: data.get(
-      #destinationMailBox,
-      or: $value.destinationMailBox,
-    ),
-  );
+        type: data.get(#type, or: $value.type),
+        mail: data.get(#mail, or: $value.mail),
+        fromMailBox: data.get(#fromMailBox, or: $value.fromMailBox),
+        originalMessageId: data.get(
+          #originalMessageId,
+          or: $value.originalMessageId,
+        ),
+        replyAll: data.get(#replyAll, or: $value.replyAll),
+        destinationMailBox: data.get(
+          #destinationMailBox,
+          or: $value.destinationMailBox,
+        ),
+      );
 
   @override
   ActionCopyWith<$R2, Action, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
       _ActionCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
-

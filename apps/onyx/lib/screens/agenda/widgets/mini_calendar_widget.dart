@@ -6,25 +6,27 @@ import 'package:onyx/screens/settings/settings_export.dart';
 class MiniCalendarWidget extends StatelessWidget {
   final PageController scrollController;
 
-  const MiniCalendarWidget({
-    super.key,
-    required this.scrollController,
-  });
+  const MiniCalendarWidget({super.key, required this.scrollController});
 
   @override
   Widget build(BuildContext context) {
-    final int dayCount =
-        context.read<SettingsCubit>().state.settings.agendaWeekLength;
+    final int dayCount = context
+        .read<SettingsCubit>()
+        .state
+        .settings
+        .agendaWeekLength;
     return PageView.builder(
       scrollDirection: Axis.horizontal,
       controller: scrollController,
       onPageChanged: (index) {
         context.read<AgendaCubit>().updateDisplayedDate(
-            wantedDate: index * dayCount +
-                context.read<AgendaCubit>().state.wantedDate % dayCount,
-            fromMiniCalendar: true,
-            settings: context.read<SettingsCubit>().state.settings,
-            fromHorizontalScroll: false);
+          wantedDate:
+              index * dayCount +
+              context.read<AgendaCubit>().state.wantedDate % dayCount,
+          fromMiniCalendar: true,
+          settings: context.read<SettingsCubit>().state.settings,
+          fromHorizontalScroll: false,
+        );
       },
       itemBuilder: (context, rawIndex) {
         int index = rawIndex * dayCount;

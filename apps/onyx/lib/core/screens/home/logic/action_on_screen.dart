@@ -51,11 +51,10 @@ void actionOnScreen(BuildContext context, int index) {
   if (index == agendaIndex) {
     if (!context.read<SettingsCubit>().state.settings.shownAgendaPopup) {
       context.read<SettingsCubit>().modify(
-          settings: context
-              .read<SettingsCubit>()
-              .state
-              .settings
-              .copyWith(shownAgendaPopup: true));
+        settings: context.read<SettingsCubit>().state.settings.copyWith(
+          shownAgendaPopup: true,
+        ),
+      );
       SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
         showDialog(
           context: context,
@@ -65,21 +64,18 @@ void actionOnScreen(BuildContext context, int index) {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(AppLocalizations.of(context).warningSelectShouldAgenda),
-                SizedBox(
-                  height: 2.h,
-                ),
+                SizedBox(height: 2.h),
                 AgendaSelectionWidget(
                   forceClickable: true,
                   onTap: () {
                     Navigator.of(context).pop();
                     context.read<SettingsCubit>().modify(
-                        settings: context
-                            .read<SettingsCubit>()
-                            .state
-                            .settings
-                            .copyWith(
-                                fetchAgendaAuto:
-                                    false)); //this automaticallty reload agenda from bloclistener in home page
+                      settings: context
+                          .read<SettingsCubit>()
+                          .state
+                          .settings
+                          .copyWith(fetchAgendaAuto: false),
+                    ); //this automaticallty reload agenda from bloclistener in home page
                   },
                 ),
               ],

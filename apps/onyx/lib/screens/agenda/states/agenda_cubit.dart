@@ -17,52 +17,67 @@ class AgendaCubit extends Cubit<AgendaState> {
   late final Lyon1AgendaClient agendaClient;
 
   PageController miniCalendarScrollController = PageController();
-  List<PageController> horizontalScrollController =
-      List.generate(3, (index) => PageController());
+  List<PageController> horizontalScrollController = List.generate(
+    3,
+    (index) => PageController(),
+  );
   final PageController verticalScrollController = PageController();
   bool blockMiniCalendar = false;
   bool blockHorizontalScroll = false;
 
   AgendaCubit()
-      : super(AgendaState(
-            status: AgendaStatus.initial,
-            wantedDate: 0,
-            realDays: [],
-            settingsModel: const SettingsModel()));
+    : super(
+        AgendaState(
+          status: AgendaStatus.initial,
+          wantedDate: 0,
+          realDays: [],
+          settingsModel: const SettingsModel(),
+        ),
+      );
 
   void login(SettingsModel settings) {
-    emit(state.copyWith(
-        status: AgendaStatus.connecting, settingsModel: settings));
+    emit(
+      state.copyWith(status: AgendaStatus.connecting, settingsModel: settings),
+    );
   }
 
-  void load(
-      {required Lyon1CasClient? lyon1Cas,
-      required SettingsModel settings,
-      bool cache = true,
-      bool fromUser = false}) async {
+  void load({
+    required Lyon1CasClient? lyon1Cas,
+    required SettingsModel settings,
+    bool cache = true,
+    bool fromUser = false,
+  }) async {
     emit(state.copyWith(status: AgendaStatus.loading, settingsModel: settings));
     if (cache && !Res.mock && !kIsWeb) {
       List<Day> realDays = await compute(
         AgendaLogic.getCache,
         (await getApplicationDocumentsDirectory()).path,
       );
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           status: AgendaStatus.cacheReady,
           realDays: realDays,
           wantedDate: realDays
               .indexWhere((element) => element.date.isSameDay(DateTime.now()))
               .clamp(0, state.realDays.length),
-          settingsModel: settings));
+          settingsModel: settings,
+        ),
+      );
       if (!fromUser) {
         goToday(
-            fromMiniCalendar: false,
-            fromHorizontalScroll: false,
-            settings: settings);
+          fromMiniCalendar: false,
+          fromHorizontalScroll: false,
+          settings: settings,
+        );
       }
     }
     if (!settings.fetchAgendaAuto && settings.agendaIds.isEmpty) {
-      emit(state.copyWith(
-          status: AgendaStatus.haveToChooseManualy, settingsModel: settings));
+      emit(
+        state.copyWith(
+          status: AgendaStatus.haveToChooseManually,
+          settingsModel: settings,
+        ),
+      );
       return;
     }
     if (lyon1Cas != null && lyon1Cas.isAuthenticated) {
@@ -72,7 +87,10 @@ class AgendaCubit extends Cubit<AgendaState> {
           ids = (await agendaClient.getAgendaIds);
         }
         List<Day> realDays = await AgendaLogic.load(
-            agendaClient: agendaClient, settings: settings, ids: ids);
+          agendaClient: agendaClient,
+          settings: settings,
+          ids: ids,
+        );
 
         CacheService.set<Agenda>(Agenda(realDays));
         emit(
@@ -85,20 +103,25 @@ class AgendaCubit extends Cubit<AgendaState> {
         );
         if (state.status != AgendaStatus.cacheReady && !fromUser) {
           goToday(
-              fromMiniCalendar: false,
-              fromHorizontalScroll: false,
-              settings: settings);
+            fromMiniCalendar: false,
+            fromHorizontalScroll: false,
+            settings: settings,
+          );
         }
         await addRestaurant();
       } catch (e) {
         if (e.toString().contains("AutoIdException")) {
-          emit(state.copyWith(
-              status: AgendaStatus.haveToChooseManualy,
-              settingsModel: settings));
+          emit(
+            state.copyWith(
+              status: AgendaStatus.haveToChooseManually,
+              settingsModel: settings,
+            ),
+          );
         } else {
           Res.logger.e(e);
-          emit(state.copyWith(
-              status: AgendaStatus.error, settingsModel: settings));
+          emit(
+            state.copyWith(status: AgendaStatus.error, settingsModel: settings),
+          );
         }
         return;
       }
@@ -106,18 +129,23 @@ class AgendaCubit extends Cubit<AgendaState> {
   }
 
   void addExternalEvent(List<Event> events) {
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         examEvents: state.examEvents + events,
-        settingsModel: const SettingsModel()));
+        settingsModel: const SettingsModel(),
+      ),
+    );
   }
 
   void removeExternalEvent(List<Event> events) {
-    emit(state.copyWith(
-      examEvents: state.examEvents
-          .where((element) => !events.contains(element))
-          .toList(),
-      settingsModel: const SettingsModel(),
-    ));
+    emit(
+      state.copyWith(
+        examEvents: state.examEvents
+            .where((element) => !events.contains(element))
+            .toList(),
+        settingsModel: const SettingsModel(),
+      ),
+    );
   }
 
   void clearExternalEvent() {
@@ -126,22 +154,28 @@ class AgendaCubit extends Cubit<AgendaState> {
 
   Future<void> addRestaurant() async {
     List<Day> days = await AgendaLogic.addRestaurant(List.from(state.realDays));
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         status: AgendaStatus.ready,
         realDays: days,
-        settingsModel: const SettingsModel()));
+        settingsModel: const SettingsModel(),
+      ),
+    );
   }
 
-  void updateDisplayedDate(
-      {required int wantedDate,
-      required bool fromMiniCalendar,
-      required bool fromHorizontalScroll,
-      required SettingsModel settings}) {
+  void updateDisplayedDate({
+    required int wantedDate,
+    required bool fromMiniCalendar,
+    required bool fromHorizontalScroll,
+    required SettingsModel settings,
+  }) {
     if (!fromHorizontalScroll) {
       if (!blockMiniCalendar || !fromMiniCalendar) {
         blockHorizontalScroll = true;
         Future.delayed(
-            Res.animationDuration, () => blockHorizontalScroll = false);
+          Res.animationDuration,
+          () => blockHorizontalScroll = false,
+        );
         if (horizontalScrollController[0].hasClients) {
           horizontalScrollController[0].animateToPage(
             wantedDate,
@@ -181,25 +215,30 @@ class AgendaCubit extends Cubit<AgendaState> {
     );
   }
 
-  void goToday(
-      {required bool fromMiniCalendar,
-      required bool fromHorizontalScroll,
-      required SettingsModel settings}) {
+  void goToday({
+    required bool fromMiniCalendar,
+    required bool fromHorizontalScroll,
+    required SettingsModel settings,
+  }) {
     int index = state.getDayIndex(date: DateTime.now(), settings: settings);
     if (index != -1) {
       updateDisplayedDate(
-          wantedDate: index,
-          fromMiniCalendar: fromMiniCalendar,
-          fromHorizontalScroll: fromHorizontalScroll,
-          settings: settings);
+        wantedDate: index,
+        fromMiniCalendar: fromMiniCalendar,
+        fromHorizontalScroll: fromHorizontalScroll,
+        settings: settings,
+      );
     }
   }
 
   void resetCubit() {
-    emit(AgendaState(
+    emit(
+      AgendaState(
         status: AgendaStatus.initial,
         wantedDate: 0,
         realDays: [],
-        settingsModel: const SettingsModel()));
+        settingsModel: const SettingsModel(),
+      ),
+    );
   }
 }

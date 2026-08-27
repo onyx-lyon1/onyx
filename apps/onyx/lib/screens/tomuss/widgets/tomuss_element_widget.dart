@@ -26,9 +26,7 @@ class TomussElementWidget extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Theme.of(context).cardTheme.color,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10),
-        ),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -51,7 +49,8 @@ class TomussElementWidget extends StatelessWidget {
                   child: Container(
                     margin: EdgeInsets.only(left: constraints.maxWidth * 0.02),
                     padding: EdgeInsets.symmetric(
-                        vertical: constraints.maxHeight * 0.02),
+                      vertical: constraints.maxHeight * 0.02,
+                    ),
                     child: right,
                   ),
                 ),

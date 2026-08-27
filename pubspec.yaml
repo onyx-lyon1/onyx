@@ -1,6 +1,37 @@
 name: onyx_workspace
+publish_to: none
 
 environment:
-  sdk: '>=2.18.0 <4.0.0'
+  sdk: '>=3.6.0 <4.0.0'
+
+workspace:
+  - packages/izlyclient
+  - packages/lyon1agendaclient
+  - packages/lyon1casclient
+  - packages/lyon1examenclient
+  - packages/lyon1mailclient
+  - packages/lyon1tomussclient
+  - packages/polytechcolloscopeclient
+  - apps/onyx
+
 dev_dependencies:
-  melos: ^6.3.2
+  melos: ^7.0.0
+
+melos:
+  scripts:
+    analyze:
+      exec: dart analyze .
+    formatting:check: melos exec -- dart format --set-exit-if-changed .
+
+    generate:
+      run: melos exec --depends-on=build_runner -- "dart run build_runner build -d"
+      description: Build all generated files for Flutter packages in this project.
+
+    test:
+      run: melos exec --no-flutter dart test
+
+    format:
+      run: melos exec dart format lib/
+
+    major-versions:
+      run: melos exec dart pub upgrade --major-versions

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_widget">إضافة عنصر واجهة مستخدم</string>
+    <string name="agenda_widget_last_update">آخر تحديث:</string>
+    <string name="agenda_widget_empty_list">لا توجد أحداث قادمة</string>
+    <string name="agenda_widget_description">اعرض جدول أعمالك للأحداث القادمة</string>
+    <string name="no_data">لا توجد بيانات</string>
+</resources>

@@ -5,10 +5,7 @@ import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class GradeCoefWidget extends StatefulWidget {
-  const GradeCoefWidget({
-    super.key,
-    required this.grade,
-  });
+  const GradeCoefWidget({super.key, required this.grade});
 
   final Grade grade;
 
@@ -36,12 +33,11 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
         controller: _controller,
         keyboardType: TextInputType.number,
         style: TextStyle(
-            fontSize: 15.sp,
-            color: Theme.of(context).textTheme.bodyLarge!.color!),
+          fontSize: 15.sp,
+          color: Theme.of(context).textTheme.bodyLarge!.color!,
+        ),
         decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
@@ -52,7 +48,9 @@ class _GradeCoefWidgetState extends State<GradeCoefWidget> {
         ),
         onChanged: (value) {
           context.read<TomussCubit>().updateCoef(
-              widget.grade, (value.isNotEmpty) ? double.parse(value) : null);
+            widget.grade,
+            (value.isNotEmpty) ? double.parse(value) : null,
+          );
         },
       ),
     );

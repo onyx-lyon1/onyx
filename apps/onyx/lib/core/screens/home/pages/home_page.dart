@@ -33,24 +33,30 @@ class HomePageState extends State<HomePage> {
             builder: (context, authState) {
               return BlocBuilder<SettingsCubit, SettingsState>(
                 buildWhen: (previous, current) {
-                  if (!listEquals(previous.settings.enabledFunctionalities,
-                          current.settings.enabledFunctionalities) ||
-                      !listEquals(previous.settings.disabledFunctionalities,
-                          current.settings.disabledFunctionalities)) {
+                  if (!listEquals(
+                        previous.settings.enabledFunctionalities,
+                        current.settings.enabledFunctionalities,
+                      ) ||
+                      !listEquals(
+                        previous.settings.disabledFunctionalities,
+                        current.settings.disabledFunctionalities,
+                      )) {
                     //the page order has changer so we need to adapt the current page to avoir jump
 
                     final previousIndex = homeState.selectedIndex;
                     final functionalityName = [
                       ...previous.settings.enabledFunctionalities,
-                    ][previousIndex]
-                        .name;
-                    final newEnabledIndex =
-                        current.settings.enabledFunctionalities.indexWhere(
-                            (element) => element.name == functionalityName);
+                    ][previousIndex].name;
+                    final newEnabledIndex = current
+                        .settings
+                        .enabledFunctionalities
+                        .indexWhere(
+                          (element) => element.name == functionalityName,
+                        );
                     if (newEnabledIndex != -1) {
-                      context
-                          .read<HomeCubit>()
-                          .updateSelectedIndex(newEnabledIndex);
+                      context.read<HomeCubit>().updateSelectedIndex(
+                        newEnabledIndex,
+                      );
                     }
                     return true;
                   }
@@ -64,37 +70,43 @@ class HomePageState extends State<HomePage> {
                   for (var i = 0; i < enabledFunctionalities.length; i++) {
                     if (!(Platform.isIOS &&
                         enabledFunctionalities[i] == Functionalities.izly)) {
-                      enabledDestinations.add(Destination(
+                      enabledDestinations.add(
+                        Destination(
                           i,
                           enabledFunctionalities[i].name,
-                          enabledFunctionalities[i].toIcon()));
+                          enabledFunctionalities[i].toIcon(),
+                        ),
+                      );
                     }
                   }
 
                   // add the more button
                   if (enabledDestinations.length > 4) {
                     enabledDestinations.insert(
-                        3,
-                        Destination(
-                            enabledFunctionalities.length,
-                            AppLocalizations.of(context).more,
-                            Icons.more_horiz_rounded));
+                      3,
+                      Destination(
+                        enabledFunctionalities.length,
+                        AppLocalizations.of(context).more,
+                        Icons.more_horiz_rounded,
+                      ),
+                    );
                   }
                   return Scaffold(
                     backgroundColor: Theme.of(context).colorScheme.surface,
                     resizeToAvoidBottomInset: false,
                     body: CommonScreenWidget(
-                        onRefresh: () async {},
-                        state: (context
-                                    .read<AuthentificationCubit>()
-                                    .state
-                                    .status ==
-                                AuthentificationStatus.authentificating)
-                            ? LoadingHeaderWidget(
-                                message:
-                                    AppLocalizations.of(context).casConnexion)
-                            : null,
-                        body: LayoutBuilder(builder: (context, constraints) {
+                      onRefresh: () async {},
+                      state:
+                          (context.read<AuthentificationCubit>().state.status ==
+                              AuthentificationStatus.authentificating)
+                          ? LoadingHeaderWidget(
+                              message: AppLocalizations.of(
+                                context,
+                              ).casConnexion,
+                            )
+                          : null,
+                      body: LayoutBuilder(
+                        builder: (context, constraints) {
                           return Stack(
                             children: [
                               SizedBox(
@@ -114,13 +126,16 @@ class HomePageState extends State<HomePage> {
                                         //Using offstage to avoid the hidden pages to rebuild
                                         if (index == homeState.selectedIndex) {
                                           return Offstage(
-                                              offstage: false, child: view);
+                                            offstage: false,
+                                            child: view,
+                                          );
                                         } else {
                                           return Offstage(child: view);
                                         }
                                       })
                                       .whereType<
-                                          Widget>() //little hack to drop null values
+                                        Widget
+                                      >() //little hack to drop null values
                                       .toList(),
                                 ),
                               ),
@@ -129,10 +144,12 @@ class HomePageState extends State<HomePage> {
                                 child: BottomNavBarWidget(
                                   enabledDestinations: enabledDestinations,
                                 ),
-                              )
+                              ),
                             ],
                           );
-                        })),
+                        },
+                      ),
+                    ),
                   );
                 },
               );

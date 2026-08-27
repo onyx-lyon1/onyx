@@ -15,8 +15,7 @@ class ThemeSettingsModel with ThemeSettingsModelMappable {
   late List<ThemeModel> favoriteThemes;
   final ThemeModeEnum themeMode;
   final bool autoSwitchTheme;
-  final List<ThemeModel> themesPreset =
-      OnyxTheme.themesPreset;
+  final List<ThemeModel> themesPreset = OnyxTheme.themesPreset;
 
   ThemeSettingsModel({
     this.themesCreated = const [],

@@ -6,7 +6,7 @@ enum AuthentificationStatus {
   authentificating,
   authentificated,
   error,
-  waitingBiometric
+  waitingBiometric,
 }
 
 class AuthentificationState extends Equatable {
@@ -15,17 +15,22 @@ class AuthentificationState extends Equatable {
 
   final String username;
 
-  const AuthentificationState(
-      {required this.status, required this.lyon1Cas, this.username = ""});
+  const AuthentificationState({
+    required this.status,
+    required this.lyon1Cas,
+    this.username = "",
+  });
 
-  AuthentificationState copyWith(
-      {AuthentificationStatus? status,
-      Lyon1CasClient? lyon1Cas,
-      String? username}) {
+  AuthentificationState copyWith({
+    AuthentificationStatus? status,
+    Lyon1CasClient? lyon1Cas,
+    String? username,
+  }) {
     return AuthentificationState(
-        status: status ?? this.status,
-        lyon1Cas: lyon1Cas ?? this.lyon1Cas,
-        username: username ?? this.username);
+      status: status ?? this.status,
+      lyon1Cas: lyon1Cas ?? this.lyon1Cas,
+      username: username ?? this.username,
+    );
   }
 
   @override

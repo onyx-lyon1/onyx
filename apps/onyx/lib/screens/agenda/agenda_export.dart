@@ -10,3 +10,4 @@ export 'widgets/mini_calendar_one_day_widget.dart';
 export 'widgets/left_hour_indicator_widget.dart';
 export 'widgets/grid_widget.dart';
 export 'widgets/current_date_indicator.dart';
+export 'widgets/month_view_widget.dart';

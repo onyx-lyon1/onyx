@@ -24,48 +24,58 @@ class SettingsSettingsWidget extends StatelessWidget {
             value: context.read<SettingsCubit>().state.settings.biometricAuth,
             onChanged: (value) async {
               if (value) {
-                final canAuthenticate =
-                    await BiometricStorage().canAuthenticate();
+                final canAuthenticate = await BiometricStorage()
+                    .canAuthenticate();
                 if (canAuthenticate != CanAuthenticateResponse.success) {
                   //show alert dialog
                   showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: Text(AppLocalizations.of(context).error),
-                            content: Text(AppLocalizations.of(context)
-                                .unableToEnableBiometricAuth),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text(AppLocalizations.of(context).ok))
-                            ],
-                          ));
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(AppLocalizations.of(context).error),
+                      content: Text(
+                        AppLocalizations.of(
+                          context,
+                        ).unableToEnableBiometricAuth,
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(AppLocalizations.of(context).ok),
+                        ),
+                      ],
+                    ),
+                  );
                   return;
                 }
                 bool undo = false;
                 await showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          title: Text(AppLocalizations.of(context).warning),
-                          content: Text(AppLocalizations.of(context)
-                              .enableBiometricAuthDisableNotifications),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  undo = true;
-                                  Navigator.of(context).pop();
-                                },
-                                child:
-                                    Text(AppLocalizations.of(context).cancel)),
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text(AppLocalizations.of(context).ok))
-                          ],
-                        ));
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text(AppLocalizations.of(context).warning),
+                    content: Text(
+                      AppLocalizations.of(
+                        context,
+                      ).enableBiometricAuthDisableNotifications,
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          undo = true;
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(AppLocalizations.of(context).cancel),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(AppLocalizations.of(context).ok),
+                      ),
+                    ],
+                  ),
+                );
                 if (undo) {
                   value = !value;
                   return;
@@ -74,11 +84,10 @@ class SettingsSettingsWidget extends StatelessWidget {
 
               await CacheService.toggleBiometricAuth(value);
               context.read<SettingsCubit>().modify(
-                  settings: context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .copyWith(biometricAuth: value));
+                settings: context.read<SettingsCubit>().state.settings.copyWith(
+                  biometricAuth: value,
+                ),
+              );
             },
           ),
         BlocBuilder<ThemeCubit, ThemeState>(

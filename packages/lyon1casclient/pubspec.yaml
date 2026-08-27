@@ -6,6 +6,8 @@ repository: https://github.com/onyx-lyon1/onxy/tree/main/packages/lyon1casclient
 environment:
   sdk: ">=3.8.0 <4.0.0"
 
+resolution: workspace
+
 # Add regular dependencies here.
 dependencies:
   beautiful_soup_dart: ^0.3.0

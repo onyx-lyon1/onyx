@@ -48,31 +48,28 @@ class _MailMailboxChooserWidgetState extends State<MailMailboxChooserWidget> {
             childrenPadding: EdgeInsets.symmetric(horizontal: 1.5.w),
             backgroundColor: Theme.of(context).colorScheme.surface,
             children: state.mailBoxes
-                .map((e) => Material(
-                      color: (state.currentMailBox!.name == e.name)
-                          ? Theme.of(context).primaryColor
-                          : null,
-                      child: InkWell(
-                        onTap: () {
-                          context.read<EmailCubit>().load(
-                                blockTrackers: context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .settings
-                                    .blockTrackers,
-                                mailbox: e,
-                                appLocalizations: AppLocalizations.of(context),
-                              );
-                          _collapse();
-                        },
-                        child: Row(
-                          children: [
-                            Icon(e.toIcon()),
-                            Text(e.name),
-                          ],
-                        ),
-                      ),
-                    ))
+                .map(
+                  (e) => Material(
+                    color: (state.currentMailBox!.name == e.name)
+                        ? Theme.of(context).primaryColor
+                        : null,
+                    child: InkWell(
+                      onTap: () {
+                        context.read<EmailCubit>().load(
+                          blockTrackers: context
+                              .read<SettingsCubit>()
+                              .state
+                              .settings
+                              .blockTrackers,
+                          mailbox: e,
+                          appLocalizations: AppLocalizations.of(context),
+                        );
+                        _collapse();
+                      },
+                      child: Row(children: [Icon(e.toIcon()), Text(e.name)]),
+                    ),
+                  ),
+                )
                 .toList(),
           ),
         );

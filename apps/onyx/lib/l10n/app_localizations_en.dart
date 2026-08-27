@@ -122,7 +122,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get today => 'Today';
 
   @override
-  String get agendaWeekReferenceAlignement => 'Reference day alignment';
+  String get agendaWeekReferenceAlignment => 'Reference day alignment';
 
   @override
   String get disabledDays => 'Hidden days';

@@ -328,7 +328,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Reference day alignment'**
-  String get agendaWeekReferenceAlignement;
+  String get agendaWeekReferenceAlignment;
 
   /// Hidden days
   ///

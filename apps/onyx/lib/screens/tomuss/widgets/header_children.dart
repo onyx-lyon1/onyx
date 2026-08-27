@@ -28,44 +28,57 @@ class HeaderChildren extends StatelessWidget {
                 ),
               );
             } else if (child.teachingUnitElement is Enumeration) {
-              widgets.add(EnumerationCompactWidget(
-                enumeration: child.teachingUnitElement as Enumeration,
-                teachingUnitTitle: child.teachingUnit.title,
-                onTap: () => onTap(child.teachingUnit),
-              ));
+              widgets.add(
+                EnumerationCompactWidget(
+                  enumeration: child.teachingUnitElement as Enumeration,
+                  teachingUnitTitle: child.teachingUnit.title,
+                  onTap: () => onTap(child.teachingUnit),
+                ),
+              );
             } else if (child.teachingUnitElement is Presence) {
-              widgets.add(PresenceCompactWidget(
-                presence: child.teachingUnitElement as Presence,
-                teachingUnitTitle: child.teachingUnit.title,
-                onTap: () => onTap(child.teachingUnit),
-              ));
+              widgets.add(
+                PresenceCompactWidget(
+                  presence: child.teachingUnitElement as Presence,
+                  teachingUnitTitle: child.teachingUnit.title,
+                  onTap: () => onTap(child.teachingUnit),
+                ),
+              );
             } else if (child.teachingUnitElement is TomussText) {
-              widgets.add(TomussTextCompactWidget(
-                text: child.teachingUnitElement as TomussText,
-                teachingUnitTitle: child.teachingUnit.title,
-                onTap: () => onTap(child.teachingUnit),
-              ));
+              widgets.add(
+                TomussTextCompactWidget(
+                  text: child.teachingUnitElement as TomussText,
+                  teachingUnitTitle: child.teachingUnit.title,
+                  onTap: () => onTap(child.teachingUnit),
+                ),
+              );
             } else if (child.teachingUnitElement is Upload) {
-              widgets.add(UploadCompactWidget(
-                upload: child.teachingUnitElement as Upload,
-                teachingUnitTitle: child.teachingUnit.title,
-                onTap: () => onTap(child.teachingUnit),
-              ));
+              widgets.add(
+                UploadCompactWidget(
+                  upload: child.teachingUnitElement as Upload,
+                  teachingUnitTitle: child.teachingUnit.title,
+                  onTap: () => onTap(child.teachingUnit),
+                ),
+              );
             } else if (child.teachingUnitElement is StageCode) {
-              widgets.add(StageCodeCompactWidget(
-                stageCode: child.teachingUnitElement as StageCode,
-                teachingUnitTitle: child.teachingUnit.title,
-                onTap: () => onTap(child.teachingUnit),
-              ));
+              widgets.add(
+                StageCodeCompactWidget(
+                  stageCode: child.teachingUnitElement as StageCode,
+                  teachingUnitTitle: child.teachingUnit.title,
+                  onTap: () => onTap(child.teachingUnit),
+                ),
+              );
             } else if (child.teachingUnitElement is URL) {
-              widgets.add(URLCompactWidget(
-                url: child.teachingUnitElement as URL,
-                teachingUnitTitle: child.teachingUnit.title,
-                onTap: () => onTap(child.teachingUnit),
-              ));
+              widgets.add(
+                URLCompactWidget(
+                  url: child.teachingUnitElement as URL,
+                  teachingUnitTitle: child.teachingUnit.title,
+                  onTap: () => onTap(child.teachingUnit),
+                ),
+              );
             } else {
-              Res.logger
-                  .e("Unknown type: ${child.teachingUnitElement.runtimeType}");
+              Res.logger.e(
+                "Unknown type: ${child.teachingUnitElement.runtimeType}",
+              );
             }
             widgets.add(SizedBox(width: 1.w));
           }

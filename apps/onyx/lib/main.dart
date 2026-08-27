@@ -31,7 +31,9 @@ void main() async {
   }
 
   await initSembastDb();
-  Lyon1MailClient.initSembast(path: await getApplicationDocumentsDirectory().then((value) => value.path));
+  Lyon1MailClient.initSembast(
+    path: await getApplicationDocumentsDirectory().then((value) => value.path),
+  );
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

@@ -3,10 +3,7 @@ import 'package:izlyclient/izlyclient.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MenuWidget extends StatelessWidget {
-  const MenuWidget({
-    super.key,
-    required this.menuCrous,
-  });
+  const MenuWidget({super.key, required this.menuCrous});
 
   final MenuCrous menuCrous;
 
@@ -17,10 +14,10 @@ class MenuWidget extends StatelessWidget {
       children: [
         Text(
           menuCrous.type.toString(),
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge!
-              .copyWith(fontSize: 23.sp, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            fontSize: 23.sp,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         Container(
           height: 0.2.h,
@@ -32,10 +29,10 @@ class MenuWidget extends StatelessWidget {
             children: [
               Text(
                 platCrous.name,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .copyWith(fontWeight: FontWeight.bold, fontSize: 18.sp),
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.sp,
+                ),
               ),
               Text(
                 platCrous.variants.join("\n"),

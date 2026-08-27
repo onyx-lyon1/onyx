@@ -6,10 +6,7 @@ class ThemeState extends Equatable {
   final ThemeStateStatus status;
   final ThemeSettingsModel? themesSettings;
 
-  const ThemeState({
-    this.status = ThemeStateStatus.init,
-    this.themesSettings,
-  });
+  const ThemeState({this.status = ThemeStateStatus.init, this.themesSettings});
 
   // Define a copyWith method for creating a new instance with modified properties
   ThemeState copyWith({
@@ -24,10 +21,7 @@ class ThemeState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        status,
-        themesSettings,
-      ];
+  List<Object?> get props => [status, themesSettings];
 
   @override
   bool? get stringify => true;
@@ -51,10 +45,12 @@ class ThemeState extends Equatable {
       : null;
 
   ThemeData? _getTheme(String themeName) {
-    int indexThemesCreated = themesSettings!.themesCreated
-        .indexWhere((element) => element.name == themeName);
-    int indexThemesPreset = themesSettings!.themesPreset
-        .indexWhere((element) => element.name == themeName);
+    int indexThemesCreated = themesSettings!.themesCreated.indexWhere(
+      (element) => element.name == themeName,
+    );
+    int indexThemesPreset = themesSettings!.themesPreset.indexWhere(
+      (element) => element.name == themeName,
+    );
     if (indexThemesCreated != -1) {
       return themesSettings!.themesCreated[indexThemesCreated].theme;
     } else if (indexThemesPreset != -1) {

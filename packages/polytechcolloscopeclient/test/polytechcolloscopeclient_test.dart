@@ -28,31 +28,40 @@ Future<void> main() async {
     client = PolytechColloscopeClient(username, password);
   });
 
-  test('Fetch all Students IDs (first year)',
-      () async => {expect(await client.fetchStudents(Year.first), isNotEmpty)});
+  test(
+    'Fetch all Students IDs (first year)',
+    () async => {expect(await client.fetchStudents(Year.first), isNotEmpty)},
+  );
 
   test(
-      'Fetch all Students IDs (second year)',
-      () async =>
-          {expect(await client.fetchStudents(Year.second), isNotEmpty)});
+    'Fetch all Students IDs (second year)',
+    () async => {expect(await client.fetchStudents(Year.second), isNotEmpty)},
+  );
 
   test(
-      'Get Colloscope wrong ID',
-      () async => {
-            expect(client.getColloscope(Student(Year.second, "", 651635)),
-                throwsStateError)
-          });
+    'Get Colloscope wrong ID',
+    () async => {
+      expect(
+        client.getColloscope(Student(Year.second, "", 651635)),
+        throwsStateError,
+      ),
+    },
+  );
 
   test(
-      'Get Colloscope',
-      () async => {
-            expect(await client.getColloscope(Student(Year.second, "", id)),
-                isNotNull)
-          });
+    'Get Colloscope',
+    () async => {
+      expect(
+        await client.getColloscope(Student(Year.second, "", id)),
+        isNotNull,
+      ),
+    },
+  );
 
   test('Get Colloscope', () async {
-    final StudentColloscope colloscope =
-        await client.getColloscope(Student(Year.second, "", id));
+    final StudentColloscope colloscope = await client.getColloscope(
+      Student(Year.second, "", id),
+    );
     expect(colloscope, isNotNull);
     expect(colloscope.student, isNotNull);
     expect(colloscope.trinomeId, isNotNull);
@@ -60,15 +69,16 @@ Future<void> main() async {
   });
 
   test(
-      "Fetch a student",
-      () async => {
-            expect(await client.fetchStudent(Year.second, name, surname),
-                isNotNull)
-          });
+    "Fetch a student",
+    () async => {
+      expect(await client.fetchStudent(Year.second, name, surname), isNotNull),
+    },
+  );
 
   test('Fetch a student', () async {
-    final StudentColloscope colloscope =
-        await client.getColloscope(Student(Year.second, "", id));
+    final StudentColloscope colloscope = await client.getColloscope(
+      Student(Year.second, "", id),
+    );
     expect(colloscope, isNotNull);
     expect(colloscope.student, isNotNull);
     expect(colloscope.student.id, isNotNull);

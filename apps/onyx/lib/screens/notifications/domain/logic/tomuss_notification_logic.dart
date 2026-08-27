@@ -6,8 +6,11 @@ import 'package:onyx/screens/settings/settings_export.dart';
 import 'package:onyx/screens/tomuss/tomuss_export.dart';
 import 'package:onyx/l10n/app_localizations.dart';
 
-Future<void> tomussNotificationLogic(SettingsModel settings,
-    Lyon1CasClient lyon1Cas, AppLocalizations localizations) async {
+Future<void> tomussNotificationLogic(
+  SettingsModel settings,
+  Lyon1CasClient lyon1Cas,
+  AppLocalizations localizations,
+) async {
   if (settings.newGradeNotification) {
     Lyon1TomussClient tomussClient = Lyon1TomussClient(lyon1Cas);
     List<TeachingUnit> teachingUnits = [];
@@ -21,47 +24,61 @@ Future<void> tomussNotificationLogic(SettingsModel settings,
     }
     semestreIndex ??= 0;
     if (await CacheService.exist<TeachingUnitList>(index: semestreIndex)) {
-      teachingUnits =
-          (await CacheService.get<TeachingUnitList>(index: semestreIndex))!
-              .teachingUnitModels;
+      teachingUnits = (await CacheService.get<TeachingUnitList>(
+        index: semestreIndex,
+      ))!.teachingUnitModels;
       List<TeachingUnit> newTeachingUnits =
           (await TomussLogic.getNameAndSemestersAndNotes(
-                  tomussClient: tomussClient,
-                  autoRefresh: true,
-                  semester: semestreModel ??
-                      Semester(
-                          title: localizations.defaultSemester,
-                          url: Lyon1TomussClient.currentSemester())))
-              .schoolSubjectModel!;
+            tomussClient: tomussClient,
+            autoRefresh: true,
+            semester:
+                semestreModel ??
+                Semester(
+                  title: localizations.defaultSemester,
+                  url: Lyon1TomussClient.currentSemester(),
+                ),
+          )).schoolSubjectModel!;
       for (var i in newTeachingUnits) {
         if (teachingUnits.any((element) => element.title == i.title)) {
-          TeachingUnit teachingUnitModel =
-              teachingUnits.firstWhere((element) => element.title == i.title);
+          TeachingUnit teachingUnitModel = teachingUnits.firstWhere(
+            (element) => element.title == i.title,
+          );
           for (var x in i.grades) {
-            if (!teachingUnitModel.grades.any((element) =>
-                element.title == x.title &&
-                element.numerator == x.numerator &&
-                element.denominator == x.denominator)) {
+            if (!teachingUnitModel.grades.any(
+              (element) =>
+                  element.title == x.title &&
+                  element.numerator == x.numerator &&
+                  element.denominator == x.denominator,
+            )) {
               await NotificationLogic.showNotification(
-                  title: localizations.newGrade,
-                  body: localizations.youHaveANewGrade(
-                      x.numerator, x.denominator, x.title),
-                  payload: localizations.newGrade);
+                title: localizations.newGrade,
+                body: localizations.youHaveANewGrade(
+                  x.numerator,
+                  x.denominator,
+                  x.title,
+                ),
+                payload: localizations.newGrade,
+              );
             }
           }
         } else {
           for (var x in i.grades) {
             await NotificationLogic.showNotification(
-                title: localizations.newGrade,
-                body: localizations.youHaveANewGrade(
-                    x.numerator, x.denominator, x.title),
-                payload: localizations.newGrade);
+              title: localizations.newGrade,
+              body: localizations.youHaveANewGrade(
+                x.numerator,
+                x.denominator,
+                x.title,
+              ),
+              payload: localizations.newGrade,
+            );
           }
         }
       }
 
       await CacheService.set<TeachingUnitList>(
-          TeachingUnitList(teachingUnits, semestreIndex));
+        TeachingUnitList(teachingUnits, semestreIndex),
+      );
     }
   }
 }

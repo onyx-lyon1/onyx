@@ -6,20 +6,19 @@ import 'package:onyx/screens/tomuss/states/tomuss_cubit.dart';
 import 'package:onyx/l10n/app_localizations.dart';
 
 class TomussConnection extends BlocListener<TomussCubit, TomussState> {
-  TomussConnection({
-    super.key,
-  }) : super(
-          listener: (context, state) {
-            if (TomussStatus.ready == state.status) {
-              context.read<ExamenCubit>().load(
-                    context.read<TomussCubit>().state.name,
-                    context.read<TomussCubit>().state.surname,
-                    context.read<AuthentificationCubit>().state.username,
-                    context.read<SettingsCubit>().state.settings,
-                    context.read<AuthentificationCubit>().state.lyon1Cas,
-                    AppLocalizations.of(context),
-                  );
-            }
-          },
-        );
+  TomussConnection({super.key})
+    : super(
+        listener: (context, state) {
+          if (TomussStatus.ready == state.status) {
+            context.read<ExamenCubit>().load(
+              context.read<TomussCubit>().state.name,
+              context.read<TomussCubit>().state.surname,
+              context.read<AuthentificationCubit>().state.username,
+              context.read<SettingsCubit>().state.settings,
+              context.read<AuthentificationCubit>().state.lyon1Cas,
+              AppLocalizations.of(context),
+            );
+          }
+        },
+      );
 }

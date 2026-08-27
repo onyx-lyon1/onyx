@@ -29,12 +29,10 @@ class InfiniteScrollLoopWidget extends StatelessWidget {
     );
 
     Widget reverseList = SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          return builder(context, -(index + 1));
-          // return children[(-(index + 1) % children.length)];
-        },
-      ),
+      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+        return builder(context, -(index + 1));
+        // return children[(-(index + 1) % children.length)];
+      }),
     );
     if (onChange != null) {
       scrollController.addListener(() {
@@ -52,10 +50,7 @@ class InfiniteScrollLoopWidget extends StatelessWidget {
           axisDirection: axisDirection,
           offset: offset,
           center: forwardListKey,
-          slivers: [
-            reverseList,
-            forwardList,
-          ],
+          slivers: [reverseList, forwardList],
         );
       },
     );

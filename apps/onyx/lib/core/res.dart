@@ -37,7 +37,6 @@ class Res {
 
   static const String ivPath = "assets/iv.txt";
   static const String keyPath = "assets/key.txt";
-  static const String agendaIdsPath = "assets/agenda_ids.json.enc";
 
   static const String colloscopeIdsPath = "assets/colloscope_ids.enc";
 
@@ -51,12 +50,18 @@ class Res {
   static const String graphPath = 'assets/graph.json.gz';
   static const String discordLogoPath = 'assets/discord_Logo.png';
 
+  static const String iOSAppGroupId =
+      'fr.onyx.lyon1'; // Not sure, to confirm, and currently not used as widget is only on Android at the time
+  static const String agendaWidgetName = "AgendaWidget";
+
   static const Duration agendaDayStart = Duration(hours: 6);
   static const Duration agendaDayEnd = Duration(hours: 22);
   static const Duration agendaDayDuration = Duration(
     hours: 16,
   ); // be careful to change this value accordingly to the previous
   // 22 - 6 = 16
+  static const int agendaWidgetDaysStored = 14;
+  static const bool agendaWidgetShowEmptyDays = true;
 
   static final logger = Logger(
     level: (kDebugMode) ? Level.all : Level.fatal,

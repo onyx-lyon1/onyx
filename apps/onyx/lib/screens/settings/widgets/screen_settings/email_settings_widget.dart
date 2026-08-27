@@ -25,11 +25,10 @@ class MailSettingsWidget extends StatelessWidget {
                 .newMailNotification,
             onChanged: (bool b) {
               context.read<SettingsCubit>().modify(
-                  settings: context
-                      .read<SettingsCubit>()
-                      .state
-                      .settings
-                      .copyWith(newMailNotification: b));
+                settings: context.read<SettingsCubit>().state.settings.copyWith(
+                  newMailNotification: b,
+                ),
+              );
             },
           ),
         TextSwitchWidget(
@@ -37,16 +36,15 @@ class MailSettingsWidget extends StatelessWidget {
           value: context.read<SettingsCubit>().state.settings.forcedMailTheme,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
-                settings: context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .copyWith(forcedMailTheme: b));
+              settings: context.read<SettingsCubit>().state.settings.copyWith(
+                forcedMailTheme: b,
+              ),
+            );
             context.read<EmailCubit>().load(
-                  blockTrackers: b,
-                  cache: false,
-                  appLocalizations: AppLocalizations.of(context),
-                );
+              blockTrackers: b,
+              cache: false,
+              appLocalizations: AppLocalizations.of(context),
+            );
           },
         ),
         TextSwitchWidget(
@@ -54,11 +52,10 @@ class MailSettingsWidget extends StatelessWidget {
           value: context.read<SettingsCubit>().state.settings.blockTrackers,
           onChanged: (bool b) {
             context.read<SettingsCubit>().modify(
-                settings: context
-                    .read<SettingsCubit>()
-                    .state
-                    .settings
-                    .copyWith(blockTrackers: b));
+              settings: context.read<SettingsCubit>().state.settings.copyWith(
+                blockTrackers: b,
+              ),
+            );
           },
         ),
       ],

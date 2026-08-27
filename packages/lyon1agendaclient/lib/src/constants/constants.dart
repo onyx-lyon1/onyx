@@ -2,8 +2,7 @@ class Constants {
   static final String adeWebURL = "https://edt.univ-lyon1.fr/portal/";
   static final String adeResourcesUrl =
       "${adeWebURL}RestApi/portal/projects/$idProject/resourcestree";
-  static final String adeTokenUrl =
-      "${adeWebURL}RestApi/portal/ssologin";
+  static final String adeTokenUrl = "${adeWebURL}RestApi/portal/ssologin";
   static final String adeAuthUrl =
       "${adeWebURL}RestApi/authentication/connecteduser";
   static final String userAgent =

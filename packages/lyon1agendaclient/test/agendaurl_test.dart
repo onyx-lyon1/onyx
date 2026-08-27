@@ -12,11 +12,13 @@ void main() async {
     final String password = env['PASSWORD'] ?? "";
     if (username.isEmpty || password.isEmpty) {
       throw Exception(
-          "Check your .env file, username and/or password are empty");
+        "Check your .env file, username and/or password are empty",
+      );
     }
     auth = Lyon1CasClient();
-    final bool ok =
-        (await auth.authenticate(Credential(username, password))).authResult;
+    final bool ok = (await auth.authenticate(
+      Credential(username, password),
+    )).authResult;
     expect(ok, equals(true));
   });
 

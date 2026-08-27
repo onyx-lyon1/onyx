@@ -7,11 +7,12 @@ class StageCodeCompactWidget extends StatelessWidget {
   final Function()? onTap;
   final String teachingUnitTitle;
 
-  const StageCodeCompactWidget(
-      {super.key,
-      required this.stageCode,
-      required this.onTap,
-      required this.teachingUnitTitle});
+  const StageCodeCompactWidget({
+    super.key,
+    required this.stageCode,
+    required this.onTap,
+    required this.teachingUnitTitle,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -6,12 +6,12 @@ class Consts {
 
   static const kholleURL = {
     Year.first: "$_base?page=colles_1A",
-    Year.second: "$_base?page=colles_2A"
+    Year.second: "$_base?page=colles_2A",
   };
 
   static const khollesStudentURL = {
     Year.first: "$_base?page=colles_1A&id_etudiant=:id",
-    Year.second: "$_base?page=colles_2A&id_etudiant=:id"
+    Year.second: "$_base?page=colles_2A&id_etudiant=:id",
   };
 }
 
