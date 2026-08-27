@@ -51,8 +51,9 @@
               androidComposition = pkgs.androidenv.composeAndroidPackages {
                 cmdLineToolsVersion = "latest";
                 platformToolsVersion = "latest";
-                buildToolsVersions = [ "36.0.0" "35.0.0" "34.0.0" "30.0.3" ];
+                buildToolsVersions = [ "37.0.0" "36.0.0" "35.0.0" "34.0.0" "30.0.3" ];
                 platformVersions = [
+                  "37"
                   "36"
                   "35"
                   "34"
@@ -92,6 +93,7 @@
                 zstd
                 libwebp
                 dbus
+                systemd
                 util-linux
                 cmake
                 ninja

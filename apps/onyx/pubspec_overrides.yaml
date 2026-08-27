@@ -12,4 +12,8 @@ dependency_overrides:
     git:
       url: https://github.com/hatch01/dart_mappable.git
       path: packages/dart_mappable_builder
-  intl: ^0.20.2
+  workmanager_android:
+    git:
+      url: https://github.com/fluttercommunity/flutter_workmanager.git
+      path: workmanager_android
+      ref: main

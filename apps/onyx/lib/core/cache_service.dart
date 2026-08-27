@@ -128,7 +128,7 @@ class CacheService {
       "encryptionKey_${(biometricAuth) ? "secure" : "lesssecure"}",
       options: StorageFileInitOptions(
         androidBiometricOnly: true,
-        authenticationValidityDurationSeconds: 10,
+        androidAuthenticationValidityDuration: Duration(seconds: 10),
         authenticationRequired: biometricAuth,
       ),
     );
@@ -156,7 +156,7 @@ class CacheService {
       "encryptionKey_${(biometricAuth) ? "secure" : "lesssecure"}",
       options: StorageFileInitOptions(
         androidBiometricOnly: true,
-        authenticationValidityDurationSeconds: 10,
+        androidAuthenticationValidityDuration: Duration(seconds: 10),
         authenticationRequired: biometricAuth,
       ),
     );

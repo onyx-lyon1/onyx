@@ -78,21 +78,13 @@ class UploadWidget extends StatelessWidget {
                           (Platform.isWindows ||
                               Platform.isLinux ||
                               Platform.isMacOS)) {
-                        FilePicker.platform
-                            .saveFile(
-                              dialogTitle: localization.pleaseSelectOutputFile,
-                              fileName: path.split('/').last,
-                            )
-                            .then((outputFilePath) {
-                              if (outputFilePath != null) {
-                                File outputFile = File(outputFilePath);
-                                File inputFile = File(path);
-                                outputFile.writeAsBytesSync(
-                                  inputFile.readAsBytesSync(),
-                                );
-                              }
-                              // Navigator.pop(context);
-                            });
+                        final inputFile = File(path);
+                        final bytes = inputFile.readAsBytesSync();
+                        FilePicker.saveFile(
+                          dialogTitle: localization.pleaseSelectOutputFile,
+                          fileName: path.split('/').last,
+                          bytes: bytes,
+                        ).then((outputUri) {});
                       }
                     },
                     child: Icon(

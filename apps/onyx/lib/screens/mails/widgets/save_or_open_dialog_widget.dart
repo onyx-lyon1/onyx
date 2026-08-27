@@ -55,22 +55,16 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
                   (Platform.isWindows ||
                       Platform.isLinux ||
                       Platform.isMacOS)) {
-                FilePicker.platform
-                    .saveFile(
-                      dialogTitle: 'Please select an output file:',
-                      fileName: filePath.split('/').last,
-                    )
-                    .then((outputFilePath) {
-                      if (outputFilePath != null) {
-                        File outputFile = File(outputFilePath);
-                        File inputFile = File(filePath);
-                        outputFile.writeAsBytesSync(
-                          inputFile.readAsBytesSync(),
-                        );
-                      }
-                      if (!context.mounted) return;
-                      Navigator.pop(context);
-                    });
+                final inputFile = File(filePath);
+                final bytes = inputFile.readAsBytesSync();
+                FilePicker.saveFile(
+                  dialogTitle: 'Please select an output file:',
+                  fileName: filePath.split('/').last,
+                  bytes: bytes,
+                ).then((outputUri) {
+                  if (!context.mounted) return;
+                  Navigator.pop(context);
+                });
               }
             },
             child: Text(
