@@ -29,7 +29,7 @@ class NotificationLogic {
 
   static Future<void> init() async {
     await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
+      settings: initializationSettings,
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) async {
             // handle action
@@ -45,10 +45,10 @@ class NotificationLogic {
   }) async {
     notificationId++;
     await flutterLocalNotificationsPlugin.show(
-      notificationId,
-      title,
-      body,
-      const NotificationDetails(
+      id: notificationId,
+      title: title,
+      body: body,
+      notificationDetails: const NotificationDetails(
         android: AndroidNotificationDetails(
           'update',
           'update online',

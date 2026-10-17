@@ -147,7 +147,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           ? MapWidget(
                               enableFullscreenButton: true,
                               batiments: batiments,
-                              restaurant: [if (restaurant != null) restaurant!],
+                              restaurant: [?restaurant],
                               polylines: [
                                 for (var i in routingPaths)
                                   Polyline(

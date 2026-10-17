@@ -96,6 +96,7 @@ class TomussCubit extends Cubit<TomussState> {
         semestreIndex ??= result.semesters!.indexWhere(
           (element) => element.url == Lyon1TomussClient.currentSemester(),
         );
+        if (semestreIndex == -1) semestreIndex = 0;
         semesters = result.semesters!;
         teachingUnits = result.schoolSubjectModel!;
         student = result.student;

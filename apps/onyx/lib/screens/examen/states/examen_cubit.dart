@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:encrypt/encrypt.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,9 +9,10 @@ import 'package:lyon1casclient/lyon1casclient.dart';
 import 'package:lyon1examenclient/lyon1examenclient.dart';
 import 'package:onyx/core/cache_service.dart';
 import 'package:onyx/core/res.dart';
-import 'package:onyx/screens/settings/domain/model/settings_model.dart';
-import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
 import 'package:onyx/l10n/app_localizations.dart';
+import 'package:onyx/screens/settings/domain/model/settings_model.dart';
+import 'package:pointycastle/export.dart';
+import 'package:polytechcolloscopeclient/polytechcolloscopeclient.dart';
 
 part 'examen_state.dart';
 
@@ -126,15 +126,19 @@ class ExamenCubit extends Cubit<ExamenState> {
         int yearOverride = settings.colloscopeOverrideYearId;
         int studentOverride = settings.colloscopeOverrideStudentId;
 
-        final encrypted = await rootBundle.loadString(Res.colloscopeIdsPath);
-        final key = Key.fromBase64(await rootBundle.loadString(Res.keyPath));
-        final iv = IV.fromBase64(await rootBundle.loadString(Res.ivPath));
-        final encrypter = Encrypter(AES(key));
-        final decrypted = encrypter.decrypt(
-          Encrypted.fromBase64(encrypted),
-          iv: iv,
+        final encryptedBase64 = await rootBundle.loadString(
+          Res.colloscopeIdsPath,
         );
-        final decoded = base64.decode(decrypted);
+        final keyBytes = base64.decode(
+          await rootBundle.loadString(Res.keyPath),
+        );
+        final ivBytes = base64.decode(await rootBundle.loadString(Res.ivPath));
+        final cipher = SICBlockCipher(16, SICStreamCipher(AESEngine()));
+        cipher.init(false, ParametersWithIV(KeyParameter(keyBytes), ivBytes));
+        final decryptedBytes = cipher.process(base64.decode(encryptedBase64));
+        final decoded = base64.decode(
+          utf8.decode(_removePkcs7Padding(decryptedBytes)),
+        );
         final deziped = gzip.decode(decoded);
         final jsonText = utf8.decode(deziped);
 
@@ -217,5 +221,10 @@ class ExamenCubit extends Cubit<ExamenState> {
 
   void scheduleReload() {
     emit(state.copyWith(reloadScheduled: true));
+  }
+
+  static Uint8List _removePkcs7Padding(Uint8List data) {
+    final padLen = data.last;
+    return data.sublist(0, data.length - padLen);
   }
 }

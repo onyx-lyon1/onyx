@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
-import 'package:open_filex/open_filex.dart';
+import 'package:open_app_file/open_app_file.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SaveOrOpenDialogWidget extends StatelessWidget {
@@ -28,7 +28,7 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColor,
             ),
             onPressed: () {
-              OpenFilex.open(filePath);
+              OpenAppFile.open(filePath);
               Navigator.pop(context);
             },
             child: Text(
@@ -55,22 +55,16 @@ class SaveOrOpenDialogWidget extends StatelessWidget {
                   (Platform.isWindows ||
                       Platform.isLinux ||
                       Platform.isMacOS)) {
-                FilePicker.platform
-                    .saveFile(
-                      dialogTitle: 'Please select an output file:',
-                      fileName: filePath.split('/').last,
-                    )
-                    .then((outputFilePath) {
-                      if (outputFilePath != null) {
-                        File outputFile = File(outputFilePath);
-                        File inputFile = File(filePath);
-                        outputFile.writeAsBytesSync(
-                          inputFile.readAsBytesSync(),
-                        );
-                      }
-                      if (!context.mounted) return;
-                      Navigator.pop(context);
-                    });
+                final inputFile = File(filePath);
+                final bytes = inputFile.readAsBytesSync();
+                FilePicker.saveFile(
+                  dialogTitle: 'Please select an output file:',
+                  fileName: filePath.split('/').last,
+                  bytes: bytes,
+                ).then((outputUri) {
+                  if (!context.mounted) return;
+                  Navigator.pop(context);
+                });
               }
             },
             child: Text(

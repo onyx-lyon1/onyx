@@ -49,28 +49,53 @@ class TomussLogic {
           timeout: parsedPage.timeout,
         );
       }
+
+      // If current semester has no teaching units, try other semesters
+      if ((parsedPage.teachingunits == null ||
+              parsedPage.teachingunits!.isEmpty) &&
+          parsedPage.semesters != null &&
+          parsedPage.semesters!.isNotEmpty) {
+        for (var otherSemester in parsedPage.semesters!) {
+          if (semester != null && otherSemester.url == semester.url) continue;
+          final otherPage = await getParsedPage(
+            tomussClient: tomussClient,
+            semestre: otherSemester,
+            autoRefresh: autoRefresh,
+          );
+          if (otherPage != null &&
+              !otherPage.isTimedOut &&
+              otherPage.teachingunits != null &&
+              otherPage.teachingunits!.isNotEmpty) {
+            parsedPage = otherPage;
+            break;
+          }
+        }
+      }
+
+      final ParsedPage page = parsedPage!;
+
       if (await CacheService.exist<TeachingUnitList>()) {
         TeachingUnitList? teachingUnitList =
             await CacheService.get<TeachingUnitList>();
         //take all coef and apply them to the new teaching units
-        for (var i = 0; i < parsedPage.teachingunits!.length; i++) {
+        for (var i = 0; i < page.teachingunits!.length; i++) {
           int index = teachingUnitList!.teachingUnitModels.indexWhere(
-            (element) => element.title == parsedPage.teachingunits![i].title,
+            (element) => element.title == page.teachingunits![i].title,
           );
           if (index != -1) {
             for (
               var j = 0;
-              j < parsedPage.teachingunits![i].grades.length;
+              j < page.teachingunits![i].grades.length;
               j++
             ) {
               int index2 = teachingUnitList.teachingUnitModels[index].grades
                   .indexWhere(
                     (element) =>
                         element.title ==
-                        parsedPage.teachingunits![i].grades[j].title,
+                        page.teachingunits![i].grades[j].title,
                   );
               if (index2 != -1) {
-                parsedPage.teachingunits![i].grades[j] = parsedPage
+                page.teachingunits![i].grades[j] = page
                     .teachingunits![i]
                     .grades[j]
                     .copyWith(
@@ -85,9 +110,9 @@ class TomussLogic {
         }
       }
       return (
-        student: parsedPage.student,
-        semesters: parsedPage.semesters,
-        schoolSubjectModel: parsedPage.teachingunits,
+        student: page.student,
+        semesters: page.semesters,
+        schoolSubjectModel: page.teachingunits,
         timeout: null,
       );
     } else {

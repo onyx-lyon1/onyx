@@ -20,6 +20,3 @@ dependencies:
   lyon1casclient: ^1.0.6
   dart_mappable: ^4.6.0
 
-#dependency_overrides:
-#  requests:
-#    path: /home/eymeric/tmp/requests

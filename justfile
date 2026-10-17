@@ -26,7 +26,7 @@ web:
 	cd apps/onyx && flutter build web --release --no-tree-shake-icons --split-per-abi
 
 linux:
-	cd apps/onyx && flutter build linux
+	cd apps/onyx && flutter build linux --no-tree-shake-icons
 
 release:
 	just apk

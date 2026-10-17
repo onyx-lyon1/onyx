@@ -28,12 +28,10 @@ class EmailSendBottomBarWidget extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       final emailSendCubit = context.read<EmailSendCubit>();
-                      FilePicker.platform.pickFiles(allowMultiple: true).then((
-                        result,
-                      ) {
-                        if (result != null) {
-                          List<File> files = result.paths
-                              .map((path) => File(path!))
+                      FilePicker.pickFiles().then((result) {
+                        if (result.isNotEmpty) {
+                          List<File> files = result
+                              .map((file) => File(file.path!))
                               .toList();
                           emailSendCubit.addAttachments(files);
                         } else {
